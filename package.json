@@ -1,6 +1,13 @@
 {
-  "name": "nextjs",
-  "version": "3.0.0",
+  "name": "newjersey-career-network",
+  "version": "1.0.0",
+  "description": "NJ Career Network",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/newjersey/career-network.git"
+  },
+  "author": "New Jersey Office of Innovation",
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "@material-ui/core": "latest",
