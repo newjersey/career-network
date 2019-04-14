@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Statewide from './Statewide'
+import Nav from './Nav'
 
 const styles = {
     root: {
@@ -30,6 +31,7 @@ function Header(props) {
                     <Statewide />
                 </Toolbar>
                 <Toolbar className={classes.navBar}>
+                    <Nav />
                 </Toolbar>
                 <Toolbar className={classes.userBar}>
                 </Toolbar>
