@@ -2,12 +2,14 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import CloseIcon from '@material-ui/icons/Close';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
 import InputBase from '@material-ui/core/InputBase';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -15,6 +17,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import PropTypes from 'prop-types';
 import React from 'react';
 import SearchIcon from '@material-ui/icons/Search';
+import Snackbar from '@material-ui/core/Snackbar';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
@@ -86,6 +89,9 @@ const styles = theme => ({
   avatar: {
     cursor: 'pointer',
   },
+  closeSnackbar: {
+    padding: theme.spacing.unit / 2,
+  },
 });
 
 class User extends React.Component {
@@ -94,6 +100,8 @@ class User extends React.Component {
     loginOpen: false,
     fullName: 'Jack Jacobs',
     isLoggedIn: true,
+    isSnackbarOpen: false,
+    snackbarMessage: null,
   };
 
   handleClickUser = event => {
@@ -120,6 +128,8 @@ class User extends React.Component {
       loginOpen: false,
       isLoggedIn: true,
     });
+
+    this.showSnackbar('Welcome back!');
   };
 
   handleChange = name => event => {
@@ -132,6 +142,23 @@ class User extends React.Component {
       isLoggedIn: false,
       anchorEl: null
     });
+
+    this.showSnackbar('You have logged out.');
+  };
+
+  handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({ isSnackbarOpen: false });
+  };
+
+  showSnackbar = (message) => {
+    this.setState({
+      snackbarMessage: message,
+      isSnackbarOpen: true,
+    });
   };
 
   render() {
@@ -140,6 +167,31 @@ class User extends React.Component {
 
     return (
       <ScaffoldContainer>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={this.state.isSnackbarOpen}
+          autoHideDuration={6000}
+          onClose={this.handleCloseSnackbar}
+          ContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">{this.state.snackbarMessage}</span>}
+          action={[
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              className={classes.closeSnackbar}
+              onClick={this.handleCloseSnackbar}
+            >
+              <CloseIcon />
+            </IconButton>,
+          ]}
+        />
+
         <Grid container justify="space-between" alignItems="center">
           <Grid item>
             <div className={classes.search}>
