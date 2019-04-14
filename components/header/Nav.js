@@ -4,6 +4,7 @@ import ChatIcon from '@material-ui/icons/Chat';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
@@ -17,8 +18,10 @@ import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import NextLink from 'next/link';
 import PeopleIcon from '@material-ui/icons/People';
+import PersonIcon from '@material-ui/icons/Person';
 import PropTypes from 'prop-types';
 import React from 'react';
+import SettingsIcon from '@material-ui/icons/Settings';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import Typography from '@material-ui/core/Typography';
 
@@ -136,21 +139,31 @@ class Nav extends React.Component {
           >
             <div className={classes.drawerList}>
 
-              <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                  <ListItem button key={text}>
-                    <ListItemIcon><MailIcon /></ListItemIcon>
-                    <ListItemText primary={text} />
+              <Hidden smUp implementation="css">
+                <List>
+                  <ListItem button>
+                    <ListItemIcon><PersonIcon /></ListItemIcon>
+                    <ListItemText primary="Jack Jacobs" secondary="jackjacobs@gmail.com" />
                   </ListItem>
-                ))}
-              </List>
-              <Divider />
+                  <ListItem button>
+                    <ListItemIcon><SettingsIcon /></ListItemIcon>
+                    <ListItemText primary="My account" />
+                  </ListItem>
+                  <ListItem button>
+                    <ListItemIcon><ExitToAppIcon /></ListItemIcon>
+                    <ListItemText primary="Sign out" />
+                  </ListItem>
+                </List>
+                <Divider />
+              </Hidden>
               <List>
                 {pages.map(page => (
-                  <ListItem button key={page.href}>
-                    <ListItemIcon>{page.icon}</ListItemIcon>
-                    <ListItemText primary={page.shortName} />
-                  </ListItem>
+                  <NextLink href={page.href} key={page.href}>
+                    <ListItem button>
+                      <ListItemIcon>{page.icon}</ListItemIcon>
+                      <ListItemText primary={page.shortName} />
+                    </ListItem>
+                  </NextLink>
                 ))}
               </List>
             </div>
