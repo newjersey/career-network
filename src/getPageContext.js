@@ -1,5 +1,5 @@
-import { SheetsRegistry } from 'jss';
 import { createMuiTheme, createGenerateClassName } from '@material-ui/core/styles';
+import { SheetsRegistry } from 'jss';
 
 // A theme with custom primary and secondary color.
 // It's optional.

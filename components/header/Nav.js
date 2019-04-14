@@ -1,27 +1,28 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import ScaffoldContainer from './ScaffoldContainer';
-import NextLink from 'next/link';
-import Link from '@material-ui/core/Link';
-import IconButton from '@material-ui/core/IconButton';
-import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
-import List from '@material-ui/core/List';
+import BuildIcon from '@material-ui/icons/Build';
+import ChatIcon from '@material-ui/icons/Chat';
+import DashboardIcon from '@material-ui/icons/Dashboard';
 import Divider from '@material-ui/core/Divider';
+import Drawer from '@material-ui/core/Drawer';
+import Grid from '@material-ui/core/Grid';
+import Hidden from '@material-ui/core/Hidden';
+import IconButton from '@material-ui/core/IconButton';
+import Link from '@material-ui/core/Link';
+import LinkIcon from '@material-ui/icons/Link';
+import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import MenuIcon from '@material-ui/icons/Menu';
 import MailIcon from '@material-ui/icons/Mail';
-import LinkIcon from '@material-ui/icons/Link';
+import MenuIcon from '@material-ui/icons/Menu';
+import NextLink from 'next/link';
 import PeopleIcon from '@material-ui/icons/People';
+import PropTypes from 'prop-types';
+import React from 'react';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import ChatIcon from '@material-ui/icons/Chat';
-import BuildIcon from '@material-ui/icons/Build';
+import Typography from '@material-ui/core/Typography';
+
+import ScaffoldContainer from '../ScaffoldContainer';
 
 const pages = [
   {

@@ -1,12 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
 import Hidden from '@material-ui/core/Hidden';
-import ScaffoldContainer from './ScaffoldContainer';
-import NewJerseySeal from './NewJerseySeal';
+import Link from '@material-ui/core/Link';
+import PropTypes from 'prop-types';
+import React from 'react';
+import Typography from '@material-ui/core/Typography';
+
+import NewJerseySeal from '../NewJerseySeal';
+import ScaffoldContainer from '../ScaffoldContainer';
 
 const color = '#fff';
 const personWeight = 600;

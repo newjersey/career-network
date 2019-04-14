@@ -1,11 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Toolbar from '@material-ui/core/Toolbar';
-import Statewide from './Statewide'
-import Nav from './Nav'
-import User from './User'
+
+import Nav from './header/Nav'
+import Statewide from './header/Statewide'
+import User from './header/User'
 
 const styles = {
     root: {
