@@ -47,6 +47,7 @@ class MyApp extends App {
                 to render collected styles on server-side. */}
             <Header />
             <Component pageContext={this.pageContext} {...pageProps} />
+            <Footer />
           </MuiThemeProvider>
         </JssProvider>
       </Container>
