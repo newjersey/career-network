@@ -9,6 +9,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Grid from '@material-ui/core/Grid';
+import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import InputBase from '@material-ui/core/InputBase';
 import Menu from '@material-ui/core/Menu';
@@ -208,82 +209,85 @@ class User extends React.Component {
             </div>
           </Grid>
 
-          <Grid item>
-            {isLoggedIn ?
-              <React.Fragment>
-                <Grid container alignItems="center">
-                  <Grid item>
-                    <Typography
-                      className={classes.name}
-                      aria-owns={anchorEl ? 'simple-menu' : undefined}
-                      aria-haspopup="true"
-                      onClick={this.handleClickUser}
-                    >
-                      {fullName}
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Avatar alt={fullName} className={classes.avatar}>
-                      <PersonIcon
+
+          <Hidden xsDown implementation="css">
+            <Grid item>
+              {isLoggedIn ?
+                <React.Fragment>
+                  <Grid container alignItems="center">
+                    <Grid item>
+                      <Typography
+                        className={classes.name}
                         aria-owns={anchorEl ? 'simple-menu' : undefined}
                         aria-haspopup="true"
                         onClick={this.handleClickUser}
-                      />
-                    </Avatar>
+                      >
+                        {fullName}
+                      </Typography>
+                    </Grid>
+                    <Grid item>
+                      <Avatar alt={fullName} className={classes.avatar}>
+                        <PersonIcon
+                          aria-owns={anchorEl ? 'simple-menu' : undefined}
+                          aria-haspopup="true"
+                          onClick={this.handleClickUser}
+                        />
+                      </Avatar>
+                    </Grid>
                   </Grid>
-                </Grid>
-                <Menu
-                  id="simple-menu"
-                  anchorEl={anchorEl}
-                  open={Boolean(anchorEl)}
-                  onClose={this.handleCloseUser}
-                >
-                  <MenuItem onClick={this.handleCloseUser}>Profile</MenuItem>
-                  <MenuItem onClick={this.handleCloseUser}>My account</MenuItem>
-                  <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
-                </Menu>
-              </React.Fragment>
-              :
-              <React.Fragment>
+                  <Menu
+                    id="simple-menu"
+                    anchorEl={anchorEl}
+                    open={Boolean(anchorEl)}
+                    onClose={this.handleCloseUser}
+                  >
+                    <MenuItem onClick={this.handleCloseUser}>Profile</MenuItem>
+                    <MenuItem onClick={this.handleCloseUser}>My account</MenuItem>
+                    <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
+                  </Menu>
+                </React.Fragment>
+                :
+                <React.Fragment>
 
 
-                <Button variant="contained" color="secondary" onClick={this.handleClickLogin}>
-                  Log In
+                  <Button variant="contained" color="secondary" onClick={this.handleClickLogin}>
+                    Log In
                 </Button>
-                <Dialog
-                  open={loginOpen}
-                  onClose={this.handleCloseLogin}
-                  aria-labelledby="form-dialog-title"
-                >
-                  <DialogTitle id="form-dialog-title">Log In</DialogTitle>
-                  <DialogContent>
-                    <DialogContentText>
-                      Please enter your full name:
+                  <Dialog
+                    open={loginOpen}
+                    onClose={this.handleCloseLogin}
+                    aria-labelledby="form-dialog-title"
+                  >
+                    <DialogTitle id="form-dialog-title">Log In</DialogTitle>
+                    <DialogContent>
+                      <DialogContentText>
+                        Please enter your full name:
                     </DialogContentText>
-                    <TextField
-                      autoFocus
-                      margin="dense"
-                      id="name"
-                      label="Name"
-                      fullWidth
-                      value={fullName}
-                      onChange={this.handleChange('fullName')}
-                    />
-                  </DialogContent>
-                  <DialogActions>
-                    <Button onClick={this.handleCancelLogin}>
-                      Cancel
+                      <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="Name"
+                        fullWidth
+                        value={fullName}
+                        onChange={this.handleChange('fullName')}
+                      />
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={this.handleCancelLogin}>
+                        Cancel
                     </Button>
-                    <Button onClick={this.handleSubmitLogin} color="primary">
-                      Log in
+                      <Button onClick={this.handleSubmitLogin} color="primary">
+                        Log in
                     </Button>
-                  </DialogActions>
-                </Dialog>
-              </React.Fragment>
+                    </DialogActions>
+                  </Dialog>
+                </React.Fragment>
 
 
-            }
-          </Grid>
+              }
+            </Grid>
+          </Hidden>
 
 
 
