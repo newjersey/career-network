@@ -243,7 +243,7 @@ class User extends React.Component {
                   >
                     <MenuItem onClick={this.handleCloseUser}>Profile</MenuItem>
                     <MenuItem onClick={this.handleCloseUser}>My account</MenuItem>
-                    <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
+                    <MenuItem onClick={this.handleLogout}>Sign out</MenuItem>
                   </Menu>
                 </React.Fragment>
                 :
@@ -251,18 +251,18 @@ class User extends React.Component {
 
 
                   <Button variant="contained" color="secondary" onClick={this.handleClickLogin}>
-                    Log In
+                    Sign in
                 </Button>
                   <Dialog
                     open={loginOpen}
                     onClose={this.handleCloseLogin}
                     aria-labelledby="form-dialog-title"
                   >
-                    <DialogTitle id="form-dialog-title">Log In</DialogTitle>
+                    <DialogTitle id="form-dialog-title">Sign in</DialogTitle>
                     <DialogContent>
                       <DialogContentText>
                         Please enter your full name:
-                    </DialogContentText>
+                      </DialogContentText>
                       <TextField
                         autoFocus
                         margin="dense"
@@ -278,7 +278,7 @@ class User extends React.Component {
                         Cancel
                     </Button>
                       <Button onClick={this.handleSubmitLogin} color="primary">
-                        Log in
+                        Sign in
                     </Button>
                     </DialogActions>
                   </Dialog>
