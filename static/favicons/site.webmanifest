@@ -1,6 +1,6 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "NJ Career Network",
+    "short_name": "Careers",
     "icons": [
         {
             "src": "/static/favicons/android-chrome-192x192.png",
@@ -13,7 +13,8 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#ffffff",
+    "theme_color": "#1982C8",
     "background_color": "#ffffff",
+    "start_url": "/",
     "display": "standalone"
 }
