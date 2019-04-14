@@ -12,22 +12,22 @@ const styles = theme => ({
   },
 });
 
-class Index extends React.Component {
+class Networking extends React.Component {
   render() {
     const { classes } = this.props;
 
     return (
       <div className={classes.root}>
         <ScaffoldContainer>
-          <Typography variant="h1">Hello world.</Typography>
+          <Typography variant="h1">Networking.</Typography>
         </ScaffoldContainer>
       </div>
     );
   }
 }
 
-Index.propTypes = {
+Networking.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Index);
+export default withStyles(styles)(Networking);
