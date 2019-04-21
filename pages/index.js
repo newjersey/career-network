@@ -1,33 +1,20 @@
-import { withStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
-import React from 'react';
-import Typography from '@material-ui/core/Typography';
+import Coaching from '../components/home/Coaching'
+import Hero from '../components/home/Hero'
+import Network from '../components/home/Network'
+import Plan from '../components/home/Plan'
+import Section from '../components/home/Section'
+import Stories from '../components/home/Stories'
+import Why from '../components/home/Why'
 
-import ScaffoldContainer from '../components/ScaffoldContainer';
-
-const styles = theme => ({
-  root: {
-    textAlign: 'center',
-    paddingTop: theme.spacing.unit * 10,
-  },
-});
-
-class Index extends React.Component {
-  render() {
-    const { classes } = this.props;
-
-    return (
-      <div className={classes.root}>
-        <ScaffoldContainer>
-          <Typography variant="h1">Hello world.</Typography>
-        </ScaffoldContainer>
-      </div>
-    );
-  }
+export default function Index(props) {
+  return (
+    <div>
+      <Section alt><Hero /></Section>
+      <Section><Why /></Section>
+      <Section alt><Stories /></Section>
+      <Section><Plan /></Section>
+      <Section><Coaching /></Section>
+      <Section alt><Network /></Section>
+    </div>
+  );
 }
-
-Index.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Index);
