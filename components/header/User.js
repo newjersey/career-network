@@ -139,7 +139,7 @@ class User extends React.Component {
 
   handleLogout = () => {
     this.setState({
-      fullName: null,
+      fullName: '',
       isLoggedIn: false,
       anchorEl: null
     });
