@@ -167,7 +167,7 @@ class User extends React.Component {
     const { anchorEl, fullName, loginOpen, isLoggedIn } = this.state;
 
     return (
-      <ScaffoldContainer>
+      <ScaffoldContainer padding={false}>
         <Snackbar
           anchorOrigin={{
             vertical: 'bottom',

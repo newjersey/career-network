@@ -69,7 +69,7 @@ function Statewide(props) {
   const { classes } = props;
 
   return (
-    <ScaffoldContainer>
+    <ScaffoldContainer padding={false}>
       <Grid container justify="space-between" alignItems="center">
         <Grid item className={classes.brand}>
           <Grid container alignItems="center">

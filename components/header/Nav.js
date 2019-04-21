@@ -170,7 +170,7 @@ class Nav extends React.Component {
           </div>
         </Drawer>
 
-        <ScaffoldContainer>
+        <ScaffoldContainer padding={false}>
           <Grid container justify="space-between" alignItems="center" className={classes.container}>
             <NextLink href='/'>
               <Grid item>
