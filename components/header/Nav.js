@@ -25,6 +25,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import Typography from '@material-ui/core/Typography';
 
+import Picture from '../Picture';
 import ScaffoldContainer from '../ScaffoldContainer';
 
 const pages = [
@@ -177,7 +178,7 @@ class Nav extends React.Component {
                 <Grid container alignItems="center">
                   <Hidden xsDown implementation="css">
                     <Grid item>
-                      <img src="/static/img/nj.png" alt="New Jersey Logo" className={classes.logo} />
+                      <Picture path="nj.webp" fallbackType="png" alt="New Jersey Logo" className={classes.logo} />
                     </Grid>
                   </Hidden>
                   <Grid item className={classes.titleContainer}>
