@@ -5,14 +5,19 @@ import React from 'react';
 import SectionContent from './SectionContent';
 
 const styles = theme => ({
+  image: {
+    width: '100%',
+  }
 });
 
 function PlanCoaching(props) {
   const { classes } = props;
 
   return (
-    <Grid container>
-      <Grid item sm></Grid>
+    <Grid container alignItems="center">
+      <Grid item sm>
+        <object type="image/svg+xml" data="/static/img/index/coaching.svg" className={classes.image} />
+      </Grid>
       <Grid item sm={5}>
         <SectionContent
           title="Get coaching"

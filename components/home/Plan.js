@@ -5,13 +5,19 @@ import React from 'react';
 import SectionContent from './SectionContent';
 
 const styles = theme => ({
+  image: {
+    width: '100%',
+  }
 });
 
 function Plan(props) {
   const { classes } = props;
 
   return (
-    <Grid container>
+    <Grid container alignItems="center" direction="row-reverse">
+      <Grid item sm>
+        <object type="image/svg+xml" data="/static/img/index/build.svg" className={classes.image} />
+      </Grid>
       <Grid item sm={5}>
         <SectionContent
           title="Build your plan"
@@ -24,7 +30,6 @@ function Plan(props) {
           plans A, B, and C specific to your industry and interest.
         </SectionContent>
       </Grid>
-      <Grid item sm></Grid>
     </Grid>
   );
 }
