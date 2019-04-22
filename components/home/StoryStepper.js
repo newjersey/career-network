@@ -42,6 +42,7 @@ const styles = theme => ({
     flexGrow: 1,
   },
   story: {
+
   },
   quoteIcon: {
     transform: 'rotate(180deg)',
@@ -87,15 +88,13 @@ class StoryStepper extends React.Component {
           enableMouseEvents
           interval={5000}
         >
-          {steps.map((step, i) => (
-            Math.abs(activeStep - i) <= 1 ? (
-              <article key={i} className={classes.story}>
-                <FormatQuote color="primary" className={classes.quoteIcon} />
-                <Typography variant="subtitle1">{step.quotation}</Typography>
-                <br />
-                <Typography variant="overline">—{step.author}</Typography>
-              </article>
-            ) : null
+          {steps.filter((step, i) => Math.abs(activeStep - i) <= 2).map((step, i) => (
+            <article key={i} className={classes.story}>
+              <FormatQuote color="primary" className={classes.quoteIcon} />
+              <Typography variant="subtitle1">{step.quotation}</Typography>
+              <br />
+              <Typography variant="overline">—{step.author}</Typography>
+            </article>
           ))}
         </AutoPlaySwipeableViews>
         <MobileStepper
