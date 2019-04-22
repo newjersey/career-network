@@ -9,27 +9,27 @@ const contentItems = [
   {
     title: 'Build your job search plan',
     body: 'Build multiple job search plans to avoid getting stuck in the job search process. Whether newly unemployed or if you’ve been searching for a while, having a job search plan can keep you motivated.',
-    imgPath: 'https://material-ui.com/static/images/cards/contemplative-reptile.jpg',
+    imgPath: '/static/img/index/crane.svg',
   },
   {
     title: 'Act on your plan',
     body: 'Execute your job search plan with strategic tools and resources. Set your weekly and daily goals, and get tips on how to make progress! ',
-    imgPath: 'https://material-ui.com/static/images/cards/contemplative-reptile.jpg',
+    imgPath: '/static/img/index/career-search.svg',
   },
   {
     title: 'Get coaching',
     body: 'Join our online community of job seekers for peer and 1:1 coaching to help you navigate job searching with guided support, advice and more accountability.',
-    imgPath: 'https://material-ui.com/static/images/cards/contemplative-reptile.jpg',
+    imgPath: '/static/img/index/interviewing.svg',
   },
   {
     title: 'Build your network',
     body: 'Join online and in-person networking events and activities for various industries and occupations to stay fresh and connected.',
-    imgPath: 'https://material-ui.com/static/images/cards/contemplative-reptile.jpg',
+    imgPath: '/static/img/index/networking.svg',
   },
   {
     title: 'Stay on track',
     body: 'Get reminders when you set goals sent to your phone, email, or sync them with your calander, designed to help you suceed.',
-    imgPath: 'https://material-ui.com/static/images/cards/contemplative-reptile.jpg',
+    imgPath: '/static/img/index/buddies.svg',
   },
 ];
 
