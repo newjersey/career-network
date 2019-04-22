@@ -36,13 +36,23 @@ const steps = [
   },
 ];
 
+// quick and dirty -- do something better
+const longestQuotationLength = steps.map(step => step.quotation.length).reduce((a, b) => Math.max(a, b));
+
 const styles = theme => ({
   root: {
     width: '100%',
     flexGrow: 1,
   },
   story: {
-
+    overflow: 'hidden',
+    height: `${longestQuotationLength / 13.25}rem`,
+    [theme.breakpoints.up('md')]: {
+      height: `${longestQuotationLength / 16.25}rem`,
+    },
+    [theme.breakpoints.up('lg')]: {
+      height: `${longestQuotationLength / 18.25}rem`,
+    },
   },
   quoteIcon: {
     transform: 'rotate(180deg)',
@@ -88,13 +98,17 @@ class StoryStepper extends React.Component {
           enableMouseEvents
           interval={5000}
         >
-          {steps.filter((step, i) => Math.abs(activeStep - i) <= 2).map((step, i) => (
-            <article key={i} className={classes.story}>
-              <FormatQuote color="primary" className={classes.quoteIcon} />
-              <Typography variant="subtitle1">{step.quotation}</Typography>
-              <br />
-              <Typography variant="overline">—{step.author}</Typography>
-            </article>
+          {steps.map((step, i) => (
+            <div key={i}>
+              {Math.abs(activeStep - i) <= 1 ? (
+                <article className={classes.story}>
+                  <FormatQuote color="primary" className={classes.quoteIcon} />
+                  <Typography variant="subtitle1">{step.quotation}</Typography>
+                  <br />
+                  <Typography variant="overline">—{step.author}</Typography>
+                </article>
+              ) : null}
+            </div>
           ))}
         </AutoPlaySwipeableViews>
         <MobileStepper

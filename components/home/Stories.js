@@ -4,25 +4,45 @@ import Grid from '@material-ui/core/Grid';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
+import Picture from '../Picture';
 import StoryStepper from './StoryStepper';
 
 const styles = theme => ({
+  leftContainer: {
+    [theme.breakpoints.up('sm')]: {
+      paddingRight: theme.spacing.unit * 1.5
+    },
+  },
+  rightContainer: {
+    [theme.breakpoints.up('sm')]: {
+      paddingLeft: theme.spacing.unit * 1.5
+    },
+  },
+  picture: {
+    width: '100%',
+  },
+  button: {
+    marginTop: theme.spacing.unit * 3,
+  }
 });
 
 function Stories(props) {
   const { classes } = props;
 
   return (
-    <Grid container justify="center">
-      <Grid item sm={6}></Grid>
+    <Grid container alignItems="center">
       <Grid item sm={6}>
-        <StoryStepper />
-        <Typography variant="subtitle1">
-
-        </Typography>
-        <Button variant="contained" color="secondary">
-          Watch success stories
-      </Button>
+        <div className={classes.leftContainer}>
+          <Picture path="index/jenny.webp" fallbackType="png" alt="Professional woman" className={classes.picture} />
+        </div>
+      </Grid>
+      <Grid item sm={6}>
+        <div className={classes.rightContainer}>
+          <StoryStepper />
+          <Button variant="contained" color="secondary" className={classes.button}>
+            Watch success stories
+          </Button>
+        </div>
       </Grid>
     </Grid>
   );
