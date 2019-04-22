@@ -8,7 +8,7 @@ import SectionContent from './SectionContent';
 const items = [
   {
     title: 'Jersey City',
-    imgPath: 'https://material-ui.com/static/images/cards/contemplative-reptile.jpg',
+    imgPath: 'https://28nwgk2wx3p52fe6o9419sg5-wpengine.netdna-ssl.com/wp-content/uploads/2017/12/jersey-city-hoboken-real-estate-market-report-q4-2016.jpg',
     listItems: [
       'Mix and Mingle',
       'Technology',
@@ -16,7 +16,7 @@ const items = [
   },
   {
     title: 'Trenton',
-    imgPath: 'https://material-ui.com/static/images/cards/contemplative-reptile.jpg',
+    imgPath: 'https://townsquare.media/site/385/files/2017/05/Trenton-Makes-Bridge-at-Twilight-Josh-Friedman-April-2017-Horizontal-low-res-1.jpg',
     listItems: [
       'Convention',
       'Retail',
@@ -24,7 +24,7 @@ const items = [
   },
   {
     title: 'Hoboken',
-    imgPath: 'https://material-ui.com/static/images/cards/contemplative-reptile.jpg',
+    imgPath: 'https://render.fineartamerica.com/images/rendered/default/greeting-card/images-medium-5/erie-lackawanna-susan-candelario.jpg?&targetx=0&targety=-11&imagewidth=700&imageheight=523&modelwidth=700&modelheight=500&backgroundcolor=0F0D10&orientation=0',
     listItems: [
       'Meetup',
       'Accounting Life Sciences',
@@ -32,7 +32,7 @@ const items = [
   },
   {
     title: 'New Brunswick',
-    imgPath: 'https://material-ui.com/static/images/cards/contemplative-reptile.jpg',
+    imgPath: 'https://t-ec.bstatic.com/images/hotel/max1024x768/161/161468277.jpg',
     listItems: [
       'Portfolio Review',
       'Consulting',
@@ -40,7 +40,7 @@ const items = [
   },
   {
     title: 'Newark',
-    imgPath: 'https://material-ui.com/static/images/cards/contemplative-reptile.jpg',
+    imgPath: 'https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_825,q_50,w_1900/v1/clients/newark-redesign/Newark_HouseAd_HI_012819_13686cbf-10f3-4434-8f31-60400a19ec58.jpg',
     listItems: [
       'Meetup',
       'Health Care',
@@ -48,7 +48,7 @@ const items = [
   },
   {
     title: 'Princeton',
-    imgPath: 'https://material-ui.com/static/images/cards/contemplative-reptile.jpg',
+    imgPath: 'https://girshdevelopment.com/newtonconstruction/wp-content/uploads/2015/06/Princeton-NJ-New-Homes.jpg',
     listItems: [
       'Webcast',
       'Design',
