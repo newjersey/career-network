@@ -9,7 +9,7 @@ const contentItems = [
   {
     title: 'Build your job search plan',
     body: 'Build multiple job search plans to avoid getting stuck in the job search process. Whether newly unemployed or if you’ve been searching for a while, having a job search plan can keep you motivated.',
-    imgPath: '/static/img/index/crane.svg',
+    imgPath: '/static/img/index/build.svg',
   },
   {
     title: 'Act on your plan',
