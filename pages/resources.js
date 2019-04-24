@@ -19,7 +19,21 @@ class Resources extends React.Component {
     return (
       <div className={classes.root}>
         <ScaffoldContainer>
-          <Typography variant="h1">State resources.</Typography>
+          <Typography variant="h1">State.</Typography>
+          <Typography variant="h1">State.</Typography>
+          <Typography variant="h1">State.</Typography>
+          <Typography variant="h1">State.</Typography>
+          <Typography variant="h1">State.</Typography>
+          <Typography variant="h1">State.</Typography>
+          <Typography variant="h1">State.</Typography>
+          <Typography variant="h1">State.</Typography>
+          <Typography variant="h1">State.</Typography>
+          <Typography variant="h1">State.</Typography>
+          <Typography variant="h1">State.</Typography>
+          <Typography variant="h1">State.</Typography>
+          <Typography variant="h1">State.</Typography>
+          <Typography variant="h1">State.</Typography>
+          <Typography variant="h1">State.</Typography>
         </ScaffoldContainer>
       </div>
     );
