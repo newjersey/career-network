@@ -2,6 +2,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
 
+import AnimatedSVG from '../AnimatedSVG';
 import SectionContent from './SectionContent';
 
 const styles = theme => ({
@@ -16,7 +17,11 @@ function PlanCoaching(props) {
   return (
     <Grid container alignItems="center">
       <Grid item sm>
-        <object type="image/svg+xml" data="/static/img/index/coaching.svg" className={classes.image} />
+        <AnimatedSVG
+          path="/static/img/index/coaching.svg"
+          // transform={scrollPercentage => `rotate(${scrollPercentage * -180 - 225} 357.5 141.1)`}
+          transform={scrollPercentage => `rotate(${scrollPercentage * 180 - 120} 357.5 141.1)`}
+        />
       </Grid>
       <Grid item sm={5}>
         <SectionContent
