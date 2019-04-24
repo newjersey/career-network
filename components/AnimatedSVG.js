@@ -1,4 +1,5 @@
 import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -8,7 +9,7 @@ const styles = theme => ({
   }
 });
 
-class Crane extends React.Component {
+class AnimatedSVG extends React.Component {
   componentDidMount() {
     const svgObj = ReactDOM.findDOMNode(this.InputLabelRef);
     window.addEventListener('scroll', (e) => this.handleScroll(svgObj, e));
@@ -24,20 +25,20 @@ class Crane extends React.Component {
       (document.documentElement.scrollTop + document.body.scrollTop) /
       (document.documentElement.scrollHeight - document.documentElement.clientHeight);
 
-    // hacky, imperical values
-    // TODO: redo with some smart calculations
-    let y = scrollPercentage * -1000 + 500;
+    // Page scroll percentage is a hacky metric to use here.
+    // TODO: calculate and expose some smarter calculations.
+    let transform = this.props.transform(scrollPercentage);
 
-    svgElements.forEach(el => { el.setAttributeNS(null, 'transform', `translate(0, ${y})`) });
+    svgElements.forEach(el => { el.setAttributeNS(null, 'transform', transform) });
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, path } = this.props;
 
     return (
       <object
         type="image/svg+xml"
-        data="/static/img/index/crane.svg"
+        data={path}
         className={classes.root}
         ref={ref => {
           this.InputLabelRef = ref;
@@ -47,4 +48,9 @@ class Crane extends React.Component {
   }
 }
 
-export default withStyles(styles)(Crane);
+AnimatedSVG.propTypes = {
+  path: PropTypes.string.isRequired,
+  transform: PropTypes.func.isRequired,
+};
+
+export default withStyles(styles)(AnimatedSVG);

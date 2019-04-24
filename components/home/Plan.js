@@ -2,7 +2,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
 
-import Crane from '../Crane';
+import AnimatedSVG from '../AnimatedSVG';
 import SectionContent from './SectionContent';
 
 const styles = theme => ({
@@ -15,7 +15,10 @@ class Plan extends React.Component {
     return (
       <Grid container alignItems="center" direction="row-reverse">
         <Grid item sm>
-          <Crane />
+          <AnimatedSVG
+            path="/static/img/index/crane.svg"
+            transform={scrollPercentage => `translate(0, ${scrollPercentage * -1000 + 500})`}
+          />
         </Grid>
         <Grid item sm={5}>
           <SectionContent
