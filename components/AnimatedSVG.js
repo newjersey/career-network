@@ -10,17 +10,21 @@ const styles = theme => ({
 });
 
 class AnimatedSVG extends React.Component {
+  constructor(props) {
+    super(props);
+    this.domNode = React.createRef();
+    this.handleScroll = this.handleScroll.bind(this);
+  }
+
   componentDidMount() {
-    const svgObj = ReactDOM.findDOMNode(this.InputLabelRef);
-    window.addEventListener('scroll', (e) => this.handleScroll(svgObj, e));
+    window.addEventListener('scroll', this.handleScroll);
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
   }
 
-  handleScroll = (svgObj) => {
-    const svgElements = svgObj.contentDocument.querySelectorAll('.animate > *');
+  handleScroll() {
     const scrollPercentage =
       (document.documentElement.scrollTop + document.body.scrollTop) /
       (document.documentElement.scrollHeight - document.documentElement.clientHeight);
@@ -29,7 +33,11 @@ class AnimatedSVG extends React.Component {
     // TODO: calculate and expose some smarter calculations.
     let transform = this.props.transform(scrollPercentage);
 
-    svgElements.forEach(el => { el.setAttributeNS(null, 'transform', transform) });
+    const svgElements = this.domNode.current.contentDocument.querySelectorAll('.animate')
+
+    svgElements.forEach(el => {
+      el.setAttributeNS(null, 'transform', transform);
+    });
   };
 
   render() {
@@ -40,9 +48,7 @@ class AnimatedSVG extends React.Component {
         type="image/svg+xml"
         data={path}
         className={classes.root}
-        ref={ref => {
-          this.InputLabelRef = ref;
-        }}
+        ref={this.domNode}
       />
     );
   }
