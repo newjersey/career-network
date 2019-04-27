@@ -42,7 +42,7 @@ class Resources extends React.Component {
           <Typography variant="subtitle1">
             Great list of Tools brought to you by the State of New Jersey.
             </Typography>
-          <StaticCollection {...{ categories }} />
+          <StaticCollection categories={categories} />
         </ScaffoldContainer>
       </div>
     );

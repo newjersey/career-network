@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import StaticItem from './StaticItem';
+import StaticCollectionItem from './StaticCollectionItem';
 
 const styles = theme => ({
   root: {
@@ -53,15 +53,13 @@ class StaticCollection extends React.Component {
                 <Typography variant="body1" gutterBottom className={classes.description}>
                   {category.fields.Description}
                 </Typography>
-
                 <Grid container spacing={24}>
                   {category.items.map((item, i) =>
                     <Grid key={i} item xs={12} sm={6} md={4} className={gridItemClassName}>
-                      <StaticItem item={item} />
+                      <StaticCollectionItem item={item} />
                     </Grid>
                   )}
                 </Grid>
-
               </div>
             </ExpansionPanelDetails>
           </ExpansionPanel>
@@ -73,6 +71,7 @@ class StaticCollection extends React.Component {
 
 StaticCollection.propTypes = {
   classes: PropTypes.object.isRequired,
+  categories: PropTypes.array.isRequired,
 };
 
 export default withStyles(styles)(StaticCollection);

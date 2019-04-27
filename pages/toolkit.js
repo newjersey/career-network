@@ -42,7 +42,7 @@ class Tools extends React.Component {
           <Typography variant="subtitle1">
             Tools that might help with your job search.
          </Typography>
-          <StaticCollection {...{ categories }} />
+          <StaticCollection categories={categories} />
         </ScaffoldContainer>
       </div>
     );

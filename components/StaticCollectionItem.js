@@ -19,7 +19,7 @@ const styles = {
   },
 };
 
-function MediaCard(props) {
+function StaticCollectionItem(props) {
   const { classes, item } = props;
 
   return (
@@ -43,8 +43,9 @@ function MediaCard(props) {
   );
 }
 
-MediaCard.propTypes = {
+StaticCollectionItem.propTypes = {
   classes: PropTypes.object.isRequired,
+  item: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(MediaCard);
+export default withStyles(styles)(StaticCollectionItem);
