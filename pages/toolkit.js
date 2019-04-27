@@ -9,7 +9,7 @@ import StaticCollection from '../components/StaticCollection';
 
 const styles = theme => ({
   root: {
-    paddingTop: theme.spacing.unit * 4,
+    paddingTop: theme.spacing.unit * 5,
   },
 });
 
@@ -38,7 +38,7 @@ class Tools extends React.Component {
     return (
       <div className={classes.root}>
         <ScaffoldContainer>
-          <Typography variant="h4" component="h1">Job Toolkit</Typography>
+          <Typography variant="h3" component="h1">Job Toolkit</Typography>
           <Typography variant="subtitle1">
             Tools that might help with your job search.
          </Typography>

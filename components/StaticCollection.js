@@ -14,6 +14,7 @@ const styles = theme => ({
   root: {
     width: '100%',
     marginTop: theme.spacing.unit * 3,
+    paddingBottom: theme.spacing.unit * 5,
   },
   gridItem: {
     '&$withSpecificity': {
@@ -28,11 +29,11 @@ const styles = theme => ({
     }
   },
   withSpecificity: { /* NOOP */ },
+  category: {
+    marginTop: theme.spacing.unit * 4,
+  },
   description: {
     marginBottom: theme.spacing.unit * 2,
-  },
-  details: {
-    width: '100%',
   },
 });
 
@@ -44,25 +45,19 @@ class StaticCollection extends React.Component {
     return (
       <div className={classes.root}>
         {categories.map(category =>
-          <ExpansionPanel key={category.fields.Name}>
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography variant="h5" component="h2">{category.fields.Name}</Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <div className={classes.details}>
-                <Typography variant="body1" gutterBottom className={classes.description}>
-                  {category.fields.Description}
-                </Typography>
-                <Grid container spacing={24}>
-                  {category.items.map((item, i) =>
-                    <Grid key={i} item xs={12} sm={6} md={4} className={gridItemClassName}>
-                      <StaticCollectionItem item={item} />
-                    </Grid>
-                  )}
+          <React.Fragment key={category.id}>
+            <Typography variant="h4" component="h2" className={classes.category}>{category.fields.Name}</Typography>
+            <Typography variant="body1" gutterBottom className={classes.description}>
+              {category.fields.Description}
+            </Typography>
+            <Grid container spacing={24}>
+              {category.items.map(item =>
+                <Grid key={item.fields.Name} item xs={12} sm={6} md={4} className={gridItemClassName}>
+                  <StaticCollectionItem item={item} />
                 </Grid>
-              </div>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
+              )}
+            </Grid>
+          </React.Fragment>
         )}
       </div>
     );
