@@ -1,5 +1,6 @@
 import { withStyles } from '@material-ui/core/styles';
-import fetch from 'isomorphic-unfetch';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import fetch from 'unfetch';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -11,10 +12,20 @@ const styles = theme => ({
   root: {
     paddingTop: theme.spacing.unit * 5,
   },
+  progress: {
+    margin: '0 auto',
+    marginTop: theme.spacing.unit * 5,
+    display: 'block',
+  },
 });
 
 class Tools extends React.Component {
-  static async getInitialProps() {
+  constructor() {
+    super();
+    this.state = { categories: [] };
+  }
+
+  async componentDidMount() {
     const categoryResult = await fetch('https://careers.gardenstate.tech/api/airtable/v0/appGaFhVzDGjrivJa/Tool%20Categories?view=API');
     const categoryJson = await categoryResult.json();
     const categories = categoryJson.records.filter(c => c.fields['Tools']);
@@ -29,11 +40,12 @@ class Tools extends React.Component {
       );
     });
 
-    return { categories };
+    this.setState({ categories });
   }
 
   render() {
-    const { categories, classes } = this.props;
+    const { classes } = this.props;
+    const { categories } = this.state;
 
     return (
       <div className={classes.root}>
@@ -41,7 +53,10 @@ class Tools extends React.Component {
           <Typography variant="h3" component="h1">Job Toolkit</Typography>
           <Typography variant="subtitle1">
             Tools that might help with your job search.
-         </Typography>
+          </Typography>
+          {categories.length ? null :
+            <CircularProgress className={classes.progress} color="secondary" />
+          }
           <StaticCollection categories={categories} />
         </ScaffoldContainer>
       </div>
