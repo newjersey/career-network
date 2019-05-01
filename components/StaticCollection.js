@@ -13,7 +13,6 @@ import StaticCollectionItem from './StaticCollectionItem';
 const styles = theme => ({
   root: {
     width: '100%',
-    marginTop: theme.spacing.unit * 3,
     paddingBottom: theme.spacing.unit * 5,
   },
   gridItem: {
@@ -30,7 +29,7 @@ const styles = theme => ({
   },
   withSpecificity: { /* NOOP */ },
   category: {
-    marginTop: theme.spacing.unit * 4,
+    marginTop: theme.spacing.unit * 7,
   },
   description: {
     marginBottom: theme.spacing.unit * 2,

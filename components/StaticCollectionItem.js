@@ -26,7 +26,7 @@ function StaticCollectionItem(props) {
     <Card className={classes.card}>
       <CardActionArea href={item.fields.URL} target="_blank" className={classes.cardActionArea}>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h3">
+          <Typography gutterBottom variant="h5" component="h3" color="primary">
             {item.fields.Name}
           </Typography>
           <Typography component="p">
