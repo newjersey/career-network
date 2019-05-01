@@ -29,7 +29,7 @@ const styles = theme => ({
   },
   withSpecificity: { /* NOOP */ },
   category: {
-    marginTop: theme.spacing.unit * 7,
+    marginTop: theme.spacing.unit * 6,
   },
   description: {
     marginBottom: theme.spacing.unit * 2,
