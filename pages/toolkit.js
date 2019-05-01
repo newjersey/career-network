@@ -50,9 +50,9 @@ class Tools extends React.Component {
     return (
       <div className={classes.root}>
         <ScaffoldContainer>
-          <Typography variant="h3" component="h1">Job Toolkit</Typography>
+          <Typography variant="h3" component="h1">Job Search Toolkit</Typography>
           <Typography variant="subtitle1">
-            Tools that might help with your job search.
+            Multiple resources to make your job search more effective
           </Typography>
           {categories.length ? null :
             <CircularProgress className={classes.progress} color="secondary" />

@@ -52,7 +52,7 @@ class Resources extends React.Component {
         <ScaffoldContainer>
           <Typography variant="h3" component="h1">State Resources</Typography>
           <Typography variant="subtitle1">
-            Great list of Tools brought to you by the State of New Jersey.
+            Find information and links about the state resources available to you through in-person and online services.
           </Typography>
           {categories.length ? null :
             <CircularProgress className={classes.progress} color="secondary" />
