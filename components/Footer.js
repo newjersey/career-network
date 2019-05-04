@@ -23,10 +23,7 @@ const styles = theme => ({
     },
   },
   social: {
-    width: '32px',
-    [theme.breakpoints.up('sm')]: {
-      width: '24px',
-    },
+    width: '24px',
     fill: '#FFF',
     '&:hover': {
       fill: '#CCC',
