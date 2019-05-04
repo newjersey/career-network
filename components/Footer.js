@@ -105,7 +105,7 @@ function Footer(props) {
   return (
     <div className={classes.root}>
       <ScaffoldContainer>
-        <Grid container spacing={spacing * 2} alignItems="center">
+        <Grid container spacing={spacing * 3} alignItems="center">
           <Grid item xs={12} sm>
             {logos}
           </Grid>
