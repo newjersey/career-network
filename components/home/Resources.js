@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import React from 'react';
 
+import Oval from './Oval';
 import SectionContent from './SectionContent';
 
 const styles = theme => ({
@@ -33,15 +34,15 @@ function Resources(props) {
     <Grid container alignItems="center" className={classes.root}>
       <Hidden smDown implementation="js">
         <Grid item md={3} className={classes.center} style={{ 'align-self': 'flex-start' }}>
-          <img src="/static/img/index/oval.svg" />
+          <Oval />
         </Grid>
         <Grid item md={3} className={classes.center} style={{ 'align-self': 'flex-end' }}>
-          <img src="/static/img/index/oval.svg" />
+          <Oval />
         </Grid>
       </Hidden>
       <Hidden xsDown implementation="js">
         <Grid item sm={4} md={2} className={classes.state}>
-          <img src="/static/img/index/oval-state.svg" />
+          <Oval variant="state" />
         </Grid>
       </Hidden>
       <Grid item xs={12} sm={7} md={4}>

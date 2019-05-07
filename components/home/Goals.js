@@ -3,14 +3,12 @@ import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import React from 'react';
 
+import Oval from './Oval';
 import SectionContent from './SectionContent';
 
 const styles = theme => ({
   center: {
     textAlign: 'center',
-  },
-  rightOval: {
-    margin: '140px 0',
   },
 });
 
@@ -21,7 +19,7 @@ function Goals(props) {
     <Grid container alignItems="flex-start">
       <Hidden smDown implementation="js">
         <Grid item md={3} className={classes.center}>
-          <img src="/static/img/index/oval-phone.svg" />
+          <Oval variant="phone" />
         </Grid>
       </Hidden>
       <Hidden xsDown mdUp implementation="js">
@@ -39,12 +37,12 @@ function Goals(props) {
       </Grid>
       <Hidden xsDown mdUp implementation="js">
         <Grid item sm={4} className={classes.center}>
-          <img src="/static/img/index/oval-phone.svg" />
+          <Oval variant="phone" />
         </Grid>
       </Hidden>
       <Hidden smDown implementation="js">
         <Grid item md={6}>
-          <img src="/static/img/index/oval.svg" className={classes.rightOval} />
+          <Oval style={{ margin: '140px 0' }} />
         </Grid>
       </Hidden>
     </ Grid>
