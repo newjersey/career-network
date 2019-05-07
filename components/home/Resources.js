@@ -1,0 +1,60 @@
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Hidden from '@material-ui/core/Hidden';
+import React from 'react';
+
+import SectionContent from './SectionContent';
+
+const styles = theme => ({
+  root: {
+    [theme.breakpoints.up('md')]: {
+      height: '400px',
+      paddingTop: '4rem',
+    },
+  },
+  state: {
+    textAlign: 'center',
+    [theme.breakpoints.up('md')]: {
+      textAlign: 'left',
+      position: 'relative',
+      top: '-2rem',
+      right: '1rem',
+    },
+  },
+  center: {
+    textAlign: 'center',
+  }
+});
+
+function Resources(props) {
+  const { classes } = props;
+
+  return (
+    <Grid container alignItems="center" className={classes.root}>
+      <Hidden smDown implementation="js">
+        <Grid item md={3} className={classes.center} style={{ 'align-self': 'flex-start' }}>
+          <img src="/static/img/index/oval.svg" />
+        </Grid>
+        <Grid item md={3} className={classes.center} style={{ 'align-self': 'flex-end' }}>
+          <img src="/static/img/index/oval.svg" />
+        </Grid>
+      </Hidden>
+      <Hidden xsDown implementation="js">
+        <Grid item sm={4} md={2} className={classes.state}>
+          <img src="/static/img/index/oval-state.svg" />
+        </Grid>
+      </Hidden>
+      <Grid item xs={12} sm={7} md={4}>
+        <SectionContent
+          title="Connect with State and local resources"
+          buttonText="See your resources"
+        >
+          Get connected with Unemployment Insurance, find One-Stop locations near you,
+          explore social services, and find out more about education and training.
+        </SectionContent>
+      </Grid>
+    </Grid>
+  );
+}
+
+export default withStyles(styles)(Resources);

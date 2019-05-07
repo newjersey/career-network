@@ -20,7 +20,7 @@ function PlanCoaching(props) {
         <AnimatedSVG
           path="/static/img/index/coaching.svg"
           // transform={scrollPercentage => `rotate(${scrollPercentage * -180 - 225} 357.5 141.1)`}
-          transform={scrollPercentage => `rotate(${scrollPercentage * 180 - 120} 357.5 141.1)`}
+          transform={scrollPercentage => `rotate(${scrollPercentage * 300 + 200} 357.5 141.1)`}
         />
       </Grid>
       <Grid item sm={5}>
@@ -35,7 +35,7 @@ function PlanCoaching(props) {
           tips and advice. Receive individualized assistance from a career
           coach to help you upgrade your job search skills, identify a new
           career direction, and land that new job.
-      </SectionContent>
+        </SectionContent>
       </Grid>
     </Grid>
   );

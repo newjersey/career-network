@@ -16,7 +16,7 @@ function Plan(props) {
       <Grid item sm>
         <AnimatedSVG
           path="/static/img/index/crane.svg"
-          transform={scrollPercentage => `translate(0, ${scrollPercentage * -1000 + 500})`}
+          transform={scrollPercentage => `translate(0, ${scrollPercentage * -1000 + 440})`}
         />
       </Grid>
       <Grid item sm={5}>

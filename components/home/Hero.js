@@ -9,11 +9,14 @@ const styles = theme => ({
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'right',
+    paddingBottom: '3em',
     [theme.breakpoints.up('sm')]: {
       backgroundImage: 'url(/static/img/index/hero.svg)',
+      paddingBottom: '5em',
     },
     [theme.breakpoints.up('md')]: {
       minHeight: '30vw',
+      paddingBottom: 'default',
     },
   },
   title: {

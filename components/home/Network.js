@@ -57,6 +57,12 @@ const items = [
 ];
 
 const styles = theme => ({
+  root: {
+    paddingTop: theme.spacing.unit * 3,
+    [theme.breakpoints.up('sm')]: {
+      paddingTop: theme.spacing.unit * 4,
+    },
+  },
   gridItem: {
     '&$withSpecificity': {
       [theme.breakpoints.down('sm')]: {
@@ -77,7 +83,7 @@ function Network(props) {
   const gridItemClassName = `${classes.gridItem} ${classes.withSpecificity}`;
 
   return (
-    <React.Fragment>
+    <div className={classes.root}>
       <SectionContent title="Build your network">
         Develop a strong and active professional network to keep your skill set
         fresh, stay up-to-date on the latest trends in your occupation/industry,
@@ -94,7 +100,7 @@ function Network(props) {
           </Grid>
         ))}
       </Grid>
-    </React.Fragment>
+    </div>
   );
 }
 
