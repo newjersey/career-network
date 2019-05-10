@@ -26,18 +26,18 @@ class Tools extends React.Component {
   }
 
   async componentDidMount() {
-    const categoryResult = await fetch('https://careers.gardenstate.tech/api/airtable/v0/appGaFhVzDGjrivJa/Tool%20Categories?view=API');
+    const categoryResult = await fetch('https://careers.gardenstate.tech/api/airtable/v0/appPhpA6Quf0pCBDm/Resource%20Categories?view=API%20Toolkit%20Page');
     const categoryJson = await categoryResult.json();
-    const categories = categoryJson.records.filter(c => c.fields['Tools']);
+    const categories = categoryJson.records.filter(c => c.fields['Resources']);
 
-    const itemResult = await fetch('https://careers.gardenstate.tech/api/airtable/v0/appGaFhVzDGjrivJa/Tools?view=API');
+    const itemResult = await fetch('https://careers.gardenstate.tech/api/airtable/v0/appPhpA6Quf0pCBDm/Resources?view=API%20Toolkit%20Page');
     const itemJson = await itemResult.json();
     const items = itemJson.records;
 
     categories.forEach(category => {
-      category.items = category.fields['Tools'].map(
-        itemId => items.find(item => item.id === itemId)
-      );
+      category.items = category.fields['Resources']
+        .map(itemId => items.find(item => item.id === itemId))
+        .filter(item => item);
     });
 
     this.setState({ categories });
