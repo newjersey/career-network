@@ -33,10 +33,10 @@ function Resources(props) {
   return (
     <Grid container alignItems="center" className={classes.root}>
       <Hidden smDown implementation="js">
-        <Grid item md={3} className={classes.center} style={{ 'align-self': 'flex-start' }}>
+        <Grid item md={3} className={classes.center} style={{ alignSelf: 'flex-start' }}>
           <Oval />
         </Grid>
-        <Grid item md={3} className={classes.center} style={{ 'align-self': 'flex-end' }}>
+        <Grid item md={3} className={classes.center} style={{ alignSelf: 'flex-end' }}>
           <Oval />
         </Grid>
       </Hidden>

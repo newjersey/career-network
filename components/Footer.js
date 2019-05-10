@@ -88,7 +88,7 @@ function Footer(props) {
       <Grid item className={classes.socialItem}>
         <Grid container spacing={spacing}>
           {socialIcons.map(icon => (
-            <Grid item>
+            <Grid item key={icon.name}>
               <Link href={icon.href}>
                 {svg(icon.data)}
               </Link>
