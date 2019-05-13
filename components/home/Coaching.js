@@ -25,11 +25,11 @@ function PlanCoaching(props) {
       </Grid>
       <Grid item sm={5}>
         <SectionContent
-          title="Get coaching"
-          buttonText="Get started with coaching"
+          title="Get personalized coaching"
+          buttonText="Get started"
         >
-          Self-coaching strategies, peer coaching groups and one-on-one expert
-          coaching are all available. Learn how to be your own coach through
+          Self-coaching strategies, and one-on-one expert
+          coaching through our chat and in person are all available. Learn how to be your own coach through
           tips and strategies to hold yourself accountable during the job
           search process. Develop peer-support networks to trade job search
           tips and advice. Receive individualized assistance from a career

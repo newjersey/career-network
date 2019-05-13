@@ -21,14 +21,15 @@ function Plan(props) {
       </Grid>
       <Grid item sm={5}>
         <SectionContent
-          title="Build your plan"
+          title="We will build you a customized plan"
           buttonText="Start planning"
         >
-          Build a job search plan to lay out all the possible employment options
-          you may have in finding a new job. No matter where you are in the job
-          search process, having multiple organized plans can help you stay
-          motivated and on track. Find tools and templates on how to develop
-          plans A, B, and C specific to your industry and interest.
+         we have interviewed hundreds of career coaches and New Jersey Job seakers. 
+         Just answer a few questions, and we will help you build a job search plan
+        with goals and action items based on your unique situation.
+          No matter where you are in the job
+          search process, we will help you stay
+          motivated and on track. 
         </SectionContent>
       </Grid>
     </Grid>

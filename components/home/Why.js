@@ -8,7 +8,7 @@ import WhyItem from './WhyItem'
 const contentItems = [
   {
     title: 'Build your job search plan',
-    body: 'Build multiple job search plans to avoid getting stuck in the job search process. Whether newly unemployed or if you’ve been searching for a while, having a job search plan can keep you motivated.',
+    body: 'We use machine learning to help you build a job search plan that will lead to meaningful results. Whether newly unemployed or if you’ve been searching for a while, having a job search plan can keep you motivated.',
     imgPath: '/static/img/index/build.svg',
   },
   {
@@ -17,13 +17,13 @@ const contentItems = [
     imgPath: '/static/img/index/career-search.svg',
   },
   {
-    title: 'Get coaching',
-    body: 'Join our online community of job seekers for peer and 1:1 coaching to help you navigate job searching with guided support, advice and more accountability.',
+    title: 'Real time support',
+    body: 'Get real time support 1:1 support from real career coaches any time of day using our chat feature.',
     imgPath: '/static/img/index/interviewing.svg',
   },
   {
     title: 'Build your network',
-    body: 'Join online and in-person networking events and activities for various industries and occupations to stay fresh and connected.',
+    body: 'Get recomendations to join online and in-person networking events and activities for various industries and occupations to stay fresh and connected.',
     imgPath: '/static/img/index/networking.svg',
   },
   {

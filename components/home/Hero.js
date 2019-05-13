@@ -43,10 +43,16 @@ function Hero(props) {
   return (
     <div className={classes.root}>
       <Typography variant="h6" component="h3">
-        You're not alone
+        Like having a career coach in your pocket
         </Typography>
       <Typography variant="h4" component="h1" className={classes.title}>
-        It takes a <span className={classes.highlight}>network</span> to find the right <span className={classes.highlight}>career</span>
+        Get <span className={classes.highlight}>inteligent</span> career advice, 
+      </Typography>
+      <Typography variant="h4" component="h3" className={classes.title}>
+      from our New Jersey<span className={classes.highlight}> recomendations engine.</span> 
+      </Typography>
+      <Typography variant="h5" component="h4" className={classes.title}>
+        Work with career coaches to transform how you look for work
       </Typography>
       <CircumstancePicker className={classes.picker} />
     </div>
