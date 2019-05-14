@@ -32,7 +32,7 @@ function Goals(props) {
         >
           Get reminders when you set goals sent to
           your phone, email, or sync them with your
-          calander, designed to help you suceed.
+          calender, designed to help you succeed.
         </SectionContent>
       </Grid>
       <Hidden xsDown mdUp implementation="js">
