@@ -22,8 +22,8 @@ class StaticList extends React.Component {
         <Typography {...titleProps}>{title}</Typography>
         {children &&
           <ul>
-            {children.map(node =>
-              <li>
+            {children.map((node, i) =>
+              <li key={i}>
                 <Typography>
                   {node}
                 </Typography>
