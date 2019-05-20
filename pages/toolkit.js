@@ -40,7 +40,9 @@ class Tools extends React.Component {
         .filter(item => item);
     });
 
-    this.setState({ categories });
+    this.setState({
+      categories: categories.filter(category => category.items.length),
+    });
   }
 
   render() {
