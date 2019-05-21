@@ -8,7 +8,7 @@ import Nav from './header/Nav'
 import Statewide from './header/Statewide'
 import User from './header/User'
 
-const styles = {
+const styles = theme => ({
     root: {
         flexGrow: 1,
     },
@@ -19,9 +19,9 @@ const styles = {
         backgroundColor: '#FFFFFF'
     },
     userBar: {
-        backgroundColor: '#1982C8'
+        backgroundColor: theme.palette.primary.main
     }
-};
+});
 
 function Header(props) {
     const { classes } = props;

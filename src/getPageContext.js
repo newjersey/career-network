@@ -6,14 +6,14 @@ import { SheetsRegistry } from 'jss';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: '#3D96CF',
-      main: '#1982C8',
-      dark: '#076CAD',
+      light: '#1982C8',
+      main: '#1777B6',
+      dark: '#156BA4',
     },
     secondary: {
-      light: '#639B21',
-      main: '#54910B',
-      dark: '#4D840A',
+      light: '#54910B',
+      main: '#4D840A',
+      dark: '#45770A',
     },
   },
   typography: {
