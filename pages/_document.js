@@ -33,6 +33,7 @@ class MyDocument extends Document {
           <link rel="shortcut icon" href="/static/favicons/favicon.ico" />
           <meta name="msapplication-TileColor" content="#ffffff" />
           <meta name="msapplication-config" content="/static/favicons/browserconfig.xml" />
+          <meta name="Description" content="Support, resources, and a customized plan for finding employment in New Jersey." />
         </Head>
         <body>
           <Main />
