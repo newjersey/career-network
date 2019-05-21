@@ -27,6 +27,12 @@ import Typography from '@material-ui/core/Typography';
 import Picture from '../Picture';
 import ScaffoldContainer from '../ScaffoldContainer';
 
+const logoRatio = 834 / 784;
+const logoWidths = {
+  xs: 40,
+  md: 60,
+};
+
 const pages = [
   {
     href: '/plan',
@@ -71,9 +77,11 @@ const styles = theme => ({
     position: 'relative',
     top: '4px',
     margin: '.8em .8em .8em 0',
-    width: '40px',
+    width: logoWidths.xs,
+    height: logoWidths.xs * logoRatio,
     [theme.breakpoints.up('md')]: {
-      width: '60px',
+      width: logoWidths.md,
+      height: logoWidths.md * logoRatio,
     },
   },
   titleContainer: {
