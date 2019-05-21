@@ -45,6 +45,7 @@ class AnimatedSVG extends React.Component {
     return (
       <object
         type="image/svg+xml"
+        aria-hidden="true"
         data={path}
         className={classes.root}
         ref={this.domNode}

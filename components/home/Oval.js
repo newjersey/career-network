@@ -11,6 +11,7 @@ function Oval(props) {
   const { classes, style, variant } = props;
 
   const args = {
+    alt: '',
     src: `/static/img/index/oval${variant ? `-${variant}` : ''}.svg`,
     className: classes.root,
     style,

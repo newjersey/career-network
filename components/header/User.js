@@ -201,6 +201,7 @@ class User extends React.Component {
                   <SearchIcon />
                 </div>
                 <InputBase
+                  inputProps={{ 'aria-label': 'Search' }}
                   placeholder="Search…"
                   classes={{
                     root: classes.inputRoot,

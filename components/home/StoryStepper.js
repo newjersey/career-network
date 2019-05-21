@@ -117,12 +117,12 @@ class StoryStepper extends React.Component {
           activeStep={activeStep}
           className={classes.mobileStepper}
           nextButton={
-            <Button onClick={this.handleNext} disabled={activeStep === maxSteps - 1}>
+            <Button onClick={this.handleNext} disabled={activeStep === maxSteps - 1} aria-label="Next quotation">
               {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
             </Button>
           }
           backButton={
-            <Button onClick={this.handleBack} disabled={activeStep === 0}>
+            <Button onClick={this.handleBack} disabled={activeStep === 0} aria-label="Previous quotation">
               {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
             </Button>
           }
