@@ -5,14 +5,15 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from 'prop-types';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 
 import SignInForm from './SignInForm';
 
 function SignInDialog(props) {
-  const { onCancel, open } = props;
+  const { onCancel, fullScreen, open } = props;
 
   return (
-    <Dialog open={open} aria-labelledby="sign-in-dialog-title">
+    <Dialog fullScreen={fullScreen} open={open} aria-labelledby="sign-in-dialog-title">
       <DialogTitle id="sign-in-dialog-title">Sign in</DialogTitle>
       <DialogContent>
         <DialogContentText>
@@ -28,7 +29,9 @@ function SignInDialog(props) {
 }
 
 SignInDialog.propTypes = {
+  fullScreen: PropTypes.bool.isRequired,
   onCancel: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
 };
 
-export default SignInDialog;
+export default withMobileDialog()(SignInDialog);
