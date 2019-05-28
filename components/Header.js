@@ -5,8 +5,8 @@ import React from 'react';
 import Toolbar from '@material-ui/core/Toolbar';
 
 import Nav from './header/Nav'
-import Statewide from './header/Statewide'
-import User from './header/User'
+import Statewide from './header/Statewide';
+import User from './header/User';
 
 const styles = theme => ({
     root: {
