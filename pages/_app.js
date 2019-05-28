@@ -5,6 +5,7 @@ import Head from 'next/head';
 import JssProvider from 'react-jss/lib/JssProvider';
 import React from 'react';
 
+import Firebase, { FirebaseContext } from '../components/Firebase';
 import Footer from '../components/Footer'
 import getPageContext from '../src/getPageContext';
 import Header from '../components/Header'
@@ -30,28 +31,30 @@ class MyApp extends App {
         <Head>
           <title>Career Network</title>
         </Head>
-        {/* Wrap every page in Jss and Theme providers */}
-        <JssProvider
-          registry={this.pageContext.sheetsRegistry}
-          generateClassName={this.pageContext.generateClassName}
-        >
-          {/* MuiThemeProvider makes the theme available down the React
-              tree thanks to React context. */}
-          <MuiThemeProvider
-            theme={this.pageContext.theme}
-            sheetsManager={this.pageContext.sheetsManager}
+        <FirebaseContext.Provider value={new Firebase()}>
+          {/* Wrap every page in Jss and Theme providers */}
+          <JssProvider
+            registry={this.pageContext.sheetsRegistry}
+            generateClassName={this.pageContext.generateClassName}
           >
-            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-            <CssBaseline />
-            {/* Pass pageContext to the _document though the renderPage enhancer
+            {/* MuiThemeProvider makes the theme available down the React
+              tree thanks to React context. */}
+            <MuiThemeProvider
+              theme={this.pageContext.theme}
+              sheetsManager={this.pageContext.sheetsManager}
+            >
+              {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+              <CssBaseline />
+              {/* Pass pageContext to the _document though the renderPage enhancer
                 to render collected styles on server-side. */}
-            <Header />
-            <main>
-              <Component pageContext={this.pageContext} {...pageProps} />
-            </main>
-            <Footer />
-          </MuiThemeProvider>
-        </JssProvider>
+              <Header />
+              <main>
+                <Component pageContext={this.pageContext} {...pageProps} />
+              </main>
+              <Footer />
+            </MuiThemeProvider>
+          </JssProvider>
+        </FirebaseContext.Provider>
       </Container>
     );
   }
