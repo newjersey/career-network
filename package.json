@@ -10,18 +10,18 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "latest",
+    "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
     "firebase": "^6.0.4",
-    "jss": "latest",
-    "next": "latest",
-    "prop-types": "latest",
-    "react": "latest",
-    "react-dom": "latest",
+    "jss": "^9.8.7",
+    "next": "^8.1.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "react-firebaseui": "^3.1.2",
     "react-jss": "^8.1.0",
-    "react-swipeable-views": "^0.13.1",
-    "react-swipeable-views-utils": "^0.13.1",
+    "react-swipeable-views": "^0.13.3",
+    "react-swipeable-views-utils": "^0.13.3",
     "unfetch": "^4.1.0"
   },
   "scripts": {
@@ -37,6 +37,6 @@
   "devDependencies": {
     "firebase-tools": "^6.10.0",
     "gh-pages": "^2.0.1",
-    "serve": "^11.0.0"
+    "serve": "^11.0.1"
   }
 }
