@@ -22,6 +22,8 @@ class Snackbar extends React.Component {
     }
 
     this.setState({ isOpen: false });
+
+    this.props.onClose && this.props.onClose();
   };
 
   render() {
@@ -59,6 +61,7 @@ class Snackbar extends React.Component {
 Snackbar.propTypes = {
   classes: PropTypes.object.isRequired,
   message: PropTypes.string.isRequired,
+  onClose: PropTypes.func,
 };
 
 export default withStyles(styles)(Snackbar);

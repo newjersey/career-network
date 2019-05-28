@@ -3,7 +3,6 @@ import Hidden from '@material-ui/core/Hidden';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { FirebaseContext } from '../Firebase';
 import { withFirebase } from '../Firebase';
 import ScaffoldContainer from '../ScaffoldContainer';
 import Search from './Search';
@@ -18,15 +17,11 @@ class User extends React.Component {
     user: null,
   };
 
-  componentWillMount() {
-    this.firebaseUnsubscribe = this.props.firebase.onAuthStateChanged(user => {
-      // suppress snack bar on initial page load
-      if (this.state.authStateChangeCount) {
-        this.showSnackbar(user ? 'Welcome back!' : 'You have signed out.');
-      }
-
+  async componentWillMount() {
+    this.firebaseUnsubscribe = await this.props.firebase.onAuthStateChanged(user => {
       this.setState(state => ({
         authStateChangeCount: state.authStateChangeCount + 1,
+        snackbarMessage: state.authStateChangeCount ? (user ? 'Welcome back!' : 'You have signed out.') : state.snackbarMessage,
         user
       }));
     });
@@ -36,11 +31,7 @@ class User extends React.Component {
     this.firebaseUnsubscribe && this.firebaseUnsubscribe();
   }
 
-  showSnackbar = (message) => {
-    this.setState({
-      snackbarMessage: message,
-    });
-  };
+  handleSnackbarClose = () => this.setState({ snackbarMessage: null });
 
   render() {
     const { snackbarMessage, user } = this.state;
@@ -62,7 +53,7 @@ class User extends React.Component {
             </Hidden>
           </Grid>
 
-          {snackbarMessage && <Snackbar message={snackbarMessage} />}
+          {snackbarMessage && <Snackbar message={snackbarMessage} onClose={this.handleSnackbarClose} />}
         </React.Fragment>
       </ScaffoldContainer>
     );
