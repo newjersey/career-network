@@ -27,7 +27,7 @@ function Header(props) {
     const { classes } = props;
 
     return (
-        <div className={classes.root}>
+        <header className={classes.root}>
             <AppBar position="static" color="primary">
                 <Toolbar className={classes.statewide} variant="dense">
                     <Statewide />
@@ -39,7 +39,7 @@ function Header(props) {
                     <User />
                 </Toolbar>
             </AppBar>
-        </div>
+        </header>
     );
 }
 

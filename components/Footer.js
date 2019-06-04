@@ -103,7 +103,7 @@ function Footer(props) {
   );
 
   return (
-    <div className={classes.root}>
+    <footer className={classes.root}>
       <ScaffoldContainer>
         <Grid container spacing={spacing * 3} alignItems="center">
           <Grid item xs={12} sm>
@@ -114,7 +114,7 @@ function Footer(props) {
           </Grid>
         </Grid>
       </ScaffoldContainer>
-    </div>
+    </footer>
   );
 }
 
