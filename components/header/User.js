@@ -17,7 +17,7 @@ class User extends React.Component {
     user: null,
   };
 
-  async componentWillMount() {
+  async componentDidMount() {
     this.firebaseUnsubscribe = await this.props.firebase.onAuthStateChanged(user => {
       this.setState(state => ({
         authStateChangeCount: state.authStateChangeCount + 1,
