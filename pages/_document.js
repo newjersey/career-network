@@ -34,6 +34,20 @@ class MyDocument extends Document {
           <meta name="msapplication-TileColor" content="#ffffff" />
           <meta name="msapplication-config" content="/static/favicons/browserconfig.xml" />
           <meta name="Description" content="Support, resources, and a customized plan for finding employment in New Jersey." />
+
+          <style global>{`
+            #__next {
+              display: flex;
+              flex-direction: column;
+              min-height: 100vh;
+            }
+            header, footer {
+              flex-shrink: 0;
+            }
+            main {
+              flex-grow: 1;
+            }
+        `}</style>
         </Head>
         <body>
           <Main />

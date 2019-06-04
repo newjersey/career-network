@@ -10,7 +10,6 @@ import User from './header/User';
 
 const styles = theme => ({
   root: {
-    flexGrow: 1,
   },
   statewide: {
     backgroundColor: '#363636'

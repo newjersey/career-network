@@ -11,7 +11,6 @@ const color = '#fff';
 const hoverColor = '';
 const styles = theme => ({
   root: {
-    flexGrow: 1,
     backgroundColor: '#333',
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
