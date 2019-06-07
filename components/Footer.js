@@ -31,7 +31,7 @@ const styles = theme => ({
   text: {
     color
   },
-  socialItem: {
+  mobileCentered: {
     [theme.breakpoints.down('xs')]: {
       marginLeft: 'auto',
       marginRight: 'auto',
@@ -67,36 +67,28 @@ function Footer(props) {
     </svg>
   );
 
-  const logos = (
-    <Grid container justify="space-between" alignItems="center" spacing={spacing}>
-      <Grid item sm={12}>
-        <Link href="https://nj.gov/opra/">
-          <img src="/static/img/opra.svg" alt="OPRA Logo" className={classes.logo} />
-        </Link>
-      </Grid>
-      <Grid item sm={12}>
-        <Link href="https://my.state.nj.us/">
-          <img src="/static/img/myNJ.svg" alt="My New Jersey Logo" className={classes.logo} />
-        </Link>
-      </Grid>
-    </Grid>
+  const social = (
+    <React.Fragment>
+      {socialIcons.map(icon => (
+        <Grid item key={icon.name}>
+          <Link href={icon.href} aria-label={icon.name}>
+            {svg(icon.data)}
+          </Link>
+        </Grid>
+      ))}
+    </React.Fragment>
   );
 
-  const social = (
-    <Grid container direction="column" alignItems="flex-end" justify="space-between" spacing={spacing}>
-      <Grid item className={classes.socialItem}>
-        <Grid container spacing={spacing}>
-          {socialIcons.map(icon => (
-            <Grid item key={icon.name}>
-              <Link href={icon.href} aria-label={icon.name}>
-                {svg(icon.data)}
-              </Link>
-            </Grid>
-          ))}
-        </Grid>
-      </Grid>
-      <Grid item className={classes.socialItem}>
-        <Typography className={classes.text}>Copyright &copy; State of New Jersey, 1996-{year}</Typography>
+  const copyright = (
+    <Typography className={classes.text}>
+      Copyright &copy; Garden State Career Network, {year > 2019 && '2019–'}{year}
+    </Typography>
+  );
+
+  const mobileCentered = (content, nonMobileAlign) => (
+    <Grid container direction="column" alignItems={nonMobileAlign}>
+      <Grid item className={classes.mobileCentered}>
+        <Grid container spacing={spacing}>{content}</Grid>
       </Grid>
     </Grid>
   );
@@ -104,13 +96,9 @@ function Footer(props) {
   return (
     <footer className={classes.root}>
       <ScaffoldContainer>
-        <Grid container spacing={spacing * 3} alignItems="center">
-          <Grid item xs={12} sm>
-            {logos}
-          </Grid>
-          <Grid item xs={12} sm>
-            {social}
-          </Grid>
+        <Grid container spacing={spacing} alignItems="center" direction="row-reverse">
+          <Grid item xs={12} sm>{mobileCentered(social, "flex-end")}</Grid>
+          <Grid item xs={12} sm>{mobileCentered(copyright, "flex-start")}</Grid>
         </Grid>
       </ScaffoldContainer>
     </footer>

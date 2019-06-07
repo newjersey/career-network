@@ -5,14 +5,10 @@ import React from 'react';
 import Toolbar from '@material-ui/core/Toolbar';
 
 import Nav from './header/Nav'
-import Statewide from './header/Statewide';
 import User from './header/User';
 
 const styles = theme => ({
   root: {
-  },
-  statewide: {
-    backgroundColor: '#363636'
   },
   navBar: {
     backgroundColor: '#FFFFFF'
@@ -28,9 +24,6 @@ function Header(props) {
   return (
     <header className={classes.root}>
       <AppBar position="static" color="primary">
-        <Toolbar className={classes.statewide} variant="dense">
-          <Statewide />
-        </Toolbar>
         <Toolbar className={classes.navBar}>
           <Nav />
         </Toolbar>
