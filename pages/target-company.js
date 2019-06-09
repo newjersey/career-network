@@ -9,7 +9,7 @@ import { Link } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
-    paddingTop: theme.spacing.unit * 5,
+    paddingTop: theme.spacing(5),
   },
 });
 

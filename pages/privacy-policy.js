@@ -7,7 +7,7 @@ import ScaffoldContainer from '../components/ScaffoldContainer';
 
 const styles = theme => ({
   root: {
-    paddingTop: theme.spacing.unit * 5,
+    paddingTop: theme.spacing(5),
   },
 });
 

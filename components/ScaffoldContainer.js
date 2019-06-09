@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 
 const styles = theme => ({
   padding: {
-    paddingLeft: theme.spacing.unit * 2,
-    paddingRight: theme.spacing.unit * 2,
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {
-      paddingLeft: theme.spacing.unit * 3,
-      paddingRight: theme.spacing.unit * 3,
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3),
     },
   },
 });

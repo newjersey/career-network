@@ -6,10 +6,10 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   body: {
-    marginTop: theme.spacing.unit * 1,
-    marginBottom: theme.spacing.unit * 3,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(3),
     [theme.breakpoints.up('lg')]: {
-      marginBottom: theme.spacing.unit * 4,
+      marginBottom: theme.spacing(4),
     },
   },
 });

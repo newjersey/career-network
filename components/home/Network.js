@@ -59,20 +59,20 @@ const items = [
 
 const styles = theme => ({
   root: {
-    paddingTop: theme.spacing.unit * 3,
+    paddingTop: theme.spacing(3),
     [theme.breakpoints.up('sm')]: {
-      paddingTop: theme.spacing.unit * 4,
+      paddingTop: theme.spacing(4),
     },
   },
   gridItem: {
     '&$withSpecificity': {
       [theme.breakpoints.down('sm')]: {
-        paddingTop: theme.spacing.unit * 2,
-        paddingBottom: theme.spacing.unit * 2,
+        paddingTop: theme.spacing(2),
+        paddingBottom: theme.spacing(2),
       },
       [theme.breakpoints.down('xs')]: {
-        paddingTop: theme.spacing.unit * 1.25,
-        paddingBottom: theme.spacing.unit * 1.25,
+        paddingTop: theme.spacing(1.25),
+        paddingBottom: theme.spacing(1.25),
       },
     }
   },

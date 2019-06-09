@@ -12,8 +12,8 @@ const hoverColor = '';
 const styles = theme => ({
   root: {
     backgroundColor: '#333',
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
   logo: {
     width: '144px',

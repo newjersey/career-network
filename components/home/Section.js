@@ -10,15 +10,15 @@ const styles = theme => ({
     backgroundColor,
     backgroundSize: '100%',
     backgroundRepeat: 'no-repeat',
-    paddingTop: theme.spacing.unit * 3,
-    paddingBottom: theme.spacing.unit * 3,
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(3),
     [theme.breakpoints.up('sm')]: {
-      paddingTop: theme.spacing.unit * 4,
-      paddingBottom: theme.spacing.unit * 4,
+      paddingTop: theme.spacing(4),
+      paddingBottom: theme.spacing(4),
     },
     [theme.breakpoints.up('md')]: {
-      paddingTop: theme.spacing.unit * 6,
-      paddingBottom: theme.spacing.unit * 6,
+      paddingTop: theme.spacing(6),
+      paddingBottom: theme.spacing(6),
     },
   },
   'no-pad-top': {

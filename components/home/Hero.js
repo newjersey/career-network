@@ -20,8 +20,8 @@ const styles = theme => ({
     },
   },
   title: {
-    marginTop: theme.spacing.unit * 1,
-    marginBottom: theme.spacing.unit * 3,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(3),
     [theme.breakpoints.down(350)]: {
       fontSize: '1.8rem',
     },
@@ -33,7 +33,7 @@ const styles = theme => ({
     color: theme.palette.primary.main,
   },
   picker: {
-    marginBottom: theme.spacing.unit * 10,
+    marginBottom: theme.spacing(10),
   },
 });
 

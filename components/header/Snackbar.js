@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 
 const styles = theme => ({
   close: {
-    padding: theme.spacing.unit / 2,
+    padding: theme.spacing(0.5),
   },
 });
 

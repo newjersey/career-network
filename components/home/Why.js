@@ -37,19 +37,19 @@ const contentItems = [
 const styles = theme => ({
   root: {
     [theme.breakpoints.down('xs')]: {
-      paddingTop: theme.spacing.unit * 2,
-      paddingBottom: theme.spacing.unit * 1.5,
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(1.5),
     },
   },
   gridItem: {
     '&$withSpecificity': {
       [theme.breakpoints.down('sm')]: {
-        paddingTop: theme.spacing.unit * 2,
-        paddingBottom: theme.spacing.unit * 2,
+        paddingTop: theme.spacing(2),
+        paddingBottom: theme.spacing(2),
       },
       [theme.breakpoints.down('xs')]: {
-        paddingTop: theme.spacing.unit * 1.25,
-        paddingBottom: theme.spacing.unit * 1.25,
+        paddingTop: theme.spacing(1.25),
+        paddingBottom: theme.spacing(1.25),
       },
     }
   },

@@ -10,11 +10,11 @@ import StaticCollection from '../components/StaticCollection';
 
 const styles = theme => ({
   root: {
-    paddingTop: theme.spacing.unit * 5,
+    paddingTop: theme.spacing(5),
   },
   progress: {
     margin: '0 auto',
-    marginTop: theme.spacing.unit * 5,
+    marginTop: theme.spacing(5),
     display: 'block',
   },
 });
