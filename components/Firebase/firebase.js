@@ -12,11 +12,11 @@ class Firebase {
     this.uiConfig = uiConfig;
   }
 
-  signOut() {
+  signOut = () => {
     this.auth.signOut();
   }
 
-  onAuthStateChanged(callback) {
+  onAuthStateChanged = (callback) => {
     this.auth.onAuthStateChanged((authUser) => {
       // if (authUser) {
       //   this.user(authUser.uid)
