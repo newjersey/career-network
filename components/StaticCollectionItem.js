@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-const styles = {
+const styles = theme => ({
   card: {
     height: '100%',
     display: 'flex',
@@ -17,7 +17,7 @@ const styles = {
   cardActionArea: {
     flexGrow: 1,
   },
-};
+});
 
 function StaticCollectionItem(props) {
   const { classes, item } = props;
