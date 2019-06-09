@@ -1,15 +1,15 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
 
 import AnimatedSVG from '../AnimatedSVG';
 import SectionContent from './SectionContent';
 
-const styles = theme => ({
-});
+const useStyles = makeStyles(theme => ({
+}));
 
-function Plan(props) {
-  const { classes } = props;
+function Plan() {
+  const classes = useStyles();
 
   return (
     <Grid container alignItems="center" direction="row-reverse">
@@ -35,4 +35,4 @@ function Plan(props) {
   );
 }
 
-export default withStyles(styles)(Plan);
+export default Plan;

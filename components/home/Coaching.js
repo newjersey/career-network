@@ -1,18 +1,18 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
 
 import AnimatedSVG from '../AnimatedSVG';
 import SectionContent from './SectionContent';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   image: {
     width: '100%',
   }
-});
+}));
 
-function PlanCoaching(props) {
-  const { classes } = props;
+function PlanCoaching() {
+  const classes = useStyles();
 
   return (
     <Grid container alignItems="center">
@@ -41,4 +41,4 @@ function PlanCoaching(props) {
   );
 }
 
-export default withStyles(styles)(PlanCoaching);
+export default PlanCoaching;

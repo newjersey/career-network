@@ -1,14 +1,15 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
   },
-});
+}));
 
 function Oval(props) {
-  const { classes, style, variant } = props;
+  const { style, variant } = props;
+  const classes = useStyles();
 
   const args = {
     alt: '',
@@ -21,7 +22,6 @@ function Oval(props) {
 }
 
 Oval.propTypes = {
-  classes: PropTypes.object.isRequired,
   variant: PropTypes.oneOf(['phone', 'state']),
   style: PropTypes.object,
 };
@@ -30,4 +30,4 @@ Oval.defaultProps = {
   style: {},
 };
 
-export default withStyles(styles)(Oval);
+export default Oval;

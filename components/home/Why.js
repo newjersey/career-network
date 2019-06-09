@@ -1,4 +1,4 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
@@ -34,34 +34,34 @@ const contentItems = [
   },
 ];
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     [theme.breakpoints.down('xs')]: {
-      paddingTop: theme.spacing.unit * 2,
-      paddingBottom: theme.spacing.unit * 1.5,
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(1.5),
     },
   },
   gridItem: {
     '&$withSpecificity': {
       [theme.breakpoints.down('sm')]: {
-        paddingTop: theme.spacing.unit * 2,
-        paddingBottom: theme.spacing.unit * 2,
+        paddingTop: theme.spacing(2),
+        paddingBottom: theme.spacing(2),
       },
       [theme.breakpoints.down('xs')]: {
-        paddingTop: theme.spacing.unit * 1.25,
-        paddingBottom: theme.spacing.unit * 1.25,
+        paddingTop: theme.spacing(1.25),
+        paddingBottom: theme.spacing(1.25),
       },
     }
   },
   withSpecificity: { /* NOOP */ },
-});
+}));
 
-function Why(props) {
-  const { classes } = props;
+function Why() {
+  const classes = useStyles();
   const gridItemClassName = clsx(classes.gridItem, classes.withSpecificity);
 
   return (
-    <Grid container justify="center" spacing={32} className={classes.root}>
+    <Grid container justify="center" spacing={4} className={classes.root}>
       <Grid item sm md={6} className={gridItemClassName}>
         <SectionContent
           title="Why use the Career Network?"
@@ -82,4 +82,4 @@ function Why(props) {
   );
 }
 
-export default withStyles(styles)(Why);
+export default Why;

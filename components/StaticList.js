@@ -1,16 +1,17 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
-});
+}));
 
 function StaticList(props) {
-  const { classes, children, title, nesting } = props;
+  const { children, title, nesting } = props;
+  const classes = useStyles();
   const titleProps = {
     variant: `h${nesting + 4}`,
     component: `h${nesting + 2}`,
@@ -35,7 +36,6 @@ function StaticList(props) {
 }
 
 StaticList.propTypes = {
-  classes: PropTypes.object.isRequired,
   chldren: PropTypes.arrayOf(PropTypes.node),
   title: PropTypes.string.isRequired,
   nesting: PropTypes.number,
@@ -45,4 +45,4 @@ StaticList.defaultProps = {
   nesting: 0,
 }
 
-export default withStyles(styles)(StaticList);
+export default StaticList;

@@ -1,19 +1,18 @@
-import { withStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/styles';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import ScaffoldContainer from '../components/ScaffoldContainer';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     textAlign: 'center',
-    paddingTop: theme.spacing.unit * 10,
+    paddingTop: theme.spacing(10),
   },
-});
+}));
 
-function Act(props) {
-  const { classes } = props;
+function Act() {
+  const classes = useStyles();
 
   return (
     <div className={classes.root}>
@@ -24,8 +23,4 @@ function Act(props) {
   );
 }
 
-Act.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Act);
+export default Act;

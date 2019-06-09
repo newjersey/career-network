@@ -1,26 +1,25 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import fetch from 'unfetch';
-import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import ScaffoldContainer from '../components/ScaffoldContainer';
 import StaticCollection from '../components/StaticCollection';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    paddingTop: theme.spacing.unit * 5,
+    paddingTop: theme.spacing(5),
   },
   progress: {
     margin: '0 auto',
-    marginTop: theme.spacing.unit * 5,
+    marginTop: theme.spacing(5),
     display: 'block',
   },
-});
+}));
 
-function Resources(props) {
-  const { classes } = props;
+function Resources() {
+  const classes = useStyles();
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -62,8 +61,4 @@ function Resources(props) {
   );
 }
 
-Resources.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Resources);
+export default Resources;

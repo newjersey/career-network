@@ -1,4 +1,4 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   card: {
     height: '100%',
     display: 'flex',
@@ -20,10 +20,10 @@ const styles = theme => ({
   cardContent: {
     flexGrow: 1,
   },
-});
+}));
 
 function WhyItem(props) {
-  const { classes } = props;
+  const classes = useStyles();
 
   return (
     <Card className={classes.card}>
@@ -50,4 +50,4 @@ WhyItem.propTypes = {
   imgPath: PropTypes.string.isRequired,
 };
 
-export default withStyles(styles)(WhyItem);
+export default WhyItem;

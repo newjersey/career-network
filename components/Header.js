@@ -1,13 +1,12 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import AppBar from '@material-ui/core/AppBar';
-import PropTypes from 'prop-types';
 import React from 'react';
 import Toolbar from '@material-ui/core/Toolbar';
 
 import Nav from './header/Nav'
 import User from './header/User';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
   },
   navBar: {
@@ -16,10 +15,10 @@ const styles = theme => ({
   userBar: {
     backgroundColor: theme.palette.primary.main
   }
-});
+}));
 
-function Header(props) {
-  const { classes } = props;
+function Header() {
+  const classes = useStyles();
 
   return (
     <header className={classes.root}>
@@ -35,8 +34,4 @@ function Header(props) {
   );
 }
 
-Header.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Header);
+export default Header;

@@ -1,10 +1,10 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import CircumstancePicker from './CircumstancePicker'
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
@@ -20,8 +20,8 @@ const styles = theme => ({
     },
   },
   title: {
-    marginTop: theme.spacing.unit * 1,
-    marginBottom: theme.spacing.unit * 3,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(3),
     [theme.breakpoints.down(350)]: {
       fontSize: '1.8rem',
     },
@@ -33,12 +33,12 @@ const styles = theme => ({
     color: theme.palette.primary.main,
   },
   picker: {
-    marginBottom: theme.spacing.unit * 10,
+    marginBottom: theme.spacing(10),
   },
-});
+}));
 
-function Hero(props) {
-  const { classes } = props;
+function Hero() {
+  const classes = useStyles();
 
   return (
     <div className={classes.root}>
@@ -53,4 +53,4 @@ function Hero(props) {
   );
 }
 
-export default withStyles(styles)(Hero);
+export default Hero;

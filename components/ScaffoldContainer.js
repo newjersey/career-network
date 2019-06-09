@@ -1,21 +1,21 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   padding: {
-    paddingLeft: theme.spacing.unit * 2,
-    paddingRight: theme.spacing.unit * 2,
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {
-      paddingLeft: theme.spacing.unit * 3,
-      paddingRight: theme.spacing.unit * 3,
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3),
     },
   },
-});
+}));
 
 function ScaffoldContainer(props) {
-  const { classes } = props;
+  const classes = useStyles();
 
   return (
     <Grid container justify="center" alignItems="center">
@@ -38,4 +38,4 @@ ScaffoldContainer.defaultProps = {
   padding: true,
 };
 
-export default withStyles(styles)(ScaffoldContainer);
+export default ScaffoldContainer;

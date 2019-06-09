@@ -1,4 +1,4 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import Menu from '@material-ui/core/Menu';
@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 
 import { withFirebase } from '../Firebase';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   name: {
     color: 'inherit',
     cursor: 'pointer',
@@ -19,10 +19,11 @@ const styles = theme => ({
   avatar: {
     cursor: 'pointer',
   },
-});
+}));
 
 function UserButton(props) {
-  const { classes, displayName, firebase, photoURL } = props;
+  const { displayName, firebase, photoURL } = props;
+  const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClickUser = e => {
@@ -78,4 +79,4 @@ UserButton.propTypes = {
   photoURL: PropTypes.string,
 };
 
-export default withFirebase(withStyles(styles)(UserButton));
+export default withFirebase(UserButton);

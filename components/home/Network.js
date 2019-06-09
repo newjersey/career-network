@@ -1,4 +1,4 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
@@ -57,30 +57,30 @@ const items = [
   },
 ];
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    paddingTop: theme.spacing.unit * 3,
+    paddingTop: theme.spacing(3),
     [theme.breakpoints.up('sm')]: {
-      paddingTop: theme.spacing.unit * 4,
+      paddingTop: theme.spacing(4),
     },
   },
   gridItem: {
     '&$withSpecificity': {
       [theme.breakpoints.down('sm')]: {
-        paddingTop: theme.spacing.unit * 2,
-        paddingBottom: theme.spacing.unit * 2,
+        paddingTop: theme.spacing(2),
+        paddingBottom: theme.spacing(2),
       },
       [theme.breakpoints.down('xs')]: {
-        paddingTop: theme.spacing.unit * 1.25,
-        paddingBottom: theme.spacing.unit * 1.25,
+        paddingTop: theme.spacing(1.25),
+        paddingBottom: theme.spacing(1.25),
       },
     }
   },
   withSpecificity: { /* NOOP */ },
-});
+}));
 
-function Network(props) {
-  const { classes } = props;
+function Network() {
+  const classes = useStyles();
   const gridItemClassName = clsx(classes.gridItem, classes.withSpecificity);
 
   return (
@@ -94,7 +94,7 @@ function Network(props) {
         relationships online and in-person.
       </SectionContent>
 
-      <Grid container spacing={32} >
+      <Grid container spacing={4} >
         {items.map((item, i) => (
           <Grid item key={i} xs={12} sm={6} md={4} className={gridItemClassName}>
             <NetworkItem {...item} />
@@ -105,4 +105,4 @@ function Network(props) {
   );
 }
 
-export default withStyles(styles)(Network);
+export default Network;

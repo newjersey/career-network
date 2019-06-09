@@ -1,18 +1,19 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import MaterialSnackbar from '@material-ui/core/Snackbar';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   close: {
-    padding: theme.spacing.unit / 2,
+    padding: theme.spacing(0.5),
   },
-});
+}));
 
 function Snackbar(props) {
-  const { classes, message, onClose } = props;
+  const { message, onClose } = props;
+  const classes = useStyles();
   const [isOpen, setIsOpen] = useState(true);
 
   const handleClose = (event, reason) => {
@@ -54,9 +55,8 @@ function Snackbar(props) {
 }
 
 Snackbar.propTypes = {
-  classes: PropTypes.object.isRequired,
   message: PropTypes.string.isRequired,
   onClose: PropTypes.func,
 };
 
-export default withStyles(styles)(Snackbar);
+export default Snackbar;
