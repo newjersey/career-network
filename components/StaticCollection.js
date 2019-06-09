@@ -1,9 +1,5 @@
 import { withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -37,30 +33,28 @@ const styles = theme => ({
   },
 });
 
-class StaticCollection extends React.Component {
-  render() {
-    const { classes, categories } = this.props;
+function StaticCollection(props) {
+  const { classes, categories } = props;
 
-    return (
-      <div className={classes.root}>
-        {categories.map(category =>
-          <React.Fragment key={category.id}>
-            <Typography variant="h4" component="h2" className={classes.category}>{category.fields.Name}</Typography>
-            <Typography variant="body1" gutterBottom className={classes.description}>
-              {category.fields.Description}
-            </Typography>
-            <Grid container spacing={24}>
-              {category.items.map(item =>
-                <Grid key={item.fields.Name} item xs={12} sm={6} md={4} className={clsx(classes.gridItem, classes.withSpecificity)}>
-                  <StaticCollectionItem item={item} />
-                </Grid>
-              )}
-            </Grid>
-          </React.Fragment>
-        )}
-      </div>
-    );
-  }
+  return (
+    <div className={classes.root}>
+      {categories.map(category =>
+        <React.Fragment key={category.id}>
+          <Typography variant="h4" component="h2" className={classes.category}>{category.fields.Name}</Typography>
+          <Typography variant="body1" gutterBottom className={classes.description}>
+            {category.fields.Description}
+          </Typography>
+          <Grid container spacing={24}>
+            {category.items.map(item =>
+              <Grid key={item.fields.Name} item xs={12} sm={6} md={4} className={clsx(classes.gridItem, classes.withSpecificity)}>
+                <StaticCollectionItem item={item} />
+              </Grid>
+            )}
+          </Grid>
+        </React.Fragment>
+      )}
+    </div>
+  );
 }
 
 StaticCollection.propTypes = {

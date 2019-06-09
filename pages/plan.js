@@ -12,18 +12,16 @@ const styles = theme => ({
   },
 });
 
-class Plan extends React.Component {
-  render() {
-    const { classes } = this.props;
+function Plan(props) {
+  const { classes } = props;
 
-    return (
-      <div className={classes.root}>
-        <ScaffoldContainer>
-          <Typography variant="h1">Build your plan.</Typography>
-        </ScaffoldContainer>
-      </div>
-    );
-  }
+  return (
+    <div className={classes.root}>
+      <ScaffoldContainer>
+        <Typography variant="h1">Build your plan.</Typography>
+      </ScaffoldContainer>
+    </div>
+  );
 }
 
 Plan.propTypes = {

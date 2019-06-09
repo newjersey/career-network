@@ -11,18 +11,16 @@ const styles = theme => ({
   },
 });
 
-class TOS extends React.Component {
-  render() {
-    const { classes } = this.props;
+function TOS(props) {
+  const { classes } = props;
 
-    return (
-      <div className={classes.root}>
-        <ScaffoldContainer>
-          <Typography variant="h3" component="h1">Terms of Service</Typography>
-        </ScaffoldContainer>
-      </div>
-    );
-  }
+  return (
+    <div className={classes.root}>
+      <ScaffoldContainer>
+        <Typography variant="h3" component="h1">Terms of Service</Typography>
+      </ScaffoldContainer>
+    </div>
+  );
 }
 
 TOS.propTypes = {

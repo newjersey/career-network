@@ -1,7 +1,7 @@
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { withFirebase } from '../Firebase';
 import ScaffoldContainer from '../ScaffoldContainer';
@@ -10,54 +10,53 @@ import SignInButton from './SignInButton';
 import Snackbar from './Snackbar';
 import UserButton from './UserButton';
 
-class User extends React.Component {
-  state = {
-    authStateChangeCount: 0,
-    snackbarMessage: null,
-    user: null,
-  };
+function User(props) {
+  const { firebase } = props;
+  const [snackbarMessage, setSnackbarMessage] = useState(null);
+  const [user, setUser] = useState(null);
+  const cleanupRef = useRef();
+  const authStateChangedOnceRef = useRef();
 
-  async componentDidMount() {
-    this.firebaseUnsubscribe = await this.props.firebase.onAuthStateChanged(user => {
-      this.setState(state => ({
-        authStateChangeCount: state.authStateChangeCount + 1,
-        snackbarMessage: state.authStateChangeCount ? (user ? 'Welcome back!' : 'You have signed out.') : state.snackbarMessage,
-        user
-      }));
-    });
-  }
+  useEffect(() => {
+    (async () => {
+      // https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables
+      cleanupRef.current = await firebase.onAuthStateChanged((fbUser) => {
+        if (authStateChangedOnceRef.current) {
+          setSnackbarMessage(fbUser ? 'Welcome back!' : 'You have signed out.');
+        } else {
+          authStateChangedOnceRef.current = true;
+        }
 
-  componentWillUnmount() {
-    this.firebaseUnsubscribe && this.firebaseUnsubscribe();
-  }
+        setUser(fbUser);
+      });
+    })();
 
-  handleSnackbarClose = () => this.setState({ snackbarMessage: null });
+    return () => cleanupRef.current();
+  }, []);
 
-  render() {
-    const { snackbarMessage, user } = this.state;
+  const handleSnackbarClose = () => setSnackbarMessage(null);
 
-    return (
-      <ScaffoldContainer padding={false}>
-        <React.Fragment>
-          <Grid container justify="space-between" alignItems="center">
-            <Grid item>
-              <Search />
-            </Grid>
-            <Hidden xsDown implementation="css">
-              <Grid item>
-                {user
-                  ? <UserButton displayName={user.displayName} photoURL={user.photoURL} />
-                  : <SignInButton />
-                }
-              </Grid>
-            </Hidden>
+  return (
+    <ScaffoldContainer padding={false}>
+      <React.Fragment>
+        <Grid container justify="space-between" alignItems="center">
+          <Grid item>
+            <Search />
           </Grid>
+          <Hidden xsDown implementation="css">
+            <Grid item>
+              {user
+                ? <UserButton displayName={user.displayName} photoURL={user.photoURL} />
+                : <SignInButton />
+              }
+            </Grid>
+          </Hidden>
+        </Grid>
 
-          {snackbarMessage && <Snackbar message={snackbarMessage} onClose={this.handleSnackbarClose} />}
-        </React.Fragment>
-      </ScaffoldContainer>
-    );
-  }
+        {snackbarMessage && <Snackbar message={snackbarMessage} onClose={handleSnackbarClose} />}
+      </React.Fragment>
+    </ScaffoldContainer>
+  );
 }
 
 User.propTypes = {

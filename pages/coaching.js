@@ -12,18 +12,16 @@ const styles = theme => ({
   },
 });
 
-class Coaching extends React.Component {
-  render() {
-    const { classes } = this.props;
+function Coaching(props) {
+  const { classes } = props;
 
-    return (
-      <div className={classes.root}>
-        <ScaffoldContainer>
-          <Typography variant="h1">Career coaching.</Typography>
-        </ScaffoldContainer>
-      </div>
-    );
-  }
+  return (
+    <div className={classes.root}>
+      <ScaffoldContainer>
+        <Typography variant="h1">Career coaching.</Typography>
+      </ScaffoldContainer>
+    </div>
+  );
 }
 
 Coaching.propTypes = {

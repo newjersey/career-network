@@ -2,7 +2,7 @@ import { withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import fetch from 'unfetch';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import ScaffoldContainer from '../components/ScaffoldContainer';
@@ -19,54 +19,49 @@ const styles = theme => ({
   },
 });
 
-class Tools extends React.Component {
-  constructor() {
-    super();
-    this.state = { categories: [] };
-  }
+function Tools(props) {
+  const { classes } = props;
+  const [categories, setCategories] = useState([]);
 
-  async componentDidMount() {
-    const categoryResult = await fetch('https://careers.gardenstate.tech/api/airtable/v0/appPhpA6Quf0pCBDm/Resource%20Categories?view=API%20Toolkit%20Page');
-    const categoryJson = await categoryResult.json();
-    const categories = categoryJson.records.filter(c => c.fields['Resources']);
+  useEffect(() => {
+    (async () => {
+      const categoryResult = await fetch('https://careers.gardenstate.tech/api/airtable/v0/appPhpA6Quf0pCBDm/Resource%20Categories?view=API%20Toolkit%20Page');
+      const categoryJson = await categoryResult.json();
+      const categoryRecords = categoryJson.records.filter(c => c.fields.Resources);
 
-    const itemResult = await fetch('https://careers.gardenstate.tech/api/airtable/v0/appPhpA6Quf0pCBDm/Resources?view=API%20Toolkit%20Page');
-    const itemJson = await itemResult.json();
-    const items = itemJson.records;
+      const itemResult = await fetch('https://careers.gardenstate.tech/api/airtable/v0/appPhpA6Quf0pCBDm/Resources?view=API%20Toolkit%20Page');
+      const itemJson = await itemResult.json();
+      const items = itemJson.records;
 
-    categories.forEach(category => {
-      category.items = category.fields['Resources']
-        .map(itemId => items.find(item => item.id === itemId))
-        .filter(item => item);
-    });
+      categoryRecords.forEach((category) => {
+        // eslint-disable-next-line no-param-reassign
+        category.items = category.fields.Resources
+          .map(itemId => items.find(item => item.id === itemId))
+          .filter(item => item);
+      });
 
-    this.setState({
-      categories: categories.filter(category => category.items.length),
-    });
-  }
+      setCategories(categoryRecords.filter(category => category.items.length));
+    })();
+  }, []);
 
-  render() {
-    const { classes } = this.props;
-    const { categories } = this.state;
-
-    return (
-      <div className={classes.root}>
-        <ScaffoldContainer>
-          <Typography variant="h3" component="h1">Job Search Toolkit</Typography>
-          <Typography variant="subtitle1">
-            Multiple resources to make your job search more effective
-          </Typography>
-          {categories.length ? null :
-            <CircularProgress className={classes.progress} color="secondary" />
-          }
-          <StaticCollection categories={categories} />
-        </ScaffoldContainer>
-      </div>
-    );
-  }
+  return (
+    <div className={classes.root}>
+      <ScaffoldContainer>
+        <Typography variant="h3" component="h1">Job Search Toolkit</Typography>
+        <Typography variant="subtitle1">
+          Multiple resources to make your job search more effective
+        </Typography>
+        {categories.length
+          ? <StaticCollection categories={categories} />
+          : <CircularProgress className={classes.progress} color="secondary" />
+        }
+      </ScaffoldContainer>
+    </div>
+  );
 }
 
 Tools.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   classes: PropTypes.object.isRequired,
 };
 

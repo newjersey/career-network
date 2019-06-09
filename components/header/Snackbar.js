@@ -3,7 +3,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import MaterialSnackbar from '@material-ui/core/Snackbar';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 
 const styles = theme => ({
   close: {
@@ -11,51 +11,46 @@ const styles = theme => ({
   },
 });
 
-class Snackbar extends React.Component {
-  state = {
-    isOpen: true,
-  };
+function Snackbar(props) {
+  const { classes, message, onClose } = props;
+  const [isOpen, setIsOpen] = useState(true);
 
-  handleClose = (event, reason) => {
+  const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
 
-    this.setState({ isOpen: false });
+    setIsOpen(false);
 
-    this.props.onClose && this.props.onClose();
+    onClose && onClose();
   };
 
-  render() {
-    const { classes, message } = this.props;
-
-    return (
-      <MaterialSnackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        open={this.state.isOpen}
-        autoHideDuration={6000}
-        onClose={this.handleClose}
-        ContentProps={{
-          'aria-describedby': 'message-id',
-        }}
-        message={<span id="message-id">{message}</span>}
-        action={[
-          <IconButton
-            key="close"
-            aria-label="Close"
-            color="inherit"
-            className={classes.close}
-            onClick={this.handleClose}
-          >
-            <CloseIcon />
-          </IconButton>,
-        ]}
-      />
-    );
-  }
+  return (
+    <MaterialSnackbar
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'left',
+      }}
+      open={isOpen}
+      autoHideDuration={6000}
+      onClose={handleClose}
+      ContentProps={{
+        'aria-describedby': 'message-id',
+      }}
+      message={<span id="message-id">{message}</span>}
+      action={[
+        <IconButton
+          key="close"
+          aria-label="Close"
+          color="inherit"
+          className={classes.close}
+          onClick={handleClose}
+        >
+          <CloseIcon />
+        </IconButton>,
+      ]}
+    />
+  );
 }
 
 Snackbar.propTypes = {

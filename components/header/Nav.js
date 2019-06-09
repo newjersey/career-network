@@ -19,7 +19,7 @@ import NextLink from 'next/link';
 import PeopleIcon from '@material-ui/icons/People';
 import PersonIcon from '@material-ui/icons/Person';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import SettingsIcon from '@material-ui/icons/Settings';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import Typography from '@material-ui/core/Typography';
@@ -122,107 +122,99 @@ const styles = theme => ({
   },
 });
 
-class Nav extends React.Component {
-  state = {
-    isDrawerOpen: false,
-  };
+function Nav(props) {
+  const { classes } = props;
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  toggleDrawer = (open) => () => {
-    this.setState({
-      isDrawerOpen: open,
-    });
-  };
+  const openDrawer = () => setIsDrawerOpen(true);
+  const closeDrawer = () => setIsDrawerOpen(false);
 
-  render() {
-    const { classes } = this.props;
+  return (
+    <React.Fragment>
+      <Drawer anchor="right" open={isDrawerOpen} onClose={closeDrawer}>
+        <div
+          tabIndex={0}
+          role="button"
+          onClick={closeDrawer}
+          onKeyDown={closeDrawer}
+        >
+          <div className={classes.drawerList}>
 
-    return (
-      <React.Fragment>
-        <Drawer anchor="right" open={this.state.isDrawerOpen} onClose={this.toggleDrawer(false)}>
-          <div
-            tabIndex={0}
-            role="button"
-            onClick={this.toggleDrawer(false)}
-            onKeyDown={this.toggleDrawer(false)}
-          >
-            <div className={classes.drawerList}>
-
-              <Hidden smUp implementation="css">
-                <List>
-                  <ListItem button>
-                    <ListItemIcon><PersonIcon /></ListItemIcon>
-                    <ListItemText primary="Jack Jacobs" secondary="jackjacobs@gmail.com" />
-                  </ListItem>
-                  <ListItem button>
-                    <ListItemIcon><SettingsIcon /></ListItemIcon>
-                    <ListItemText primary="My account" />
-                  </ListItem>
-                  <ListItem button>
-                    <ListItemIcon><ExitToAppIcon /></ListItemIcon>
-                    <ListItemText primary="Sign out" />
-                  </ListItem>
-                </List>
-                <Divider />
-              </Hidden>
+            <Hidden smUp implementation="css">
               <List>
-                {pages.map(page => (
-                  <NextLink href={page.href} key={page.href}>
-                    <ListItem button>
-                      <ListItemIcon>{page.icon}</ListItemIcon>
-                      <ListItemText primary={page.shortName} />
-                    </ListItem>
-                  </NextLink>
-                ))}
+                <ListItem button>
+                  <ListItemIcon><PersonIcon /></ListItemIcon>
+                  <ListItemText primary="Jack Jacobs" secondary="jackjacobs@gmail.com" />
+                </ListItem>
+                <ListItem button>
+                  <ListItemIcon><SettingsIcon /></ListItemIcon>
+                  <ListItemText primary="My account" />
+                </ListItem>
+                <ListItem button>
+                  <ListItemIcon><ExitToAppIcon /></ListItemIcon>
+                  <ListItemText primary="Sign out" />
+                </ListItem>
               </List>
-            </div>
+              <Divider />
+            </Hidden>
+            <List>
+              {pages.map(page => (
+                <NextLink href={page.href} key={page.href}>
+                  <ListItem button>
+                    <ListItemIcon>{page.icon}</ListItemIcon>
+                    <ListItemText primary={page.shortName} />
+                  </ListItem>
+                </NextLink>
+              ))}
+            </List>
           </div>
-        </Drawer>
+        </div>
+      </Drawer>
 
-        <ScaffoldContainer padding={false}>
-          <Grid container justify="space-between" alignItems="center" className={classes.container}>
-            <NextLink href='/'>
-              <Grid item>
-                <Grid container alignItems="center">
-                  <Hidden xsDown implementation="css">
-                    <Grid item>
-                      <Picture path="nj.webp" fallbackType="png" alt="New Jersey Logo" className={classes.logo} />
-                    </Grid>
-                  </Hidden>
-                  <Grid item className={classes.titleContainer}>
-                    <Typography variant="h1" color="primary" className={classes.title}>Career Network</Typography>
+      <ScaffoldContainer padding={false}>
+        <Grid container justify="space-between" alignItems="center" className={classes.container}>
+          <NextLink href='/'>
+            <Grid item>
+              <Grid container alignItems="center">
+                <Hidden xsDown implementation="css">
+                  <Grid item>
+                    <Picture path="nj.webp" fallbackType="png" alt="New Jersey Logo" className={classes.logo} />
                   </Grid>
+                </Hidden>
+                <Grid item className={classes.titleContainer}>
+                  <Typography variant="h1" color="primary" className={classes.title}>Career Network</Typography>
                 </Grid>
               </Grid>
-            </NextLink>
-            <Grid item style={{ flex: 1 }}>
-              <Hidden mdUp implementation="css">
-                <div style={{ textAlign: 'right' }}>
-                  <IconButton onClick={this.toggleDrawer(true)} aria-label="Menu">
-                    <MenuIcon />
-                  </IconButton>
-                </div>
-              </Hidden>
-              <Hidden smDown implementation="css">
-                <nav>
-                  <ul className={classes.list}>
-                    {pages.map(page => (
-                      <li key={page.href} className={classes.listItem}>
-                        <Typography className={classes.listItemTypography}>
-                          <NextLink href={page.href}>
-                            <Link className={classes.link} underline="none">{page.name}</Link>
-                          </NextLink>
-                        </Typography>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
-              </Hidden>
             </Grid>
+          </NextLink>
+          <Grid item style={{ flex: 1 }}>
+            <Hidden mdUp implementation="css">
+              <div style={{ textAlign: 'right' }}>
+                <IconButton onClick={openDrawer} aria-label="Menu">
+                  <MenuIcon />
+                </IconButton>
+              </div>
+            </Hidden>
+            <Hidden smDown implementation="css">
+              <nav>
+                <ul className={classes.list}>
+                  {pages.map(page => (
+                    <li key={page.href} className={classes.listItem}>
+                      <Typography className={classes.listItemTypography}>
+                        <NextLink href={page.href}>
+                          <Link className={classes.link} underline="none">{page.name}</Link>
+                        </NextLink>
+                      </Typography>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </Hidden>
           </Grid>
-        </ScaffoldContainer>
-      </React.Fragment>
-    );
-  }
+        </Grid>
+      </ScaffoldContainer>
+    </React.Fragment>
+  );
 }
 
 Nav.propTypes = {

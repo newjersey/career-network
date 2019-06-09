@@ -2,28 +2,26 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 const basePath = '/static/img/';
+const mimeTypeMap = {
+  png: 'image/png',
+  jpg: 'image/jpeg',
+};
 
-class Picture extends React.Component {
-  render() {
-    const { path, fallbackType, ...restProps } = this.props;
-    const src = basePath + path;
-    const fallbackSrc = basePath + path.replace(/webp$/, fallbackType);
+function Picture(props) {
+  const { path, fallbackType, ...restProps } = props;
+  const src = basePath + path;
+  const fallbackSrc = basePath + path.replace(/webp$/, fallbackType);
 
-    if (fallbackType == 'jpg') {
-      fallbackType = 'jpeg';
-    }
-
-    return (
-      path.endsWith('.webp') ?
-        <picture>
-          <source type="image/webp" srcSet={src} />
-          <source type={`image/${fallbackType}`} srcSet={fallbackSrc} />
-          <img src={fallbackSrc} {...restProps} />
-        </picture>
-        :
-        <img src={src} {...restProps} />
-    );
-  }
+  return (
+    path.endsWith('.webp') ?
+      <picture>
+        <source type="image/webp" srcSet={src} />
+        <source type={mimeTypeMap[fallbackType]} srcSet={fallbackSrc} />
+        <img src={fallbackSrc} {...restProps} />
+      </picture>
+      :
+      <img src={src} {...restProps} />
+  );
 }
 
 Picture.propTypes = {

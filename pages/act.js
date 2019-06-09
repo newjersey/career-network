@@ -12,18 +12,16 @@ const styles = theme => ({
   },
 });
 
-class Act extends React.Component {
-  render() {
-    const { classes } = this.props;
+function Act(props) {
+  const { classes } = props;
 
-    return (
-      <div className={classes.root}>
-        <ScaffoldContainer>
-          <Typography variant="h1">Act on your plan.</Typography>
-        </ScaffoldContainer>
-      </div>
-    );
-  }
+  return (
+    <div className={classes.root}>
+      <ScaffoldContainer>
+        <Typography variant="h1">Act on your plan.</Typography>
+      </ScaffoldContainer>
+    </div>
+  );
 }
 
 Act.propTypes = {

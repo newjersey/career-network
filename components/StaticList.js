@@ -9,31 +9,29 @@ const styles = theme => ({
   },
 });
 
-class StaticList extends React.Component {
-  render() {
-    const { classes, children, title, nesting } = this.props;
-    const titleProps = {
-      variant: `h${nesting + 4}`,
-      component: `h${nesting + 2}`,
-    };
+function StaticList(props) {
+  const { classes, children, title, nesting } = props;
+  const titleProps = {
+    variant: `h${nesting + 4}`,
+    component: `h${nesting + 2}`,
+  };
 
-    return (
-      <div className={classes.root}>
-        <Typography {...titleProps}>{title}</Typography>
-        {children &&
-          <ul>
-            {children.map((node, i) =>
-              <li key={i}>
-                <Typography>
-                  {node}
-                </Typography>
-              </li>
-            )}
-          </ul>
-        }
-      </div>
-    );
-  }
+  return (
+    <div className={classes.root}>
+      <Typography {...titleProps}>{title}</Typography>
+      {children &&
+        <ul>
+          {children.map((node, i) =>
+            <li key={i}>
+              <Typography>
+                {node}
+              </Typography>
+            </li>
+          )}
+        </ul>
+      }
+    </div>
+  );
 }
 
 StaticList.propTypes = {

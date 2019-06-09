@@ -5,9 +5,8 @@ import FormatQuote from '@material-ui/icons/FormatQuote';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import MobileStepper from '@material-ui/core/MobileStepper';
-import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import Typography from '@material-ui/core/Typography';
 
@@ -63,73 +62,55 @@ const styles = theme => ({
   },
 });
 
-class StoryStepper extends React.Component {
-  state = {
-    activeStep: 0,
-  };
+function StoryStepper(props) {
+  const { classes, theme } = props;
+  const [activeStep, setActiveStep] = useState(0);
+  const maxSteps = steps.length;
 
-  handleNext = () => {
-    this.setState(prevState => ({
-      activeStep: prevState.activeStep + 1,
-    }));
-  };
+  const handleNext = () => setActiveStep(activeStep + 1);
+  const handleBack = () => setActiveStep(activeStep - 1);
+  const handleStepChange = step => setActiveStep(step);
 
-  handleBack = () => {
-    this.setState(prevState => ({
-      activeStep: prevState.activeStep - 1,
-    }));
-  };
-
-  handleStepChange = activeStep => {
-    this.setState({ activeStep });
-  };
-
-  render() {
-    const { classes, theme } = this.props;
-    const { activeStep } = this.state;
-    const maxSteps = steps.length;
-
-    return (
-      <div className={classes.root}>
-        <AutoPlaySwipeableViews
-          axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-          index={activeStep}
-          onChangeIndex={this.handleStepChange}
-          enableMouseEvents
-          interval={5000}
-        >
-          {steps.map((step, i) => (
-            <div key={i}>
-              {Math.abs(activeStep - i) <= 1 ? (
-                <article className={classes.story}>
-                  <FormatQuote color="primary" className={classes.quoteIcon} />
-                  <Typography variant="subtitle1">{step.quotation}</Typography>
-                  <br />
-                  <Typography variant="overline">—{step.author}</Typography>
-                </article>
-              ) : null}
-            </div>
-          ))}
-        </AutoPlaySwipeableViews>
-        <MobileStepper
-          steps={maxSteps}
-          position="static"
-          activeStep={activeStep}
-          className={classes.mobileStepper}
-          nextButton={
-            <Button onClick={this.handleNext} disabled={activeStep === maxSteps - 1} aria-label="Next quotation">
-              {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-            </Button>
-          }
-          backButton={
-            <Button onClick={this.handleBack} disabled={activeStep === 0} aria-label="Previous quotation">
-              {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-            </Button>
-          }
-        />
-      </div>
-    );
-  }
+  return (
+    <div className={classes.root}>
+      <AutoPlaySwipeableViews
+        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+        index={activeStep}
+        onChangeIndex={handleStepChange}
+        enableMouseEvents
+        interval={5000}
+      >
+        {steps.map((step, i) => (
+          <div key={i}>
+            {Math.abs(activeStep - i) <= 1 ? (
+              <article className={classes.story}>
+                <FormatQuote color="primary" className={classes.quoteIcon} />
+                <Typography variant="subtitle1">{step.quotation}</Typography>
+                <br />
+                <Typography variant="overline">—{step.author}</Typography>
+              </article>
+            ) : null}
+          </div>
+        ))}
+      </AutoPlaySwipeableViews>
+      <MobileStepper
+        steps={maxSteps}
+        position="static"
+        activeStep={activeStep}
+        className={classes.mobileStepper}
+        nextButton={
+          <Button onClick={handleNext} disabled={activeStep === maxSteps - 1} aria-label="Next quotation">
+            {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+          </Button>
+        }
+        backButton={
+          <Button onClick={handleBack} disabled={activeStep === 0} aria-label="Previous quotation">
+            {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+          </Button>
+        }
+      />
+    </div>
+  );
 }
 
 StoryStepper.propTypes = {
