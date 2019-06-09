@@ -29,7 +29,7 @@ const contentItems = [
   },
   {
     title: 'Stay on track',
-    body: 'Get reminders when you set goals sent to your phone, email, or sync them with your calander, designed to help you suceed.',
+    body: 'Get reminders when you set goals sent to your phone, email, or sync them with your calandar, designed to help you succeed.',
     imgPath: '/static/img/index/buddies.svg',
   },
 ];
