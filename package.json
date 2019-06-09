@@ -29,7 +29,7 @@
   "scripts": {
     "dev": "next",
     "lint": "eslint components pages src",
-    "build": "next build",
+    "build": "npm run lint && next build",
     "clean": "rm -rf .next/ out/",
     "export": "npm run clean && npm run build && next export -o out && touch out/.nojekyll && cp CNAME out/",
     "preview": "npm run export && cd out && serve",
