@@ -98,8 +98,8 @@ function Footer() {
     <footer className={classes.root}>
       <ScaffoldContainer>
         <Grid container spacing={spacing} alignItems="center" direction="row-reverse">
-          <Grid item xs={12} sm>{mobileCentered(social, 'flex-end')}</Grid>
-          <Grid item xs={12} sm>{mobileCentered(copyright, 'flex-start')}</Grid>
+          <Grid item xs={12} sm={4}>{mobileCentered(social, 'flex-end')}</Grid>
+          <Grid item xs={12} sm={8}>{mobileCentered(copyright, 'flex-start')}</Grid>
         </Grid>
       </ScaffoldContainer>
     </footer>
