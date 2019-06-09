@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   },
   center: {
     textAlign: 'center',
-  }
+  },
 }));
 
 function Resources() {

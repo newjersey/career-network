@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/styles';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import CircumstancePicker from './CircumstancePicker'
+import CircumstancePicker from './CircumstancePicker';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -43,10 +43,16 @@ function Hero() {
   return (
     <div className={classes.root}>
       <Typography variant="h6" component="h3">
-        You're not alone
-        </Typography>
+        You’re not alone
+      </Typography>
       <Typography variant="h4" component="h1" className={classes.title}>
-        It takes a <span className={classes.highlight}>network</span> to find the right <span className={classes.highlight}>career</span>
+        It takes a
+        {' '}
+        <span className={classes.highlight}>network</span>
+        {' '}
+        to find the right
+        {' '}
+        <span className={classes.highlight}>career</span>
       </Typography>
       <CircumstancePicker className={classes.picker} />
     </div>

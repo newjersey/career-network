@@ -3,7 +3,7 @@ import Hidden from '@material-ui/core/Hidden';
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
 
-import { withFirebase } from '../Firebase';
+import Firebase, { withFirebase } from '../Firebase';
 import ScaffoldContainer from '../ScaffoldContainer';
 import Search from './Search';
 import SignInButton from './SignInButton';
@@ -12,6 +12,7 @@ import UserButton from './UserButton';
 
 function User(props) {
   const { firebase } = props;
+  const { onAuthStateChanged } = firebase;
   const [snackbarMessage, setSnackbarMessage] = useState(null);
   const [user, setUser] = useState(null);
   const cleanupRef = useRef();
@@ -20,7 +21,7 @@ function User(props) {
   useEffect(() => {
     (async () => {
       // https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables
-      cleanupRef.current = await firebase.onAuthStateChanged((fbUser) => {
+      cleanupRef.current = await onAuthStateChanged((fbUser) => {
         if (authStateChangedOnceRef.current) {
           setSnackbarMessage(fbUser ? 'Welcome back!' : 'You have signed out.');
         } else {
@@ -31,8 +32,12 @@ function User(props) {
       });
     })();
 
-    return () => cleanupRef.current();
-  }, []);
+    return () => {
+      if (typeof cleanupRef.current === 'function') {
+        cleanupRef.current();
+      }
+    };
+  }, [onAuthStateChanged]);
 
   const handleSnackbarClose = () => setSnackbarMessage(null);
 
@@ -60,7 +65,7 @@ function User(props) {
 }
 
 User.propTypes = {
-  firebase: PropTypes.object.isRequired,
+  firebase: PropTypes.instanceOf(Firebase).isRequired,
 };
 
 export default withFirebase(User);

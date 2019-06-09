@@ -13,7 +13,7 @@ const items = [
     listItems: [
       'Mix and Mingle',
       'Technology',
-    ]
+    ],
   },
   {
     title: 'Trenton',
@@ -21,7 +21,7 @@ const items = [
     listItems: [
       'Convention',
       'Retail',
-    ]
+    ],
   },
   {
     title: 'Hoboken',
@@ -29,7 +29,7 @@ const items = [
     listItems: [
       'Meetup',
       'Accounting Life Sciences',
-    ]
+    ],
   },
   {
     title: 'New Brunswick',
@@ -37,7 +37,7 @@ const items = [
     listItems: [
       'Portfolio Review',
       'Consulting',
-    ]
+    ],
   },
   {
     title: 'Newark',
@@ -45,7 +45,7 @@ const items = [
     listItems: [
       'Meetup',
       'Health Care',
-    ]
+    ],
   },
   {
     title: 'Princeton',
@@ -53,7 +53,7 @@ const items = [
     listItems: [
       'Webcast',
       'Design',
-    ]
+    ],
   },
 ];
 
@@ -74,7 +74,7 @@ const useStyles = makeStyles(theme => ({
         paddingTop: theme.spacing(1.25),
         paddingBottom: theme.spacing(1.25),
       },
-    }
+    },
   },
   withSpecificity: { /* NOOP */ },
 }));
@@ -94,9 +94,9 @@ function Network() {
         relationships online and in-person.
       </SectionContent>
 
-      <Grid container spacing={4} >
-        {items.map((item, i) => (
-          <Grid item key={i} xs={12} sm={6} md={4} className={gridItemClassName}>
+      <Grid container spacing={4}>
+        {items.map(item => (
+          <Grid item key={item.title} xs={12} sm={6} md={4} className={gridItemClassName}>
             <NetworkItem {...item} />
           </Grid>
         ))}

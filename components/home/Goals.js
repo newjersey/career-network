@@ -6,6 +6,7 @@ import React from 'react';
 import Oval from './Oval';
 import SectionContent from './SectionContent';
 
+// eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles(theme => ({
   center: {
     textAlign: 'center',
@@ -23,7 +24,7 @@ function Goals() {
         </Grid>
       </Hidden>
       <Hidden xsDown mdUp implementation="js">
-        <Grid item sm={1}></Grid>
+        <Grid item sm={1} />
       </Hidden>
       <Grid item xs={12} sm={7} md={3}>
         <SectionContent
@@ -45,7 +46,7 @@ function Goals() {
           <Oval style={{ margin: '140px 0' }} />
         </Grid>
       </Hidden>
-    </ Grid>
+    </Grid>
   );
 }
 

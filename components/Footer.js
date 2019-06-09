@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import ScaffoldContainer from './ScaffoldContainer';
 
 const color = '#fff';
-const hoverColor = '';
 const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: '#333',
@@ -28,14 +27,14 @@ const useStyles = makeStyles(theme => ({
     },
   },
   text: {
-    color
+    color,
   },
   mobileCentered: {
     [theme.breakpoints.down('xs')]: {
       marginLeft: 'auto',
       marginRight: 'auto',
     },
-  }
+  },
 }));
 
 function Footer() {
@@ -62,7 +61,7 @@ function Footer() {
 
   const svg = pathData => (
     <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className={classes.social}>
-      <path d={pathData}></path>
+      <path d={pathData} />
     </svg>
   );
 
@@ -80,7 +79,10 @@ function Footer() {
 
   const copyright = (
     <Typography className={classes.text}>
-      Copyright &copy; Garden State Career Network, {year > 2019 && '2019–'}{year}
+      Copyright &copy; Garden State Career Network,
+      {' '}
+      {year > 2019 && '2019–'}
+      {year}
     </Typography>
   );
 
@@ -96,8 +98,8 @@ function Footer() {
     <footer className={classes.root}>
       <ScaffoldContainer>
         <Grid container spacing={spacing} alignItems="center" direction="row-reverse">
-          <Grid item xs={12} sm>{mobileCentered(social, "flex-end")}</Grid>
-          <Grid item xs={12} sm>{mobileCentered(copyright, "flex-start")}</Grid>
+          <Grid item xs={12} sm>{mobileCentered(social, 'flex-end')}</Grid>
+          <Grid item xs={12} sm>{mobileCentered(copyright, 'flex-start')}</Grid>
         </Grid>
       </ScaffoldContainer>
     </footer>

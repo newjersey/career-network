@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
+// eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles(theme => ({
   card: {
     height: '100%',
@@ -24,22 +25,23 @@ const useStyles = makeStyles(theme => ({
 
 function NetworkItem(props) {
   const classes = useStyles();
+  const { imgPath, listItems, title } = props;
 
   return (
     <Card className={classes.card}>
       <CardActionArea>
         <CardMedia
           className={classes.cardMedia}
-          image={props.imgPath}
-          title={props.title}
+          image={imgPath}
+          title={title}
         />
         <CardContent className={classes.cardContent}>
           <Typography gutterBottom variant="h5" component="h3">
-            {props.title}
+            {title}
           </Typography>
           <Typography component="ul">
-            {props.listItems.map((text, i) => (
-              <li key={i}>{text}</li>
+            {listItems.map(text => (
+              <li key={text}>{text}</li>
             ))}
           </Typography>
         </CardContent>

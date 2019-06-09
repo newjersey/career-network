@@ -8,8 +8,9 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import { withFirebase } from '../Firebase';
+import Firebase, { withFirebase } from '../Firebase';
 
+// eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles(theme => ({
   name: {
     color: 'inherit',
@@ -26,7 +27,7 @@ function UserButton(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClickUser = e => {
+  const handleClickUser = (e) => {
     setAnchorEl(e.currentTarget);
   };
 
@@ -53,10 +54,14 @@ function UserButton(props) {
           </Typography>
         </Grid>
         <Grid item>
-          <Avatar src={photoURL} alt={displayName} className={classes.avatar}
+          <Avatar
+            src={photoURL}
+            alt={displayName}
+            className={classes.avatar}
             aria-owns={anchorEl ? 'simple-menu' : undefined}
             aria-haspopup="true"
-            onClick={handleClickUser}>
+            onClick={handleClickUser}
+          >
             <PersonIcon />
           </Avatar>
         </Grid>
@@ -74,9 +79,13 @@ function UserButton(props) {
 }
 
 UserButton.propTypes = {
-  firebase: PropTypes.object.isRequired,
+  firebase: PropTypes.instanceOf(Firebase).isRequired,
   displayName: PropTypes.string.isRequired,
   photoURL: PropTypes.string,
+};
+
+UserButton.defaultProps = {
+  photoURL: undefined,
 };
 
 export default withFirebase(UserButton);

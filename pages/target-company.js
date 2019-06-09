@@ -21,41 +21,87 @@ function Networking() {
         <Typography variant="h3" component="h1">Identifying/Researching Target Companies Resources:</Typography>
 
         <Typography variant="body1">
-          A major portion of your job search time should be spent on identifying and researching target companies and making connections to individuals within those companies. In this section, you will learn what to look for and how to find information so you can have a more targeted and effective job search plan.
-          </Typography>
+          A major portion of your job search time should be spent on identifying and researching
+          target companies and making connections to individuals within those companies. In this
+          section, you will learn what to look for and how to find information so you can have a
+          more targeted and effective job search plan.
+        </Typography>
         <Typography variant="body1">
           Identifying  target company will help guide your job search with direction and focus.
-          </Typography>
+        </Typography>
         <Typography variant="body1">
           Researching target company will effectively narrow your job search.
-          </Typography>
+        </Typography>
         <Typography variant="body1">
-          Reviewing the “Careers” section of target companies will help you effectively search for positions you are qualified for within the companies you are interested in
-          </Typography>
+          Reviewing the “Careers” section of target companies will help you effectively search for
+          positions you are qualified for within the companies you are interested in
+        </Typography>
         <Typography variant="body1">
-          Although it’s something many job seekers hate, identifying and researching target companies are two high-priority tasks that will make your job search more productive, more effective and yield better results.
-          </Typography>
+          Although it’s something many job seekers hate, identifying and researching target
+          companies are two high-priority tasks that will make your job search more productive,
+          more effective and yield better results.
+        </Typography>
 
 
         <StaticList title="The Basic Steps to Identifying/Researching Target Companies: ">
           <React.Fragment>
-            <strong>Make a list of target companies</strong> –
-              be strategic about the companies and the job opportunities you want to pursue. There are several ways you can begin to develop a list of companies you want to target in your job search, including using job postings, looking up companies on LinkedIn, and through conversations with people in your network. Every time you hear of a new company that might hire people with your background and experience, you should add them to your list so that you can do some further research.            </React.Fragment>
+            <strong>Make a list of target companies</strong>
+            {' '}
+            –
+            be strategic about the companies and the job opportunities you want to pursue.
+            There are several ways you can begin to develop a list of companies you want to
+            target in your job search, including using job postings, looking up companies on
+            LinkedIn, and through conversations with people in your network. Every time you hear
+            of a new company that might hire people with your background and experience, you
+            should add them to your list so that you can do some further research.
+          </React.Fragment>
           <React.Fragment>
-            <strong>Find  information on those target companies</strong> –
-              do your research. Start with the company website. You can also look up the company on LinkedIn and do a Google search to discover more information. As you gather information about your target companies, keep notes on what you discover, especially as the information may apply to how you can bring value to the company. Also pay attention to whether the company is aligned with your personal values, passions, etc.             </React.Fragment>
+            <strong>Find  information on those target companies</strong>
+            {' '}
+            –
+            do your research. Start with the company website. You can also look up the company
+            on LinkedIn and do a Google search to discover more information. As you gather
+            information about your target companies, keep notes on what you discover, especially
+            as the information may apply to how you can bring value to the company. Also pay
+            attention to whether the company is aligned with your personal values, passions, etc.
+          </React.Fragment>
           <React.Fragment>
-            <strong>Find job listings at those target companies that are suitable for you </strong> –
-              look for opportunities at your target companies that would fit your background and skills. </React.Fragment>
+            <strong>Find job listings at those target companies that are suitable for you</strong>
+            {' '}
+            –
+            look for opportunities at your target companies that would fit your background and
+            skills.
+          </React.Fragment>
           <React.Fragment>
-            <strong>Identify contacts at those target companies </strong> –
-              targeted job search and targeted networking is critical to job search. As you are researching companies that interest you, you also want to begin developing a list of contacts within those companies. Ideally, these are people you already know. But you will also want to identify hiring managers, other people in departments you might work with, etc.  LinkedIn is a great resource to find connections.  For each target company you’ve identified, continue to compile a list of contacts within that company.              </React.Fragment>
+            <strong>Identify contacts at those target companies</strong>
+            {' '}
+            –
+            targeted job search and targeted networking is critical to job search. As you are
+            researching companies that interest you, you also want to begin developing a list
+            of contacts within those companies. Ideally, these are people you already know.
+            But you will also want to identify hiring managers, other people in departments
+            you might work with, etc.  LinkedIn is a great resource to find connections.
+            For each target company you’ve identified, continue to compile a list of contacts
+            within that company.
+          </React.Fragment>
           <React.Fragment>
-            <strong>Reach out to those contacts and start to build relationships or work on existing relationships </strong> –
-              expand your connections or deepen existing ones at the target companies you want to pursue. Keep track of the connections, the contact you have made with these connections, and be sure to always follow up. </React.Fragment>
+            <strong>
+              Reach out to those contacts and start to build relationships or work on existing
+              relationships
+            </strong>
+            {' '}
+            –
+            expand your connections or deepen existing ones at the target companies you want
+            to pursue. Keep track of the connections, the contact you have made with these
+            connections, and be sure to always follow up.
+          </React.Fragment>
           <React.Fragment>
-            <strong>Create a targeted job search plan  </strong> –
-              your plan should consist of specific job opportunities at specific companies and specific connections you can turn to to help get your foot in the door. </React.Fragment>
+            <strong>Create a targeted job search plan</strong>
+            {' '}
+            –
+            your plan should consist of specific job opportunities at specific companies and
+            specific connections you can turn to to help get your foot in the door.
+          </React.Fragment>
         </StaticList>
 
         <StaticList title="Resources to Help" />
@@ -78,7 +124,7 @@ function Networking() {
           <Link href="https://www.thebalancecareers.com/how-to-research-a-company-2058508">How and Why to Research a Company</Link>
           <Link href="https://www.aol.com/2009/04/01/why-is-company-research-so-important/">Why is Company Research So Important?</Link>
           <Link href="https://www.youtube.com/watch?v=1A9bLHyBw94">How to Conduct Company Research for your Job Search</Link>
-          <Link href="https://biginterview.com/blog/2014/10/company-research-job-interview.html">The Job-Seeker's Guide to Company Research</Link>
+          <Link href="https://biginterview.com/blog/2014/10/company-research-job-interview.html">The Job-Seeker’s Guide to Company Research</Link>
           <Link href="https://executivecareerbrand.com/best-ways-and-places-to-research-your-target-employers/">Best Ways and Places to Research Your Target Employers</Link>
           <Link href="https://www.flexjobs.com/blog/post/job-search-tactic-start-with-companies-not-job-listings/">Job Search Tactic: Start with Companies, Not Job Listings</Link>
           <Link href="https://www.indeed.com/career-advice/finding-a-job/the-complete-guide-to-researching-a-company">The Complete Guide to Researching a Company</Link>
@@ -93,7 +139,7 @@ function Networking() {
           <Link href="https://www.socialmediaexaminer.com/how-to-find-and-connect-with-target-prospects-on-linkedin/">How to Find and Connect With Target Prospects on LinkedIn</Link>
           <Link href="https://blog.linkedin.com/2018/february/21/tips-for-searching-like-a-pro-on-linkedin">Tips for Searching Like a Pro on LinkedIn</Link>
           <Link href="https://www.linkedin.com/directory/companies/">LinkedIn Companies Directory</Link>
-          <Link href="https://www.linkedin.com/help/linkedin/answer/4326/searching-your-connection-s-connections?lang=en">Searching Your Connection's Connections</Link>
+          <Link href="https://www.linkedin.com/help/linkedin/answer/4326/searching-your-connection-s-connections?lang=en">Searching Your Connection’s Connections</Link>
         </StaticList>
 
       </ScaffoldContainer>

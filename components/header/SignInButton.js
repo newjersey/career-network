@@ -10,7 +10,7 @@ function SignInButton() {
     <React.Fragment>
       <Button variant="contained" color="secondary" onClick={() => setIsDialogOpen(true)}>
         Sign in
-        </Button>
+      </Button>
       <SignInDialog open={isDialogOpen} onCancel={() => setIsDialogOpen(false)} />
     </React.Fragment>
   );

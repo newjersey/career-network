@@ -20,29 +20,31 @@ function StaticList(props) {
   return (
     <div className={classes.root}>
       <Typography {...titleProps}>{title}</Typography>
-      {children &&
+      {children && (
         <ul>
-          {children.map((node, i) =>
+          {children.map((node, i) => (
+            // eslint-disable-next-line react/no-array-index-key
             <li key={i}>
               <Typography>
                 {node}
               </Typography>
             </li>
-          )}
+          ))}
         </ul>
-      }
+      )}
     </div>
   );
 }
 
 StaticList.propTypes = {
-  chldren: PropTypes.arrayOf(PropTypes.node),
+  children: PropTypes.arrayOf(PropTypes.node),
   title: PropTypes.string.isRequired,
   nesting: PropTypes.number,
 };
 
 StaticList.defaultProps = {
+  children: undefined,
   nesting: 0,
-}
+};
 
 export default StaticList;

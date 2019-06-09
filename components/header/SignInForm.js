@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
+import React from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
-import { withFirebase } from '../Firebase';
+import Firebase, { withFirebase } from '../Firebase';
 
 function SignInForm(props) {
   const { firebase } = props;
@@ -12,7 +13,7 @@ function SignInForm(props) {
 }
 
 SignInForm.propTypes = {
-  firebase: PropTypes.object.isRequired,
+  firebase: PropTypes.instanceOf(Firebase).isRequired,
 };
 
 export default withFirebase(SignInForm);

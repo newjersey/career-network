@@ -1,10 +1,10 @@
+import { Link } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import ScaffoldContainer from '../components/ScaffoldContainer';
 import StaticList from '../components/StaticList';
-import { Link } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,63 +21,144 @@ function Networking() {
         <Typography variant="h3" component="h1">Relationship-Building Resources</Typography>
 
         <Typography variant="body1">
-          Developing new connections and deepening your existing relationships are KEY to your job search.
-          </Typography>
+          Developing new connections and deepening your existing relationships are KEY to your
+          job search.
+        </Typography>
         <Typography variant="body1">
-          Not only are you more likely to find out about new opportunities, people, and companies when you broaden your network, many organizations are explicitly looking for you to bring new connections to their business needs.
-          </Typography>
+          Not only are you more likely to find out about new opportunities, people, and companies
+          when you broaden your network, many organizations are explicitly looking for you to bring
+          new connections to their business needs.
+        </Typography>
         <Typography variant="body1">
-          Although it’s something many job seekers hate, relationship building and meeting new people are the two things you need to be spending the most time on in your job search.
-          </Typography>
+          Although it’s something many job seekers hate, relationship building and meeting new
+          people are the two things you need to be spending the most time on in your job search.
+        </Typography>
 
         <StaticList title="Relationship-Building Goals in Job Search">
           <React.Fragment>
-            <strong>Relationship-Building Goals in Job Search</strong> –
-            People you don’t know well. Research shows that new connections are the ones most likely to bring you new opportunities.
-            </React.Fragment>
+            <strong>Relationship-Building Goals in Job Search</strong>
+            {' '}
+            –
+            People you don’t know well. Research shows that new connections are the ones most
+            likely to bring you new opportunities.
+          </React.Fragment>
           <React.Fragment>
-            <strong>Deepen your existing connections</strong> –
-            Make efforts to do things for people in your existing network that bring value to them. Sharing resources, offering to connect them to someone in your network, and helping them accomplish a goal can help you build positive relationships with the people you know.
-            </React.Fragment>
+            <strong>Deepen your existing connections</strong>
+            {' '}
+            –
+            Make efforts to do things for people in your existing network that bring value to
+            them. Sharing resources, offering to connect them to someone in your network, and
+            helping them accomplish a goal can help you build positive relationships with the
+            people you know.
+          </React.Fragment>
           <React.Fragment>
-            <strong>Work on interesting projects so you have something to talk about besides looking for work! </strong> –
-              Research trends in your industry or occupation, write white papers or mini reports, take on a leadership role in a volunteer organization, or start a mastermind group. Set aside time to work on things that you find interesting and that will give you something to talk about when you engage with both new acquaintances as well as people in your current network.            </React.Fragment>
+            <strong>
+              Work on interesting projects so you have something to talk about besides looking
+              for work!
+            </strong>
+            {' '}
+            –
+            Research trends in your industry or occupation, write white papers or mini reports,
+            take on a leadership role in a volunteer organization, or start a mastermind group.
+            Set aside time to work on things that you find interesting and that will give you
+            something to talk about when you engage with both new acquaintances as well as people
+            in your current network.
+          </React.Fragment>
         </StaticList>
 
         <StaticList title="Relationship Basics">
           <React.Fragment>
-            <strong>Don’t move too fast! </strong> –
-              One of the biggest mistakes job seekers make is trying to move too quickly in the relationship. People have to know, like and trust you before they are going to be willing to give you referrals or leads, so pay attention to growing a genuine relationship before you start asking them for leads.            </React.Fragment>
+            <strong>Don’t move too fast!</strong>
+            {' '}
+            –
+            One of the biggest mistakes job seekers make is trying to move too quickly in the
+            relationship. People have to know, like and trust you before they are going to be
+            willing to give you referrals or leads, so pay attention to growing a genuine
+            relationship before you start asking them for leads.
+          </React.Fragment>
           <React.Fragment>
-            <strong>Focus on what you can GIVE, not on what you can GET.</strong> –
-            Look for ways to help other people, including sharing resources, information, and connections. When you meet new people, think about contributions you can make to their lives or well being. Do the same with people you already know. Not only does this improve your relationships, it also makes you feel better.
-            </React.Fragment>
+            <strong>Focus on what you can GIVE, not on what you can GET.</strong>
+            {' '}
+            –
+            Look for ways to help other people, including sharing resources, information, and
+            connections. When you meet new people, think about contributions you can make to
+            their lives or well being. Do the same with people you already know. Not only does
+            this improve your relationships, it also makes you feel better.
+          </React.Fragment>
           <React.Fragment>
-            <strong>Ask questions that convey interest in the other person.</strong> –
-            When you’re job searching, you can become so focused on your job search that you are either selling yourself or only asking questions that are related to your needs. But relationships are two-way. You need to remind yourself to ask questions that convey your interest in the person you are talking to, learning about what they are doing or what’s important to them, etc. This helps you identify ways that you can help them, which creates a more positive relationship.
-            </React.Fragment>
+            <strong>Ask questions that convey interest in the other person.</strong>
+            {' '}
+            –
+            When you’re job searching, you can become so focused on your job search that you are
+            either selling yourself or only asking questions that are related to your needs. But
+            relationships are two-way. You need to remind yourself to ask questions that convey
+            your interest in the person you are talking to, learning about what they are doing or
+            what’s important to them, etc. This helps you identify ways that you can help them,
+            which creates a more positive relationship.
+          </React.Fragment>
           <React.Fragment>
-            <strong>Try to meet people through avenues you care about. </strong> –
-              participate in meetings or groups where you can meet other people who share those interests. <a href="meetup.com">Meetup.com</a> is a great way to find other people who share your interests. Join professional groups on LinkedIn, contribute to conversations, and reach out to members in the group who seem interesting or with whom you could share a resource or idea that could help them.
-            </React.Fragment>
+            <strong>Try to meet people through avenues you care about.</strong>
+            {' '}
+            –
+            participate in meetings or groups where you can meet other people who share those
+            interests.
+            {' '}
+            <a href="meetup.com">Meetup.com</a>
+            {' '}
+            is a great way to find other people who share your interests. Join professional
+            groups on LinkedIn, contribute to conversations, and reach out to members in the
+            group who seem interesting or with whom you could share a resource or idea that
+            could help them.
+          </React.Fragment>
           <React.Fragment>
-            <strong>Set goals to meet new people each week. </strong> –
-              Challenge yourself to meet 5 new people a week, or even 10! That’s only one or two new people a day, five days a week. Having a specific numeric goal to accomplish will make it more likely that you do it.            </React.Fragment>
+            <strong>Set goals to meet new people each week.</strong>
+            {' '}
+            –
+            Challenge yourself to meet 5 new people a week, or even 10! That’s only one or two
+            new people a day, five days a week. Having a specific numeric goal to accomplish
+            will make it more likely that you do it.
+          </React.Fragment>
           <React.Fragment>
-            <strong>Set weekly goals to reach out to people who are already in your network.  </strong> –
-              Try starting your day by sending an email to someone you know, thanking them for some way they have contributed to your life. Or spend an hour every Friday afternoon, sending check-in emails or making catch-up calls with people you haven’t talked to for awhile. Or spend some time writing unsolicited recommendations for people you are connected to on LinkedIn.            </React.Fragment>
+            <strong>
+              Set weekly goals to reach out to people who are already in your network.
+            </strong>
+            {' '}
+            –
+            Try starting your day by sending an email to someone you know, thanking them for
+            some way they have contributed to your life. Or spend an hour every Friday
+            afternoon, sending check-in emails or making catch-up calls with people you
+            haven’t talked to for awhile. Or spend some time writing unsolicited recommendations
+            for people you are connected to on LinkedIn.
+          </React.Fragment>
           <React.Fragment>
-            <strong>When you meet new people, connect with them on LinkedIn by sending a personalized invitation.<a href="https://www.linkedin.com/help/linkedin/answer/46662/personalizing-invitations-to-connect?lang=en">(here's how)</a> </strong> –
-            Be sure to include something you appreciate about your interaction with them or something you have in common that you noticed on their profile.
-                          </React.Fragment>
+            <strong>
+              When you meet new people, connect with them on LinkedIn by sending a personalized
+              invitation.
+              {' '}
+              <a href="https://www.linkedin.com/help/linkedin/answer/46662/personalizing-invitations-to-connect?lang=en">(here’s how)</a>
+            </strong>
+            –
+            Be sure to include something you appreciate about your interaction with them or
+            something you have in common that you noticed on their profile.
+          </React.Fragment>
           <React.Fragment>
-            <strong>Don’t just network with other unemployed people.</strong> –
-            Many unemployed job seekers have a tendency to connect with other people who are also unemployed. While this can be great for support, it isn’t always good for your search. Find ways to meet and connect with people who are currently working, even if it feels uncomfortable.
-             </React.Fragment>
+            <strong>Don’t just network with other unemployed people.</strong>
+            {' '}
+            –
+            Many unemployed job seekers have a tendency to connect with other people who are also
+            unemployed. While this can be great for support, it isn’t always good for your search.
+            Find ways to meet and connect with people who are currently working, even if it feels
+            uncomfortable.
+          </React.Fragment>
           <React.Fragment>
-            <strong>Age-diversify your network.</strong> –
-            Older job seekers in particular tend to have networks that skew older. But it’s people in their 30’s and 40’s who may be in the hiring manager position. Make a specific effort to reach out to people who are younger than you as they may be in the best position to help.
-             </React.Fragment>
+            <strong>Age-diversify your network.</strong>
+            {' '}
+            –
+            Older job seekers in particular tend to have networks that skew older. But it’s people
+            in their 30’s and 40’s who may be in the hiring manager position. Make a specific
+            effort to reach out to people who are younger than you as they may be in the best
+            position to help.
+          </React.Fragment>
         </StaticList>
 
         <StaticList title="Resources to Help" />
@@ -106,13 +187,13 @@ function Networking() {
         <StaticList title="Your Networking “Pitch”" nesting={1}>
           <Link href="http://timsstrategy.com/6-easy-steps-to-a-great-elevator-pitch/">
             6 Easy Steps to a Great Elevator Pitch (with examples)
-            </Link>
+          </Link>
           <Link href="https://www.thebalancecareers.com/elevator-speech-examples-and-writing-tips-2061976">
             How to Create an Elevator Pitch with Examples
-            </Link>
+          </Link>
           <Link href="https://www.businessinsider.com/how-to-create-elevator-pitch-2017-5">
             A Simple Formula for Crafting a Networking Pitch
-            </Link>
+          </Link>
           <Link href="https://www.roberthalf.com/blog/job-market/3-elevator-speech-examples-for-the-job-hunt">
             3 Elevator Speech Examples for the Job Search
           </Link>

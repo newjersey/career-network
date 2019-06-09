@@ -4,9 +4,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import React, { useCallback, useState } from 'react';
-import ReactDOM from 'react-dom';
 import Select from '@material-ui/core/Select';
 
+// eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles(theme => ({
   formControl: {
     minWidth: '15em',
@@ -25,9 +25,9 @@ function CircumstancePicker() {
   const [labelWidth, setLabelWidth] = useState(0);
 
   // https://reactjs.org/docs/hooks-faq.html#how-can-i-measure-a-dom-node
-  const measuredRef = useCallback(node => {
+  const measuredRef = useCallback((node) => {
     if (node !== null) {
-      setLabelWidth(ReactDOM.findDOMNode(node).offsetWidth);
+      setLabelWidth(node.offsetWidth);
     }
   }, []);
 
@@ -36,19 +36,20 @@ function CircumstancePicker() {
       <FormControl variant="outlined" className={classes.formControl}>
         <InputLabel
           htmlFor="circumstance-picker-outlined"
-          ref={measuredRef}>
+          ref={measuredRef}
+        >
           What brings you here?
-          </InputLabel>
+        </InputLabel>
         <Select
           value={unemploymentTerm}
-          onChange={(e) => setUnemploymentTerm(e.target.value)}
-          input={
+          onChange={e => setUnemploymentTerm(e.target.value)}
+          input={(
             <OutlinedInput
               labelWidth={labelWidth}
               name="unemploymentTerm"
               id="circumstance-picker-outlined"
             />
-          }
+          )}
         >
           {UNEMPLOYMENT_TERMS.map(term => (
             <MenuItem value={term.value} key={term.value}>{term.label}</MenuItem>

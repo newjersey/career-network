@@ -23,7 +23,9 @@ function Snackbar(props) {
 
     setIsOpen(false);
 
-    onClose && onClose();
+    if (typeof onClose === 'function') {
+      onClose();
+    }
   };
 
   return (
@@ -57,6 +59,10 @@ function Snackbar(props) {
 Snackbar.propTypes = {
   message: PropTypes.string.isRequired,
   onClose: PropTypes.func,
+};
+
+Snackbar.defaultProps = {
+  onClose: undefined,
 };
 
 export default Snackbar;

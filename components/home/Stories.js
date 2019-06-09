@@ -9,12 +9,12 @@ import StoryStepper from './StoryStepper';
 const useStyles = makeStyles(theme => ({
   leftContainer: {
     [theme.breakpoints.up('sm')]: {
-      paddingRight: theme.spacing(1.5)
+      paddingRight: theme.spacing(1.5),
     },
   },
   rightContainer: {
     [theme.breakpoints.up('sm')]: {
-      paddingLeft: theme.spacing(1.5)
+      paddingLeft: theme.spacing(1.5),
     },
   },
   picture: {

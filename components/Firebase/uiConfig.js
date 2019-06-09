@@ -3,16 +3,18 @@ import 'firebase/auth';
 
 const uiConfig = {
   callbacks: {
-    signInSuccessWithAuthResult: function (authResult, redirectUrl) {
+    signInSuccessWithAuthResult(authResult, redirectUrl) {
       // User successfully signed in.
       // Return type determines whether we continue the redirect automatically
       // or whether we leave that to developer to handle.
-      console.log('Signed in');
-      console.log('authResult:', authResult);
-      console.log('redirectUrl:', redirectUrl);
+
+      // TODO: remove
+      // eslint-disable-next-line no-console
+      console.log('Signed in', 'authResult:', authResult, 'redirectUrl:', redirectUrl);
+
       return true;
     },
-    uiShown: function () {
+    uiShown() {
       // The widget is rendered.
       // Hide the loader.
       // document.getElementById('loader').style.display = 'none';
@@ -33,8 +35,7 @@ const uiConfig = {
   // Terms of service url.
   tosUrl: '/terms-of-service',
   // Privacy policy url.
-  privacyPolicyUrl: '/privacy-policy'
-
+  privacyPolicyUrl: '/privacy-policy',
 };
 
 export default uiConfig;

@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
+// eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles(theme => ({
   card: {
     height: '100%',
@@ -45,7 +46,13 @@ function StaticCollectionItem(props) {
 }
 
 StaticCollectionItem.propTypes = {
-  item: PropTypes.object.isRequired,
+  item: PropTypes.shape({
+    fields: PropTypes.shape({
+      Name: PropTypes.string.isRequired,
+      Description: PropTypes.string.isRequired,
+      URL: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default StaticCollectionItem;

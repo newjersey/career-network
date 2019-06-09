@@ -1,5 +1,5 @@
 import firebase from 'firebase/app';
-import config from './config'
+import config from './config';
 
 // Singleton
 export default firebase.apps.length

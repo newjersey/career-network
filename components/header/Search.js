@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Search(props) {
+function Search() {
   const classes = useStyles();
 
   return (

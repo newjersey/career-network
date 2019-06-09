@@ -5,6 +5,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from 'prop-types';
+import React from 'react';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 
 import SignInForm from './SignInForm';
@@ -17,7 +18,7 @@ function SignInDialog(props) {
       <DialogTitle id="sign-in-dialog-title">Sign in</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          We're excited to have you join us!
+          We’re excited to have you join us!
         </DialogContentText>
         <SignInForm />
       </DialogContent>

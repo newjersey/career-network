@@ -37,33 +37,33 @@ const pages = [
     href: '/plan',
     name: 'Build Your Plan',
     shortName: 'Build Your Plan',
-    icon: <DashboardIcon />
+    icon: <DashboardIcon />,
   }, {
     href: '/act',
     name: 'Act on Your Plan',
     shortName: 'Act on Your Plan',
-    icon: <TrendingUpIcon />
+    icon: <TrendingUpIcon />,
   }, {
     href: '/coaching',
     name: 'Career Coaching',
     shortName: 'Coaching',
-    icon: <ChatIcon />
+    icon: <ChatIcon />,
   }, {
     href: '/networking',
     name: 'Networking',
     shortName: 'Networking',
-    icon: <PeopleIcon />
+    icon: <PeopleIcon />,
   }, {
     href: '/toolkit',
     name: 'Job Toolkit',
     shortName: 'Toolkit',
-    icon: <BuildIcon />
+    icon: <BuildIcon />,
   }, {
     href: '/resources',
     name: 'State Resources',
     shortName: 'Resources',
-    icon: <LinkIcon />
-  }
+    icon: <LinkIcon />,
+  },
 ];
 
 const useStyles = makeStyles(theme => ({
@@ -92,7 +92,7 @@ const useStyles = makeStyles(theme => ({
   title: {
     fontSize: '1.5em',
     fontWeight: 300,
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   list: {
     display: 'flex',
@@ -113,7 +113,7 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     display: 'inline-block',
     '&:hover': {
-      backgroundColor: '#e4e4e4'
+      backgroundColor: '#e4e4e4',
     },
   },
   drawerList: {
@@ -172,7 +172,7 @@ function Nav() {
 
       <ScaffoldContainer padding={false}>
         <Grid container justify="space-between" alignItems="center" className={classes.container}>
-          <NextLink href='/'>
+          <NextLink href="/">
             <Grid item>
               <Grid container alignItems="center">
                 <Hidden xsDown implementation="css">
@@ -201,6 +201,7 @@ function Nav() {
                     <li key={page.href} className={classes.listItem}>
                       <Typography className={classes.listItemTypography}>
                         <NextLink href={page.href}>
+                          { /* eslint-disable-next-line jsx-a11y/anchor-is-valid */ }
                           <Link className={classes.link} underline="none">{page.name}</Link>
                         </NextLink>
                       </Typography>

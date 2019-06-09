@@ -1,10 +1,10 @@
+import { Link } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import ScaffoldContainer from '../components/ScaffoldContainer';
 import StaticList from '../components/StaticList';
-import { Link } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,56 +21,105 @@ function LinkedinResources() {
         <Typography variant="h3" component="h1">LinkedIn Resources:</Typography>
 
         <Typography variant="body1">
-          LinkedIn is one of your most powerful job search tools, allowing you to articulate your value to potential employers in multiple ways. Use these resources to maximize your profile and create a strategic plan for using LinkedIn for your job search.          </Typography>
+          LinkedIn is one of your most powerful job search tools, allowing you to articulate your
+          value to potential employers in multiple ways. Use these resources to maximize your
+          profile and create a strategic plan for using LinkedIn for your job search.
+        </Typography>
         <Typography variant="body1">
           Build an online profile to communicate your experience, expertise and skills.
-          </Typography>
+        </Typography>
         <Typography variant="body1">
           Establish a personal brand on LinkedIn that will set you apart from other job seekers.
-          </Typography>
+        </Typography>
         <Typography variant="body1">
           Identify companies on LinkedIn.
-          </Typography>
+        </Typography>
         <Typography variant="body1">
           Research companies on LinkedIn.
-          </Typography>
+        </Typography>
         <Typography variant="body1">
           Find connections at companies on LinkedIn.
-          </Typography>
+        </Typography>
         <Typography variant="body1">
-          Make new connections and build relationships on LinkedIn. Networking is a significant part of job search, so use LinkedIn to meet and interact with other professionals.
-          </Typography>
-
+          Make new connections and build relationships on LinkedIn. Networking is a significant
+          part of job search, so use LinkedIn to meet and interact with other professionals.
+        </Typography>
 
 
         <StaticList title="The Basics of LinkedIn:">
           <React.Fragment>
-            <strong>Set up your LinkedIn Profile</strong> –
-              get started on LinkedIn to equip yourself with the tools and resources needed to conduct an effective job search. <a href="https://www.jobscan.co/linkedin-profile-writing-guide">(Link to resource)</a>
+            <strong>Set up your LinkedIn Profile</strong>
+            {' '}
+            –
+            get started on LinkedIn to equip yourself with the tools and resources needed to
+            conduct an effective job search.
+            {' '}
+            <a href="https://www.jobscan.co/linkedin-profile-writing-guide">(Link to resource)</a>
           </React.Fragment>
           <React.Fragment>
-            <strong>Continuously Improve Your Profile</strong> –
-              know what employers look for in your profile and how to create a profile that will get you noticed. Set yourself apart by continuously updating your profile and engaging with your network. The more complete and active your LinkedIn profile is, the better your chances to be found and contacted by an employer. <a href="https://www.themuse.com/advice/9-surefire-ways-to-boost-your-linkedin-profile-when-you-only-have-10-minutes">(Link to resource)</a>
+            <strong>Continuously Improve Your Profile</strong>
+            {' '}
+            –
+            know what employers look for in your profile and how to create a profile that will
+            get you noticed. Set yourself apart by continuously updating your profile and engaging
+            with your network. The more complete and active your LinkedIn profile is, the better
+            your chances to be found and contacted by an employer.
+            {' '}
+            <a href="https://www.themuse.com/advice/9-surefire-ways-to-boost-your-linkedin-profile-when-you-only-have-10-minutes">(Link to resource)</a>
           </React.Fragment>
           <React.Fragment>
-            <strong>Use LinkedIn Effectively </strong> –
-              make the most of this powerful platform. While individuals use LinkedIn for professional networking, connecting, and job searching, companies use it for recruiting and for sharing company information with prospective employees. Make sure you are using your profile effectively to help you in your job search. <a href="https://www.themuse.com/advice/the-secret-to-building-a-linkedin-profile-that-gets-results">(Link to resource)</a>
+            <strong>Use LinkedIn Effectively</strong>
+            {' '}
+            –
+            make the most of this powerful platform. While individuals use LinkedIn for
+            professional networking, connecting, and job searching, companies use it for
+            recruiting and for sharing company information with prospective employees.
+            Make sure you are using your profile effectively to help you in your job search.
+            {' '}
+            <a href="https://www.themuse.com/advice/the-secret-to-building-a-linkedin-profile-that-gets-results">(Link to resource)</a>
           </React.Fragment>
           <React.Fragment>
-            <strong>Make New Connections on LinkedIn </strong> –
-              Research shows that new connections are the ones most likely to bring you new opportunities. Per the Jobvite Recruiter Nation Survey, 87 percent of recruiters use LinkedIn as part of their candidate search. <a href="https://www.wordstream.com/blog/ws/2016/01/18/linkedin-connection-requests">(Link to resource)</a>
+            <strong>Make New Connections on LinkedIn</strong>
+            {' '}
+            –
+            Research shows that new connections are the ones most likely to bring you new
+            opportunities. Per the Jobvite Recruiter Nation Survey, 87 percent of recruiters
+            use LinkedIn as part of their candidate search.
+            {' '}
+            <a href="https://www.wordstream.com/blog/ws/2016/01/18/linkedin-connection-requests">(Link to resource)</a>
           </React.Fragment>
           <React.Fragment>
-            <strong>Deepen your Existing Connections on LinkedIn  </strong> –
-              Make efforts to do things for people in your existing network that bring value to them. Sharing resources, offering to connect them to someone in your network, and helping them accomplish a goal can help you build positive relationships with the people you know. The more you interact and post as a professional, the more you'll be noticed and build recognition. <a href="https://www.topresume.com/career-advice/meaningful-linkedIn-network-connections">(Link to resource)</a>
+            <strong>Deepen your Existing Connections on LinkedIn</strong>
+            {' '}
+            –
+            Make efforts to do things for people in your existing network that bring value to them.
+            Sharing resources, offering to connect them to someone in your network, and helping
+            them accomplish a goal can help you build positive relationships with the people you
+            know. The more you interact and post as a professional, the more you’ll be noticed
+            and build recognition.
+            {' '}
+            <a href="https://www.topresume.com/career-advice/meaningful-linkedIn-network-connections">(Link to resource)</a>
           </React.Fragment>
           <React.Fragment>
-            <strong>Build Your Brand on LinkedIn </strong> –
-              In today’s working world, your professional online brand is key. The best online identities are real, honest, and focus on what makes you unique and what you can offer. <a href="https://university.linkedin.com/content/dam/university/global/en_US/site/pdf/TipSheet_BuildingYourBrand.pdf">(Link to resource)</a>
+            <strong>Build Your Brand on LinkedIn</strong>
+            {' '}
+            –
+            In today’s working world, your professional online brand is key. The best online
+            identities are real, honest, and focus on what makes you unique and what you can offer.
+            {' '}
+            <a href="https://university.linkedin.com/content/dam/university/global/en_US/site/pdf/TipSheet_BuildingYourBrand.pdf">(Link to resource)</a>
           </React.Fragment>
           <React.Fragment>
-            <strong>Identify and Research Companies on LinkedIn </strong> –
-              A major portion of your job search time should be spent on identifying and researching target companies and making connections to individuals within those companies. LinkedIn makes it easy to find and follow companies. LinkedIn is a tool that can assist with identifying companies you may want to work for, learning about that companies values, searching for open positions, and making connections to company employees. <a href="https://premium.linkedin.com/content/premium/global/en_us/index/jobsearch/resources/get-connected/how-to-build-a-list-of-target-companies">(Link to resource)</a>
+            <strong>Identify and Research Companies on LinkedIn</strong>
+            {' '}
+            –
+            A major portion of your job search time should be spent on identifying and researching
+            target companies and making connections to individuals within those companies. LinkedIn
+            makes it easy to find and follow companies. LinkedIn is a tool that can assist with
+            identifying companies you may want to work for, learning about that companies values,
+            searching for open positions, and making connections to company employees.
+            {' '}
+            <a href="https://premium.linkedin.com/content/premium/global/en_us/index/jobsearch/resources/get-connected/how-to-build-a-list-of-target-companies">(Link to resource)</a>
           </React.Fragment>
         </StaticList>
 
@@ -111,7 +160,7 @@ function LinkedinResources() {
           <Link href="https://www.themuse.com/advice/the-31-best-linkedin-profile-tips-for-job-seekers">The 31 Best LinkedIn Profile Tips for Job Seekers</Link>
           <Link href="https://www.youtube.com/watch?v=YFkqp9W1xTc">How to Use LinkedIn and Make Your LinkedIn Profile Stand Out - 7 BEST LinkedIn Tips</Link>
           <Link href="https://www.topresume.com/career-advice/14-ways-to-leverage-your-linkedin-profile-during-your-job-search">How to Use LinkedIn to Get a Job</Link>
-          <Link href="https://www.forbes.com/sites/dailymuse/2018/01/22/7-expert-linkedin-tips-a-lot-of-people-dont-really-know-about/#77fb7e172f2a">7 Expert LinkedIn Tips A Lot Of People Don't Really Know About</Link>
+          <Link href="https://www.forbes.com/sites/dailymuse/2018/01/22/7-expert-linkedin-tips-a-lot-of-people-dont-really-know-about/#77fb7e172f2a">7 Expert LinkedIn Tips A Lot Of People Don’t Really Know About</Link>
         </StaticList>
 
         <StaticList title="Personal Branding on LinkedIn" nesting={1}>
@@ -121,7 +170,7 @@ function LinkedinResources() {
           <Link href="https://business.linkedin.com/marketing-solutions/blog/best-practices--thought-leadership/2016/5-free-ways-to-build-your-personal-brand-on-linkedin">5 Free Ways to Build Your Personal Brand on LinkedIn</Link>
           <Link href="https://business.linkedin.com/talent-solutions/blog/recruiting-tips/2019/how-to-build-a-personal-brand-that-will-impress-even-oprah">How to Build a Personal Brand That Will Impress Even Oprah</Link>
           <Link href="https://www.topresume.com/career-advice/14-ways-to-leverage-your-linkedin-profile-during-your-job-search">Here Are The Tips For Using LinkedIn For Personal Branding</Link>
-          <Link href="https://www.entrepreneur.com/article/315272">7 Expert LinkedIn Tips A Lot Of People Don't Really Know About</Link>
+          <Link href="https://www.entrepreneur.com/article/315272">7 Expert LinkedIn Tips A Lot Of People Don’t Really Know About</Link>
         </StaticList>
 
         <StaticList title="Making Connections on LinkedIn" nesting={1}>

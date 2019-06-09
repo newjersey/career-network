@@ -35,7 +35,9 @@ const steps = [
 ];
 
 // quick and dirty -- do something better
-const longestQuotationLength = steps.map(step => step.quotation.length).reduce((a, b) => Math.max(a, b));
+const longestQuotationLength = steps
+  .map(step => step.quotation.length)
+  .reduce((a, b) => Math.max(a, b));
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -81,13 +83,16 @@ function StoryStepper() {
         interval={5000}
       >
         {steps.map((step, i) => (
-          <div key={i}>
+          <div key={step.quotation}>
             {Math.abs(activeStep - i) <= 1 ? (
               <article className={classes.story}>
                 <FormatQuote color="primary" className={classes.quoteIcon} />
                 <Typography variant="subtitle1">{step.quotation}</Typography>
                 <br />
-                <Typography variant="overline">—{step.author}</Typography>
+                <Typography variant="overline">
+                  —
+                  {step.author}
+                </Typography>
               </article>
             ) : null}
           </div>
@@ -98,16 +103,16 @@ function StoryStepper() {
         position="static"
         activeStep={activeStep}
         className={classes.mobileStepper}
-        nextButton={
+        nextButton={(
           <Button onClick={handleNext} disabled={activeStep === maxSteps - 1} aria-label="Next quotation">
             {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
           </Button>
-        }
-        backButton={
+        )}
+        backButton={(
           <Button onClick={handleBack} disabled={activeStep === 0} aria-label="Previous quotation">
             {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
           </Button>
-        }
+        )}
       />
     </div>
   );

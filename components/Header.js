@@ -3,18 +3,18 @@ import AppBar from '@material-ui/core/AppBar';
 import React from 'react';
 import Toolbar from '@material-ui/core/Toolbar';
 
-import Nav from './header/Nav'
+import Nav from './header/Nav';
 import User from './header/User';
 
 const useStyles = makeStyles(theme => ({
   root: {
   },
   navBar: {
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#FFFFFF',
   },
   userBar: {
-    backgroundColor: theme.palette.primary.main
-  }
+    backgroundColor: theme.palette.primary.main,
+  },
 }));
 
 function Header() {

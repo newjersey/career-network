@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
         paddingTop: theme.spacing(1.25),
         paddingBottom: theme.spacing(1.25),
       },
-    }
+    },
   },
   withSpecificity: { /* NOOP */ },
   category: {
@@ -36,30 +36,44 @@ const useStyles = makeStyles(theme => ({
 function StaticCollection(props) {
   const { categories } = props;
   const classes = useStyles();
+  const gridItemClassName = clsx(classes.gridItem, classes.withSpecificity);
 
   return (
     <div className={classes.root}>
-      {categories.map(category =>
+      {categories.map(category => (
         <React.Fragment key={category.id}>
           <Typography variant="h4" component="h2" className={classes.category}>{category.fields.Name}</Typography>
-          <Typography variant="body1" gutterBottom className={classes.description}>
-            {category.fields.Description}
-          </Typography>
+          {category.fields.Description && (
+            <Typography variant="body1" gutterBottom className={classes.description}>
+              {category.fields.Description}
+            </Typography>
+          )}
           <Grid container spacing={3}>
-            {category.items.map(item =>
-              <Grid key={item.fields.Name} item xs={12} sm={6} md={4} className={clsx(classes.gridItem, classes.withSpecificity)}>
+            {category.items.map(item => (
+              <Grid key={item.fields.Name} item xs={12} sm={6} md={4} className={gridItemClassName}>
                 <StaticCollectionItem item={item} />
               </Grid>
-            )}
+            ))}
           </Grid>
         </React.Fragment>
-      )}
+      ))}
     </div>
   );
 }
 
 StaticCollection.propTypes = {
-  categories: PropTypes.array.isRequired,
+  categories: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    fields: PropTypes.shape({
+      Name: PropTypes.string.isRequired,
+      Description: PropTypes.string,
+    }).isRequired,
+    items: PropTypes.arrayOf(PropTypes.shape({
+      fields: PropTypes.shape({
+        Name: PropTypes.string.isRequired,
+      }).isRequired,
+    }).isRequired).isRequired,
+  })).isRequired,
 };
 
 export default StaticCollection;

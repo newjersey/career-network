@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -13,21 +14,22 @@ function Picture(props) {
   const fallbackSrc = basePath + path.replace(/webp$/, fallbackType);
 
   return (
-    path.endsWith('.webp') ?
-      <picture>
-        <source type="image/webp" srcSet={src} />
-        <source type={mimeTypeMap[fallbackType]} srcSet={fallbackSrc} />
-        <img src={fallbackSrc} {...restProps} />
-      </picture>
-      :
-      <img src={src} {...restProps} />
+    path.endsWith('.webp')
+      ? (
+        <picture>
+          <source type="image/webp" srcSet={src} />
+          <source type={mimeTypeMap[fallbackType]} srcSet={fallbackSrc} />
+          <img src={fallbackSrc} {...restProps} />
+        </picture>
+      )
+      : <img src={src} {...restProps} />
   );
 }
 
 Picture.propTypes = {
   alt: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
-  fallbackType: PropTypes.oneOf(['png', 'jpg']),
+  fallbackType: PropTypes.oneOf(['png', 'jpg']).isRequired,
 };
 
 export default (Picture);

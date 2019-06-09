@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+// eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles(theme => ({
   root: {
   },
@@ -11,23 +12,24 @@ function Oval(props) {
   const { style, variant } = props;
   const classes = useStyles();
 
-  const args = {
-    alt: '',
-    src: `/static/img/index/oval${variant ? `-${variant}` : ''}.svg`,
-    className: classes.root,
-    style,
-  };
-
-  return <img {...args} />;
+  return (
+    <img
+      alt=""
+      src={`/static/img/index/oval${variant ? `-${variant}` : ''}.svg`}
+      className={classes.root}
+      style={style}
+    />
+  );
 }
 
 Oval.propTypes = {
+  style: PropTypes.objectOf(PropTypes.string),
   variant: PropTypes.oneOf(['phone', 'state']),
-  style: PropTypes.object,
 };
 
 Oval.defaultProps = {
   style: {},
+  variant: undefined,
 };
 
 export default Oval;

@@ -16,33 +16,37 @@ const useStyles = makeStyles(theme => ({
 
 function SectionContent(props) {
   const classes = useStyles();
+  const {
+    buttonColor, buttonText, children, title,
+  } = props;
 
   return (
     <React.Fragment>
       <Typography variant="h5" component="h2">
-        {props.title}
+        {title}
       </Typography>
       <Typography variant="body1" className={classes.body}>
-        {props.children}
+        {children}
       </Typography>
-      {props.buttonText &&
-        <Button variant="contained" color={props.buttonColor}>
-          {props.buttonText}
+      {buttonText && (
+        <Button variant="contained" color={buttonColor}>
+          {buttonText}
         </Button>
-      }
+      )}
     </React.Fragment>
   );
 }
 
 SectionContent.propTypes = {
   title: PropTypes.string.isRequired,
-  children: PropTypes.any.isRequired,
+  children: PropTypes.node.isRequired,
   buttonText: PropTypes.string,
   buttonColor: PropTypes.string,
 };
 
 SectionContent.defaultProps = {
   buttonColor: 'primary',
+  buttonText: undefined,
 };
 
 export default SectionContent;

@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import React from 'react';
 
 import SectionContent from './SectionContent';
-import WhyItem from './WhyItem'
+import WhyItem from './WhyItem';
 
 const contentItems = [
   {
@@ -51,7 +51,7 @@ const useStyles = makeStyles(theme => ({
         paddingTop: theme.spacing(1.25),
         paddingBottom: theme.spacing(1.25),
       },
-    }
+    },
   },
   withSpecificity: { /* NOOP */ },
 }));
@@ -68,17 +68,18 @@ function Why() {
           buttonText="Get started today"
           buttonColor="secondary"
         >
-          Support to create and implement an effective job search plan emphasizing setting goals and high-priority and high-payoff activities.
+          Support to create and implement an effective job search plan emphasizing setting
+          goals and high-priority and high-payoff activities.
         </SectionContent>
       </Grid>
       {
-        contentItems.map((item, i) => (
-          <Grid item key={i} sm={6} md={3} className={gridItemClassName}>
+        contentItems.map(item => (
+          <Grid item key={item.title} sm={6} md={3} className={gridItemClassName}>
             <WhyItem {...item} />
           </Grid>
         ))
       }
-    </Grid >
+    </Grid>
   );
 }
 
