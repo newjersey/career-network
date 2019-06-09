@@ -1,4 +1,5 @@
 import { withStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 
 import ScaffoldContainer from '../ScaffoldContainer';
@@ -68,18 +69,14 @@ const styles = theme => ({
 
 function Section(props) {
   const { classes } = props;
-  let classNames = [classes.root];
-
-  if (props.alt) {
-    classNames.push(classes[`alt${props.alt}`]);
-  }
-
-  if (props.hasOwnPadding) {
-    classNames.push(classes[`no-pad-${props.hasOwnPadding}`]);
-  }
+  const className = clsx(
+    classes.root,
+    props.alt && classes[`alt${props.alt}`],
+    props.hasOwnPadding && classes[`no-pad-${props.hasOwnPadding}`],
+  );
 
   return (
-    <section className={classNames.join(' ')}>
+    <section className={className}>
       <ScaffoldContainer>
         {props.children}
       </ScaffoldContainer>

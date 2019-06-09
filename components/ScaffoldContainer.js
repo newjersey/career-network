@@ -1,4 +1,5 @@
 import { withStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 
@@ -18,7 +19,7 @@ function ScaffoldContainer(props) {
 
   return (
     <Grid container justify="center" alignItems="center">
-      <Grid item xs={12} lg={10} className={props.padding ? classes.padding : null}>
+      <Grid item xs={12} lg={10} className={clsx(props.padding && classes.padding)}>
         {props.children}
       </Grid>
     </Grid>

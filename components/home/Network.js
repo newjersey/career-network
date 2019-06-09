@@ -1,4 +1,5 @@
 import { withStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
 
@@ -80,7 +81,7 @@ const styles = theme => ({
 
 function Network(props) {
   const { classes } = props;
-  const gridItemClassName = `${classes.gridItem} ${classes.withSpecificity}`;
+  const gridItemClassName = clsx(classes.gridItem, classes.withSpecificity);
 
   return (
     <div className={classes.root}>

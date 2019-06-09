@@ -1,4 +1,5 @@
 import { withStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
@@ -39,7 +40,6 @@ const styles = theme => ({
 class StaticCollection extends React.Component {
   render() {
     const { classes, categories } = this.props;
-    const gridItemClassName = `${classes.gridItem} ${classes.withSpecificity}`;
 
     return (
       <div className={classes.root}>
@@ -51,7 +51,7 @@ class StaticCollection extends React.Component {
             </Typography>
             <Grid container spacing={24}>
               {category.items.map(item =>
-                <Grid key={item.fields.Name} item xs={12} sm={6} md={4} className={gridItemClassName}>
+                <Grid key={item.fields.Name} item xs={12} sm={6} md={4} className={clsx(classes.gridItem, classes.withSpecificity)}>
                   <StaticCollectionItem item={item} />
                 </Grid>
               )}
