@@ -1,11 +1,11 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 
 import ScaffoldContainer from '../ScaffoldContainer';
 
 const backgroundColor = 'white';
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor,
     backgroundSize: '100%',
@@ -65,10 +65,10 @@ const styles = theme => ({
       'center bottom,' +
       'center center',
   },
-});
+}));
 
 function Section(props) {
-  const { classes } = props;
+  const classes = useStyles();
   const className = clsx(
     classes.root,
     props.alt && classes[`alt${props.alt}`],
@@ -90,4 +90,4 @@ Section.propTypes = {
   hasOwnPadding: PropTypes.oneOf(['top', 'bottom']),
 };
 
-export default withStyles(styles)(Section);
+export default Section;

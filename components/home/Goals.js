@@ -1,4 +1,4 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import React from 'react';
@@ -6,14 +6,14 @@ import React from 'react';
 import Oval from './Oval';
 import SectionContent from './SectionContent';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   center: {
     textAlign: 'center',
   },
-});
+}));
 
-function Goals(props) {
-  const { classes } = props;
+function Goals() {
+  const classes = useStyles();
 
   return (
     <Grid container alignItems="flex-start">
@@ -49,4 +49,4 @@ function Goals(props) {
   );
 }
 
-export default withStyles(styles)(Goals);
+export default Goals;

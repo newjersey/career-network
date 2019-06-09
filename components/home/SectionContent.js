@@ -1,10 +1,10 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   body: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(3),
@@ -12,10 +12,10 @@ const styles = theme => ({
       marginBottom: theme.spacing(4),
     },
   },
-});
+}));
 
 function SectionContent(props) {
-  const { classes } = props;
+  const classes = useStyles();
 
   return (
     <React.Fragment>
@@ -45,4 +45,4 @@ SectionContent.defaultProps = {
   buttonColor: 'primary',
 };
 
-export default withStyles(styles)(SectionContent);
+export default SectionContent;

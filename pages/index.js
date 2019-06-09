@@ -8,7 +8,7 @@ import Section from '../components/home/Section'
 import Stories from '../components/home/Stories'
 import Why from '../components/home/Why'
 
-export default function Index(props) {
+export default function Index() {
   return (
     <div>
       <Section alt={1}><Hero /></Section>

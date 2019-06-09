@@ -1,4 +1,4 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   card: {
     height: '100%',
     display: 'flex',
@@ -17,10 +17,11 @@ const styles = theme => ({
   cardActionArea: {
     flexGrow: 1,
   },
-});
+}));
 
 function StaticCollectionItem(props) {
-  const { classes, item } = props;
+  const { item } = props;
+  const classes = useStyles();
 
   return (
     <Card className={classes.card}>
@@ -44,8 +45,7 @@ function StaticCollectionItem(props) {
 }
 
 StaticCollectionItem.propTypes = {
-  classes: PropTypes.object.isRequired,
   item: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(StaticCollectionItem);
+export default StaticCollectionItem;

@@ -1,16 +1,17 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef } from 'react';
 
 // eslint-disable-next-line no-unused-vars
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
   },
-});
+}));
 
 function AnimatedSVG(props) {
-  const { classes, path } = props;
+  const { path } = props;
+  const classes = useStyles();
   const domNode = useRef();
 
   const handleScroll = () => {
@@ -46,9 +47,8 @@ function AnimatedSVG(props) {
 }
 
 AnimatedSVG.propTypes = {
-  classes: PropTypes.object.isRequired,
   path: PropTypes.string.isRequired,
   transform: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(AnimatedSVG);
+export default AnimatedSVG;

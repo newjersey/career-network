@@ -1,4 +1,4 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
@@ -6,7 +6,7 @@ import React from 'react';
 import Picture from '../Picture';
 import StoryStepper from './StoryStepper';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   leftContainer: {
     [theme.breakpoints.up('sm')]: {
       paddingRight: theme.spacing(1.5)
@@ -22,11 +22,11 @@ const styles = theme => ({
   },
   button: {
     marginTop: theme.spacing(3),
-  }
-});
+  },
+}));
 
-function Stories(props) {
-  const { classes } = props;
+function Stories() {
+  const classes = useStyles();
 
   return (
     <Grid container alignItems="center">
@@ -47,4 +47,4 @@ function Stories(props) {
   );
 }
 
-export default withStyles(styles)(Stories);
+export default Stories;

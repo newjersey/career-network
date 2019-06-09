@@ -1,5 +1,4 @@
-import { withStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/styles';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
@@ -7,14 +6,14 @@ import ScaffoldContainer from '../components/ScaffoldContainer';
 import StaticList from '../components/StaticList';
 import { Link } from '@material-ui/core';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     paddingTop: theme.spacing(5),
   },
-});
+}));
 
-function LinkedinResources(props) {
-  const { classes } = props;
+function LinkedinResources() {
+  const classes = useStyles();
 
   return (
     <div className={classes.root}>
@@ -160,8 +159,4 @@ function LinkedinResources(props) {
   );
 }
 
-LinkedinResources.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(LinkedinResources);
+export default LinkedinResources;

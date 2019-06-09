@@ -1,11 +1,10 @@
 import { fade } from '@material-ui/core/styles/colorManipulator';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import InputBase from '@material-ui/core/InputBase';
-import PropTypes from 'prop-types';
 import React from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -47,10 +46,10 @@ const styles = theme => ({
       },
     },
   },
-});
+}));
 
 function Search(props) {
-  const { classes } = props;
+  const classes = useStyles();
 
   return (
     <div className={classes.root}>
@@ -69,8 +68,4 @@ function Search(props) {
   );
 }
 
-Search.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Search);
+export default Search;

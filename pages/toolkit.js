@@ -1,14 +1,13 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import fetch from 'unfetch';
-import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import ScaffoldContainer from '../components/ScaffoldContainer';
 import StaticCollection from '../components/StaticCollection';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     paddingTop: theme.spacing(5),
   },
@@ -17,10 +16,10 @@ const styles = theme => ({
     marginTop: theme.spacing(5),
     display: 'block',
   },
-});
+}));
 
-function Tools(props) {
-  const { classes } = props;
+function Tools() {
+  const classes = useStyles();
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -60,9 +59,4 @@ function Tools(props) {
   );
 }
 
-Tools.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Tools);
+export default Tools;

@@ -1,4 +1,4 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
@@ -57,7 +57,7 @@ const items = [
   },
 ];
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     paddingTop: theme.spacing(3),
     [theme.breakpoints.up('sm')]: {
@@ -77,10 +77,10 @@ const styles = theme => ({
     }
   },
   withSpecificity: { /* NOOP */ },
-});
+}));
 
-function Network(props) {
-  const { classes } = props;
+function Network() {
+  const classes = useStyles();
   const gridItemClassName = clsx(classes.gridItem, classes.withSpecificity);
 
   return (
@@ -105,4 +105,4 @@ function Network(props) {
   );
 }
 
-export default withStyles(styles)(Network);
+export default Network;

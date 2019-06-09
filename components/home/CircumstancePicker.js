@@ -1,18 +1,17 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
-import PropTypes from 'prop-types';
 import React, { useCallback, useState } from 'react';
 import ReactDOM from 'react-dom';
 import Select from '@material-ui/core/Select';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   formControl: {
     minWidth: '15em',
   },
-});
+}));
 
 const UNEMPLOYMENT_TERMS = [
   { value: 'short', label: 'I am recently unemployed' },
@@ -20,8 +19,8 @@ const UNEMPLOYMENT_TERMS = [
   { value: 'indefinite', label: 'I have never had a job' },
 ];
 
-function CircumstancePicker(props) {
-  const { classes } = props;
+function CircumstancePicker() {
+  const classes = useStyles();
   const [unemploymentTerm, setUnemploymentTerm] = useState('');
   const [labelWidth, setLabelWidth] = useState(0);
 
@@ -60,8 +59,4 @@ function CircumstancePicker(props) {
   );
 }
 
-CircumstancePicker.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(CircumstancePicker);
+export default CircumstancePicker;

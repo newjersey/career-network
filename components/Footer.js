@@ -1,7 +1,6 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
-import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
@@ -9,7 +8,7 @@ import ScaffoldContainer from './ScaffoldContainer';
 
 const color = '#fff';
 const hoverColor = '';
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: '#333',
     paddingTop: theme.spacing(2),
@@ -37,10 +36,10 @@ const styles = theme => ({
       marginRight: 'auto',
     },
   }
-});
+}));
 
-function Footer(props) {
-  const { classes } = props;
+function Footer() {
+  const classes = useStyles();
   const year = new Date().getFullYear();
   const spacing = 1;
   const socialIcons = [
@@ -105,8 +104,4 @@ function Footer(props) {
   );
 }
 
-Footer.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Footer);
+export default Footer;

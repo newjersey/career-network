@@ -1,4 +1,4 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
@@ -34,7 +34,7 @@ const contentItems = [
   },
 ];
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     [theme.breakpoints.down('xs')]: {
       paddingTop: theme.spacing(2),
@@ -54,10 +54,10 @@ const styles = theme => ({
     }
   },
   withSpecificity: { /* NOOP */ },
-});
+}));
 
-function Why(props) {
-  const { classes } = props;
+function Why() {
+  const classes = useStyles();
   const gridItemClassName = clsx(classes.gridItem, classes.withSpecificity);
 
   return (
@@ -82,4 +82,4 @@ function Why(props) {
   );
 }
 
-export default withStyles(styles)(Why);
+export default Why;

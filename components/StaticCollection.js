@@ -1,4 +1,4 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 
 import StaticCollectionItem from './StaticCollectionItem';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
     paddingBottom: theme.spacing(5),
@@ -31,10 +31,11 @@ const styles = theme => ({
   description: {
     marginBottom: theme.spacing(2),
   },
-});
+}));
 
 function StaticCollection(props) {
-  const { classes, categories } = props;
+  const { categories } = props;
+  const classes = useStyles();
 
   return (
     <div className={classes.root}>
@@ -58,8 +59,7 @@ function StaticCollection(props) {
 }
 
 StaticCollection.propTypes = {
-  classes: PropTypes.object.isRequired,
   categories: PropTypes.array.isRequired,
 };
 
-export default withStyles(styles)(StaticCollection);
+export default StaticCollection;

@@ -1,4 +1,4 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import React from 'react';
@@ -6,7 +6,7 @@ import React from 'react';
 import Oval from './Oval';
 import SectionContent from './SectionContent';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     [theme.breakpoints.up('md')]: {
       height: '400px',
@@ -25,10 +25,10 @@ const styles = theme => ({
   center: {
     textAlign: 'center',
   }
-});
+}));
 
-function Resources(props) {
-  const { classes } = props;
+function Resources() {
+  const classes = useStyles();
 
   return (
     <Grid container alignItems="center" className={classes.root}>
@@ -58,4 +58,4 @@ function Resources(props) {
   );
 }
 
-export default withStyles(styles)(Resources);
+export default Resources;

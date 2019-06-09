@@ -1,4 +1,4 @@
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import BuildIcon from '@material-ui/icons/Build';
 import ChatIcon from '@material-ui/icons/Chat';
 import DashboardIcon from '@material-ui/icons/Dashboard';
@@ -18,7 +18,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import NextLink from 'next/link';
 import PeopleIcon from '@material-ui/icons/People';
 import PersonIcon from '@material-ui/icons/Person';
-import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import SettingsIcon from '@material-ui/icons/Settings';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
@@ -67,7 +66,7 @@ const pages = [
   }
 ];
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   container: {
     [theme.breakpoints.up('md')]: {
       alignItems: 'flex-end',
@@ -120,10 +119,10 @@ const styles = theme => ({
   drawerList: {
     width: 250,
   },
-});
+}));
 
-function Nav(props) {
-  const { classes } = props;
+function Nav() {
+  const classes = useStyles();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const openDrawer = () => setIsDrawerOpen(true);
@@ -217,8 +216,4 @@ function Nav(props) {
   );
 }
 
-Nav.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Nav);
+export default Nav;

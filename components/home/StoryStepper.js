@@ -1,11 +1,10 @@
 import { autoPlay } from 'react-swipeable-views-utils';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import FormatQuote from '@material-ui/icons/FormatQuote';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import MobileStepper from '@material-ui/core/MobileStepper';
-import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import Typography from '@material-ui/core/Typography';
@@ -38,7 +37,7 @@ const steps = [
 // quick and dirty -- do something better
 const longestQuotationLength = steps.map(step => step.quotation.length).reduce((a, b) => Math.max(a, b));
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
     flexGrow: 1,
@@ -60,10 +59,11 @@ const styles = theme => ({
   mobileStepper: {
     backgroundColor: 'inherit',
   },
-});
+}));
 
-function StoryStepper(props) {
-  const { classes, theme } = props;
+function StoryStepper() {
+  const theme = useTheme();
+  const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
   const maxSteps = steps.length;
 
@@ -113,9 +113,4 @@ function StoryStepper(props) {
   );
 }
 
-StoryStepper.propTypes = {
-  classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles, { withTheme: true })(StoryStepper);
+export default StoryStepper;
