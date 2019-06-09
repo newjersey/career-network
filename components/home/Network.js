@@ -94,7 +94,7 @@ function Network(props) {
         relationships online and in-person.
       </SectionContent>
 
-      <Grid container spacing={32} >
+      <Grid container spacing={4} >
         {items.map((item, i) => (
           <Grid item key={i} xs={12} sm={6} md={4} className={gridItemClassName}>
             <NetworkItem {...item} />

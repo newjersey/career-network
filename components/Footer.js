@@ -42,7 +42,7 @@ const styles = theme => ({
 function Footer(props) {
   const { classes } = props;
   const year = new Date().getFullYear();
-  const spacing = 8;
+  const spacing = 1;
   const socialIcons = [
     {
       name: 'Twitter',

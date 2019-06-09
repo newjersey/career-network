@@ -61,7 +61,7 @@ function Why(props) {
   const gridItemClassName = clsx(classes.gridItem, classes.withSpecificity);
 
   return (
-    <Grid container justify="center" spacing={32} className={classes.root}>
+    <Grid container justify="center" spacing={4} className={classes.root}>
       <Grid item sm md={6} className={gridItemClassName}>
         <SectionContent
           title="Why use the Career Network?"

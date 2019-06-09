@@ -44,7 +44,7 @@ function StaticCollection(props) {
           <Typography variant="body1" gutterBottom className={classes.description}>
             {category.fields.Description}
           </Typography>
-          <Grid container spacing={24}>
+          <Grid container spacing={3}>
             {category.items.map(item =>
               <Grid key={item.fields.Name} item xs={12} sm={6} md={4} className={clsx(classes.gridItem, classes.withSpecificity)}>
                 <StaticCollectionItem item={item} />
