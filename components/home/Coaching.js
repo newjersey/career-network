@@ -19,7 +19,7 @@ function PlanCoaching() {
           title="Get personalized coaching"
           buttonText="Get started"
         >
-          Self-coaching strategies, and one-on-one expert coaching through
+          Self-coaching strategies and one-on-one expert coaching through
           our chat and in person are all available. Learn how to be your own coach
           through tips and strategies to hold yourself accountable during the job
           search process. Develop peer-support networks to trade job search
