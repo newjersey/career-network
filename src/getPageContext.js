@@ -16,9 +16,6 @@ const theme = createMuiTheme({
       dark: '#45770A',
     },
   },
-  typography: {
-    useNextVariants: true,
-  },
 });
 
 function createPageContext() {
