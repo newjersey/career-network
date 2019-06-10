@@ -5,6 +5,7 @@ import Head from 'next/head';
 import React from 'react';
 
 import Firebase, { FirebaseContext } from '../components/Firebase';
+import { SignInDialogProvider } from '../components/SignInDialog';
 import { SnackbarProvider } from '../components/Snackbar';
 import { UserProvider } from '../components/User';
 import Footer from '../components/Footer';
@@ -30,16 +31,18 @@ class MyApp extends App {
         <ThemeProvider theme={theme}>
           <SnackbarProvider>
             <UserProvider>
-              <FirebaseContext.Provider value={new Firebase()}>
-                <CssBaseline />
-                <Header />
-                <main>
-                  {/* Pass pageContext to the _document though the renderPage enhancer
+              <SignInDialogProvider>
+                <FirebaseContext.Provider value={new Firebase()}>
+                  <CssBaseline />
+                  <Header />
+                  <main>
+                    {/* Pass pageContext to the _document though the renderPage enhancer
                   to render collected styles on server-side. */}
-                  <Component pageContext={this.pageContext} {...pageProps} />
-                </main>
-                <Footer />
-              </FirebaseContext.Provider>
+                    <Component pageContext={this.pageContext} {...pageProps} />
+                  </main>
+                  <Footer />
+                </FirebaseContext.Provider>
+              </SignInDialogProvider>
             </UserProvider>
           </SnackbarProvider>
         </ThemeProvider>

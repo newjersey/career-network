@@ -1,19 +1,14 @@
 import Button from '@material-ui/core/Button';
-import React, { useState } from 'react';
+import React from 'react';
 
-import SignInDialog from './SignInDialog';
+import { useSignInDialog } from '../SignInDialog';
 
-function SignInButton() {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+export default function SignInButton() {
+  const openSignInDialog = useSignInDialog();
 
   return (
-    <React.Fragment>
-      <Button variant="contained" color="secondary" onClick={() => setIsDialogOpen(true)}>
-        Sign in
-      </Button>
-      <SignInDialog open={isDialogOpen} onCancel={() => setIsDialogOpen(false)} />
-    </React.Fragment>
+    <Button variant="contained" color="secondary" onClick={openSignInDialog}>
+      Sign in
+    </Button>
   );
 }
-
-export default SignInButton;
