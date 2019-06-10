@@ -1,10 +1,7 @@
-// TODO: understand these rules and un-disable them:
-/* eslint-disable import/no-named-as-default-member */
-/* eslint-disable import/no-named-as-default */
-
-import FirebaseContext, { withFirebase } from './context';
-import Firebase from './firebase';
+import Firebase from './Firebase';
+import FirebaseContext from './FirebaseContext';
+import useFirebase from './useFirebase';
 
 export default Firebase;
 
-export { FirebaseContext, withFirebase };
+export { FirebaseContext, useFirebase };

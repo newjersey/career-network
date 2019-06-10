@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 
-import SignInForm from './SignInForm';
+import SignInForm from '../Firebase/SignInForm';
 
 function SignInDialog(props) {
   const { onCancel, fullScreen, open } = props;

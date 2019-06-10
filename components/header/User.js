@@ -1,17 +1,16 @@
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
-import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
 
-import Firebase, { withFirebase } from '../Firebase';
+import { useFirebase } from '../Firebase';
 import ScaffoldContainer from '../ScaffoldContainer';
 import Search from './Search';
 import SignInButton from './SignInButton';
 import Snackbar from './Snackbar';
 import UserButton from './UserButton';
 
-function User(props) {
-  const { firebase } = props;
+export default function User() {
+  const firebase = useFirebase();
   const { onAuthStateChanged } = firebase;
   const [snackbarMessage, setSnackbarMessage] = useState(null);
   const [user, setUser] = useState(null);
@@ -63,9 +62,3 @@ function User(props) {
     </ScaffoldContainer>
   );
 }
-
-User.propTypes = {
-  firebase: PropTypes.instanceOf(Firebase).isRequired,
-};
-
-export default withFirebase(User);

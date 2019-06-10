@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import Firebase, { withFirebase } from '../Firebase';
+import { useFirebase } from '../Firebase';
 
 // eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles(theme => ({
@@ -22,9 +22,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function UserButton(props) {
-  const { displayName, firebase, photoURL } = props;
+export default function UserButton(props) {
+  const { displayName, photoURL } = props;
   const classes = useStyles();
+  const firebase = useFirebase();
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClickUser = (e) => {
@@ -79,7 +80,6 @@ function UserButton(props) {
 }
 
 UserButton.propTypes = {
-  firebase: PropTypes.instanceOf(Firebase).isRequired,
   displayName: PropTypes.string.isRequired,
   photoURL: PropTypes.string,
 };
@@ -87,5 +87,3 @@ UserButton.propTypes = {
 UserButton.defaultProps = {
   photoURL: undefined,
 };
-
-export default withFirebase(UserButton);

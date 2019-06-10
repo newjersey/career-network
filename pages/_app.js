@@ -25,19 +25,19 @@ class MyApp extends App {
         <Head>
           <title>Career Network</title>
         </Head>
-        <FirebaseContext.Provider value={new Firebase()}>
-          <ThemeProvider theme={theme}>
+        <ThemeProvider theme={theme}>
+          <FirebaseContext.Provider value={new Firebase()}>
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
-            {/* Pass pageContext to the _document though the renderPage enhancer
-                to render collected styles on server-side. */}
             <Header />
             <main>
+              {/* Pass pageContext to the _document though the renderPage enhancer
+                  to render collected styles on server-side. */}
               <Component pageContext={this.pageContext} {...pageProps} />
             </main>
             <Footer />
-          </ThemeProvider>
-        </FirebaseContext.Provider>
+          </FirebaseContext.Provider>
+        </ThemeProvider>
       </Container>
     );
   }
