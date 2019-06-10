@@ -1,6 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
-import BuildIcon from '@material-ui/icons/Build';
-import ChatIcon from '@material-ui/icons/Chat';
+import Avatar from '@material-ui/core/Avatar';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
@@ -9,22 +8,21 @@ import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import Link from '@material-ui/core/Link';
-import LinkIcon from '@material-ui/icons/Link';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuIcon from '@material-ui/icons/Menu';
 import NextLink from 'next/link';
-import PeopleIcon from '@material-ui/icons/People';
 import PersonIcon from '@material-ui/icons/Person';
+import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew';
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import SettingsIcon from '@material-ui/icons/Settings';
-import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import Typography from '@material-ui/core/Typography';
 
 import Picture from '../Picture';
 import ScaffoldContainer from '../ScaffoldContainer';
+import UserClass from '../User';
 
 const logoRatio = 834 / 784;
 const logoWidths = {
@@ -37,32 +35,26 @@ const pages = [
     href: '/plan',
     name: 'Build Your Plan',
     shortName: 'Build Your Plan',
-    icon: <DashboardIcon />,
   }, {
     href: '/act',
     name: 'Act on Your Plan',
     shortName: 'Act on Your Plan',
-    icon: <TrendingUpIcon />,
   }, {
     href: '/coaching',
     name: 'Career Coaching',
     shortName: 'Coaching',
-    icon: <ChatIcon />,
   }, {
     href: '/networking',
     name: 'Networking',
     shortName: 'Networking',
-    icon: <PeopleIcon />,
   }, {
     href: '/toolkit',
     name: 'Job Toolkit',
     shortName: 'Toolkit',
-    icon: <BuildIcon />,
   }, {
     href: '/resources',
     name: 'State Resources',
     shortName: 'Resources',
-    icon: <LinkIcon />,
   },
 ];
 
@@ -121,7 +113,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Nav() {
+function Nav(props) {
+  const { onSignOut, user } = props;
   const classes = useStyles();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -141,26 +134,44 @@ function Nav() {
 
             <Hidden smUp implementation="css">
               <List>
-                <ListItem button>
-                  <ListItemIcon><PersonIcon /></ListItemIcon>
-                  <ListItemText primary="Jack Jacobs" secondary="jackjacobs@gmail.com" />
-                </ListItem>
-                <ListItem button>
-                  <ListItemIcon><SettingsIcon /></ListItemIcon>
-                  <ListItemText primary="My account" />
-                </ListItem>
-                <ListItem button>
-                  <ListItemIcon><ExitToAppIcon /></ListItemIcon>
-                  <ListItemText primary="Sign out" />
-                </ListItem>
+                {user ? (
+                  <React.Fragment>
+                    <NextLink href="/dashboard">
+                      <ListItem button>
+                        <ListItemIcon>
+                          <Avatar src={user.photoURL} alt={user.displayName}>
+                            <PersonIcon />
+                          </Avatar>
+                        </ListItemIcon>
+                        <ListItemText primary={user.displayName} secondary={user.email} />
+                      </ListItem>
+                    </NextLink>
+                    <NextLink href="/dashboard">
+                      <ListItem button>
+                        <ListItemIcon><DashboardIcon /></ListItemIcon>
+                        <ListItemText primary="My dashboard" />
+                      </ListItem>
+                    </NextLink>
+                    <ListItem button onClick={onSignOut}>
+                      <ListItemIcon><PowerSettingsNew /></ListItemIcon>
+                      <ListItemText primary="Sign out" />
+                    </ListItem>
+                  </React.Fragment>
+                ) : (
+                  <ListItem button>
+                    <ListItemIcon><ExitToAppIcon /></ListItemIcon>
+                    <ListItemText primary="Sign in" />
+                  </ListItem>
+                )
+                }
               </List>
               <Divider />
             </Hidden>
+
             <List>
               {pages.map(page => (
                 <NextLink href={page.href} key={page.href}>
                   <ListItem button>
-                    <ListItemIcon>{page.icon}</ListItemIcon>
                     <ListItemText primary={page.shortName} />
                   </ListItem>
                 </NextLink>
@@ -201,7 +212,7 @@ function Nav() {
                     <li key={page.href} className={classes.listItem}>
                       <Typography className={classes.listItemTypography}>
                         <NextLink href={page.href}>
-                          { /* eslint-disable-next-line jsx-a11y/anchor-is-valid */ }
+                          { /* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                           <Link className={classes.link} underline="none">{page.name}</Link>
                         </NextLink>
                       </Typography>
@@ -216,5 +227,14 @@ function Nav() {
     </React.Fragment>
   );
 }
+
+Nav.propTypes = {
+  onSignOut: PropTypes.func.isRequired,
+  user: PropTypes.instanceOf(UserClass),
+};
+
+Nav.defaultProps = {
+  user: null,
+};
 
 export default Nav;

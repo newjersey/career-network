@@ -33,7 +33,7 @@ function Header() {
     <header className={classes.root}>
       <AppBar position="static" color="primary">
         <Toolbar className={classes.navBar}>
-          <Nav />
+          <Nav user={user} onSignOut={handleSignOut} />
         </Toolbar>
         <Toolbar className={classes.userBar}>
           <User user={user} onSignOut={handleSignOut} />
