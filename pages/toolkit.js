@@ -1,9 +1,9 @@
 import { makeStyles } from '@material-ui/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import fetch from 'unfetch';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
+import { useNestedRecords } from '../components/Airtable';
 import ScaffoldContainer from '../components/ScaffoldContainer';
 import StaticCollection from '../components/StaticCollection';
 
@@ -20,28 +20,11 @@ const useStyles = makeStyles(theme => ({
 
 function Tools() {
   const classes = useStyles();
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      const categoryResult = await fetch('https://careers.gardenstate.tech/api/airtable/v0/appPhpA6Quf0pCBDm/Resource%20Categories?view=API%20Toolkit%20Page');
-      const categoryJson = await categoryResult.json();
-      const categoryRecords = categoryJson.records.filter(c => c.fields.Resources);
-
-      const itemResult = await fetch('https://careers.gardenstate.tech/api/airtable/v0/appPhpA6Quf0pCBDm/Resources?view=API%20Toolkit%20Page');
-      const itemJson = await itemResult.json();
-      const items = itemJson.records;
-
-      categoryRecords.forEach((category) => {
-        // eslint-disable-next-line no-param-reassign
-        category.items = category.fields.Resources
-          .map(itemId => items.find(item => item.id === itemId))
-          .filter(item => item);
-      });
-
-      setCategories(categoryRecords.filter(category => category.items.length));
-    })();
-  }, []);
+  const categories = useNestedRecords({
+    parentRecordsApiPath: 'appPhpA6Quf0pCBDm/Resource%20Categories?view=API%20Toolkit%20Page',
+    childRecordsApiPath: 'appPhpA6Quf0pCBDm/Resources?view=API%20Toolkit%20Page',
+    childIdColumnName: 'Resources',
+  });
 
   return (
     <div className={classes.root}>
