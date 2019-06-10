@@ -6,6 +6,8 @@ import 'firebase/auth';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+import { useSnackbar } from '../Snackbar';
+
 const useStyles = makeStyles(theme => ({
   root: {
     marginTop: theme.spacing(3),
@@ -18,6 +20,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignInForm() {
   const classes = useStyles();
+  const showMessage = useSnackbar();
   const [uiShown, setUiShown] = useState(false);
 
   const uiConfig = {
@@ -31,7 +34,18 @@ export default function SignInForm() {
         // eslint-disable-next-line no-console
         console.log('Signed in', 'authResult:', authResult, 'redirectUrl:', redirectUrl);
 
-        Router.push('/dashboard');
+        // the shape of profile varies by login provider.
+        // we're too early in the login flow to use useUser
+        const { profile } = authResult.additionalUserInfo;
+        const firstName = profile.first_name || profile.given_name;
+
+        if (authResult.additionalUserInfo.isNewUser) {
+          showMessage(`Welcome, ${firstName}!`);
+          Router.push('/assessment');
+        } else {
+          showMessage(`Welcome back, ${firstName}!`);
+          Router.push('/dashboard');
+        }
 
         return false;
       },

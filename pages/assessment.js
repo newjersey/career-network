@@ -12,14 +12,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Dashboard() {
+export default function Assessment() {
   const classes = useStyles();
   const user = useUser();
 
   return (
     <div className={classes.root}>
       <ScaffoldContainer>
-        <Typography>{user ? user.displayName : 'Logged Out'}</Typography>
+        <Typography>
+          {user && user.displayName}
+          {' '}
+          Assessment
+        </Typography>
       </ScaffoldContainer>
     </div>
   );

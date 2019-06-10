@@ -52,9 +52,13 @@ function Snackbar(props) {
 }
 
 Snackbar.propTypes = {
-  message: PropTypes.string.isRequired,
+  message: PropTypes.string,
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+};
+
+Snackbar.defaultProps = {
+  message: null,
 };
 
 export default Snackbar;
