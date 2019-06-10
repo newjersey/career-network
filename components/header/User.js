@@ -8,8 +8,16 @@ import Search from './Search';
 import SignInButton from './SignInButton';
 import UserButton from './UserButton';
 
+import { useSnackbar } from '../Snackbar';
+
 export default function User() {
   const user = useUser();
+  const showMessage = useSnackbar();
+
+  const handleSignOut = () => {
+    user.signOut();
+    showMessage('Signed out');
+  };
 
   return (
     <ScaffoldContainer padding={false}>
@@ -23,7 +31,7 @@ export default function User() {
               ? (
                 <UserButton
                   displayName={user.displayName}
-                  onSignOut={user.signOut}
+                  onSignOut={handleSignOut}
                   photoURL={user.photoURL}
                 />
               )
