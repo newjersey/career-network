@@ -1,12 +1,10 @@
-import { makeStyles } from '@material-ui/styles';
-import React, { useState } from 'react';
-import Router from 'next/router';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import { makeStyles } from '@material-ui/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
-import { useSnackbar } from '../Snackbar';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -18,9 +16,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SignInForm() {
+export default function SignInForm(props) {
+  const { onSignInSuccessWithAuthResult } = props;
   const classes = useStyles();
-  const showMessage = useSnackbar();
   const [uiShown, setUiShown] = useState(false);
 
   const uiConfig = {
@@ -34,17 +32,8 @@ export default function SignInForm() {
         // eslint-disable-next-line no-console
         console.log('Signed in', 'authResult:', authResult, 'redirectUrl:', redirectUrl);
 
-        // the shape of profile varies by login provider.
-        // we're too early in the login flow to use useUser
-        const { profile } = authResult.additionalUserInfo;
-        const firstName = profile.first_name || profile.given_name;
-
-        if (authResult.additionalUserInfo.isNewUser) {
-          showMessage(`Welcome, ${firstName}!`);
-          Router.push('/assessment');
-        } else {
-          showMessage(`Welcome back, ${firstName}!`);
-          Router.push('/dashboard');
+        if (onSignInSuccessWithAuthResult) {
+          onSignInSuccessWithAuthResult(authResult, redirectUrl);
         }
 
         return false;
@@ -78,3 +67,11 @@ export default function SignInForm() {
     </div>
   );
 }
+
+SignInForm.propTypes = {
+  onSignInSuccessWithAuthResult: PropTypes.func,
+};
+
+SignInForm.defaultProps = {
+  onSignInSuccessWithAuthResult: null,
+};

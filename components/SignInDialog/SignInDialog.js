@@ -11,7 +11,12 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import SignInForm from '../Firebase/SignInForm';
 
 function SignInDialog(props) {
-  const { onCancel, fullScreen, open } = props;
+  const {
+    onCancel,
+    fullScreen,
+    open,
+    onSignInSuccessWithAuthResult,
+  } = props;
 
   return (
     <Dialog fullScreen={fullScreen} open={open} aria-labelledby="sign-in-dialog-title">
@@ -20,7 +25,7 @@ function SignInDialog(props) {
         <DialogContentText>
           We’re excited to have you join us!
         </DialogContentText>
-        <SignInForm />
+        <SignInForm onSignInSuccessWithAuthResult={onSignInSuccessWithAuthResult} />
       </DialogContent>
       <DialogActions>
         <Button onClick={onCancel}>Cancel</Button>
@@ -33,6 +38,11 @@ SignInDialog.propTypes = {
   fullScreen: PropTypes.bool.isRequired,
   onCancel: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
+  onSignInSuccessWithAuthResult: PropTypes.func,
+};
+
+SignInDialog.defaultProps = {
+  onSignInSuccessWithAuthResult: null,
 };
 
 export default withMobileDialog()(SignInDialog);
