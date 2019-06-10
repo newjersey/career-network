@@ -1,6 +1,6 @@
 const config = {
   apiKey: 'AIzaSyBW2hLAzSgdv72lKicKcW_j1c86enCi8uU',
-  authDomain: 'nj-career-network.firebaseapp.com',
+  authDomain: 'auth.careers.gardenstate.tech',
   databaseURL: 'https://nj-career-network.firebaseio.com',
   projectId: 'nj-career-network',
   storageBucket: 'nj-career-network.appspot.com',
