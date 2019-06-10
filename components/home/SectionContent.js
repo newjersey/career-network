@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
+import { useSignInDialog } from '../SignInDialog';
+
 const useStyles = makeStyles(theme => ({
   body: {
     marginTop: theme.spacing(1),
@@ -16,9 +18,16 @@ const useStyles = makeStyles(theme => ({
 
 function SectionContent(props) {
   const classes = useStyles();
+  const signIn = useSignInDialog();
   const {
-    buttonColor, buttonText, children, title,
+    buttonColor,
+    buttonText,
+    children,
+    onButtonClick,
+    title,
   } = props;
+
+  const handleClickButton = onButtonClick || signIn;
 
   return (
     <React.Fragment>
@@ -29,7 +38,7 @@ function SectionContent(props) {
         {children}
       </Typography>
       {buttonText && (
-        <Button variant="contained" color={buttonColor}>
+        <Button variant="contained" color={buttonColor} onClick={handleClickButton}>
           {buttonText}
         </Button>
       )}
@@ -42,11 +51,13 @@ SectionContent.propTypes = {
   children: PropTypes.node.isRequired,
   buttonText: PropTypes.string,
   buttonColor: PropTypes.string,
+  onButtonClick: PropTypes.func,
 };
 
 SectionContent.defaultProps = {
   buttonColor: 'primary',
   buttonText: undefined,
+  onButtonClick: null,
 };
 
 export default SectionContent;

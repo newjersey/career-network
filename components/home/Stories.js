@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
 
+import { useSignInDialog } from '../SignInDialog';
 import Picture from '../Picture';
 import StoryStepper from './StoryStepper';
 
@@ -27,6 +28,7 @@ const useStyles = makeStyles(theme => ({
 
 function Stories() {
   const classes = useStyles();
+  const signIn = useSignInDialog();
 
   return (
     <Grid container alignItems="center">
@@ -38,8 +40,8 @@ function Stories() {
       <Grid item sm={6}>
         <div className={classes.rightContainer}>
           <StoryStepper />
-          <Button variant="contained" color="secondary" className={classes.button}>
-            Watch success stories
+          <Button variant="contained" color="secondary" className={classes.button} onClick={signIn}>
+            Become a success story
           </Button>
         </div>
       </Grid>

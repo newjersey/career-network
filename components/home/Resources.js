@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import React from 'react';
+import Router from 'next/router';
 
 import Oval from './Oval';
 import SectionContent from './SectionContent';
@@ -30,6 +31,8 @@ const useStyles = makeStyles(theme => ({
 function Resources() {
   const classes = useStyles();
 
+  const handleButtonClick = () => Router.push('/resources');
+
   return (
     <Grid container alignItems="center" className={classes.root}>
       <Hidden smDown implementation="js">
@@ -49,6 +52,7 @@ function Resources() {
         <SectionContent
           title="Connect with State and local resources"
           buttonText="See your resources"
+          onButtonClick={handleButtonClick}
         >
           Get connected with Unemployment Insurance, find One-Stop locations near you,
           explore social services, and find out more about education and training.
