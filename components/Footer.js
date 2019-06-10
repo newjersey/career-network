@@ -78,7 +78,7 @@ function Footer() {
   );
 
   const copyright = (
-    <Typography className={classes.text}>
+    <Typography variant="body2" className={classes.text}>
       Copyright &copy; Garden State Career Network,
       {' '}
       {year > 2019 && '2019–'}
