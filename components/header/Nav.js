@@ -117,11 +117,12 @@ const useStyles = makeStyles(theme => ({
 function Nav(props) {
   const { onSignOut, user } = props;
   const classes = useStyles();
-  const handleSignInClick = useSignInDialog();
+  const setIsSignInDialogOpen = useSignInDialog();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const openDrawer = () => setIsDrawerOpen(true);
   const closeDrawer = () => setIsDrawerOpen(false);
+  const handleSignInClick = () => setIsSignInDialogOpen(true);
 
   return (
     <React.Fragment>

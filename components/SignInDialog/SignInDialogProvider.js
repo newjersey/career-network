@@ -8,12 +8,11 @@ export default function SpackbarProvider(props) {
   const { children } = props;
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleOpen = () => setIsOpen(true);
   const handleCancel = () => setIsOpen(false);
 
   return (
     <React.Fragment>
-      <SignInDialogContext.Provider value={handleOpen}>
+      <SignInDialogContext.Provider value={setIsOpen}>
         {children}
       </SignInDialogContext.Provider>
       <SignInDialog open={isOpen} onCancel={handleCancel} />

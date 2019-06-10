@@ -4,10 +4,12 @@ import React from 'react';
 import { useSignInDialog } from '../SignInDialog';
 
 export default function SignInButton() {
-  const openSignInDialog = useSignInDialog();
+  const setIsSignInDialogOpen = useSignInDialog();
+
+  const handleClick = () => setIsSignInDialogOpen(true);
 
   return (
-    <Button variant="contained" color="secondary" onClick={openSignInDialog}>
+    <Button variant="contained" color="secondary" onClick={handleClick}>
       Sign in
     </Button>
   );

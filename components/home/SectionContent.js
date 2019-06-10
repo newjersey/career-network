@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
 
 function SectionContent(props) {
   const classes = useStyles();
-  const signIn = useSignInDialog();
+  const setIsSignInDialogOpen = useSignInDialog();
   const {
     buttonColor,
     buttonText,
@@ -27,7 +27,7 @@ function SectionContent(props) {
     title,
   } = props;
 
-  const handleClickButton = onButtonClick || signIn;
+  const handleClickButton = onButtonClick || (() => setIsSignInDialogOpen(true));
 
   return (
     <React.Fragment>

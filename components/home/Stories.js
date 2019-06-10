@@ -28,7 +28,9 @@ const useStyles = makeStyles(theme => ({
 
 function Stories() {
   const classes = useStyles();
-  const signIn = useSignInDialog();
+  const setIsSignInDialogOpen = useSignInDialog();
+
+  const handleClick = () => setIsSignInDialogOpen(true);
 
   return (
     <Grid container alignItems="center">
@@ -40,7 +42,12 @@ function Stories() {
       <Grid item sm={6}>
         <div className={classes.rightContainer}>
           <StoryStepper />
-          <Button variant="contained" color="secondary" className={classes.button} onClick={signIn}>
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.button}
+            onClick={handleClick}
+          >
             Become a success story
           </Button>
         </div>
