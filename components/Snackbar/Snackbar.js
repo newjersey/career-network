@@ -3,7 +3,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import MaterialSnackbar from '@material-ui/core/Snackbar';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React from 'react';
 
 const useStyles = makeStyles(theme => ({
   close: {
@@ -12,20 +12,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Snackbar(props) {
-  const { message, onClose } = props;
+  const { message, isOpen, onClose } = props;
   const classes = useStyles();
-  const [isOpen, setIsOpen] = useState(true);
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
 
-    setIsOpen(false);
-
-    if (typeof onClose === 'function') {
-      onClose();
-    }
+    onClose();
   };
 
   return (
@@ -58,11 +53,8 @@ function Snackbar(props) {
 
 Snackbar.propTypes = {
   message: PropTypes.string.isRequired,
-  onClose: PropTypes.func,
-};
-
-Snackbar.defaultProps = {
-  onClose: undefined,
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default Snackbar;

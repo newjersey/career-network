@@ -5,6 +5,7 @@ import Head from 'next/head';
 import React from 'react';
 
 import Firebase, { FirebaseContext } from '../components/Firebase';
+import { SnackbarProvider } from '../components/Snackbar';
 import { UserProvider } from '../components/User';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -27,18 +28,20 @@ class MyApp extends App {
           <title>Career Network</title>
         </Head>
         <ThemeProvider theme={theme}>
-          <UserProvider>
-            <FirebaseContext.Provider value={new Firebase()}>
-              <CssBaseline />
-              <Header />
-              <main>
-                {/* Pass pageContext to the _document though the renderPage enhancer
+          <SnackbarProvider>
+            <UserProvider>
+              <FirebaseContext.Provider value={new Firebase()}>
+                <CssBaseline />
+                <Header />
+                <main>
+                  {/* Pass pageContext to the _document though the renderPage enhancer
                   to render collected styles on server-side. */}
-                <Component pageContext={this.pageContext} {...pageProps} />
-              </main>
-              <Footer />
-            </FirebaseContext.Provider>
-          </UserProvider>
+                  <Component pageContext={this.pageContext} {...pageProps} />
+                </main>
+                <Footer />
+              </FirebaseContext.Provider>
+            </UserProvider>
+          </SnackbarProvider>
         </ThemeProvider>
       </Container>
     );
