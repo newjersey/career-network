@@ -20,6 +20,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
+import { useSignInDialog } from '../SignInDialog';
 import Picture from '../Picture';
 import ScaffoldContainer from '../ScaffoldContainer';
 import UserClass from '../User';
@@ -116,6 +117,7 @@ const useStyles = makeStyles(theme => ({
 function Nav(props) {
   const { onSignOut, user } = props;
   const classes = useStyles();
+  const handleSignInClick = useSignInDialog();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const openDrawer = () => setIsDrawerOpen(true);
@@ -158,12 +160,11 @@ function Nav(props) {
                     </ListItem>
                   </React.Fragment>
                 ) : (
-                  <ListItem button>
+                  <ListItem button onClick={handleSignInClick}>
                     <ListItemIcon><ExitToAppIcon /></ListItemIcon>
                     <ListItemText primary="Sign in" />
                   </ListItem>
-                )
-                }
+                )}
               </List>
               <Divider />
             </Hidden>
