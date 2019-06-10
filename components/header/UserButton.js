@@ -8,8 +8,6 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import { useFirebase } from '../Firebase';
-
 // eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles(theme => ({
   name: {
@@ -23,9 +21,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function UserButton(props) {
-  const { displayName, photoURL } = props;
+  const { displayName, onSignOut, photoURL } = props;
   const classes = useStyles();
-  const firebase = useFirebase();
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClickUser = (e) => {
@@ -38,7 +35,7 @@ export default function UserButton(props) {
 
   const handleLogout = () => {
     setAnchorEl(null);
-    firebase.signOut();
+    onSignOut();
   };
 
   return (
@@ -81,6 +78,7 @@ export default function UserButton(props) {
 
 UserButton.propTypes = {
   displayName: PropTypes.string.isRequired,
+  onSignOut: PropTypes.func.isRequired,
   photoURL: PropTypes.string,
 };
 

@@ -5,6 +5,7 @@ import Head from 'next/head';
 import React from 'react';
 
 import Firebase, { FirebaseContext } from '../components/Firebase';
+import { UserProvider } from '../components/User';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import theme from '../src/theme';
@@ -26,17 +27,18 @@ class MyApp extends App {
           <title>Career Network</title>
         </Head>
         <ThemeProvider theme={theme}>
-          <FirebaseContext.Provider value={new Firebase()}>
-            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-            <CssBaseline />
-            <Header />
-            <main>
-              {/* Pass pageContext to the _document though the renderPage enhancer
+          <UserProvider>
+            <FirebaseContext.Provider value={new Firebase()}>
+              <CssBaseline />
+              <Header />
+              <main>
+                {/* Pass pageContext to the _document though the renderPage enhancer
                   to render collected styles on server-side. */}
-              <Component pageContext={this.pageContext} {...pageProps} />
-            </main>
-            <Footer />
-          </FirebaseContext.Provider>
+                <Component pageContext={this.pageContext} {...pageProps} />
+              </main>
+              <Footer />
+            </FirebaseContext.Provider>
+          </UserProvider>
         </ThemeProvider>
       </Container>
     );
