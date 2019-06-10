@@ -3,6 +3,8 @@ import AppBar from '@material-ui/core/AppBar';
 import React from 'react';
 import Toolbar from '@material-ui/core/Toolbar';
 
+import { useSnackbar } from './Snackbar';
+import { useUser } from './User';
 import Nav from './header/Nav';
 import User from './header/User';
 
@@ -19,6 +21,13 @@ const useStyles = makeStyles(theme => ({
 
 function Header() {
   const classes = useStyles();
+  const showMessage = useSnackbar();
+  const user = useUser();
+
+  const handleSignOut = () => {
+    user.signOut();
+    showMessage('Signed out');
+  };
 
   return (
     <header className={classes.root}>
@@ -27,7 +36,7 @@ function Header() {
           <Nav />
         </Toolbar>
         <Toolbar className={classes.userBar}>
-          <User />
+          <User user={user} onSignOut={handleSignOut} />
         </Toolbar>
       </AppBar>
     </header>

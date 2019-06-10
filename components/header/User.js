@@ -1,23 +1,16 @@
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
+import PropTypes from 'prop-types';
 import React from 'react';
 
-import { useUser } from '../User';
 import ScaffoldContainer from '../ScaffoldContainer';
 import Search from './Search';
 import SignInButton from './SignInButton';
+import UserClass from '../User';
 import UserButton from './UserButton';
 
-import { useSnackbar } from '../Snackbar';
-
-export default function User() {
-  const user = useUser();
-  const showMessage = useSnackbar();
-
-  const handleSignOut = () => {
-    user.signOut();
-    showMessage('Signed out');
-  };
+export default function User(props) {
+  const { onSignOut, user } = props;
 
   return (
     <ScaffoldContainer padding={false}>
@@ -31,7 +24,7 @@ export default function User() {
               ? (
                 <UserButton
                   displayName={user.displayName}
-                  onSignOut={handleSignOut}
+                  onSignOut={onSignOut}
                   photoURL={user.photoURL}
                 />
               )
@@ -43,3 +36,12 @@ export default function User() {
     </ScaffoldContainer>
   );
 }
+
+User.propTypes = {
+  onSignOut: PropTypes.func.isRequired,
+  user: PropTypes.instanceOf(UserClass),
+};
+
+User.defaultProps = {
+  user: null,
+};
