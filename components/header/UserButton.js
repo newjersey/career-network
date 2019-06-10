@@ -3,6 +3,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import NextLink from 'next/link';
 import PersonIcon from '@material-ui/icons/Person';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
@@ -70,6 +71,9 @@ export default function UserButton(props) {
         open={Boolean(anchorEl)}
         onClose={handleCloseUser}
       >
+        <NextLink href="/dashboard">
+          <MenuItem>Dashboard</MenuItem>
+        </NextLink>
         <MenuItem onClick={handleLogout}>Sign out</MenuItem>
       </Menu>
     </React.Fragment>
