@@ -16,7 +16,9 @@ export default function SpackbarProvider(props) {
     // the shape of profile varies by login provider.
     // we're too early in the login flow to use useUser
     const { profile } = authResult.additionalUserInfo;
-    const firstName = profile.first_name || profile.given_name;
+    const firstName = profile.first_name
+      || profile.given_name
+      || profile.name.split(' ')[0];
 
     if (authResult.additionalUserInfo.isNewUser) {
       showMessage(`Welcome, ${firstName}!`);
