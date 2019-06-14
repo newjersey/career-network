@@ -52,7 +52,18 @@ export default function SignInForm(props) {
       // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
       firebase.auth.GithubAuthProvider.PROVIDER_ID,
       // firebase.auth.EmailAuthProvider.PROVIDER_ID,
-      // firebase.auth.PhoneAuthProvider.PROVIDER_ID
+      // firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+      {
+        provider: 'microsoft.com',
+        providerName: 'Microsoft',
+        buttonColor: '#333',
+        iconUrl: '/static/img/microsoft.svg',
+        loginHintKey: 'login_hint',
+        customParameters: {
+          // Target specific email with login hint.
+          login_hint: 'careers@gardenstate.tech',
+        },
+      },
     ],
     // Terms of service url.
     tosUrl: '/terms-of-service',

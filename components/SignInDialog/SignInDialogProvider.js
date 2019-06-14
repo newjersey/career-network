@@ -18,7 +18,8 @@ export default function SpackbarProvider(props) {
     const { profile } = authResult.additionalUserInfo;
     const firstName = profile.first_name
       || profile.given_name
-      || profile.name.split(' ')[0];
+      || profile.givenName
+      || authResult.user.displayName.split(' ')[0];
 
     if (authResult.additionalUserInfo.isNewUser) {
       showMessage(`Welcome, ${firstName}!`);
