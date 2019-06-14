@@ -49,16 +49,6 @@ export default function SignInForm(props) {
       // Leave the lines as is for the providers you want to offer your users.
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-      {
-        provider: 'yahoo.com',
-        providerName: 'Yahoo',
-        buttonColor: '#400090',
-        iconUrl: '/static/img/yahoo.svg',
-        loginHintKey: 'login_hint',
-        // scopes: [
-        //   'sdps-r',
-        // ],
-      },
       // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
       // firebase.auth.GithubAuthProvider.PROVIDER_ID,
       // firebase.auth.EmailAuthProvider.PROVIDER_ID,
