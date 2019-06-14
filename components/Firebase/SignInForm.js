@@ -42,22 +42,26 @@ export default function SignInForm(props) {
     signInOptions: [
       // Leave the lines as is for the providers you want to offer your users.
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-      // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-      firebase.auth.GithubAuthProvider.PROVIDER_ID,
-      // firebase.auth.EmailAuthProvider.PROVIDER_ID,
-      // firebase.auth.PhoneAuthProvider.PROVIDER_ID,
       {
         provider: 'microsoft.com',
         providerName: 'Microsoft',
-        buttonColor: '#333',
+        buttonColor: '#575352',
         iconUrl: '/static/img/microsoft.svg',
-        loginHintKey: 'login_hint',
-        customParameters: {
-          // Target specific email with login hint.
-          login_hint: 'careers@gardenstate.tech',
-        },
       },
+      // {
+      //   provider: 'yahoo.com',
+      //   providerName: 'Yahoo',
+      //   buttonColor: '#400090',
+      //   iconUrl: '/static/img/yahoo.svg',
+      //   customParameters: {
+
+      //   },
+      // },
+      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+      firebase.auth.GithubAuthProvider.PROVIDER_ID,
+      // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+      // firebase.auth.EmailAuthProvider.PROVIDER_ID,
+      // firebase.auth.PhoneAuthProvider.PROVIDER_ID,
     ],
     // Terms of service url.
     tosUrl: '/terms-of-service',
