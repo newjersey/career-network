@@ -122,7 +122,7 @@ function Nav(props) {
 
   const openDrawer = () => setIsDrawerOpen(true);
   const closeDrawer = () => setIsDrawerOpen(false);
-  const handleSignInClick = () => showSignIn(true);
+  const handleSignInClick = () => showSignIn();
 
   return (
     <React.Fragment>

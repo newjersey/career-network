@@ -55,7 +55,7 @@ export default function AuthProvider(props) {
 
 
   const value = {
-    showSignIn: setIsOpen,
+    showSignIn: () => setIsOpen(true),
     signOut: () => firebase.auth().signOut(),
     user,
     wasSignedIn,

@@ -6,7 +6,7 @@ import { useAuth } from '../Auth';
 export default function SignInButton() {
   const { showSignIn } = useAuth();
 
-  const handleClick = () => showSignIn(true);
+  const handleClick = () => showSignIn();
 
   return (
     <Button variant="contained" color="secondary" onClick={handleClick}>

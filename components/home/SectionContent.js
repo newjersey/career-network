@@ -27,7 +27,7 @@ function SectionContent(props) {
     title,
   } = props;
 
-  const handleClickButton = onButtonClick || (() => showSignIn(true));
+  const handleClickButton = onButtonClick || (() => showSignIn());
 
   return (
     <React.Fragment>

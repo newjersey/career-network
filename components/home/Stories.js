@@ -30,7 +30,7 @@ function Stories() {
   const classes = useStyles();
   const { showSignIn } = useAuth();
 
-  const handleClick = () => showSignIn(true);
+  const handleClick = () => showSignIn();
 
   return (
     <Grid container alignItems="center">
