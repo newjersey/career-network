@@ -10,7 +10,7 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 
 import SignInForm from '../Firebase/SignInForm';
 
-function SignInDialog(props) {
+function AuthDialog(props) {
   const {
     onCancel,
     fullScreen,
@@ -34,15 +34,15 @@ function SignInDialog(props) {
   );
 }
 
-SignInDialog.propTypes = {
+AuthDialog.propTypes = {
   fullScreen: PropTypes.bool.isRequired,
   onCancel: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   onSignInSuccessWithAuthResult: PropTypes.func,
 };
 
-SignInDialog.defaultProps = {
+AuthDialog.defaultProps = {
   onSignInSuccessWithAuthResult: null,
 };
 
-export default withMobileDialog()(SignInDialog);
+export default withMobileDialog()(AuthDialog);

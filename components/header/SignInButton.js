@@ -1,12 +1,12 @@
 import Button from '@material-ui/core/Button';
 import React from 'react';
 
-import { useSignInDialog } from '../SignInDialog';
+import { useAuth } from '../Auth';
 
 export default function SignInButton() {
-  const setIsSignInDialogOpen = useSignInDialog();
+  const { showSignIn } = useAuth();
 
-  const handleClick = () => setIsSignInDialogOpen(true);
+  const handleClick = () => showSignIn(true);
 
   return (
     <Button variant="contained" color="secondary" onClick={handleClick}>

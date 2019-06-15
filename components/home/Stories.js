@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
 
-import { useSignInDialog } from '../SignInDialog';
+import { useAuth } from '../Auth';
 import Picture from '../Picture';
 import StoryStepper from './StoryStepper';
 
@@ -28,9 +28,9 @@ const useStyles = makeStyles(theme => ({
 
 function Stories() {
   const classes = useStyles();
-  const setIsSignInDialogOpen = useSignInDialog();
+  const { showSignIn } = useAuth();
 
-  const handleClick = () => setIsSignInDialogOpen(true);
+  const handleClick = () => showSignIn(true);
 
   return (
     <Grid container alignItems="center">

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import { useSignInDialog } from '../SignInDialog';
+import { useAuth } from '../Auth';
 
 const useStyles = makeStyles(theme => ({
   body: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
 
 function SectionContent(props) {
   const classes = useStyles();
-  const setIsSignInDialogOpen = useSignInDialog();
+  const { showSignIn } = useAuth();
   const {
     buttonColor,
     buttonText,
@@ -27,7 +27,7 @@ function SectionContent(props) {
     title,
   } = props;
 
-  const handleClickButton = onButtonClick || (() => setIsSignInDialogOpen(true));
+  const handleClickButton = onButtonClick || (() => showSignIn(true));
 
   return (
     <React.Fragment>

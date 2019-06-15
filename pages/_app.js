@@ -4,10 +4,10 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Head from 'next/head';
 import React from 'react';
 
-import Firebase, { FirebaseContext } from '../components/Firebase';
-import { SignInDialogProvider } from '../components/SignInDialog';
+import AuthProvider from '../components/Auth';
 import { SnackbarProvider } from '../components/Snackbar';
-import { UserProvider } from '../components/User';
+import StateManager from '../components/StateManager';
+import Firebase, { FirebaseContext } from '../components/Firebase';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import theme from '../src/theme';
@@ -23,6 +23,7 @@ class MyApp extends App {
 
   render() {
     const { Component, pageProps } = this.props;
+
     return (
       <Container>
         <Head>
@@ -30,20 +31,21 @@ class MyApp extends App {
         </Head>
         <ThemeProvider theme={theme}>
           <SnackbarProvider>
-            <UserProvider>
-              <SignInDialogProvider>
-                <FirebaseContext.Provider value={new Firebase()}>
-                  <CssBaseline />
+            <AuthProvider>
+              <FirebaseContext.Provider value={new Firebase()}>
+                <CssBaseline />
+                {/* This exists to consume the context providers as needed at this level. */}
+                <StateManager>
                   <Header />
                   <main>
                     {/* Pass pageContext to the _document though the renderPage enhancer
-                  to render collected styles on server-side. */}
+                          to render collected styles on server-side. */}
                     <Component pageContext={this.pageContext} {...pageProps} />
                   </main>
                   <Footer />
-                </FirebaseContext.Provider>
-              </SignInDialogProvider>
-            </UserProvider>
+                </StateManager>
+              </FirebaseContext.Provider>
+            </AuthProvider>
           </SnackbarProvider>
         </ThemeProvider>
       </Container>

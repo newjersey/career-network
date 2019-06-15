@@ -1,38 +1,46 @@
-import Router from 'next/router';
-import firebase from 'firebase/app';
-import 'firebase/auth';
-
 export default class User {
-  constructor(authUser) {
-    this.authUser = authUser;
+  constructor(authResult) {
+    this.authResult = authResult;
+  }
+
+  get firstName() {
+    const { profile } = this.authResult.additionalUserInfo;
+    const { displayName } = this.authResult.user;
+    const firstName = profile.first_name
+      || profile.given_name
+      || profile.givenName
+      || (displayName.includes(',')
+        ? displayName.split(',')[1]
+        : displayName.split(' ')[0]);
+
+    return firstName.trim();
   }
 
   get displayName() {
-    return this.authUser.displayName;
+    const { displayName } = this.authResult.user;
+
+    return displayName.includes(',')
+      ? `${displayName.split(',')[1]} ${displayName.split(',')[0]}`
+      : displayName;
   }
 
   get email() {
-    return this.authUser.email;
+    return this.authResult.user.email;
   }
 
   get emailVerified() {
-    return this.authUser.emailVerified;
+    return this.authResult.user.emailVerified;
   }
 
   get isAnonymous() {
-    return this.authUser.isAnonymous;
+    return this.authResult.user.isAnonymous;
   }
 
   get photoURL() {
-    return this.authUser.photoURL;
+    return this.authResult.user.photoURL;
   }
 
   get uid() {
-    return this.authUser.uid;
-  }
-
-  signOut = () => {
-    firebase.auth().signOut();
-    Router.push('/');
+    return this.authResult.user.uid;
   }
 }

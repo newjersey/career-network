@@ -24,18 +24,12 @@ export default function SignInForm(props) {
   const uiConfig = {
     callbacks: {
       signInSuccessWithAuthResult(authResult, redirectUrl) {
-        // User successfully signed in.
-        // Return type determines whether we continue the redirect automatically
-        // or whether we leave that to developer to handle.
-
-        // TODO: remove
-        // eslint-disable-next-line no-console
-        console.log('Signed in', 'authResult:', authResult, 'redirectUrl:', redirectUrl);
-
         if (onSignInSuccessWithAuthResult) {
           onSignInSuccessWithAuthResult(authResult, redirectUrl);
         }
 
+        // Return type determines whether we continue the redirect automatically
+        // or whether we leave that to developer to handle.
         return false;
       },
       uiShown() {

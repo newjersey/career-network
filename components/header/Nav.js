@@ -20,7 +20,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import { useSignInDialog } from '../SignInDialog';
+import { useAuth } from '../Auth';
 import Picture from '../Picture';
 import ScaffoldContainer from '../ScaffoldContainer';
 import UserClass from '../User';
@@ -117,12 +117,12 @@ const useStyles = makeStyles(theme => ({
 function Nav(props) {
   const { onSignOut, user } = props;
   const classes = useStyles();
-  const setIsSignInDialogOpen = useSignInDialog();
+  const { showSignIn } = useAuth();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const openDrawer = () => setIsDrawerOpen(true);
   const closeDrawer = () => setIsDrawerOpen(false);
-  const handleSignInClick = () => setIsSignInDialogOpen(true);
+  const handleSignInClick = () => showSignIn(true);
 
   return (
     <React.Fragment>

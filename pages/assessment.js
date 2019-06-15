@@ -4,7 +4,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { useRecords } from '../components/Airtable';
-import { useUser } from '../components/User';
+import { useAuth } from '../components/Auth';
 import AssessmentSectionList from '../components/assessment/AssessmentSectionList';
 import ScaffoldContainer from '../components/ScaffoldContainer';
 
@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Assessment() {
   const classes = useStyles();
-  const user = useUser();
+  const { user } = useAuth();
   const recordProps = {
     assessmentSections: useRecords('appPhpA6Quf0pCBDm/Assessment%20Sections?view=API'),
     allAssessmentEntries: useRecords('appPhpA6Quf0pCBDm/Assessment%20Entries?view=API'),
@@ -42,7 +42,7 @@ export default function Assessment() {
             <Typography component="h1" variant="h2" gutterBottom>
               Welcome,
               {' '}
-              {user && user.displayName.split(' ')[0]}
+              {user && user.firstName}
               !
             </Typography>
 
