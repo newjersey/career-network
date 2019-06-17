@@ -1,18 +1,17 @@
 import { makeStyles } from '@material-ui/styles';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
 import useFirebase from '../Firebase/useFirebase';
+import FullPageProgress from '../FullPageProgress';
 
 const useStyles = makeStyles(theme => ({
   root: {
     marginTop: theme.spacing(3),
   },
-  progress: {
-    margin: '0 auto',
-    display: 'block',
+  progressContainer: {
+    height: theme.spacing(12),
   },
 }));
 
@@ -73,7 +72,11 @@ export default function AuthForm(props) {
   return (
     <div className={classes.root}>
       <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
-      {!uiShown && <CircularProgress className={classes.progress} color="primary" />}
+      {!uiShown && (
+        <div className={classes.progressContainer}>
+          <FullPageProgress />
+        </div>
+      )}
     </div>
   );
 }

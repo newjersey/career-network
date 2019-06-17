@@ -1,6 +1,7 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
+import FullPageProgress from '../FullPageProgress';
 import useAuth from './useAuth';
 import useAuthRequired from './useAuthRequired';
 
@@ -12,7 +13,7 @@ export default function AuthRequired(props) {
 
   return (
     <React.Fragment>
-      {!!user && children}
+      {user ? children : <FullPageProgress />}
     </React.Fragment>
   );
 }

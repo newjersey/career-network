@@ -1,9 +1,9 @@
 import { makeStyles } from '@material-ui/styles';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { useNestedRecords } from '../components/Airtable';
+import FullPageProgress from '../components/FullPageProgress';
 import ScaffoldContainer from '../components/ScaffoldContainer';
 import StaticCollection from '../components/StaticCollection';
 
@@ -35,7 +35,7 @@ function Tools() {
         </Typography>
         {categories.length
           ? <StaticCollection categories={categories} />
-          : <CircularProgress className={classes.progress} color="secondary" />
+          : <FullPageProgress />
         }
       </ScaffoldContainer>
     </div>
