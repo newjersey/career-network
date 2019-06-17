@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
-import React, { useCallback, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Stepper from '@material-ui/core/Stepper';
@@ -40,8 +41,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function AssessmentSectionList(props) {
   const classes = useStyles();
+  const { scrollToY } = props;
   const [activeStep, setActiveStep] = useState(0);
-  const [scrollToY, setScrollToY] = useState(0);
   const {
     assessmentSections,
     ...restProps
@@ -55,20 +56,14 @@ export default function AssessmentSectionList(props) {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   };
 
-  const stepperRef = useCallback((node) => {
-    if (node !== null) {
-      setScrollToY(node.offsetTop - 24);
-    }
-  }, []);
-
   useEffect(() => {
-    window.scrollTo(0, scrollToY);
+    window.scrollTo(0, activeStep === 0 ? 0 : scrollToY);
   }, [activeStep, scrollToY]);
 
   return (
     <div className={classes.root}>
 
-      <Stepper ref={stepperRef} activeStep={activeStep} className={classes.stepper}>
+      <Stepper activeStep={activeStep} className={classes.stepper}>
         {assessmentSections.map(section => (
           <Step key={section.id}>
             <StepLabel>
@@ -120,4 +115,5 @@ AssessmentSectionList.propTypes = {
   allQuestions: AirtablePropTypes.questions.isRequired,
   allQuestionGroups: AirtablePropTypes.questionGroups.isRequired,
   allQuestionAnswerOptions: AirtablePropTypes.questionAnswerOptions.isRequired,
+  scrollToY: PropTypes.number.isRequired,
 };

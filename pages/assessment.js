@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { useAuth, withAuthRequired } from '../components/Auth';
@@ -21,6 +21,7 @@ const useStyles = makeStyles(theme => ({
 
 function Assessment() {
   const classes = useStyles();
+  const [scrollToY, setScrollToY] = useState(0);
   const { user } = useAuth();
   const recordProps = {
     assessmentSections: useRecords('appPhpA6Quf0pCBDm/Assessment%20Sections?view=API'),
@@ -29,27 +30,34 @@ function Assessment() {
     allQuestionGroups: useRecords('appPhpA6Quf0pCBDm/Question%20Groups?view=API'),
     allQuestionAnswerOptions: useRecords('appPhpA6Quf0pCBDm/Question%20Answer%20Options?view=API'),
   };
+
   const fullyLoaded = user && Object.values(recordProps)
     .map(array => array.length)
     .reduce((accum, length) => accum && !!length, true);
+
+  const scrollToRef = useCallback((node) => {
+    if (node !== null) {
+      setScrollToY(node.offsetTop - 24);
+    }
+  }, []);
 
   return (
     <div className={classes.root}>
       <ScaffoldContainer>
         {fullyLoaded ? (
           <React.Fragment>
-            <Typography component="h1" variant="h2" gutterBottom>
+            <Typography ref={scrollToRef} component="h1" variant="h2" gutterBottom>
               Welcome,
               {' '}
               {user && user.firstName}
               !
             </Typography>
 
-            <AssessmentSectionList {...recordProps} />
+            <AssessmentSectionList scrollToY={scrollToY} {...recordProps} />
           </React.Fragment>
         ) : (
-          <CircularProgress className={classes.progress} color="primary" />
-        )}
+            <CircularProgress className={classes.progress} color="primary" />
+          )}
       </ScaffoldContainer>
     </div>
   );
