@@ -56,8 +56,8 @@ function Assessment() {
             <AssessmentSectionList scrollToY={scrollToY} {...recordProps} />
           </React.Fragment>
         ) : (
-            <CircularProgress className={classes.progress} color="primary" />
-          )}
+          <CircularProgress className={classes.progress} color="primary" />
+        )}
       </ScaffoldContainer>
     </div>
   );
