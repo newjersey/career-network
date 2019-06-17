@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
-import useFirebase from '../Firebase/useFirebase';
+import { useFirebase } from '../Firebase';
 import FullPageProgress from '../FullPageProgress';
 
 const useStyles = makeStyles(theme => ({
@@ -17,8 +17,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function AuthForm(props) {
   const { onSignInSuccessWithAuthResult } = props;
+  const { auth } = useFirebase();
   const classes = useStyles();
-  const firebase = useFirebase();
   const [uiShown, setUiShown] = useState(false);
 
   const uiConfig = {
@@ -41,7 +41,7 @@ export default function AuthForm(props) {
     // signInSuccessUrl: '/dashboard',
     signInOptions: [
       // Leave the lines as is for the providers you want to offer your users.
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      auth.GoogleAuthProvider.PROVIDER_ID,
       {
         provider: 'microsoft.com',
         providerName: 'Microsoft',
@@ -57,11 +57,11 @@ export default function AuthForm(props) {
 
       //   },
       // },
-      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-      firebase.auth.GithubAuthProvider.PROVIDER_ID,
-      // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-      // firebase.auth.EmailAuthProvider.PROVIDER_ID,
-      // firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+      auth.FacebookAuthProvider.PROVIDER_ID,
+      auth.GithubAuthProvider.PROVIDER_ID,
+      // auth.TwitterAuthProvider.PROVIDER_ID,
+      // auth.EmailAuthProvider.PROVIDER_ID,
+      // auth.PhoneAuthProvider.PROVIDER_ID,
     ],
     // Terms of service url.
     tosUrl: '/terms-of-service',
@@ -71,7 +71,7 @@ export default function AuthForm(props) {
 
   return (
     <div className={classes.root}>
-      <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+      <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth()} />
       {!uiShown && (
         <div className={classes.progressContainer}>
           <FullPageProgress />

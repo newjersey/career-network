@@ -8,7 +8,7 @@ import Router from 'next/router';
 
 import { SnackbarProvider } from '../components/Snackbar';
 import AuthProvider from '../components/Auth';
-import Firebase, { FirebaseContext } from '../components/Firebase';
+import FirebaseProvider from '../components/Firebase';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import StateManager from '../components/StateManager';
@@ -40,7 +40,7 @@ class MyApp extends App {
         </Head>
         <ThemeProvider theme={theme}>
           <SnackbarProvider>
-            <FirebaseContext.Provider value={new Firebase()}>
+            <FirebaseProvider>
               <AuthProvider>
                 <CssBaseline />
                 {/* This exists to consume the context providers as needed at this level. */}
@@ -54,7 +54,7 @@ class MyApp extends App {
                   <Footer />
                 </StateManager>
               </AuthProvider>
-            </FirebaseContext.Provider>
+            </FirebaseProvider>
           </SnackbarProvider>
         </ThemeProvider>
       </Container>

@@ -3,8 +3,8 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import AuthContext from './AuthContext';
 import AuthDialog from './AuthDialog';
-import useFirebase from '../Firebase/useFirebase';
 import User from '../../src/User';
+import { useFirebase } from '../Firebase';
 
 export default function AuthProvider(props) {
   const { children } = props;
@@ -12,7 +12,7 @@ export default function AuthProvider(props) {
   const [user, setUser] = useState(null);
   const [wasSignedIn, setWasSignedIn] = useState(false);
   const cleanupRef = useRef();
-  const firebase = useFirebase();
+  const { auth, db } = useFirebase();
 
   const handleCancel = () => setIsOpen(false);
 
@@ -39,7 +39,7 @@ export default function AuthProvider(props) {
   useEffect(() => {
     (async () => {
       // https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables
-      cleanupRef.current = await firebase.auth().onAuthStateChanged((authUser) => {
+      cleanupRef.current = await auth().onAuthStateChanged((authUser) => {
         if (!authUser) {
           setUser(null);
         }
@@ -51,12 +51,11 @@ export default function AuthProvider(props) {
         cleanupRef.current();
       }
     };
-  }, [firebase]);
-
+  }, [auth, db]);
 
   const value = {
     showSignIn: () => setIsOpen(true),
-    signOut: () => firebase.auth().signOut(),
+    signOut: () => auth().signOut(),
     user,
     wasSignedIn,
   };
