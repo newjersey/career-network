@@ -6,7 +6,7 @@ import React from 'react';
 import ScaffoldContainer from '../ScaffoldContainer';
 import Search from './Search';
 import SignInButton from './SignInButton';
-import UserClass from '../User';
+import UserClass from '../../src/User';
 import UserButton from './UserButton';
 
 export default function User(props) {

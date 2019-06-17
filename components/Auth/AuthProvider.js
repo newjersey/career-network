@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import AuthContext from './AuthContext';
 import AuthDialog from './AuthDialog';
 import useFirebase from '../Firebase/useFirebase';
-import User from '../User';
+import User from '../../src/User';
 
 export default function AuthProvider(props) {
   const { children } = props;

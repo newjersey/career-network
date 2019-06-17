@@ -23,7 +23,7 @@ import Typography from '@material-ui/core/Typography';
 import { useAuth } from '../Auth';
 import Picture from '../Picture';
 import ScaffoldContainer from '../ScaffoldContainer';
-import UserClass from '../User';
+import UserClass from '../../src/User';
 
 const logoRatio = 834 / 784;
 const logoWidths = {
