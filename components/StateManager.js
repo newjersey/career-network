@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 
@@ -8,7 +8,9 @@ import { useSnackbar } from './Snackbar';
 export default function StateManager(props) {
   const { children } = props;
   const { user, wasSignedIn } = useAuth();
+  const cleanupRef = useRef();
   const showMessage = useSnackbar();
+
 
   useEffect(() => {
     // TODO: make this real.
@@ -16,12 +18,19 @@ export default function StateManager(props) {
     const isAssessmentComplete = _user => false;
 
     if (user) {
+      const url = isAssessmentComplete(user) ? '/dashboard' : '/assessment';
+      (async () => { cleanupRef.current = await Router.push(url); })();
       showMessage('Signed in');
-      Router.push(isAssessmentComplete(user) ? '/dashboard' : '/assessment');
     } else if (wasSignedIn) { // Check wasSignedIn, else block will fire upon initial page load.
-      Router.push('/');
+      (async () => { cleanupRef.current = await Router.push('/'); })();
       showMessage('Signed out');
     }
+
+    return () => {
+      if (typeof cleanupRef.current === 'function') {
+        cleanupRef.current();
+      }
+    };
   }, [showMessage, user, wasSignedIn]);
 
   return children;
