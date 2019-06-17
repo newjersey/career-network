@@ -3,7 +3,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import { useAuth, useAuthRequired } from '../components/Auth';
+import { useAuth, withAuthRequired } from '../components/Auth';
 import { useRecords } from '../components/Airtable';
 import AssessmentSectionList from '../components/assessment/AssessmentSectionList';
 import ScaffoldContainer from '../components/ScaffoldContainer';
@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Assessment() {
+function Assessment() {
   const classes = useStyles();
   const { user } = useAuth();
   const recordProps = {
@@ -32,8 +32,6 @@ export default function Assessment() {
   const fullyLoaded = user && Object.values(recordProps)
     .map(array => array.length)
     .reduce((accum, length) => accum && !!length, true);
-
-  useAuthRequired();
 
   return (
     <div className={classes.root}>
@@ -50,9 +48,11 @@ export default function Assessment() {
             <AssessmentSectionList {...recordProps} />
           </React.Fragment>
         ) : (
-            <CircularProgress className={classes.progress} color="primary" />
-          )}
+          <CircularProgress className={classes.progress} color="primary" />
+        )}
       </ScaffoldContainer>
     </div>
   );
 }
+
+export default withAuthRequired(Assessment);
