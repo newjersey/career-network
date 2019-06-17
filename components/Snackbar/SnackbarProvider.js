@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import SnackbarManager from './SnackbarManager';
 import SnackbarContext from './SnackbarContext';
 
-export default function SpackbarProvider(props) {
+export default function SnackbarProvider(props) {
   const { children } = props;
   const [message, setMessage] = useState(null);
 
@@ -19,6 +19,6 @@ export default function SpackbarProvider(props) {
   );
 }
 
-SpackbarProvider.propTypes = {
+SnackbarProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
