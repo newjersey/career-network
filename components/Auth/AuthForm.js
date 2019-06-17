@@ -1,10 +1,10 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
 import { makeStyles } from '@material-ui/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+
+import useFirebase from '../Firebase/useFirebase';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -16,9 +16,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SignInForm(props) {
+export default function AuthForm(props) {
   const { onSignInSuccessWithAuthResult } = props;
   const classes = useStyles();
+  const firebase = useFirebase();
   const [uiShown, setUiShown] = useState(false);
 
   const uiConfig = {
@@ -77,10 +78,10 @@ export default function SignInForm(props) {
   );
 }
 
-SignInForm.propTypes = {
+AuthForm.propTypes = {
   onSignInSuccessWithAuthResult: PropTypes.func,
 };
 
-SignInForm.defaultProps = {
+AuthForm.defaultProps = {
   onSignInSuccessWithAuthResult: null,
 };

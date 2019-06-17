@@ -40,8 +40,8 @@ class MyApp extends App {
         </Head>
         <ThemeProvider theme={theme}>
           <SnackbarProvider>
-            <AuthProvider>
-              <FirebaseContext.Provider value={new Firebase()}>
+            <FirebaseContext.Provider value={new Firebase()}>
+              <AuthProvider>
                 <CssBaseline />
                 {/* This exists to consume the context providers as needed at this level. */}
                 <StateManager>
@@ -53,8 +53,8 @@ class MyApp extends App {
                   </main>
                   <Footer />
                 </StateManager>
-              </FirebaseContext.Provider>
-            </AuthProvider>
+              </AuthProvider>
+            </FirebaseContext.Provider>
           </SnackbarProvider>
         </ThemeProvider>
       </Container>

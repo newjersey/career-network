@@ -1,11 +1,12 @@
-// import firebase from 'firebase/app';
-// import 'firebase/firestore';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 import app from './app';
 
 class Firebase {
   constructor() {
     this.app = app;
+    this.auth = firebase.auth;
   }
 
   // onAuthStateChanged = (callback) => {

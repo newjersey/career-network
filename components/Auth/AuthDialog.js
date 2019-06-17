@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 
-import SignInForm from '../Firebase/SignInForm';
+import AuthForm from './AuthForm';
 
 function AuthDialog(props) {
   const {
@@ -25,7 +25,7 @@ function AuthDialog(props) {
         <DialogContentText>
           We’re excited to have you join us!
         </DialogContentText>
-        <SignInForm onSignInSuccessWithAuthResult={onSignInSuccessWithAuthResult} />
+        <AuthForm onSignInSuccessWithAuthResult={onSignInSuccessWithAuthResult} />
       </DialogContent>
       <DialogActions>
         <Button onClick={onCancel}>Cancel</Button>

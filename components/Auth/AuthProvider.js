@@ -1,10 +1,9 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
 
 import AuthContext from './AuthContext';
 import AuthDialog from './AuthDialog';
+import useFirebase from '../Firebase/useFirebase';
 import User from '../User';
 
 export default function AuthProvider(props) {
@@ -13,6 +12,7 @@ export default function AuthProvider(props) {
   const [user, setUser] = useState(null);
   const [wasSignedIn, setWasSignedIn] = useState(false);
   const cleanupRef = useRef();
+  const firebase = useFirebase();
 
   const handleCancel = () => setIsOpen(false);
 
@@ -51,7 +51,7 @@ export default function AuthProvider(props) {
         cleanupRef.current();
       }
     };
-  }, []);
+  }, [firebase]);
 
 
   const value = {
