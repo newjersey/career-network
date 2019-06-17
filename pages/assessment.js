@@ -1,12 +1,10 @@
 import { makeStyles } from '@material-ui/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import React, { useEffect, useRef } from 'react';
-import Router from 'next/router';
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import { useAuth } from '../components/Auth';
+import { useAuth, useAuthRequired } from '../components/Auth';
 import { useRecords } from '../components/Airtable';
-import { useSnackbar } from '../components/Snackbar';
 import AssessmentSectionList from '../components/assessment/AssessmentSectionList';
 import ScaffoldContainer from '../components/ScaffoldContainer';
 
@@ -23,9 +21,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Assessment() {
   const classes = useStyles();
-  const cleanupRef = useRef();
-  const showMessage = useSnackbar();
-  const { showSignIn, user, wasSignedIn } = useAuth();
+  const { user } = useAuth();
   const recordProps = {
     assessmentSections: useRecords('appPhpA6Quf0pCBDm/Assessment%20Sections?view=API'),
     allAssessmentEntries: useRecords('appPhpA6Quf0pCBDm/Assessment%20Entries?view=API'),
@@ -33,28 +29,11 @@ export default function Assessment() {
     allQuestionGroups: useRecords('appPhpA6Quf0pCBDm/Question%20Groups?view=API'),
     allQuestionAnswerOptions: useRecords('appPhpA6Quf0pCBDm/Question%20Answer%20Options?view=API'),
   };
-
-  useEffect(() => {
-    if (!user) {
-      if (!wasSignedIn) {
-        showSignIn();
-        showMessage('You must be signed in to view this page');
-      }
-
-      // https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables
-      (async () => { cleanupRef.current = await Router.push('/'); })();
-    }
-
-    return () => {
-      if (typeof cleanupRef.current === 'function') {
-        cleanupRef.current();
-      }
-    };
-  });
-
   const fullyLoaded = user && Object.values(recordProps)
     .map(array => array.length)
     .reduce((accum, length) => accum && !!length, true);
+
+  useAuthRequired();
 
   return (
     <div className={classes.root}>
@@ -71,8 +50,8 @@ export default function Assessment() {
             <AssessmentSectionList {...recordProps} />
           </React.Fragment>
         ) : (
-          <CircularProgress className={classes.progress} color="primary" />
-        )}
+            <CircularProgress className={classes.progress} color="primary" />
+          )}
       </ScaffoldContainer>
     </div>
   );

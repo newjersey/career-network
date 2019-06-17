@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/styles';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import { useAuth } from '../components/Auth';
+import { useAuth, useAuthRequired } from '../components/Auth';
 import ScaffoldContainer from '../components/ScaffoldContainer';
 
 const useStyles = makeStyles(theme => ({
@@ -15,6 +15,8 @@ const useStyles = makeStyles(theme => ({
 export default function Dashboard() {
   const classes = useStyles();
   const { user } = useAuth();
+
+  useAuthRequired();
 
   return (
     <div className={classes.root}>
