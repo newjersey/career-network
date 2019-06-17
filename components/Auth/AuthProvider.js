@@ -16,31 +16,80 @@ export default function AuthProvider(props) {
 
   const handleCancel = () => setIsOpen(false);
 
-  // Set user, but in the future (TODO): just store user profile in Firestore.
+  // Store user data in Firestore.
   const handleSignInSuccessWithAuthResult = (authResult) => {
     setIsOpen(false);
-    setUser(new User(authResult));
-    setWasSignedIn(true);
+
+    try {
+      const { additionalUserInfo, user: _user } = authResult;
+      const { uid } = _user;
+      const doc = db.collection('users').doc(uid);
+
+      const {
+        displayName,
+        email,
+        emailVerified,
+        isAnonymous,
+        phoneNumber,
+        photoURL,
+      } = _user;
+
+      const authProfile = {
+        displayName,
+        email,
+        emailVerified,
+        isAnonymous,
+        phoneNumber,
+        photoURL,
+      };
+
+      const authProviders = {};
+      authProviders[additionalUserInfo.providerId] = additionalUserInfo.profile;
+
+      const userData = {
+        authProfile,
+        authProviders,
+        updatedTimestamp: Date.now(),
+      };
+
+      doc.set(userData, { merge: true });
+
+      // Also store as subcollection for the heck of it (future queries?). Maybe unnecessary.
+      doc.collection('authProviders')
+        .doc(additionalUserInfo.providerId)
+        .set(additionalUserInfo.profile, { merge: true });
+    } catch (error) {
+      // TODO: better error UX, and reporting solution
+      // eslint-disable-next-line no-alert
+      alert(`There was a problem signing in:\n\n${error.message}`);
+      throw error;
+    }
   };
 
-  /*
-    Listen for logouts.
-    We don't listen for logins the same way, because the callback
-    argument authUser does not contain as much rich data as the
-    argument to handleSignInSuccessWithAuthResult (authResult).
-    However, with this, we lose sticky sessions across page reloads.
-    Ideally, we would create a profile for the user upon sign up
-    using the rich data from handleSignInSuccessWithAuthResult(authResult)
-    and retrieve that profile in the future, rather than listen for
-    handleSignInSuccessWithAuthResult(authResult) every time.
-  */
-
-  // Clear user, but in the future (TODO): also set user, pulling profile from Firestore.
+  // Clear or set user, pulling user data from Firestore.
   useEffect(() => {
     (async () => {
       // https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables
-      cleanupRef.current = await auth().onAuthStateChanged((authUser) => {
-        if (!authUser) {
+      cleanupRef.current = await auth().onAuthStateChanged(async (authUser) => {
+        if (authUser) {
+          setIsOpen(false);
+
+          try {
+            const { uid } = authUser;
+            const userDoc = await db.collection('users').doc(uid).get();
+
+            if (userDoc.exists) {
+              // preserve this ordering:
+              setUser(new User(userDoc));
+              setWasSignedIn(true);
+            }
+          } catch (error) {
+            // TODO: better error UX, and reporting solution
+            // eslint-disable-next-line no-alert
+            alert(`There was a problem signing in:\n\n${error.message}`);
+            throw error;
+          }
+        } else {
           setUser(null);
         }
       });

@@ -1,23 +1,29 @@
 export default class User {
-  constructor(authResult) {
-    this.authResult = authResult;
+  constructor(userDoc) {
+    this.uid = userDoc.id;
+    this.userData = userDoc.data();
+    this.authProfile = this.userData.authProfile;
+    this.authProviders = this.userData.authProviders;
   }
 
   get firstName() {
-    const { profile } = this.authResult.additionalUserInfo;
-    const { displayName } = this.authResult.user;
-    const firstName = profile.first_name
-      || profile.given_name
-      || profile.givenName
+    const { displayName } = this.authProfile;
+
+    return ((
+      Object.values(this.authProviders)
+        .map(profile => profile.firstName
+          || profile.first_name
+          || profile.given_name
+          || profile.givenName)
+        .reduce((a, b) => a || b, null)
       || (displayName.includes(',')
         ? displayName.split(',')[1]
-        : displayName.split(' ')[0]);
-
-    return firstName.trim();
+        : displayName.split(' ')[0])
+    ).trim());
   }
 
   get displayName() {
-    const { displayName } = this.authResult.user;
+    const { displayName } = this.authProfile;
 
     return displayName.includes(',')
       ? `${displayName.split(',')[1]} ${displayName.split(',')[0]}`
@@ -25,22 +31,18 @@ export default class User {
   }
 
   get email() {
-    return this.authResult.user.email;
+    return this.authProfile.email;
   }
 
   get emailVerified() {
-    return this.authResult.user.emailVerified;
+    return this.authProfile.emailVerified;
   }
 
   get isAnonymous() {
-    return this.authResult.user.isAnonymous;
+    return this.authProfile.isAnonymous;
   }
 
   get photoURL() {
-    return this.authResult.user.photoURL;
-  }
-
-  get uid() {
-    return this.authResult.user.uid;
+    return this.authProfile.photoURL;
   }
 }
