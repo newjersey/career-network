@@ -1,5 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/firestore';
+import Rebase from 're-base';
 
 import app from './app';
 
@@ -7,6 +9,8 @@ class Firebase {
   constructor() {
     this.app = app;
     this.auth = firebase.auth;
+    this.db = firebase.firestore(this.app);
+    this.base = Rebase.createClass(this.db);
   }
 
   // onAuthStateChanged = (callback) => {
