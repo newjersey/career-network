@@ -5,19 +5,18 @@ import { useSnackbar } from '../Snackbar';
 import useAuth from './useAuth';
 
 export default function useAuthRequired(failureMessage) {
-  const { user, showSignIn, wasSignedIn } = useAuth();
+  const { user, showSignIn } = useAuth();
   const showMessage = useSnackbar();
   const cleanupRef = useRef();
 
   useEffect(() => {
     if (!user) {
-      if (!wasSignedIn) {
+      (async () => {
+        // TODO: don't redirect, and make sign in cancel redirect to home
+        cleanupRef.current = await Router.push('/');
         showSignIn();
         showMessage(failureMessage || 'You must be signed in to view this page');
-      }
-
-      // https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables
-      (async () => { cleanupRef.current = await Router.push('/'); })();
+      })();
     }
 
     return () => {
@@ -25,5 +24,5 @@ export default function useAuthRequired(failureMessage) {
         cleanupRef.current();
       }
     };
-  }, [failureMessage, showMessage, user, showSignIn, wasSignedIn]);
+  }, [failureMessage, showMessage, showSignIn, user]);
 }

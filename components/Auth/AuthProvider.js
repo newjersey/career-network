@@ -1,10 +1,16 @@
+// Conceptual capabilities of this component should be limited to:
+//  - provide sign in screen
+//  - provide sign out action
+//  - provide user (is signed in/out)
+
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
+import Router from 'next/router';
 
+import { useFirebase } from '../Firebase';
 import AuthContext from './AuthContext';
 import AuthDialog from './AuthDialog';
 import User from '../../src/User';
-import { useFirebase } from '../Firebase';
 
 export default function AuthProvider(props) {
   const { children } = props;
@@ -15,6 +21,12 @@ export default function AuthProvider(props) {
   const { auth, db } = useFirebase();
 
   const handleCancel = () => setIsOpen(false);
+
+  const handleSignOut = async () => {
+    // TODO: get this redirect logic out of this file
+    await Router.push('/');
+    auth().signOut();
+  };
 
   // Store user data in Firestore.
   const handleSignInSuccessWithAuthResult = (authResult) => {
@@ -104,7 +116,7 @@ export default function AuthProvider(props) {
 
   const value = {
     showSignIn: () => setIsOpen(true),
-    signOut: () => auth().signOut(),
+    signOut: handleSignOut,
     user,
     wasSignedIn,
   };

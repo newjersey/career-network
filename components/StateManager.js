@@ -11,7 +11,6 @@ export default function StateManager(props) {
   const cleanupRef = useRef();
   const showMessage = useSnackbar();
 
-
   useEffect(() => {
     // TODO: make this real.
     // eslint-disable-next-line no-unused-vars
@@ -22,7 +21,6 @@ export default function StateManager(props) {
       (async () => { cleanupRef.current = await Router.push(url); })();
       showMessage('Signed in');
     } else if (wasSignedIn) { // Check wasSignedIn, else block will fire upon initial page load.
-      (async () => { cleanupRef.current = await Router.push('/'); })();
       showMessage('Signed out');
     }
 
