@@ -10,7 +10,7 @@ import UserClass from '../../src/User';
 import UserButton from './UserButton';
 
 export default function User(props) {
-  const { isAuthDetermined, onSignOut, user } = props;
+  const { onSignOut, user } = props;
 
   return (
     <ScaffoldContainer padding={false}>
@@ -20,19 +20,17 @@ export default function User(props) {
         </Grid>
         <Hidden xsDown implementation="css">
           <Grid item>
-            {isAuthDetermined && (
-              user
-                ? (
-                  <UserButton
-                    displayName={user.displayName}
-                    onSignOut={onSignOut}
-                    photoURL={user.photoURL}
-                  />
-                )
-                : (
-                  <SignInButton />
-                )
-            )}
+            {user
+              ? (
+                <UserButton
+                  displayName={user.displayName}
+                  onSignOut={onSignOut}
+                  photoURL={user.photoURL}
+                />
+              ) : (
+                <SignInButton />
+              )
+            }
           </Grid>
         </Hidden>
       </Grid>
@@ -41,7 +39,6 @@ export default function User(props) {
 }
 
 User.propTypes = {
-  isAuthDetermined: PropTypes.bool.isRequired,
   onSignOut: PropTypes.func.isRequired,
   user: PropTypes.instanceOf(UserClass),
 };
