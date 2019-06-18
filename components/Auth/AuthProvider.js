@@ -5,7 +5,6 @@
 
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
-import Router from 'next/router';
 
 import { useFirebase } from '../Firebase';
 import AuthContext from './AuthContext';
@@ -21,12 +20,6 @@ export default function AuthProvider(props) {
   const { auth, db } = useFirebase();
 
   const handleCancel = () => setIsOpen(false);
-
-  const handleSignOut = async () => {
-    // TODO: get this redirect logic out of this file
-    await Router.push('/');
-    auth().signOut();
-  };
 
   // Store user data in Firestore.
   const handleSignInSuccessWithAuthResult = (authResult) => {
@@ -116,7 +109,7 @@ export default function AuthProvider(props) {
 
   const value = {
     showSignIn: () => setIsOpen(true),
-    signOut: handleSignOut,
+    signOut: () => auth().signOut(),
     user,
     wasSignedIn,
   };

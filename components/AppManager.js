@@ -1,15 +1,28 @@
-import { useEffect, useRef } from 'react';
+// This file should:
+//  - show "signed in" on sign in
+//  - show "signed out" on sign out
+//  - redirect to '/' upon sign out (and not show a 403)
+//  - redirect to ??? upon sign in
+
 import PropTypes from 'prop-types';
+import React, { useCallback, useEffect, useRef } from 'react';
 import Router from 'next/router';
 
 import { useAuth } from './Auth';
 import { useSnackbar } from './Snackbar';
+import Footer from './Footer';
+import Header from './Header';
 
-export default function StateManager(props) {
+export default function AppManager(props) {
   const { children } = props;
-  const { user, wasSignedIn } = useAuth();
+  const { user, signOut, wasSignedIn } = useAuth();
   const cleanupRef = useRef();
   const showMessage = useSnackbar();
+
+  const handleSignOut = useCallback(async () => {
+    await Router.push('/');
+    signOut();
+  }, [signOut]);
 
   useEffect(() => {
     // TODO: make this real.
@@ -31,9 +44,17 @@ export default function StateManager(props) {
     };
   }, [showMessage, user, wasSignedIn]);
 
-  return children;
+  return (
+    <React.Fragment>
+      <Header onSignOut={handleSignOut} user={user} />
+      <main>
+        {children}
+      </main>
+      <Footer />
+    </React.Fragment>
+  );
 }
 
-StateManager.props = {
+AppManager.propTypes = {
   children: PropTypes.node.isRequired,
 };

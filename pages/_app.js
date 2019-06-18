@@ -9,9 +9,7 @@ import Router from 'next/router';
 import { SnackbarProvider } from '../components/Snackbar';
 import AuthProvider from '../components/Auth';
 import FirebaseProvider from '../components/Firebase';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
-import StateManager from '../components/StateManager';
+import AppManager from '../components/AppManager';
 import theme from '../src/theme';
 
 // eslint-disable-next-line no-unused-vars
@@ -43,16 +41,9 @@ class MyApp extends App {
             <FirebaseProvider>
               <AuthProvider>
                 <CssBaseline />
-                {/* This exists to consume the context providers as needed at this level. */}
-                <StateManager>
-                  <Header />
-                  <main>
-                    {/* Pass pageContext to the _document though the renderPage enhancer
-                          to render collected styles on server-side. */}
-                    <Component pageContext={this.pageContext} {...pageProps} />
-                  </main>
-                  <Footer />
-                </StateManager>
+                <AppManager>
+                  <Component pageContext={this.pageContext} {...pageProps} />
+                </AppManager>
               </AuthProvider>
             </FirebaseProvider>
           </SnackbarProvider>
