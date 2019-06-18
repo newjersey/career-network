@@ -115,7 +115,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Nav(props) {
-  const { onSignOut, user } = props;
+  const { isAuthDetermined, onSignOut, user } = props;
   const classes = useStyles();
   const { showSignIn } = useAuth();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -135,41 +135,42 @@ function Nav(props) {
         >
           <div className={classes.drawerList}>
 
-            <Hidden smUp implementation="css">
-              <List>
-                {user ? (
-                  <React.Fragment>
-                    <NextLink href="/dashboard">
-                      <ListItem button>
-                        <ListItemIcon>
-                          <Avatar src={user.photoURL} alt={user.displayName}>
-                            <PersonIcon />
-                          </Avatar>
-                        </ListItemIcon>
-                        <ListItemText primary={user.displayName} secondary={user.email} />
+            {isAuthDetermined && (
+              <Hidden smUp implementation="css">
+                <List>
+                  {user ? (
+                    <React.Fragment>
+                      <NextLink href="/dashboard">
+                        <ListItem button>
+                          <ListItemIcon>
+                            <Avatar src={user.photoURL} alt={user.displayName}>
+                              <PersonIcon />
+                            </Avatar>
+                          </ListItemIcon>
+                          <ListItemText primary={user.displayName} secondary={user.email} />
+                        </ListItem>
+                      </NextLink>
+                      <NextLink href="/dashboard">
+                        <ListItem button>
+                          <ListItemIcon><DashboardIcon /></ListItemIcon>
+                          <ListItemText primary="My dashboard" />
+                        </ListItem>
+                      </NextLink>
+                      <ListItem button onClick={onSignOut}>
+                        <ListItemIcon><PowerSettingsNew /></ListItemIcon>
+                        <ListItemText primary="Sign out" />
                       </ListItem>
-                    </NextLink>
-                    <NextLink href="/dashboard">
-                      <ListItem button>
-                        <ListItemIcon><DashboardIcon /></ListItemIcon>
-                        <ListItemText primary="My dashboard" />
-                      </ListItem>
-                    </NextLink>
-                    <ListItem button onClick={onSignOut}>
-                      <ListItemIcon><PowerSettingsNew /></ListItemIcon>
-                      <ListItemText primary="Sign out" />
+                    </React.Fragment>
+                  ) : (
+                    <ListItem button onClick={handleSignInClick}>
+                      <ListItemIcon><ExitToAppIcon /></ListItemIcon>
+                      <ListItemText primary="Sign in" />
                     </ListItem>
-                  </React.Fragment>
-                ) : (
-                  <ListItem button onClick={handleSignInClick}>
-                    <ListItemIcon><ExitToAppIcon /></ListItemIcon>
-                    <ListItemText primary="Sign in" />
-                  </ListItem>
-                )}
-              </List>
-              <Divider />
-            </Hidden>
-
+                  )}
+                </List>
+                <Divider />
+              </Hidden>
+            )}
             <List>
               {pages.map(page => (
                 <NextLink href={page.href} key={page.href}>
@@ -231,6 +232,7 @@ function Nav(props) {
 }
 
 Nav.propTypes = {
+  isAuthDetermined: PropTypes.bool.isRequired,
   onSignOut: PropTypes.func.isRequired,
   user: PropTypes.instanceOf(UserClass),
 };

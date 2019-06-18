@@ -37,6 +37,7 @@ export default function Header(props) {
 }
 
 Header.propTypes = {
+  isAuthDetermined: PropTypes.bool.isRequired,
   onSignOut: PropTypes.func.isRequired,
   user: PropTypes.instanceOf(UserClass),
 };

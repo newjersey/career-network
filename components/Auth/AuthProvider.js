@@ -14,7 +14,7 @@ import User from '../../src/User';
 export default function AuthProvider(props) {
   const { children } = props;
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(undefined);
   const [wasSignedIn, setWasSignedIn] = useState(false);
   const cleanupRef = useRef();
   const { auth, db } = useFirebase();

@@ -11,6 +11,7 @@ import Router from 'next/router';
 import { useAuth } from './Auth';
 import { useSnackbar } from './Snackbar';
 import Footer from './Footer';
+import FullPageProgress from './FullPageProgress';
 import Header from './Header';
 
 export default function AppManager(props) {
@@ -18,6 +19,9 @@ export default function AppManager(props) {
   const { user, signOut, wasSignedIn } = useAuth();
   const cleanupRef = useRef();
   const showMessage = useSnackbar();
+
+  // user will be null when definitively logged out
+  const isAuthDetermined = user !== undefined;
 
   const handleSignOut = useCallback(async () => {
     await Router.push('/');
@@ -46,9 +50,11 @@ export default function AppManager(props) {
 
   return (
     <React.Fragment>
-      <Header onSignOut={handleSignOut} user={user} />
+      <Header isAuthDetermined={isAuthDetermined} onSignOut={handleSignOut} user={user} />
       <main>
-        {children}
+        {isAuthDetermined
+          ? children
+          : <FullPageProgress />}
       </main>
       <Footer />
     </React.Fragment>
