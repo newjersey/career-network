@@ -10,13 +10,12 @@ export default function useAuthRequired(failureMessage) {
   const cleanupRef = useRef();
 
   useEffect(() => {
-    if (!user) {
-      (async () => {
-        // TODO: don't redirect, and make sign in cancel redirect to home
-        cleanupRef.current = await Router.push('/');
-        showSignIn();
-        showMessage(failureMessage || 'You must be signed in to view this page');
-      })();
+    // user will be null when definitively signed out, and
+    // user will be undefined until auth status can be determined
+    if (user === null) {
+      cleanupRef.current = Router.push('/');
+      showSignIn();
+      showMessage(failureMessage || 'You must be signed in to view this page');
     }
 
     return () => {
