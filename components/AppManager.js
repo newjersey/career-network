@@ -29,16 +29,21 @@ export default function AppManager(props) {
   }, [signOut]);
 
   useEffect(() => {
-    // TODO: make this real.
-    // eslint-disable-next-line no-unused-vars
-    const isAssessmentComplete = _user => false;
-
     if (user) {
-      const url = isAssessmentComplete(user) ? '/dashboard' : '/assessment';
-      (async () => { cleanupRef.current = await Router.push(url); })();
       showMessage('Signed in');
     } else if (wasSignedIn) { // Check wasSignedIn, else block will fire upon initial page load.
       showMessage('Signed out');
+    }
+  }, [showMessage, user, wasSignedIn]);
+
+  useEffect(() => {
+    if (user) {
+      // TODO: make this real.
+      // eslint-disable-next-line no-unused-vars
+      const isAssessmentComplete = _user => false;
+      const url = isAssessmentComplete(user) ? '/dashboard' : '/assessment';
+
+      (async () => { cleanupRef.current = await Router.push(url); })();
     }
 
     return () => {
@@ -46,7 +51,7 @@ export default function AppManager(props) {
         cleanupRef.current();
       }
     };
-  }, [showMessage, user, wasSignedIn]);
+  }, [user]);
 
   return (
     <React.Fragment>
