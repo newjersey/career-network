@@ -42,22 +42,22 @@ export default function AuthForm(props) {
     signInOptions: [
       // Leave the lines as is for the providers you want to offer your users.
       auth.GoogleAuthProvider.PROVIDER_ID,
+      auth.FacebookAuthProvider.PROVIDER_ID,
       {
         provider: 'microsoft.com',
         providerName: 'Microsoft',
         buttonColor: '#575352',
         iconUrl: '/static/img/microsoft.svg',
       },
-      // {
-      //   provider: 'yahoo.com',
-      //   providerName: 'Yahoo',
-      //   buttonColor: '#400090',
-      //   iconUrl: '/static/img/yahoo.svg',
-      //   customParameters: {
-
-      //   },
-      // },
-      auth.FacebookAuthProvider.PROVIDER_ID,
+      {
+        provider: 'yahoo.com',
+        providerName: 'Yahoo',
+        buttonColor: '#400090',
+        iconUrl: '/static/img/yahoo.svg',
+        customParameters: {
+          prompt: 'login',
+        },
+      },
       auth.GithubAuthProvider.PROVIDER_ID,
       // auth.TwitterAuthProvider.PROVIDER_ID,
       // auth.EmailAuthProvider.PROVIDER_ID,
