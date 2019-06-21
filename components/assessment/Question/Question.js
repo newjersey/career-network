@@ -1,15 +1,11 @@
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
 import { useAuth } from '../../Auth';
 import AirtablePropTypes from '../../Airtable/PropTypes';
 import BinaryQuestion from './BinaryQuestion';
+import FirebasePropTypes from '../../Firebase/PropTypes';
 import OptionQuestion from './OptionQuestion';
 import TextQuestion from './TextQuestion';
-
-const { QueryDocumentSnapshot } = firebase.firestore;
 
 function getDefaultValue(responseType) {
   switch (responseType) {
@@ -97,5 +93,5 @@ export default function Question(props) {
 Question.propTypes = {
   question: AirtablePropTypes.question.isRequired,
   allQuestionResponseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
-  allQuestionResponses: PropTypes.arrayOf(PropTypes.instanceOf(QueryDocumentSnapshot)).isRequired,
+  allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
 };

@@ -1,15 +1,12 @@
-import firebase from 'firebase/app';
-import 'firebase/firestore';
 import { makeStyles } from '@material-ui/styles';
 import Paper from '@material-ui/core/Paper';
-import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import AirtablePropTypes from '../Airtable/PropTypes';
 import AssessmentEntry from './AssessmentEntry';
+import FirebasePropTypes from '../Firebase/PropTypes';
 
-const { QueryDocumentSnapshot } = firebase.firestore;
 const useStyles = makeStyles(theme => ({
   root: {
     paddingTop: theme.spacing(1),
@@ -54,5 +51,5 @@ AssessmentSection.propTypes = {
   allQuestions: AirtablePropTypes.questions.isRequired,
   allQuestionGroups: AirtablePropTypes.questionGroups.isRequired,
   allQuestionResponseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
-  allQuestionResponses: PropTypes.arrayOf(PropTypes.instanceOf(QueryDocumentSnapshot)).isRequired,
+  allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
 };

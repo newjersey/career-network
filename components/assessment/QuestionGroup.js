@@ -1,16 +1,13 @@
-import firebase from 'firebase/app';
-import 'firebase/firestore';
 import { makeStyles } from '@material-ui/styles';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormLabel from '@material-ui/core/FormLabel';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 import AirtablePropTypes from '../Airtable/PropTypes';
+import FirebasePropTypes from '../Firebase/PropTypes';
 import Question from './Question';
 
-const { QueryDocumentSnapshot } = firebase.firestore;
 const useStyles = makeStyles(theme => ({
   root: {
     // marginTop: theme.spacing(5),
@@ -53,5 +50,5 @@ QuestionGroup.propTypes = {
   questionGroup: AirtablePropTypes.questionGroup.isRequired,
   allQuestions: AirtablePropTypes.questions.isRequired,
   allQuestionResponseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
-  allQuestionResponses: PropTypes.arrayOf(PropTypes.instanceOf(QueryDocumentSnapshot)).isRequired,
+  allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
 };
