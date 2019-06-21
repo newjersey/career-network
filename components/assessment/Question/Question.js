@@ -1,33 +1,78 @@
-import React from 'react';
+import React, { useState } from 'react';
 
+import { useAuth } from '../../Auth';
 import AirtablePropTypes from '../../Airtable/PropTypes';
+import BinaryQuestion from './BinaryQuestion';
 import OptionQuestion from './OptionQuestion';
 import TextQuestion from './TextQuestion';
-import BinaryQuestion from './BinaryQuestion';
+
+function getDefaultValue(responseType) {
+  switch (responseType) {
+    case 'Text':
+    case 'Number':
+    case 'Email':
+    case 'Option':
+      return '';
+    case 'Binary':
+      return false;
+    default:
+      return undefined;
+  }
+}
 
 export default function Question(props) {
-  const {
-    question,
-    allQuestionResponseOptions,
-  } = props;
+  const { userDocRef } = useAuth();
+  const { question, allQuestionResponseOptions } = props;
+  const responseType = question.fields['Response Type'];
+  const [value, setValue] = useState(getDefaultValue(responseType));
 
-  const { 'Response Options': ResponseOptionIds } = question.fields;
-  const ResponseOptions = ResponseOptionIds
-    && allQuestionResponseOptions.filter(ResponseOption => (
-      ResponseOptionIds.includes(ResponseOption.id)
+  const { 'Response Options': responseOptionIds } = question.fields;
+  const responseOptions = responseOptionIds
+    && allQuestionResponseOptions.filter(responseOption => (
+      responseOptionIds.includes(responseOption.id)
     ));
 
-  switch (question.fields['Response Type']) {
-    case 'Binary':
-      return <BinaryQuestion question={question} />;
+  const persistValue = async (_value) => {
+    const docRef = userDocRef.collection('questionResponses').doc(question.id);
+    const data = { question, value: _value };
+
+    if (responseOptions) {
+      Object.assign(data, { responseOptions });
+    }
+
+    return docRef.set(data);
+  };
+
+  const commonProps = {
+    question,
+    value,
+  };
+
+  const textQuestionProps = {
+    ...commonProps,
+    onChange: _value => setValue(_value),
+    onBlur: _value => persistValue(_value),
+  };
+
+  const nonTextQuestionProps = {
+    ...commonProps,
+    onChange: (_value) => {
+      setValue(_value);
+      persistValue(_value);
+    },
+  };
+
+  switch (responseType) {
     case 'Text':
-      return <TextQuestion question={question} />;
-    case 'Email':
-      return <TextQuestion question={question} type="email" autoComplete="email" />;
+      return <TextQuestion {...textQuestionProps} />;
     case 'Number':
-      return <TextQuestion question={question} type="number" />;
+      return <TextQuestion {...textQuestionProps} type="number" />;
+    case 'Email':
+      return <TextQuestion {...textQuestionProps} type="email" autoComplete="email" />;
+    case 'Binary':
+      return <BinaryQuestion {...nonTextQuestionProps} />;
     case 'Option':
-      return <OptionQuestion question={question} ResponseOptions={ResponseOptions} />;
+      return <OptionQuestion {...nonTextQuestionProps} responseOptions={responseOptions} />;
     default:
       return null;
   }

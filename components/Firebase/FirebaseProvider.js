@@ -18,6 +18,7 @@ export default function FirebaseProvider(props) {
     auth,
     db, // should generally use 'base' instead, unless direct (lower-level) access needed
     base,
+    userDocRef: db.collection('users').doc('fLveAGxSbvYej7ybx9g1qoOGfpo2'),
   };
 
   return (

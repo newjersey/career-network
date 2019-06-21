@@ -1,12 +1,12 @@
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import AirtablePropTypes from '../../Airtable/PropTypes';
 
 export default function BinaryQuestion(props) {
-  const [value, setValue] = useState(false);
-  const { question } = props;
+  const { onChange, question, value } = props;
 
   return (
     <FormControlLabel
@@ -15,7 +15,7 @@ export default function BinaryQuestion(props) {
         <Checkbox
           checked={value}
           value={question.id}
-          onChange={event => setValue(event.target.checked)}
+          onChange={e => onChange(e.target.checked)}
         />
       )}
     />
@@ -23,5 +23,7 @@ export default function BinaryQuestion(props) {
 }
 
 BinaryQuestion.propTypes = {
+  onChange: PropTypes.func.isRequired,
   question: AirtablePropTypes.question.isRequired,
+  value: PropTypes.bool.isRequired,
 };

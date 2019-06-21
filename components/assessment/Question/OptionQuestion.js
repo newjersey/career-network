@@ -2,7 +2,8 @@ import { makeStyles } from '@material-ui/styles';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Select from '@material-ui/core/Select';
 
 import AirtablePropTypes from '../../Airtable/PropTypes';
@@ -16,21 +17,25 @@ const useStyles = makeStyles(theme => ({
 
 export default function OptionQuestion(props) {
   const classes = useStyles();
-  const [value, setValue] = useState('');
-  const { question, ResponseOptions } = props;
+  const {
+    onChange,
+    question,
+    responseOptions,
+    value,
+  } = props;
 
   return (
     <FormControl className={classes.formControl}>
       <InputLabel htmlFor={question.id}>{question.fields.Label}</InputLabel>
       <Select
-        value={value}
-        onChange={event => setValue(event.target.value)}
         inputProps={{
           name: question.id,
           id: question.id,
         }}
+        onChange={e => onChange(e.target.value)}
+        value={value}
       >
-        {ResponseOptions.map(option => (
+        {responseOptions.map(option => (
           <MenuItem key={option.id} value={option.id}>
             {option.fields.Name}
           </MenuItem>
@@ -41,6 +46,12 @@ export default function OptionQuestion(props) {
 }
 
 OptionQuestion.propTypes = {
+  onChange: PropTypes.func.isRequired,
   question: AirtablePropTypes.question.isRequired,
-  ResponseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
+  responseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
+  value: PropTypes.string,
+};
+
+OptionQuestion.defaultProps = {
+  value: null,
 };

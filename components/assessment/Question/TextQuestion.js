@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React from 'react';
 import TextField from '@material-ui/core/TextField';
 
 import AirtablePropTypes from '../../Airtable/PropTypes';
@@ -14,8 +14,14 @@ const useStyles = makeStyles(theme => ({
 
 export default function TextQuestion(props) {
   const classes = useStyles();
-  const [value, setValue] = useState('');
-  const { question, type, autoComplete } = props;
+  const {
+    autoComplete,
+    onBlur,
+    onChange,
+    question,
+    type,
+    value,
+  } = props;
 
   return (
     <TextField
@@ -23,7 +29,8 @@ export default function TextQuestion(props) {
       label={question.fields.Label}
       className={classes.textField}
       value={value}
-      onChange={event => setValue(event.target.value)}
+      onBlur={e => onBlur(e.target.value)}
+      onChange={e => onChange(e.target.value)}
       margin="normal"
       type={type}
       autoComplete={autoComplete}
@@ -33,12 +40,15 @@ export default function TextQuestion(props) {
 }
 
 TextQuestion.propTypes = {
+  autoComplete: PropTypes.string,
+  onBlur: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
   question: AirtablePropTypes.question.isRequired,
   type: PropTypes.string,
-  autoComplete: PropTypes.string,
+  value: PropTypes.string.isRequired,
 };
 
 TextQuestion.defaultProps = {
-  type: null,
   autoComplete: null,
+  type: null,
 };
