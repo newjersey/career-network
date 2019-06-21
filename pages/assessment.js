@@ -46,9 +46,12 @@ function Assessment() {
 
   useEffect(() => {
     (async () => {
-      const snapshot = await userDocRef.collection('questionResponses').get();
-      cleanupRef.current = snapshot;
-      setAllQuestionResponses(snapshot.docs);
+      const collectionRef = userDocRef.collection('questionResponses');
+      const unsubscribe = collectionRef.onSnapshot((querySnapshot) => {
+        setAllQuestionResponses(querySnapshot.docs);
+      });
+
+      cleanupRef.current = unsubscribe;
     })();
 
     return () => {

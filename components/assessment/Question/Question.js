@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useAuth } from '../../Auth';
 import AirtablePropTypes from '../../Airtable/PropTypes';
@@ -26,23 +26,37 @@ export default function Question(props) {
   const { question, allQuestionResponseOptions, allQuestionResponses } = props;
   const responseType = question.fields['Response Type'];
 
+  // get response persisted in database
   const response = allQuestionResponses.find(doc => doc.id === question.id);
   const persistedValue = response && response.data().value;
   const defaultValue = getDefaultValue(responseType);
-  const [value, setValue] = useState(persistedValue || defaultValue);
+  const value = persistedValue || defaultValue;
+  console.log(`---\npersistedValue: ${typeof value}`);
+  console.log(`defaultValue: ${typeof defaultValue}`);
+  console.log(`value: ${value}`);
+  console.log(`responseType: ${responseType}`);
+  // specific to text inputs (we don't want to update any Firebase doc more than once per second)
+  const [localValue, setLocalValue] = useState(value);
 
+  // get options for radio / select
   const { 'Response Options': responseOptionIds } = question.fields;
   const responseOptions = responseOptionIds
     && allQuestionResponseOptions.filter(responseOption => (
       responseOptionIds.includes(responseOption.id)
     ));
 
-  const persistValue = async (_value) => {
+  const setValue = async (_value) => {
     const docRef = userDocRef.collection('questionResponses').doc(question.id);
-    const data = { question, value: _value };
+    const data = {
+      question, // save a copy of the question responded to
+      value: _value,
+    };
 
+    // save a copy of the question's options, if it has any
     if (responseOptions) {
-      Object.assign(data, { responseOptions });
+      Object.assign(data, {
+        responseOptions,
+      });
     }
 
     try {
@@ -55,23 +69,23 @@ export default function Question(props) {
     }
   };
 
-  const commonProps = {
-    question,
-    value,
-  };
+  useEffect(() => {
+    if (persistedValue) {
+      setLocalValue(persistedValue);
+    }
+  }, [persistedValue]);
 
   const textQuestionProps = {
-    ...commonProps,
-    onChange: _value => setValue(_value),
-    onBlur: _value => persistValue(_value),
+    onBlur: _value => setValue(_value),
+    onChange: _value => setLocalValue(_value),
+    question,
+    value: localValue,
   };
 
   const nonTextQuestionProps = {
-    ...commonProps,
-    onChange: (_value) => {
-      setValue(_value);
-      persistValue(_value);
-    },
+    onChange: _value => setValue(_value),
+    question,
+    value,
   };
 
   switch (responseType) {

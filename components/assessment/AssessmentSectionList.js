@@ -88,7 +88,7 @@ export default function AssessmentSectionList(props) {
               {...restProps}
             />
             <div className={classes.buttons}>
-              {false && !!activeStep && (
+              {!!activeStep && (
                 <Button onClick={handleBack} className={classes.button}>
                   Back
                 </Button>
