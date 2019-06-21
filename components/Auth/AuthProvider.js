@@ -28,7 +28,7 @@ export default function AuthProvider(props) {
     try {
       const { additionalUserInfo, user: _user } = authResult;
       const { uid } = _user;
-      const doc = db.collection('users').doc(uid);
+      const userDocRef = db.collection('users').doc(uid);
 
       const {
         displayName,
@@ -54,15 +54,10 @@ export default function AuthProvider(props) {
       const userData = {
         authProfile,
         authProviders,
-        updatedTimestamp: Date.now(),
+        updatedTimestamp: new Date(),
       };
 
-      doc.set(userData, { merge: true });
-
-      // Also store as subcollection for the heck of it (future queries?). Maybe unnecessary.
-      doc.collection('authProviders')
-        .doc(additionalUserInfo.providerId)
-        .set(additionalUserInfo.profile, { merge: true });
+      userDocRef.set(userData, { merge: true });
     } catch (error) {
       // TODO: better error UX, and reporting solution
       // eslint-disable-next-line no-alert
