@@ -1,8 +1,13 @@
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import AirtablePropTypes from '../Airtable/PropTypes';
 import Question from './Question';
 import QuestionGroup from './QuestionGroup';
+
+const { QueryDocumentSnapshot } = firebase.firestore;
 
 export default function AssessmentEntry(props) {
   const {
@@ -48,4 +53,5 @@ AssessmentEntry.propTypes = {
   allQuestions: AirtablePropTypes.questions.isRequired,
   allQuestionGroups: AirtablePropTypes.questionGroups.isRequired,
   allQuestionResponseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
+  allQuestionResponses: PropTypes.arrayOf(PropTypes.instanceOf(QueryDocumentSnapshot)).isRequired,
 };

@@ -1,3 +1,5 @@
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
@@ -10,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import AssessmentSection from './AssessmentSection';
 
+const { QueryDocumentSnapshot } = firebase.firestore;
 const useStyles = makeStyles(theme => ({
   root: {
     paddingTop: theme.spacing(2),
@@ -87,7 +90,7 @@ export default function AssessmentSectionList(props) {
               {...restProps}
             />
             <div className={classes.buttons}>
-              {!!activeStep && (
+              {false && !!activeStep && (
                 <Button onClick={handleBack} className={classes.button}>
                   Back
                 </Button>
@@ -115,5 +118,6 @@ AssessmentSectionList.propTypes = {
   allQuestions: AirtablePropTypes.questions.isRequired,
   allQuestionGroups: AirtablePropTypes.questionGroups.isRequired,
   allQuestionResponseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
+  allQuestionResponses: PropTypes.arrayOf(PropTypes.instanceOf(QueryDocumentSnapshot)).isRequired,
   scrollToY: PropTypes.number.isRequired,
 };
