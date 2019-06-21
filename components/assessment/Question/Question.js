@@ -49,7 +49,14 @@ export default function Question(props) {
       Object.assign(data, { responseOptions });
     }
 
-    return docRef.set(data);
+    try {
+      return docRef.set(data);
+    } catch (error) {
+      // TODO: better error UX, and reporting solution
+      // eslint-disable-next-line no-alert
+      alert(`There was a problem saving your data:\n\n${error.message}`);
+      throw error;
+    }
   };
 
   const commonProps = {
