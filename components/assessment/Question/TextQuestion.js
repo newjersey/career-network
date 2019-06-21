@@ -20,7 +20,7 @@ export default function TextQuestion(props) {
   return (
     <TextField
       id={question.id}
-      label={question.fields.Name}
+      label={question.fields.Label}
       className={classes.textField}
       value={value}
       onChange={event => setValue(event.target.value)}

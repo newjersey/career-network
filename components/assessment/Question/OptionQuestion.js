@@ -17,11 +17,11 @@ const useStyles = makeStyles(theme => ({
 export default function OptionQuestion(props) {
   const classes = useStyles();
   const [value, setValue] = useState('');
-  const { question, answerOptions } = props;
+  const { question, ResponseOptions } = props;
 
   return (
     <FormControl className={classes.formControl}>
-      <InputLabel htmlFor={question.id}>{question.fields.Name}</InputLabel>
+      <InputLabel htmlFor={question.id}>{question.fields.Label}</InputLabel>
       <Select
         value={value}
         onChange={event => setValue(event.target.value)}
@@ -30,7 +30,7 @@ export default function OptionQuestion(props) {
           id: question.id,
         }}
       >
-        {answerOptions.map(option => (
+        {ResponseOptions.map(option => (
           <MenuItem key={option.id} value={option.id}>
             {option.fields.Name}
           </MenuItem>
@@ -42,5 +42,5 @@ export default function OptionQuestion(props) {
 
 OptionQuestion.propTypes = {
   question: AirtablePropTypes.question.isRequired,
-  answerOptions: AirtablePropTypes.questionAnswerOptions.isRequired,
+  ResponseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
 };

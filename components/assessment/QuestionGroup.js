@@ -31,10 +31,10 @@ export default function QuestionGroup(props) {
 
   return (
     <div className={classes.root}>
-      {/* <Typography component="h3" variant="h6">{questionGroup.fields.Name}</Typography> */}
+      {/* <Typography component="h3" variant="h6">{questionGroup.fields.Label}</Typography> */}
 
       <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">{questionGroup.fields.Name}</FormLabel>
+        <FormLabel component="legend">{questionGroup.fields.Label}</FormLabel>
         <FormGroup>
           {questions.map(question => (
             <Question key={question.id} question={question} {...restProps} />
@@ -48,5 +48,5 @@ export default function QuestionGroup(props) {
 QuestionGroup.propTypes = {
   questionGroup: AirtablePropTypes.questionGroup.isRequired,
   allQuestions: AirtablePropTypes.questions.isRequired,
-  allQuestionAnswerOptions: AirtablePropTypes.questionAnswerOptions.isRequired,
+  allQuestionResponseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
 };

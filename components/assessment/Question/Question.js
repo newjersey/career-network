@@ -8,16 +8,16 @@ import BinaryQuestion from './BinaryQuestion';
 export default function Question(props) {
   const {
     question,
-    allQuestionAnswerOptions,
+    allQuestionResponseOptions,
   } = props;
 
-  const { 'Answer Options': answerOptionIds } = question.fields;
-  const answerOptions = answerOptionIds
-    && allQuestionAnswerOptions.filter(answerOption => (
-      answerOptionIds.includes(answerOption.id)
+  const { 'Response Options': ResponseOptionIds } = question.fields;
+  const ResponseOptions = ResponseOptionIds
+    && allQuestionResponseOptions.filter(ResponseOption => (
+      ResponseOptionIds.includes(ResponseOption.id)
     ));
 
-  switch (question.fields['Answer Type']) {
+  switch (question.fields['Response Type']) {
     case 'Binary':
       return <BinaryQuestion question={question} />;
     case 'Text':
@@ -27,7 +27,7 @@ export default function Question(props) {
     case 'Number':
       return <TextQuestion question={question} type="number" />;
     case 'Option':
-      return <OptionQuestion question={question} answerOptions={answerOptions} />;
+      return <OptionQuestion question={question} ResponseOptions={ResponseOptions} />;
     default:
       return null;
   }
@@ -35,5 +35,5 @@ export default function Question(props) {
 
 Question.propTypes = {
   question: AirtablePropTypes.question.isRequired,
-  allQuestionAnswerOptions: AirtablePropTypes.questionAnswerOptions.isRequired,
+  allQuestionResponseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
 };

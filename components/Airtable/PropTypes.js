@@ -22,7 +22,7 @@ const assessmentEntry = recordShape({
 
 const question = recordShape({
   Name: PropTypes.string.isRequired,
-  'Answer Type': PropTypes.oneOf([
+  'Response Type': PropTypes.oneOf([
     'Option',
     'Text',
     'Number',
@@ -30,7 +30,7 @@ const question = recordShape({
     'Binary',
     'Date',
   ]).isRequired,
-  'Answer Options': PropTypes.arrayOf(PropTypes.string),
+  'Response Options': PropTypes.arrayOf(PropTypes.string),
   Group: PropTypes.arrayOf(PropTypes.string),
   'Order Within Group': PropTypes.number,
 });
@@ -40,7 +40,7 @@ const questionGroup = recordShape({
   Questions: PropTypes.arrayOf(PropTypes.string).isRequired,
 });
 
-const questionAnswerOption = recordShape({
+const questionResponseOption = recordShape({
   Name: PropTypes.string.isRequired,
   Order: PropTypes.number.isRequired,
 });
@@ -50,10 +50,10 @@ export default {
   assessmentEntry,
   question,
   questionGroup,
-  questionAnswerOption,
+  questionResponseOption,
   assessmentSections: PropTypes.arrayOf(assessmentSection),
   assessmentEntries: PropTypes.arrayOf(assessmentEntry),
   questions: PropTypes.arrayOf(question),
   questionGroups: PropTypes.arrayOf(questionGroup),
-  questionAnswerOptions: PropTypes.arrayOf(questionAnswerOption),
+  questionResponseOptions: PropTypes.arrayOf(questionResponseOption),
 };

@@ -47,5 +47,5 @@ AssessmentEntry.propTypes = {
   assessmentEntry: AirtablePropTypes.assessmentEntry.isRequired,
   allQuestions: AirtablePropTypes.questions.isRequired,
   allQuestionGroups: AirtablePropTypes.questionGroups.isRequired,
-  allQuestionAnswerOptions: AirtablePropTypes.questionAnswerOptions.isRequired,
+  allQuestionResponseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
 };

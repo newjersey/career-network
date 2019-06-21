@@ -23,7 +23,7 @@ function Assessment() {
     allAssessmentEntries: useRecords('appPhpA6Quf0pCBDm/Assessment%20Entries?view=API'),
     allQuestions: useRecords('appPhpA6Quf0pCBDm/Questions?view=API'),
     allQuestionGroups: useRecords('appPhpA6Quf0pCBDm/Question%20Groups?view=API'),
-    allQuestionAnswerOptions: useRecords('appPhpA6Quf0pCBDm/Question%20Answer%20Options?view=API'),
+    allQuestionResponseOptions: useRecords('appPhpA6Quf0pCBDm/Question%20Response%20Options?view=API'),
   };
 
   const fullyLoaded = user && Object.values(recordProps)

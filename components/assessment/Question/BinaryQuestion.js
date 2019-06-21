@@ -10,7 +10,7 @@ export default function BinaryQuestion(props) {
 
   return (
     <FormControlLabel
-      label={question.fields.Name}
+      label={question.fields.Label}
       control={(
         <Checkbox
           checked={value}
