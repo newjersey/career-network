@@ -12,6 +12,7 @@ function getDefaultValue(responseType) {
     case 'Text':
     case 'Number':
     case 'Email':
+    case 'Date':
     case 'Option':
       return '';
     case 'Binary':
@@ -31,10 +32,7 @@ export default function Question(props) {
   const persistedValue = response && response.data().value;
   const defaultValue = getDefaultValue(responseType);
   const value = persistedValue || defaultValue;
-  console.log(`---\npersistedValue: ${typeof value}`);
-  console.log(`defaultValue: ${typeof defaultValue}`);
-  console.log(`value: ${value}`);
-  console.log(`responseType: ${responseType}`);
+
   // specific to text inputs (we don't want to update any Firebase doc more than once per second)
   const [localValue, setLocalValue] = useState(value);
 
@@ -95,6 +93,8 @@ export default function Question(props) {
       return <TextQuestion {...textQuestionProps} type="number" />;
     case 'Email':
       return <TextQuestion {...textQuestionProps} type="email" autoComplete="email" />;
+    case 'Date':
+      return <TextQuestion {...textQuestionProps} type="date" InputLabelProps={{ shrink: true }} />;
     case 'Binary':
       return <BinaryQuestion {...nonTextQuestionProps} />;
     case 'Option':

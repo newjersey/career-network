@@ -15,12 +15,10 @@ const useStyles = makeStyles(theme => ({
 export default function TextQuestion(props) {
   const classes = useStyles();
   const {
-    autoComplete,
     onBlur,
     onChange,
     question,
-    type,
-    value,
+    ...restProps
   } = props;
 
   return (
@@ -28,14 +26,12 @@ export default function TextQuestion(props) {
       id={question.id}
       label={question.fields.Label}
       className={classes.textField}
-      value={value}
       onBlur={e => onBlur(e.target.value)}
       onChange={e => onChange(e.target.value)}
       margin="normal"
-      type={type}
-      autoComplete={autoComplete}
       helperText={question.fields['Helper Text']}
       fullWidth
+      {...restProps}
     />
   );
 }
