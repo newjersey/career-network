@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 
 function Assessment() {
   const classes = useStyles();
-  const [allQuestionResponses, setAllQuestionResponses] = useState([]);
+  const [allQuestionResponses, setAllQuestionResponses] = useState(undefined);
   const [scrollToY, setScrollToY] = useState(0);
   const { user, userDocRef } = useAuth();
   const cleanupRef = useRef();
@@ -31,12 +31,12 @@ function Assessment() {
     allQuestions: useRecords('appPhpA6Quf0pCBDm/Questions?view=API'),
     allQuestionGroups: useRecords('appPhpA6Quf0pCBDm/Question%20Groups?view=API'),
     allQuestionResponseOptions: useRecords('appPhpA6Quf0pCBDm/Question%20Response%20Options?view=API'),
-    allQuestionResponses, // for initial hydration (use case: incomplete assessment)
   };
 
   const fullyLoaded = user && Object.values(recordProps)
     .map(array => array.length)
-    .reduce((accum, length) => accum && !!length, true);
+    .reduce((accum, length) => accum && !!length, true)
+    && allQuestionResponses; // for initial hydration (use case: incomplete assessment)
 
   const scrollToRef = useCallback((node) => {
     if (node !== null) {
@@ -70,7 +70,11 @@ function Assessment() {
               !
             </Typography>
 
-            <AssessmentSectionList scrollToY={scrollToY} {...recordProps} />
+            <AssessmentSectionList
+              scrollToY={scrollToY}
+              {...recordProps}
+              allQuestionResponses={allQuestionResponses}
+            />
           </React.Fragment>
         ) : (
           <FullPageProgress />
