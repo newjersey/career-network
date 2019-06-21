@@ -67,7 +67,7 @@ function Assessment() {
         {fullyLoaded ? (
           <React.Fragment>
             <Typography ref={scrollToRef} component="h1" variant="h2" gutterBottom>
-              Welcome,
+              Hi,
               {' '}
               {user && user.firstName}
               !

@@ -34,6 +34,7 @@ export default function TextQuestion(props) {
       margin="normal"
       type={type}
       autoComplete={autoComplete}
+      helperText={question.fields['Helper Text']}
       fullWidth
     />
   );
