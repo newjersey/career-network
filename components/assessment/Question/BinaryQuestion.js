@@ -13,6 +13,7 @@ export default function BinaryQuestion(props) {
       label={question.fields.Label}
       control={(
         <Checkbox
+          color="primary"
           checked={value}
           value={question.id}
           onChange={e => onChange(e.target.checked)}

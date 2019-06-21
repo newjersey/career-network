@@ -1,5 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import PropTypes from 'prop-types';
@@ -24,6 +25,8 @@ export default function OptionQuestion(props) {
     value,
   } = props;
 
+  const helperText = question.fields['Helper Text'];
+
   return (
     <FormControl className={classes.formControl}>
       <InputLabel htmlFor={question.id}>{question.fields.Label}</InputLabel>
@@ -41,6 +44,9 @@ export default function OptionQuestion(props) {
           </MenuItem>
         ))}
       </Select>
+      {helperText && (
+        <FormHelperText>{helperText}</FormHelperText>
+      )}
     </FormControl>
   );
 }
