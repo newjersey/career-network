@@ -7,8 +7,17 @@ import FirebasePropTypes from '../../Firebase/PropTypes';
 import OptionQuestion from './OptionQuestion';
 import TextQuestion from './TextQuestion';
 
-function getDefaultValue(responseType) {
-  switch (responseType) {
+function getDefaultValue(question, user) {
+  // special cases
+  switch (question.fields.Slug) {
+    case 'preferredFirstName':
+      return user.firstName;
+    case 'preferredEmail':
+      return user.email;
+    default:
+  }
+
+  switch (question.fields['Response Type']) {
     case 'Text':
     case 'Number':
     case 'Email':
@@ -23,14 +32,14 @@ function getDefaultValue(responseType) {
 }
 
 export default function Question(props) {
-  const { userDocRef } = useAuth();
+  const { user, userDocRef } = useAuth();
   const { question, allQuestionResponseOptions, allQuestionResponses } = props;
   const responseType = question.fields['Response Type'];
 
   // get response persisted in database
   const response = allQuestionResponses.find(doc => doc.id === question.id);
   const persistedValue = response && response.data().value;
-  const defaultValue = getDefaultValue(responseType);
+  const defaultValue = getDefaultValue(question, user);
   const value = persistedValue || defaultValue;
 
   // specific to text inputs (we don't want to update any Firebase doc more than once per second)
