@@ -12,6 +12,8 @@ import AirtablePropTypes from '../../Airtable/PropTypes';
 // eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles(theme => ({
   formControl: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1),
     width: '100%',
   },
 }));
