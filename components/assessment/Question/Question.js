@@ -21,6 +21,7 @@ function getDefaultValue(question, user) {
     case 'Text':
     case 'Number':
     case 'Email':
+    case 'Phone':
     case 'Date':
     case 'Option':
       return '';
@@ -102,6 +103,9 @@ export default function Question(props) {
       return <TextQuestion {...textQuestionProps} type="number" />;
     case 'Email':
       return <TextQuestion {...textQuestionProps} type="email" autoComplete="email" />;
+    case 'Phone':
+      // currently assumes USA-only numbers
+      return <TextQuestion {...textQuestionProps} type="tel" autoComplete="tel-national" />;
     case 'Date':
       return <TextQuestion {...textQuestionProps} type="date" InputLabelProps={{ shrink: true }} />;
     case 'Binary':

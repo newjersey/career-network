@@ -27,6 +27,7 @@ const question = recordShape({
     'Option',
     'Text',
     'Number',
+    'Phone',
     'Email',
     'Binary',
     'Date',
