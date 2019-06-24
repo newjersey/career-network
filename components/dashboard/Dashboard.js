@@ -1,5 +1,9 @@
 import { makeStyles } from '@material-ui/styles';
-import React from 'react';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
+import Grid from '@material-ui/core/Grid';
+import React, { useState } from 'react';
+import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
 
 import { useAuth } from '../Auth';
@@ -16,6 +20,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Dashboard(props) {
   const classes = useStyles();
+  const [debugMode, setDebugMode] = useState(false);
   const { user } = useAuth();
   const {
     allConditions,
@@ -123,19 +128,38 @@ export default function Dashboard(props) {
       .reduce((a, b) => a && b, true);
   }
 
-  const theories = allTheories
+  const theories = debugMode ? allTheories : allTheories
     .filter(theory => isIndicated(theory))
     .slice(0, 2); // take the top two (arbitrary, looks good in columns)
 
   return (
     <div className={classes.root}>
       <ScaffoldContainer>
-        <Typography component="h1" variant="h2" gutterBottom>
-          Hi,
-          {' '}
-          {user && user.firstName}
-          !
-        </Typography>
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="flex-start"
+        >
+          <Grid item>
+            <Typography component="h1" variant="h2" gutterBottom>
+              Hi,
+              {' '}
+              {user && user.firstName}
+              !
+            </Typography>
+          </Grid>
+          <Grid item>
+            <FormGroup row>
+              <FormControlLabel
+                label="Show all"
+                control={
+                  <Switch checked={debugMode} onChange={e => setDebugMode(e.target.checked)} />
+                }
+              />
+            </FormGroup>
+          </Grid>
+        </Grid>
         <TheoryList theories={theories} {...restProps} />
       </ScaffoldContainer>
     </div>

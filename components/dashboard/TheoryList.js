@@ -12,7 +12,7 @@ export default function TheoryList(props) {
   const { allActions, theories, ...restProps } = props;
 
   return (
-    <Grid container spacing={5}>
+    <Grid container spacing={7}>
       {theories.map(theory => (
         <Grid item xs={12} sm={6} key={theory.id}>
           <Theory

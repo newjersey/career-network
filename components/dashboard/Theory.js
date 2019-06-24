@@ -9,7 +9,7 @@ export default function Theory(props) {
 
   return (
     <div>
-      <Typography component="h2" variant="h5" gutterBottom>
+      <Typography component="h2" variant="h4" gutterBottom>
         {theory.fields.Name}
       </Typography>
       <ActionList {...restProps} />
