@@ -5,20 +5,20 @@ export default function useAirtable(apiPath) {
   const [records, setRecords] = useState([]);
   const cleanupRef = useRef();
 
-  const fetchJson = async (offset) => {
-    let path = apiPath;
-
-    if (offset) {
-      const separator = path.includes('?') ? '&' : '?';
-      path += `${separator}offset=${offset}`;
-    }
-
-    const result = await new Airtable().fetch(path);
-
-    return result.json();
-  };
-
   useEffect(() => {
+    const fetchJson = async (offset) => {
+      let path = apiPath;
+
+      if (offset) {
+        const separator = path.includes('?') ? '&' : '?';
+        path += `${separator}offset=${offset}`;
+      }
+
+      const result = await new Airtable().fetch(path);
+
+      return result.json();
+    };
+
     (async () => {
       let offset = null;
       let recordsAccum = [];
