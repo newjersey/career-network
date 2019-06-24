@@ -99,9 +99,9 @@ export default function Dashboard(props) {
       case '>':
         return responseValue > predicateValue;
       case 'contains':
-        return responseValue.includes(predicateValue);
+        return new RegExp(predicateValue, 'i').test(responseValue);
       case 'does not contain':
-        return !responseValue.includes(predicateValue);
+        return !new RegExp(predicateValue, 'i').test(responseValue);
       default:
         throw new Error(`Unexpected predicate operator: ${operator}`);
     }
