@@ -98,7 +98,7 @@ export default function Dashboard(props) {
         return responseValue < predicateValue;
       case '>':
         return responseValue > predicateValue;
-      case 'contians':
+      case 'contains':
         return responseValue.includes(predicateValue);
       case 'does not contain':
         return !responseValue.includes(predicateValue);

@@ -87,7 +87,7 @@ const predicate = recordShape({
     'is not',
     '<',
     '>',
-    'contians',
+    'contains',
     'does not contain',
   ]).isRequired,
   'Question Response Type': PropTypes.oneOf([
