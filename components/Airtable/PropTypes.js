@@ -47,15 +47,37 @@ const questionResponseOption = recordShape({
   Order: PropTypes.number.isRequired,
 });
 
+const action = recordShape({
+  Name: PropTypes.string.isRequired,
+  What: PropTypes.string.isRequired,
+  Why: PropTypes.string.isRequired,
+  How: PropTypes.string.isRequired,
+  Elaboration: PropTypes.string,
+  Priority: PropTypes.number.isRequired,
+  'Icon ID': PropTypes.number.isRequired,
+  Resources: PropTypes.arrayOf(PropTypes.string).isRequired,
+  'Elaboration Resources': PropTypes.arrayOf(PropTypes.string),
+});
+
+const resource = recordShape({
+  Name: PropTypes.string.isRequired,
+  Description: PropTypes.string,
+  URL: PropTypes.string.isRequired,
+});
+
 export default {
-  assessmentSection,
+  action,
+  actions: PropTypes.arrayOf(action),
   assessmentEntry,
-  question,
-  questionGroup,
-  questionResponseOption,
-  assessmentSections: PropTypes.arrayOf(assessmentSection),
   assessmentEntries: PropTypes.arrayOf(assessmentEntry),
+  assessmentSection,
+  assessmentSections: PropTypes.arrayOf(assessmentSection),
+  question,
   questions: PropTypes.arrayOf(question),
+  questionGroup,
   questionGroups: PropTypes.arrayOf(questionGroup),
+  questionResponseOption,
   questionResponseOptions: PropTypes.arrayOf(questionResponseOption),
+  resource,
+  resources: PropTypes.arrayOf(resource),
 };
