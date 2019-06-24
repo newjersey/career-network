@@ -14,14 +14,19 @@ export default function useAuthRequired(failureMessage) {
     // user will be undefined until auth status can be determined
     if (user === null) {
       cleanupRef.current = Router.push('/');
-      showSignIn();
-      showMessage(failureMessage || 'You must be signed in to view this page');
+
+      if (cleanupRef.current) {
+        showSignIn();
+        showMessage(failureMessage || 'You must be signed in to view this page');
+      }
     }
 
     return () => {
       if (typeof cleanupRef.current === 'function') {
         cleanupRef.current();
       }
+
+      cleanupRef.current = null;
     };
   }, [failureMessage, showMessage, showSignIn, user]);
 }

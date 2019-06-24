@@ -5,21 +5,17 @@ export default function useAirtable(apiPath) {
   const [records, setRecords] = useState([]);
   const cleanupRef = useRef();
 
-  const fetchJson = async (_apiPath, offset) => {
-    let path = _apiPath;
+  const fetchJson = async (offset) => {
+    let path = apiPath;
 
     if (offset) {
       const separator = path.includes('?') ? '&' : '?';
       path += `${separator}offset=${offset}`;
     }
 
-    cleanupRef.current = new Airtable().fetch(path);
-    const result = await cleanupRef.current;
+    const result = await new Airtable().fetch(path);
 
-    cleanupRef.current = result.json();
-    const json = await cleanupRef.current;
-
-    return json;
+    return result.json();
   };
 
   useEffect(() => {
@@ -29,19 +25,19 @@ export default function useAirtable(apiPath) {
 
       do {
         // eslint-disable-next-line no-await-in-loop
-        const result = await fetchJson(apiPath, offset);
+        const result = await fetchJson(offset);
 
         ({ offset } = result);
         recordsAccum = recordsAccum.concat(result.records);
       } while (offset);
 
-      setRecords(recordsAccum);
+      if (!cleanupRef.current) {
+        setRecords(recordsAccum);
+      }
     })();
 
     return () => {
-      if (typeof cleanupRef.current === 'function') {
-        cleanupRef.current();
-      }
+      cleanupRef.current = true;
     };
   }, [apiPath]);
 

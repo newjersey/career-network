@@ -39,7 +39,7 @@ export default function AppManager(props) {
       const isAssessmentComplete = _user => false;
       const url = isAssessmentComplete(user) ? '/dashboard' : '/assessment';
 
-      (async () => { cleanupRef.current = await Router.push(url); })();
+      (async () => { cleanupRef.current = Router.push(url); })();
     }
 
     return () => {

@@ -68,37 +68,37 @@ export default function AuthProvider(props) {
 
   // Clear or set user, pulling user data from Firestore.
   useEffect(() => {
-    (async () => {
-      // https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables
-      cleanupRef.current = await auth().onAuthStateChanged(async (authUser) => {
-        if (authUser) {
-          setIsOpen(false);
+    // https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables
+    cleanupRef.current = auth().onAuthStateChanged(async (authUser) => {
+      if (authUser) {
+        setIsOpen(false);
 
-          try {
-            const { uid } = authUser;
-            const userDoc = await db.collection('users').doc(uid).get();
+        try {
+          const { uid } = authUser;
+          const userDoc = await db.collection('users').doc(uid).get();
 
-            if (userDoc.exists) {
-              // preserve this ordering:
-              setUser(new User(userDoc));
-              setWasSignedIn(true);
-            }
-          } catch (error) {
-            // TODO: better error UX, and reporting solution
-            // eslint-disable-next-line no-alert
-            alert(`There was a problem signing in:\n\n${error.message}`);
-            throw error;
+          if (cleanupRef.current && userDoc.exists) {
+            // preserve this ordering:
+            setUser(new User(userDoc));
+            setWasSignedIn(true);
           }
-        } else {
-          setUser(null);
+        } catch (error) {
+          // TODO: better error UX, and reporting solution
+          // eslint-disable-next-line no-alert
+          alert(`There was a problem signing in:\n\n${error.message}`);
+          throw error;
         }
-      });
-    })();
+      } else {
+        setUser(null);
+      }
+    });
 
     return () => {
       if (typeof cleanupRef.current === 'function') {
         cleanupRef.current();
       }
+
+      cleanupRef.current = null;
     };
   }, [auth, db]);
 
