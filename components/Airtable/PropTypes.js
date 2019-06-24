@@ -90,6 +90,15 @@ const predicate = recordShape({
     'contians',
     'does not contain',
   ]).isRequired,
+  'Question Response Type': PropTypes.oneOf([
+    'Option',
+    'Text',
+    'Number',
+    'Phone',
+    'Email',
+    'Binary',
+    'Date',
+  ]).isRequired,
   'Constant Value': PropTypes.string,
   'Option Value': PropTypes.arrayOf(PropTypes.string),
 });

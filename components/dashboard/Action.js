@@ -62,8 +62,8 @@ export default function Action(props) {
             />
           )}
           title={(
-            <Typography variant="h5" component="h3">
-              {action.fields.Name}
+            <Typography component="h3" variant="body1">
+              <strong>{action.fields.Name}</strong>
             </Typography>
           )}
         // subheader="100 points"
@@ -91,13 +91,13 @@ export default function Action(props) {
       <Divider />
 
       <CardActions disableSpacing>
-        <Button size="small" color="primary">
+        <Button color="primary">
           Done
         </Button>
-        <Button size="small" color="primary">
+        <Button color="primary">
           Snooze
         </Button>
-        <Button size="small" color="primary">
+        <Button color="primary">
           Skip
         </Button>
         <IconButton

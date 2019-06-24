@@ -1,4 +1,5 @@
 import React from 'react';
+import Grid from '@material-ui/core/Grid';
 
 import AirtablePropTypes from '../Airtable/PropTypes';
 import Theory from './Theory';
@@ -11,14 +12,17 @@ export default function TheoryList(props) {
   const { allActions, theories, ...restProps } = props;
 
   return (
-    theories.map(theory => (
-      <Theory
-        key={theory.id}
-        theory={theory}
-        actions={getActions(theory, allActions)}
-        {...restProps}
-      />
-    ))
+    <Grid container spacing={5}>
+      {theories.map(theory => (
+        <Grid item xs={12} sm={6} key={theory.id}>
+          <Theory
+            theory={theory}
+            actions={getActions(theory, allActions)}
+            {...restProps}
+          />
+        </Grid>
+      ))}
+    </Grid>
   );
 }
 
