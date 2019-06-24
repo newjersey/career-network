@@ -1,16 +1,12 @@
 import { makeStyles } from '@material-ui/styles';
 import Router from 'next/router';
 
-import React, {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { useAuth, withAuthRequired } from '../components/Auth';
 import { useRecords } from '../components/Airtable';
+import { useUserSubcollection } from '../components/Firebase';
 import AssessmentSectionList from '../components/assessment/AssessmentSectionList';
 import FullPageProgress from '../components/FullPageProgress';
 import ScaffoldContainer from '../components/ScaffoldContainer';
@@ -23,11 +19,10 @@ const useStyles = makeStyles(theme => ({
 
 function Assessment() {
   const classes = useStyles();
-  const [allQuestionResponses, setAllQuestionResponses] = useState(undefined);
+  const allQuestionResponses = useUserSubcollection('questionResponses');
   const [scrollToY, setScrollToY] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
-  const { user, userDocRef } = useAuth();
-  const cleanupRef = useRef();
+  const { user } = useAuth();
   const recordProps = {
     assessmentSections: useRecords('appPhpA6Quf0pCBDm/Assessment%20Sections?view=API'),
     allAssessmentEntries: useRecords('appPhpA6Quf0pCBDm/Assessment%20Entries?view=API'),
@@ -51,23 +46,6 @@ function Assessment() {
       setScrollToY(node.offsetTop - 24);
     }
   }, []);
-
-  useEffect(() => {
-    (async () => {
-      const collectionRef = userDocRef.collection('questionResponses');
-      const unsubscribe = collectionRef.onSnapshot((querySnapshot) => {
-        setAllQuestionResponses(querySnapshot.docs);
-      });
-
-      cleanupRef.current = unsubscribe;
-    })();
-
-    return () => {
-      if (typeof cleanupRef.current === 'function') {
-        cleanupRef.current();
-      }
-    };
-  }, [userDocRef]);
 
   return (
     <div className={classes.root}>
