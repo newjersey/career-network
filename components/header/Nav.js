@@ -15,7 +15,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import MenuIcon from '@material-ui/icons/Menu';
 import NextLink from 'next/link';
 import PersonIcon from '@material-ui/icons/Person';
-import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -156,7 +156,7 @@ function Nav(props) {
                       </ListItem>
                     </NextLink>
                     <ListItem button onClick={onSignOut}>
-                      <ListItemIcon><PowerSettingsNew /></ListItemIcon>
+                      <ListItemIcon><PowerSettingsNewIcon /></ListItemIcon>
                       <ListItemText primary="Sign out" />
                     </ListItem>
                   </React.Fragment>

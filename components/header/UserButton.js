@@ -1,10 +1,14 @@
 import { makeStyles } from '@material-ui/styles';
 import Avatar from '@material-ui/core/Avatar';
+import DashboardIcon from '@material-ui/icons/Dashboard';
 import Grid from '@material-ui/core/Grid';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import NextLink from 'next/link';
 import PersonIcon from '@material-ui/icons/Person';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -77,11 +81,19 @@ export default function UserButton(props) {
         open={Boolean(anchorEl)}
         onClose={handleCloseUser}
       >
-        <MenuItem disabled>{email}</MenuItem>
+        <MenuItem disabled>
+          {email}
+        </MenuItem>
         <NextLink href="/dashboard">
-          <MenuItem>Dashboard</MenuItem>
+          <MenuItem>
+            <ListItemIcon><DashboardIcon /></ListItemIcon>
+            <ListItemText primary="My dashboard" />
+          </MenuItem>
         </NextLink>
-        <MenuItem onClick={handleLogout}>Sign out</MenuItem>
+        <MenuItem onClick={handleLogout}>
+          <ListItemIcon><PowerSettingsNewIcon /></ListItemIcon>
+          <ListItemText primary="Sign out" />
+        </MenuItem>
       </Menu>
     </React.Fragment>
   );
