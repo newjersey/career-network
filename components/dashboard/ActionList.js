@@ -12,10 +12,10 @@ function getResources(action, allResources, propName) {
 }
 
 export default function ActionList(props) {
-  const { allActions, allResources } = props;
+  const { actions, allResources } = props;
 
   return (
-    allActions.map(action => (
+    actions.map(action => (
       <Action
         key={action.id}
         action={action}
@@ -27,6 +27,6 @@ export default function ActionList(props) {
 }
 
 ActionList.propTypes = {
-  allActions: AirtablePropTypes.actions.isRequired,
+  actions: AirtablePropTypes.actions.isRequired,
   allResources: AirtablePropTypes.resources.isRequired,
 };

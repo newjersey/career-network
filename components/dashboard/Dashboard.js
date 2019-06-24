@@ -3,9 +3,10 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { useAuth } from '../Auth';
-import ActionList from './ActionList';
 import AirtablePropTypes from '../Airtable/PropTypes';
+import FirebasePropTypes from '../Firebase/PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
+import TheoryList from './TheoryList';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -16,7 +17,9 @@ const useStyles = makeStyles(theme => ({
 export default function Dashboard(props) {
   const classes = useStyles();
   const { user } = useAuth();
-  // const [allQuestionResponses, setAllQuestionResponses] = useState(undefined);
+  const { allTheories, ...restProps } = props;
+
+  const theories = allTheories;
 
   return (
     <div className={classes.root}>
@@ -31,7 +34,7 @@ export default function Dashboard(props) {
         <Typography component="h2" variant="h4" gutterBottom>
           Task List
         </Typography>
-        <ActionList {...props} />
+        <TheoryList theories={theories} {...restProps} />
       </ScaffoldContainer>
     </div>
   );
@@ -43,4 +46,5 @@ Dashboard.propTypes = {
   allPredicates: AirtablePropTypes.predicates.isRequired,
   allResources: AirtablePropTypes.resources.isRequired,
   allTheories: AirtablePropTypes.theories.isRequired,
+  allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
 };
