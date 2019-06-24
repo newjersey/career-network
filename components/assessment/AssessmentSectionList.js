@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Stepper from '@material-ui/core/Stepper';
-import Typography from '@material-ui/core/Typography';
 
 import AirtablePropTypes from '../Airtable/PropTypes';
 import AssessmentSection from './AssessmentSection';
@@ -46,6 +45,7 @@ export default function AssessmentSectionList(props) {
   const [activeStep, setActiveStep] = useState(0);
   const {
     assessmentSections,
+    onComplete,
     ...restProps
   } = props;
 
@@ -61,6 +61,13 @@ export default function AssessmentSectionList(props) {
     window.scrollTo(0, activeStep === 0 ? 0 : scrollToY);
   }, [activeStep, scrollToY]);
 
+  useEffect(() => {
+    if (activeStep === assessmentSections.length && typeof onComplete === 'function') {
+      onComplete();
+    }
+  }, [activeStep, assessmentSections, onComplete]);
+
+
   return (
     <div className={classes.root}>
 
@@ -75,13 +82,7 @@ export default function AssessmentSectionList(props) {
       </Stepper>
 
       <div>
-        {activeStep === assessmentSections.length ? (
-          <div>
-            <Typography className={classes.instructions}>
-              All steps completed - you&apos;re finished
-            </Typography>
-          </div>
-        ) : (
+        {activeStep !== assessmentSections.length && (
           <div>
             <AssessmentSection
               assessmentSection={assessmentSections[activeStep]}
@@ -117,5 +118,6 @@ AssessmentSectionList.propTypes = {
   allQuestionGroups: AirtablePropTypes.questionGroups.isRequired,
   allQuestionResponseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
+  onComplete: PropTypes.func.isRequired,
   scrollToY: PropTypes.number.isRequired,
 };

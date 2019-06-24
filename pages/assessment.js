@@ -1,4 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
+import Router from 'next/router';
+
 import React, {
   useCallback,
   useEffect,
@@ -23,6 +25,7 @@ function Assessment() {
   const classes = useStyles();
   const [allQuestionResponses, setAllQuestionResponses] = useState(undefined);
   const [scrollToY, setScrollToY] = useState(0);
+  const [isFinished, setIsFinished] = useState(false);
   const { user, userDocRef } = useAuth();
   const cleanupRef = useRef();
   const recordProps = {
@@ -37,6 +40,11 @@ function Assessment() {
     .map(array => array.length)
     .reduce((accum, length) => accum && !!length, true)
     && allQuestionResponses; // for initial hydration (use case: incomplete assessment)
+
+  const handleComplete = () => {
+    setIsFinished(true);
+    Router.push('/dashboard');
+  };
 
   const scrollToRef = useCallback((node) => {
     if (node !== null) {
@@ -64,7 +72,7 @@ function Assessment() {
   return (
     <div className={classes.root}>
       <ScaffoldContainer>
-        {fullyLoaded ? (
+        {fullyLoaded && !isFinished ? (
           <React.Fragment>
             <Typography ref={scrollToRef} component="h1" variant="h2" gutterBottom>
               Hi,
@@ -75,6 +83,7 @@ function Assessment() {
 
             <AssessmentSectionList
               scrollToY={scrollToY}
+              onComplete={handleComplete}
               {...recordProps}
               allQuestionResponses={allQuestionResponses}
             />
