@@ -24,6 +24,7 @@ export default function User(props) {
               ? (
                 <UserButton
                   displayName={user.displayName}
+                  email={user.email}
                   onSignOut={onSignOut}
                   photoURL={user.photoURL}
                 />

@@ -22,7 +22,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function UserButton(props) {
-  const { displayName, onSignOut, photoURL } = props;
+  const {
+    displayName,
+    email,
+    onSignOut,
+    photoURL,
+  } = props;
+
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -71,6 +77,7 @@ export default function UserButton(props) {
         open={Boolean(anchorEl)}
         onClose={handleCloseUser}
       >
+        <MenuItem disabled>{email}</MenuItem>
         <NextLink href="/dashboard">
           <MenuItem>Dashboard</MenuItem>
         </NextLink>
@@ -82,6 +89,7 @@ export default function UserButton(props) {
 
 UserButton.propTypes = {
   displayName: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
   onSignOut: PropTypes.func.isRequired,
   photoURL: PropTypes.string,
 };
