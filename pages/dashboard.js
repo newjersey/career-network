@@ -20,7 +20,7 @@ function Dashboard() {
   const { user } = useAuth();
   const recordProps = {
     allActions: useRecords('appPhpA6Quf0pCBDm/Actions?view=API'),
-    allResources: useRecords('appPhpA6Quf0pCBDm/Resources?view=API'),
+    allResources: useRecords('appPhpA6Quf0pCBDm/Resources?view=API%20Dashboard'),
   };
 
   const fullyLoaded = user && Object.values(recordProps)
