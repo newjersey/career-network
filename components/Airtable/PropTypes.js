@@ -65,6 +65,35 @@ const resource = recordShape({
   URL: PropTypes.string.isRequired,
 });
 
+const theory = recordShape({
+  Name: PropTypes.string.isRequired,
+  Conditions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  Actions: PropTypes.arrayOf(PropTypes.string).isRequired,
+});
+
+const condition = recordShape({
+  Name: PropTypes.string.isRequired,
+  Predicates: PropTypes.arrayOf(PropTypes.string).isRequired,
+  Theories: PropTypes.arrayOf(PropTypes.string).isRequired,
+});
+
+const predicate = recordShape({
+  Name: PropTypes.string.isRequired,
+  Question: PropTypes.arrayOf(PropTypes.string).isRequired,
+  Operator: PropTypes.oneOf([
+    'TRUE',
+    'FALSE',
+    'is',
+    'is not',
+    '<',
+    '>',
+    'contians',
+    'does not contain',
+  ]).isRequired,
+  'Constant Value': PropTypes.string,
+  'Option Value': PropTypes.arrayOf(PropTypes.string),
+});
+
 export default {
   action,
   actions: PropTypes.arrayOf(action),
@@ -72,6 +101,10 @@ export default {
   assessmentEntries: PropTypes.arrayOf(assessmentEntry),
   assessmentSection,
   assessmentSections: PropTypes.arrayOf(assessmentSection),
+  condition,
+  conditions: PropTypes.arrayOf(condition),
+  predicate,
+  predicates: PropTypes.arrayOf(predicate),
   question,
   questions: PropTypes.arrayOf(question),
   questionGroup,
@@ -80,4 +113,6 @@ export default {
   questionResponseOptions: PropTypes.arrayOf(questionResponseOption),
   resource,
   resources: PropTypes.arrayOf(resource),
+  theory,
+  theories: PropTypes.arrayOf(theory),
 };
