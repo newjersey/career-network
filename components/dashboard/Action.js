@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Task(props) {
+export default function Action(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const { action, resources, elaborationResources } = props;
@@ -115,12 +115,12 @@ export default function Task(props) {
   );
 }
 
-Task.propTypes = {
+Action.propTypes = {
   action: AirtablePropTypes.action.isRequired,
   resources: AirtablePropTypes.resources.isRequired,
   elaborationResources: AirtablePropTypes.resources,
 };
 
-Task.defaultProps = {
+Action.defaultProps = {
   elaborationResources: null,
 };

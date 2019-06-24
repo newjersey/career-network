@@ -6,7 +6,7 @@ import { useAuth, withAuthRequired } from '../components/Auth';
 import { useRecords } from '../components/Airtable';
 import FullPageProgress from '../components/FullPageProgress';
 import ScaffoldContainer from '../components/ScaffoldContainer';
-import TaskList from '../components/dashboard/TaskList';
+import ActionList from '../components/dashboard/ActionList';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,10 +39,10 @@ function Dashboard() {
               !
             </Typography>
 
-            <Typography component="h2" variant="h3" gutterBottom>
+            <Typography component="h2" variant="h4" gutterBottom>
               Task List
             </Typography>
-            <TaskList {...recordProps} />
+            <ActionList {...recordProps} />
           </React.Fragment>
         ) : (
           <FullPageProgress />

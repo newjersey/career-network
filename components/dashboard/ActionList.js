@@ -1,7 +1,7 @@
 import React from 'react';
 
 import AirtablePropTypes from '../Airtable/PropTypes';
-import Task from './Task';
+import Action from './Action';
 
 function getResources(action, allResources, propName) {
   if (!action.fields[propName]) {
@@ -11,12 +11,12 @@ function getResources(action, allResources, propName) {
   return allResources.filter(resource => action.fields[propName].includes(resource.id));
 }
 
-export default function TaskList(props) {
+export default function ActionList(props) {
   const { allActions, allResources } = props;
 
   return (
     allActions.map(action => (
-      <Task
+      <Action
         key={action.id}
         action={action}
         resources={getResources(action, allResources, 'Resources')}
@@ -26,7 +26,7 @@ export default function TaskList(props) {
   );
 }
 
-TaskList.propTypes = {
+ActionList.propTypes = {
   allActions: AirtablePropTypes.actions.isRequired,
   allResources: AirtablePropTypes.resources.isRequired,
 };
