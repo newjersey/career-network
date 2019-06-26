@@ -43,12 +43,7 @@ function Hero() {
         You’re not alone
       </Typography>
       <Typography variant="h4" component="h1" className={classes.title}>
-        It takes a
-        {' '}
-        <span className={classes.highlight}>network</span>
-        {' '}
-        to find the right
-        {' '}
+        It takes a <span className={classes.highlight}>network</span> to find the right{' '}
         <span className={classes.highlight}>career</span>
       </Typography>
       <CircumstancePicker className={classes.picker} />

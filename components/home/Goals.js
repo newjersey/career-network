@@ -27,12 +27,8 @@ function Goals() {
         <Grid item sm={1} />
       </Hidden>
       <Grid item xs={12} sm={7} md={3}>
-        <SectionContent
-          title="Stay on track"
-          buttonText="Start making goals"
-        >
-          Get reminders when you set goals sent to
-          your phone, email, or sync them with your
+        <SectionContent title="Stay on track" buttonText="Start making goals">
+          Get reminders when you set goals sent to your phone, email, or sync them with your
           calandar, designed to help you succeed.
         </SectionContent>
       </Grid>

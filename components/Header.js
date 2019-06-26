@@ -9,8 +9,7 @@ import User from './header/User';
 import UserClass from '../src/User';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-  },
+  root: {},
   navBar: {
     backgroundColor: '#FFFFFF',
   },

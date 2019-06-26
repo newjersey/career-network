@@ -16,17 +16,17 @@ function AnimatedSVG(props) {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPercentage = (
+      const scrollPercentage =
         // eslint-disable-next-line operator-linebreak
         (document.documentElement.scrollTop + document.body.scrollTop) /
-        (document.documentElement.scrollHeight - document.documentElement.clientHeight));
+        (document.documentElement.scrollHeight - document.documentElement.clientHeight);
 
       // Page scroll percentage is a hacky metric to use here.
       // TODO: calculate and expose some smarter calculations.
       const transformValue = transform(scrollPercentage);
       const svgElements = domNode.current.contentDocument.querySelectorAll('.animate');
 
-      svgElements.forEach((el) => {
+      svgElements.forEach(el => {
         el.setAttributeNS(null, 'transform', transformValue);
       });
     };

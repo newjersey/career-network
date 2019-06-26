@@ -18,11 +18,7 @@ export default function FirebaseProvider(props) {
     userDocRef: db.collection('users').doc('fLveAGxSbvYej7ybx9g1qoOGfpo2'),
   };
 
-  return (
-    <FirebaseContext.Provider value={value}>
-      {children}
-    </FirebaseContext.Provider>
-  );
+  return <FirebaseContext.Provider value={value}>{children}</FirebaseContext.Provider>;
 }
 
 FirebaseProvider.propTypes = {

@@ -54,9 +54,7 @@ export default function AuthForm(props) {
         providerName: 'Yahoo',
         buttonColor: '#400090',
         iconUrl: '/static/img/yahoo.svg',
-        scopes: [
-          'sdpp-w',
-        ],
+        scopes: ['sdpp-w'],
       },
       auth.GithubAuthProvider.PROVIDER_ID,
       // auth.TwitterAuthProvider.PROVIDER_ID,

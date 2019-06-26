@@ -23,15 +23,8 @@ const assessmentEntry = recordShape({
 const question = recordShape({
   Name: PropTypes.string.isRequired,
   'Helper Text': PropTypes.string,
-  'Response Type': PropTypes.oneOf([
-    'Option',
-    'Text',
-    'Number',
-    'Phone',
-    'Email',
-    'Binary',
-    'Date',
-  ]).isRequired,
+  'Response Type': PropTypes.oneOf(['Option', 'Text', 'Number', 'Phone', 'Email', 'Binary', 'Date'])
+    .isRequired,
   'Response Options': PropTypes.arrayOf(PropTypes.string),
   Group: PropTypes.arrayOf(PropTypes.string),
   'Order Within Group': PropTypes.number,

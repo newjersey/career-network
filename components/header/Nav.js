@@ -36,23 +36,28 @@ const pages = [
     href: '/plan',
     name: 'Build Your Plan',
     shortName: 'Build Your Plan',
-  }, {
+  },
+  {
     href: '/act',
     name: 'Act on Your Plan',
     shortName: 'Act on Your Plan',
-  }, {
+  },
+  {
     href: '/coaching',
     name: 'Career Coaching',
     shortName: 'Coaching',
-  }, {
+  },
+  {
     href: '/networking',
     name: 'Networking',
     shortName: 'Networking',
-  }, {
+  },
+  {
     href: '/toolkit',
     name: 'Job Toolkit',
     shortName: 'Toolkit',
-  }, {
+  },
+  {
     href: '/resources',
     name: 'State Resources',
     shortName: 'Resources',
@@ -127,14 +132,8 @@ function Nav(props) {
   return (
     <React.Fragment>
       <Drawer anchor="right" open={isDrawerOpen} onClose={closeDrawer}>
-        <div
-          tabIndex={0}
-          role="button"
-          onClick={closeDrawer}
-          onKeyDown={closeDrawer}
-        >
+        <div tabIndex={0} role="button" onClick={closeDrawer} onKeyDown={closeDrawer}>
           <div className={classes.drawerList}>
-
             <Hidden smUp implementation="css">
               <List>
                 {user ? (
@@ -151,18 +150,24 @@ function Nav(props) {
                     </NextLink>
                     <NextLink href="/dashboard">
                       <ListItem button>
-                        <ListItemIcon><DashboardIcon /></ListItemIcon>
+                        <ListItemIcon>
+                          <DashboardIcon />
+                        </ListItemIcon>
                         <ListItemText primary="My dashboard" />
                       </ListItem>
                     </NextLink>
                     <ListItem button onClick={onSignOut}>
-                      <ListItemIcon><PowerSettingsNewIcon /></ListItemIcon>
+                      <ListItemIcon>
+                        <PowerSettingsNewIcon />
+                      </ListItemIcon>
                       <ListItemText primary="Sign out" />
                     </ListItem>
                   </React.Fragment>
                 ) : (
                   <ListItem button onClick={handleSignInClick}>
-                    <ListItemIcon><ExitToAppIcon /></ListItemIcon>
+                    <ListItemIcon>
+                      <ExitToAppIcon />
+                    </ListItemIcon>
                     <ListItemText primary="Sign in" />
                   </ListItem>
                 )}
@@ -190,11 +195,18 @@ function Nav(props) {
               <Grid container alignItems="center">
                 <Hidden xsDown implementation="css">
                   <Grid item>
-                    <Picture path="nj.webp" fallbackType="png" alt="New Jersey Logo" className={classes.logo} />
+                    <Picture
+                      path="nj.webp"
+                      fallbackType="png"
+                      alt="New Jersey Logo"
+                      className={classes.logo}
+                    />
                   </Grid>
                 </Hidden>
                 <Grid item className={classes.titleContainer}>
-                  <Typography variant="h1" color="primary" className={classes.title}>Career Network</Typography>
+                  <Typography variant="h1" color="primary" className={classes.title}>
+                    Career Network
+                  </Typography>
                 </Grid>
               </Grid>
             </Grid>
@@ -214,8 +226,10 @@ function Nav(props) {
                     <li key={page.href} className={classes.listItem}>
                       <Typography className={classes.listItemTypography}>
                         <NextLink href={page.href}>
-                          { /* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                          <Link className={classes.link} underline="none">{page.name}</Link>
+                          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                          <Link className={classes.link} underline="none">
+                            {page.name}
+                          </Link>
                         </NextLink>
                       </Typography>
                     </li>

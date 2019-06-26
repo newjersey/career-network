@@ -11,20 +11,13 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import AuthForm from './AuthForm';
 
 function AuthDialog(props) {
-  const {
-    onCancel,
-    fullScreen,
-    open,
-    onSignInSuccessWithAuthResult,
-  } = props;
+  const { onCancel, fullScreen, open, onSignInSuccessWithAuthResult } = props;
 
   return (
     <Dialog fullScreen={fullScreen} open={open} aria-labelledby="sign-in-dialog-title">
       <DialogTitle id="sign-in-dialog-title">Sign in</DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          We’re excited to have you join us!
-        </DialogContentText>
+        <DialogContentText>We’re excited to have you join us!</DialogContentText>
         <AuthForm onSignInSuccessWithAuthResult={onSignInSuccessWithAuthResult} />
       </DialogContent>
       <DialogActions>

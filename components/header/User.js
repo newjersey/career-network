@@ -20,18 +20,16 @@ export default function User(props) {
         </Grid>
         <Hidden xsDown implementation="css">
           <Grid item>
-            {user
-              ? (
-                <UserButton
-                  displayName={user.displayName}
-                  email={user.email}
-                  onSignOut={onSignOut}
-                  photoURL={user.photoURL}
-                />
-              ) : (
-                <SignInButton />
-              )
-            }
+            {user ? (
+              <UserButton
+                displayName={user.displayName}
+                email={user.email}
+                onSignOut={onSignOut}
+                photoURL={user.photoURL}
+              />
+            ) : (
+              <SignInButton />
+            )}
           </Grid>
         </Hidden>
       </Grid>

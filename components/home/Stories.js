@@ -36,7 +36,12 @@ function Stories() {
     <Grid container alignItems="center">
       <Grid item sm={6}>
         <div className={classes.leftContainer}>
-          <Picture path="index/jenny.webp" fallbackType="png" alt="Professional woman" className={classes.picture} />
+          <Picture
+            path="index/jenny.webp"
+            fallbackType="png"
+            alt="Professional woman"
+            className={classes.picture}
+          />
         </div>
       </Grid>
       <Grid item sm={6}>

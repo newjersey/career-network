@@ -14,12 +14,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function TextQuestion(props) {
   const classes = useStyles();
-  const {
-    onBlur,
-    onChange,
-    question,
-    ...restProps
-  } = props;
+  const { onBlur, onChange, question, ...restProps } = props;
 
   return (
     <TextField

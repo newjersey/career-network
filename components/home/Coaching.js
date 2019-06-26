@@ -15,17 +15,12 @@ function PlanCoaching() {
         />
       </Grid>
       <Grid item sm={5}>
-        <SectionContent
-          title="Get personalized coaching"
-          buttonText="Get started"
-        >
-          Self-coaching strategies and one-on-one expert coaching through
-          our chat and in person are all available. Learn how to be your own coach
-          through tips and strategies to hold yourself accountable during the job
-          search process. Develop peer-support networks to trade job search
-          tips and advice. Receive individualized assistance from a career
-          coach to help you upgrade your job search skills, identify a new
-          career direction, and land that new job.
+        <SectionContent title="Get personalized coaching" buttonText="Get started">
+          Self-coaching strategies and one-on-one expert coaching through our chat and in person are
+          all available. Learn how to be your own coach through tips and strategies to hold yourself
+          accountable during the job search process. Develop peer-support networks to trade job
+          search tips and advice. Receive individualized assistance from a career coach to help you
+          upgrade your job search skills, identify a new career direction, and land that new job.
         </SectionContent>
       </Grid>
     </Grid>

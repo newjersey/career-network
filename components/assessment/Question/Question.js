@@ -46,12 +46,13 @@ export default function Question(props) {
 
   // get options for radio / select
   const { 'Response Options': responseOptionIds } = question.fields;
-  const responseOptions = responseOptionIds
-    && allQuestionResponseOptions.filter(responseOption => (
+  const responseOptions =
+    responseOptionIds &&
+    allQuestionResponseOptions.filter(responseOption =>
       responseOptionIds.includes(responseOption.id)
-    ));
+    );
 
-  const setValue = async (_value) => {
+  const setValue = async _value => {
     const docRef = userDocRef.collection('questionResponses').doc(question.id);
     const data = {
       question, // save a copy of the question responded to

@@ -22,13 +22,7 @@ export default function Dashboard(props) {
   const classes = useStyles();
   const [debugMode, setDebugMode] = useState(false);
   const { user } = useAuth();
-  const {
-    allConditions,
-    allPredicates,
-    allTheories,
-    allQuestionResponses,
-    ...restProps
-  } = props;
+  const { allConditions, allPredicates, allTheories, allQuestionResponses, ...restProps } = props;
 
   // Whether or not a predicate evaluates to true for the curent user.
   function isTrue(predicateId) {
@@ -116,37 +110,31 @@ export default function Dashboard(props) {
       return null;
     }
 
-    return condition.fields.Predicates
-      .map(predicateId => isTrue(predicateId))
-      .reduce((a, b) => a || b, false);
+    return condition.fields.Predicates.map(predicateId => isTrue(predicateId)).reduce(
+      (a, b) => a || b,
+      false
+    );
   }
 
   // Whether or not all of a theory's conditions are satisfied by the current user.
   function isIndicated(theory) {
-    return theory.fields.Conditions
-      .map(conditionId => isSatisfied(conditionId))
-      .reduce((a, b) => a && b, true);
+    return theory.fields.Conditions.map(conditionId => isSatisfied(conditionId)).reduce(
+      (a, b) => a && b,
+      true
+    );
   }
 
-  const theories = debugMode ? allTheories : allTheories
-    .filter(theory => isIndicated(theory))
-    .slice(0, 2); // take the top two (arbitrary, looks good in columns)
+  const theories = debugMode
+    ? allTheories
+    : allTheories.filter(theory => isIndicated(theory)).slice(0, 2); // take the top two (arbitrary, looks good in columns)
 
   return (
     <div className={classes.root}>
       <ScaffoldContainer>
-        <Grid
-          container
-          direction="row"
-          justify="space-between"
-          alignItems="flex-start"
-        >
+        <Grid container direction="row" justify="space-between" alignItems="flex-start">
           <Grid item>
             <Typography component="h1" variant="h2" gutterBottom>
-              Hi,
-              {' '}
-              {user && user.firstName}
-              !
+              Hi, {user && user.firstName}!
             </Typography>
           </Grid>
           <Grid item>

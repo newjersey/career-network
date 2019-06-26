@@ -25,7 +25,7 @@ function CircumstancePicker() {
   const [labelWidth, setLabelWidth] = useState(0);
 
   // https://reactjs.org/docs/hooks-faq.html#how-can-i-measure-a-dom-node
-  const measuredRef = useCallback((node) => {
+  const measuredRef = useCallback(node => {
     if (node !== null) {
       setLabelWidth(node.offsetWidth);
     }
@@ -34,25 +34,24 @@ function CircumstancePicker() {
   return (
     <form autoComplete="off">
       <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel
-          htmlFor="circumstance-picker-outlined"
-          ref={measuredRef}
-        >
+        <InputLabel htmlFor="circumstance-picker-outlined" ref={measuredRef}>
           What brings you here?
         </InputLabel>
         <Select
           value={unemploymentTerm}
           onChange={e => setUnemploymentTerm(e.target.value)}
-          input={(
+          input={
             <OutlinedInput
               labelWidth={labelWidth}
               name="unemploymentTerm"
               id="circumstance-picker-outlined"
             />
-          )}
+          }
         >
           {UNEMPLOYMENT_TERMS.map(term => (
-            <MenuItem value={term.value} key={term.value}>{term.label}</MenuItem>
+            <MenuItem value={term.value} key={term.value}>
+              {term.label}
+            </MenuItem>
           ))}
         </Select>
       </FormControl>

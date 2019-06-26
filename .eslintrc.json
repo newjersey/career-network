@@ -17,19 +17,12 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": [
-    "babel",
-    "react",
-    "react-hooks"
-  ],
+  "plugins": ["babel", "react", "react-hooks"],
   "rules": {
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [
-          ".js",
-          "jsx"
-        ]
+        "extensions": [".js", "jsx"]
       }
     ],
     "react-hooks/rules-of-hooks": "error",

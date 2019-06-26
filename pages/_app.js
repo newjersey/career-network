@@ -13,7 +13,7 @@ import AppManager from '../components/AppManager';
 import theme from '../src/theme';
 
 // eslint-disable-next-line no-unused-vars
-Router.events.on('routeChangeStart', (url) => {
+Router.events.on('routeChangeStart', url => {
   NProgress.start();
 });
 Router.events.on('routeChangeComplete', () => NProgress.done());

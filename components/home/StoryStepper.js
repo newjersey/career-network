@@ -13,23 +13,27 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const steps = [
   {
-    quotation: 'The New Jerseys Career Network helped me get back on my feet, which after seven months, seemed harder and harder to do. Thanks to the resume builder, I found a few errors, I was able to strengthen my resume and land an interview two weeks later!',
+    quotation:
+      'The New Jerseys Career Network helped me get back on my feet, which after seven months, seemed harder and harder to do. Thanks to the resume builder, I found a few errors, I was able to strengthen my resume and land an interview two weeks later!',
     author: 'Jenny, Database Manager',
   },
   {
-    quotation: 'There are no secrets to success. It is the result of preparation, hard work, and learning from failure.',
+    quotation:
+      'There are no secrets to success. It is the result of preparation, hard work, and learning from failure.',
     author: 'Colin Powell',
   },
   {
-    quotation: 'The best way to not feel hopeless is to get up and do something. Don’t wait for good things to happen to you. If you go out and make some good things happen, you will fill the world with hope, you will fill yourself with hope.',
+    quotation:
+      'The best way to not feel hopeless is to get up and do something. Don’t wait for good things to happen to you. If you go out and make some good things happen, you will fill the world with hope, you will fill yourself with hope.',
     author: 'Barack Obama',
   },
   {
-    quotation: 'Without ambition one starts nothing. Without work one finishes nothing. The prize will not be sent to you. You have to win it.',
+    quotation:
+      'Without ambition one starts nothing. Without work one finishes nothing. The prize will not be sent to you. You have to win it.',
     author: 'Ralph Waldo Emerson',
   },
   {
-    quotation: 'We often miss opportunity because it\'s dressed in overalls and looks like work.',
+    quotation: "We often miss opportunity because it's dressed in overalls and looks like work.",
     author: 'Thomas Edison',
   },
 ];
@@ -89,10 +93,7 @@ function StoryStepper() {
                 <FormatQuote color="primary" className={classes.quoteIcon} />
                 <Typography variant="subtitle1">{step.quotation}</Typography>
                 <br />
-                <Typography variant="overline">
-                  —
-                  {step.author}
-                </Typography>
+                <Typography variant="overline">—{step.author}</Typography>
               </article>
             ) : null}
           </div>
@@ -103,16 +104,20 @@ function StoryStepper() {
         position="static"
         activeStep={activeStep}
         className={classes.mobileStepper}
-        nextButton={(
-          <Button onClick={handleNext} disabled={activeStep === maxSteps - 1} aria-label="Next quotation">
+        nextButton={
+          <Button
+            onClick={handleNext}
+            disabled={activeStep === maxSteps - 1}
+            aria-label="Next quotation"
+          >
             {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
           </Button>
-        )}
-        backButton={(
+        }
+        backButton={
           <Button onClick={handleBack} disabled={activeStep === 0} aria-label="Previous quotation">
             {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
           </Button>
-        )}
+        }
       />
     </div>
   );

@@ -17,14 +17,17 @@ function DashboardPage() {
     allTheories: useRecords('appPhpA6Quf0pCBDm/Theories?view=API'),
   };
 
-  const fullyLoaded = user && Object.values(recordProps)
-    .map(array => array.length)
-    .reduce((accum, length) => accum && !!length, true)
-    && allQuestionResponses;
+  const fullyLoaded =
+    user &&
+    Object.values(recordProps)
+      .map(array => array.length)
+      .reduce((accum, length) => accum && !!length, true) &&
+    allQuestionResponses;
 
-  return (fullyLoaded
-    ? <Dashboard allQuestionResponses={allQuestionResponses} {...recordProps} />
-    : <FullPageProgress />
+  return fullyLoaded ? (
+    <Dashboard allQuestionResponses={allQuestionResponses} {...recordProps} />
+  ) : (
+    <FullPageProgress />
   );
 }
 

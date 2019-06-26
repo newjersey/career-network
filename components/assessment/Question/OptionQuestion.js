@@ -20,12 +20,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function OptionQuestion(props) {
   const classes = useStyles();
-  const {
-    onChange,
-    question,
-    responseOptions,
-    value,
-  } = props;
+  const { onChange, question, responseOptions, value } = props;
 
   const helperText = question.fields['Helper Text'];
 
@@ -46,9 +41,7 @@ export default function OptionQuestion(props) {
           </MenuItem>
         ))}
       </Select>
-      {helperText && (
-        <FormHelperText>{helperText}</FormHelperText>
-      )}
+      {helperText && <FormHelperText>{helperText}</FormHelperText>}
     </FormControl>
   );
 }

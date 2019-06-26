@@ -19,13 +19,7 @@ const useStyles = makeStyles(theme => ({
 function SectionContent(props) {
   const classes = useStyles();
   const { showSignIn } = useAuth();
-  const {
-    buttonColor,
-    buttonText,
-    children,
-    onButtonClick,
-    title,
-  } = props;
+  const { buttonColor, buttonText, children, onButtonClick, title } = props;
 
   const handleClickButton = onButtonClick || (() => showSignIn());
 

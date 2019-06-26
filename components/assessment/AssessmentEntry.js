@@ -6,31 +6,19 @@ import Question from './Question';
 import QuestionGroup from './QuestionGroup';
 
 export default function AssessmentEntry(props) {
-  const {
-    assessmentEntry,
-    allQuestions,
-    allQuestionGroups,
-    ...restProps
-  } = props;
+  const { assessmentEntry, allQuestions, allQuestionGroups, ...restProps } = props;
 
   // Only one of these arrays should be populated,
   // and with only one item; naming them plurally
   // as a reminder that they are, in fact, arrays.
-  const {
-    'Question Group': questionGroups,
-    Question: questions,
-  } = assessmentEntry.fields;
+  const { 'Question Group': questionGroups, Question: questions } = assessmentEntry.fields;
 
   if (questionGroups && questionGroups.length) {
     const id = questionGroups[0];
     const questionGroup = allQuestionGroups.find(qg => qg.id === id);
 
     return (
-      <QuestionGroup
-        questionGroup={questionGroup}
-        allQuestions={allQuestions}
-        {...restProps}
-      />
+      <QuestionGroup questionGroup={questionGroup} allQuestions={allQuestions} {...restProps} />
     );
   }
 

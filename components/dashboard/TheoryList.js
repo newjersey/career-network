@@ -15,11 +15,7 @@ export default function TheoryList(props) {
     <Grid container spacing={7}>
       {theories.map(theory => (
         <Grid item xs={12} sm={6} key={theory.id}>
-          <Theory
-            theory={theory}
-            actions={getActions(theory, allActions)}
-            {...restProps}
-          />
+          <Theory theory={theory} actions={getActions(theory, allActions)} {...restProps} />
         </Grid>
       ))}
     </Grid>

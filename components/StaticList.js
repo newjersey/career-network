@@ -25,9 +25,7 @@ function StaticList(props) {
           {children.map((node, i) => (
             // eslint-disable-next-line react/no-array-index-key
             <li key={i}>
-              <Typography>
-                {node}
-              </Typography>
+              <Typography>{node}</Typography>
             </li>
           ))}
         </ul>

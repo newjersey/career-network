@@ -27,7 +27,8 @@ export default function AppManager(props) {
   useEffect(() => {
     if (user) {
       showMessage('Signed in');
-    } else if (wasSignedIn) { // Check wasSignedIn, else block will fire upon initial page load.
+    } else if (wasSignedIn) {
+      // Check wasSignedIn, else block will fire upon initial page load.
       showMessage('Signed out');
     }
   }, [showMessage, user, wasSignedIn]);
@@ -39,7 +40,9 @@ export default function AppManager(props) {
       const isAssessmentComplete = _user => false;
       const url = isAssessmentComplete(user) ? '/dashboard' : '/assessment';
 
-      (async () => { cleanupRef.current = Router.push(url); })();
+      (async () => {
+        cleanupRef.current = Router.push(url);
+      })();
     }
 
     return () => {
@@ -52,9 +55,7 @@ export default function AppManager(props) {
   return (
     <React.Fragment>
       <Header onSignOut={handleSignOut} user={user} />
-      <main>
-        {children}
-      </main>
+      <main>{children}</main>
       <Footer />
     </React.Fragment>
   );

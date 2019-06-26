@@ -15,9 +15,7 @@ export default function Resource(props) {
         </Typography>
       </Link>
 
-      <Typography variant="body1">
-        {resource.fields.Description}
-      </Typography>
+      <Typography variant="body1">{resource.fields.Description}</Typography>
     </article>
   );
 }

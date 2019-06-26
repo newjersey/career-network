@@ -22,7 +22,7 @@ export default function AuthProvider(props) {
   const handleCancel = () => setIsOpen(false);
 
   // Store user data in Firestore.
-  const handleSignInSuccessWithAuthResult = (authResult) => {
+  const handleSignInSuccessWithAuthResult = authResult => {
     setIsOpen(false);
 
     try {
@@ -30,14 +30,7 @@ export default function AuthProvider(props) {
       const { uid } = _user;
       const userDocRef = db.collection('users').doc(uid);
 
-      const {
-        displayName,
-        email,
-        emailVerified,
-        isAnonymous,
-        phoneNumber,
-        photoURL,
-      } = _user;
+      const { displayName, email, emailVerified, isAnonymous, phoneNumber, photoURL } = _user;
 
       const authProfile = {
         displayName,
@@ -69,13 +62,16 @@ export default function AuthProvider(props) {
   // Clear or set user, pulling user data from Firestore.
   useEffect(() => {
     // https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables
-    cleanupRef.current = auth().onAuthStateChanged(async (authUser) => {
+    cleanupRef.current = auth().onAuthStateChanged(async authUser => {
       if (authUser) {
         setIsOpen(false);
 
         try {
           const { uid } = authUser;
-          const userDoc = await db.collection('users').doc(uid).get();
+          const userDoc = await db
+            .collection('users')
+            .doc(uid)
+            .get();
 
           if (cleanupRef.current && userDoc.exists) {
             // preserve this ordering:
@@ -112,9 +108,7 @@ export default function AuthProvider(props) {
 
   return (
     <React.Fragment>
-      <AuthContext.Provider value={value}>
-        {children}
-      </AuthContext.Provider>
+      <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 
       <AuthDialog
         open={isOpen}
