@@ -4,7 +4,7 @@
     "es6": true,
     "node": true
   },
-  "extends": "airbnb",
+  "extends": ["airbnb", "plugin:sonarjs/recommended"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
@@ -20,7 +20,8 @@
   "plugins": [
     "babel",
     "react",
-    "react-hooks"
+    "react-hooks",
+    "sonarjs"
   ],
   "rules": {
     "react/jsx-filename-extension": [
