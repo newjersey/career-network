@@ -9,10 +9,8 @@ import TextQuestion from './TextQuestion';
 
 function getDefaultValue(question, user) {
   // special cases
-  switch (question.fields.Slug) {
-    case 'preferredFirstName':
-      return user.firstName;
-    default:
+  if (question.fields.Slug === 'preferredFirstName') {
+    return user.firstName;
   }
 
   switch (question.fields['Response Type']) {

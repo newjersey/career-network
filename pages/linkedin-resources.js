@@ -14,6 +14,7 @@ const useStyles = makeStyles(theme => ({
 
 function LinkedinResources() {
   const classes = useStyles();
+  const linkText = '(Link to resource)';
 
   return (
     <div className={classes.root}>
@@ -54,7 +55,7 @@ function LinkedinResources() {
             get started on LinkedIn to equip yourself with the tools and resources needed to
             conduct an effective job search.
             {' '}
-            <a href="https://www.jobscan.co/linkedin-profile-writing-guide">(Link to resource)</a>
+            <a href="https://www.jobscan.co/linkedin-profile-writing-guide">{linkText}</a>
           </React.Fragment>
           <React.Fragment>
             <strong>Continuously Improve Your Profile</strong>
@@ -65,7 +66,7 @@ function LinkedinResources() {
             with your network. The more complete and active your LinkedIn profile is, the better
             your chances to be found and contacted by an employer.
             {' '}
-            <a href="https://www.themuse.com/advice/9-surefire-ways-to-boost-your-linkedin-profile-when-you-only-have-10-minutes">(Link to resource)</a>
+            <a href="https://www.themuse.com/advice/9-surefire-ways-to-boost-your-linkedin-profile-when-you-only-have-10-minutes">{linkText}</a>
           </React.Fragment>
           <React.Fragment>
             <strong>Use LinkedIn Effectively</strong>
@@ -76,7 +77,7 @@ function LinkedinResources() {
             recruiting and for sharing company information with prospective employees.
             Make sure you are using your profile effectively to help you in your job search.
             {' '}
-            <a href="https://www.themuse.com/advice/the-secret-to-building-a-linkedin-profile-that-gets-results">(Link to resource)</a>
+            <a href="https://www.themuse.com/advice/the-secret-to-building-a-linkedin-profile-that-gets-results">{linkText}</a>
           </React.Fragment>
           <React.Fragment>
             <strong>Make New Connections on LinkedIn</strong>
@@ -86,7 +87,7 @@ function LinkedinResources() {
             opportunities. Per the Jobvite Recruiter Nation Survey, 87 percent of recruiters
             use LinkedIn as part of their candidate search.
             {' '}
-            <a href="https://www.wordstream.com/blog/ws/2016/01/18/linkedin-connection-requests">(Link to resource)</a>
+            <a href="https://www.wordstream.com/blog/ws/2016/01/18/linkedin-connection-requests">{linkText}</a>
           </React.Fragment>
           <React.Fragment>
             <strong>Deepen your Existing Connections on LinkedIn</strong>
@@ -98,7 +99,7 @@ function LinkedinResources() {
             know. The more you interact and post as a professional, the more you’ll be noticed
             and build recognition.
             {' '}
-            <a href="https://www.topresume.com/career-advice/meaningful-linkedIn-network-connections">(Link to resource)</a>
+            <a href="https://www.topresume.com/career-advice/meaningful-linkedIn-network-connections">{linkText}</a>
           </React.Fragment>
           <React.Fragment>
             <strong>Build Your Brand on LinkedIn</strong>
@@ -107,7 +108,7 @@ function LinkedinResources() {
             In today’s working world, your professional online brand is key. The best online
             identities are real, honest, and focus on what makes you unique and what you can offer.
             {' '}
-            <a href="https://university.linkedin.com/content/dam/university/global/en_US/site/pdf/TipSheet_BuildingYourBrand.pdf">(Link to resource)</a>
+            <a href="https://university.linkedin.com/content/dam/university/global/en_US/site/pdf/TipSheet_BuildingYourBrand.pdf">{linkText}</a>
           </React.Fragment>
           <React.Fragment>
             <strong>Identify and Research Companies on LinkedIn</strong>
@@ -119,7 +120,7 @@ function LinkedinResources() {
             identifying companies you may want to work for, learning about that companies values,
             searching for open positions, and making connections to company employees.
             {' '}
-            <a href="https://premium.linkedin.com/content/premium/global/en_us/index/jobsearch/resources/get-connected/how-to-build-a-list-of-target-companies">(Link to resource)</a>
+            <a href="https://premium.linkedin.com/content/premium/global/en_us/index/jobsearch/resources/get-connected/how-to-build-a-list-of-target-companies">{linkText}</a>
           </React.Fragment>
         </StaticList>
 

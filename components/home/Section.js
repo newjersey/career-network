@@ -37,19 +37,14 @@ const useStyles = makeStyles(theme => ({
     backgroundImage:
       `url('data:image/svg+xml;utf8,<svg width="698" height="49" viewBox="0 0 698 49" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 26C144.764 -19.7248 262.466 5.19049 364 26C465.534 46.8095 546.906 62.0788 698 26V49H0V26Z" fill="${backgroundColor}" /></svg>'), ` +
       'linear-gradient(90deg, #f2f6fc 20%, #fefefe 100%)',
-    backgroundPosition:
-      'center bottom,' +
-      'center center',
+    backgroundPosition: 'center bottom, center center',
   },
   alt2: {
     backgroundImage:
       `url('data:image/svg+xml;utf8,<svg width="698" height="50" viewBox="0 0 698 50" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 28C144.764 -17.7248 262.466 7.19049 364 28C465.534 48.8095 546.906 64.0788 698 28V0.5H0V28Z" fill="${backgroundColor}"/></svg>'), ` +
       `url('data:image/svg+xml;utf8,<svg width="698" height="49" viewBox="0 0 698 49" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 26C144.764 -19.7248 262.466 5.19049 364 26C465.534 46.8095 546.906 62.0788 698 26V49H0V26Z" fill="${backgroundColor}" /></svg>'), ` +
       'linear-gradient(90deg, #f8f9fd 20%, #fefefe 100%)',
-    backgroundPosition:
-      'center -1px,' +
-      'center bottom,' +
-      'center center',
+    backgroundPosition: 'center -1px, center bottom, center center',
   },
   alt3: {
     backgroundImage:
