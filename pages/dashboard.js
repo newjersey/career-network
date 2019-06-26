@@ -9,6 +9,7 @@ import FullPageProgress from '../components/FullPageProgress';
 function DashboardPage() {
   const { user } = useAuth();
   const allQuestionResponses = useUserSubcollection('questionResponses');
+  const allActionDispositions = useUserSubcollection('actionDispositions');
   const recordProps = {
     allActions: useRecords('appPhpA6Quf0pCBDm/Actions?view=API'),
     allConditions: useRecords('appPhpA6Quf0pCBDm/Conditions?view=API'),
@@ -20,11 +21,19 @@ function DashboardPage() {
   const fullyLoaded = user && Object.values(recordProps)
     .map(array => array.length)
     .reduce((accum, length) => accum && !!length, true)
-    && allQuestionResponses;
+    && allQuestionResponses
+    && allActionDispositions;
 
   return (fullyLoaded
-    ? <Dashboard allQuestionResponses={allQuestionResponses} {...recordProps} />
-    : <FullPageProgress />
+    ? (
+      <Dashboard
+        allQuestionResponses={allQuestionResponses}
+        allActionDispositions={allActionDispositions}
+        {...recordProps}
+      />
+    ) : (
+      <FullPageProgress />
+    )
   );
 }
 

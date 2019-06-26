@@ -173,4 +173,5 @@ Dashboard.propTypes = {
   allResources: AirtablePropTypes.resources.isRequired,
   allTheories: AirtablePropTypes.theories.isRequired,
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
+  allActionDispositions: FirebasePropTypes.querySnapshot.isRequired,
 };
