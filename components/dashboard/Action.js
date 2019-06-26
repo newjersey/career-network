@@ -63,7 +63,7 @@ export default function Action(props) {
           )}
           title={(
             <Typography component="h3" variant="body1">
-              <strong>{action.fields.Name}</strong>
+              <strong>{action.fields.What}</strong>
             </Typography>
           )}
         // subheader="100 points"

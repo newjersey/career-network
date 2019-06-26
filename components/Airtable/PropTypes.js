@@ -48,7 +48,6 @@ const questionResponseOption = recordShape({
 });
 
 const action = recordShape({
-  Name: PropTypes.string.isRequired,
   What: PropTypes.string.isRequired,
   Why: PropTypes.string.isRequired,
   How: PropTypes.string.isRequired,
