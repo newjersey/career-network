@@ -41,9 +41,9 @@ const useStyles = makeStyles(theme => ({
   },
   story: {
     overflow: 'hidden',
-    height: '12rem',
+    height: '18.5rem',
     [theme.breakpoints.up('md')]: {
-      height: '11rem',
+      height: '15rem',
     },
   },
   quoteIcon: {
