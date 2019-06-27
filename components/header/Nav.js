@@ -33,21 +33,9 @@ const logoWidths = {
 
 const pages = [
   {
-    href: '/plan',
-    name: 'Build Your Plan',
-    shortName: 'Build Your Plan',
-  }, {
-    href: '/act',
-    name: 'Act on Your Plan',
-    shortName: 'Act on Your Plan',
-  }, {
-    href: '/coaching',
-    name: 'Career Coaching',
-    shortName: 'Coaching',
-  }, {
-    href: '/networking',
-    name: 'Networking',
-    shortName: 'Networking',
+    href: '/#why',
+    name: 'Learn More',
+    shortName: 'Learn More',
   }, {
     href: '/toolkit',
     name: 'Job Toolkit',
@@ -89,18 +77,11 @@ const useStyles = makeStyles(theme => ({
   },
   list: {
     display: 'flex',
+    justifyContent: 'flex-end',
     listStyle: 'none',
   },
-  listItem: {
-    flexGrow: 1,
-    textAlign: 'center',
-  },
-  listItemTypography: {
-    //    display: 'inline',
-  },
   link: {
-    paddingTop: '.5em',
-    paddingBottom: '.5em',
+    padding: theme.spacing(1, 3.5),
     color: '#000',
     cursor: 'pointer',
     width: '100%',
@@ -161,18 +142,18 @@ function Nav(props) {
                     </ListItem>
                   </React.Fragment>
                 ) : (
-                  <ListItem button onClick={handleSignInClick}>
-                    <ListItemIcon><ExitToAppIcon /></ListItemIcon>
-                    <ListItemText primary="Sign in" />
-                  </ListItem>
-                )}
+                    <ListItem button onClick={handleSignInClick}>
+                      <ListItemIcon><ExitToAppIcon /></ListItemIcon>
+                      <ListItemText primary="Sign in" />
+                    </ListItem>
+                  )}
               </List>
               <Divider />
             </Hidden>
 
             <List>
               {pages.map(page => (
-                <NextLink href={page.href} key={page.href}>
+                <NextLink href={page.href} key={page.shortName}>
                   <ListItem button>
                     <ListItemText primary={page.shortName} />
                   </ListItem>
@@ -210,9 +191,21 @@ function Nav(props) {
             <Hidden smDown implementation="css">
               <nav>
                 <ul className={classes.list}>
+                  <Typography>
+                    { /* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                    <Link
+                      className={classes.link}
+                      onClick={handleSignInClick}
+                      component="button"
+                      underline="none"
+                      variant="body1"
+                    >
+                      Get Started Today
+                    </Link>
+                  </Typography>
                   {pages.map(page => (
                     <li key={page.href} className={classes.listItem}>
-                      <Typography className={classes.listItemTypography}>
+                      <Typography>
                         <NextLink href={page.href}>
                           { /* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                           <Link className={classes.link} underline="none">{page.name}</Link>
