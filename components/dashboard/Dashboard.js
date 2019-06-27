@@ -16,6 +16,9 @@ const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(5, 0),
   },
+  subtitle: {
+    marginBottom: theme.spacing(5),
+  },
 }));
 
 export default function Dashboard(props) {
@@ -147,6 +150,10 @@ export default function Dashboard(props) {
               {' '}
               {user && user.firstName}
               !
+            </Typography>
+            <Typography variant="subtitle1" gutterBottom className={classes.subtitle}>
+              Ready to take the next step in your career?
+              The steps below have been planned just for you; get started today!
             </Typography>
           </Grid>
           <Grid item>
