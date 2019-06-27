@@ -9,17 +9,13 @@ import Link from '@material-ui/core/Link';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import ScaffoldContainer from './ScaffoldContainer';
-
 const color = '#FFFFFF';
 const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: '#333333',
     textAlign: 'center',
     color,
-    [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing(0.5, 0),
-    },
+    padding: theme.spacing(0.5, 0),
   },
   link: {
     color,
@@ -43,22 +39,20 @@ export default function StatusBar() {
 
   return (
     <div className={classes.root}>
-      <ScaffoldContainer>
-        <Typography variant="caption">
-          {str1}
-          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-          <Link
-            className={classes.link}
-            component="button"
-            variant="caption"
-            onClick={() => {
-              handleClickOpen();
-            }}
-          >
-            {str2}
-          </Link>
-        </Typography>
-      </ScaffoldContainer>
+      <Typography variant="caption">
+        {str1}
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+        <Link
+          className={classes.link}
+          component="button"
+          variant="caption"
+          onClick={() => {
+            handleClickOpen();
+          }}
+        >
+          {str2}
+        </Link>
+      </Typography>
       <Dialog
         open={open}
         onClose={handleClose}
