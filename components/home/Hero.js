@@ -1,8 +1,9 @@
 import { makeStyles } from '@material-ui/styles';
+import Button from '@material-ui/core/Button';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import CircumstancePicker from './CircumstancePicker';
+import { useAuth } from '../Auth';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,22 +37,26 @@ const useStyles = makeStyles(theme => ({
 
 function Hero() {
   const classes = useStyles();
+  const { showSignIn } = useAuth();
 
   return (
     <div className={classes.root}>
       <Typography variant="h6" component="h3">
-        You’re not alone
+        We’ll guide you from start to finish
       </Typography>
       <Typography variant="h4" component="h1" className={classes.title}>
-        It takes a
+        Get a
         {' '}
-        <span className={classes.highlight}>network</span>
+        <span className={classes.highlight}>personalized</span>
         {' '}
-        to find the right
+        career-search
         {' '}
-        <span className={classes.highlight}>career</span>
+        <span className={classes.highlight}>plan</span>
       </Typography>
-      <CircumstancePicker className={classes.picker} />
+
+      <Button variant="contained" size="large" color="primary" onClick={showSignIn}>
+        Get Started Today
+      </Button>
     </div>
   );
 }
