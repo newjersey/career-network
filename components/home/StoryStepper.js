@@ -34,11 +34,6 @@ const steps = [
   },
 ];
 
-// quick and dirty -- do something better
-const longestQuotationLength = steps
-  .map(step => step.quotation.length)
-  .reduce((a, b) => Math.max(a, b));
-
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',

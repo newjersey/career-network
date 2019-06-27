@@ -142,11 +142,11 @@ function Nav(props) {
                     </ListItem>
                   </React.Fragment>
                 ) : (
-                    <ListItem button onClick={handleSignInClick}>
-                      <ListItemIcon><ExitToAppIcon /></ListItemIcon>
-                      <ListItemText primary="Sign in" />
-                    </ListItem>
-                  )}
+                  <ListItem button onClick={handleSignInClick}>
+                    <ListItemIcon><ExitToAppIcon /></ListItemIcon>
+                    <ListItemText primary="Sign in" />
+                  </ListItem>
+                )}
               </List>
               <Divider />
             </Hidden>
