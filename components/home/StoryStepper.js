@@ -13,24 +13,24 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const steps = [
   {
-    quotation: 'The New Jerseys Career Network helped me get back on my feet, which after seven months, seemed harder and harder to do. Thanks to the resume builder, I found a few errors, I was able to strengthen my resume and land an interview two weeks later!',
-    author: 'Jenny, Database Manager',
+    quotation: 'Never put off till tomorrow what you can do today.',
+    author: 'Thomas Jefferson',
   },
   {
-    quotation: 'There are no secrets to success. It is the result of preparation, hard work, and learning from failure.',
-    author: 'Colin Powell',
+    quotation: 'One important key to success is self-confidence. An important key to self-confidence is preparation.',
+    author: 'Arthur Ashe',
   },
   {
-    quotation: 'The best way to not feel hopeless is to get up and do something. Don’t wait for good things to happen to you. If you go out and make some good things happen, you will fill the world with hope, you will fill yourself with hope.',
-    author: 'Barack Obama',
+    quotation: 'You miss 100% of the shots you don’t take.',
+    author: 'Wayne Gretzky',
   },
   {
-    quotation: 'Without ambition one starts nothing. Without work one finishes nothing. The prize will not be sent to you. You have to win it.',
-    author: 'Ralph Waldo Emerson',
+    quotation: 'Do one thing every day that scares you.',
+    author: 'Eleanor Roosevelt',
   },
   {
-    quotation: 'We often miss opportunity because it\'s dressed in overalls and looks like work.',
-    author: 'Thomas Edison',
+    quotation: 'Success doesn’t come to you, you go to it.',
+    author: 'Marva Collins',
   },
 ];
 
@@ -46,12 +46,9 @@ const useStyles = makeStyles(theme => ({
   },
   story: {
     overflow: 'hidden',
-    height: `${longestQuotationLength / 13.25}rem`,
+    height: '12rem',
     [theme.breakpoints.up('md')]: {
-      height: `${longestQuotationLength / 16.25}rem`,
-    },
-    [theme.breakpoints.up('lg')]: {
-      height: `${longestQuotationLength / 18.25}rem`,
+      height: '11rem',
     },
   },
   quoteIcon: {
