@@ -13,24 +13,24 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const steps = [
   {
-    quotation: 'Never put off till tomorrow what you can do today.',
-    author: 'Thomas Jefferson',
+    quotation: 'The best advice I can give them is not to give up. Giving up is easy; moving forward through obstacles is hard. You can have the best resume, the most impressive background, and the sharpest interview skills, but there is no tool more important to the job search than perseverance.',
+    author: 'New Jersey Job Seeker',
   },
   {
     quotation: 'One important key to success is self-confidence. An important key to self-confidence is preparation.',
     author: 'Arthur Ashe',
   },
   {
-    quotation: 'You miss 100% of the shots you don’t take.',
-    author: 'Wayne Gretzky',
-  },
-  {
-    quotation: 'Do one thing every day that scares you.',
-    author: 'Eleanor Roosevelt',
+    quotation: 'Never stop growing a useful professional network, ask for help if you need it, and dedicate yourself to do something that moves you towards employment.',
+    author: 'New Jersey Job Seeker',
   },
   {
     quotation: 'Success doesn’t come to you, you go to it.',
     author: 'Marva Collins',
+  },
+  {
+    quotation: 'Be ready to put the time in. Be honest with yourself about what areas you need to work on, such as interviewing or your resume, and do it! If you want the job, show your interest, and find ways to make parallels between what the company is looking for and what you can offer.',
+    author: 'New Jersey Job Seeker',
   },
 ];
 
@@ -41,9 +41,9 @@ const useStyles = makeStyles(theme => ({
   },
   story: {
     overflow: 'hidden',
-    height: '12rem',
+    height: '18.5rem',
     [theme.breakpoints.up('md')]: {
-      height: '11rem',
+      height: '15rem',
     },
   },
   quoteIcon: {
