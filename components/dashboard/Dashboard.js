@@ -133,7 +133,7 @@ export default function Dashboard(props) {
 
   const theories = debugMode ? allTheories : allTheories
     .filter(theory => isIndicated(theory))
-    .slice(0, 2); // take the top two (arbitrary, looks good in columns)
+    .slice(0, 6); // take the top two (arbitrary, looks good in columns)
 
   return (
     <div className={classes.root}>
