@@ -96,8 +96,8 @@ function Footer() {
           direction="row"
           justify="space-between"
         >
-          <Grid item>{copyright}</Grid>
-          <Grid item>{social}</Grid>
+          <Grid item xs>{copyright}</Grid>
+          <Grid item xs="auto">{social}</Grid>
         </Grid>
       </ScaffoldContainer>
     </footer>
