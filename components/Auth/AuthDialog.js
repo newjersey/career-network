@@ -19,7 +19,12 @@ function AuthDialog(props) {
   } = props;
 
   return (
-    <Dialog fullScreen={fullScreen} open={open} aria-labelledby="sign-in-dialog-title">
+    <Dialog
+      fullScreen={fullScreen}
+      open={open}
+      onClose={onCancel}
+      aria-labelledby="sign-in-dialog-title"
+    >
       <DialogTitle id="sign-in-dialog-title">Sign in</DialogTitle>
       <DialogContent>
         <DialogContentText>
