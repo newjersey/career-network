@@ -33,7 +33,12 @@ export default function TheoryList(props) {
         <Grid item xs={12} sm={6} key={theory.id}>
           <Theory
             theory={theory}
-            actions={getNonDispositionedActions(theory, debugMode, allActions, allActionDispositionEvents)}
+            actions={getNonDispositionedActions(
+              theory,
+              debugMode,
+              allActions,
+              allActionDispositionEvents,
+            )}
             {...restProps}
           />
         </Grid>

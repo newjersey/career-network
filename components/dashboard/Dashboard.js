@@ -151,10 +151,21 @@ export default function Dashboard(props) {
     return debugMode ? true : !!getNonDispositionedActions(theory).length;
   }
 
-  const theories = debugMode ? allTheories : allTheories
+  // take the top four (arbitrary, looks good in columns)
+  const showMax = debugMode ? 99999 : 4;
+  const theories = allTheories
     .filter(theory => isIndicated(theory))
     .filter(theory => hasNonDispositionedActions(theory))
-    .slice(0, 4); // take the top four (arbitrary, looks good in columns)
+    .slice(0, showMax);
+
+  const actionCount = theories
+    .map(theory => getNonDispositionedActions(theory).length)
+    .reduce((a, b) => a + b, 0);
+
+  const totalActionCount = allTheories
+    .filter(theory => isIndicated(theory))
+    .map(theory => getNonDispositionedActions(theory).length)
+    .reduce((a, b) => a + b, 0);
 
   return (
     <div className={classes.root}>
@@ -178,6 +189,9 @@ export default function Dashboard(props) {
             </Typography>
           </Grid>
           <Grid item>
+            <Typography variant="subtitle2">
+              {`Showing ${actionCount} of ${totalActionCount}`}
+            </Typography>
             <FormGroup row>
               <FormControlLabel
                 label="Show all"
