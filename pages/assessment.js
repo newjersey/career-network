@@ -10,7 +10,6 @@ import { useUserSubcollection } from '../components/Firebase';
 import AssessmentSectionList from '../components/assessment/AssessmentSectionList';
 import FullPageProgress from '../components/FullPageProgress';
 import ScaffoldContainer from '../components/ScaffoldContainer';
-import User from '../components/header/User';
 
 const useStyles = makeStyles(theme => ({
   root: {
