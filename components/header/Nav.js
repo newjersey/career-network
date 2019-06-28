@@ -31,33 +31,6 @@ const logoWidths = {
   md: 60,
 };
 
-const pages = [
-  {
-    href: '/dashboard',
-    name: 'My Dashboard',
-    public: false,
-    private: true,
-  }, {
-    href: '/#why',
-    name: 'Learn More',
-    shortName: 'Learn More',
-    public: true,
-    private: false,
-  }, {
-    href: '/toolkit',
-    name: 'Job Toolkit',
-    shortName: 'Toolkit',
-    public: true,
-    private: true,
-  }, {
-    href: '/resources',
-    name: 'State Resources',
-    shortName: 'Resources',
-    public: true,
-    private: true,
-  },
-];
-
 const useStyles = makeStyles(theme => ({
   container: {
     [theme.breakpoints.up('md')]: {
@@ -116,6 +89,29 @@ function Nav(props) {
   const closeDrawer = () => setIsDrawerOpen(false);
   const handleSignInClick = () => showSignIn();
 
+  const pages = [
+    {
+      href: '/dashboard',
+      name: 'My Dashboard',
+      show: !!user,
+    }, {
+      href: '/#why',
+      name: 'Learn More',
+      shortName: 'Learn More',
+      show: !user,
+    }, {
+      href: '/toolkit',
+      name: 'Job Toolkit',
+      shortName: 'Toolkit',
+      show: true,
+    }, {
+      href: '/resources',
+      name: 'State Resources',
+      shortName: 'Resources',
+      show: true,
+    },
+  ];
+
   return (
     <React.Fragment>
       <Drawer anchor="right" open={isDrawerOpen} onClose={closeDrawer}>
@@ -164,8 +160,7 @@ function Nav(props) {
 
             <List>
               {pages
-                .filter(page => page.shortName)
-                .filter(page => (user && page.private) || (!user && page.public))
+                .filter(page => page.show && page.shortName)
                 .map(page => (
                   <NextLink href={page.href} key={page.shortName}>
                     <ListItem button>
@@ -220,7 +215,7 @@ function Nav(props) {
                     </Typography>
                   )}
                   {pages
-                    .filter(page => (user && page.private) || (!user && page.public))
+                    .filter(page => page.show)
                     .map(page => (
                       <li key={page.href} className={classes.listItem}>
                         <Typography>
