@@ -34,7 +34,6 @@ export default function AppManager(props) {
 
   useEffect(() => {
     if (user) {
-      // NOTE: hacky implementation: user.isAssessmentComplete only reliable upon sign in
       const url = user.isAssessmentComplete ? '/dashboard' : '/assessment';
 
       (async () => { cleanupRef.current = Router.push(url); })();

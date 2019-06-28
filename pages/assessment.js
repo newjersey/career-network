@@ -10,6 +10,7 @@ import { useUserSubcollection } from '../components/Firebase';
 import AssessmentSectionList from '../components/assessment/AssessmentSectionList';
 import FullPageProgress from '../components/FullPageProgress';
 import ScaffoldContainer from '../components/ScaffoldContainer';
+import User from '../components/header/User';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,6 +41,8 @@ function Assessment() {
     setIsFinished(true);
     Router.push('/dashboard');
     userDocRef.set({ isAssessmentComplete: true }, { merge: true });
+    // a bit hacky to update at runtime this way (vs. binding to DB) but quick and easy:
+    user.isAssessmentComplete = true;
   };
 
   const scrollToRef = useCallback((node) => {
