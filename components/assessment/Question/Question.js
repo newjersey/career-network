@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import Box from '@material-ui/core/Box';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { useAuth } from '../../Auth';
 import AirtablePropTypes from '../../Airtable/PropTypes';
@@ -32,10 +33,15 @@ function getDefaultValue(question, user) {
   }
 }
 
-export default function Question(props) {
+function Question(props) {
   const { user, userDocRef } = useAuth();
   const { question, allQuestionResponseOptions, allQuestionResponses } = props;
-  const responseType = question.fields['Response Type'];
+  const {
+    Disabled: disabled,
+    Hidden: hidden,
+    'Response Options': responseOptionIds,
+    'Response Type': responseType,
+  } = question.fields;
 
   // get response persisted in database
   const response = allQuestionResponses.find(doc => doc.id === question.id);
@@ -47,13 +53,12 @@ export default function Question(props) {
   const [localValue, setLocalValue] = useState(value);
 
   // get options for radio / select
-  const { 'Response Options': responseOptionIds } = question.fields;
   const responseOptions = responseOptionIds
     && allQuestionResponseOptions.filter(responseOption => (
       responseOptionIds.includes(responseOption.id)
     ));
 
-  const setValue = async (_value) => {
+  const setValue = useCallback(async (_value) => {
     const docRef = userDocRef.collection('questionResponses').doc(question.id);
     const data = {
       question, // save a copy of the question responded to
@@ -75,8 +80,16 @@ export default function Question(props) {
       alert(`There was a problem saving your data:\n\n${error.message}`);
       throw error;
     }
-  };
+  }, [question, responseOptions, userDocRef]);
 
+  // set value in DB immediately if the user can't do it
+  useEffect(() => {
+    if (disabled || hidden) {
+      setValue(value);
+    }
+  }, [disabled, hidden, setValue, value]);
+
+  // update UI when database changes
   useEffect(() => {
     if (persistedValue) {
       setLocalValue(persistedValue);
@@ -116,6 +129,25 @@ export default function Question(props) {
       return null;
   }
 }
+
+function hideable(Component) {
+  return (props) => {
+    const { question } = props;
+    const component = <Component {...props} />;
+
+    if (question.fields.Hidden) {
+      return (
+        <Box display="none">
+          {component}
+        </Box>
+      );
+    }
+
+    return component;
+  };
+}
+
+export default hideable(Question);
 
 Question.propTypes = {
   question: AirtablePropTypes.question.isRequired,

@@ -24,6 +24,7 @@ export default function TextQuestion(props) {
   return (
     <TextField
       id={question.id}
+      disabled={question.fields.Disabled}
       label={question.fields.Label}
       className={classes.textField}
       onBlur={e => onBlur(e.target.value)}

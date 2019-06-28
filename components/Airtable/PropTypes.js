@@ -22,6 +22,9 @@ const assessmentEntry = recordShape({
 
 const question = recordShape({
   Name: PropTypes.string.isRequired,
+  Slug: PropTypes.string,
+  Disabled: PropTypes.bool,
+  Hidden: PropTypes.bool,
   'Helper Text': PropTypes.string,
   'Response Type': PropTypes.oneOf([
     'Option',
