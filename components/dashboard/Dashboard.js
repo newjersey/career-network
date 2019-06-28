@@ -21,6 +21,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 export default function Dashboard(props) {
   const classes = useStyles();
   const [debugMode, setDebugMode] = useState(false);
