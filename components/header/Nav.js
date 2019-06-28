@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import Avatar from '@material-ui/core/Avatar';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import Divider from '@material-ui/core/Divider';
@@ -91,9 +92,13 @@ function Nav(props) {
 
   const pages = [
     {
+      href: '/assessment',
+      name: 'Questionnaire',
+      show: user && !user.isAssessmentComplete,
+    }, {
       href: '/dashboard',
       name: 'My Dashboard',
-      show: !!user,
+      show: user && user.isAssessmentComplete,
     }, {
       href: '/#why',
       name: 'Learn More',
@@ -137,12 +142,21 @@ function Nav(props) {
                         <ListItemText primary={user.displayName} secondary={user.email} />
                       </ListItem>
                     </NextLink>
-                    <NextLink href="/dashboard">
-                      <ListItem button>
-                        <ListItemIcon><DashboardIcon /></ListItemIcon>
-                        <ListItemText primary="My dashboard" />
-                      </ListItem>
-                    </NextLink>
+                    {user.isAssessmentComplete ? (
+                      <NextLink href="/dashboard">
+                        <ListItem button>
+                          <ListItemIcon><DashboardIcon /></ListItemIcon>
+                          <ListItemText primary="My dashboard" />
+                        </ListItem>
+                      </NextLink>
+                    ) : (
+                      <NextLink href="/assessment">
+                        <ListItem button>
+                          <ListItemIcon><AssignmentIcon /></ListItemIcon>
+                          <ListItemText primary="Questionnaire" />
+                        </ListItem>
+                      </NextLink>
+                    )}
                     <ListItem button onClick={onSignOut}>
                       <ListItemIcon><PowerSettingsNewIcon /></ListItemIcon>
                       <ListItemText primary="Sign out" />

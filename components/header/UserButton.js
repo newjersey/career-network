@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import Avatar from '@material-ui/core/Avatar';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import Grid from '@material-ui/core/Grid';
@@ -31,6 +32,7 @@ export default function UserButton(props) {
     email,
     onSignOut,
     photoURL,
+    isAssessmentComplete,
   } = props;
 
   const classes = useStyles();
@@ -84,12 +86,21 @@ export default function UserButton(props) {
         <MenuItem disabled>
           {email}
         </MenuItem>
-        <NextLink href="/dashboard">
-          <MenuItem>
-            <ListItemIcon><DashboardIcon /></ListItemIcon>
-            <ListItemText primary="My dashboard" />
-          </MenuItem>
-        </NextLink>
+        {isAssessmentComplete ? (
+          <NextLink href="/dashboard">
+            <MenuItem>
+              <ListItemIcon><DashboardIcon /></ListItemIcon>
+              <ListItemText primary="My dashboard" />
+            </MenuItem>
+          </NextLink>
+        ) : (
+          <NextLink href="/assessment">
+            <MenuItem>
+              <ListItemIcon><AssignmentIcon /></ListItemIcon>
+              <ListItemText primary="Questionnaire" />
+            </MenuItem>
+          </NextLink>
+        )}
         <MenuItem onClick={handleLogout}>
           <ListItemIcon><PowerSettingsNewIcon /></ListItemIcon>
           <ListItemText primary="Sign out" />
@@ -103,6 +114,7 @@ UserButton.propTypes = {
   displayName: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   onSignOut: PropTypes.func.isRequired,
+  isAssessmentComplete: PropTypes.bool.isRequired,
   photoURL: PropTypes.string,
 };
 
