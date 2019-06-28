@@ -1,9 +1,11 @@
+/* eslint-disable no-underscore-dangle */
 export default class User {
   constructor(userDoc) {
     this.uid = userDoc.id;
     this.userData = userDoc.data();
     this.authProfile = this.userData.authProfile;
     this.authProviders = this.userData.authProviders;
+    this._isAssessmentComplete = !!this.userData.isAssessmentComplete;
   }
 
   get firstName() {
@@ -44,5 +46,14 @@ export default class User {
 
   get photoURL() {
     return this.authProfile.photoURL;
+  }
+
+  get isAssessmentComplete() {
+    return this._isAssessmentComplete;
+  }
+
+  // a bit hacky to update at runtime this way (vs. binding to DB) but quick and easy
+  set isAssessmentComplete(isAssessmentComplete) {
+    this._isAssessmentComplete = isAssessmentComplete;
   }
 }

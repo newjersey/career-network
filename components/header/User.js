@@ -27,6 +27,7 @@ export default function User(props) {
                   email={user.email}
                   onSignOut={onSignOut}
                   photoURL={user.photoURL}
+                  isAssessmentComplete={user.isAssessmentComplete}
                 />
               ) : (
                 <SignInButton />

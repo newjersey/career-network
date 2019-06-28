@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import Avatar from '@material-ui/core/Avatar';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import Divider from '@material-ui/core/Divider';
@@ -31,34 +32,6 @@ const logoWidths = {
   md: 60,
 };
 
-const pages = [
-  {
-    href: '/plan',
-    name: 'Build Your Plan',
-    shortName: 'Build Your Plan',
-  }, {
-    href: '/act',
-    name: 'Act on Your Plan',
-    shortName: 'Act on Your Plan',
-  }, {
-    href: '/coaching',
-    name: 'Career Coaching',
-    shortName: 'Coaching',
-  }, {
-    href: '/networking',
-    name: 'Networking',
-    shortName: 'Networking',
-  }, {
-    href: '/toolkit',
-    name: 'Job Toolkit',
-    shortName: 'Toolkit',
-  }, {
-    href: '/resources',
-    name: 'State Resources',
-    shortName: 'Resources',
-  },
-];
-
 const useStyles = makeStyles(theme => ({
   container: {
     [theme.breakpoints.up('md')]: {
@@ -89,18 +62,11 @@ const useStyles = makeStyles(theme => ({
   },
   list: {
     display: 'flex',
+    justifyContent: 'flex-end',
     listStyle: 'none',
   },
-  listItem: {
-    flexGrow: 1,
-    textAlign: 'center',
-  },
-  listItemTypography: {
-    //    display: 'inline',
-  },
   link: {
-    paddingTop: '.5em',
-    paddingBottom: '.5em',
+    padding: theme.spacing(1, 3.5),
     color: '#000',
     cursor: 'pointer',
     width: '100%',
@@ -124,6 +90,33 @@ function Nav(props) {
   const closeDrawer = () => setIsDrawerOpen(false);
   const handleSignInClick = () => showSignIn();
 
+  const pages = [
+    {
+      href: '/assessment',
+      name: 'Questionnaire',
+      show: user && !user.isAssessmentComplete,
+    }, {
+      href: '/dashboard',
+      name: 'My Dashboard',
+      show: user && user.isAssessmentComplete,
+    }, {
+      href: '/#why',
+      name: 'Learn More',
+      shortName: 'Learn More',
+      show: !user,
+    }, {
+      href: '/toolkit',
+      name: 'Job Toolkit',
+      shortName: 'Toolkit',
+      show: true,
+    }, {
+      href: '/resources',
+      name: 'State Resources',
+      shortName: 'Resources',
+      show: true,
+    },
+  ];
+
   return (
     <React.Fragment>
       <Drawer anchor="right" open={isDrawerOpen} onClose={closeDrawer}>
@@ -135,7 +128,7 @@ function Nav(props) {
         >
           <div className={classes.drawerList}>
 
-            <Hidden smUp implementation="css">
+            <Hidden smUp implementation="js">
               <List>
                 {user ? (
                   <React.Fragment>
@@ -149,12 +142,21 @@ function Nav(props) {
                         <ListItemText primary={user.displayName} secondary={user.email} />
                       </ListItem>
                     </NextLink>
-                    <NextLink href="/dashboard">
-                      <ListItem button>
-                        <ListItemIcon><DashboardIcon /></ListItemIcon>
-                        <ListItemText primary="My dashboard" />
-                      </ListItem>
-                    </NextLink>
+                    {user.isAssessmentComplete ? (
+                      <NextLink href="/dashboard">
+                        <ListItem button>
+                          <ListItemIcon><DashboardIcon /></ListItemIcon>
+                          <ListItemText primary="My dashboard" />
+                        </ListItem>
+                      </NextLink>
+                    ) : (
+                      <NextLink href="/assessment">
+                        <ListItem button>
+                          <ListItemIcon><AssignmentIcon /></ListItemIcon>
+                          <ListItemText primary="Questionnaire" />
+                        </ListItem>
+                      </NextLink>
+                    )}
                     <ListItem button onClick={onSignOut}>
                       <ListItemIcon><PowerSettingsNewIcon /></ListItemIcon>
                       <ListItemText primary="Sign out" />
@@ -171,13 +173,15 @@ function Nav(props) {
             </Hidden>
 
             <List>
-              {pages.map(page => (
-                <NextLink href={page.href} key={page.href}>
-                  <ListItem button>
-                    <ListItemText primary={page.shortName} />
-                  </ListItem>
-                </NextLink>
-              ))}
+              {pages
+                .filter(page => page.show && page.shortName)
+                .map(page => (
+                  <NextLink href={page.href} key={page.shortName}>
+                    <ListItem button>
+                      <ListItemText primary={page.shortName} />
+                    </ListItem>
+                  </NextLink>
+                ))}
             </List>
           </div>
         </div>
@@ -210,16 +214,32 @@ function Nav(props) {
             <Hidden smDown implementation="css">
               <nav>
                 <ul className={classes.list}>
-                  {pages.map(page => (
-                    <li key={page.href} className={classes.listItem}>
-                      <Typography className={classes.listItemTypography}>
-                        <NextLink href={page.href}>
-                          { /* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                          <Link className={classes.link} underline="none">{page.name}</Link>
-                        </NextLink>
-                      </Typography>
-                    </li>
-                  ))}
+                  {!user && (
+                    <Typography>
+                      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                      <Link
+                        className={classes.link}
+                        onClick={handleSignInClick}
+                        component="button"
+                        underline="none"
+                        variant="body1"
+                      >
+                        Get Started Today
+                      </Link>
+                    </Typography>
+                  )}
+                  {pages
+                    .filter(page => page.show)
+                    .map(page => (
+                      <li key={page.href} className={classes.listItem}>
+                        <Typography>
+                          <NextLink href={page.href}>
+                            { /* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                            <Link className={classes.link} underline="none">{page.name}</Link>
+                          </NextLink>
+                        </Typography>
+                      </li>
+                    ))}
                 </ul>
               </nav>
             </Hidden>

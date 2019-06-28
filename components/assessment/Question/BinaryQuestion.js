@@ -17,6 +17,7 @@ export default function BinaryQuestion(props) {
 
   return (
     <FormControlLabel
+      disabled={question.fields.Disabled}
       label={question.fields.Label}
       control={(
         <Checkbox

@@ -16,8 +16,12 @@ const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(5, 0),
   },
+  subtitle: {
+    marginBottom: theme.spacing(5),
+  },
 }));
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 export default function Dashboard(props) {
   const classes = useStyles();
   const [debugMode, setDebugMode] = useState(false);
@@ -27,6 +31,8 @@ export default function Dashboard(props) {
     allPredicates,
     allTheories,
     allQuestionResponses,
+    allActions,
+    allActionDispositionEvents,
     ...restProps
   } = props;
 
@@ -123,14 +129,44 @@ export default function Dashboard(props) {
 
   // Whether or not all of a theory's conditions are satisfied by the current user.
   function isIndicated(theory) {
-    return theory.fields.Conditions
+    return debugMode ? true : theory.fields.Conditions
       .map(conditionId => isSatisfied(conditionId))
       .reduce((a, b) => a && b, true);
   }
 
-  const theories = debugMode ? allTheories : allTheories
+  function isActionDispositioned(action) {
+    return allActionDispositionEvents
+      .map(e => e.data().actionId)
+      .includes(action.id);
+  }
+
+  function getIndicatedActions(theory) {
+    return allActions.filter(action => theory.fields.Actions.includes(action.id));
+  }
+
+  function getNonDispositionedActions(theory) {
+    return getIndicatedActions(theory).filter(action => !isActionDispositioned(action));
+  }
+
+  function hasNonDispositionedActions(theory) {
+    return debugMode ? true : !!getNonDispositionedActions(theory).length;
+  }
+
+  // take the top four (arbitrary, looks good in columns)
+  const showMax = debugMode ? 99999 : 4;
+  const theories = allTheories
     .filter(theory => isIndicated(theory))
-    .slice(0, 2); // take the top two (arbitrary, looks good in columns)
+    .filter(theory => hasNonDispositionedActions(theory))
+    .slice(0, showMax);
+
+  const actionCount = theories
+    .map(theory => getNonDispositionedActions(theory).length)
+    .reduce((a, b) => a + b, 0);
+
+  const totalActionCount = allTheories
+    .filter(theory => isIndicated(theory))
+    .map(theory => getNonDispositionedActions(theory).length)
+    .reduce((a, b) => a + b, 0);
 
   return (
     <div className={classes.root}>
@@ -148,8 +184,15 @@ export default function Dashboard(props) {
               {user && user.firstName}
               !
             </Typography>
+            <Typography variant="subtitle1" gutterBottom className={classes.subtitle}>
+              Ready to take the next step in your career?
+              The steps below have been planned just for you; get started today!
+            </Typography>
           </Grid>
           <Grid item>
+            <Typography variant="subtitle2">
+              {`Showing ${actionCount} of ${totalActionCount}`}
+            </Typography>
             <FormGroup row>
               <FormControlLabel
                 label="Show all"
@@ -160,7 +203,13 @@ export default function Dashboard(props) {
             </FormGroup>
           </Grid>
         </Grid>
-        <TheoryList theories={theories} {...restProps} />
+        <TheoryList
+          theories={theories}
+          allActions={allActions}
+          allActionDispositionEvents={allActionDispositionEvents}
+          debugMode={debugMode}
+          {...restProps}
+        />
       </ScaffoldContainer>
     </div>
   );
@@ -173,5 +222,5 @@ Dashboard.propTypes = {
   allResources: AirtablePropTypes.resources.isRequired,
   allTheories: AirtablePropTypes.theories.isRequired,
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
-  allActionDispositions: FirebasePropTypes.querySnapshot.isRequired,
+  allActionDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
 };

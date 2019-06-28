@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Coaching from '../components/home/Coaching';
+// import Coaching from '../components/home/Coaching';
 import Goals from '../components/home/Goals';
 import Hero from '../components/home/Hero';
-import Network from '../components/home/Network';
+// import Network from '../components/home/Network';
 import Plan from '../components/home/Plan';
 import Resources from '../components/home/Resources';
 import Section from '../components/home/Section';
@@ -17,8 +17,8 @@ export default function Index() {
       <Section><Why /></Section>
       <Section alt={2}><Stories /></Section>
       <Section hasOwnPadding="bottom"><Plan /></Section>
-      <Section hasOwnPadding="top"><Coaching /></Section>
-      <Section alt={2}><Network /></Section>
+      {/* <Section hasOwnPadding="top"><Coaching /></Section> */}
+      {/* <Section alt={2}><Network /></Section> */}
       <Section hasOwnPadding="bottom" alt={3}><Resources /></Section>
       <Section alt={4}><Goals /></Section>
     </div>

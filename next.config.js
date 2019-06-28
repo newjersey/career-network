@@ -6,8 +6,6 @@ const envConfig = {
       apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/',
     },
     firebase: {
-      collection: 'users',
-      document: 'fLveAGxSbvYej7ybx9g1qoOGfpo2',
     },
   },
   production: {
@@ -15,8 +13,6 @@ const envConfig = {
       apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/',
     },
     firebase: {
-      collection: 'users',
-      document: 'fLveAGxSbvYej7ybx9g1qoOGfpo2',
     },
   },
 }[env];
