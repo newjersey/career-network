@@ -11,10 +11,11 @@ import Typography from '@material-ui/core/Typography';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
+const jobSeeker = 'New Jersey Job Seeker';
 const steps = [
   {
     quotation: 'The best advice I can give them is not to give up. Giving up is easy; moving forward through obstacles is hard. You can have the best resume, the most impressive background, and the sharpest interview skills, but there is no tool more important to the job search than perseverance.',
-    author: 'New Jersey Job Seeker',
+    author: jobSeeker,
   },
   {
     quotation: 'One important key to success is self-confidence. An important key to self-confidence is preparation.',
@@ -22,7 +23,7 @@ const steps = [
   },
   {
     quotation: 'Never stop growing a useful professional network, ask for help if you need it, and dedicate yourself to do something that moves you towards employment.',
-    author: 'New Jersey Job Seeker',
+    author: jobSeeker,
   },
   {
     quotation: 'Success doesn’t come to you, you go to it.',
@@ -30,7 +31,7 @@ const steps = [
   },
   {
     quotation: 'Be ready to put the time in. Be honest with yourself about what areas you need to work on, such as interviewing or your resume, and do it! If you want the job, show your interest, and find ways to make parallels between what the company is looking for and what you can offer.',
-    author: 'New Jersey Job Seeker',
+    author: jobSeeker,
   },
 ];
 
