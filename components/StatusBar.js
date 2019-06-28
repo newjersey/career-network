@@ -56,15 +56,15 @@ export default function StatusBar() {
       <Dialog
         open={open}
         onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+        aria-labelledby="status-bar-dialog-title"
+        aria-describedby="status-bar-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">
+        <DialogTitle id="status-bar-dialog-title">
           {str1}
           {str2}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
+          <DialogContentText id="status-bar-dialog-description">
             The Garden State Career Network is in alpha. You are welcome
             to sign-up and use this website, but please be aware that we
             are actively building the site and it may change. If you notice
