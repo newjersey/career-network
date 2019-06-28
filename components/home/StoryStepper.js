@@ -13,31 +13,26 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const steps = [
   {
-    quotation: 'The New Jerseys Career Network helped me get back on my feet, which after seven months, seemed harder and harder to do. Thanks to the resume builder, I found a few errors, I was able to strengthen my resume and land an interview two weeks later!',
-    author: 'Jenny, Database Manager',
+    quotation: 'The best advice I can give them is not to give up. Giving up is easy; moving forward through obstacles is hard. You can have the best resume, the most impressive background, and the sharpest interview skills, but there is no tool more important to the job search than perseverance.',
+    author: 'New Jersey Job Seeker',
   },
   {
-    quotation: 'There are no secrets to success. It is the result of preparation, hard work, and learning from failure.',
-    author: 'Colin Powell',
+    quotation: 'One important key to success is self-confidence. An important key to self-confidence is preparation.',
+    author: 'Arthur Ashe',
   },
   {
-    quotation: 'The best way to not feel hopeless is to get up and do something. Don’t wait for good things to happen to you. If you go out and make some good things happen, you will fill the world with hope, you will fill yourself with hope.',
-    author: 'Barack Obama',
+    quotation: 'Never stop growing a useful professional network, ask for help if you need it, and dedicate yourself to do something that moves you towards employment.',
+    author: 'New Jersey Job Seeker',
   },
   {
-    quotation: 'Without ambition one starts nothing. Without work one finishes nothing. The prize will not be sent to you. You have to win it.',
-    author: 'Ralph Waldo Emerson',
+    quotation: 'Success doesn’t come to you, you go to it.',
+    author: 'Marva Collins',
   },
   {
-    quotation: 'We often miss opportunity because it\'s dressed in overalls and looks like work.',
-    author: 'Thomas Edison',
+    quotation: 'Be ready to put the time in. Be honest with yourself about what areas you need to work on, such as interviewing or your resume, and do it! If you want the job, show your interest, and find ways to make parallels between what the company is looking for and what you can offer.',
+    author: 'New Jersey Job Seeker',
   },
 ];
-
-// quick and dirty -- do something better
-const longestQuotationLength = steps
-  .map(step => step.quotation.length)
-  .reduce((a, b) => Math.max(a, b));
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -46,12 +41,9 @@ const useStyles = makeStyles(theme => ({
   },
   story: {
     overflow: 'hidden',
-    height: `${longestQuotationLength / 13.25}rem`,
+    height: '18.5rem',
     [theme.breakpoints.up('md')]: {
-      height: `${longestQuotationLength / 16.25}rem`,
-    },
-    [theme.breakpoints.up('lg')]: {
-      height: `${longestQuotationLength / 18.25}rem`,
+      height: '15rem',
     },
   },
   quoteIcon: {

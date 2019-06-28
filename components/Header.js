@@ -5,12 +5,11 @@ import React from 'react';
 import Toolbar from '@material-ui/core/Toolbar';
 
 import Nav from './header/Nav';
+import StatusBar from './StatusBar';
 import User from './header/User';
 import UserClass from '../src/User';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-  },
   navBar: {
     backgroundColor: '#FFFFFF',
   },
@@ -23,7 +22,8 @@ export default function Header(props) {
   const classes = useStyles();
 
   return (
-    <header className={classes.root}>
+    <header>
+      <StatusBar />
       <AppBar position="static" color="primary">
         <Toolbar className={classes.navBar}>
           <Nav {...props} />

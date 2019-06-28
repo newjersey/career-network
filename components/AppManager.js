@@ -2,7 +2,7 @@
 //  - show "signed in" on sign in
 //  - show "signed out" on sign out
 //  - redirect to '/' upon sign out (and not show a 403)
-//  - redirect to ??? upon sign in
+//  - redirect to '/assessment' or '/dashboard' upon sign in
 
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useRef } from 'react';
@@ -34,10 +34,7 @@ export default function AppManager(props) {
 
   useEffect(() => {
     if (user) {
-      // TODO: make this real.
-      // eslint-disable-next-line no-unused-vars
-      const isAssessmentComplete = _user => false;
-      const url = isAssessmentComplete(user) ? '/dashboard' : '/assessment';
+      const url = user.isAssessmentComplete ? '/dashboard' : '/assessment';
 
       (async () => { cleanupRef.current = Router.push(url); })();
     }

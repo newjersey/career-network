@@ -29,11 +29,12 @@ function Goals() {
       <Grid item xs={12} sm={7} md={3}>
         <SectionContent
           title="Stay on track"
-          buttonText="Start making goals"
+          buttonText="Get started today"
         >
-          Get reminders when you set goals sent to
-          your phone, email, or sync them with your
-          calandar, designed to help you succeed.
+          Our digital coach is designed to help you reach
+          your career goals through personalized guidance
+          that continually updates as you progress through
+          the job search process.
         </SectionContent>
       </Grid>
       <Hidden xsDown mdUp implementation="js">

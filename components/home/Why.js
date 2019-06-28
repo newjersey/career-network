@@ -9,27 +9,27 @@ import WhyItem from './WhyItem';
 const contentItems = [
   {
     title: 'Build your job search plan',
-    body: 'We use machine learning to help you build a job search plan that will lead to meaningful results. Whether newly unemployed or if you’ve been searching for a while, having a job search plan can keep you motivated.',
+    body: 'We use decades of experience to help you build a job search plan that will lead to meaningful results. Whether newly unemployed or you’ve been searching for a while, having a job search plan can keep you motivated and focused.',
     imgPath: '/static/img/index/build.svg',
   },
   {
     title: 'Act on your plan',
-    body: 'Execute your job search plan with strategic tools and resources. Set your weekly and daily goals, and get tips on how to make progress! ',
+    body: 'Execute your job search plan with strategic tools and resources that have been selected for you. We will provide you with guidance to complete the steps that are used by top-performing candidates.',
     imgPath: '/static/img/index/career-search.svg',
   },
   {
-    title: 'Real time support',
-    body: 'Get real time support 1:1 support from real career coaches any time of day using our chat feature.',
+    title: 'Coaching and support',
+    body: 'Our digital coach is trained by real coaches with decades of experience.  We are also available to support you when you have a question.',
     imgPath: '/static/img/index/interviewing.svg',
   },
   {
     title: 'Build your network',
-    body: 'Get recomendations to join online and in-person networking events and activities for various industries and occupations to stay fresh and connected.',
+    body: 'Coming soon! Get recommendations to join online and in-person networking events and activities for various industries and occupations to stay fresh and connected.',
     imgPath: '/static/img/index/networking.svg',
   },
   {
     title: 'Stay on track',
-    body: 'Get reminders when you set goals sent to your phone, email, or sync them with your calandar, designed to help you succeed.',
+    body: 'Coming soon! Get reminders sent to your phone or email to keep you informed and on track.',
     imgPath: '/static/img/index/buddies.svg',
   },
 ];
@@ -61,15 +61,14 @@ function Why() {
   const gridItemClassName = clsx(classes.gridItem, classes.withSpecificity);
 
   return (
-    <Grid container justify="center" spacing={4} className={classes.root}>
+    <Grid container justify="center" spacing={4} className={classes.root} id="why">
       <Grid item sm md={6} className={gridItemClassName}>
         <SectionContent
           title="Why use the Career Network?"
           buttonText="Get started today"
           buttonColor="secondary"
         >
-          Support to create and implement an effective job search plan emphasizing setting
-          goals and high-priority and high-payoff activities.
+          Find support to create and implement an effective job search plan.
         </SectionContent>
       </Grid>
       {

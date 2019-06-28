@@ -22,7 +22,7 @@ function Assessment() {
   const allQuestionResponses = useUserSubcollection('questionResponses');
   const [scrollToY, setScrollToY] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
-  const { user } = useAuth();
+  const { user, userDocRef } = useAuth();
   const recordProps = {
     assessmentSections: useRecords('appPhpA6Quf0pCBDm/Assessment%20Sections?view=API'),
     allAssessmentEntries: useRecords('appPhpA6Quf0pCBDm/Assessment%20Entries?view=API'),
@@ -39,6 +39,9 @@ function Assessment() {
   const handleComplete = () => {
     setIsFinished(true);
     Router.push('/dashboard');
+    userDocRef.set({ isAssessmentComplete: true }, { merge: true });
+    // a bit hacky to update at runtime this way (vs. binding to DB) but quick and easy:
+    user.isAssessmentComplete = true;
   };
 
   const scrollToRef = useCallback((node) => {

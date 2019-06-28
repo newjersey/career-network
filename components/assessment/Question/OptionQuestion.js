@@ -33,6 +33,7 @@ export default function OptionQuestion(props) {
     <FormControl className={classes.formControl}>
       <InputLabel htmlFor={question.id}>{question.fields.Label}</InputLabel>
       <Select
+        disabled={question.fields.Disabled}
         inputProps={{
           name: question.id,
           id: question.id,

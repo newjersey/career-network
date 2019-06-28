@@ -48,7 +48,7 @@ function Stories() {
             className={classes.button}
             onClick={handleClick}
           >
-            Become a success story
+            Get started today
           </Button>
         </div>
       </Grid>

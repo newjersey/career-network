@@ -13,6 +13,8 @@ import IconButton from '@material-ui/core/IconButton';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
+import { useAuth } from '../Auth';
+import { useSnackbar } from '../Snackbar';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import ResourceList from './ResourceList';
 
@@ -40,11 +42,38 @@ const useStyles = makeStyles(theme => ({
 
 export default function Action(props) {
   const classes = useStyles();
+  const showMessage = useSnackbar();
+  const { userDocRef } = useAuth();
   const [expanded, setExpanded] = React.useState(false);
   const { action, resources, elaborationResources } = props;
 
   function handleExpandClick() {
     setExpanded(!expanded);
+  }
+
+  function disposition(type) {
+    const data = {
+      actionId: action.id,
+      timestamp: new Date(),
+      type,
+    };
+
+    userDocRef.collection('actionDispositionEvents').add(data);
+  }
+
+  function handleDone() {
+    showMessage('Great job!');
+    disposition('done');
+  }
+
+  function handleSnooze() {
+    showMessage('Snoozed for one week');
+    disposition('snoozed');
+  }
+
+  function handleSkip() {
+    showMessage('Skipped');
+    disposition('skipped');
   }
 
   return (
@@ -91,13 +120,13 @@ export default function Action(props) {
       <Divider />
 
       <CardActions disableSpacing>
-        <Button color="primary">
+        <Button color="primary" onClick={handleDone}>
           Done
         </Button>
-        <Button color="primary">
+        <Button color="primary" onClick={handleSnooze}>
           Snooze
         </Button>
-        <Button color="primary">
+        <Button color="primary" onClick={handleSkip}>
           Skip
         </Button>
         <IconButton
