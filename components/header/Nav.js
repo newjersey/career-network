@@ -33,17 +33,28 @@ const logoWidths = {
 
 const pages = [
   {
+    href: '/dashboard',
+    name: 'My Dashboard',
+    public: false,
+    private: true,
+  }, {
     href: '/#why',
     name: 'Learn More',
     shortName: 'Learn More',
+    public: true,
+    private: false,
   }, {
     href: '/toolkit',
     name: 'Job Toolkit',
     shortName: 'Toolkit',
+    public: true,
+    private: true,
   }, {
     href: '/resources',
     name: 'State Resources',
     shortName: 'Resources',
+    public: true,
+    private: true,
   },
 ];
 
@@ -116,7 +127,7 @@ function Nav(props) {
         >
           <div className={classes.drawerList}>
 
-            <Hidden smUp implementation="css">
+            <Hidden smUp implementation="js">
               <List>
                 {user ? (
                   <React.Fragment>
@@ -152,13 +163,16 @@ function Nav(props) {
             </Hidden>
 
             <List>
-              {pages.map(page => (
-                <NextLink href={page.href} key={page.shortName}>
-                  <ListItem button>
-                    <ListItemText primary={page.shortName} />
-                  </ListItem>
-                </NextLink>
-              ))}
+              {pages
+                .filter(page => page.shortName)
+                .filter(page => (user && page.private) || (!user && page.public))
+                .map(page => (
+                  <NextLink href={page.href} key={page.shortName}>
+                    <ListItem button>
+                      <ListItemText primary={page.shortName} />
+                    </ListItem>
+                  </NextLink>
+                ))}
             </List>
           </div>
         </div>
@@ -191,28 +205,32 @@ function Nav(props) {
             <Hidden smDown implementation="css">
               <nav>
                 <ul className={classes.list}>
-                  <Typography>
-                    { /* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                    <Link
-                      className={classes.link}
-                      onClick={handleSignInClick}
-                      component="button"
-                      underline="none"
-                      variant="body1"
-                    >
-                      Get Started Today
-                    </Link>
-                  </Typography>
-                  {pages.map(page => (
-                    <li key={page.href} className={classes.listItem}>
-                      <Typography>
-                        <NextLink href={page.href}>
-                          { /* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                          <Link className={classes.link} underline="none">{page.name}</Link>
-                        </NextLink>
-                      </Typography>
-                    </li>
-                  ))}
+                  {!user && (
+                    <Typography>
+                      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                      <Link
+                        className={classes.link}
+                        onClick={handleSignInClick}
+                        component="button"
+                        underline="none"
+                        variant="body1"
+                      >
+                        Get Started Today
+                      </Link>
+                    </Typography>
+                  )}
+                  {pages
+                    .filter(page => (user && page.private) || (!user && page.public))
+                    .map(page => (
+                      <li key={page.href} className={classes.listItem}>
+                        <Typography>
+                          <NextLink href={page.href}>
+                            { /* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                            <Link className={classes.link} underline="none">{page.name}</Link>
+                          </NextLink>
+                        </Typography>
+                      </li>
+                    ))}
                 </ul>
               </nav>
             </Hidden>
