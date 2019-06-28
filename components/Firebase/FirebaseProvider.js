@@ -15,7 +15,6 @@ export default function FirebaseProvider(props) {
   const value = {
     auth,
     db,
-    userDocRef: db.collection('users').doc('fLveAGxSbvYej7ybx9g1qoOGfpo2'),
   };
 
   return (
