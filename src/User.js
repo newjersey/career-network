@@ -45,4 +45,10 @@ export default class User {
   get photoURL() {
     return this.authProfile.photoURL;
   }
+
+  // NOTE: hacky implementation: only reliable upon sign in
+  // (this object is not bound to the database; does not update after assessment completion).
+  get isAssessmentComplete() {
+    return !!this.userData.isAssessmentComplete;
+  }
 }
