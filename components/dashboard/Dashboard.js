@@ -30,6 +30,8 @@ export default function Dashboard(props) {
     allPredicates,
     allTheories,
     allQuestionResponses,
+    allActions,
+    allActionDispositionEvents,
     ...restProps
   } = props;
 
@@ -131,9 +133,26 @@ export default function Dashboard(props) {
       .reduce((a, b) => a && b, true);
   }
 
+  function isActionDispositioned(action) {
+    return allActionDispositionEvents
+      .map(e => e.data().actionId)
+      .includes(action.id);
+  }
+
+  function getNonDispositionedActions(theory) {
+    return allActions
+      .filter(action => theory.fields.Actions.includes(action.id))
+      .filter(action => !isActionDispositioned(action));
+  }
+
+  function hasNonDispositionedActions(theory) {
+    return !!getNonDispositionedActions(theory).length;
+  }
+
   const theories = debugMode ? allTheories : allTheories
     .filter(theory => isIndicated(theory))
-    .slice(0, 6); // take the top two (arbitrary, looks good in columns)
+    .filter(theory => hasNonDispositionedActions(theory))
+    .slice(0, 4); // take the top four (arbitrary, looks good in columns)
 
   return (
     <div className={classes.root}>
@@ -167,7 +186,12 @@ export default function Dashboard(props) {
             </FormGroup>
           </Grid>
         </Grid>
-        <TheoryList theories={theories} {...restProps} />
+        <TheoryList
+          theories={theories}
+          allActions={allActions}
+          allActionDispositionEvents={allActionDispositionEvents}
+          {...restProps}
+        />
       </ScaffoldContainer>
     </div>
   );
@@ -180,5 +204,5 @@ Dashboard.propTypes = {
   allResources: AirtablePropTypes.resources.isRequired,
   allTheories: AirtablePropTypes.theories.isRequired,
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
-  allActionDispositions: FirebasePropTypes.querySnapshot.isRequired,
+  allActionDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
 };
