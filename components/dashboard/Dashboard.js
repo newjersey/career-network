@@ -128,7 +128,7 @@ export default function Dashboard(props) {
 
   // Whether or not all of a theory's conditions are satisfied by the current user.
   function isIndicated(theory) {
-    return theory.fields.Conditions
+    return debugMode ? true : theory.fields.Conditions
       .map(conditionId => isSatisfied(conditionId))
       .reduce((a, b) => a && b, true);
   }
@@ -139,14 +139,16 @@ export default function Dashboard(props) {
       .includes(action.id);
   }
 
+  function getIndicatedActions(theory) {
+    return allActions.filter(action => theory.fields.Actions.includes(action.id));
+  }
+
   function getNonDispositionedActions(theory) {
-    return allActions
-      .filter(action => theory.fields.Actions.includes(action.id))
-      .filter(action => !isActionDispositioned(action));
+    return getIndicatedActions(theory).filter(action => !isActionDispositioned(action));
   }
 
   function hasNonDispositionedActions(theory) {
-    return !!getNonDispositionedActions(theory).length;
+    return debugMode ? true : !!getNonDispositionedActions(theory).length;
   }
 
   const theories = debugMode ? allTheories : allTheories
@@ -190,6 +192,7 @@ export default function Dashboard(props) {
           theories={theories}
           allActions={allActions}
           allActionDispositionEvents={allActionDispositionEvents}
+          debugMode={debugMode}
           {...restProps}
         />
       </ScaffoldContainer>
