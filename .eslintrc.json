@@ -2,9 +2,14 @@
   "env": {
     "browser": true,
     "es6": true,
-    "node": true
+    "node": true,
+    "jest/globals": true
   },
-  "extends": ["airbnb", "plugin:sonarjs/recommended"],
+  "extends": [
+    "airbnb",
+    "plugin:sonarjs/recommended",
+    "plugin:jest/recommended"
+  ],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
@@ -19,6 +24,7 @@
   },
   "plugins": [
     "babel",
+    "jest",
     "react",
     "react-hooks",
     "sonarjs"
