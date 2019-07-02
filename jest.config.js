@@ -3,5 +3,10 @@
 
 module.exports = {
   coverageDirectory: 'coverage',
-  testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js', '<rootDir>/__tests__/support/helpers.js'],
+  testPathIgnorePatterns: [
+    '<rootDir>/.next/',
+    '<rootDir>/node_modules/',
+    '<rootDir>/__tests__/support',
+  ],
 };
