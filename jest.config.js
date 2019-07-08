@@ -3,6 +3,7 @@
 
 module.exports = {
   coverageDirectory: 'coverage',
+  setupFiles: ['jest-date-mock'],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js', '<rootDir>/__tests__/support/helpers.js'],
   testPathIgnorePatterns: [
     '<rootDir>/.next/',
