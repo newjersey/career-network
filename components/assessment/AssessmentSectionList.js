@@ -43,13 +43,10 @@ export default function AssessmentSectionList(props) {
   const classes = useStyles();
   const { scrollToY } = props;
   const [activeStep, setActiveStep] = useState(0);
-  const {
-    assessmentSections,
-    onComplete,
-    ...restProps
-  } = props;
+  const { assessmentSections, onComplete, ...restProps } = props;
 
-  const handleNext = () => {
+  const handleNext = (event) => {
+    event.preventDefault();
     setActiveStep(prevActiveStep => prevActiveStep + 1);
   };
 
@@ -67,10 +64,8 @@ export default function AssessmentSectionList(props) {
     }
   }, [activeStep, assessmentSections, onComplete]);
 
-
   return (
     <div className={classes.root}>
-
       <Stepper activeStep={activeStep} className={classes.stepper}>
         {assessmentSections.map(section => (
           <Step key={section.id}>
@@ -84,29 +79,30 @@ export default function AssessmentSectionList(props) {
       <div>
         {activeStep !== assessmentSections.length && (
           <div>
-            <AssessmentSection
-              assessmentSection={assessmentSections[activeStep]}
-              {...restProps}
-            />
-            <div className={classes.buttons}>
-              {!!activeStep && (
-                <Button onClick={handleBack} className={classes.button}>
-                  Back
+            <form onSubmit={handleNext}>
+              <AssessmentSection
+                assessmentSection={assessmentSections[activeStep]}
+                {...restProps}
+              />
+              <div className={classes.buttons}>
+                {!!activeStep && (
+                  <Button onClick={handleBack} className={classes.button}>
+                    Back
+                  </Button>
+                )}
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                >
+                  {activeStep === assessmentSections.length - 1 ? 'Finish' : 'Next'}
                 </Button>
-              )}
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleNext}
-                className={classes.button}
-              >
-                {activeStep === assessmentSections.length - 1 ? 'Finish' : 'Next'}
-              </Button>
-            </div>
+              </div>
+            </form>
           </div>
         )}
       </div>
-
     </div>
   );
 }
