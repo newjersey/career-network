@@ -21,10 +21,7 @@ const useStyles = makeStyles(theme => ({
 export default function OptionQuestion(props) {
   const classes = useStyles();
   const {
-    onChange,
-    question,
-    responseOptions,
-    value,
+    onChange, question, responseOptions, value, errors,
   } = props;
 
   const helperText = question.fields['Helper Text'];
@@ -38,6 +35,7 @@ export default function OptionQuestion(props) {
           name: question.id,
           id: question.id,
         }}
+        error={errors[question.id]}
         onChange={e => onChange(e.target.value)}
         value={value}
       >
@@ -47,9 +45,7 @@ export default function OptionQuestion(props) {
           </MenuItem>
         ))}
       </Select>
-      {helperText && (
-        <FormHelperText>{helperText}</FormHelperText>
-      )}
+      {helperText && <FormHelperText>{helperText}</FormHelperText>}
     </FormControl>
   );
 }
@@ -59,6 +55,7 @@ OptionQuestion.propTypes = {
   question: AirtablePropTypes.question.isRequired,
   responseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
   value: PropTypes.string,
+  errors: PropTypes.objectOf(PropTypes.bool).isRequired,
 };
 
 OptionQuestion.defaultProps = {

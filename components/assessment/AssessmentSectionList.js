@@ -5,10 +5,13 @@ import React, { useEffect, useState } from 'react';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Stepper from '@material-ui/core/Stepper';
+import { Formik } from 'formik';
 
+import { useAuth } from '../Auth';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import AssessmentSection from './AssessmentSection';
 import FirebasePropTypes from '../Firebase/PropTypes';
+import { retrieveActiveResponses } from '../../src/assessment-helper';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,15 +42,23 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+
 export default function AssessmentSectionList(props) {
   const classes = useStyles();
+  const { user } = useAuth();
   const { scrollToY } = props;
   const [activeStep, setActiveStep] = useState(0);
   const { assessmentSections, onComplete, ...restProps } = props;
 
-  const handleNext = (event) => {
-    event.preventDefault();
-    setActiveStep(prevActiveStep => prevActiveStep + 1);
+  const handleValidation = (values) => {
+    const errors = {};
+    Object.entries(values)
+      .forEach(([key, value]) => {
+        if (!value) {
+          errors[key] = true;
+        }
+      });
+    return errors;
   };
 
   const handleBack = () => {
@@ -62,7 +73,14 @@ export default function AssessmentSectionList(props) {
     if (activeStep === assessmentSections.length && typeof onComplete === 'function') {
       onComplete();
     }
-  }, [activeStep, assessmentSections, onComplete]);
+  }, [activeStep, assessmentSections, onComplete, restProps.allQuestionResponses]);
+
+  const stepValues = retrieveActiveResponses(
+    assessmentSections[activeStep],
+    restProps.allQuestions,
+    restProps.allQuestionResponses,
+    user,
+  );
 
   return (
     <div className={classes.root}>
@@ -79,27 +97,42 @@ export default function AssessmentSectionList(props) {
       <div>
         {activeStep !== assessmentSections.length && (
           <div>
-            <form onSubmit={handleNext}>
-              <AssessmentSection
-                assessmentSection={assessmentSections[activeStep]}
-                {...restProps}
-              />
-              <div className={classes.buttons}>
-                {!!activeStep && (
-                  <Button onClick={handleBack} className={classes.button}>
-                    Back
-                  </Button>
-                )}
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  className={classes.button}
-                >
-                  {activeStep === assessmentSections.length - 1 ? 'Finish' : 'Next'}
-                </Button>
-              </div>
-            </form>
+            <Formik
+              onSubmit={(values, { setSubmitting }) => {
+                setActiveStep(prevActiveStep => prevActiveStep + 1);
+                setSubmitting(false);
+              }}
+              initialValues={stepValues}
+              validate={handleValidation}
+              enableReinitialize
+            >
+              {(formikProps) => {
+                const { handleSubmit } = formikProps;
+                return (
+                  <form onSubmit={handleSubmit}>
+                    <AssessmentSection
+                      assessmentSection={assessmentSections[activeStep]}
+                      {...{ ...formikProps, ...restProps }}
+                    />
+                    <div className={classes.buttons}>
+                      {!!activeStep && (
+                        <Button onClick={handleBack} className={classes.button}>
+                          Back
+                        </Button>
+                      )}
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        className={classes.button}
+                      >
+                        {activeStep === assessmentSections.length - 1 ? 'Finish' : 'Next'}
+                      </Button>
+                    </div>
+                  </form>
+                );
+              }}
+            </Formik>
           </div>
         )}
       </div>

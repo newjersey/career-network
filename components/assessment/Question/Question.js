@@ -1,41 +1,25 @@
 import Box from '@material-ui/core/Box';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
+import PropTypes from 'prop-types';
 import { useAuth } from '../../Auth';
 import AirtablePropTypes from '../../Airtable/PropTypes';
 import BinaryQuestion from './BinaryQuestion';
 import FirebasePropTypes from '../../Firebase/PropTypes';
 import OptionQuestion from './OptionQuestion';
 import TextQuestion from './TextQuestion';
-
-function getDefaultValue(question, user) {
-  // special cases
-  switch (question.fields.Slug) {
-    case 'email':
-      return user.email;
-    case 'preferredFirstName':
-      return user.firstName;
-    default:
-  }
-
-  switch (question.fields['Response Type']) {
-    case 'Text':
-    case 'Number':
-    case 'Email':
-    case 'Phone':
-    case 'Date':
-    case 'Option':
-      return '';
-    case 'Binary':
-      return false;
-    default:
-      return undefined;
-  }
-}
+import { getDefaultValue } from '../../../src/assessment-helper';
 
 function Question(props) {
   const { user, userDocRef } = useAuth();
-  const { question, allQuestionResponseOptions, allQuestionResponses } = props;
+  const {
+    question,
+    allQuestionResponseOptions,
+    allQuestionResponses,
+    handleChange,
+    values,
+    errors,
+  } = props;
   const {
     Disabled: disabled,
     Hidden: hidden,
@@ -48,9 +32,6 @@ function Question(props) {
   const persistedValue = response && response.data().value;
   const defaultValue = getDefaultValue(question, user);
   const value = persistedValue || defaultValue;
-
-  // specific to text inputs (we don't want to update any Firebase doc more than once per second)
-  const [localValue, setLocalValue] = useState(value);
 
   // get options for radio / select
   const responseOptions = responseOptionIds
@@ -89,24 +70,26 @@ function Question(props) {
     }
   }, [disabled, hidden, setValue, value]);
 
-  // update UI when database changes
-  useEffect(() => {
-    if (persistedValue) {
-      setLocalValue(persistedValue);
-    }
-  }, [persistedValue]);
-
   const textQuestionProps = {
     onBlur: _value => setValue(_value),
-    onChange: _value => setLocalValue(_value),
     question,
-    value: localValue,
+    handleChange,
+    values,
+    errors,
   };
 
   const nonTextQuestionProps = {
-    onChange: _value => setValue(_value),
+    onChange: (_value) => {
+      if (responseType === 'Option') {
+        handleChange(_value);
+      }
+      setValue(_value);
+    },
     question,
     value,
+    handleChange,
+    values,
+    errors,
   };
 
   switch (responseType) {
@@ -153,4 +136,7 @@ Question.propTypes = {
   question: AirtablePropTypes.question.isRequired,
   allQuestionResponseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  values: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
+  errors: PropTypes.objectOf(PropTypes.bool).isRequired,
 };

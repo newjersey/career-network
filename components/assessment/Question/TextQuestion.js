@@ -16,8 +16,10 @@ export default function TextQuestion(props) {
   const classes = useStyles();
   const {
     onBlur,
-    onChange,
     question,
+    handleChange,
+    values,
+    errors,
     ...restProps
   } = props;
 
@@ -25,11 +27,12 @@ export default function TextQuestion(props) {
     <TextField
       id={question.id}
       disabled={question.fields.Disabled}
-      required
+      error={errors[question.id]}
       label={question.fields.Label}
       className={classes.textField}
       onBlur={e => onBlur(e.target.value)}
-      onChange={e => onChange(e.target.value)}
+      onChange={handleChange}
+      value={values[question.id] || ''}
       margin="normal"
       helperText={question.fields['Helper Text']}
       fullWidth
@@ -41,10 +44,11 @@ export default function TextQuestion(props) {
 TextQuestion.propTypes = {
   autoComplete: PropTypes.string,
   onBlur: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
   question: AirtablePropTypes.question.isRequired,
   type: PropTypes.string,
-  value: PropTypes.string.isRequired,
+  values: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
+  errors: PropTypes.objectOf(PropTypes.bool).isRequired,
 };
 
 TextQuestion.defaultProps = {
