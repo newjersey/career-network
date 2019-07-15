@@ -13,6 +13,8 @@ const envConfig = {
       storageBucket: 'nj-career-network.appspot.com',
       messagingSenderId: '114141088298',
       appId: '1:114141088298:web:ce96ec93a41e3d35',
+      userCollection: 'users',
+      userPreauthorizationCollection: 'userPreauthorizations',
     },
   },
   production: {
@@ -27,6 +29,8 @@ const envConfig = {
       storageBucket: 'nj-career-network.appspot.com',
       messagingSenderId: '114141088298',
       appId: '1:114141088298:web:ce96ec93a41e3d35',
+      userCollection: 'users',
+      userPreauthorizationCollection: 'userPreauthorizations',
     },
   },
 }[env];
