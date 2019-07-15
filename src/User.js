@@ -27,7 +27,7 @@ export default class User {
     const { displayName } = this.authProfile;
 
     return displayName.includes(',')
-      ? `${displayName.split(',')[1]} ${displayName.split(',')[0]}`
+      ? `${displayName.split(',')[1]} ${displayName.split(',')[0]}`.trim()
       : displayName;
   }
 
