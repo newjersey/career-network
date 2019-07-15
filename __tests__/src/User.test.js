@@ -33,7 +33,7 @@ describe('User', () => {
         data: () => factories.authData({ authProfile: { displayName: 'Doe, John B.' } }),
       });
 
-      expect(user.displayName).toEqual(' John B. Doe');
+      expect(user.displayName).toEqual('John B. Doe');
     });
   });
 
