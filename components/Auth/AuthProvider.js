@@ -74,12 +74,13 @@ export default function AuthProvider(props) {
         setIsOpen(false);
 
         try {
-          const { uid } = authUser;
+          const { email, uid } = authUser;
           const userDoc = await db.collection('users').doc(uid).get();
+          const preauthorizationDoc = await db.collection('userPreauthorizations').doc(email).get();
 
           if (cleanupRef.current && userDoc.exists) {
             // preserve this ordering:
-            setUser(new User(userDoc));
+            setUser(new User(userDoc, preauthorizationDoc));
             setWasSignedIn(true);
           }
         } catch (error) {
