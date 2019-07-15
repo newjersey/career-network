@@ -16,14 +16,29 @@ export function authData(attributes = {}) {
   };
 }
 
-export function user(attributes = {}) {
+export function preauthorizationData(attributes = {}) {
+  return {
+    assignments: ['GoJwVoinaZkIeUYyhd2M', 'Tu3HUHFxmHrFTRtlGlny'],
+    coach: true,
+    pilot: true,
+    ...attributes,
+  };
+}
+
+export function user(userAttributes = {}, preauthorizationAttributes = {}) {
   const userDoc = {
     id: 'TEST-USER',
     data: () => authData(),
-    ...attributes,
+    ...userAttributes,
   };
 
-  return new User(userDoc);
+  const preauthorizationDoc = {
+    id: 'TEST-PREAUTHORIZATION',
+    data: () => preauthorizationData(),
+    ...preauthorizationAttributes,
+  };
+
+  return new User(userDoc, preauthorizationDoc);
 }
 
 export function auth() {
