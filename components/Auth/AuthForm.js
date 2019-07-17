@@ -42,7 +42,7 @@ export default function AuthForm(props) {
     signInOptions: [
       // Leave the lines as is for the providers you want to offer your users.
       auth.GoogleAuthProvider.PROVIDER_ID,
-      auth.FacebookAuthProvider.PROVIDER_ID,
+      // auth.FacebookAuthProvider.PROVIDER_ID,
       {
         provider: 'microsoft.com',
         providerName: 'Microsoft',
@@ -58,7 +58,7 @@ export default function AuthForm(props) {
           'sdpp-w',
         ],
       },
-      auth.GithubAuthProvider.PROVIDER_ID,
+      // auth.GithubAuthProvider.PROVIDER_ID,
       // auth.TwitterAuthProvider.PROVIDER_ID,
       // auth.EmailAuthProvider.PROVIDER_ID,
       // auth.PhoneAuthProvider.PROVIDER_ID,
