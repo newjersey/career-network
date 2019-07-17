@@ -34,7 +34,12 @@ export default function AppManager(props) {
 
   useEffect(() => {
     if (user) {
-      const url = user.isAssessmentComplete ? '/dashboard' : '/assessment';
+      let url = '/assessment';
+      if (user.isCoach) {
+        url = '/coaching';
+      } else if (user.isAssessmentComplete) {
+        url = '/dashboard';
+      }
 
       (async () => { cleanupRef.current = Router.push(url); })();
     }
