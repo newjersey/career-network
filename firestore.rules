@@ -1,7 +1,43 @@
+rules_version = '2';
+
+// General rules:
+//  - least possible privilege
+//  - disallow deletion
+//  - updating seems OK (immutable seems less valuable in a declarative world)
+//     - except for event sources
+
+// Future:
+//  - impersonation feature?
+//  - dev environments? (ensure don't clobber prod accidentally?)
+
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write: if true;
+    match /users/{uid} {
+
+	  // any user can read, create, and update anything directly on their user document
+	  allow read, create, update: if request.auth.uid == uid;
+      // allow read access to coaches
+      allow read: if get(/databases/$(database)/documents/userPreauthorizations/$(request.auth.token.email)).data.coach == true &&
+					 get(/databases/$(database)/documents/userPreauthorizations/$(request.auth.token.email)).data.assignments.hasAny([uid])
+
+      // any user can read, create, and update their own question responses
+	  match /questionResponses/{document} {
+        allow read, create, update: if request.auth.uid == uid;
+        // allow read access to coaches
+        allow read: if get(/databases/$(database)/documents/userPreauthorizations/$(request.auth.token.email)).data.coach == true &&
+	            	   get(/databases/$(database)/documents/userPreauthorizations/$(request.auth.token.email)).data.assignments.hasAny([uid])
+      }
+
+      // action disposition events are immutable: no updating allowed
+      match /actionDispositionEvents/{document} {
+      	allow read, create: if request.auth.uid == uid;
+      }
+    }
+
+    match /userPreauthorizations/{email} {
+	  // any user can read, create, and update anything directly on their userPreauthorization document
+	  allow read, create, update: if request.auth.token.email == email;
     }
   }
 }
+
