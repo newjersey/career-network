@@ -10,6 +10,7 @@ import { useUserSubcollection } from '../components/Firebase';
 import AssessmentSectionList from '../components/assessment/AssessmentSectionList';
 import FullPageProgress from '../components/FullPageProgress';
 import ScaffoldContainer from '../components/ScaffoldContainer';
+import { allPropsLoaded, fullyLoaded } from '../src/app-helper';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -31,11 +32,6 @@ function Assessment() {
     allQuestionResponseOptions: useRecords('appPhpA6Quf0pCBDm/Question%20Response%20Options?view=API'),
   };
 
-  const fullyLoaded = user && Object.values(recordProps)
-    .map(array => array.length)
-    .reduce((accum, length) => accum && !!length, true)
-    && allQuestionResponses; // for initial hydration (use case: incomplete assessment)
-
   const handleComplete = () => {
     setIsFinished(true);
     Router.push('/dashboard');
@@ -53,7 +49,7 @@ function Assessment() {
   return (
     <div className={classes.root}>
       <ScaffoldContainer>
-        {fullyLoaded && !isFinished ? (
+        {fullyLoaded(user, allPropsLoaded(recordProps), allQuestionResponses, !isFinished) ? (
           <React.Fragment>
             <Typography ref={scrollToRef} component="h1" variant="h2" gutterBottom>
               Hi,
