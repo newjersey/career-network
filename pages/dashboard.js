@@ -5,6 +5,7 @@ import { useRecords } from '../components/Airtable';
 import { useUserSubcollection } from '../components/Firebase';
 import Dashboard from '../components/dashboard/Dashboard';
 import FullPageProgress from '../components/FullPageProgress';
+import { allPropsLoaded, fullyLoaded } from '../src/app-helper';
 
 function DashboardPage() {
   const { user } = useAuth();
@@ -18,18 +19,15 @@ function DashboardPage() {
     allTheories: useRecords('Theories?view=API'),
   };
 
-  const fullyLoaded =
-    user &&
-    Object.values(recordProps)
-      .map(array => array.length)
-      .reduce((accum, length) => accum && !!length, true) &&
-    allQuestionResponses &&
-    allActionDispositionEvents;
-
-  return fullyLoaded ? (
+  return fullyLoaded(
+    user,
+    allPropsLoaded(recordProps),
+    allQuestionResponses,
+    allActionDispositionEvents
+  ) ? (
     <Dashboard
-      allQuestionResponses={allQuestionResponses}
-      allActionDispositionEvents={allActionDispositionEvents}
+      allQuestionResponses={allQuestionResponses || []}
+      allActionDispositionEvents={allActionDispositionEvents || []}
       {...recordProps}
     />
   ) : (

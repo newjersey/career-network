@@ -5,6 +5,7 @@ import { useRecords } from '../components/Airtable';
 import FullPageProgress from '../components/FullPageProgress';
 import Coaching from '../components/coaching/Coaching';
 import useCoachAssignments from '../components/Firebase/useCoachAssignments';
+import { allPropsLoaded, fullyLoaded } from '../src/app-helper';
 
 function CoachingPage() {
   const { user } = useAuth();
@@ -13,12 +14,7 @@ function CoachingPage() {
     assessmentSections: useRecords('appPhpA6Quf0pCBDm/Assessment%20Sections?view=API'),
   };
 
-  // TODO: move to helper function
-  const fullyLoaded = user && Object.values(props)
-    .map(array => array.length)
-    .reduce((accum, length) => accum && !!length, true);
-
-  return fullyLoaded ? <Coaching {...props} /> : <FullPageProgress />;
+  return fullyLoaded(user, allPropsLoaded(props)) ? <Coaching {...props} /> : <FullPageProgress />;
 }
 
 export default withAuthRequired(CoachingPage);
