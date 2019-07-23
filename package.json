@@ -16,6 +16,7 @@
     "clsx": "^1.0.4",
     "firebase": "^6.2.2",
     "jss": "^9.8.7",
+    "lodash": "^4.17.15",
     "next": "^8.1.0",
     "nprogress": "^0.2.0",
     "prop-types": "^15.7.2",
@@ -46,6 +47,7 @@
     "@firebase/testing": "^0.11.5",
     "@material-ui/codemod": "^4.0.2",
     "@testing-library/react": "^8.0.4",
+    "@testing-library/react-hooks": "^1.1.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.8.0",
     "eslint": "^5.16.0",
@@ -61,6 +63,7 @@
     "gh-pages": "^2.0.1",
     "jest": "^24.8.0",
     "jest-dom": "^3.5.0",
+    "react-test-renderer": "^16.8.6",
     "serve": "^11.0.1"
   }
 }

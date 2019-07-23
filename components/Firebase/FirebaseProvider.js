@@ -8,22 +8,24 @@ import app from './app';
 import FirebaseContext from './FirebaseContext';
 
 export default function FirebaseProvider(props) {
-  const { children } = props;
-  const { auth } = firebase;
-  const db = firebase.firestore(app);
+  const { children, customFirebase } = props;
+  const firebaseApp = customFirebase || firebase;
+  const { auth } = firebaseApp;
+  const db = firebaseApp.firestore(app);
 
   const value = {
     auth,
     db,
   };
 
-  return (
-    <FirebaseContext.Provider value={value}>
-      {children}
-    </FirebaseContext.Provider>
-  );
+  return <FirebaseContext.Provider value={value}>{children}</FirebaseContext.Provider>;
 }
 
 FirebaseProvider.propTypes = {
   children: PropTypes.node.isRequired,
+  customFirebase: PropTypes.shape(firebase.app.App),
+};
+
+FirebaseProvider.defaultProps = {
+  customFirebase: undefined,
 };

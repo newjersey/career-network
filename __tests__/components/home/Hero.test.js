@@ -2,7 +2,7 @@ import React from 'react';
 import { fireEvent, wait } from '@testing-library/react';
 
 import Hero from '../../../components/home/Hero';
-import renderWrapped from '../../support/helpers';
+import { renderWrapped } from '../../support/helpers';
 
 describe('<Hero />', () => {
   it('renders the title', () => {
