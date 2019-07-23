@@ -16,6 +16,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import TableBody from '@material-ui/core/TableBody';
 import Table from '@material-ui/core/Table';
+import dayjs from 'dayjs';
 
 import ScaffoldContainer from '../ScaffoldContainer';
 import CoachingPropTypes from './PropTypes';
@@ -60,15 +61,20 @@ export default function Coaching(props) {
 
 
   const responseValue = (response) => {
-    const type = response.question.fields['Response Type'];
-    if (type === 'Option') {
-      const responseOption = response.responseOptions.find(option => option.id === response.value);
-      return responseOption.fields.Name;
+    switch (response.question.fields['Response Type']) {
+      case 'Option': {
+        const responseOption = response.responseOptions.find(
+          option => option.id === response.value,
+        );
+        return responseOption.fields.Name;
+      }
+      case 'Binary':
+        return response.value ? 'Yes' : 'No';
+      case 'Date':
+        return dayjs(response.value).format('MM/DD/YYYY');
+      default:
+        return response.value;
     }
-    if (type === 'Binary') {
-      return response.value ? 'Yes' : 'No';
-    }
-    return response.value;
   };
 
   return (
