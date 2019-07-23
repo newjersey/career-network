@@ -14,18 +14,29 @@ service cloud.firestore {
   match /databases/{database}/documents {
     match /users/{uid} {
 
-    // any user can read, create, and update anything directly on their user document
-    allow read, create, update: if request.auth.uid == uid;
+	  // any user can read, create, and update anything directly on their user document
+	  allow read, create, update: if request.auth.uid == uid;
+      // allow read access to coaches
+      allow read: if get(/databases/$(database)/documents/userPreauthorizations/$(request.auth.token.email)).data.coach == true &&
+					 get(/databases/$(database)/documents/userPreauthorizations/$(request.auth.token.email)).data.assignments.hasAny([uid])
 
       // any user can read, create, and update their own question responses
-      match /questionResponses/{document} {
+	  match /questionResponses/{document} {
         allow read, create, update: if request.auth.uid == uid;
+        // allow read access to coaches
+        allow read: if get(/databases/$(database)/documents/userPreauthorizations/$(request.auth.token.email)).data.coach == true &&
+	            	   get(/databases/$(database)/documents/userPreauthorizations/$(request.auth.token.email)).data.assignments.hasAny([uid])
       }
 
       // action disposition events are immutable: no updating allowed
       match /actionDispositionEvents/{document} {
-        allow read, create: if request.auth.uid == uid;
+      	allow read, create: if request.auth.uid == uid;
       }
+    }
+
+    match /userPreauthorizations/{email} {
+	  // any user can read, create, and update anything directly on their userPreauthorization document
+	  allow read, create, update: if request.auth.token.email == email;
     }
   }
 }
