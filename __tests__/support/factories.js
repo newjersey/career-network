@@ -16,6 +16,7 @@ export function authData(attributes = {}) {
     authProfile: authProfile(),
     authProviders: {},
     isAssessmentComplete: true,
+    isCoach: false,
     ...attributes,
   };
 }

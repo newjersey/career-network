@@ -54,7 +54,7 @@ export default class User {
   }
 
   get isCoach() {
-    return this.preauthorizationData.coach;
+    return !!this.userData.isCoach;
   }
 
   get coachAssignments() {

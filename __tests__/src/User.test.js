@@ -39,23 +39,20 @@ describe('User', () => {
 
   describe('isCoach', () => {
     it('returns the coach flag', () => {
-      const user = factories.user(
-        {},
-        {
-          data: () => factories.preauthorizationData({ coach: false }),
-        },
-      );
-
-      expect(user.isCoach).toEqual(false);
-    });
-
-    describe('coachAssignments', () => {
-      it('returns the assigned assignments for the coach', () => {
-        expect(factories.user().coachAssignments).toEqual([
-          'GoJwVoinaZkIeUYyhd2M',
-          'Tu3HUHFxmHrFTRtlGlny',
-        ]);
+      const user = factories.user({
+        data: () => factories.authData({ isCoach: true }),
       });
+
+      expect(user.isCoach).toEqual(true);
+    });
+  });
+
+  describe('coachAssignments', () => {
+    it('returns the assigned assignments for the coach', () => {
+      expect(factories.user().coachAssignments).toEqual([
+        'GoJwVoinaZkIeUYyhd2M',
+        'Tu3HUHFxmHrFTRtlGlny',
+      ]);
     });
   });
 });
