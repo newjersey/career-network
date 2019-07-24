@@ -86,6 +86,7 @@ export default function AuthProvider(props) {
 
           if (cleanupRef.current && userDoc.exists) {
             // preserve this ordering:
+            userDocument(uid).set({ isCoach: preauthorizationDoc.data().coach }, { merge: true });
             setUser(new User(userDoc, preauthorizationDoc));
             setWasSignedIn(true);
           }
