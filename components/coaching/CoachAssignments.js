@@ -99,12 +99,12 @@ export default function CoachAssignments(props) {
   const handleClickJobSeeker = (event, checked) => {
     const { uid } = event.currentTarget.dataset;
     if (checked) {
-      updateUser(currentCoach.authProfile.email, {
+      updateUser(currentCoach.uid, {
         assignments: firebase.firestore.FieldValue.arrayUnion(uid),
       });
       dispatch({ type: 'add', coachUid: currentCoach.uid, uid });
     } else {
-      updateUser(currentCoach.authProfile.email, {
+      updateUser(currentCoach.uid, {
         assignments: firebase.firestore.FieldValue.arrayRemove(uid),
       });
       dispatch({ type: 'remove', coachUid: currentCoach.uid, uid });

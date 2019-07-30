@@ -129,7 +129,7 @@ export default function AuthProvider(props) {
 
       cleanupRef.current = null;
     };
-  }, [auth, userDocument, userPreauthorizationDocument]);
+  }, [applyPreauthorizations, auth, userDocument, userPreauthorizationDocument]);
 
   const value = {
     showSignIn: () => setIsOpen(true),

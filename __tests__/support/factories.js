@@ -16,6 +16,7 @@ export function authData(attributes = {}) {
   return {
     authProfile: authProfile(),
     authProviders: {},
+    assignments: ['GoJwVoinaZkIeUYyhd2M', 'Tu3HUHFxmHrFTRtlGlny'],
     isAssessmentComplete: true,
     isCoach: false,
     isAdmin: false,
@@ -23,27 +24,13 @@ export function authData(attributes = {}) {
   };
 }
 
-export function preauthorizationData(attributes = {}) {
-  return {
-    assignments: ['GoJwVoinaZkIeUYyhd2M', 'Tu3HUHFxmHrFTRtlGlny'],
-    coach: true,
-    pilot: true,
-    ...attributes,
-  };
-}
-
-export function user(userAttributes = {}, preauthorizationAttributes = {}) {
+export function user(userAttributes = {}) {
   const userDoc = {
     id: `TEST-USER-${nanoid(10)}`,
     data: () => authData(userAttributes),
   };
 
-  const preauthorizationDoc = {
-    id: `TEST-PREAUTHORIZATION-${nanoid(10)}`,
-    data: () => preauthorizationData(preauthorizationAttributes),
-  };
-
-  return new User(userDoc, preauthorizationDoc);
+  return new User(userDoc);
 }
 
 export function auth() {

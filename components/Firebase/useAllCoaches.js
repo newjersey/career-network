@@ -5,13 +5,10 @@ import useUser from './useUser';
 /**
  * Custom hook that returns all the users that are coaches
  */
-export default function useAllCoaches(
-  userCollection = process.env.firebase.userCollection,
-  userPreathorizationCollection = process.env.firebase.userPreauthorizationCollection,
-) {
+export default function useAllCoaches(userCollection = process.env.firebase.userCollection) {
   const [coaches, setCoaches] = useState([]);
   const { db } = useFirebase();
-  const { buildUser } = useUser(userCollection, userPreathorizationCollection);
+  const { buildUser } = useUser(userCollection);
 
   useEffect(() => {
     const build = async () => {

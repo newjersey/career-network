@@ -19,7 +19,7 @@ describe('useAllCoaches', () => {
 
   it('returns all the coaches', async () => {
     const { result, waitForNextUpdate } = renderHook(
-      () => useAllCoaches(env.firebase.userCollection, env.firebase.userPreauthorizationCollection),
+      () => useAllCoaches(env.firebase.userCollection),
       {
         wrapper: firebaseProviderWrapper(),
       }

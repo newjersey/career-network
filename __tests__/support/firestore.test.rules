@@ -3,7 +3,7 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /users-test/{uid} {
-	  allow read, create: if true
+	  allow read, create, update: if true
 
 	  match /questionResponses/{document} {
         allow read, create: if true

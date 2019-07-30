@@ -23,35 +23,35 @@ describe('useUser', () => {
 
   describe('buildUser', () => {
     it('builds and returns a new user object', async () => {
-      const { result } = renderHook(() => (
-        useUser(env.firebase.userCollection, env.firebase.userPreauthorizationCollection)
-      ), { wrapper: firebaseProviderWrapper() });
+      const { result } = renderHook(() => useUser(env.firebase.userCollection), {
+        wrapper: firebaseProviderWrapper(),
+      });
 
       const userObject = await result.current.buildUser(users[0]);
 
       expect(userObject).toBeInstanceOf(User);
       expect(userObject.displayName).toEqual('Martha Jones');
       expect(userObject.isCoach).toEqual(true);
-      expect(userObject.coachAssignments).toEqual([]);
+      expect(userObject.coachAssignments).toEqual(['GoJwVoinaZkIeUYyhd2M']);
     });
   });
 
   describe('updateUser', () => {
     it('updates the user assignments', async () => {
-      const { result } = renderHook(() => (
-        useUser(env.firebase.userCollection, env.firebase.userPreauthorizationCollection)
-      ), { wrapper: firebaseProviderWrapper() });
+      const { result } = renderHook(() => useUser(env.firebase.userCollection), {
+        wrapper: firebaseProviderWrapper(),
+      });
 
-      await result.current.updateUser('rose@example.org', {
+      await result.current.updateUser(users[1].id, {
         assignments: [users[0].id],
       });
 
-      const preauths = await firebaseTestApp
+      const userDoc = await firebaseTestApp
         .firestore()
-        .collection(env.firebase.userPreauthorizationCollection)
-        .doc('rose@example.org')
+        .collection(env.firebase.userCollection)
+        .doc(users[1].id)
         .get();
-      expect(preauths.data().assignments).toEqual([users[0].id]);
+      expect(userDoc.data().assignments).toEqual([users[0].id]);
     });
   });
 });

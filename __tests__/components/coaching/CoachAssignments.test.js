@@ -26,9 +26,9 @@ const allCoaches = [
         displayName: 'Martha Jones',
         email: 'martha@example.org',
       },
+      assignments: [allJobSeekers[1].uid],
       isCoach: true,
     },
-    { assignments: [allJobSeekers[1].uid] }
   ),
   factories.user(
     {
@@ -37,9 +37,9 @@ const allCoaches = [
         displayName: 'Rose Tyler',
         email: 'rose@example.org',
       },
+      assignments: [allJobSeekers[0].uid],
       isCoach: true,
     },
-    { assignments: [allJobSeekers[0].uid] }
   ),
 ];
 
@@ -50,7 +50,10 @@ jest.mock('../../../components/Firebase/useUser', () => ({
 }));
 
 describe('<CoachAssignments />', () => {
-  const props = { allCoaches, allJobSeekers };
+  const props = {
+    allCoaches,
+    allJobSeekers,
+  };
 
   it('displays the initial message', () => {
     const { getByText } = renderWrapped(<CoachAssignments {...props} />);
@@ -75,8 +78,10 @@ describe('<CoachAssignments />', () => {
     await wait(() => {
       getByText('Adam Mitchell');
       getByText('adam@example.org');
-      expect(getByTestId(allJobSeekers[0].uid).checked).toEqual(false);
-      expect(getByTestId(allJobSeekers[1].uid).checked).toEqual(true);
+      expect(getByTestId(allJobSeekers[0].uid).checked)
+        .toEqual(false);
+      expect(getByTestId(allJobSeekers[1].uid).checked)
+        .toEqual(true);
     });
 
     fireEvent.click(getByText(/Rose Tyler/i));
@@ -84,8 +89,10 @@ describe('<CoachAssignments />', () => {
     await wait(() => {
       getByText('Donna Noble');
       getByText('donna@example.org');
-      expect(getByTestId(allJobSeekers[0].uid).checked).toEqual(true);
-      expect(getByTestId(allJobSeekers[1].uid).checked).toEqual(false);
+      expect(getByTestId(allJobSeekers[0].uid).checked)
+        .toEqual(true);
+      expect(getByTestId(allJobSeekers[1].uid).checked)
+        .toEqual(false);
     });
   });
 
@@ -98,8 +105,12 @@ describe('<CoachAssignments />', () => {
     await wait(() => {
       getByText('Adam Mitchell');
       getByText('adam@example.org');
-      expect(queryByText('Donna Noble')).not.toBeInTheDocument();
-      expect(queryByText('donna@example.org')).not.toBeInTheDocument();
+      expect(queryByText('Donna Noble'))
+        .not
+        .toBeInTheDocument();
+      expect(queryByText('donna@example.org'))
+        .not
+        .toBeInTheDocument();
     });
   });
 
@@ -110,9 +121,10 @@ describe('<CoachAssignments />', () => {
     fireEvent.click(getByTestId(allJobSeekers[0].uid));
 
     await wait(() => {
-      expect(mockUpdateUser).toHaveBeenCalledWith('martha@example.org', {
-        assignments: firebase.firestore.FieldValue.arrayUnion(allJobSeekers[0].uid),
-      });
+      expect(mockUpdateUser)
+        .toHaveBeenCalledWith(allCoaches[0].uid, {
+          assignments: firebase.firestore.FieldValue.arrayUnion(allJobSeekers[0].uid),
+        });
     });
   });
 
@@ -123,9 +135,10 @@ describe('<CoachAssignments />', () => {
     fireEvent.click(getByTestId(allJobSeekers[0].uid));
 
     await wait(() => {
-      expect(mockUpdateUser).toHaveBeenCalledWith('rose@example.org', {
-        assignments: firebase.firestore.FieldValue.arrayRemove(allJobSeekers[0].uid),
-      });
+      expect(mockUpdateUser)
+        .toHaveBeenCalledWith(allCoaches[1].uid, {
+          assignments: firebase.firestore.FieldValue.arrayRemove(allJobSeekers[0].uid),
+        });
     });
   });
 });

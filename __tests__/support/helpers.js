@@ -70,6 +70,7 @@ export async function createCoaches() {
           displayName: 'Martha Jones',
           email: 'martha@example.org',
         },
+        assignments: ['GoJwVoinaZkIeUYyhd2M'],
         isCoach: true,
         isAdmin: false,
       }),

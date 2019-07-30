@@ -5,13 +5,10 @@ import useUser from './useUser';
 /**
  * Custom hook that returns all the job seekers (no admins and no coaches)
  */
-export default function useAllJobSeekers(
-  userCollection = process.env.firebase.userCollection,
-  userPreathorizationCollection = process.env.firebase.userPreauthorizationCollection,
-) {
+export default function useAllJobSeekers(userCollection = process.env.firebase.userCollection) {
   const [jobSeekers, setJobSeekers] = useState([]);
   const { db } = useFirebase();
-  const { buildUser } = useUser(userCollection, userPreathorizationCollection);
+  const { buildUser } = useUser(userCollection);
 
   useEffect(() => {
     const build = async () => {

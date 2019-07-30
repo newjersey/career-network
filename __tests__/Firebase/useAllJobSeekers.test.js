@@ -19,7 +19,7 @@ describe('useAllJobSeekers', () => {
 
   it('returns all the job seekers', async () => {
     const { result, waitForNextUpdate } = renderHook(
-      () => useAllJobSeekers(env.firebase.userCollection, env.firebase.userPreauthorizationCollection),
+      () => useAllJobSeekers(env.firebase.userCollection),
       {
         wrapper: firebaseProviderWrapper(),
       },
