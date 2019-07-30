@@ -4,7 +4,10 @@
 module.exports = {
   coverageDirectory: 'coverage',
   roots: ['<rootDir>/__tests__/Firebase/'],
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.js', '<rootDir>/__tests__/support/helpers.js'],
+  setupFilesAfterEnv: [
+    '<rootDir>/jest.setup.integration.js',
+    '<rootDir>/__tests__/support/helpers.js',
+  ],
   testPathIgnorePatterns: [
     '<rootDir>/.next/',
     '<rootDir>/node_modules/',

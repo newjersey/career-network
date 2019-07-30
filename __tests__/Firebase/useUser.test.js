@@ -1,6 +1,5 @@
 import React from 'react';
 import { renderHook } from '@testing-library/react-hooks';
-import { clearFirestoreData } from '@firebase/testing';
 
 import { createCoaches, firebaseProviderWrapper } from '../support/helpers';
 import useUser from '../../components/Firebase/useUser';
@@ -13,12 +12,6 @@ describe('useUser', () => {
 
   beforeEach(async () => {
     users = await createCoaches();
-  });
-
-  afterEach(async () => {
-    await clearFirestoreData({
-      projectId: env.firebase.projectId,
-    });
   });
 
   describe('buildUser', () => {

@@ -1,6 +1,5 @@
 import React from 'react';
 import { renderHook } from '@testing-library/react-hooks';
-import { clearFirestoreData } from '@firebase/testing';
 
 import { createUsers, firebaseProviderWrapper } from '../support/helpers';
 import useAllJobSeekers from '../../components/Firebase/useAllJobSeekers';
@@ -9,12 +8,6 @@ import { env } from '../../next.config';
 describe('useAllJobSeekers', () => {
   beforeEach(async () => {
     await createUsers();
-  });
-
-  afterEach(async () => {
-    await clearFirestoreData({
-      projectId: env.firebase.projectId,
-    });
   });
 
   it('returns all the job seekers', async () => {

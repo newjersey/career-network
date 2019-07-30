@@ -1,6 +1,5 @@
 import React from 'react';
 import { renderHook } from '@testing-library/react-hooks';
-import { clearFirestoreData } from '@firebase/testing';
 
 import { createCoaches, firebaseProviderWrapper } from '../support/helpers';
 import useAllCoaches from '../../components/Firebase/useAllCoaches';
@@ -9,12 +8,6 @@ import { env } from '../../next.config';
 describe('useAllCoaches', () => {
   beforeEach(async () => {
     await createCoaches();
-  });
-
-  afterEach(async () => {
-    await clearFirestoreData({
-      projectId: env.firebase.projectId,
-    });
   });
 
   it('returns all the coaches', async () => {
