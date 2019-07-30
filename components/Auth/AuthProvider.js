@@ -79,6 +79,20 @@ export default function AuthProvider(props) {
     }
   };
 
+  const applyPreauthorizations = useCallback((uid, userDoc, preauthorizationDoc) => {
+    if (!userDoc || !preauthorizationDoc) {
+      return;
+    }
+    const userData = userDoc.data();
+    const preauthData = preauthorizationDoc.data();
+    if (userData.isCoach === undefined) {
+      userDocument(uid).set({ isCoach: preauthData.coach }, { merge: true });
+    }
+    if (userData.assignments === undefined && preauthData.assignments) {
+      userDocument(uid).set({ assignments: preauthData.assignments }, { merge: true });
+    }
+  }, [userDocument]);
+
   // Clear or set user, pulling user data from Firestore.
   useEffect(() => {
     // https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables
@@ -93,8 +107,8 @@ export default function AuthProvider(props) {
 
           if (cleanupRef.current && userDoc.exists) {
             // preserve this ordering:
-            userDocument(uid).set({ isCoach: preauthorizationDoc.data().coach }, { merge: true });
-            setUser(new User(userDoc, preauthorizationDoc));
+            applyPreauthorizations(uid, userDoc, preauthorizationDoc);
+            setUser(new User(userDoc));
             setWasSignedIn(true);
           }
         } catch (error) {
