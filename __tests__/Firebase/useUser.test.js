@@ -6,6 +6,7 @@ import { createCoaches, firebaseProviderWrapper } from '../support/helpers';
 import useUser from '../../components/Firebase/useUser';
 import User from '../../src/User';
 import firebaseTestApp from '../support/firebase-test-app';
+import { env } from '../../next.config';
 
 describe('useUser', () => {
   let users = [];
@@ -16,15 +17,15 @@ describe('useUser', () => {
 
   afterEach(async () => {
     await clearFirestoreData({
-      projectId: 'nj-career-network-test',
+      projectId: env.firebase.projectId,
     });
   });
 
   describe('buildUser', () => {
     it('builds and returns a new user object', async () => {
-      const { result } = renderHook(() => useUser('users-test', 'userPreauthorizations-test'), {
-        wrapper: firebaseProviderWrapper(),
-      });
+      const { result } = renderHook(() => (
+        useUser(env.firebase.userCollection, env.firebase.userPreauthorizationCollection)
+      ), { wrapper: firebaseProviderWrapper() });
 
       const userObject = await result.current.buildUser(users[0]);
 
@@ -37,9 +38,9 @@ describe('useUser', () => {
 
   describe('updateUser', () => {
     it('updates the user assignments', async () => {
-      const { result } = renderHook(() => useUser('users-test', 'userPreauthorizations-test'), {
-        wrapper: firebaseProviderWrapper(),
-      });
+      const { result } = renderHook(() => (
+        useUser(env.firebase.userCollection, env.firebase.userPreauthorizationCollection)
+      ), { wrapper: firebaseProviderWrapper() });
 
       await result.current.updateUser('rose@example.org', {
         assignments: [users[0].id],
@@ -47,7 +48,7 @@ describe('useUser', () => {
 
       const preauths = await firebaseTestApp
         .firestore()
-        .collection('userPreauthorizations-test')
+        .collection(env.firebase.userPreauthorizationCollection)
         .doc('rose@example.org')
         .get();
       expect(preauths.data().assignments).toEqual([users[0].id]);

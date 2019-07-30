@@ -4,6 +4,7 @@ import { clearFirestoreData } from '@firebase/testing';
 
 import { createUsers, firebaseProviderWrapper } from '../support/helpers';
 import useAllJobSeekers from '../../components/Firebase/useAllJobSeekers';
+import { env } from '../../next.config';
 
 describe('useAllJobSeekers', () => {
   beforeEach(async () => {
@@ -12,16 +13,16 @@ describe('useAllJobSeekers', () => {
 
   afterEach(async () => {
     await clearFirestoreData({
-      projectId: 'nj-career-network-test',
+      projectId: env.firebase.projectId,
     });
   });
 
   it('returns all the job seekers', async () => {
     const { result, waitForNextUpdate } = renderHook(
-      () => useAllJobSeekers('users-test', 'userPreauthorizations-test'),
+      () => useAllJobSeekers(env.firebase.userCollection, env.firebase.userPreauthorizationCollection),
       {
         wrapper: firebaseProviderWrapper(),
-      }
+      },
     );
 
     await waitForNextUpdate();

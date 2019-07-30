@@ -4,6 +4,7 @@ import { clearFirestoreData } from '@firebase/testing';
 
 import useCoachAssignments from '../../components/Firebase/useCoachAssignments';
 import { createUsers, firebaseProviderWrapper } from '../support/helpers';
+import { env } from '../../next.config';
 
 describe('useCoachAssignments', () => {
   let users = [];
@@ -14,14 +15,14 @@ describe('useCoachAssignments', () => {
 
   afterEach(async () => {
     await clearFirestoreData({
-      projectId: 'nj-career-network-test',
+      projectId: env.firebase.projectId,
     });
   });
 
   it('builds and returns the user profiles and the question responses', async () => {
     const { result, waitForNextUpdate } = renderHook(
-      () => useCoachAssignments(users, 'users-test'),
-      { wrapper: firebaseProviderWrapper() }
+      () => useCoachAssignments(users, env.firebase.userCollection),
+      { wrapper: firebaseProviderWrapper() },
     );
 
     await waitForNextUpdate();

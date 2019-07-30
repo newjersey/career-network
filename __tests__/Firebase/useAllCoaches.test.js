@@ -4,6 +4,7 @@ import { clearFirestoreData } from '@firebase/testing';
 
 import { createCoaches, firebaseProviderWrapper } from '../support/helpers';
 import useAllCoaches from '../../components/Firebase/useAllCoaches';
+import { env } from '../../next.config';
 
 describe('useAllCoaches', () => {
   beforeEach(async () => {
@@ -12,13 +13,13 @@ describe('useAllCoaches', () => {
 
   afterEach(async () => {
     await clearFirestoreData({
-      projectId: 'nj-career-network-test',
+      projectId: env.firebase.projectId,
     });
   });
 
   it('returns all the coaches', async () => {
     const { result, waitForNextUpdate } = renderHook(
-      () => useAllCoaches('users-test', 'userPreauthorizations-test'),
+      () => useAllCoaches(env.firebase.userCollection, env.firebase.userPreauthorizationCollection),
       {
         wrapper: firebaseProviderWrapper(),
       }

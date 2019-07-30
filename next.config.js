@@ -33,6 +33,13 @@ const envConfig = {
       userPreauthorizationCollection: 'userPreauthorizations',
     },
   },
+  test: {
+    firebase: {
+      projectId: 'nj-career-network-test',
+      userCollection: 'users-test',
+      userPreauthorizationCollection: 'userPreauthorizations-test',
+    },
+  },
 }[env];
 
 module.exports = {

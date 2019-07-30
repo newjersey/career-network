@@ -6,6 +6,7 @@ import AuthContext from '../../components/Auth/AuthContext';
 import firebaseTestApp from './firebase-test-app';
 import * as factories from './factories';
 import FirebaseProvider from '../../components/Firebase';
+import { env } from '../../next.config';
 
 /**
  * Renders a component with all the necessary top-level providers
@@ -15,7 +16,7 @@ export function renderWrapped(component) {
   const renderResult = render(
     <ThemeProvider theme={theme}>
       <AuthContext.Provider value={auth}>{component}</AuthContext.Provider>
-    </ThemeProvider>
+    </ThemeProvider>,
   );
 
   return {
@@ -38,15 +39,15 @@ export function firebaseProviderWrapper() {
 export async function createUsers() {
   const db = firebaseTestApp.firestore();
   const users = [
-    await db.collection('users-test').add(factories.authData()),
-    await db.collection('users-test').add(
+    await db.collection(env.firebase.userCollection).add(factories.authData()),
+    await db.collection(env.firebase.userCollection).add(
       factories.authData({
         authProfile: {
           ...factories.authProfile(),
           displayName: 'Adam Mitchell',
           email: 'adam@example.org',
         },
-      })
+      }),
     ),
   ];
 
@@ -62,7 +63,7 @@ export async function createUsers() {
 export async function createCoaches() {
   const db = firebaseTestApp.firestore();
   return [
-    await db.collection('users-test').add(
+    await db.collection(env.firebase.userCollection).add(
       factories.authData({
         authProfile: {
           ...factories.authProfile(),
@@ -71,9 +72,9 @@ export async function createCoaches() {
         },
         isCoach: true,
         isAdmin: false,
-      })
+      }),
     ),
-    await db.collection('users-test').add(
+    await db.collection(env.firebase.userCollection).add(
       factories.authData({
         authProfile: {
           ...factories.authProfile(),
@@ -82,7 +83,7 @@ export async function createCoaches() {
         },
         isCoach: true,
         isAdmin: false,
-      })
+      }),
     ),
   ];
 }
