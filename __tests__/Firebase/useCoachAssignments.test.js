@@ -3,13 +3,13 @@ import { renderHook } from '@testing-library/react-hooks';
 import { clearFirestoreData } from '@firebase/testing';
 
 import useCoachAssignments from '../../components/Firebase/useCoachAssignments';
-import { createFirebaseUsers, firebaseProviderWrapper } from '../support/helpers';
+import { createUsers, firebaseProviderWrapper } from '../support/helpers';
 
 describe('useCoachAssignments', () => {
   let users = [];
 
   beforeEach(async () => {
-    users = await createFirebaseUsers();
+    users = await createUsers();
   });
 
   afterEach(async () => {
@@ -21,7 +21,7 @@ describe('useCoachAssignments', () => {
   it('builds and returns the user profiles and the question responses', async () => {
     const { result, waitForNextUpdate } = renderHook(
       () => useCoachAssignments(users, 'users-test'),
-      { wrapper: firebaseProviderWrapper() },
+      { wrapper: firebaseProviderWrapper() }
     );
 
     await waitForNextUpdate();

@@ -39,9 +39,9 @@
     "release": "git rev-parse --short HEAD | (read hash; gh-pages -t -d out -m \"Release at $hash\" )",
     "deploy": "npm run export && npm run release",
     "start": "next start",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test": "jest --runInBand",
+    "test:watch": "jest --runInBand --watch",
+    "test:coverage": "jest --runInBand --coverage"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
@@ -64,6 +64,7 @@
     "gh-pages": "^2.0.1",
     "jest": "^24.8.0",
     "jest-dom": "^3.5.0",
+    "nanoid": "^2.0.3",
     "react-test-renderer": "^16.8.6",
     "serve": "^11.0.1"
   }

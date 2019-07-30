@@ -10,7 +10,7 @@ service cloud.firestore {
       }
     }
 
-    match /userPreauthorizations/{email} {
+    match /userPreauthorizations-test/{email} {
 	  allow read, create: if true;
     }
   }

@@ -3,17 +3,13 @@ import * as factories from '../support/factories';
 describe('User', () => {
   describe('firstName', () => {
     it('builds the first name containing spaces', () => {
-      const user = factories.user({
-        data: () => factories.authData({ authProfile: { displayName: 'John Doe' } }),
-      });
+      const user = factories.user({ authProfile: { displayName: 'John Doe' } });
 
       expect(user.firstName).toEqual('John');
     });
 
     it('builds the first name when it contains a comma', () => {
-      const user = factories.user({
-        data: () => factories.authData({ authProfile: { displayName: 'Doe, John B.' } }),
-      });
+      const user = factories.user({ authProfile: { displayName: 'Doe, John B.' } });
 
       expect(user.firstName).toEqual('John B.');
     });
@@ -21,17 +17,13 @@ describe('User', () => {
 
   describe('displayName', () => {
     it('builds the full name', () => {
-      const user = factories.user({
-        data: () => factories.authData({ authProfile: { displayName: 'John Doe' } }),
-      });
+      const user = factories.user({ authProfile: { displayName: 'John Doe' } });
 
       expect(user.displayName).toEqual('John Doe');
     });
 
     it('builds the full name when it contains a comma', () => {
-      const user = factories.user({
-        data: () => factories.authData({ authProfile: { displayName: 'Doe, John B.' } }),
-      });
+      const user = factories.user({ authProfile: { displayName: 'Doe, John B.' } });
 
       expect(user.displayName).toEqual('John B. Doe');
     });
@@ -39,9 +31,7 @@ describe('User', () => {
 
   describe('isCoach', () => {
     it('returns the coach flag', () => {
-      const user = factories.user({
-        data: () => factories.authData({ isCoach: true }),
-      });
+      const user = factories.user({ isCoach: true });
 
       expect(user.isCoach).toEqual(true);
     });

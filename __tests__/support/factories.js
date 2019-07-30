@@ -1,3 +1,4 @@
+import nanoid from 'nanoid';
 import User from '../../src/User';
 
 export function authProfile(attributes = {}) {
@@ -17,6 +18,7 @@ export function authData(attributes = {}) {
     authProviders: {},
     isAssessmentComplete: true,
     isCoach: false,
+    isAdmin: false,
     ...attributes,
   };
 }
@@ -32,15 +34,13 @@ export function preauthorizationData(attributes = {}) {
 
 export function user(userAttributes = {}, preauthorizationAttributes = {}) {
   const userDoc = {
-    id: 'TEST-USER',
-    data: () => authData(),
-    ...userAttributes,
+    id: `TEST-USER-${nanoid(10)}`,
+    data: () => authData(userAttributes),
   };
 
   const preauthorizationDoc = {
-    id: 'TEST-PREAUTHORIZATION',
-    data: () => preauthorizationData(),
-    ...preauthorizationAttributes,
+    id: `TEST-PREAUTHORIZATION-${nanoid(10)}`,
+    data: () => preauthorizationData(preauthorizationAttributes),
   };
 
   return new User(userDoc, preauthorizationDoc);

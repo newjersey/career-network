@@ -53,12 +53,16 @@ export default class User {
     return this._isAssessmentComplete;
   }
 
+  get isAdmin() {
+    return !!this.userData.isAdmin;
+  }
+
   get isCoach() {
     return !!this.userData.isCoach;
   }
 
   get coachAssignments() {
-    return this.preauthorizationData.assignments;
+    return (this.preauthorizationData && this.preauthorizationData.assignments) || [];
   }
 
   // a bit hacky to update at runtime this way (vs. binding to DB) but quick and easy

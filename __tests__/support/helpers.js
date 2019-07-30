@@ -35,7 +35,7 @@ export function firebaseProviderWrapper() {
 /**
  * Adds a couple of users in Firebase and attaches a questionResponse to each of them
  */
-export async function createFirebaseUsers() {
+export async function createUsers() {
   const db = firebaseTestApp.firestore();
   const users = [
     await db.collection('users-test').add(factories.authData()),
@@ -54,4 +54,35 @@ export async function createFirebaseUsers() {
   await users[1].collection('questionResponses').add(factories.textResponse());
 
   return users.map(doc => doc.id);
+}
+
+/**
+ * Adds a couple of coaches in Firebase (isCoach == true && isAdmin == false)
+ */
+export async function createCoaches() {
+  const db = firebaseTestApp.firestore();
+  return [
+    await db.collection('users-test').add(
+      factories.authData({
+        authProfile: {
+          ...factories.authProfile(),
+          displayName: 'Martha Jones',
+          email: 'martha@example.org',
+        },
+        isCoach: true,
+        isAdmin: false,
+      })
+    ),
+    await db.collection('users-test').add(
+      factories.authData({
+        authProfile: {
+          ...factories.authProfile(),
+          displayName: 'Rose Tyler',
+          email: 'rose@example.org',
+        },
+        isCoach: true,
+        isAdmin: false,
+      })
+    ),
+  ];
 }

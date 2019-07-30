@@ -114,6 +114,11 @@ function Nav(props) {
       name: 'State Resources',
       shortName: 'Resources',
       show: true,
+    }, {
+      href: '/coach-assignments',
+      name: 'Coach Assignments',
+      shortName: 'Coach Assignments',
+      show: user && user.isAdmin,
     },
   ];
 
