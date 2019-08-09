@@ -84,6 +84,20 @@ export function textResponse(attributes = {}) {
   };
 }
 
+export function fileQuestion(attributes = {}) {
+  return {
+    fields: {
+      Group: ['recu5ai89STpot7mK'],
+      Name: 'A list of target companies',
+      'Helper Text': 'Short list of companies you want to work at',
+      'Order Within Group': 1,
+      'Response Type': 'File',
+    },
+    id: 'recNmYzzgSh9kFcd1',
+    ...attributes,
+  };
+}
+
 export function assessmentSection(attributes = {}) {
   return {
     id: 'recnn7wRBWqrk6Bst',
@@ -134,4 +148,10 @@ export function coachAssignments() {
       questionResponses: [{ data: () => textResponse() }],
     }),
   ];
+}
+
+export function textFile() {
+  return new File(['This is a test file.'], 'testFile.txt', {
+    type: 'text/plain',
+  });
 }
