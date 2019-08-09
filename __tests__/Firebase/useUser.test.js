@@ -1,7 +1,7 @@
 import React from 'react';
 import { renderHook } from '@testing-library/react-hooks';
 
-import { createCoaches, firebaseProviderWrapper } from '../support/helpers';
+import { createCoaches, firebaseProviderWrapper } from '../support/helpers.integration';
 import useUser from '../../components/Firebase/useUser';
 import User from '../../src/User';
 import firebaseTestApp from '../support/firebase-test-app';

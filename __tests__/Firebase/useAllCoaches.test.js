@@ -1,7 +1,7 @@
 import React from 'react';
 import { renderHook } from '@testing-library/react-hooks';
 
-import { createCoaches, firebaseProviderWrapper } from '../support/helpers';
+import { createCoaches, firebaseProviderWrapper } from '../support/helpers.integration';
 import useAllCoaches from '../../components/Firebase/useAllCoaches';
 import { env } from '../../next.config';
 

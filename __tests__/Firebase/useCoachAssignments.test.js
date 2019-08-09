@@ -2,7 +2,7 @@ import React from 'react';
 import { renderHook } from '@testing-library/react-hooks';
 
 import useCoachAssignments from '../../components/Firebase/useCoachAssignments';
-import { createUsers, firebaseProviderWrapper } from '../support/helpers';
+import { createUsers, firebaseProviderWrapper } from '../support/helpers.integration';
 import { env } from '../../next.config';
 
 describe('useCoachAssignments', () => {

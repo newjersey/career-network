@@ -7,6 +7,7 @@ module.exports = {
   setupFilesAfterEnv: [
     '<rootDir>/jest.setup.integration.js',
     '<rootDir>/__tests__/support/helpers.js',
+    '<rootDir>/__tests__/support/helpers.integration.js',
   ],
   testPathIgnorePatterns: [
     '<rootDir>/.next/',
