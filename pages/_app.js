@@ -6,6 +6,7 @@ import NProgress from 'nprogress';
 import React from 'react';
 import Router from 'next/router';
 
+import Error from './_error';
 import { SnackbarProvider } from '../components/Snackbar';
 import AuthProvider from '../components/Auth';
 import FirebaseProvider from '../components/Firebase';
@@ -20,6 +21,41 @@ Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
 class MyApp extends App {
+  constructor(...args) {
+    super(args);
+    this.state = { hasError: false };
+  }
+
+  static async getInitialProps({ Component, ctx }) {
+    try {
+      let pageProps = {};
+
+      if (Component.getInitialProps) {
+        pageProps = await Component.getInitialProps(ctx);
+      }
+
+      return { pageProps };
+    } catch (error) {
+      // TODO: send error to reporting system (Sentry, Rollbar, etc.)
+      return { hasError: true };
+    }
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    return {
+      hasError: props.hasError || state.hasError || false,
+    };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    // TODO: send error to reporting system (Sentry, Rollbar, etc.)
+    this.setState({ error, errorInfo });
+  }
+
   componentDidMount() {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
@@ -28,9 +64,7 @@ class MyApp extends App {
     }
   }
 
-  render() {
-    const { Component, pageProps } = this.props;
-
+  normalComponent(Component, pageProps) {
     return (
       <Container>
         <Head>
@@ -49,6 +83,16 @@ class MyApp extends App {
           </SnackbarProvider>
         </ThemeProvider>
       </Container>
+    );
+  }
+
+  render() {
+    const { Component, pageProps } = this.props;
+
+    return this.state.hasError ? (
+      <Error showHeader />
+    ) : (
+      this.normalComponent(Component, pageProps)
     );
   }
 }
