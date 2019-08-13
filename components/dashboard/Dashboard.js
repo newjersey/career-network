@@ -66,6 +66,7 @@ export default function Dashboard(props) {
     switch (type) {
       case 'Phone':
       case 'Email':
+      case 'Link':
       case 'Text':
       case 'Binary':
         predicateValue = constantValue;
@@ -74,6 +75,10 @@ export default function Dashboard(props) {
         [predicateValue] = optionValue;
         break;
       case 'Date':
+        // TODO
+        predicateValue = constantValue;
+        break;
+      case 'File':
         // TODO
         predicateValue = constantValue;
         break;
