@@ -25,9 +25,12 @@ function getDefaultValue(question, user) {
     case 'Phone':
     case 'Date':
     case 'Option':
+    case 'Link':
       return '';
     case 'Binary':
       return false;
+    case 'File':
+      return null;
     default:
       return undefined;
   }
@@ -125,6 +128,10 @@ function Question(props) {
       return <BinaryQuestion {...nonTextQuestionProps} />;
     case 'Option':
       return <OptionQuestion {...nonTextQuestionProps} responseOptions={responseOptions} />;
+    case 'Link':
+      return null; // TODO: implement a LinkQuestion component
+    case 'File':
+      return null; // TODO: implement a FileQuestion component
     default:
       return null;
   }
