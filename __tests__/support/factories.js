@@ -99,6 +99,21 @@ export function fileQuestion(attributes = {}) {
   };
 }
 
+export function linkQuestion(attributes = {}) {
+  return {
+    fields: {
+      Group: ['recu5ai89STpot7mK'],
+      Label: 'LinkedIn profile',
+      Name: 'Has LinkedIn profile',
+      'Helper Text': 'Professional page for you to create your personal brand',
+      'Order Within Group': 2,
+      'Response Type': 'Link',
+    },
+    id: 'recz0baLz92paeuFr',
+    ...attributes,
+  };
+}
+
 export function assessmentSection(attributes = {}) {
   return {
     id: 'recnn7wRBWqrk6Bst',

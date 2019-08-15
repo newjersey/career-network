@@ -37,6 +37,7 @@ const question = recordShape({
     'Binary',
     'Date',
     'File',
+    'Link',
   ]).isRequired,
   'Response Options': PropTypes.arrayOf(PropTypes.string),
   Group: PropTypes.arrayOf(PropTypes.string),

@@ -8,6 +8,7 @@ import FirebasePropTypes from '../../Firebase/PropTypes';
 import OptionQuestion from './OptionQuestion';
 import TextQuestion from './TextQuestion';
 import FileUploadQuestion from './FileUploadQuestion';
+import LinkQuestion from './LinkQuestion';
 
 function getDefaultValue(question, user) {
   // special cases
@@ -130,7 +131,7 @@ function Question(props) {
     case 'Option':
       return <OptionQuestion {...nonTextQuestionProps} responseOptions={responseOptions} />;
     case 'Link':
-      return null; // TODO: implement a LinkQuestion component
+      return <LinkQuestion {...nonTextQuestionProps} />;
     case 'File':
       return <FileUploadQuestion {...nonTextQuestionProps} />;
     default:
