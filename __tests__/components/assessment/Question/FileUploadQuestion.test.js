@@ -17,6 +17,7 @@ jest.mock('../../../../components/Firebase/useStorage', () => ({
 
 describe('<FileUploadQuestion />', () => {
   const props = {
+    onChange: jest.fn(),
     question: factories.fileQuestion(),
     value: undefined,
   };
@@ -41,6 +42,9 @@ describe('<FileUploadQuestion />', () => {
         factories.textFile(),
         expect.stringMatching(/assessments\/TEST-USER-/),
       );
+      expect(props.onChange).toHaveBeenCalledWith(
+        expect.stringMatching(/assessments\/TEST-USER-(.)*\/testFile\.txt/),
+      );
       getByText('testFile.txt');
       getByText('Remove');
     });
@@ -55,6 +59,7 @@ describe('<FileUploadQuestion />', () => {
 
     await wait(() => {
       expect(mockRemove).toHaveBeenCalledWith('assessments/TEST-USER-1/testFile.txt');
+      expect(props.onChange).toHaveBeenCalledWith('');
       getByText('A list of target companies');
       getByText('Short list of companies you want to work at');
       getByText('Upload');

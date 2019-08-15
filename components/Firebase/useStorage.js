@@ -8,10 +8,6 @@ export default function useStorage() {
   const { storage } = useFirebase();
 
   const upload = async (file, pathPrefix, metadata = undefined) => {
-    if (!file) {
-      return undefined;
-    }
-
     const filePath = path.join(pathPrefix, file.name);
 
     return storage

@@ -7,6 +7,7 @@ import BinaryQuestion from './BinaryQuestion';
 import FirebasePropTypes from '../../Firebase/PropTypes';
 import OptionQuestion from './OptionQuestion';
 import TextQuestion from './TextQuestion';
+import FileUploadQuestion from './FileUploadQuestion';
 
 function getDefaultValue(question, user) {
   // special cases
@@ -131,7 +132,7 @@ function Question(props) {
     case 'Link':
       return null; // TODO: implement a LinkQuestion component
     case 'File':
-      return null; // TODO: implement a FileQuestion component
+      return <FileUploadQuestion {...nonTextQuestionProps} />;
     default:
       return null;
   }

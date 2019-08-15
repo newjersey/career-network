@@ -88,7 +88,8 @@ export function fileQuestion(attributes = {}) {
   return {
     fields: {
       Group: ['recu5ai89STpot7mK'],
-      Name: 'A list of target companies',
+      Label: 'A list of target companies',
+      Name: 'Has a list of target companies',
       'Helper Text': 'Short list of companies you want to work at',
       'Order Within Group': 1,
       'Response Type': 'File',
