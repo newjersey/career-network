@@ -108,11 +108,12 @@ class Error extends React.Component {
 Error.propTypes = {
   showHeader: PropTypes.bool,
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  statusCode: PropTypes.number.isRequired,
+  statusCode: PropTypes.number,
 };
 
 Error.defaultProps = {
   showHeader: false,
+  statusCode: undefined,
 };
 
 export default withStyles(styles)(Error);
