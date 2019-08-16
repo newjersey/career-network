@@ -26,8 +26,8 @@ function DashboardPage() {
     allActionDispositionEvents,
   ) ? (
     <Dashboard
-      allQuestionResponses={allQuestionResponses || []}
-      allActionDispositionEvents={allActionDispositionEvents || []}
+      allQuestionResponses={allQuestionResponses}
+      allActionDispositionEvents={allActionDispositionEvents}
       {...recordProps}
     />
     ) : (

@@ -1,4 +1,5 @@
 import every from 'lodash/fp/every';
+import identity from 'lodash/fp/identity';
 
 /**
  * Checks that all values in the props are truthy, meaning they've loaded
@@ -13,5 +14,5 @@ export function allPropsLoaded(props) {
  * Accepts a list of arguments and returns true when they're all truthy
  */
 export function fullyLoaded(...items) {
-  return every(items);
+  return every(identity)(items);
 }
