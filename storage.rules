@@ -1,0 +1,28 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /assessments/{uid}/{image} {
+      // Allow read access to the user's folder
+      allow read: if request.auth.uid == uid
+      // Allow write access if file:
+      //   - resides in the user's folder
+      //   - does not exist already
+      //   - size does not exceeds 5MB
+      //   - matches one of the allowed mime types
+      allow write: if request.auth.uid == uid
+                   && resource == null
+                   && request.resource.size < 5 * 1024 * 1024
+                   && request.resource.contentType in ['application/msword',
+                                                       'application/pdf',
+                                                       'application/rtf',
+                                                       'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                                                       'application/vnd.oasis.opendocument.text',
+                                                       'image/jpeg',
+                                                       'image/png',
+                                                       'text/plain']
+      // Allow delete access
+      allow write: if request.auth.uid == uid && request.resource == null
+    }
+  }
+}
