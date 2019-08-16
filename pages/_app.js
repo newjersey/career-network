@@ -21,7 +21,7 @@ Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
 class MyApp extends App {
-  constructor(...args) {
+  constructor(args) {
     super(args);
     this.state = { hasError: false };
   }
