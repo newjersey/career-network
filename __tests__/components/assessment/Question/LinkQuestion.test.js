@@ -33,6 +33,20 @@ describe('<LinkQuestion />', () => {
     expect(getByTestId('linkInput').value).toEqual(testLink);
   });
 
+  it('sanitizes and replaces invalid or malicious links', async () => {
+    const blankPage = 'about:blank';
+    const { getByText, getByTestId } = renderWrapped(<LinkQuestion {...props} />);
+
+    fireEvent.click(getByText('Add Link'));
+    fireEvent.change(getByTestId('linkInput'), {
+      target: { value: 'javascript:alert(document.domain)' },
+    });
+    fireEvent.click(getByText('Add'));
+
+    getByText(blankPage);
+    expect(props.onChange).toHaveBeenCalledWith(blankPage);
+  });
+
   it('removes the current link and restores the UI to its initial state', async () => {
     const { getByText } = renderWrapped(<LinkQuestion {...props} value={testLink} />);
 

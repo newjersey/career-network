@@ -12,6 +12,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import TextField from '@material-ui/core/TextField';
 import DialogActions from '@material-ui/core/DialogActions';
 import { makeStyles } from '@material-ui/styles';
+import { sanitizeUrl } from '@braintree/sanitize-url';
 
 import AirtablePropTypes from '../../Airtable/PropTypes';
 
@@ -41,8 +42,13 @@ export default function LinkQuestion(props) {
   };
 
   const handleAddLink = () => {
-    setLink(linkInput);
-    onChange(linkInput);
+    if (!linkInput.trim()) {
+      return;
+    }
+
+    const sanitizedLink = sanitizeUrl(linkInput);
+    setLink(sanitizedLink);
+    onChange(sanitizedLink);
     setModalOpen(false);
   };
 
