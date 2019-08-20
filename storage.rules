@@ -2,7 +2,7 @@ rules_version = '2';
 
 service firebase.storage {
   match /b/{bucket}/o {
-    match /assessments/{uid}/{image} {
+    match /assessments/{uid}/{file} {
       // Allow read access to the user's folder
       allow read: if request.auth.uid == uid
       // Allow write access if file:
