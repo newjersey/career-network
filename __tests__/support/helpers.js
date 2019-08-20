@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import ThemeProvider from '@material-ui/styles/ThemeProvider';
+import { Table, TableBody } from '@material-ui/core';
 import theme from '../../src/theme';
 import AuthContext from '../../components/Auth/AuthContext';
 import * as factories from './factories';
@@ -26,4 +27,12 @@ export function renderWrapped(component) {
     setSnackbarMessage,
     ...renderResult,
   };
+}
+
+export function renderInTable(component) {
+  return renderWrapped(
+    <Table>
+      <TableBody>{component}</TableBody>
+    </Table>,
+  );
 }

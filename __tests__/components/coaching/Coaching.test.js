@@ -5,6 +5,11 @@ import { renderWrapped } from '../../support/helpers';
 import * as factories from '../../support/factories';
 import Coaching from '../../../components/coaching/Coaching';
 
+jest.mock('../../../components/Firebase/useStorage', () => ({
+  __esModule: true,
+  default: () => ({ download: jest.fn().mockResolvedValue('http://google.example.com/download') }),
+}));
+
 describe('<Coaching />', () => {
   const props = {
     assessmentSections: factories.assessmentSections(),

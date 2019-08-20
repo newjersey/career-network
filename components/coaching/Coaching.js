@@ -12,14 +12,12 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
 import TableBody from '@material-ui/core/TableBody';
 import Table from '@material-ui/core/Table';
-import dayjs from 'dayjs';
 
 import ScaffoldContainer from '../ScaffoldContainer';
 import CoachingPropTypes from './PropTypes';
+import ResponseValue from './ResponseValue';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -58,24 +56,6 @@ export default function Coaching(props) {
       return assessmentIds.includes(entry);
     })
     .map(response => response.data());
-
-
-  const responseValue = (response) => {
-    switch (response.question.fields['Response Type']) {
-      case 'Option': {
-        const responseOption = response.responseOptions.find(
-          option => option.id === response.value,
-        );
-        return responseOption.fields.Name;
-      }
-      case 'Binary':
-        return response.value ? 'Yes' : 'No';
-      case 'Date':
-        return dayjs(response.value).format('MM/DD/YYYY');
-      default:
-        return response.value;
-    }
-  };
 
   return (
     <div className={classes.root}>
@@ -125,17 +105,9 @@ export default function Coaching(props) {
                 <ExpansionPanelDetails>
                   <Table size="small">
                     <TableBody>
-                      {findByAssessment(section.fields['Assessment Entries'])
-                        .map(response => (
-                          <TableRow key={response.question.id}>
-                            <TableCell component="th" scope="row">
-                              <strong>{response.question.fields.Label}</strong>
-                            </TableCell>
-                            <TableCell>
-                              <span>{responseValue(response)}</span>
-                            </TableCell>
-                          </TableRow>
-                        ))}
+                      {findByAssessment(section.fields['Assessment Entries']).map(response => (
+                        <ResponseValue key={response.question.id} response={response} />
+                      ))}
                     </TableBody>
                   </Table>
                 </ExpansionPanelDetails>
