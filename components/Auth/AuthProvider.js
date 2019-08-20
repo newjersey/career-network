@@ -70,6 +70,10 @@ export default function AuthProvider(props) {
         updatedTimestamp: new Date(),
       };
 
+      if (additionalUserInfo.isNewUser) {
+        userData.isAdmin = false;
+      }
+
       userDocument(uid).set(userData, { merge: true });
     } catch (error) {
       // TODO: better error UX, and reporting solution
