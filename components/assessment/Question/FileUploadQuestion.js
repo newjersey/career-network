@@ -49,7 +49,11 @@ export default function FileUploadQuestion(props) {
       return;
     }
     try {
-      const uploadResult = await upload(file, `assessments/${user.uid}`);
+      const uploadResult = await upload(file, `assessments/${user.uid}`, {
+        customMetadata: {
+          assignedCoach: user.assignedCoach,
+        },
+      });
       setUploadedFile(uploadResult.ref.fullPath);
       onChange(uploadResult.ref.fullPath);
     } catch (error) {

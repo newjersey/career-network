@@ -64,6 +64,10 @@ export default class User {
     return this.userData.assignments || [];
   }
 
+  get assignedCoach() {
+    return this.userData.assignedCoach;
+  }
+
   // a bit hacky to update at runtime this way (vs. binding to DB) but quick and easy
   set isAssessmentComplete(isAssessmentComplete) {
     this._isAssessmentComplete = isAssessmentComplete;

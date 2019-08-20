@@ -102,11 +102,13 @@ export default function CoachAssignments(props) {
       updateUser(currentCoach.uid, {
         assignments: firebase.firestore.FieldValue.arrayUnion(uid),
       });
+      updateUser(uid, { assignedCoach: currentCoach.uid });
       dispatch({ type: 'add', coachUid: currentCoach.uid, uid });
     } else {
       updateUser(currentCoach.uid, {
         assignments: firebase.firestore.FieldValue.arrayRemove(uid),
       });
+      updateUser(uid, { assignedCoach: '' });
       dispatch({ type: 'remove', coachUid: currentCoach.uid, uid });
     }
   };

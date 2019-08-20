@@ -41,6 +41,7 @@ describe('<FileUploadQuestion />', () => {
       expect(mockUpload).toHaveBeenCalledWith(
         factories.textFile(),
         expect.stringMatching(/assessments\/TEST-USER-/),
+        { customMetadata: { assignedCoach: 'X3bB3bPIe1W4hmjEtck6Pf2A86x2' } },
       );
       expect(props.onChange).toHaveBeenCalledWith(
         expect.stringMatching(/assessments\/TEST-USER-(.)*\/testFile\.txt/),

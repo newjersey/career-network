@@ -23,6 +23,8 @@ service firebase.storage {
                                                        'text/plain']
       // Allow delete access
       allow write: if request.auth.uid == uid && request.resource == null
+      // Allow read access to the assigned coach via custom metadata in file
+      allow read: if request.auth.uid == resource.metadata.assignedCoach
     }
   }
 }

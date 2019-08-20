@@ -20,6 +20,7 @@ export function authData(attributes = {}) {
     isAssessmentComplete: true,
     isCoach: false,
     isAdmin: false,
+    assignedCoach: 'X3bB3bPIe1W4hmjEtck6Pf2A86x2',
     ...attributes,
   };
 }
