@@ -31,7 +31,7 @@
     "build": "npm run lint && next build",
     "clean": "rm -rf .next/ out/",
     "export": "npm run clean && npm run build && next export -o out && cp -R public/ out/",
-    "preview": "npm run export && cd out && serve",
+    "preview": "npm run export && firebase serve",
     "release": "git rev-parse --short HEAD | (read hash; gh-pages -t -d out -m \"Release at $hash\" )",
     "deploy": "npm run export && npm run release",
     "start": "next start"
@@ -54,8 +54,7 @@
     "husky": "^3.0.4",
     "lint-staged": "^9.2.5",
     "prettier": "1.18.2",
-    "pretty-quick": "^1.11.1",
-    "serve": "^11.0.1"
+    "pretty-quick": "^1.11.1"
   },
   "husky": {
     "hooks": {
