@@ -3,7 +3,7 @@ const env = process.env.NODE_ENV;
 const envConfig = {
   dev1: {
     airtable: {
-      apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/',
+      apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/app2XI6ZoEDPz09im/',
     },
     firebase: {
       apiKey: 'AIzaSyDybN2rwlC_Hwld0SJncFH8preMI4MXKic',
@@ -17,7 +17,7 @@ const envConfig = {
   },
   dev2: {
     airtable: {
-      apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/',
+      apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/appOhDXJ6s47Moc1D/',
     },
     firebase: {
       apiKey: 'AIzaSyDVlAiIhoIvBjCFbgai_70f823_7FiUkUQ',
@@ -31,7 +31,7 @@ const envConfig = {
   },
   ppe: {
     airtable: {
-      apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/',
+      apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/appEWbCvbVBF5ZtKr/',
     },
     firebase: {
       apiKey: 'AIzaSyDx21FkVqjXshORafAbzPvv2kACmXhATok',
@@ -45,7 +45,7 @@ const envConfig = {
   },
   production: {
     airtable: {
-      apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/',
+      apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/appPhpA6Quf0pCBDm/',
     },
     firebase: {
       apiKey: 'AIzaSyBW2hLAzSgdv72lKicKcW_j1c86enCi8uU',
