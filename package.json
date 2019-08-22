@@ -32,7 +32,7 @@
     "clean": "rm -rf .next/ out/",
     "export": "npm run clean && npm run build && next export -o out && cp -R public/ out/",
     "preview": "npm run export && firebase serve",
-    "release": "git rev-parse --short HEAD | (read hash; gh-pages -t -d out -m \"Release at $hash\" )",
+    "release": "git rev-parse --short HEAD | (read hash; firebase deploy -m \"Release at $hash\" )",
     "deploy": "npm run export && npm run release",
     "start": "next start"
   },
@@ -50,7 +50,6 @@
     "eslint-plugin-react-hooks": "^1.6.0",
     "eslint-plugin-sonarjs": "^0.4.0",
     "firebase-tools": "^7.2.4",
-    "gh-pages": "^2.0.1",
     "husky": "^3.0.4",
     "lint-staged": "^9.2.5",
     "prettier": "1.18.2",
