@@ -2,6 +2,7 @@ const env = process.env.NODE_ENV;
 
 const envConfig = {
   dev1: {
+    name: 'DEV1',
     airtable: {
       apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/app2XI6ZoEDPz09im/',
     },
@@ -16,6 +17,7 @@ const envConfig = {
     },
   },
   dev2: {
+    name: 'DEV2',
     airtable: {
       apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/appOhDXJ6s47Moc1D/',
     },
@@ -30,6 +32,7 @@ const envConfig = {
     },
   },
   ppe: {
+    name: 'PPE',
     airtable: {
       apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/appEWbCvbVBF5ZtKr/',
     },

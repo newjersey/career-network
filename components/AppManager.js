@@ -10,6 +10,7 @@ import Router from 'next/router';
 
 import { useAuth } from './Auth';
 import { useSnackbar } from './Snackbar';
+import EnvName from './EnvName';
 import Footer from './Footer';
 import Header from './Header';
 
@@ -51,6 +52,7 @@ export default function AppManager(props) {
 
   return (
     <React.Fragment>
+      {process.env.name && <EnvName />}
       <Header onSignOut={handleSignOut} user={user} />
       <main>{children}</main>
       <Footer />
