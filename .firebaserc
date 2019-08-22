@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "nj-career-network",
+    "production": "nj-career-network",
     "dev1": "nj-career-network-dev1",
     "dev2": "nj-career-network-dev2",
     "ppe": "nj-career-network-ppe"
