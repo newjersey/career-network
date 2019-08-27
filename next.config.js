@@ -1,4 +1,9 @@
-const env = process.env.NODE_ENV;
+const envVarName = 'APP_ENV';
+const env = process.env[envVarName] || null;
+
+if (!env) {
+  throw new Error(`Expected environment variable ${envVarName} not defined.`);
+}
 
 const envConfig = {
   dev1: {
