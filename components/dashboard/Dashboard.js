@@ -127,6 +127,7 @@ export default function Dashboard(props) {
       return null;
     }
 
+    // prettier-ignore
     return condition.fields.Predicates
       .map(predicateId => isTrue(predicateId))
       .reduce((a, b) => a || b, false);
@@ -134,6 +135,7 @@ export default function Dashboard(props) {
 
   // Whether or not all of a theory's conditions are satisfied by the current user.
   function isIndicated(theory) {
+    // prettier-ignore
     return debugMode
       ? true
       : (theory.fields.Conditions
