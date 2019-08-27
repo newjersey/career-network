@@ -4,7 +4,12 @@
     "es6": true,
     "node": true
   },
-  "extends": ["airbnb", "plugin:sonarjs/recommended"],
+  "extends": [
+    "airbnb",
+    "plugin:prettier/recommended",
+    "prettier/react",
+    "plugin:sonarjs/recommended"
+  ],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
