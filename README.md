@@ -2,6 +2,9 @@
 
 ## Development
 
+- Ensure `node` is installed
+- It is suggested to install an `eslint` plugin for your chosen editor
+
 Clone repo and run:
 
 ```sh
