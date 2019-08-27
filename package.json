@@ -29,7 +29,7 @@
   },
   "scripts": {
     "dev": "next",
-    "lint": "eslint components pages src",
+    "lint": "eslint .",
     "build": "npm run lint && next build",
     "clean": "rm -rf .next/ out/",
     "export": "npm run clean && npm run build && next export -o out && cp -R public/ out/",
