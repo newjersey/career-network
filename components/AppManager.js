@@ -52,7 +52,7 @@ export default function AppManager(props) {
 
   return (
     <React.Fragment>
-      {process.env.name && <EnvName />}
+      {process.env.showName && <EnvName />}
       <Header onSignOut={handleSignOut} user={user} />
       <main>{children}</main>
       <Footer />

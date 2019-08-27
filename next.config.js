@@ -3,6 +3,7 @@ const env = process.env.NODE_ENV;
 const envConfig = {
   dev1: {
     name: 'DEV1',
+    showName: true,
     airtable: {
       apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/app2XI6ZoEDPz09im/',
     },
@@ -18,6 +19,7 @@ const envConfig = {
   },
   dev2: {
     name: 'DEV2',
+    showName: true,
     airtable: {
       apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/appOhDXJ6s47Moc1D/',
     },
@@ -33,6 +35,7 @@ const envConfig = {
   },
   ppe: {
     name: 'PPE',
+    showName: true,
     airtable: {
       apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/appEWbCvbVBF5ZtKr/',
     },
@@ -46,7 +49,9 @@ const envConfig = {
       appId: '1:641946008142:web:c6d623bc79bc899e',
     },
   },
-  production: {
+  prod: {
+    name: 'PRODUCTION',
+    showName: false,
     airtable: {
       apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/appPhpA6Quf0pCBDm/',
     },
