@@ -65,7 +65,7 @@
     }
   },
   "lint-staged": {
-    "*": "pretty-quick --staged --no-restage",
-    "*.{js,jsx}": "eslint --fix"
+    "*": "pretty-quick --staged --no-restage --bail",
+    "*.{js,jsx}": "eslint"
   }
 }
