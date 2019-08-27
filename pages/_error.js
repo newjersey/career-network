@@ -83,21 +83,14 @@ class Error extends React.Component {
             </Typography>
             <Typography variant="body1">
               Our team has already been notified and will try to fix this issue as soon as possible.
-              If the problem persists, please
-              {' '}
+              If the problem persists, please{' '}
               <Link href="mailto:careers@gardenstate.tech?subject=Website Feedback">
                 contact us
               </Link>
               .
             </Typography>
             <br />
-            {statusCode && (
-              <Typography variant="body2">
-                Status Code:
-                {' '}
-                {statusCode}
-              </Typography>
-            )}
+            {statusCode && <Typography variant="body2">Status Code: {statusCode}</Typography>}
           </main>
         </ThemeProvider>
       </Container>

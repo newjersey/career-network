@@ -30,11 +30,7 @@ function NetworkItem(props) {
   return (
     <Card className={classes.card}>
       <CardActionArea>
-        <CardMedia
-          className={classes.cardMedia}
-          image={imgPath}
-          title={title}
-        />
+        <CardMedia className={classes.cardMedia} image={imgPath} title={title} />
         <CardContent className={classes.cardContent}>
           <Typography gutterBottom variant="h5" component="h3">
             {title}

@@ -56,34 +56,38 @@ function Question(props) {
   const [localValue, setLocalValue] = useState(value);
 
   // get options for radio / select
-  const responseOptions = responseOptionIds
-    && allQuestionResponseOptions.filter(responseOption => (
+  const responseOptions =
+    responseOptionIds &&
+    allQuestionResponseOptions.filter(responseOption =>
       responseOptionIds.includes(responseOption.id)
-    ));
+    );
 
-  const setValue = useCallback(async (_value) => {
-    const docRef = userDocRef.collection('questionResponses').doc(question.id);
-    const data = {
-      question, // save a copy of the question responded to
-      value: _value,
-    };
+  const setValue = useCallback(
+    async _value => {
+      const docRef = userDocRef.collection('questionResponses').doc(question.id);
+      const data = {
+        question, // save a copy of the question responded to
+        value: _value,
+      };
 
-    // save a copy of the question's options, if it has any
-    if (responseOptions) {
-      Object.assign(data, {
-        responseOptions,
-      });
-    }
+      // save a copy of the question's options, if it has any
+      if (responseOptions) {
+        Object.assign(data, {
+          responseOptions,
+        });
+      }
 
-    try {
-      return docRef.set(data);
-    } catch (error) {
-      // TODO: better error UX, and reporting solution
-      // eslint-disable-next-line no-alert
-      alert(`There was a problem saving your data:\n\n${error.message}`);
-      throw error;
-    }
-  }, [question, responseOptions, userDocRef]);
+      try {
+        return docRef.set(data);
+      } catch (error) {
+        // TODO: better error UX, and reporting solution
+        // eslint-disable-next-line no-alert
+        alert(`There was a problem saving your data:\n\n${error.message}`);
+        throw error;
+      }
+    },
+    [question, responseOptions, userDocRef]
+  );
 
   // set value in DB immediately if the user can't do it
   useEffect(() => {
@@ -138,16 +142,12 @@ function Question(props) {
 }
 
 function hideable(Component) {
-  return (props) => {
+  return props => {
     const { question } = props;
     const component = <Component {...props} />;
 
     if (question.fields.Hidden) {
-      return (
-        <Box display="none">
-          {component}
-        </Box>
-      );
+      return <Box display="none">{component}</Box>;
     }
 
     return component;

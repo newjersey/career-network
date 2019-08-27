@@ -134,15 +134,15 @@ export default function Dashboard(props) {
 
   // Whether or not all of a theory's conditions are satisfied by the current user.
   function isIndicated(theory) {
-    return debugMode ? true : theory.fields.Conditions
-      .map(conditionId => isSatisfied(conditionId))
-      .reduce((a, b) => a && b, true);
+    return debugMode
+      ? true
+      : (theory.fields.Conditions
+         .map(conditionId => isSatisfied(conditionId))
+         .reduce((a, b) => a && b, true));
   }
 
   function isActionDispositioned(action) {
-    return allActionDispositionEvents
-      .map(e => e.data().actionId)
-      .includes(action.id);
+    return allActionDispositionEvents.map(e => e.data().actionId).includes(action.id);
   }
 
   function getIndicatedActions(theory) {
@@ -176,22 +176,14 @@ export default function Dashboard(props) {
   return (
     <div className={classes.root}>
       <ScaffoldContainer>
-        <Grid
-          container
-          direction="row"
-          justify="space-between"
-          alignItems="flex-start"
-        >
+        <Grid container direction="row" justify="space-between" alignItems="flex-start">
           <Grid item>
             <Typography component="h1" variant="h2" gutterBottom>
-              Hi,
-              {' '}
-              {user && user.firstName}
-              !
+              Hi, {user && user.firstName}!
             </Typography>
             <Typography variant="subtitle1" gutterBottom className={classes.subtitle}>
-              Ready to take the next step in your career?
-              The steps below have been planned just for you; get started today!
+              Ready to take the next step in your career? The steps below have been planned just for
+              you; get started today!
             </Typography>
           </Grid>
           <Grid item>

@@ -14,7 +14,7 @@ import AppManager from '../components/AppManager';
 import theme from '../src/theme';
 
 // eslint-disable-next-line no-unused-vars
-Router.events.on('routeChangeStart', (url) => {
+Router.events.on('routeChangeStart', url => {
   NProgress.start();
 });
 Router.events.on('routeChangeComplete', () => NProgress.done());
@@ -89,11 +89,7 @@ class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props;
 
-    return this.state.hasError ? (
-      <Error showHeader />
-    ) : (
-      this.normalComponent(Component, pageProps)
-    );
+    return this.state.hasError ? <Error showHeader /> : this.normalComponent(Component, pageProps);
   }
 }
 

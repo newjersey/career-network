@@ -43,11 +43,7 @@ export default function AssessmentSectionList(props) {
   const classes = useStyles();
   const { scrollToY } = props;
   const [activeStep, setActiveStep] = useState(0);
-  const {
-    assessmentSections,
-    onComplete,
-    ...restProps
-  } = props;
+  const { assessmentSections, onComplete, ...restProps } = props;
 
   const handleNext = () => {
     setActiveStep(prevActiveStep => prevActiveStep + 1);
@@ -67,10 +63,8 @@ export default function AssessmentSectionList(props) {
     }
   }, [activeStep, assessmentSections, onComplete]);
 
-
   return (
     <div className={classes.root}>
-
       <Stepper activeStep={activeStep} className={classes.stepper}>
         {assessmentSections.map(section => (
           <Step key={section.id}>
@@ -84,10 +78,7 @@ export default function AssessmentSectionList(props) {
       <div>
         {activeStep !== assessmentSections.length && (
           <div>
-            <AssessmentSection
-              assessmentSection={assessmentSections[activeStep]}
-              {...restProps}
-            />
+            <AssessmentSection assessmentSection={assessmentSections[activeStep]} {...restProps} />
             <div className={classes.buttons}>
               {!!activeStep && (
                 <Button onClick={handleBack} className={classes.button}>
@@ -106,7 +97,6 @@ export default function AssessmentSectionList(props) {
           </div>
         )}
       </div>
-
     </div>
   );
 }

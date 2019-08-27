@@ -18,22 +18,22 @@ function DashboardPage() {
     allTheories: useRecords('appPhpA6Quf0pCBDm/Theories?view=API'),
   };
 
-  const fullyLoaded = user && Object.values(recordProps)
-    .map(array => array.length)
-    .reduce((accum, length) => accum && !!length, true)
-    && allQuestionResponses
-    && allActionDispositionEvents;
+  const fullyLoaded =
+    user &&
+    Object.values(recordProps)
+      .map(array => array.length)
+      .reduce((accum, length) => accum && !!length, true) &&
+    allQuestionResponses &&
+    allActionDispositionEvents;
 
-  return (fullyLoaded
-    ? (
-      <Dashboard
-        allQuestionResponses={allQuestionResponses}
-        allActionDispositionEvents={allActionDispositionEvents}
-        {...recordProps}
-      />
-    ) : (
-      <FullPageProgress />
-    )
+  return fullyLoaded ? (
+    <Dashboard
+      allQuestionResponses={allQuestionResponses}
+      allActionDispositionEvents={allActionDispositionEvents}
+      {...recordProps}
+    />
+  ) : (
+    <FullPageProgress />
   );
 }
 

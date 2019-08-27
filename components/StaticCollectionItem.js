@@ -31,9 +31,7 @@ function StaticCollectionItem(props) {
           <Typography gutterBottom variant="h5" component="h3" color="primary">
             {item.fields.Name}
           </Typography>
-          <Typography component="p">
-            {item.fields.Description}
-          </Typography>
+          <Typography component="p">{item.fields.Description}</Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>

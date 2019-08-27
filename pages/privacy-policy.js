@@ -17,10 +17,10 @@ function PrivacyPolicy() {
   return (
     <div className={classes.root}>
       <ScaffoldContainer>
-        <Typography variant="h3" component="h1">Privacy Policy</Typography>
-        <Typography variant="subtitle1">
-          State of New Jersey Privacy Notice
+        <Typography variant="h3" component="h1">
+          Privacy Policy
         </Typography>
+        <Typography variant="subtitle1">State of New Jersey Privacy Notice</Typography>
         <div>
           Thank you for visiting this site. By accessing this site, you accept these terms and conditions without limitation. The following notice applies to all websites of State agencies and departments listed at www.nj.gov/nj/deptserv.html in the Executive Branch of State government other than independent State agencies.
 
