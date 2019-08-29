@@ -33,7 +33,7 @@
     "env:ppe": "npm run env -- ppe",
     "env:prod": "npm run env -- prod",
     "lint": "eslint .",
-    "build": "npm run lint && next build",
+    "build": "npm run env && npm run lint && next build",
     "clean": "rm -rf .next/ out/",
     "export": "npm run clean && npm run build && next export -o out && cp -R public/ out/",
     "preview": "npm run export && firebase serve",

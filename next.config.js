@@ -1,7 +1,5 @@
-const fs = require('fs');
+const appEnv = require('./src/AppEnv');
 
-const APP_ENV_FILENAME = '.appenv';
-let appEnv;
 let env;
 
 const appEnvironments = {
@@ -72,16 +70,15 @@ const appEnvironments = {
 };
 
 try {
-  appEnv = fs.readFileSync(APP_ENV_FILENAME, 'utf8');
-  appEnv = appEnv.trim();
-  env = appEnvironments[appEnv];
+  const key = appEnv.read();
+  env = appEnvironments[key];
 
-  if (!appEnv) {
-    throw new Error(`Expected file ${APP_ENV_FILENAME} is empty`);
+  if (!key) {
+    throw new Error(`Application environment key is empty`);
   }
 
   if (!env) {
-    throw new Error(`File ${APP_ENV_FILENAME} contains unknown environment '${appEnv}'`);
+    throw new Error(`Unknown application environment '${key}'`);
   }
 } catch (err) {
   throw new Error(`${err.message} – do you need to run 'npm run env:X'?`);
