@@ -43,7 +43,7 @@ const appEnvironments = {
     },
     firebase: {
       apiKey: 'AIzaSyDx21FkVqjXshORafAbzPvv2kACmXhATok',
-      authDomain: 'nj-career-network-ppe.firebaseapp.com',
+      authDomain: 'auth.careers-preview.gardenstate.tech',
       databaseURL: 'https://nj-career-network-ppe.firebaseio.com',
       projectId: 'nj-career-network-ppe',
       storageBucket: '',
