@@ -1,11 +1,10 @@
-const envVarName = 'APP_ENV';
-const env = process.env[envVarName] || null;
+const fs = require('fs');
 
-if (!env) {
-  throw new Error(`Expected environment variable ${envVarName} not defined.`);
-}
+const APP_ENV_FILENAME = '.appenv';
+let appEnv;
+let env;
 
-const envConfig = {
+const appEnvironments = {
   dev1: {
     name: 'DEV1',
     showName: true,
@@ -70,8 +69,24 @@ const envConfig = {
       appId: '1:114141088298:web:ce96ec93a41e3d35',
     },
   },
-}[env];
+};
+
+try {
+  appEnv = fs.readFileSync(APP_ENV_FILENAME, 'utf8');
+  appEnv = appEnv.trim();
+  env = appEnvironments[appEnv];
+
+  if (!appEnv) {
+    throw new Error(`Expected file ${APP_ENV_FILENAME} is empty`);
+  }
+
+  if (!env) {
+    throw new Error(`File ${APP_ENV_FILENAME} contains unknown environment '${appEnv}'`);
+  }
+} catch (err) {
+  throw new Error(`${err.message} – do you need to run 'npm run env:X'?`);
+}
 
 module.exports = {
-  env: envConfig,
+  env,
 };

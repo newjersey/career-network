@@ -27,6 +27,11 @@
   },
   "scripts": {
     "dev": "next",
+    "env": "node scripts/env",
+    "env:dev1": "npm run env -- dev1",
+    "env:dev2": "npm run env -- dev2",
+    "env:ppe": "npm run env -- ppe",
+    "env:prod": "npm run env -- prod",
     "lint": "eslint .",
     "build": "npm run lint && next build",
     "clean": "rm -rf .next/ out/",
@@ -39,6 +44,7 @@
   "devDependencies": {
     "@material-ui/codemod": "^4.0.2",
     "babel-eslint": "^10.0.1",
+    "chalk": "^2.4.2",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^6.1.0",
@@ -52,6 +58,7 @@
     "firebase-tools": "^7.3.0",
     "husky": "^3.0.4",
     "lint-staged": "^9.2.5",
+    "node-cmd": "^3.0.0",
     "prettier": "1.18.2",
     "pretty-quick": "^1.11.1"
   },
