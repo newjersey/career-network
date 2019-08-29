@@ -17,11 +17,7 @@ export default function FirebaseProvider(props) {
     db,
   };
 
-  return (
-    <FirebaseContext.Provider value={value}>
-      {children}
-    </FirebaseContext.Provider>
-  );
+  return <FirebaseContext.Provider value={value}>{children}</FirebaseContext.Provider>;
 }
 
 FirebaseProvider.propTypes = {

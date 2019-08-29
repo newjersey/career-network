@@ -29,14 +29,13 @@ function Tools() {
   return (
     <div className={classes.root}>
       <ScaffoldContainer>
-        <Typography variant="h3" component="h1">Job Search Toolkit</Typography>
+        <Typography variant="h3" component="h1">
+          Job Search Toolkit
+        </Typography>
         <Typography variant="subtitle1">
           Multiple resources to make your job search more effective
         </Typography>
-        {categories.length
-          ? <StaticCollection categories={categories} />
-          : <FullPageProgress />
-        }
+        {categories.length ? <StaticCollection categories={categories} /> : <FullPageProgress />}
       </ScaffoldContainer>
     </div>
   );

@@ -54,9 +54,8 @@ function Resources() {
           buttonText="See your resources"
           onButtonClick={handleButtonClick}
         >
-          Get connected with Unemployment Insurance, find One-Stop Career Center
-          locations near you, explore social services, and find out more about
-          education and training.
+          Get connected with Unemployment Insurance, find One-Stop Career Center locations near you,
+          explore social services, and find out more about education and training.
         </SectionContent>
       </Grid>
     </Grid>

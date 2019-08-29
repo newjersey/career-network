@@ -14,15 +14,18 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 const jobSeeker = 'New Jersey Job Seeker';
 const steps = [
   {
-    quotation: 'The best advice I can give them is not to give up. Giving up is easy; moving forward through obstacles is hard. You can have the best resume, the most impressive background, and the sharpest interview skills, but there is no tool more important to the job search than perseverance.',
+    quotation:
+      'The best advice I can give them is not to give up. Giving up is easy; moving forward through obstacles is hard. You can have the best resume, the most impressive background, and the sharpest interview skills, but there is no tool more important to the job search than perseverance.',
     author: jobSeeker,
   },
   {
-    quotation: 'One important key to success is self-confidence. An important key to self-confidence is preparation.',
+    quotation:
+      'One important key to success is self-confidence. An important key to self-confidence is preparation.',
     author: 'Arthur Ashe',
   },
   {
-    quotation: 'Never stop growing a useful professional network, ask for help if you need it, and dedicate yourself to do something that moves you towards employment.',
+    quotation:
+      'Never stop growing a useful professional network, ask for help if you need it, and dedicate yourself to do something that moves you towards employment.',
     author: jobSeeker,
   },
   {
@@ -30,7 +33,8 @@ const steps = [
     author: 'Marva Collins',
   },
   {
-    quotation: 'Be ready to put the time in. Be honest with yourself about what areas you need to work on, such as interviewing or your resume, and do it! If you want the job, show your interest, and find ways to make parallels between what the company is looking for and what you can offer.',
+    quotation:
+      'Be ready to put the time in. Be honest with yourself about what areas you need to work on, such as interviewing or your resume, and do it! If you want the job, show your interest, and find ways to make parallels between what the company is looking for and what you can offer.',
     author: jobSeeker,
   },
 ];
@@ -82,10 +86,7 @@ function StoryStepper() {
                 <FormatQuote color="primary" className={classes.quoteIcon} />
                 <Typography variant="subtitle1">{step.quotation}</Typography>
                 <br />
-                <Typography variant="overline">
-                  —
-                  {step.author}
-                </Typography>
+                <Typography variant="overline">—{step.author}</Typography>
               </article>
             ) : null}
           </div>
@@ -96,16 +97,20 @@ function StoryStepper() {
         position="static"
         activeStep={activeStep}
         className={classes.mobileStepper}
-        nextButton={(
-          <Button onClick={handleNext} disabled={activeStep === maxSteps - 1} aria-label="Next quotation">
+        nextButton={
+          <Button
+            onClick={handleNext}
+            disabled={activeStep === maxSteps - 1}
+            aria-label="Next quotation"
+          >
             {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
           </Button>
-        )}
-        backButton={(
+        }
+        backButton={
           <Button onClick={handleBack} disabled={activeStep === 0} aria-label="Previous quotation">
             {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
           </Button>
-        )}
+        }
       />
     </div>
   );

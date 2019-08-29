@@ -18,10 +18,9 @@ function Plan() {
           title="Build a job search plan personalized just for you"
           buttonText="Start planning"
         >
-          Just answer a few questions, and we will help you build a job
-          search plan with goals and action items based on your unique
-          situation. No matter where you are in the job search process,
-          we will help you stay motivated and on track.
+          Just answer a few questions, and we will help you build a job search plan with goals and
+          action items based on your unique situation. No matter where you are in the job search
+          process, we will help you stay motivated and on track.
         </SectionContent>
       </Grid>
     </Grid>

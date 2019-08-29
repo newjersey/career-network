@@ -13,9 +13,7 @@ export default function SnackbarManager(props) {
     setIsOpen(!!message);
   }, [message]);
 
-  return (
-    <Snackbar message={message} isOpen={isOpen} onClose={handleClose} />
-  );
+  return <Snackbar message={message} isOpen={isOpen} onClose={handleClose} />;
 }
 
 SnackbarManager.propTypes = {

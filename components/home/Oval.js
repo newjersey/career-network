@@ -4,8 +4,7 @@ import React from 'react';
 
 // eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles(theme => ({
-  root: {
-  },
+  root: {},
 }));
 
 function Oval(props) {

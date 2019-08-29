@@ -16,7 +16,9 @@ function TOS() {
   return (
     <div className={classes.root}>
       <ScaffoldContainer>
-        <Typography variant="h3" component="h1">Terms of Service</Typography>
+        <Typography variant="h3" component="h1">
+          Terms of Service
+        </Typography>
       </ScaffoldContainer>
     </div>
   );

@@ -28,13 +28,17 @@ function Assessment() {
     allAssessmentEntries: useRecords('appPhpA6Quf0pCBDm/Assessment%20Entries?view=API'),
     allQuestions: useRecords('appPhpA6Quf0pCBDm/Questions?view=API'),
     allQuestionGroups: useRecords('appPhpA6Quf0pCBDm/Question%20Groups?view=API'),
-    allQuestionResponseOptions: useRecords('appPhpA6Quf0pCBDm/Question%20Response%20Options?view=API'),
+    allQuestionResponseOptions: useRecords(
+      'appPhpA6Quf0pCBDm/Question%20Response%20Options?view=API'
+    ),
   };
 
-  const fullyLoaded = user && Object.values(recordProps)
-    .map(array => array.length)
-    .reduce((accum, length) => accum && !!length, true)
-    && allQuestionResponses; // for initial hydration (use case: incomplete assessment)
+  const fullyLoaded =
+    user &&
+    Object.values(recordProps)
+      .map(array => array.length)
+      .reduce((accum, length) => accum && !!length, true) &&
+    allQuestionResponses; // for initial hydration (use case: incomplete assessment)
 
   const handleComplete = () => {
     setIsFinished(true);
@@ -44,7 +48,7 @@ function Assessment() {
     user.isAssessmentComplete = true;
   };
 
-  const scrollToRef = useCallback((node) => {
+  const scrollToRef = useCallback(node => {
     if (node !== null) {
       setScrollToY(node.offsetTop - 24);
     }
@@ -56,10 +60,7 @@ function Assessment() {
         {fullyLoaded && !isFinished ? (
           <React.Fragment>
             <Typography ref={scrollToRef} component="h1" variant="h2" gutterBottom>
-              Hi,
-              {' '}
-              {user && user.firstName}
-              !
+              Hi, {user && user.firstName}!
             </Typography>
 
             <AssessmentSectionList

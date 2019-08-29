@@ -29,18 +29,12 @@ function WhyItem(props) {
 
   return (
     <Card className={classes.card}>
-      <CardMedia
-        className={classes.cardMedia}
-        image={imgPath}
-        title={title}
-      />
+      <CardMedia className={classes.cardMedia} image={imgPath} title={title} />
       <CardContent className={classes.cardContent}>
         <Typography gutterBottom variant="subtitle2" component="h3">
           {title}
         </Typography>
-        <Typography>
-          {body}
-        </Typography>
+        <Typography>{body}</Typography>
       </CardContent>
     </Card>
   );
