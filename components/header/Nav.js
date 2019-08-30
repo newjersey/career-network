@@ -102,12 +102,6 @@ function Nav(props) {
       show: user && user.isAssessmentComplete,
     },
     {
-      href: '/#why',
-      name: 'Learn More',
-      shortName: 'Learn More',
-      show: !user,
-    },
-    {
       href: '/toolkit',
       name: 'Job Toolkit',
       shortName: 'Toolkit',
