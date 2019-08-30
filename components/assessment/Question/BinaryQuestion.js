@@ -19,7 +19,7 @@ export default function BinaryQuestion(props) {
     <FormControlLabel
       disabled={question.fields.Disabled}
       label={question.fields.Label}
-      control={(
+      control={
         <Checkbox
           color="primary"
           checked={value}
@@ -27,7 +27,7 @@ export default function BinaryQuestion(props) {
           inputRef={checkbox}
           onChange={e => onChange(e.target.checked)}
         />
-      )}
+      }
     />
   );
 }

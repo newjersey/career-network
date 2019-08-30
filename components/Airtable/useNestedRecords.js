@@ -16,7 +16,7 @@ export default function useNestedRecords(params) {
   useEffect(() => {
     parentRecords
       .filter(parent => parent.fields[childIdColumnName])
-      .forEach((parent) => {
+      .forEach(parent => {
         const childIds = parent.fields[childIdColumnName];
 
         // eslint-disable-next-line no-param-reassign

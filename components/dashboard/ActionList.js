@@ -14,16 +14,14 @@ function getResources(action, allResources, propName) {
 export default function ActionList(props) {
   const { actions, allResources } = props;
 
-  return (
-    actions.map(action => (
-      <Action
-        key={action.id}
-        action={action}
-        resources={getResources(action, allResources, 'Resources')}
-        elaborationResources={getResources(action, allResources, 'Elaboration Resources')}
-      />
-    ))
-  );
+  return actions.map(action => (
+    <Action
+      key={action.id}
+      action={action}
+      resources={getResources(action, allResources, 'Resources')}
+      elaborationResources={getResources(action, allResources, 'Elaboration Resources')}
+    />
+  ));
 }
 
 ActionList.propTypes = {

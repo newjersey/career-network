@@ -24,7 +24,9 @@ const useStyles = makeStyles(theme => ({
       },
     },
   },
-  withSpecificity: { /* NOOP */ },
+  withSpecificity: {
+    /* NOOP */
+  },
   category: {
     marginTop: theme.spacing(6),
   },
@@ -42,7 +44,9 @@ function StaticCollection(props) {
     <div className={classes.root}>
       {categories.map(category => (
         <React.Fragment key={category.id}>
-          <Typography variant="h4" component="h2" className={classes.category}>{category.fields.Name}</Typography>
+          <Typography variant="h4" component="h2" className={classes.category}>
+            {category.fields.Name}
+          </Typography>
           {category.fields.Description && (
             <Typography variant="body1" gutterBottom className={classes.description}>
               {category.fields.Description}
@@ -62,18 +66,22 @@ function StaticCollection(props) {
 }
 
 StaticCollection.propTypes = {
-  categories: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    fields: PropTypes.shape({
-      Name: PropTypes.string.isRequired,
-      Description: PropTypes.string,
-    }).isRequired,
-    items: PropTypes.arrayOf(PropTypes.shape({
+  categories: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
       fields: PropTypes.shape({
         Name: PropTypes.string.isRequired,
+        Description: PropTypes.string,
       }).isRequired,
-    }).isRequired).isRequired,
-  })).isRequired,
+      items: PropTypes.arrayOf(
+        PropTypes.shape({
+          fields: PropTypes.shape({
+            Name: PropTypes.string.isRequired,
+          }).isRequired,
+        }).isRequired
+      ).isRequired,
+    })
+  ).isRequired,
 };
 
 export default StaticCollection;

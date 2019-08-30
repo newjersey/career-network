@@ -11,12 +11,7 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import AuthForm from './AuthForm';
 
 function AuthDialog(props) {
-  const {
-    onCancel,
-    fullScreen,
-    open,
-    onSignInSuccessWithAuthResult,
-  } = props;
+  const { onCancel, fullScreen, open, onSignInSuccessWithAuthResult } = props;
 
   return (
     <Dialog
@@ -31,8 +26,8 @@ function AuthDialog(props) {
           Before we get started, please sign in using an account below.
           <br />
           <small>
-            We use this only for the purpose of authenticating
-            and won’t transfer or share information about you to a third-party.
+            We use this only for the purpose of authenticating and won’t transfer or share
+            information about you to a third-party.
           </small>
         </DialogContentText>
         <AuthForm onSignInSuccessWithAuthResult={onSignInSuccessWithAuthResult} />

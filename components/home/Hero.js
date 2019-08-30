@@ -45,12 +45,7 @@ function Hero() {
         We’ll guide you from start to finish
       </Typography>
       <Typography variant="h4" component="h1" className={classes.title}>
-        Get a
-        {' '}
-        <span className={classes.highlight}>personalized</span>
-        {' '}
-        career-search
-        {' '}
+        Get a <span className={classes.highlight}>personalized</span> career-search{' '}
         <span className={classes.highlight}>plan</span>
       </Typography>
 
