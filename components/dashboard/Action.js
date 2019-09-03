@@ -44,7 +44,7 @@ export default function Action(props) {
     <Typography variant="body1" component="li" style={{ fontWeight: 'bold', lineHeight: '3em' }}>
       {action.fields.Title}
       &nbsp;&nbsp;
-      <Button variant="contained" color="primary" size="small">
+      <Button variant="contained" color="primary" size="small" disabled={action.fields.Order > 1}>
         Start
       </Button>
     </Typography>
