@@ -5,23 +5,27 @@
 - Ensure `node` is installed
 - It is suggested to install an `eslint` plugin for your chosen editor
 
-Clone repo and run:
+Clone repo and run (specifying the desired environment, if not `dev1`):
 
 ```sh
 npm install
+npm run env:dev1
 npm run dev
 ```
 
 ## Deployment
 
-Clone repo:
+Clone repo and install:
 
 ```sh
 npm install
 ```
 
-Ensure you're on the master branch and your deployment destination is the `origin`
-remote.
+Specify the Firebase project to which you would like to deploy (`ppe` shown here as an example):
+
+```sh
+npm run env:ppe
+```
 
 (Optional) Preview the exported static site locally:
 
@@ -29,11 +33,8 @@ remote.
 npm run preview
 ```
 
-If all looks good, ship it to GitHub Pages.
+If all looks good, ship it:
 
 ```sh
 npm run deploy
 ```
-
-**NOTE**: If not deploying to GitHub Pages without a custom domain, see
-https://github.com/zeit/next.js/wiki/Deploying-a-Next.js-app-into-GitHub-Pages

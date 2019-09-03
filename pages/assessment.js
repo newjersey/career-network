@@ -24,13 +24,11 @@ function Assessment() {
   const [isFinished, setIsFinished] = useState(false);
   const { user, userDocRef } = useAuth();
   const recordProps = {
-    assessmentSections: useRecords('appPhpA6Quf0pCBDm/Assessment%20Sections?view=API'),
-    allAssessmentEntries: useRecords('appPhpA6Quf0pCBDm/Assessment%20Entries?view=API'),
-    allQuestions: useRecords('appPhpA6Quf0pCBDm/Questions?view=API'),
-    allQuestionGroups: useRecords('appPhpA6Quf0pCBDm/Question%20Groups?view=API'),
-    allQuestionResponseOptions: useRecords(
-      'appPhpA6Quf0pCBDm/Question%20Response%20Options?view=API'
-    ),
+    assessmentSections: useRecords('Assessment%20Sections?view=API'),
+    allAssessmentEntries: useRecords('Assessment%20Entries?view=API'),
+    allQuestions: useRecords('Questions?view=API'),
+    allQuestionGroups: useRecords('Question%20Groups?view=API'),
+    allQuestionResponseOptions: useRecords('Question%20Response%20Options?view=API'),
   };
 
   const fullyLoaded =
