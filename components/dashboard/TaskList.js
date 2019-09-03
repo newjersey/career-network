@@ -47,6 +47,7 @@ export default function TaskList(props) {
 
 TaskList.propTypes = {
   allActions: AirtablePropTypes.actions.isRequired,
+  allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
   allActionDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
   debugMode: PropTypes.bool.isRequired,
   tasks: AirtablePropTypes.tasks.isRequired,

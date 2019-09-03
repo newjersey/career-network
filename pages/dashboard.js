@@ -16,6 +16,7 @@ function DashboardPage() {
     allConditions: useRecords('Conditions?view=API'),
     allTasks: useRecords('Tasks?view=API'),
     allActions: useRecords('Actions?view=API'),
+    allQualityChecks: useRecords('Quality Checks?view=API'),
   };
 
   return fullyLoaded(

@@ -53,9 +53,7 @@ export default function Task(props) {
         <Typography variant="h5" component="h3">
           How?
         </Typography>
-        <Typography variant="body1" component="p">
-          <ActionList task={task} {...restProps} />
-        </Typography>
+        <ActionList task={task} {...restProps} />
       </CardContent>
     </Card>
   );
@@ -64,4 +62,5 @@ export default function Task(props) {
 Task.propTypes = {
   actions: AirtablePropTypes.actions.isRequired,
   task: AirtablePropTypes.task.isRequired,
+  allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
 };

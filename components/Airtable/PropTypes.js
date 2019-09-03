@@ -72,10 +72,12 @@ const action = recordShape({
   'Quality Check IDs': PropTypes.arrayOf(PropTypes.number),
 });
 
-const resource = recordShape({
-  Name: PropTypes.string.isRequired,
-  Description: PropTypes.string,
-  URL: PropTypes.string.isRequired,
+const qualityCheck = recordShape({
+  'Quality Check ID': PropTypes.number.isRequired,
+  'Action ID': PropTypes.arrayOf(PropTypes.number).isRequired,
+  Order: PropTypes.number.isRequired,
+  Imperative: PropTypes.string.isRequired,
+  Indicative: PropTypes.string.isRequired,
 });
 
 const task = recordShape({
@@ -137,6 +139,8 @@ export default {
   conditions: PropTypes.arrayOf(condition),
   predicate,
   predicates: PropTypes.arrayOf(predicate),
+  qualityCheck,
+  qualityChecks: PropTypes.arrayOf(qualityCheck),
   question,
   questions: PropTypes.arrayOf(question),
   questionGroup,
@@ -145,8 +149,6 @@ export default {
   questionResponseOptions: PropTypes.arrayOf(questionResponseOption),
   questionResponseOptionsControl,
   questionResponseNumberControl,
-  resource,
-  resources: PropTypes.arrayOf(resource),
   task,
   tasks: PropTypes.arrayOf(task),
 };

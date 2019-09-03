@@ -78,6 +78,7 @@ Dashboard.propTypes = {
   allConditions: AirtablePropTypes.conditions.isRequired,
   allPredicates: AirtablePropTypes.predicates.isRequired,
   allTasks: AirtablePropTypes.tasks.isRequired,
+  allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
   allActionDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
 };
