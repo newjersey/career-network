@@ -36,7 +36,7 @@ const appEnvironments = {
     },
   },
   ppe: {
-    name: 'PPE',
+    name: 'PREVIEW',
     showName: true,
     airtable: {
       apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/appEWbCvbVBF5ZtKr/',
