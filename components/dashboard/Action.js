@@ -1,4 +1,5 @@
 import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -11,6 +12,7 @@ import AirtablePropTypes from '../Airtable/PropTypes';
 
 export default function Action(props) {
   const [open, setOpen] = React.useState(false);
+  const [useIndicative, setUseIndicative] = React.useState(false);
 
   function handleClickOpen() {
     setOpen(true);
@@ -18,6 +20,14 @@ export default function Action(props) {
 
   function handleClose() {
     setOpen(false);
+  }
+
+  function handleDone() {
+    handleClose();
+  }
+
+  function handleCompleted() {
+    setUseIndicative(!useIndicative);
   }
 
   // const classes = useStyles();
@@ -29,6 +39,20 @@ export default function Action(props) {
   const qualityChecks = allQualityChecks.filter(
     qc => action.fields['Action ID'] === qc.fields['Action ID'][0]
   );
+
+  const defaultVerifications = new Array(qualityChecks.length);
+  defaultVerifications.fill(false);
+
+  const [verifications, setVerifications] = React.useState(defaultVerifications);
+
+  console.log(verifications.length);
+  const allVerified = verifications.reduce((a, b) => a && b, true);
+
+  function handleVerify(i, event) {
+    const newVerifications = [...verifications];
+    newVerifications[i] = event.target.checked;
+    setVerifications(newVerifications);
+  }
 
   // function handleExpandClick() {
   //   setExpanded(!expanded);
@@ -94,20 +118,42 @@ export default function Action(props) {
             </Linkify>
           </Typography>
           <br />
-          <Typography>Be sure to:</Typography>
-          <ul>
-            {qualityChecks.map(qc => (
+          <Typography>{useIndicative ? 'I verify that:' : 'Be sure to:'}</Typography>
+          <ul
+            style={{
+              listStyle: useIndicative ? 'none' : 'initial',
+              paddingLeft: useIndicative ? 0 : '40px',
+            }}
+          >
+            {qualityChecks.map((qc, i) => (
               <Typography component="li" key={qc.id}>
-                {qc.fields.Imperative}
+                {useIndicative && (
+                  <Checkbox
+                    checked={!!verifications[i]}
+                    onChange={event => handleVerify(i, event)}
+                    color="secondary"
+                    inputProps={{
+                      'aria-label': 'secondary checkbox',
+                    }}
+                  />
+                )}
+                {useIndicative ? qc.fields.Indicative : qc.fields.Imperative}
               </Typography>
             ))}
           </ul>
         </DialogContent>
         <DialogActions>
+          {!useIndicative && (
+            <Button onClick={handleCompleted} color="primary" autoFocus>
+              Completed
+            </Button>
+          )}
+          {allVerified && (
+            <Button onClick={handleDone} color="secondary" autoFocus>
+              Done!
+            </Button>
+          )}
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose} color="primary" autoFocus>
-            Completed
-          </Button>
         </DialogActions>
       </Dialog>
     </div>
