@@ -1,30 +1,35 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-console */
 const chalk = require('chalk');
-const cmd = require('node-cmd');
+const execa = require('execa');
 const appEnv = require('../src/AppEnv');
 
 const env = process.argv[2];
 const { log } = console;
 
-if (env) {
+const set = async () => {
   log(`Switching environment to: ${chalk.green(env)}`);
 
-  // switch Firebase project
-  cmd.get(`firebase use ${env}`, (err, data) => {
-    if (err) {
-      log(chalk.red(err));
-    }
+  try {
+    // switch Firebase project
+    const { stdout } = await execa('firebase', ['use', env]);
+    log(stdout);
 
-    if (data) {
-      log(data);
+    // switch local config
+    appEnv.write(env);
 
-      // switch local config
-      appEnv.write(env);
+    log('Restart the server to see the changes in effect.');
+  } catch (err) {
+    log(chalk.red(err));
+  }
+};
 
-      log('Restart the server to see the changes in effect.');
-    }
-  });
-} else {
+const get = () => {
   log(`Current environment is: ${chalk.blue(appEnv.read())}`);
+};
+
+if (env) {
+  set();
+} else {
+  get();
 }
