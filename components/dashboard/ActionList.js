@@ -1,17 +1,46 @@
 import React from 'react';
+import Typography from '@material-ui/core/Typography';
 
-import AirtablePropTypes from '../Airtable/PropTypes';
 import Action from './Action';
+import AirtablePropTypes from '../Airtable/PropTypes';
 
 export default function ActionList(props) {
   const { actions, ...restProps } = props;
 
+  const defaultDones = new Array(actions.length);
+  defaultDones.fill(false);
+
+  const [dones, setDones] = React.useState(defaultDones);
+  const allDone = dones.reduce((a, b) => a && b, true);
+
+  function onDone(i) {
+    const newDones = [...dones];
+    newDones[i] = true;
+    setDones(newDones);
+  }
+
   return (
-    <ol>
-      {actions.map(action => (
-        <Action key={action.id} action={action} {...restProps} />
-      ))}
-    </ol>
+    <div>
+      <ol>
+        {actions.map((action, i) => (
+          <Action
+            key={action.id}
+            action={action}
+            disabled={i > 0 && !dones[i - 1]}
+            onDone={() => onDone(i)}
+            {...restProps}
+          />
+        ))}
+      </ol>
+      {allDone && (
+        <center>
+          {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
+          <Typography variant="h3" color="secondary">
+            🎉&nbsp;&nbsp;<em>You finished this task—great job!</em>&nbsp;&nbsp;🥳
+          </Typography>
+        </center>
+      )}
+    </div>
   );
 }
 

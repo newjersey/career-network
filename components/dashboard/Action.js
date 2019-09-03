@@ -5,6 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Linkify from 'linkifyjs/react';
+import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
@@ -13,6 +14,13 @@ import AirtablePropTypes from '../Airtable/PropTypes';
 export default function Action(props) {
   const [open, setOpen] = React.useState(false);
   const [useIndicative, setUseIndicative] = React.useState(false);
+  const [done, setDone] = React.useState(false);
+
+  // const classes = useStyles();
+  // const showMessage = useSnackbar();
+  // const { userDocRef } = useAuth();
+  // const [expanded, setExpanded] = React.useState(false);
+  const { action, allQualityChecks, disabled, onDone } = props;
 
   function handleClickOpen() {
     setOpen(true);
@@ -24,17 +32,13 @@ export default function Action(props) {
 
   function handleDone() {
     handleClose();
+    setDone(true);
+    onDone();
   }
 
   function handleCompleted() {
     setUseIndicative(!useIndicative);
   }
-
-  // const classes = useStyles();
-  // const showMessage = useSnackbar();
-  // const { userDocRef } = useAuth();
-  // const [expanded, setExpanded] = React.useState(false);
-  const { action, allQualityChecks } = props;
 
   const qualityChecks = allQualityChecks.filter(
     qc => action.fields['Action ID'] === qc.fields['Action ID'][0]
@@ -44,8 +48,6 @@ export default function Action(props) {
   defaultVerifications.fill(false);
 
   const [verifications, setVerifications] = React.useState(defaultVerifications);
-
-  console.log(verifications.length);
   const allVerified = verifications.reduce((a, b) => a && b, true);
 
   function handleVerify(i, event) {
@@ -88,15 +90,21 @@ export default function Action(props) {
       <Typography variant="body1" component="li" style={{ fontWeight: 'bold', lineHeight: '3em' }}>
         {action.fields.Title}
         &nbsp;&nbsp;
-        <Button
-          variant="contained"
-          color="primary"
-          size="small"
-          onClick={handleClickOpen}
-          disabled={action.fields.Order > 1}
-        >
-          Start
-        </Button>
+        {done ? (
+          <Button variant="outlined" color="secondary" size="small" onClick={handleClickOpen}>
+            Done!
+          </Button>
+        ) : (
+          <Button
+            variant="contained"
+            color="primary"
+            size="small"
+            onClick={handleClickOpen}
+            disabled={disabled}
+          >
+            Start
+          </Button>
+        )}
       </Typography>
 
       <Dialog
@@ -163,4 +171,6 @@ export default function Action(props) {
 Action.propTypes = {
   action: AirtablePropTypes.action.isRequired,
   allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  onDone: PropTypes.func.isRequired,
 };
