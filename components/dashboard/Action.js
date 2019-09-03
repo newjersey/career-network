@@ -8,10 +8,11 @@ import Linkify from 'linkifyjs/react';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 
 import AirtablePropTypes from '../Airtable/PropTypes';
 
-export default function Action(props) {
+function Action(props) {
   const [open, setOpen] = React.useState(false);
   const [useIndicative, setUseIndicative] = React.useState(false);
   const [done, setDone] = React.useState(false);
@@ -20,7 +21,7 @@ export default function Action(props) {
   // const showMessage = useSnackbar();
   // const { userDocRef } = useAuth();
   // const [expanded, setExpanded] = React.useState(false);
-  const { action, allQualityChecks, disabled, onDone } = props;
+  const { action, allQualityChecks, disabled, fullScreen, onDone } = props;
 
   function handleClickOpen() {
     setOpen(true);
@@ -87,7 +88,11 @@ export default function Action(props) {
 
   return (
     <div>
-      <Typography variant="body1" component="li" style={{ fontWeight: 'bold', lineHeight: '3em' }}>
+      <Typography
+        variant="body1"
+        component="li"
+        style={{ fontWeight: 'bold', lineHeight: '3em', color: disabled ? 'darkgray' : 'initial' }}
+      >
         {action.fields.Title}
         &nbsp;&nbsp;
         {done ? (
@@ -108,6 +113,7 @@ export default function Action(props) {
       </Typography>
 
       <Dialog
+        fullScreen={fullScreen}
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
@@ -125,6 +131,15 @@ export default function Action(props) {
               {action.fields.How}
             </Linkify>
           </Typography>
+          {action.fields.Screenshot &&
+            action.fields.Screenshot.map(screenshot => (
+              <img
+                src={screenshot.thumbnails.large.url}
+                alt="Screenshot"
+                key={screenshot.id}
+                style={{ marginTop: '1em', marginBottom: '1em', maxWidth: '100%' }}
+              />
+            ))}
           <br />
           <Typography>{useIndicative ? 'I verify that:' : 'Be sure to:'}</Typography>
           <ul
@@ -134,7 +149,11 @@ export default function Action(props) {
             }}
           >
             {qualityChecks.map((qc, i) => (
-              <Typography component="li" key={qc.id}>
+              <Typography
+                component="li"
+                key={qc.id}
+                style={{ minHeight: i < qualityChecks.length - 1 ? '2.75em' : 0 }}
+              >
                 {useIndicative && (
                   <Checkbox
                     checked={!!verifications[i]}
@@ -169,8 +188,11 @@ export default function Action(props) {
 }
 
 Action.propTypes = {
+  fullScreen: PropTypes.bool.isRequired,
   action: AirtablePropTypes.action.isRequired,
   allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
   disabled: PropTypes.bool.isRequired,
   onDone: PropTypes.func.isRequired,
 };
+
+export default withMobileDialog()(Action);
