@@ -1,9 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
 import Grid from '@material-ui/core/Grid';
-import React, { useState } from 'react';
-import Switch from '@material-ui/core/Switch';
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { useAuth } from '../Auth';
@@ -25,7 +22,6 @@ const useStyles = makeStyles(theme => ({
 // eslint-disable-next-line sonarjs/cognitive-complexity
 export default function Dashboard(props) {
   const classes = useStyles();
-  const [debugMode, setDebugMode] = useState(false);
   const { user } = useAuth();
   const {
     allConditions,
@@ -37,124 +33,6 @@ export default function Dashboard(props) {
     ...restProps
   } = props;
 
-  // Whether or not a predicate evaluates to true for the curent user.
-  function isTrue(predicateId) {
-    const predicate = allPredicates.find(_predicate => _predicate.id === predicateId);
-
-    if (!predicate) {
-      // TODO: log warning (likely indicates a misconfiguration)
-      return undefined;
-    }
-
-    const questionId = predicate.fields.Question[0];
-    const questionResponse = allQuestionResponses.find(qr => qr.id === questionId);
-
-    if (!questionResponse) {
-      // expected if user hasn't answered this predicate's question
-      // TODO: log at debug-level
-      return null;
-    }
-
-    const {
-      Name: name,
-      'Question Response Type': type,
-      'Constant Value': constantValue,
-      'Option Value': optionValue,
-    } = predicate.fields;
-    let responseValue = questionResponse.data().value;
-    let predicateValue;
-
-    switch (type) {
-      case 'Phone':
-      case 'Email':
-      case 'Link':
-      case 'Text':
-      case 'Binary':
-        predicateValue = constantValue;
-        break;
-      case 'Option':
-        [predicateValue] = optionValue;
-        break;
-      case 'Date':
-        predicateValue = new TimeDistanceParser(constantValue).parse();
-        break;
-      case 'File':
-        // TODO
-        predicateValue = constantValue;
-        break;
-      case 'Number':
-        predicateValue = constantValue.includes('.')
-          ? parseFloat(constantValue)
-          : parseInt(constantValue, 10);
-        responseValue = responseValue.includes('.')
-          ? parseFloat(responseValue)
-          : parseInt(responseValue, 10);
-        break;
-      default:
-        throw new Error(`Unexpected question response type in predicate "${name}": "${type}"`);
-    }
-
-    const { Operator: operator } = predicate.fields;
-
-    switch (operator) {
-      case 'TRUE':
-        return !!responseValue;
-      case 'FALSE':
-        return !responseValue;
-      case 'is':
-        return responseValue === predicateValue;
-      case 'is not':
-        return responseValue !== predicateValue;
-      case '<':
-        return responseValue < predicateValue;
-      case '>':
-        return responseValue > predicateValue;
-      case 'contains':
-        return new RegExp(predicateValue, 'i').test(responseValue);
-      case 'does not contain':
-        return !new RegExp(predicateValue, 'i').test(responseValue);
-      default:
-        throw new Error(`Unexpected predicate operator: ${operator}`);
-    }
-  }
-
-  // Whether or not any of a condition's predicates are true for the current user.
-  function isSatisfied(conditionId) {
-    const condition = allConditions.find(_condition => _condition.id === conditionId);
-
-    if (!condition) {
-      // TODO: log warning (likely indicates a misconfiguration)
-      return null;
-    }
-
-    // prettier-ignore
-    return condition.fields.Predicates
-      .map(predicateId => isTrue(predicateId))
-      .reduce((a, b) => a || b, false);
-  }
-
-  // Whether or not all of a task's conditions are satisfied by the current user.
-  function isIndicated(task) {
-    // prettier-ignore
-    return debugMode
-      ? true
-      : (task.fields.Conditions
-         .map(conditionId => isSatisfied(conditionId))
-         .reduce((a, b) => a && b, true));
-  }
-
-  function isActionDispositioned(action) {
-    return allActionDispositionEvents.map(e => e.data().actionId).includes(action.id);
-  }
-
-  function getIndicatedActions(task) {
-    return allActions.filter(action => task.fields.Actions.includes(action.id));
-  }
-
-  function getNonDispositionedActions(task) {
-    return getIndicatedActions(task).filter(action => !isActionDispositioned(action));
-  }
-
   // function hasNonDispositionedActions(task) {
   //   return debugMode ? true : !!getNonDispositionedActions(task).length;
   // }
@@ -165,15 +43,6 @@ export default function Dashboard(props) {
   //   .filter(task => isIndicated(task))
   //   .filter(task => hasNonDispositionedActions(task))
   //   .slice(0, showMax);
-
-  const actionCount = 999; // || tasks.map(task => getNonDispositionedActions(task).length).reduce((a, b) => a + b, 0);
-
-  const totalActionCount =
-    999 ||
-    allTasks
-      .filter(task => isIndicated(task))
-      .map(task => getNonDispositionedActions(task).length)
-      .reduce((a, b) => a + b, 0);
 
   return (
     <div className={classes.root}>
@@ -189,24 +58,14 @@ export default function Dashboard(props) {
             </Typography>
           </Grid>
           <Grid item>
-            <Typography variant="subtitle2">
-              {`Showing ${actionCount} of ${totalActionCount}`}
-            </Typography>
-            <FormGroup row>
-              <FormControlLabel
-                label="Show all"
-                control={
-                  <Switch checked={debugMode} onChange={e => setDebugMode(e.target.checked)} />
-                }
-              />
-            </FormGroup>
+            <Typography variant="subtitle2">{`Showing all ${allTasks.length}`} tasks</Typography>
           </Grid>
         </Grid>
         <TaskList
           tasks={allTasks}
           allActions={allActions}
           allActionDispositionEvents={allActionDispositionEvents}
-          debugMode={debugMode}
+          debugMode
           {...restProps}
         />
       </ScaffoldContainer>
