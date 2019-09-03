@@ -10,7 +10,7 @@ import { useAuth } from '../Auth';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import FirebasePropTypes from '../Firebase/PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
-import TheoryList from './TheoryList';
+import TaskList from './TaskList';
 import TimeDistanceParser from '../../src/time-distance-parser';
 
 const useStyles = makeStyles(theme => ({
@@ -30,7 +30,7 @@ export default function Dashboard(props) {
   const {
     allConditions,
     allPredicates,
-    allTheories,
+    allTasks,
     allQuestionResponses,
     allActions,
     allActionDispositionEvents,
@@ -133,12 +133,12 @@ export default function Dashboard(props) {
       .reduce((a, b) => a || b, false);
   }
 
-  // Whether or not all of a theory's conditions are satisfied by the current user.
-  function isIndicated(theory) {
+  // Whether or not all of a task's conditions are satisfied by the current user.
+  function isIndicated(task) {
     // prettier-ignore
     return debugMode
       ? true
-      : (theory.fields.Conditions
+      : (task.fields.Conditions
          .map(conditionId => isSatisfied(conditionId))
          .reduce((a, b) => a && b, true));
   }
@@ -147,33 +147,33 @@ export default function Dashboard(props) {
     return allActionDispositionEvents.map(e => e.data().actionId).includes(action.id);
   }
 
-  function getIndicatedActions(theory) {
-    return allActions.filter(action => theory.fields.Actions.includes(action.id));
+  function getIndicatedActions(task) {
+    return allActions.filter(action => task.fields.Actions.includes(action.id));
   }
 
-  function getNonDispositionedActions(theory) {
-    return getIndicatedActions(theory).filter(action => !isActionDispositioned(action));
+  function getNonDispositionedActions(task) {
+    return getIndicatedActions(task).filter(action => !isActionDispositioned(action));
   }
 
-  function hasNonDispositionedActions(theory) {
-    return debugMode ? true : !!getNonDispositionedActions(theory).length;
-  }
+  // function hasNonDispositionedActions(task) {
+  //   return debugMode ? true : !!getNonDispositionedActions(task).length;
+  // }
 
   // take the top four (arbitrary, looks good in columns)
-  const showMax = debugMode ? 99999 : 4;
-  const theories = allTheories
-    .filter(theory => isIndicated(theory))
-    .filter(theory => hasNonDispositionedActions(theory))
-    .slice(0, showMax);
+  // const showMax = debugMode ? 99999 : 4;
+  // const tasks = allTasks
+  //   .filter(task => isIndicated(task))
+  //   .filter(task => hasNonDispositionedActions(task))
+  //   .slice(0, showMax);
 
-  const actionCount = theories
-    .map(theory => getNonDispositionedActions(theory).length)
-    .reduce((a, b) => a + b, 0);
+  const actionCount = 999; // || tasks.map(task => getNonDispositionedActions(task).length).reduce((a, b) => a + b, 0);
 
-  const totalActionCount = allTheories
-    .filter(theory => isIndicated(theory))
-    .map(theory => getNonDispositionedActions(theory).length)
-    .reduce((a, b) => a + b, 0);
+  const totalActionCount =
+    999 ||
+    allTasks
+      .filter(task => isIndicated(task))
+      .map(task => getNonDispositionedActions(task).length)
+      .reduce((a, b) => a + b, 0);
 
   return (
     <div className={classes.root}>
@@ -202,8 +202,8 @@ export default function Dashboard(props) {
             </FormGroup>
           </Grid>
         </Grid>
-        <TheoryList
-          theories={theories}
+        <TaskList
+          tasks={allTasks}
           allActions={allActions}
           allActionDispositionEvents={allActionDispositionEvents}
           debugMode={debugMode}
@@ -218,8 +218,7 @@ Dashboard.propTypes = {
   allActions: AirtablePropTypes.actions.isRequired,
   allConditions: AirtablePropTypes.conditions.isRequired,
   allPredicates: AirtablePropTypes.predicates.isRequired,
-  allResources: AirtablePropTypes.resources.isRequired,
-  allTheories: AirtablePropTypes.theories.isRequired,
+  allTasks: AirtablePropTypes.tasks.isRequired,
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
   allActionDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
 };

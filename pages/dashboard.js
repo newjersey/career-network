@@ -12,11 +12,10 @@ function DashboardPage() {
   const allQuestionResponses = useUserSubcollection('questionResponses');
   const allActionDispositionEvents = useUserSubcollection('actionDispositionEvents');
   const recordProps = {
-    allActions: useRecords('Actions?view=API'),
-    allConditions: useRecords('Conditions?view=API'),
     allPredicates: useRecords('Predicates?view=API'),
-    allResources: useRecords('Resources?view=API%20Dashboard'),
-    allTheories: useRecords('Theories?view=API'),
+    allConditions: useRecords('Conditions?view=API'),
+    allTasks: useRecords('Tasks?view=API'),
+    allActions: useRecords('Actions?view=API'),
   };
 
   return fullyLoaded(
