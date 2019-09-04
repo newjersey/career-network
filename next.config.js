@@ -81,7 +81,7 @@ const appEnvironments = {
 };
 
 try {
-  const key = appEnv.read();
+  const key = process.env.NODE_ENV === 'test' ? 'test' : appEnv.read();
   env = appEnvironments[key];
 
   if (!key) {
