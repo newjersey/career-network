@@ -105,13 +105,13 @@ function Nav(props) {
       href: '/toolkit',
       name: 'Job Toolkit',
       shortName: 'Toolkit',
-      show: true,
+      show: false,
     },
     {
       href: '/resources',
       name: 'State Resources',
       shortName: 'Resources',
-      show: true,
+      show: false,
     },
   ];
 
