@@ -90,7 +90,7 @@ class Error extends React.Component {
               .
             </Typography>
             <br />
-            {statusCode && <Typography variant="body2">Status Code: {statusCode}</Typography>}
+            {statusCode && <Typography variant="body2">Status Code:{statusCode}</Typography>}
           </main>
         </ThemeProvider>
       </Container>

@@ -22,3 +22,6 @@ out
 # Firebase
 /.firebase
 firebase-debug.log
+
+# testing
+/**/coverage
