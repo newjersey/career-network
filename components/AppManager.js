@@ -10,6 +10,7 @@ import Router from 'next/router';
 
 import { useAuth } from './Auth';
 import { useSnackbar } from './Snackbar';
+import EnvName from './EnvName';
 import Footer from './Footer';
 import Header from './Header';
 
@@ -27,7 +28,8 @@ export default function AppManager(props) {
   useEffect(() => {
     if (user) {
       showMessage('Signed in');
-    } else if (wasSignedIn) { // Check wasSignedIn, else block will fire upon initial page load.
+    } else if (wasSignedIn) {
+      // Check wasSignedIn, else block will fire upon initial page load.
       showMessage('Signed out');
     }
   }, [showMessage, user, wasSignedIn]);
@@ -41,7 +43,9 @@ export default function AppManager(props) {
         url = '/dashboard';
       }
 
-      (async () => { cleanupRef.current = Router.push(url); })();
+      (async () => {
+        cleanupRef.current = Router.push(url);
+      })();
     }
 
     return () => {
@@ -53,10 +57,9 @@ export default function AppManager(props) {
 
   return (
     <React.Fragment>
+      {process.env.showName && <EnvName />}
       <Header onSignOut={handleSignOut} user={user} />
-      <main>
-        {children}
-      </main>
+      <main>{children}</main>
       <Footer />
     </React.Fragment>
   );

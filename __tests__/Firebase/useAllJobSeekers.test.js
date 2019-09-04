@@ -1,4 +1,3 @@
-import React from 'react';
 import { renderHook } from '@testing-library/react-hooks';
 
 import { createUsers, firebaseProviderWrapper } from '../support/helpers';
@@ -15,7 +14,7 @@ describe('useAllJobSeekers', () => {
       () => useAllJobSeekers(env.firebase.userCollection),
       {
         wrapper: firebaseProviderWrapper(),
-      },
+      }
     );
 
     await waitForNextUpdate();

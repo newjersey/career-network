@@ -6,9 +6,4 @@ import withAuthRequired from './withAuthRequired';
 
 export default AuthProvider;
 
-export {
-  AuthRequired,
-  useAuth,
-  useAuthRequired,
-  withAuthRequired,
-};
+export { AuthRequired, useAuth, useAuthRequired, withAuthRequired };

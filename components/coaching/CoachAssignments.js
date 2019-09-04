@@ -1,8 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
-import React, {
-  useCallback, useEffect, useReducer, useState,
-} from 'react';
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -79,13 +77,13 @@ export default function CoachAssignments(props) {
     if (showAllJobSeekers) {
       setCurrentJobSeekers(allJobSeekers);
     } else {
-      setCurrentJobSeekers(jobSeekers => (
+      setCurrentJobSeekers(jobSeekers =>
         jobSeekers.filter(jobSeeker => hasAssignment(jobSeeker.uid))
-      ));
+      );
     }
   }, [allJobSeekers, hasAssignment, showAllJobSeekers]);
 
-  const handleSelectCoach = (event) => {
+  const handleSelectCoach = event => {
     const selectedCoach = allCoaches.find(coach => coach.uid === event.currentTarget.dataset.uid);
     setCurrentCoach(selectedCoach);
     dispatch({
@@ -154,13 +152,13 @@ export default function CoachAssignments(props) {
                   <FormGroup row className={classes.jobSeekersSwitch}>
                     <FormControlLabel
                       label="Show all"
-                      control={(
+                      control={
                         <Switch
                           checked={showAllJobSeekers}
                           onChange={handleShowAllJobSeekers}
                           inputProps={{ 'data-testid': 'jobSeekersSwitch' }}
                         />
-)}
+                      }
                     />
                   </FormGroup>
                 </Grid>

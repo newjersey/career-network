@@ -16,7 +16,7 @@ export function renderWrapped(component) {
   const renderResult = render(
     <ThemeProvider theme={theme}>
       <AuthContext.Provider value={auth}>{component}</AuthContext.Provider>
-    </ThemeProvider>,
+    </ThemeProvider>
   );
 
   return {
@@ -28,6 +28,7 @@ export function renderWrapped(component) {
  * Renders a wrapper containing the FirebaseProvider component, suitable for rendering hooks
  */
 export function firebaseProviderWrapper() {
+  // eslint-disable-next-line react/prop-types
   return ({ children }) => (
     <FirebaseProvider customFirebase={firebaseTestApp}>{children}</FirebaseProvider>
   );
@@ -47,7 +48,7 @@ export async function createUsers() {
           displayName: 'Adam Mitchell',
           email: 'adam@example.org',
         },
-      }),
+      })
     ),
   ];
 
@@ -73,7 +74,7 @@ export async function createCoaches() {
         assignments: ['GoJwVoinaZkIeUYyhd2M'],
         isCoach: true,
         isAdmin: false,
-      }),
+      })
     ),
     await db.collection(env.firebase.userCollection).add(
       factories.authData({
@@ -84,7 +85,7 @@ export async function createCoaches() {
         },
         isCoach: true,
         isAdmin: false,
-      }),
+      })
     ),
   ];
 }

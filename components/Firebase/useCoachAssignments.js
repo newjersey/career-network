@@ -7,15 +7,14 @@ import useFirebase from './useFirebase';
  */
 export default function useCoachAssignments(
   assignmentIds,
-  userCollection = process.env.firebase.userCollection,
+  userCollection = process.env.firebase.userCollection
 ) {
   const [assignments, setAssignments] = useState([]);
   const { db } = useFirebase();
 
-
   useEffect(() => {
     const build = async () => {
-      const assignmentPromises = assignmentIds.map(async (assignmentId) => {
+      const assignmentPromises = assignmentIds.map(async assignmentId => {
         const assignmentDoc = await db.collection(userCollection).doc(assignmentId);
         const userData = (await assignmentDoc.get()).data();
         if (!userData) {

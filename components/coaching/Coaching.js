@@ -41,30 +41,30 @@ export default function Coaching(props) {
   });
   const { assignments, assessmentSections } = props;
 
-  const handleClick = (event) => {
+  const handleClick = event => {
     setCurrentAssignment(
       assignments.find(
-        assignment => assignment.authProfile.email === event.currentTarget.dataset.email,
-      ),
+        assignment => assignment.authProfile.email === event.currentTarget.dataset.email
+      )
     );
   };
 
-  const findByAssessment = assessmentIds => currentAssignment.questionResponses
-    .filter((response) => {
-      const questionEntry = response.data().question.fields['Question Assessment Entry'];
-      const groupEntry = response.data().question.fields['Group Assessment Entry'];
-      const entry = questionEntry ? questionEntry[0] : groupEntry[0];
+  const findByAssessment = assessmentIds =>
+    currentAssignment.questionResponses
+      .filter(response => {
+        const questionEntry = response.data().question.fields['Question Assessment Entry'];
+        const groupEntry = response.data().question.fields['Group Assessment Entry'];
+        const entry = questionEntry ? questionEntry[0] : groupEntry[0];
 
-      return assessmentIds.includes(entry);
-    })
-    .map(response => response.data());
+        return assessmentIds.includes(entry);
+      })
+      .map(response => response.data());
 
-
-  const responseValue = (response) => {
+  const responseValue = response => {
     switch (response.question.fields['Response Type']) {
       case 'Option': {
         const responseOption = response.responseOptions.find(
-          option => option.id === response.value,
+          option => option.id === response.value
         );
         return responseOption.fields.Name;
       }
@@ -113,20 +113,20 @@ export default function Coaching(props) {
                 Click one of your assigned job seekers on the left to display the responses
               </Typography>
             )}
-            {currentAssignment.authProfile.email && assessmentSections.map(section => (
-              <ExpansionPanel key={section.id} defaultExpanded>
-                <ExpansionPanelSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1bh-content"
-                  id={section.id}
-                >
-                  <Typography>{section.fields.Name}</Typography>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                  <Table size="small">
-                    <TableBody>
-                      {findByAssessment(section.fields['Assessment Entries'])
-                        .map(response => (
+            {currentAssignment.authProfile.email &&
+              assessmentSections.map(section => (
+                <ExpansionPanel key={section.id} defaultExpanded>
+                  <ExpansionPanelSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1bh-content"
+                    id={section.id}
+                  >
+                    <Typography>{section.fields.Name}</Typography>
+                  </ExpansionPanelSummary>
+                  <ExpansionPanelDetails>
+                    <Table size="small">
+                      <TableBody>
+                        {findByAssessment(section.fields['Assessment Entries']).map(response => (
                           <TableRow key={response.question.id}>
                             <TableCell component="th" scope="row">
                               <strong>{response.question.fields.Label}</strong>
@@ -136,11 +136,11 @@ export default function Coaching(props) {
                             </TableCell>
                           </TableRow>
                         ))}
-                    </TableBody>
-                  </Table>
-                </ExpansionPanelDetails>
-              </ExpansionPanel>
-            ))}
+                      </TableBody>
+                    </Table>
+                  </ExpansionPanelDetails>
+                </ExpansionPanel>
+              ))}
           </Grid>
         </Grid>
       </ScaffoldContainer>

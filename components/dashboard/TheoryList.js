@@ -7,9 +7,9 @@ import FirebasePropTypes from '../Firebase/PropTypes';
 import Theory from './Theory';
 
 function isActionDispositioned(action, allActionDispositionEvents, debugMode) {
-  return debugMode ? false : allActionDispositionEvents
-    .map(e => e.data().actionId)
-    .includes(action.id);
+  return debugMode
+    ? false
+    : allActionDispositionEvents.map(e => e.data().actionId).includes(action.id);
 }
 
 function getNonDispositionedActions(theory, debugMode, allActions, allActionDispositionEvents) {
@@ -19,13 +19,7 @@ function getNonDispositionedActions(theory, debugMode, allActions, allActionDisp
 }
 
 export default function TheoryList(props) {
-  const {
-    allActions,
-    allActionDispositionEvents,
-    debugMode,
-    theories,
-    ...restProps
-  } = props;
+  const { allActions, allActionDispositionEvents, debugMode, theories, ...restProps } = props;
 
   return (
     <Grid container spacing={7}>
@@ -37,7 +31,7 @@ export default function TheoryList(props) {
               theory,
               debugMode,
               allActions,
-              allActionDispositionEvents,
+              allActionDispositionEvents
             )}
             {...restProps}
           />

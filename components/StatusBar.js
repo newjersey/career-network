@@ -65,15 +65,10 @@ export default function StatusBar() {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="status-bar-dialog-description">
-            The Garden State Career Network is in alpha. You are welcome
-            to sign-up and use this website, but please be aware that we
-            are actively building the site and it may change. If you notice
-            anything that doesn’t work or have any feedback, please
-            {' '}
-            <Link href="mailto:careers@gardenstate.tech?subject=Website Feedback">
-              contact us
-            </Link>
-            .
+            The Garden State Career Network is in alpha. You are welcome to sign-up and use this
+            website, but please be aware that we are actively building the site and it may change.
+            If you notice anything that doesn’t work or have any feedback, please{' '}
+            <Link href="mailto:careers@gardenstate.tech?subject=Website Feedback">contact us</Link>.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

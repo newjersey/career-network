@@ -16,12 +16,12 @@ export default function useUser(userCollection = process.env.firebase.userCollec
    * Builds a User object from a Firestore document reference
    */
   const buildUser = useCallback(
-    async (userRef) => {
+    async userRef => {
       const userDoc = await userDocument(userRef.id).get();
 
       return new User(userDoc);
     },
-    [userDocument],
+    [userDocument]
   );
 
   /**

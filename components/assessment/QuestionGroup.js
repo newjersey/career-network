@@ -20,15 +20,11 @@ const useStyles = makeStyles(theme => ({
 
 export default function QuestionGroup(props) {
   const classes = useStyles();
-  const {
-    questionGroup,
-    allQuestions,
-    ...restProps
-  } = props;
+  const { questionGroup, allQuestions, ...restProps } = props;
 
-  const questions = allQuestions.filter(question => (
+  const questions = allQuestions.filter(question =>
     questionGroup.fields.Questions.includes(question.id)
-  ));
+  );
 
   return (
     <div className={classes.root}>

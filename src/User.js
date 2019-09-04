@@ -11,17 +11,15 @@ export default class User {
   get firstName() {
     const { displayName } = this.authProfile;
 
-    return ((
+    return (
       Object.values(this.authProviders)
-        .map(profile => profile.firstName
-          || profile.first_name
-          || profile.given_name
-          || profile.givenName)
-        .reduce((a, b) => a || b, null)
-      || (displayName.includes(',')
-        ? displayName.split(',')[1]
-        : displayName.split(' ')[0])
-    ).trim());
+        .map(
+          profile =>
+            profile.firstName || profile.first_name || profile.given_name || profile.givenName
+        )
+        .reduce((a, b) => a || b, null) ||
+      (displayName.includes(',') ? displayName.split(',')[1] : displayName.split(' ')[0])
+    ).trim();
   }
 
   get displayName() {

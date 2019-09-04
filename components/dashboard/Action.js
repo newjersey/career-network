@@ -78,24 +78,21 @@ export default function Action(props) {
 
   return (
     <Card className={classes.card}>
-      <CardActionArea
-        onClick={handleExpandClick}
-        aria-expanded={expanded}
-      >
+      <CardActionArea onClick={handleExpandClick} aria-expanded={expanded}>
         <CardHeader
-          avatar={(
+          avatar={
             <img
               alt=""
               className={classes.avatar}
               src={`https://static.thenounproject.com/png/${action.fields['Icon ID']}-84.png`}
             />
-          )}
-          title={(
+          }
+          title={
             <Typography component="h3" variant="body1">
               <strong>{action.fields.What}</strong>
             </Typography>
-          )}
-        // subheader="100 points"
+          }
+          // subheader="100 points"
         />
         <CardContent>
           <Typography variant="body1" color="textSecondary" component="p">

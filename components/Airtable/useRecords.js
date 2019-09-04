@@ -6,7 +6,7 @@ export default function useAirtable(apiPath) {
   const cleanupRef = useRef();
 
   useEffect(() => {
-    const fetchJson = async (offset) => {
+    const fetchJson = async offset => {
       let path = apiPath;
 
       if (offset) {

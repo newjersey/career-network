@@ -20,20 +20,18 @@ const useStyles = makeStyles(theme => ({
 
 export default function AssessmentSection(props) {
   const classes = useStyles();
-  const {
-    assessmentSection,
-    allAssessmentEntries,
-    ...restProps
-  } = props;
+  const { assessmentSection, allAssessmentEntries, ...restProps } = props;
 
-  const assessmentEntries = allAssessmentEntries.filter(entry => (
+  const assessmentEntries = allAssessmentEntries.filter(entry =>
     assessmentSection.fields['Assessment Entries'].includes(entry.id)
-  ));
+  );
 
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <Typography component="h2" variant="h4" gutterBottom>{assessmentSection.fields.Name}</Typography>
+        <Typography component="h2" variant="h4" gutterBottom>
+          {assessmentSection.fields.Name}
+        </Typography>
         {assessmentSection.fields.Description && (
           <Typography variant="subtitle2">{assessmentSection.fields.Description}</Typography>
         )}

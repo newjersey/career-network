@@ -7,8 +7,10 @@
   },
   "extends": [
     "airbnb",
-    "plugin:sonarjs/recommended",
-    "plugin:jest/recommended"
+    "plugin:jest/recommended",
+    "plugin:prettier/recommended",
+    "prettier/react",
+    "plugin:sonarjs/recommended"
   ],
   "globals": {
     "Atomics": "readonly",
@@ -22,21 +24,13 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": [
-    "babel",
-    "jest",
-    "react",
-    "react-hooks",
-    "sonarjs"
-  ],
+  "plugins": ["babel", "jest", "react", "react-hooks", "sonarjs"],
   "rules": {
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [
-          ".js",
-          "jsx"
-        ]
+        "extensions": [".js", "jsx"]
       }
     ],
     "react-hooks/rules-of-hooks": "error",

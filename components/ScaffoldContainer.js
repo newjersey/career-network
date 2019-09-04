@@ -29,10 +29,7 @@ function ScaffoldContainer(props) {
 }
 
 ScaffoldContainer.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node),
-  ]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]).isRequired,
   padding: PropTypes.bool,
 };
 

@@ -10,7 +10,7 @@ export default function useUserSubcollection(subcollectionName) {
   useEffect(() => {
     (async () => {
       const collectionRef = userDocRef.collection(subcollectionName);
-      const unsubscribe = collectionRef.onSnapshot((querySnapshot) => {
+      const unsubscribe = collectionRef.onSnapshot(querySnapshot => {
         setSubcollection(querySnapshot.docs);
       });
 

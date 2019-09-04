@@ -1,4 +1,3 @@
-import React from 'react';
 import { renderHook } from '@testing-library/react-hooks';
 
 import useCoachAssignments from '../../components/Firebase/useCoachAssignments';
@@ -15,7 +14,7 @@ describe('useCoachAssignments', () => {
   it('builds and returns the user profiles and the question responses', async () => {
     const { result, waitForNextUpdate } = renderHook(
       () => useCoachAssignments(users, env.firebase.userCollection),
-      { wrapper: firebaseProviderWrapper() },
+      { wrapper: firebaseProviderWrapper() }
     );
 
     await waitForNextUpdate();

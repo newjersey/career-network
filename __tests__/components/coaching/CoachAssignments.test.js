@@ -11,7 +11,9 @@ const allJobSeekers = [
   factories.user({
     authProfile: {
       ...factories.authProfile(),
+      // eslint-disable-next-line sonarjs/no-duplicate-string
       displayName: 'Adam Mitchell',
+      // eslint-disable-next-line sonarjs/no-duplicate-string
       email: 'adam@example.org',
     },
     isCoach: false,
@@ -19,28 +21,24 @@ const allJobSeekers = [
 ];
 
 const allCoaches = [
-  factories.user(
-    {
-      authProfile: {
-        ...factories.authProfile(),
-        displayName: 'Martha Jones',
-        email: 'martha@example.org',
-      },
-      assignments: [allJobSeekers[1].uid],
-      isCoach: true,
+  factories.user({
+    authProfile: {
+      ...factories.authProfile(),
+      displayName: 'Martha Jones',
+      email: 'martha@example.org',
     },
-  ),
-  factories.user(
-    {
-      authProfile: {
-        ...factories.authProfile(),
-        displayName: 'Rose Tyler',
-        email: 'rose@example.org',
-      },
-      assignments: [allJobSeekers[0].uid],
-      isCoach: true,
+    assignments: [allJobSeekers[1].uid],
+    isCoach: true,
+  }),
+  factories.user({
+    authProfile: {
+      ...factories.authProfile(),
+      displayName: 'Rose Tyler',
+      email: 'rose@example.org',
     },
-  ),
+    assignments: [allJobSeekers[0].uid],
+    isCoach: true,
+  }),
 ];
 
 const mockUpdateUser = jest.fn();
@@ -78,10 +76,8 @@ describe('<CoachAssignments />', () => {
     await wait(() => {
       getByText('Adam Mitchell');
       getByText('adam@example.org');
-      expect(getByTestId(allJobSeekers[0].uid).checked)
-        .toEqual(false);
-      expect(getByTestId(allJobSeekers[1].uid).checked)
-        .toEqual(true);
+      expect(getByTestId(allJobSeekers[0].uid).checked).toEqual(false);
+      expect(getByTestId(allJobSeekers[1].uid).checked).toEqual(true);
     });
 
     fireEvent.click(getByText(/Rose Tyler/i));
@@ -89,10 +85,8 @@ describe('<CoachAssignments />', () => {
     await wait(() => {
       getByText('Donna Noble');
       getByText('donna@example.org');
-      expect(getByTestId(allJobSeekers[0].uid).checked)
-        .toEqual(true);
-      expect(getByTestId(allJobSeekers[1].uid).checked)
-        .toEqual(false);
+      expect(getByTestId(allJobSeekers[0].uid).checked).toEqual(true);
+      expect(getByTestId(allJobSeekers[1].uid).checked).toEqual(false);
     });
   });
 
@@ -105,12 +99,8 @@ describe('<CoachAssignments />', () => {
     await wait(() => {
       getByText('Adam Mitchell');
       getByText('adam@example.org');
-      expect(queryByText('Donna Noble'))
-        .not
-        .toBeInTheDocument();
-      expect(queryByText('donna@example.org'))
-        .not
-        .toBeInTheDocument();
+      expect(queryByText('Donna Noble')).not.toBeInTheDocument();
+      expect(queryByText('donna@example.org')).not.toBeInTheDocument();
     });
   });
 
@@ -121,10 +111,9 @@ describe('<CoachAssignments />', () => {
     fireEvent.click(getByTestId(allJobSeekers[0].uid));
 
     await wait(() => {
-      expect(mockUpdateUser)
-        .toHaveBeenCalledWith(allCoaches[0].uid, {
-          assignments: firebase.firestore.FieldValue.arrayUnion(allJobSeekers[0].uid),
-        });
+      expect(mockUpdateUser).toHaveBeenCalledWith(allCoaches[0].uid, {
+        assignments: firebase.firestore.FieldValue.arrayUnion(allJobSeekers[0].uid),
+      });
     });
   });
 
@@ -135,10 +124,9 @@ describe('<CoachAssignments />', () => {
     fireEvent.click(getByTestId(allJobSeekers[0].uid));
 
     await wait(() => {
-      expect(mockUpdateUser)
-        .toHaveBeenCalledWith(allCoaches[1].uid, {
-          assignments: firebase.firestore.FieldValue.arrayRemove(allJobSeekers[0].uid),
-        });
+      expect(mockUpdateUser).toHaveBeenCalledWith(allCoaches[1].uid, {
+        assignments: firebase.firestore.FieldValue.arrayRemove(allJobSeekers[0].uid),
+      });
     });
   });
 });
