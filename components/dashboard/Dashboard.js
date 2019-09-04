@@ -11,6 +11,7 @@ import AirtablePropTypes from '../Airtable/PropTypes';
 import FirebasePropTypes from '../Firebase/PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
 import TheoryList from './TheoryList';
+import TimeDistanceParser from '../../src/time-distance-parser';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -75,8 +76,7 @@ export default function Dashboard(props) {
         [predicateValue] = optionValue;
         break;
       case 'Date':
-        // TODO
-        predicateValue = constantValue;
+        predicateValue = new TimeDistanceParser(constantValue).parse();
         break;
       case 'File':
         // TODO
