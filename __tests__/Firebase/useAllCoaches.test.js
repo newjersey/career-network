@@ -1,5 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks';
 
+import { act } from 'react-test-renderer';
 import { createCoaches, firebaseProviderWrapper } from '../support/helpers';
 import useAllCoaches from '../../components/Firebase/useAllCoaches';
 import { env } from '../../next.config';
@@ -17,7 +18,9 @@ describe('useAllCoaches', () => {
       }
     );
 
-    await waitForNextUpdate();
+    await act(async () => {
+      await waitForNextUpdate();
+    });
 
     expect(result.current).toHaveLength(2);
     expect(result.current[0].authProfile.displayName).toEqual('Martha Jones');

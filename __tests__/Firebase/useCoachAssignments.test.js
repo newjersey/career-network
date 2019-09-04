@@ -1,5 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks';
 
+import { act } from 'react-test-renderer';
 import useCoachAssignments from '../../components/Firebase/useCoachAssignments';
 import { createUsers, firebaseProviderWrapper } from '../support/helpers';
 import { env } from '../../next.config';
@@ -17,7 +18,9 @@ describe('useCoachAssignments', () => {
       { wrapper: firebaseProviderWrapper() }
     );
 
-    await waitForNextUpdate();
+    await act(async () => {
+      await waitForNextUpdate();
+    });
 
     // Assert profiles
     const donna = result.current[0].authProfile;

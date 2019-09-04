@@ -1,5 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks';
 
+import { act } from 'react-test-renderer';
 import { createUsers, firebaseProviderWrapper } from '../support/helpers';
 import useAllJobSeekers from '../../components/Firebase/useAllJobSeekers';
 import { env } from '../../next.config';
@@ -17,7 +18,9 @@ describe('useAllJobSeekers', () => {
       }
     );
 
-    await waitForNextUpdate();
+    await act(async () => {
+      await waitForNextUpdate();
+    });
 
     expect(result.current).toHaveLength(2);
     expect(result.current[0].authProfile.displayName).toEqual('Adam Mitchell');
