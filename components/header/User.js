@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import ScaffoldContainer from '../ScaffoldContainer';
-import Search from './Search';
 import SignInButton from './SignInButton';
 import UserClass from '../../src/User';
 import UserButton from './UserButton';
@@ -15,9 +14,7 @@ export default function User(props) {
   return (
     <ScaffoldContainer padding={false}>
       <Grid container justify="space-between" alignItems="center">
-        <Grid item>
-          <Search />
-        </Grid>
+        <Grid item />
         <Hidden xsDown implementation="css">
           <Grid item>
             {user ? (
