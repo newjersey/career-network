@@ -10,9 +10,7 @@ export default function SnackbarProvider(props) {
 
   return (
     <React.Fragment>
-      <SnackbarContext.Provider value={setMessage}>
-        {children}
-      </SnackbarContext.Provider>
+      <SnackbarContext.Provider value={setMessage}>{children}</SnackbarContext.Provider>
 
       <SnackbarManager message={message} />
     </React.Fragment>

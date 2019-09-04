@@ -13,16 +13,14 @@ function Picture(props) {
   const src = basePath + path;
   const fallbackSrc = basePath + path.replace(/webp$/, fallbackType);
 
-  return (
-    path.endsWith('.webp')
-      ? (
-        <picture>
-          <source type="image/webp" srcSet={src} />
-          <source type={mimeTypeMap[fallbackType]} srcSet={fallbackSrc} />
-          <img src={fallbackSrc} {...restProps} />
-        </picture>
-      )
-      : <img src={src} {...restProps} />
+  return path.endsWith('.webp') ? (
+    <picture>
+      <source type="image/webp" srcSet={src} />
+      <source type={mimeTypeMap[fallbackType]} srcSet={fallbackSrc} />
+      <img src={fallbackSrc} {...restProps} />
+    </picture>
+  ) : (
+    <img src={src} {...restProps} />
   );
 }
 
@@ -32,4 +30,4 @@ Picture.propTypes = {
   fallbackType: PropTypes.oneOf(['png', 'jpg']).isRequired,
 };
 
-export default (Picture);
+export default Picture;

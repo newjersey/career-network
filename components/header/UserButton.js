@@ -27,18 +27,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function UserButton(props) {
-  const {
-    displayName,
-    email,
-    onSignOut,
-    photoURL,
-    isAssessmentComplete,
-  } = props;
+  const { displayName, email, onSignOut, photoURL, isAssessmentComplete } = props;
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClickUser = (e) => {
+  const handleClickUser = e => {
     setAnchorEl(e.currentTarget);
   };
 
@@ -77,32 +71,31 @@ export default function UserButton(props) {
           </Avatar>
         </Grid>
       </Grid>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleCloseUser}
-      >
-        <MenuItem disabled>
-          {email}
-        </MenuItem>
+      <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleCloseUser}>
+        <MenuItem disabled>{email}</MenuItem>
         {isAssessmentComplete ? (
           <NextLink href="/dashboard">
             <MenuItem>
-              <ListItemIcon><DashboardIcon /></ListItemIcon>
+              <ListItemIcon>
+                <DashboardIcon />
+              </ListItemIcon>
               <ListItemText primary="My dashboard" />
             </MenuItem>
           </NextLink>
         ) : (
           <NextLink href="/assessment">
             <MenuItem>
-              <ListItemIcon><AssignmentIcon /></ListItemIcon>
+              <ListItemIcon>
+                <AssignmentIcon />
+              </ListItemIcon>
               <ListItemText primary="Questionnaire" />
             </MenuItem>
           </NextLink>
         )}
         <MenuItem onClick={handleLogout}>
-          <ListItemIcon><PowerSettingsNewIcon /></ListItemIcon>
+          <ListItemIcon>
+            <PowerSettingsNewIcon />
+          </ListItemIcon>
           <ListItemText primary="Sign out" />
         </MenuItem>
       </Menu>

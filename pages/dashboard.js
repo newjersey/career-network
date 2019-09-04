@@ -11,29 +11,29 @@ function DashboardPage() {
   const allQuestionResponses = useUserSubcollection('questionResponses');
   const allActionDispositionEvents = useUserSubcollection('actionDispositionEvents');
   const recordProps = {
-    allActions: useRecords('appPhpA6Quf0pCBDm/Actions?view=API'),
-    allConditions: useRecords('appPhpA6Quf0pCBDm/Conditions?view=API'),
-    allPredicates: useRecords('appPhpA6Quf0pCBDm/Predicates?view=API'),
-    allResources: useRecords('appPhpA6Quf0pCBDm/Resources?view=API%20Dashboard'),
-    allTheories: useRecords('appPhpA6Quf0pCBDm/Theories?view=API'),
+    allActions: useRecords('Actions?view=API'),
+    allConditions: useRecords('Conditions?view=API'),
+    allPredicates: useRecords('Predicates?view=API'),
+    allResources: useRecords('Resources?view=API%20Dashboard'),
+    allTheories: useRecords('Theories?view=API'),
   };
 
-  const fullyLoaded = user && Object.values(recordProps)
-    .map(array => array.length)
-    .reduce((accum, length) => accum && !!length, true)
-    && allQuestionResponses
-    && allActionDispositionEvents;
+  const fullyLoaded =
+    user &&
+    Object.values(recordProps)
+      .map(array => array.length)
+      .reduce((accum, length) => accum && !!length, true) &&
+    allQuestionResponses &&
+    allActionDispositionEvents;
 
-  return (fullyLoaded
-    ? (
-      <Dashboard
-        allQuestionResponses={allQuestionResponses}
-        allActionDispositionEvents={allActionDispositionEvents}
-        {...recordProps}
-      />
-    ) : (
-      <FullPageProgress />
-    )
+  return fullyLoaded ? (
+    <Dashboard
+      allQuestionResponses={allQuestionResponses}
+      allActionDispositionEvents={allActionDispositionEvents}
+      {...recordProps}
+    />
+  ) : (
+    <FullPageProgress />
   );
 }
 

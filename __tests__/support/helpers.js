@@ -13,7 +13,7 @@ export default function renderWrapped(component) {
   const renderResult = render(
     <ThemeProvider theme={theme}>
       <AuthContext.Provider value={auth}>{component}</AuthContext.Provider>
-    </ThemeProvider>,
+    </ThemeProvider>
   );
 
   return {
