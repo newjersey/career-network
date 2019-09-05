@@ -8,6 +8,7 @@ import AirtablePropTypes from '../Airtable/PropTypes';
 import FirebasePropTypes from '../Firebase/PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
 import TaskList from './TaskList';
+// eslint-disable-next-line no-unused-vars
 import TimeDistanceParser from '../../src/time-distance-parser';
 
 const useStyles = makeStyles(theme => ({
