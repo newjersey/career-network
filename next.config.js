@@ -35,6 +35,8 @@ const appEnvironments = {
       storageBucket: 'nj-career-network-dev2.appspot.com',
       messagingSenderId: '529668674367',
       appId: '1:529668674367:web:fe48e3e414bcd5d6',
+      userCollection: 'users',
+      userPreauthorizationCollection: 'userPreauthorizations',
     },
   },
   ppe: {
@@ -51,6 +53,8 @@ const appEnvironments = {
       storageBucket: '',
       messagingSenderId: '641946008142',
       appId: '1:641946008142:web:c6d623bc79bc899e',
+      userCollection: 'users',
+      userPreauthorizationCollection: 'userPreauthorizations',
     },
   },
   prod: {
