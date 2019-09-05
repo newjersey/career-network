@@ -11,7 +11,7 @@ function CoachingPage() {
   const { user } = useAuth();
   const props = {
     assignments: useCoachAssignments(user.coachAssignments),
-    assessmentSections: useRecords('appPhpA6Quf0pCBDm/Assessment%20Sections?view=API'),
+    assessmentSections: useRecords('Assessment%20Sections?view=API'),
   };
 
   return fullyLoaded(user, allPropsLoaded(props)) ? <Coaching {...props} /> : <FullPageProgress />;
