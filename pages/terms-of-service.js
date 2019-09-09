@@ -124,7 +124,7 @@ export default function TOS() {
         <Typography variant="h4" component="h2" className={classes.h2}>
           Section E. Intellectual Property Licenses
         </Typography>
-        <Typography className={classes.body1}>
+        <Typography className={classes.body1} component="div">
           <ol>
             <li>
               We have made the original content (&quot;Content&quot;) of these pages available to
@@ -159,7 +159,7 @@ export default function TOS() {
           You may submit content (collectively, &quot;User Created Content&quot;) to the Website,
           provided that you abide by these common sense rules.
         </Typography>
-        <Typography className={classes.body1}>
+        <Typography className={classes.body1} component="div">
           You may not:
           <ul>
             <li>
@@ -215,7 +215,7 @@ export default function TOS() {
           law, if you believe your copyright has been infringed please email us at:
           <NextLink href="mailto:HCWD@ejb.rutgers.edu">HCWD@ejb.rutgers.edu</NextLink>.
         </Typography>
-        <Typography className={classes.body1}>
+        <Typography className={classes.body1} component="div">
           To be an effective notice under Section 512(c) of the DMCA your written notice must
           include all of the following:
           <ul>
@@ -251,7 +251,7 @@ export default function TOS() {
         <Typography variant="h4" component="h2" className={classes.h2}>
           Section H – Correcting Your Information
         </Typography>
-        <Typography className={classes.body1}>
+        <Typography className={classes.body1} component="div">
           We may also ask you to verify your identity and to provide further details relating to
           your request.
           <ul>

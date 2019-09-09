@@ -49,14 +49,14 @@ export default function PrivacyPolicy() {
           to access the Website, which may include personal information, career or job search
           related information and documentation.
         </Typography>
-        <Typography className={classes.body1}>
+        <Typography className={classes.body1} component="div">
           Information received from third-party services that you link, including
           <ul>
             <li>Account authentication and profile data (e.g., Google, LinkedIn, Facebook)</li>
             <li>Data from third-party services linked by user (e.g., Google, LinkedIn data)</li>
           </ul>
         </Typography>
-        <Typography>
+        <Typography component="div">
           Interactions with the Website and Career Network staff, including
           <ul>
             <li>
@@ -93,7 +93,7 @@ export default function PrivacyPolicy() {
           which is publicly posted and visible to all, be sold, rented, given or provided to any
           third-party.
         </Typography>
-        <Typography className={classes.body1}>
+        <Typography className={classes.body1} component="div">
           Other information we may collect about you:
           <ul>
             <li>
@@ -180,7 +180,7 @@ export default function PrivacyPolicy() {
           information, we will treat the combined information as personal information according to
           this Privacy Notice.
         </Typography>
-        <Typography className={classes.body1}>
+        <Typography className={classes.body1} component="div">
           <strong>
             We may process personal information in connection with any of the following:
           </strong>
@@ -229,8 +229,8 @@ export default function PrivacyPolicy() {
         <Typography variant="h4" component="h2" className={classes.h2}>
           When We Disclose Your Information
         </Typography>
-        <Typography className={classes.body1}>
-          We may disclose your information as follows:  
+        <Typography className={classes.body1} component="div">
+          We may disclose your information as follows:
           <ul>
             <li>
               <strong>Among New Jersey Agencies and Departments, and Rutgers University</strong>: To
@@ -266,7 +266,7 @@ export default function PrivacyPolicy() {
         <Typography variant="h4" component="h2" className={classes.h2}>
           Other Important Information
         </Typography>
-        <Typography className={classes.body1}>
+        <Typography className={classes.body1} component="div">
           <ul>
             <li>
               <strong>Applications and Social Media Sites</strong>: Please note that we are not
