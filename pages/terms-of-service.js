@@ -34,7 +34,8 @@ export default function TOS() {
         <Typography className={classes.body1}>
           Please be aware that we have a{' '}
           <NextLink href="/privacy-policy">
-            Privacy Policy and Information Collection Statement
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+            <a>Privacy Policy and Information Collection Statement</a>
           </NextLink>{' '}
           included as part of this Terms and Conditions of Use.
         </Typography>
@@ -51,7 +52,7 @@ export default function TOS() {
           During the pilot, usage of the Website is restricted to residents of the United States. By
           proceeding, you certify that you are currently located in and reside in the United States.
           If this status changes during the pilot period, please contact us{' '}
-          <NextLink href="mailto:careers@gardenstate.tech">careers@gardenstate.tech</NextLink>.
+          <a href="mailto:careers@gardenstate.tech">careers@gardenstate.tech</a>.
         </Typography>
         <Typography variant="h4" component="h2" className={classes.h2}>
           Section A. Information Disclaimer
@@ -59,8 +60,7 @@ export default function TOS() {
         <Typography className={classes.body1}>
           We make great effort to provide secure, accurate and complete information on this Website.
           Any errors or omissions should be reported to us at{' '}
-          <NextLink href="mailto:careers@gardenstate.tech">careers@gardenstate.tech</NextLink> for
-          review.
+          <a href="mailto:careers@gardenstate.tech">careers@gardenstate.tech</a> for review.
         </Typography>
         <Typography className={classes.body1}>
           We shall not be liable for damages or losses of any kind arising out of or in connection
@@ -130,20 +130,20 @@ export default function TOS() {
               We have made the original content (&quot;Content&quot;) of these pages available to
               the public. Unless otherwise stated on other content or information to which a
               restriction on free use may apply, Content is licensed under a{' '}
-              <NextLink href="https://creativecommons.org/licenses/by/4.0/legalcode">
+              <a href="https://creativecommons.org/licenses/by/4.0/legalcode">
                 Creative Commons 4.0 Attribution License
-              </NextLink>
+              </a>
               , which provides for a worldwide, royalty-free license to reproduce and share the
               Content in whole or in part
             </li>
             <li>
               Unless otherwise stated, the software code for this website is made available under
-              the <NextLink href="https://opensource.org/licenses/MIT">MIT License</NextLink>.
-              Original software code can be found at:{' '}
-              <NextLink href="https://github.com/newjersey">https://github.com/newjersey</NextLink>.
-              Third party content, libraries, services and materials retain their original licenses.
-              Making a copy of such material may be subject to copyright, trademark or other
-              intellectual property laws.
+              the <a href="https://opensource.org/licenses/MIT">MIT License</a>. Original software
+              code can be found at:{' '}
+              <a href="https://github.com/newjersey">https://github.com/newjersey</a>. Third party
+              content, libraries, services and materials retain their original licenses. Making a
+              copy of such material may be subject to copyright, trademark or other intellectual
+              property laws.
             </li>
             <li>
               Neither our name nor the names of other copyright holders may be used to endorse or
@@ -212,8 +212,8 @@ export default function TOS() {
         <Typography className={classes.body1}>
           We respect the intellectual property of others, and we ask users of our Website to do the
           same. In accordance with the Digital Millennium Copyright Act (DMCA) and other applicable
-          law, if you believe your copyright has been infringed please email us at:
-          <NextLink href="mailto:HCWD@ejb.rutgers.edu">HCWD@ejb.rutgers.edu</NextLink>.
+          law, if you believe your copyright has been infringed please email us at:{' '}
+          <a href="mailto:HCWD@ejb.rutgers.edu">HCWD@ejb.rutgers.edu</a>.
         </Typography>
         <Typography className={classes.body1} component="div">
           To be an effective notice under Section 512(c) of the DMCA your written notice must
@@ -281,8 +281,8 @@ export default function TOS() {
               <strong>Contact Information</strong>: If after reviewing this Terms of Use, you have
               any questions, complaints or privacy concerns, or would like to make any requests in
               relation to your personal information, or obtain further information on safeguards,
-              please send an email to{' '}
-              <NextLink href="mailto:HCWD@ejb.rutgers.edu">HCWD@ejb.rutgers.edu</NextLink>.
+              please send an email to <a href="mailto:HCWD@ejb.rutgers.edu">HCWD@ejb.rutgers.edu</a>
+              .
             </li>
           </ul>
         </Typography>

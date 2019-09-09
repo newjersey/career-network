@@ -1,6 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
 import React from 'react';
-import NextLink from 'next/link';
 import Typography from '@material-ui/core/Typography';
 
 import ScaffoldContainer from '../components/ScaffoldContainer';
@@ -124,9 +123,9 @@ export default function PrivacyPolicy() {
                   website, is transmitted to and stored by Google. If you do not want your activity
                   on this website to be tracked by Google Analytics, you may opt out by using this
                   link:{' '}
-                  <NextLink href="http://tools.google.com/dlpage/gaoptout?hl=en">
+                  <a href="http://tools.google.com/dlpage/gaoptout?hl=en">
                     http://tools.google.com/dlpage/gaoptout?hl=en
-                  </NextLink>
+                  </a>
                   .
                 </li>
               </ul>
