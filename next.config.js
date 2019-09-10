@@ -7,7 +7,7 @@ const appEnvironments = {
     name: 'DEV1',
     showName: true,
     airtable: {
-      apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/app2XI6ZoEDPz09im/',
+      apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/appyVPL4DcQoC2AfG/',
     },
     firebase: {
       apiKey: 'AIzaSyDybN2rwlC_Hwld0SJncFH8preMI4MXKic',
@@ -39,7 +39,7 @@ const appEnvironments = {
     name: 'PREVIEW',
     showName: true,
     airtable: {
-      apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/appEWbCvbVBF5ZtKr/',
+      apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/appKVLegSA7jdrBWN/',
     },
     firebase: {
       apiKey: 'AIzaSyDx21FkVqjXshORafAbzPvv2kACmXhATok',
@@ -55,7 +55,7 @@ const appEnvironments = {
     name: 'PRODUCTION',
     showName: false,
     airtable: {
-      apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/appPhpA6Quf0pCBDm/',
+      apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/apppchrIqVPfiWe8P/',
     },
     firebase: {
       apiKey: 'AIzaSyBW2hLAzSgdv72lKicKcW_j1c86enCi8uU',
