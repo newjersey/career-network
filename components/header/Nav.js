@@ -32,7 +32,7 @@ import ScaffoldContainer from '../ScaffoldContainer';
 import Picture from '../Picture';
 import { useAuth } from '../Auth';
 
-const logoRatio = 834 / 784;
+const logoRatio = 1;
 const logoWidths = {
   xs: 40,
   md: 60,
