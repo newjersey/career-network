@@ -42,7 +42,8 @@
     "release": "git rev-parse --short HEAD | (read hash; firebase deploy -m \"Release at $hash\" )",
     "deploy": "npm run export && npm run release",
     "start": "next start",
-    "test": "jest",
+    "test": "npm run test:unit && npm run test:integration",
+    "test:unit": "jest",
     "test:integration": "jest -c jest.config.integration.js --runInBand",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
