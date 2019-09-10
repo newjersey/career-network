@@ -7,13 +7,11 @@ function recordShape(fieldsShape) {
   });
 }
 
-const responseType = PropTypes.oneOf([
+const questionResponseType = PropTypes.oneOf([
   'Option',
   'Text',
   'Number',
   'Phone',
-  'Link',
-  'File',
   'Email',
   'Binary',
   'Date',
@@ -40,7 +38,7 @@ const question = recordShape({
   Disabled: PropTypes.bool,
   Hidden: PropTypes.bool,
   'Helper Text': PropTypes.string,
-  'Response Type': responseType.isRequired,
+  'Response Type': questionResponseType.isRequired,
   'Response Options': PropTypes.arrayOf(PropTypes.string),
   Group: PropTypes.arrayOf(PropTypes.string),
   'Order Within Group': PropTypes.number,
@@ -48,6 +46,7 @@ const question = recordShape({
 
 const questionGroup = recordShape({
   Name: PropTypes.string.isRequired,
+  Label: PropTypes.string.isRequired,
   Questions: PropTypes.arrayOf(PropTypes.string).isRequired,
 });
 
@@ -98,7 +97,7 @@ const predicate = recordShape({
     'contains',
     'does not contain',
   ]).isRequired,
-  'Question Response Type': responseType.isRequired,
+  'Question Response Type': questionResponseType.isRequired,
   'Constant Value': PropTypes.string,
   'Option Value': PropTypes.arrayOf(PropTypes.string),
 });
