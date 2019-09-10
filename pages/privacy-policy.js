@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
+import Link from '@material-ui/core/Link';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
@@ -123,9 +124,9 @@ export default function PrivacyPolicy() {
                   website, is transmitted to and stored by Google. If you do not want your activity
                   on this website to be tracked by Google Analytics, you may opt out by using this
                   link:{' '}
-                  <a href="http://tools.google.com/dlpage/gaoptout?hl=en">
+                  <Link href="http://tools.google.com/dlpage/gaoptout?hl=en">
                     http://tools.google.com/dlpage/gaoptout?hl=en
-                  </a>
+                  </Link>
                   .
                 </li>
               </ul>
