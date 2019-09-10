@@ -20,11 +20,17 @@ import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogActions from '@material-ui/core/DialogActions';
+import Dialog from '@material-ui/core/Dialog';
 
-import { useAuth } from '../Auth';
-import Picture from '../Picture';
-import ScaffoldContainer from '../ScaffoldContainer';
 import UserClass from '../../src/User';
+import ScaffoldContainer from '../ScaffoldContainer';
+import Picture from '../Picture';
+import { useAuth } from '../Auth';
 
 const logoRatio = 834 / 784;
 const logoWidths = {
@@ -85,10 +91,13 @@ function Nav(props) {
   const classes = useStyles();
   const { showSignIn } = useAuth();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isHelpOpen, setIsHelpOpen] = useState(false);
 
   const openDrawer = () => setIsDrawerOpen(true);
   const closeDrawer = () => setIsDrawerOpen(false);
   const handleSignInClick = () => showSignIn();
+  const handleHelpClick = () => setIsHelpOpen(true);
+  const handleHelpClose = () => setIsHelpOpen(false);
 
   const pages = [
     {
@@ -118,6 +127,13 @@ function Nav(props) {
       name: 'Coach Assignments',
       shortName: 'Coach Assignments',
       show: user && user.isAdmin,
+    },
+    {
+      href: '',
+      name: 'Help',
+      shortName: 'Help',
+      show: true,
+      onClick: handleHelpClick,
     },
   ];
 
@@ -184,7 +200,7 @@ function Nav(props) {
                 .map(page => (
                   <NextLink href={page.href} key={page.shortName}>
                     <ListItem button>
-                      <ListItemText primary={page.shortName} />
+                      <ListItemText primary={page.shortName} onClick={page.onClick} />
                     </ListItem>
                   </NextLink>
                 ))}
@@ -248,7 +264,7 @@ function Nav(props) {
                         <Typography>
                           <NextLink href={page.href}>
                             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                            <Link className={classes.link} underline="none">
+                            <Link className={classes.link} underline="none" onClick={page.onClick}>
                               {page.name}
                             </Link>
                           </NextLink>
@@ -261,6 +277,25 @@ function Nav(props) {
           </Grid>
         </Grid>
       </ScaffoldContainer>
+      <Dialog
+        open={isHelpOpen}
+        onClose={handleHelpClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">Help</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Please email us with any questions or feedback:{' '}
+            <a href="mailto:careers@gardenstate.tech">careers@gardenstate.tech</a>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleHelpClose} color="primary" autoFocus>
+            Ok
+          </Button>
+        </DialogActions>
+      </Dialog>
     </React.Fragment>
   );
 }
