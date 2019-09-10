@@ -13,6 +13,38 @@ npm run env:dev1
 npm run dev
 ```
 
+## Testing
+
+Tests reside in the `__tests__` folder and use [`Jest`](https://jestjs.io/) as the main testing framework, as well as
+[`React Testing Library`](https://testing-library.com/docs/react-testing-library/intro).
+
+The project contains both unit and integration tests, which can be run separately.
+
+To only run unit tests, execute:
+
+```bash
+npm run test:unit
+```
+
+The integration tests depend on the Firestore emulator. So, before attempting to run them, you must start an emulator
+instance on your local machine:
+
+```bash
+npx firebase emulators:start --only firestore
+```
+
+Now, you can launch the integration tests by running:
+
+```bash
+npm run test:integration
+```
+
+If you just want to run all tests, use:
+
+```bash
+npm run test
+```
+
 ## Deployment
 
 Clone repo and install:
