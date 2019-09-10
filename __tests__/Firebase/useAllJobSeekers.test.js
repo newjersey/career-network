@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react-hooks';
 
 import { act } from 'react-test-renderer';
-import { createUsers, firebaseProviderWrapper } from '../support/helpers';
+import { createUsers, firebaseProviderWrapper } from '../support/helpers.integration';
 import useAllJobSeekers from '../../components/Firebase/useAllJobSeekers';
 import { env } from '../../next.config';
 
