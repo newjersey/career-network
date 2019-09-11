@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Select from '@material-ui/core/Select';
 
-import AirtablePropTypes from '../../Airtable/PropTypes';
+import AirtablePropTypes from '../../../Airtable/PropTypes';
 
 // eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles(theme => ({
@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function OptionQuestion(props) {
+export default function DropdownQuestion(props) {
   const classes = useStyles();
   const { onChange, question, responseOptions, value } = props;
 
@@ -47,13 +47,13 @@ export default function OptionQuestion(props) {
   );
 }
 
-OptionQuestion.propTypes = {
+DropdownQuestion.propTypes = {
   onChange: PropTypes.func.isRequired,
   question: AirtablePropTypes.question.isRequired,
   responseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
   value: PropTypes.string,
 };
 
-OptionQuestion.defaultProps = {
+DropdownQuestion.defaultProps = {
   value: null,
 };
