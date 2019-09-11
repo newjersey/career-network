@@ -17,6 +17,7 @@ const questionResponseType = PropTypes.oneOf([
   'Date',
 ]);
 
+const questionResponseNumberControl = PropTypes.oneOf(['Input', 'Slider']);
 const questionResponseOptionsControl = PropTypes.oneOf(['Dropdown', 'Radios']);
 
 const assessmentSection = recordShape({
@@ -44,6 +45,7 @@ const question = recordShape({
   'Response Number Min': PropTypes.number,
   'Response Number Max': PropTypes.number,
   'Response Number Step': PropTypes.number,
+  'Response Number Control': questionResponseNumberControl,
   'Response Options': PropTypes.arrayOf(PropTypes.string),
   'Response Options Control': questionResponseOptionsControl,
   Group: PropTypes.arrayOf(PropTypes.string),
@@ -126,6 +128,7 @@ export default {
   questionResponseOption,
   questionResponseOptions: PropTypes.arrayOf(questionResponseOption),
   questionResponseOptionsControl,
+  questionResponseNumberControl,
   resource,
   resources: PropTypes.arrayOf(resource),
   theory,

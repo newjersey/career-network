@@ -6,6 +6,7 @@ import AirtablePropTypes from '../../Airtable/PropTypes';
 import BinaryQuestion from './BinaryQuestion';
 import FirebasePropTypes from '../../Firebase/PropTypes';
 import OptionQuestion from './OptionQuestion';
+import SliderQuestion from './SliderQuestion';
 import TextQuestion from './TextQuestion';
 
 function getDefaultValue(question, user) {
@@ -45,6 +46,7 @@ function Question(props) {
     'Response Options': responseOptionIds,
     'Response Options Control': responseOptionsControl,
     'Response Type': responseType,
+    'Response Number Control': responseNumberControl,
     'Response Number Min': responseNumberMin,
     'Response Number Max': responseNumberMax,
     'Response Number Step': responseNumberStep,
@@ -120,21 +122,32 @@ function Question(props) {
     value,
   };
 
+  const numberProps = {
+    min: responseNumberMin,
+    max: responseNumberMax,
+    step: responseNumberStep,
+  };
+
   switch (responseType) {
     case 'Text':
       return <TextQuestion {...textQuestionProps} />;
     case 'Number':
-      return (
-        <TextQuestion
-          {...textQuestionProps}
-          type="number"
-          inputProps={{
-            min: responseNumberMin,
-            max: responseNumberMax,
-            step: responseNumberStep,
-          }}
-        />
-      );
+      switch (responseNumberControl) {
+        case 'Input':
+          return <TextQuestion {...textQuestionProps} type="number" inputProps={numberProps} />;
+        case 'Slider':
+          return (
+            <SliderQuestion
+              onChange={_localValue => setLocalValue(_localValue)}
+              onChangeCommitted={_value => setValue(_value)}
+              question={question}
+              value={parseFloat(localValue)}
+              {...numberProps}
+            />
+          );
+        default:
+          return null;
+      }
     case 'Email':
       return <TextQuestion {...textQuestionProps} type="email" autoComplete="email" />;
     case 'Phone':
