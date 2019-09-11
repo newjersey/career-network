@@ -74,7 +74,7 @@ export default function AuthProvider(props) {
       }
       const userData = userDoc.data();
       const preauthData = preauthorizationDoc.data();
-      if (userData.isCoach === undefined) {
+      if (userData.isCoach === undefined && preauthData.coach) {
         userDocument(uid).set({ isCoach: preauthData.coach }, { merge: true });
       }
       if (userData.assignments === undefined && preauthData.assignments) {
