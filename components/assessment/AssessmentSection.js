@@ -14,7 +14,10 @@ const useStyles = makeStyles(theme => ({
     margin: '0 auto',
   },
   paper: {
-    padding: theme.spacing(3, 2),
+    padding: theme.spacing(5, 4, 3),
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing(6, 5, 4),
+    },
   },
 }));
 
