@@ -68,8 +68,8 @@ export default function AuthProvider(props) {
   };
 
   const applyPreauthorizations = useCallback(
-    (uid, userDoc, preauthorizationDoc) => {
-      if (!userDoc || !preauthorizationDoc) {
+    (uid, userDoc = {}, preauthorizationDoc = {}) => {
+      if (!userDoc.exists || !preauthorizationDoc.exists) {
         return;
       }
       const userData = userDoc.data();
