@@ -71,7 +71,7 @@ export default function SliderQuestion(props) {
 
       <StyledSlider
         aria-label={question.fields.Label}
-        aria-valuetext={value}
+        aria-valuetext={`${value}`}
         disabled={question.fields.Disabled}
         min={min}
         max={max}
