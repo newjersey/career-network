@@ -129,6 +129,12 @@ function Nav(props) {
       show: user && user.isAdmin,
     },
     {
+      href: '/about',
+      name: 'About',
+      shortName: 'About',
+      show: true,
+    },
+    {
       href: '',
       name: 'Help',
       shortName: 'Help',
