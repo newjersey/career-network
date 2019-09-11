@@ -17,7 +17,7 @@ const questionResponseType = PropTypes.oneOf([
   'Date',
 ]);
 
-const questionResponseOptionsControl = PropTypes.oneOf(['Dropdown']);
+const questionResponseOptionsControl = PropTypes.oneOf(['Dropdown', 'Radios']);
 
 const assessmentSection = recordShape({
   Name: PropTypes.string.isRequired,
