@@ -17,6 +17,8 @@ const questionResponseType = PropTypes.oneOf([
   'Date',
 ]);
 
+const questionResponseOptionsControl = PropTypes.oneOf(['Dropdown']);
+
 const assessmentSection = recordShape({
   Name: PropTypes.string.isRequired,
   'Short Name': PropTypes.string.isRequired,
@@ -40,6 +42,7 @@ const question = recordShape({
   'Helper Text': PropTypes.string,
   'Response Type': questionResponseType.isRequired,
   'Response Options': PropTypes.arrayOf(PropTypes.string),
+  'Response Options Control': questionResponseOptionsControl,
   Group: PropTypes.arrayOf(PropTypes.string),
   'Order Within Group': PropTypes.number,
 });
@@ -119,6 +122,7 @@ export default {
   questionGroups: PropTypes.arrayOf(questionGroup),
   questionResponseOption,
   questionResponseOptions: PropTypes.arrayOf(questionResponseOption),
+  questionResponseOptionsControl,
   resource,
   resources: PropTypes.arrayOf(resource),
   theory,

@@ -43,6 +43,7 @@ function Question(props) {
     Disabled: disabled,
     Hidden: hidden,
     'Response Options': responseOptionIds,
+    'Response Options Control': responseOptionsControl,
     'Response Type': responseType,
   } = question.fields;
 
@@ -131,7 +132,13 @@ function Question(props) {
     case 'Binary':
       return <BinaryQuestion {...nonTextQuestionProps} />;
     case 'Option':
-      return <OptionQuestion {...nonTextQuestionProps} responseOptions={responseOptions} />;
+      return (
+        <OptionQuestion
+          {...nonTextQuestionProps}
+          responseOptions={responseOptions}
+          responseOptionsControl={responseOptionsControl}
+        />
+      );
     case 'Link':
       return null; // TODO: implement a LinkQuestion component
     case 'File':
