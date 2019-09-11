@@ -129,6 +129,12 @@ function Nav(props) {
       show: user && user.isAdmin,
     },
     {
+      href: '/about',
+      name: 'About',
+      shortName: 'About',
+      show: true,
+    },
+    {
       href: '',
       name: 'Help',
       shortName: 'Help',
@@ -219,7 +225,7 @@ function Nav(props) {
                     <Picture
                       path="nj.webp"
                       fallbackType="png"
-                      alt="New Jersey Logo"
+                      alt="Garden State Career Network"
                       className={classes.logo}
                     />
                   </Grid>
