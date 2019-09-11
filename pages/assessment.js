@@ -49,7 +49,7 @@ function Assessment() {
   return (
     <div className={classes.root}>
       <ScaffoldContainer>
-        {fullyLoaded(user, allPropsLoaded(recordProps), allQuestionResponses, !isFinished) ? (
+        {fullyLoaded(user, allPropsLoaded(recordProps), allQuestionResponses) && !isFinished ? (
           <React.Fragment>
             <Typography ref={scrollToRef} component="h1" variant="h2" gutterBottom>
               Hi, {user && user.firstName}!
