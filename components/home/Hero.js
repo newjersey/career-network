@@ -7,17 +7,13 @@ import { useAuth } from '../Auth';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundSize: 'contain',
+    backgroundSize: '33vw',
     backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'right',
+    backgroundPosition: 'top right',
     paddingBottom: '3em',
     [theme.breakpoints.up('sm')]: {
       backgroundImage: 'url(/static/img/index/hero.svg)',
-      paddingBottom: '5em',
-    },
-    [theme.breakpoints.up('md')]: {
-      minHeight: '30vw',
-      paddingBottom: 'default',
+      paddingBottom: '6em',
     },
   },
   title: {
@@ -30,8 +26,11 @@ const useStyles = makeStyles(theme => ({
   highlight: {
     color: theme.palette.primary.main,
   },
-  picker: {
-    marginBottom: theme.spacing(10),
+  about: {
+    marginTop: theme.spacing(4),
+    [theme.breakpoints.up('md')]: {
+      maxWidth: '56%',
+    },
   },
 }));
 
@@ -52,6 +51,15 @@ function Hero() {
       <Button variant="contained" size="large" color="primary" onClick={showSignIn}>
         Get Started Today
       </Button>
+
+      <Typography className={classes.about}>
+        Job search is hard. We can help. By answering some questions about your search, our expert
+        system can make customized recommendations about next steps, with curated resources to help
+        you complete them. Each day you’ll receive additional recommended tasks that will help you
+        stay focused on the right activities for your search. And as you complete them and report on
+        your progress, our digital coach will learn what’s working and help you refine and focus on
+        the activities that work best for you.
+      </Typography>
     </div>
   );
 }
