@@ -10,7 +10,7 @@ import { env } from '../../next.config';
 export function firebaseProviderWrapper() {
   // eslint-disable-next-line react/prop-types
   return ({ children }) => (
-    <FirebaseProvider customFirebase={firebaseTestApp}>{children}</FirebaseProvider>
+    <FirebaseProvider firebaseApp={firebaseTestApp}>{children}</FirebaseProvider>
   );
 }
 

@@ -8,8 +8,7 @@ import app from './app';
 import FirebaseContext from './FirebaseContext';
 
 export default function FirebaseProvider(props) {
-  const { children, customFirebase } = props;
-  const firebaseApp = customFirebase || firebase;
+  const { children, firebaseApp } = props;
   const { auth } = firebaseApp;
   const db = firebaseApp.firestore(app);
 
@@ -23,9 +22,9 @@ export default function FirebaseProvider(props) {
 
 FirebaseProvider.propTypes = {
   children: PropTypes.node.isRequired,
-  customFirebase: PropTypes.shape(firebase.app.App),
+  firebaseApp: PropTypes.shape(firebase.app.App),
 };
 
 FirebaseProvider.defaultProps = {
-  customFirebase: undefined,
+  firebaseApp: firebase,
 };
