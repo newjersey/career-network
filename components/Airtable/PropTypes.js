@@ -7,36 +7,40 @@ function recordShape(fieldsShape) {
   });
 }
 
+const responseType = PropTypes.oneOf([
+  'Option',
+  'Text',
+  'Number',
+  'Phone',
+  'Link',
+  'File',
+  'Email',
+  'Binary',
+  'Date',
+]);
+
 const assessmentSection = recordShape({
   Name: PropTypes.string.isRequired,
   'Short Name': PropTypes.string.isRequired,
+  Order: PropTypes.number.isRequired,
   'Assessment Entries': PropTypes.arrayOf(PropTypes.string).isRequired,
 });
 
 const assessmentEntry = recordShape({
   Name: PropTypes.string.isRequired,
   'Assessment Section': PropTypes.arrayOf(PropTypes.string).isRequired,
+  'Order Within Section': PropTypes.number.isRequired,
   Question: PropTypes.arrayOf(PropTypes.string),
   'Question Group': PropTypes.arrayOf(PropTypes.string),
 });
 
 const question = recordShape({
   Name: PropTypes.string.isRequired,
-  Slug: PropTypes.string,
+  Label: PropTypes.string.isRequired,
   Disabled: PropTypes.bool,
   Hidden: PropTypes.bool,
   'Helper Text': PropTypes.string,
-  'Response Type': PropTypes.oneOf([
-    'Option',
-    'Text',
-    'Number',
-    'Phone',
-    'Link',
-    'File',
-    'Email',
-    'Binary',
-    'Date',
-  ]).isRequired,
+  'Response Type': responseType.isRequired,
   'Response Options': PropTypes.arrayOf(PropTypes.string),
   Group: PropTypes.arrayOf(PropTypes.string),
   'Order Within Group': PropTypes.number,
@@ -94,17 +98,7 @@ const predicate = recordShape({
     'contains',
     'does not contain',
   ]).isRequired,
-  'Question Response Type': PropTypes.oneOf([
-    'Option',
-    'Text',
-    'Number',
-    'Phone',
-    'Email',
-    'Binary',
-    'Date',
-    'File',
-    'Link',
-  ]).isRequired,
+  'Question Response Type': responseType.isRequired,
   'Constant Value': PropTypes.string,
   'Option Value': PropTypes.arrayOf(PropTypes.string),
 });
