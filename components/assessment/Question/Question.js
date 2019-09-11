@@ -45,6 +45,9 @@ function Question(props) {
     'Response Options': responseOptionIds,
     'Response Options Control': responseOptionsControl,
     'Response Type': responseType,
+    'Response Number Min': responseNumberMin,
+    'Response Number Max': responseNumberMax,
+    'Response Number Step': responseNumberStep,
   } = question.fields;
 
   // get response persisted in database
@@ -121,7 +124,17 @@ function Question(props) {
     case 'Text':
       return <TextQuestion {...textQuestionProps} />;
     case 'Number':
-      return <TextQuestion {...textQuestionProps} type="number" />;
+      return (
+        <TextQuestion
+          {...textQuestionProps}
+          type="number"
+          inputProps={{
+            min: responseNumberMin,
+            max: responseNumberMax,
+            step: responseNumberStep,
+          }}
+        />
+      );
     case 'Email':
       return <TextQuestion {...textQuestionProps} type="email" autoComplete="email" />;
     case 'Phone':
