@@ -2,7 +2,7 @@ import React from 'react';
 import { fireEvent, wait } from '@testing-library/react';
 import Router from 'next/router';
 
-import renderWrapped from '../../support/helpers';
+import { renderWrapped } from '../../support/helpers';
 import Nav from '../../../components/header/Nav';
 
 Router.router = { push: jest.fn().mockRejectedValue(), prefetch: jest.fn().mockRejectedValue };

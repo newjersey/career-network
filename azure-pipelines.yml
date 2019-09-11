@@ -4,32 +4,31 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- master
+  - master
 
 pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '10.x'
+    displayName: 'Install Node.js'
 
-- script: npm install
-  displayName: 'Install NPM dependencies'
+  - script: npm install
+    displayName: 'Install NPM dependencies'
 
-- script: npm env:dev2
-  displayName: 'Set preferred application environment'
+  - script: npm env:dev2
+    displayName: 'Set preferred application environment'
 
-- script: npx firebase emulators:start
-  displayName: 'Start Firebase emulators'
+  - script: npx firebase emulators:start
+    displayName: 'Start Firebase emulators'
 
-- script: npm test
-  displayName: 'Run unit tests'
+  - script: npm test
+    displayName: 'Run unit tests'
 
-- script: npm test:integration
-  displayName: 'Run integration tests'
+  - script: npm test:integration
+    displayName: 'Run integration tests'
 
-- script: npm run deploy
-  displayName: 'Build and deploy to Firebase Hosting'
-
+  - script: npm run deploy
+    displayName: 'Build and deploy to Firebase Hosting'

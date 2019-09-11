@@ -8,9 +8,9 @@ import app from './app';
 import FirebaseContext from './FirebaseContext';
 
 export default function FirebaseProvider(props) {
-  const { children } = props;
-  const { auth } = firebase;
-  const db = firebase.firestore(app);
+  const { children, firebaseApp } = props;
+  const { auth } = firebaseApp;
+  const db = firebaseApp.firestore(app);
 
   const value = {
     auth,
@@ -22,4 +22,9 @@ export default function FirebaseProvider(props) {
 
 FirebaseProvider.propTypes = {
   children: PropTypes.node.isRequired,
+  firebaseApp: PropTypes.shape(firebase.app.App),
+};
+
+FirebaseProvider.defaultProps = {
+  firebaseApp: firebase,
 };

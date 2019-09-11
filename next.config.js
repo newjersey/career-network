@@ -17,6 +17,8 @@ const appEnvironments = {
       storageBucket: 'nj-career-network-dev1.appspot.com',
       messagingSenderId: '81682397202',
       appId: '1:81682397202:web:5caa69d4e9c28d1e',
+      userCollection: 'users',
+      userPreauthorizationCollection: 'userPreauthorizations',
     },
   },
   dev2: {
@@ -33,6 +35,8 @@ const appEnvironments = {
       storageBucket: 'nj-career-network-dev2.appspot.com',
       messagingSenderId: '529668674367',
       appId: '1:529668674367:web:fe48e3e414bcd5d6',
+      userCollection: 'users',
+      userPreauthorizationCollection: 'userPreauthorizations',
     },
   },
   ppe: {
@@ -49,6 +53,8 @@ const appEnvironments = {
       storageBucket: '',
       messagingSenderId: '641946008142',
       appId: '1:641946008142:web:c6d623bc79bc899e',
+      userCollection: 'users',
+      userPreauthorizationCollection: 'userPreauthorizations',
     },
   },
   prod: {
@@ -65,12 +71,21 @@ const appEnvironments = {
       storageBucket: 'nj-career-network.appspot.com',
       messagingSenderId: '114141088298',
       appId: '1:114141088298:web:ce96ec93a41e3d35',
+      userCollection: 'users',
+      userPreauthorizationCollection: 'userPreauthorizations',
+    },
+  },
+  test: {
+    firebase: {
+      projectId: 'nj-career-network-test',
+      userCollection: 'users-test',
+      userPreauthorizationCollection: 'userPreauthorizations-test',
     },
   },
 };
 
 try {
-  const key = appEnv.read();
+  const key = process.env.NODE_ENV === 'test' ? 'test' : appEnv.read();
   env = appEnvironments[key];
 
   if (!key) {

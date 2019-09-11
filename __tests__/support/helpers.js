@@ -8,7 +8,8 @@ import * as factories from './factories';
 /**
  * Renders a component with all the necessary top-level providers
  */
-export default function renderWrapped(component) {
+// eslint-disable-next-line import/prefer-default-export
+export function renderWrapped(component) {
   const auth = factories.auth();
   const renderResult = render(
     <ThemeProvider theme={theme}>

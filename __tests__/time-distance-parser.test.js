@@ -43,7 +43,9 @@ describe('TimeDistanceParser', () => {
       expect(new TimeDistanceParser('Feb 3, 2019').isValidDistance()).toEqual(false);
       expect(new TimeDistanceParser('2019-02-04').isValidDistance()).toEqual(false);
       expect(new TimeDistanceParser('2 monthss ago').isValidDistance()).toEqual(false);
-      expect(new TimeDistanceParser('46 years a very long time ago').isValidDistance()).toEqual(false);
+      expect(new TimeDistanceParser('46 years a very long time ago').isValidDistance()).toEqual(
+        false
+      );
     });
   });
 });

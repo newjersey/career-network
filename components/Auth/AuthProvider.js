@@ -4,7 +4,7 @@
 //  - provide user (is signed in/out)
 
 import PropTypes from 'prop-types';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useFirebase } from '../Firebase';
 import AuthContext from './AuthContext';
@@ -21,6 +21,15 @@ export default function AuthProvider(props) {
 
   const handleCancel = () => setIsOpen(false);
 
+  const userDocument = useCallback(
+    uid => db.collection(process.env.firebase.userCollection).doc(uid),
+    [db]
+  );
+  const userPreauthorizationDocument = useCallback(
+    email => db.collection(process.env.firebase.userPreauthorizationCollection).doc(email),
+    [db]
+  );
+
   // Store user data in Firestore.
   const handleSignInSuccessWithAuthResult = authResult => {
     setIsOpen(false);
@@ -28,7 +37,6 @@ export default function AuthProvider(props) {
     try {
       const { additionalUserInfo, user: _user } = authResult;
       const { uid } = _user;
-      const userDocRef = db.collection('users').doc(uid);
 
       const { displayName, email, emailVerified, isAnonymous, phoneNumber, photoURL } = _user;
 
@@ -50,7 +58,7 @@ export default function AuthProvider(props) {
         updatedTimestamp: new Date(),
       };
 
-      userDocRef.set(userData, { merge: true });
+      userDocument(uid).set(userData, { merge: true });
     } catch (error) {
       // TODO: better error UX, and reporting solution
       // eslint-disable-next-line no-alert
@@ -58,6 +66,23 @@ export default function AuthProvider(props) {
       throw error;
     }
   };
+
+  const applyPreauthorizations = useCallback(
+    (uid, userDoc, preauthorizationDoc) => {
+      if (!userDoc || !preauthorizationDoc) {
+        return;
+      }
+      const userData = userDoc.data();
+      const preauthData = preauthorizationDoc.data();
+      if (userData.isCoach === undefined) {
+        userDocument(uid).set({ isCoach: preauthData.coach }, { merge: true });
+      }
+      if (userData.assignments === undefined && preauthData.assignments) {
+        userDocument(uid).set({ assignments: preauthData.assignments }, { merge: true });
+      }
+    },
+    [userDocument]
+  );
 
   // Clear or set user, pulling user data from Firestore.
   useEffect(() => {
@@ -67,14 +92,13 @@ export default function AuthProvider(props) {
         setIsOpen(false);
 
         try {
-          const { uid } = authUser;
-          const userDoc = await db
-            .collection('users')
-            .doc(uid)
-            .get();
+          const { email, uid } = authUser;
+          const userDoc = await userDocument(uid).get();
+          const preauthorizationDoc = await userPreauthorizationDocument(email).get();
 
           if (cleanupRef.current && userDoc.exists) {
             // preserve this ordering:
+            applyPreauthorizations(uid, userDoc, preauthorizationDoc);
             setUser(new User(userDoc));
             setWasSignedIn(true);
           }
@@ -96,13 +120,13 @@ export default function AuthProvider(props) {
 
       cleanupRef.current = null;
     };
-  }, [auth, db]);
+  }, [applyPreauthorizations, auth, userDocument, userPreauthorizationDocument]);
 
   const value = {
     showSignIn: () => setIsOpen(true),
     signOut: () => auth().signOut(),
     user,
-    userDocRef: user && db.collection('users').doc(user.uid),
+    userDocRef: user && userDocument(user.uid),
     wasSignedIn,
   };
 

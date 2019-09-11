@@ -14,9 +14,10 @@
     "@material-ui/icons": "^4.2.1",
     "@material-ui/styles": "^4.3.3",
     "clsx": "^1.0.4",
-    "dayjs": "^1.8.14",
+    "dayjs": "^1.8.15",
     "firebase": "^6.5.0",
     "jss": "^9.8.7",
+    "lodash": "^4.17.15",
     "next": "^8.1.0",
     "nprogress": "^0.2.0",
     "prop-types": "^15.7.2",
@@ -41,15 +42,19 @@
     "release": "git rev-parse --short HEAD | (read hash; firebase deploy -m \"Release at $hash\" )",
     "deploy": "npm run export && npm run release",
     "start": "next start",
-    "test": "jest",
+    "test": "npm run test:unit && npm run test:integration",
+    "test:unit": "jest",
+    "test:integration": "jest -c jest.config.integration.js --runInBand",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
+    "@firebase/testing": "^0.11.5",
     "@material-ui/codemod": "^4.3.0",
     "@testing-library/jest-dom": "^4.1.0",
     "@testing-library/react": "^8.0.4",
+    "@testing-library/react-hooks": "^1.1.0",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
     "chalk": "^2.4.2",
@@ -71,8 +76,10 @@
     "jest-date-mock": "^1.0.7",
     "jest-dom": "^3.5.0",
     "lint-staged": "^9.2.5",
+    "nanoid": "^2.0.3",
     "prettier": "1.18.2",
-    "pretty-quick": "^1.11.1"
+    "pretty-quick": "^1.11.1",
+    "react-test-renderer": "^16.9.0"
   },
   "husky": {
     "hooks": {

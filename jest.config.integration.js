@@ -3,12 +3,15 @@
 
 module.exports = {
   coverageDirectory: 'coverage',
-  setupFiles: ['jest-date-mock'],
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.js', '<rootDir>/__tests__/support/helpers.js'],
+  roots: ['<rootDir>/__tests__/Firebase/'],
+  setupFilesAfterEnv: [
+    '<rootDir>/jest.setup.integration.js',
+    '<rootDir>/__tests__/support/helpers.js',
+    '<rootDir>/__tests__/support/helpers.integration.js',
+  ],
   testPathIgnorePatterns: [
     '<rootDir>/.next/',
     '<rootDir>/node_modules/',
     '<rootDir>/__tests__/support/',
-    '<rootDir>/__tests__/Firebase/',
   ],
 };

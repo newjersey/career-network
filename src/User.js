@@ -26,7 +26,7 @@ export default class User {
     const { displayName } = this.authProfile;
 
     return displayName.includes(',')
-      ? `${displayName.split(',')[1]} ${displayName.split(',')[0]}`
+      ? `${displayName.split(',')[1]} ${displayName.split(',')[0]}`.trim()
       : displayName;
   }
 
@@ -48,6 +48,18 @@ export default class User {
 
   get isAssessmentComplete() {
     return this._isAssessmentComplete;
+  }
+
+  get isAdmin() {
+    return !!this.userData.isAdmin;
+  }
+
+  get isCoach() {
+    return !!this.userData.isCoach;
+  }
+
+  get coachAssignments() {
+    return this.userData.assignments || [];
   }
 
   // a bit hacky to update at runtime this way (vs. binding to DB) but quick and easy

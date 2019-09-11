@@ -123,6 +123,12 @@ function Nav(props) {
       show: false,
     },
     {
+      href: '/coach-assignments',
+      name: 'Coach Assignments',
+      shortName: 'Coach Assignments',
+      show: user && user.isAdmin,
+    },
+    {
       href: '',
       name: 'Help',
       shortName: 'Help',
