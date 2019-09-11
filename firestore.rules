@@ -8,39 +8,37 @@ rules_version = '2';
 
 // Future:
 //  - impersonation feature?
-//  - dev environments? (ensure don't clobber prod accidentally?)
 
 service cloud.firestore {
   match /databases/{database}/documents {
     match /users/{uid} {
-	  // any user can read, create, and update anything directly on their user document
-	  allow read, create, update: if request.auth.uid == uid;
+      // any user can read, create, and update anything directly on their user document
+      allow read, create, update: if request.auth.uid == uid;
       // allow read access to coaches, but only if they have the user assigned
       allow read: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isCoach == true &&
-					 get(/databases/$(database)/documents/users/$(request.auth.uid)).data.assignments.hasAny([uid]);
+          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.assignments.hasAny([uid]);
       // allow read access to admins
       allow read, write: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true;
 
       // any user can read, create, and update their own question responses
-   	  match /questionResponses/{document} {
-      	allow read, create, update: if request.auth.uid == uid;
-      	// allow read access to coaches
+      match /questionResponses/{document} {
+        allow read, create, update: if request.auth.uid == uid;
+        // allow read access to coaches
         allow read: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isCoach == true &&
-					   get(/databases/$(database)/documents/users/$(request.auth.uid)).data.assignments.hasAny([uid]);
+            get(/databases/$(database)/documents/users/$(request.auth.uid)).data.assignments.hasAny([uid]);
       }
 
       // action disposition events are immutable: no updating allowed
       match /actionDispositionEvents/{document} {
-      	allow read, create: if request.auth.uid == uid;
+        allow read, create: if request.auth.uid == uid;
       }
     }
 
     match /userPreauthorizations/{email} {
-	  // any user can read, create, and update anything directly on their userPreauthorization document
-	  allow read, create, update: if request.auth.token.email == email;
+      // any user can read, create, and update anything directly on their userPreauthorization document
+      allow read, create, update: if request.auth.token.email == email;
       // allow access to admins
       allow read, create, update: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true;
     }
   }
 }
-
