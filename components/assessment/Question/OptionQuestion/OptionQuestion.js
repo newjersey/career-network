@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Select from '@material-ui/core/Select';
 
-import AirtablePropTypes from '../../Airtable/PropTypes';
+import AirtablePropTypes from '../../../Airtable/PropTypes';
 
 // eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles(theme => ({
