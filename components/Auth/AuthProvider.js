@@ -5,6 +5,8 @@
 
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import isEmpty from 'lodash/fp/isEmpty';
+import isNil from 'lodash/fp/isNil';
 
 import { useFirebase } from '../Firebase';
 import AuthContext from './AuthContext';
@@ -56,6 +58,7 @@ export default function AuthProvider(props) {
         authProfile,
         authProviders,
         updatedTimestamp: new Date(),
+        isAdmin: false,
       };
 
       userDocument(uid).set(userData, { merge: true });
@@ -67,21 +70,38 @@ export default function AuthProvider(props) {
     }
   };
 
+  const documentExists = doc => doc && doc.exists;
+
+  const buildPreauthFields = useCallback((userRef, preauthRef) => {
+    const userData = userRef.data();
+    if (!documentExists(preauthRef)) {
+      return isNil(userData.isCoach) ? { isCoach: false } : {};
+    }
+
+    const fields = {};
+    const preauthData = preauthRef.data();
+    if (isNil(userData.isCoach)) {
+      fields.isCoach = !!preauthData.coach;
+    }
+    if (isNil(userData.assignments) && preauthData.assignments) {
+      fields.assignments = preauthData.assignments;
+    }
+
+    return fields;
+  }, []);
+
   const applyPreauthorizations = useCallback(
-    (uid, userDoc = {}, preauthorizationDoc = {}) => {
-      if (!userDoc.exists || !preauthorizationDoc.exists) {
+    (uid, userRef, preauthRef) => {
+      if (!documentExists(userRef)) {
         return;
       }
-      const userData = userDoc.data();
-      const preauthData = preauthorizationDoc.data();
-      if (userData.isCoach === undefined && preauthData.coach) {
-        userDocument(uid).set({ isCoach: preauthData.coach }, { merge: true });
-      }
-      if (userData.assignments === undefined && preauthData.assignments) {
-        userDocument(uid).set({ assignments: preauthData.assignments }, { merge: true });
+
+      const preauthFields = buildPreauthFields(userRef, preauthRef);
+      if (!isEmpty(preauthFields)) {
+        userDocument(uid).set({ ...preauthFields }, { merge: true });
       }
     },
-    [userDocument]
+    [userDocument, buildPreauthFields]
   );
 
   // Clear or set user, pulling user data from Firestore.
@@ -93,13 +113,13 @@ export default function AuthProvider(props) {
 
         try {
           const { email, uid } = authUser;
-          const userDoc = await userDocument(uid).get();
-          const preauthorizationDoc = await userPreauthorizationDocument(email).get();
+          const userRef = await userDocument(uid).get();
+          const preauthRef = await userPreauthorizationDocument(email).get();
 
-          if (cleanupRef.current && userDoc.exists) {
+          if (cleanupRef.current && userRef.exists) {
             // preserve this ordering:
-            applyPreauthorizations(uid, userDoc, preauthorizationDoc);
-            setUser(new User(userDoc));
+            applyPreauthorizations(uid, userRef, preauthRef);
+            setUser(new User(userRef));
             setWasSignedIn(true);
           }
         } catch (error) {
