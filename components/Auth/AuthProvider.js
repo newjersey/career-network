@@ -98,7 +98,7 @@ export default function AuthProvider(props) {
 
       const preauthFields = buildPreauthFields(userRef, preauthRef);
       if (!isEmpty(preauthFields)) {
-        userDocument(uid).set({ ...preauthFields }, { merge: true });
+        userDocument(uid).set(preauthFields, { merge: true });
       }
     },
     [userDocument, buildPreauthFields]
