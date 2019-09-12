@@ -21,7 +21,6 @@ function getDefaultValue(question, user) {
 
   switch (question.fields['Response Type']) {
     case 'Text':
-    case 'Number':
     case 'Email':
     case 'Phone':
     case 'Date':
@@ -32,11 +31,13 @@ function getDefaultValue(question, user) {
       return false;
     case 'File':
       return null;
+    case 'Number':
     default:
       return undefined;
   }
 }
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 function Question(props) {
   const { user, userDocRef } = useAuth();
   const { question, allQuestionResponseOptions, allQuestionResponses } = props;
@@ -141,7 +142,7 @@ function Question(props) {
               onChange={_localValue => setLocalValue(_localValue)}
               onChangeCommitted={_value => setValue(_value)}
               question={question}
-              value={parseFloat(localValue)}
+              value={localValue && parseFloat(localValue)}
               {...numberProps}
             />
           );
