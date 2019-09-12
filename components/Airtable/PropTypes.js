@@ -89,7 +89,7 @@ const task = recordShape({
     'Researching People & Companies',
     'Relationship Building',
     'Marketing Yourself',
-  ]).isRequired,
+  ]),
   Trigger: PropTypes.oneOf([
     'Everyone',
     'Initial assessment ',

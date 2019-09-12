@@ -31,14 +31,17 @@ export default function Task(props) {
         subheader={`🕒${task.fields['Time Estimate']} min.`}
       />
       <CardContent>
-        <Chip
-          size="small"
-          label={task.fields.Category}
-          style={{ backgroundColor: bgColor(task) }}
-        />
-
-        <br />
-        <br />
+        {task.fields.Category && (
+          <React.Fragment>
+            <Chip
+              size="small"
+              label={task.fields.Category}
+              style={{ backgroundColor: bgColor(task) }}
+            />
+            <br />
+            <br />
+          </React.Fragment>
+        )}
 
         <Typography variant="h5" component="h3" gutterBottom>
           Why?
