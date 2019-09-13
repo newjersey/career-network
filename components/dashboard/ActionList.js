@@ -36,7 +36,7 @@ export default function ActionList(props) {
         <center>
           {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
           <Typography variant="h3" color="secondary">
-            🎉&nbsp;&nbsp;<em>You finished this task—great job!</em>&nbsp;&nbsp;🥳
+            🎉&nbsp;&nbsp;<em>You finished this task—great job!</em>
           </Typography>
         </center>
       )}
