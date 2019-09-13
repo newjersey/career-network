@@ -1,8 +1,9 @@
 import React from 'react';
+import values from 'lodash/fp/values';
 
 import { useAuth, withAuthRequired } from '../components/Auth';
 import FullPageProgress from '../components/FullPageProgress';
-import { allPropsLoaded, fullyLoaded } from '../src/app-helper';
+import { fullyLoaded } from '../src/app-helper';
 import useAllCoaches from '../components/Firebase/useAllCoaches';
 import CoachAssignments from '../components/coaching/CoachAssignments';
 import useAllJobSeekers from '../components/Firebase/useAllJobSeekers';
@@ -14,7 +15,7 @@ function CoachAssignmentsPage() {
     allJobSeekers: useAllJobSeekers(),
   };
 
-  return fullyLoaded(user, allPropsLoaded(props)) ? (
+  return fullyLoaded(user, ...values(props)) ? (
     <CoachAssignments {...props} />
   ) : (
     <FullPageProgress />

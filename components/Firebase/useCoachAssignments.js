@@ -14,7 +14,7 @@ export default function useCoachAssignments(
 
   useEffect(() => {
     const build = async () => {
-      const assignmentPromises = assignmentIds.map(async assignmentId => {
+      const assignmentPromises = (assignmentIds || []).map(async assignmentId => {
         const assignmentDoc = await db.collection(userCollection).doc(assignmentId);
         const userData = (await assignmentDoc.get()).data();
         if (!userData) {
