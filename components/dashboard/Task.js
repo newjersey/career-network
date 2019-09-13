@@ -14,8 +14,21 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(4),
     padding: theme.spacing(3, 3, 2),
     [theme.breakpoints.up('sm')]: {
+      position: 'relative',
       padding: theme.spacing(4, 4, 1),
     },
+  },
+  timeEstimate: {
+    [theme.breakpoints.up('sm')]: {
+      position: 'absolute',
+      top: theme.spacing(4),
+      right: theme.spacing(4),
+    },
+  },
+  type: {
+    position: 'relative',
+    top: -theme.spacing(2.5),
+    marginBottom: theme.spacing(3.5),
   },
 }));
 
@@ -42,15 +55,17 @@ export default function Task(props) {
         }
       />
       <CardContent>
+        {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
+        <div className={classes.timeEstimate}>🕒{task.fields['Time Estimate']} min.</div>
+
         {task.fields.Category && (
           <Chip
             size="small"
             label={task.fields.Category}
+            className={classes.type}
             style={{ backgroundColor: bgColor(task) }}
           />
         )}
-        {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
-        <div>🕒{task.fields['Time Estimate']} min.</div>
 
         <Typography variant="h5" component="h3" gutterBottom>
           Why?
