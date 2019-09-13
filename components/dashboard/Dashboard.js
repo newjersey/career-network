@@ -197,10 +197,10 @@ export default function Dashboard(props) {
           Hi, {user && user.firstName}!
         </Typography>
         <Typography variant="subtitle1" gutterBottom>
-          Here’s your personalized action plan.
+          Here’s your personalized action plan. It will update as you make progress.
         </Typography>
         <Typography variant="h5" gutterBottom className={classes.subtitle}>
-          Your top {limit} tasks:
+          Your top {limit} tasks
         </Typography>
         <TaskList
           tasks={tasksToShow(props, limit)}
