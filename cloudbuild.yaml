@@ -4,7 +4,7 @@ steps:
     args: ['install']
   # Set preferred application environment
   - name: 'gcr.io/cloud-builders/npm'
-    args: ['env:dev2']
+    args: ['run', 'env:dev2']
     secretEnv: ['FIREBASE_TOKEN']
   # Run unit tests
   - name: 'gcr.io/cloud-builders/npm'
