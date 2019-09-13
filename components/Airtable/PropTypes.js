@@ -92,7 +92,7 @@ const task = recordShape({
   ]),
   Trigger: PropTypes.oneOf([
     'Everyone',
-    'Initial assessment ',
+    'Initial assessment',
     'External event',
     'Ongoing assessment',
   ]).isRequired,
