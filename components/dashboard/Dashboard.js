@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/styles';
-import Grid from '@material-ui/core/Grid';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
@@ -48,20 +47,13 @@ export default function Dashboard(props) {
   return (
     <div className={classes.root}>
       <ScaffoldContainer>
-        <Grid container direction="row" justify="space-between" alignItems="flex-start">
-          <Grid item>
-            <Typography component="h1" variant="h2" gutterBottom>
-              Hi, {user && user.firstName}!
-            </Typography>
-            <Typography variant="subtitle1" gutterBottom className={classes.subtitle}>
-              Ready to take the next step in your career? The steps below have been planned just for
-              you; get started today!
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography variant="subtitle2">{`Showing all ${allTasks.length}`} tasks</Typography>
-          </Grid>
-        </Grid>
+        <Typography component="h1" variant="h2" gutterBottom>
+          Hi, {user && user.firstName}!
+        </Typography>
+        <Typography variant="subtitle1" gutterBottom className={classes.subtitle}>
+          Ready to take the next step in your career? The steps below have been planned just for
+          you; get started today!
+        </Typography>
         <TaskList
           tasks={allTasks}
           allActions={allActions}
