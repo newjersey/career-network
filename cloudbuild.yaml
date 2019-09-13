@@ -1,0 +1,23 @@
+steps:
+  # Install dependencies
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['install']
+  # Set preferred application environment
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['env:dev2']
+    secretEnv: ['FIREBASE_TOKEN']
+  # Run unit tests
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['run', 'test:unit']
+  # Run integration tests
+  - name: 'gcr.io/$PROJECT_ID/firebase'
+    args: ['firebase', 'emulators:exec', '--only firestore', 'npm run test:integration']
+    secretEnv: ['FIREBASE_TOKEN']
+  # Build and deploy to Firebase
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['run', 'deploy']
+    secretEnv: ['FIREBASE_TOKEN']
+secrets:
+  - kmsKeyName: 'projects/[PROJECT_ID]/locations/global/keyRings/cloudbuilder/cryptoKeys/firebase-token'
+    secretEnv:
+      FIREBASE_TOKEN: CiQAb1u/jzAvR+2fVdCYEkm2o+pTRj5rj4Kos5tRWOYu7nPFFD4SVgBj7egswlPw33sniKYWdVZ6gvkYlBwijygNi41sT2IuE4roQAQhJCSCv53WS8M1ipbaNAPUlFbyueiyeXhWWhjuil4Z4rF47Jd6tTAILf361k/SlGx7
