@@ -18,6 +18,6 @@ steps:
     args: ['run', 'deploy']
     secretEnv: ['FIREBASE_TOKEN']
 secrets:
-  - kmsKeyName: 'projects/[PROJECT_ID]/locations/global/keyRings/cloudbuilder/cryptoKeys/firebase-token'
+  - kmsKeyName: 'projects/nj-career-network-dev2/locations/global/keyRings/cloudbuilder/cryptoKeys/firebase-token'
     secretEnv:
       FIREBASE_TOKEN: CiQAb1u/jzAvR+2fVdCYEkm2o+pTRj5rj4Kos5tRWOYu7nPFFD4SVgBj7egswlPw33sniKYWdVZ6gvkYlBwijygNi41sT2IuE4roQAQhJCSCv53WS8M1ipbaNAPUlFbyueiyeXhWWhjuil4Z4rF47Jd6tTAILf361k/SlGx7
