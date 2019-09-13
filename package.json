@@ -44,7 +44,7 @@
     "start": "next start",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "jest",
-    "test:integration": "jest -c jest.config.integration.js --runInBand",
+    "test:integration": "firebase emulators:exec --only firestore \"jest -c jest.config.integration.js --runInBand\"",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
   },

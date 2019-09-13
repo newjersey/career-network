@@ -10,8 +10,8 @@ steps:
   - name: 'gcr.io/cloud-builders/npm'
     args: ['run', 'test:unit']
   # Run integration tests
-  - name: 'gcr.io/$PROJECT_ID/firebase'
-    args: ['emulators:exec --only firestore', 'npm run test:integration']
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['run', 'test:integration']
     secretEnv: ['FIREBASE_TOKEN']
   # Build and deploy to Firebase
   - name: 'gcr.io/cloud-builders/npm'

@@ -26,11 +26,11 @@ To only run unit tests, execute:
 npm run test:unit
 ```
 
-The integration tests depend on the Firestore emulator. So, before attempting to run them, you must start an emulator
-instance on your local machine:
+The integration tests depend on the Firestore emulator. So, before attempting to run them, make sure you've set up the
+Firebase tools.
 
 ```bash
-npx firebase emulators:start --only firestore
+npx firebase login
 ```
 
 Now, you can launch the integration tests by running:
