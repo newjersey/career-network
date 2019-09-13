@@ -49,7 +49,7 @@ export default function Task(props) {
     <Card className={classes.root}>
       <CardHeader
         title={
-          <Typography component="h1" variant="h2">
+          <Typography component="h1" variant="h3">
             <strong>{task.fields.Title}</strong>
           </Typography>
         }
