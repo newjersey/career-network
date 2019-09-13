@@ -15,7 +15,8 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(5, 0),
   },
   subtitle: {
-    marginBottom: theme.spacing(5),
+    marginTop: theme.spacing(5),
+    marginBottom: theme.spacing(2),
   },
 }));
 
@@ -153,7 +154,7 @@ function triggerApplies(task, allConditions, allPredicates, allQuestionResponses
   }
 }
 
-function tasksToShow(_props) {
+function tasksToShow(_props, limit) {
   const {
     allConditions,
     allPredicates,
@@ -170,7 +171,7 @@ function tasksToShow(_props) {
   // 5. limit
   return allTasks
     .filter(task => triggerApplies(task, allConditions, allPredicates, allQuestionResponses))
-    .slice(0, 5);
+    .slice(0, limit);
 }
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
@@ -187,18 +188,23 @@ export default function Dashboard(props) {
     ...restProps
   } = props;
 
+  const limit = 5;
+
   return (
     <div className={classes.root}>
       <ScaffoldContainer>
         <Typography component="h1" variant="h2" gutterBottom>
           Hi, {user && user.firstName}!
         </Typography>
-        <Typography variant="subtitle1" gutterBottom className={classes.subtitle}>
+        <Typography variant="subtitle1" gutterBottom>
           Ready to take the next step in your career? The steps below have been planned just for
           you; get started today!
         </Typography>
+        <Typography variant="h5" gutterBottom className={classes.subtitle}>
+          Your top {limit}:
+        </Typography>
         <TaskList
-          tasks={tasksToShow(props)}
+          tasks={tasksToShow(props, limit)}
           allActions={allActions}
           allActionDispositionEvents={allActionDispositionEvents}
           debugMode
