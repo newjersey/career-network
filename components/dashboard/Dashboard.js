@@ -188,7 +188,7 @@ export default function Dashboard(props) {
     ...restProps
   } = props;
 
-  const limit = 5;
+  const limit = 3;
 
   return (
     <div className={classes.root}>
