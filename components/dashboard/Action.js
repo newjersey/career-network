@@ -97,18 +97,20 @@ function Action(props) {
         &nbsp;&nbsp;
         {done ? (
           <Button variant="outlined" color="secondary" size="small" onClick={handleClickOpen}>
-            Done!
+            Done
           </Button>
         ) : (
-          <Button
-            variant="contained"
-            color="primary"
-            size="small"
-            onClick={handleClickOpen}
-            disabled={disabled}
-          >
-            Start
-          </Button>
+          !disabled && (
+            <Button
+              variant="contained"
+              color="primary"
+              size="small"
+              onClick={handleClickOpen}
+              disabled={disabled}
+            >
+              Start
+            </Button>
+          )
         )}
       </Typography>
 
@@ -177,7 +179,7 @@ function Action(props) {
           )}
           {allVerified && (
             <Button onClick={handleDone} color="secondary" autoFocus>
-              Done!
+              Done
             </Button>
           )}
           <Button onClick={handleClose}>Cancel</Button>
