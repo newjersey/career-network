@@ -8,8 +8,8 @@ steps:
   # Run unit tests
   - name: 'gcr.io/cloud-builders/npm'
     args: ['run', 'test:unit']
-  # Run integration tests
-  - name: 'gcr.io/cloud-builders/npm'
+  # Run integration tests (in customized Docker image with Java 8 installed)
+  - name: 'gcr.io/$PROJECT_ID/npm'
     args: ['run', 'test:integration']
   # Build and deploy to Firebase
   - name: 'gcr.io/cloud-builders/npm'
