@@ -4,10 +4,13 @@ steps:
     args: ['install']
   # Set the preferred application environment for the current project
   - name: 'gcr.io/cloud-builders/npm'
+    args: ['run', 'env', '-- $PROJECT_ID']
+  - name: 'gcr.io/cloud-builders/npm'
+    entrypoint: 'bash'
     args:
-      - 'run'
+      - '-c'
       - |
-        env:$(echo $PROJECT_ID | rev | cut -d- -f1 | rev)
+        echo $PROJECT_ID | rev | cut -d- -f1 | rev > .appenv
   # Run unit tests
   - name: 'gcr.io/cloud-builders/npm'
     args: ['run', 'test:unit']
