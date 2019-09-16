@@ -11,6 +11,7 @@ function DashboardPage() {
   const { user } = useAuth();
   const allQuestionResponses = useUserSubcollection('questionResponses');
   const allActionDispositionEvents = useUserSubcollection('actionDispositionEvents');
+  const allTaskDispositionEvents = useUserSubcollection('taskDispositionEvents');
   const recordProps = {
     allPredicates: useRecords('Predicates?view=API'),
     allConditions: useRecords('Conditions?view=API'),
@@ -28,6 +29,7 @@ function DashboardPage() {
     <Dashboard
       allQuestionResponses={allQuestionResponses}
       allActionDispositionEvents={allActionDispositionEvents}
+      allTaskDispositionEvents={allTaskDispositionEvents}
       {...recordProps}
     />
   ) : (

@@ -108,33 +108,6 @@ function isSatisfied(conditionId, allConditions, allPredicates, allQuestionRespo
     .reduce((a, b) => a && b, true);
 }
 
-// function isActionDispositioned(action) {
-//   return allActionDispositionEvents.map(e => e.data().actionId).includes(action.id);
-// }
-
-// function getIndicatedActions(theory) {
-//   return allActions.filter(action => theory.fields.Actions.includes(action.id));
-// }
-
-// function getNonDispositionedActions(theory) {
-//   return getIndicatedActions(theory).filter(action => !isActionDispositioned(action));
-// }
-
-// function hasNonDispositionedActions(theory) {
-//   return !!getNonDispositionedActions(theory).length;
-// }
-
-// function hasNonDispositionedActions(task) {
-//   return !!getNonDispositionedActions(task).length;
-// }
-
-// take the top four (arbitrary, looks good in columns)
-// const showMax = 4;
-// const tasks = allTasks
-//   .filter(task => isIndicated(task))
-//   .filter(task => hasNonDispositionedActions(task))
-//   .slice(0, showMax);
-
 // Whether or not any of a task's conditions are satisfied by the current user.
 function isAnyConditionSatisfied(task, allConditions, allPredicates, allQuestionResponses) {
   // prettier-ignore
@@ -187,10 +160,12 @@ export default function Dashboard(props) {
     allQuestionResponses,
     allActions,
     allActionDispositionEvents,
+    allTaskDispositionEvents,
     ...restProps
   } = props;
 
   const limit = 3;
+  const doneTaskCount = allTaskDispositionEvents.length;
 
   return (
     <div className={classes.root}>
@@ -203,9 +178,10 @@ export default function Dashboard(props) {
         </Typography>
         <Typography variant="h5" gutterBottom className={classes.subtitle}>
           Your top {limit} tasks
+          {doneTaskCount > 0 && ` (and ${doneTaskCount} completed)`}
         </Typography>
         <TaskList
-          tasks={tasksToShow(props, limit)}
+          tasks={tasksToShow(props, limit + doneTaskCount)}
           allActions={allActions}
           allActionDispositionEvents={allActionDispositionEvents}
           {...restProps}
@@ -223,4 +199,5 @@ Dashboard.propTypes = {
   allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
   allActionDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
+  allTaskDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
 };
