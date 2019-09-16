@@ -35,6 +35,11 @@ function Action(props) {
       actionId: action.id,
       timestamp: new Date(),
       type,
+      // below two properties are just for a messy denormalized log
+      // (mostly to record the actions, etc. that the user actually saw,
+      // in case the configuration wording should change in the future)
+      action,
+      qualityChecks,
     };
 
     userDocRef.collection('actionDispositionEvents').add(data);
