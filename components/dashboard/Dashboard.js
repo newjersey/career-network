@@ -143,6 +143,7 @@ function isAnyConditionSatisfied(task, allConditions, allPredicates, allQuestion
     .reduce((a, b) => a || b, false);
 }
 
+// Whether or not a task's trigger is true for the current user.
 function triggerApplies(task, allConditions, allPredicates, allQuestionResponses) {
   switch (task.fields.Trigger) {
     case 'Initial assessment':
@@ -165,12 +166,13 @@ function tasksToShow(_props, limit) {
   } = _props;
 
   // 1. does trigger apply?
-  // 2. are prerequisites satisfied?
-  // 3. does frequency indicate to show (heeding dispositions)?
+  // 2. TODO: are prerequisites satisfied?
+  // 3. TODO: does frequency indicate to show (heeding dispositions)?
   // 4. sort
   // 5. limit
   return allTasks
     .filter(task => triggerApplies(task, allConditions, allPredicates, allQuestionResponses))
+    .sort((a, b) => b.fields.Priority - a.fields.Priority)
     .slice(0, limit);
 }
 
