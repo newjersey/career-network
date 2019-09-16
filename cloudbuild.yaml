@@ -4,7 +4,10 @@ steps:
     args: ['install']
   # Set the preferred application environment for the current project
   - name: 'gcr.io/cloud-builders/npm'
-    args: ['run', 'env:$(echo $PROJECT_ID | rev | cut -d- -f1 | rev)']
+    args:
+      - 'run'
+      - |
+        env:$(echo $PROJECT_ID | rev | cut -d- -f1 | rev)
   # Run unit tests
   - name: 'gcr.io/cloud-builders/npm'
     args: ['run', 'test:unit']
