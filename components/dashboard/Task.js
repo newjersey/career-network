@@ -3,6 +3,8 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Chip from '@material-ui/core/Chip';
+import clsx from 'clsx';
+import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
@@ -19,6 +21,9 @@ const useStyles = makeStyles(theme => ({
       position: 'relative',
       padding: theme.spacing(4, 4, 1),
     },
+  },
+  isDone: {
+    backgroundColor: '#efe',
   },
   timeEstimate: {
     [theme.breakpoints.up('sm')]: {
@@ -45,7 +50,7 @@ function bgColor(task) {
 
 export default function Task(props) {
   const { userDocRef } = useAuth();
-  const { task, ...restProps } = props;
+  const { task, isDone, ...restProps } = props;
   const classes = useStyles();
 
   function disposition(type) {
@@ -67,7 +72,7 @@ export default function Task(props) {
   }
 
   return (
-    <Card className={classes.root}>
+    <Card className={clsx(classes.root, isDone && classes.isDone)}>
       <CardHeader
         title={
           <Typography component="h1" variant="h3">
@@ -110,6 +115,7 @@ export default function Task(props) {
 Task.propTypes = {
   actions: AirtablePropTypes.actions.isRequired,
   task: AirtablePropTypes.task.isRequired,
+  isDone: PropTypes.bool.isRequired,
   allActionDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
   allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
 };

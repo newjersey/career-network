@@ -186,6 +186,7 @@ export default function Dashboard(props) {
           tasks={tasks}
           allActions={allActions}
           allActionDispositionEvents={allActionDispositionEvents}
+          allTaskDispositionEvents={allTaskDispositionEvents}
           {...restProps}
         />
       </ScaffoldContainer>
