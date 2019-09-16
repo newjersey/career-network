@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
@@ -16,10 +17,17 @@ function isDone(action, allActionDispositionEvents) {
 }
 
 export default function ActionList(props) {
-  const { actions, allActionDispositionEvents, ...restProps } = props;
+  const { actions, allActionDispositionEvents, onAllDone, ...restProps } = props;
   const allDone = actions
     .map(action => isDone(action, allActionDispositionEvents))
     .reduce((a, b) => a && b, true);
+
+  const onDone = (action, i) => {
+    // last action in the task
+    if (i === actions.length - 1) {
+      onAllDone();
+    }
+  };
 
   return (
     <div>
@@ -30,6 +38,7 @@ export default function ActionList(props) {
             action={action}
             disabled={i > 0 && !isDone(actions[i - 1], allActionDispositionEvents)}
             isDone={isDone(action, allActionDispositionEvents)}
+            onDone={() => onDone(action, i)}
             {...restProps}
           />
         ))}
@@ -51,4 +60,5 @@ ActionList.propTypes = {
   actions: AirtablePropTypes.actions.isRequired,
   allActionDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
   allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
+  onAllDone: PropTypes.func.isRequired,
 };

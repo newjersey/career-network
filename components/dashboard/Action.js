@@ -18,7 +18,7 @@ import AirtablePropTypes from '../Airtable/PropTypes';
 function Action(props) {
   const { userDocRef } = useAuth();
   const [open, setOpen] = React.useState(false);
-  const { action, allQualityChecks, disabled, isDone, fullScreen } = props;
+  const { action, allQualityChecks, disabled, isDone, onDone, fullScreen } = props;
   const qualityChecks = allQualityChecks.filter(
     qc => action.fields['Action ID'] === qc.fields['Action ID'][0]
   );
@@ -56,6 +56,7 @@ function Action(props) {
   function handleDone() {
     handleClose();
     disposition('done');
+    onDone();
   }
 
   function handleClaimedComplete() {
@@ -178,6 +179,7 @@ Action.propTypes = {
   allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
   disabled: PropTypes.bool.isRequired,
   isDone: PropTypes.bool.isRequired,
+  onDone: PropTypes.func.isRequired,
 };
 
 export default withMobileDialog()(Action);

@@ -1,11 +1,12 @@
 import { makeStyles } from '@material-ui/styles';
-import React from 'react';
-import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Chip from '@material-ui/core/Chip';
+import React from 'react';
+import Typography from '@material-ui/core/Typography';
 
+import { useAuth } from '../Auth';
 import ActionList from './ActionList';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import FirebasePropTypes from '../Firebase/PropTypes';
@@ -43,8 +44,27 @@ function bgColor(task) {
 }
 
 export default function Task(props) {
+  const { userDocRef } = useAuth();
   const { task, ...restProps } = props;
   const classes = useStyles();
+
+  function disposition(type) {
+    const data = {
+      taskId: task.id,
+      timestamp: new Date(),
+      type,
+      // below property are just for a messy denormalized log
+      // (mostly to record the actions, etc. that the user actually saw,
+      // in case the configuration wording should change in the future)
+      task,
+    };
+
+    userDocRef.collection('taskDispositionEvents').add(data);
+  }
+
+  function onAllTasksDone() {
+    disposition('done');
+  }
 
   return (
     <Card className={classes.root}>
@@ -81,7 +101,7 @@ export default function Task(props) {
         <Typography variant="h5" component="h3">
           How?
         </Typography>
-        <ActionList task={task} {...restProps} />
+        <ActionList task={task} onAllDone={onAllTasksDone} {...restProps} />
       </CardContent>
     </Card>
   );
