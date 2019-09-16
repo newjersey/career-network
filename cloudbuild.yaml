@@ -4,7 +4,7 @@ steps:
     args: ['install']
   # Set the preferred application environment for the current project
   - name: 'gcr.io/cloud-builders/npm'
-    args: ['run', 'env', '-- $PROJECT_ID']
+    args: ['run', 'env', '--', '$PROJECT_ID']
   - name: 'gcr.io/cloud-builders/npm'
     entrypoint: 'bash'
     args:
