@@ -70,3 +70,22 @@ If all looks good, ship it:
 ```sh
 npm run deploy
 ```
+
+## Continuous Integration
+
+We use [Google Cloud Build](https://cloud.google.com/cloud-build/) to automatically build, test and deploy the
+application to the test/development environments. You might want to take a look at the `cloudbuild.yaml` file to know
+what steps are performed in the CI environment.
+
+In order to configure a new development environment to be part of the CI workflow, you must follow these steps:
+
+- Set your application environment by issuing the `npm run env:<YOUR_ENV>` command.
+- Install the [gcloud command-line tool](https://cloud.google.com/pubsub/docs/quickstart-cli) and configure it to use
+  the same project as Firebase.
+- Inside the `ci-image` folder, run `gcloud builds submit --config cloudbuild.yaml .`. This will tell Google Cloud to
+  build our custom Docker image and store it in its Container Registry. This Docker image is the same as the `npm` image
+  provided by Cloud Build, but with Java 8 installed, which is needed to run the Firestore emulator.
+- Trigger a new build by pushing a commit, or retry a failed step from Cloud Build Console, if any exists.
+
+If everything is correct, from now on every change in the GitHub repository will trigger a build for your environment,
+and code will be deployed when all tests and validations pass.
