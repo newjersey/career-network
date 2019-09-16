@@ -125,11 +125,11 @@ function isSatisfied(conditionId, allConditions, allPredicates, allQuestionRespo
 // }
 
 // function hasNonDispositionedActions(task) {
-//   return debugMode ? true : !!getNonDispositionedActions(task).length;
+//   return !!getNonDispositionedActions(task).length;
 // }
 
 // take the top four (arbitrary, looks good in columns)
-// const showMax = debugMode ? 99999 : 4;
+// const showMax = 4;
 // const tasks = allTasks
 //   .filter(task => isIndicated(task))
 //   .filter(task => hasNonDispositionedActions(task))
@@ -208,7 +208,6 @@ export default function Dashboard(props) {
           tasks={tasksToShow(props, limit)}
           allActions={allActions}
           allActionDispositionEvents={allActionDispositionEvents}
-          debugMode
           {...restProps}
         />
       </ScaffoldContainer>

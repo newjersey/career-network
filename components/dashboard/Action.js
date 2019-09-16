@@ -10,18 +10,35 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 
+import { useAuth } from '../Auth';
 import AirtablePropTypes from '../Airtable/PropTypes';
 
+// TODO: refactor
+// eslint-disable-next-line sonarjs/cognitive-complexity
 function Action(props) {
+  const { userDocRef } = useAuth();
   const [open, setOpen] = React.useState(false);
-  const [useIndicative, setUseIndicative] = React.useState(false);
-  const [done, setDone] = React.useState(false);
+  const { action, allQualityChecks, disabled, isDone, fullScreen } = props;
+  const qualityChecks = allQualityChecks.filter(
+    qc => action.fields['Action ID'] === qc.fields['Action ID'][0]
+  );
+  const defaultVerifications = new Array(qualityChecks.length);
+  defaultVerifications.fill(false);
+  const [verifications, setVerifications] = React.useState(defaultVerifications);
+  const allVerified = verifications.reduce((a, b) => a && b, true);
 
-  // const classes = useStyles();
-  // const showMessage = useSnackbar();
-  // const { userDocRef } = useAuth();
-  // const [expanded, setExpanded] = React.useState(false);
-  const { action, allQualityChecks, disabled, fullScreen, onDone } = props;
+  const [claimedComplete, setClaimedComplete] = React.useState(false);
+  const useIndicative = claimedComplete || isDone;
+
+  function disposition(type) {
+    const data = {
+      actionId: action.id,
+      timestamp: new Date(),
+      type,
+    };
+
+    userDocRef.collection('actionDispositionEvents').add(data);
+  }
 
   function handleClickOpen() {
     setOpen(true);
@@ -33,58 +50,18 @@ function Action(props) {
 
   function handleDone() {
     handleClose();
-    setDone(true);
-    onDone();
+    disposition('done');
   }
 
-  function handleCompleted() {
-    setUseIndicative(!useIndicative);
+  function handleClaimedComplete() {
+    setClaimedComplete(!claimedComplete);
   }
-
-  const qualityChecks = allQualityChecks.filter(
-    qc => action.fields['Action ID'] === qc.fields['Action ID'][0]
-  );
-
-  const defaultVerifications = new Array(qualityChecks.length);
-  defaultVerifications.fill(false);
-
-  const [verifications, setVerifications] = React.useState(defaultVerifications);
-  const allVerified = verifications.reduce((a, b) => a && b, true);
 
   function handleVerify(i, event) {
     const newVerifications = [...verifications];
     newVerifications[i] = event.target.checked;
     setVerifications(newVerifications);
   }
-
-  // function handleExpandClick() {
-  //   setExpanded(!expanded);
-  // }
-
-  // function disposition(type) {
-  //   const data = {
-  //     actionId: action.id,
-  //     timestamp: new Date(),
-  //     type,
-  //   };
-
-  //   userDocRef.collection('actionDispositionEvents').add(data);
-  // }
-
-  // function handleDone() {
-  //   showMessage('Great job!');
-  //   disposition('done');
-  // }
-
-  // function handleSnooze() {
-  //   showMessage('Snoozed for one week');
-  //   disposition('snoozed');
-  // }
-
-  // function handleSkip() {
-  //   showMessage('Skipped');
-  //   disposition('skipped');
-  // }
 
   return (
     <div>
@@ -95,7 +72,7 @@ function Action(props) {
       >
         {action.fields.Title}
         &nbsp;&nbsp;
-        {done ? (
+        {isDone ? (
           <Button variant="outlined" color="secondary" size="small" onClick={handleClickOpen}>
             Done
           </Button>
@@ -158,7 +135,8 @@ function Action(props) {
               >
                 {useIndicative && (
                   <Checkbox
-                    checked={!!verifications[i]}
+                    checked={isDone || !!verifications[i]}
+                    disabled={isDone}
                     onChange={event => handleVerify(i, event)}
                     color="secondary"
                     inputProps={{
@@ -172,17 +150,17 @@ function Action(props) {
           </ul>
         </DialogContent>
         <DialogActions>
-          {!useIndicative && (
-            <Button onClick={handleCompleted} color="primary" autoFocus>
-              Completed
+          {!isDone && !useIndicative && (
+            <Button onClick={handleClaimedComplete} color="primary" autoFocus>
+              Complete
             </Button>
           )}
-          {allVerified && (
+          {!isDone && allVerified && (
             <Button onClick={handleDone} color="secondary" autoFocus>
               Done
             </Button>
           )}
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>{isDone ? 'OK' : 'Cancel'}</Button>
         </DialogActions>
       </Dialog>
     </div>
@@ -194,7 +172,7 @@ Action.propTypes = {
   action: AirtablePropTypes.action.isRequired,
   allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
   disabled: PropTypes.bool.isRequired,
-  onDone: PropTypes.func.isRequired,
+  isDone: PropTypes.bool.isRequired,
 };
 
 export default withMobileDialog()(Action);

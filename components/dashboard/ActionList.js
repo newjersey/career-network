@@ -3,21 +3,23 @@ import Typography from '@material-ui/core/Typography';
 
 import Action from './Action';
 import AirtablePropTypes from '../Airtable/PropTypes';
+import FirebasePropTypes from '../Firebase/PropTypes';
+
+// persistance model allows for future disposition states (snooze, skip, etc.)
+function isDone(action, allActionDispositionEvents) {
+  // TODO: sort on the server
+  const currentDispositionEvent = allActionDispositionEvents
+    .filter(e => e.data().actionId === action.id)
+    .sort((a, b) => b.data().timestamp.seconds - a.data().timestamp.seconds)[0];
+
+  return !!currentDispositionEvent && currentDispositionEvent.data().type === 'done';
+}
 
 export default function ActionList(props) {
-  const { actions, ...restProps } = props;
-
-  const defaultDones = new Array(actions.length);
-  defaultDones.fill(false);
-
-  const [dones, setDones] = React.useState(defaultDones);
-  const allDone = dones.reduce((a, b) => a && b, true);
-
-  function onDone(i) {
-    const newDones = [...dones];
-    newDones[i] = true;
-    setDones(newDones);
-  }
+  const { actions, allActionDispositionEvents, ...restProps } = props;
+  const allDone = actions
+    .map(action => isDone(action, allActionDispositionEvents))
+    .reduce((a, b) => a && b, true);
 
   return (
     <div>
@@ -26,8 +28,8 @@ export default function ActionList(props) {
           <Action
             key={action.id}
             action={action}
-            disabled={i > 0 && !dones[i - 1]}
-            onDone={() => onDone(i)}
+            disabled={i > 0 && !isDone(actions[i - 1], allActionDispositionEvents)}
+            isDone={isDone(action, allActionDispositionEvents)}
             {...restProps}
           />
         ))}
@@ -37,7 +39,7 @@ export default function ActionList(props) {
           {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
           <Typography variant="h4" color="secondary" gutterBottom>
             <br />
-            🎉&nbsp;&nbsp;You finished this task—great job!&nbsp;&nbsp;🎉
+            You finished this task—great job!&nbsp;&nbsp;🎉
           </Typography>
         </center>
       )}
@@ -47,5 +49,6 @@ export default function ActionList(props) {
 
 ActionList.propTypes = {
   actions: AirtablePropTypes.actions.isRequired,
+  allActionDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
   allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
 };

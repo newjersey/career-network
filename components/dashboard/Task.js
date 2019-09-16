@@ -8,6 +8,7 @@ import Chip from '@material-ui/core/Chip';
 
 import ActionList from './ActionList';
 import AirtablePropTypes from '../Airtable/PropTypes';
+import FirebasePropTypes from '../Firebase/PropTypes';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -89,5 +90,6 @@ export default function Task(props) {
 Task.propTypes = {
   actions: AirtablePropTypes.actions.isRequired,
   task: AirtablePropTypes.task.isRequired,
+  allActionDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
   allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
 };
