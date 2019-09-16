@@ -128,7 +128,7 @@ function triggerApplies(task, allConditions, allPredicates, allQuestionResponses
   }
 }
 
-function tasksToShow(_props, limit) {
+function tasksToShow(_props) {
   const {
     allConditions,
     allPredicates,
@@ -142,11 +142,9 @@ function tasksToShow(_props, limit) {
   // 2. TODO: are prerequisites satisfied?
   // 3. TODO: does frequency indicate to show (heeding dispositions)?
   // 4. sort
-  // 5. limit
   return allTasks
     .filter(task => triggerApplies(task, allConditions, allPredicates, allQuestionResponses))
-    .sort((a, b) => b.fields.Priority - a.fields.Priority)
-    .slice(0, limit);
+    .sort((a, b) => b.fields.Priority - a.fields.Priority);
 }
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
@@ -164,8 +162,12 @@ export default function Dashboard(props) {
     ...restProps
   } = props;
 
-  const limit = 3;
+  const todoTaskLimit = 3;
+
+  const allApplicableTasks = tasksToShow(props);
   const doneTaskCount = allTaskDispositionEvents.length;
+  const todoTaskCount = Math.min(allApplicableTasks.length - doneTaskCount, todoTaskLimit);
+  const tasks = allApplicableTasks.slice(0, todoTaskCount + doneTaskCount);
 
   return (
     <div className={classes.root}>
@@ -177,11 +179,11 @@ export default function Dashboard(props) {
           Here’s your personalized action plan. It will update as you make progress.
         </Typography>
         <Typography variant="h5" gutterBottom className={classes.subtitle}>
-          Your top {limit} tasks
+          Your top {todoTaskCount} tasks
           {doneTaskCount > 0 && ` (and ${doneTaskCount} completed)`}
         </Typography>
         <TaskList
-          tasks={tasksToShow(props, limit + doneTaskCount)}
+          tasks={tasks}
           allActions={allActions}
           allActionDispositionEvents={allActionDispositionEvents}
           {...restProps}
