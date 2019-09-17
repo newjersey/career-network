@@ -15,6 +15,7 @@
     "@material-ui/styles": "^4.3.3",
     "clsx": "^1.0.4",
     "dayjs": "^1.8.15",
+    "dom-confetti": "^0.1.1",
     "firebase": "^6.5.0",
     "jss": "^9.8.7",
     "linkifyjs": "^2.1.8",

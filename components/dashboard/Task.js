@@ -1,3 +1,4 @@
+import { confetti } from 'dom-confetti';
 import { makeStyles } from '@material-ui/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -5,7 +6,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Chip from '@material-ui/core/Chip';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useRef } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { useAuth } from '../Auth';
@@ -37,7 +38,27 @@ const useStyles = makeStyles(theme => ({
     top: -theme.spacing(2.5),
     marginBottom: theme.spacing(3.5),
   },
+  confetti: {
+    zIndex: 999,
+    position: 'fixed',
+    left: '50%',
+    bottom: '15%',
+    transform: 'translateX(-50%)',
+  },
 }));
+
+const confettiConfig = {
+  angle: '90',
+  spread: '70',
+  startVelocity: 60,
+  elementCount: '80',
+  dragFriction: 0.1,
+  duration: '6500',
+  stagger: '1',
+  width: '10px',
+  height: '16px',
+  colors: ['#a864fd', '#29cdff', '#78ff44', '#ff718d', '#fdff6a'],
+};
 
 function bgColor(task) {
   return {
@@ -49,8 +70,9 @@ function bgColor(task) {
 }
 
 export default function Task(props) {
-  const { userDocRef } = useAuth();
   const { task, isDone, ...restProps } = props;
+  const { userDocRef } = useAuth();
+  const confettiRef = useRef();
   const classes = useStyles();
 
   function disposition(type) {
@@ -69,46 +91,50 @@ export default function Task(props) {
 
   function onAllActionsDone() {
     disposition('done');
+    confetti(confettiRef.current, confettiConfig);
   }
 
   return (
-    <Card className={clsx(classes.root, isDone && classes.isDone)}>
-      <CardHeader
-        title={
-          <Typography component="h1" variant="h3">
-            <strong>{task.fields.Title}</strong>
+    <React.Fragment>
+      <div className={classes.confetti} ref={confettiRef} />
+      <Card className={clsx(classes.root, isDone && classes.isDone)}>
+        <CardHeader
+          title={
+            <Typography component="h1" variant="h3">
+              <strong>{task.fields.Title}</strong>
+            </Typography>
+          }
+        />
+        <CardContent>
+          {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
+          <div className={classes.timeEstimate}>🕒{task.fields['Time Estimate']} min.</div>
+
+          {task.fields.Category && (
+            <Chip
+              size="small"
+              label={task.fields.Category}
+              className={classes.type}
+              style={{ backgroundColor: bgColor(task) }}
+            />
+          )}
+
+          <Typography variant="h5" component="h3" gutterBottom>
+            Why?
           </Typography>
-        }
-      />
-      <CardContent>
-        {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
-        <div className={classes.timeEstimate}>🕒{task.fields['Time Estimate']} min.</div>
+          <Typography variant="body1" component="p">
+            {task.fields.Why}
+          </Typography>
 
-        {task.fields.Category && (
-          <Chip
-            size="small"
-            label={task.fields.Category}
-            className={classes.type}
-            style={{ backgroundColor: bgColor(task) }}
-          />
-        )}
+          <br />
+          <br />
 
-        <Typography variant="h5" component="h3" gutterBottom>
-          Why?
-        </Typography>
-        <Typography variant="body1" component="p">
-          {task.fields.Why}
-        </Typography>
-
-        <br />
-        <br />
-
-        <Typography variant="h5" component="h3">
-          How?
-        </Typography>
-        <ActionList task={task} onAllDone={onAllActionsDone} {...restProps} />
-      </CardContent>
-    </Card>
+          <Typography variant="h5" component="h3">
+            How?
+          </Typography>
+          <ActionList task={task} onAllDone={onAllActionsDone} {...restProps} />
+        </CardContent>
+      </Card>
+    </React.Fragment>
   );
 }
 
