@@ -32,6 +32,11 @@ service cloud.firestore {
       match /actionDispositionEvents/{document} {
         allow read, create: if request.auth.uid == uid;
       }
+
+      // task disposition events are immutable: no updating allowed
+      match /taskDispositionEvents/{document} {
+        allow read, create: if request.auth.uid == uid;
+      }
     }
 
     match /userPreauthorizations/{email} {

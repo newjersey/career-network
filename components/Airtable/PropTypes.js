@@ -64,32 +64,45 @@ const questionResponseOption = recordShape({
 });
 
 const action = recordShape({
-  What: PropTypes.string.isRequired,
-  Why: PropTypes.string.isRequired,
+  'Action ID': PropTypes.number.isRequired,
+  Title: PropTypes.string.isRequired,
   How: PropTypes.string.isRequired,
-  Elaboration: PropTypes.string,
+  Order: PropTypes.number.isRequired,
+  'Task IDs': PropTypes.arrayOf(PropTypes.number).isRequired,
+  'Quality Check IDs': PropTypes.arrayOf(PropTypes.number),
+});
+
+const qualityCheck = recordShape({
+  'Quality Check ID': PropTypes.number.isRequired,
+  'Action ID': PropTypes.arrayOf(PropTypes.number).isRequired,
+  Order: PropTypes.number.isRequired,
+  Imperative: PropTypes.string.isRequired,
+  Indicative: PropTypes.string.isRequired,
+});
+
+const task = recordShape({
+  'Task ID': PropTypes.number.isRequired,
   Priority: PropTypes.number.isRequired,
-  'Icon ID': PropTypes.number.isRequired,
-  Resources: PropTypes.arrayOf(PropTypes.string).isRequired,
-  'Elaboration Resources': PropTypes.arrayOf(PropTypes.string),
-});
-
-const resource = recordShape({
-  Name: PropTypes.string.isRequired,
-  Description: PropTypes.string,
-  URL: PropTypes.string.isRequired,
-});
-
-const theory = recordShape({
-  Name: PropTypes.string.isRequired,
-  Conditions: PropTypes.arrayOf(PropTypes.string).isRequired,
-  Actions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  'Time Estimate': PropTypes.number.isRequired,
+  Category: PropTypes.oneOf([
+    'Searching / Posting / Applying Online',
+    'Researching People & Companies',
+    'Relationship Building',
+    'Marketing Yourself',
+  ]),
+  Trigger: PropTypes.oneOf(['Everyone', 'Conditions', 'Event']).isRequired,
+  Frequency: PropTypes.oneOf(['Once', 'Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly'])
+    .isRequired,
+  Title: PropTypes.string.isRequired,
+  Why: PropTypes.string.isRequired,
+  // Conditions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  'Action IDs': PropTypes.arrayOf(PropTypes.number).isRequired,
 });
 
 const condition = recordShape({
   Name: PropTypes.string.isRequired,
   Predicates: PropTypes.arrayOf(PropTypes.string).isRequired,
-  Theories: PropTypes.arrayOf(PropTypes.string).isRequired,
+  Tasks: PropTypes.arrayOf(PropTypes.string).isRequired,
 });
 
 const predicate = recordShape({
@@ -121,6 +134,8 @@ export default {
   conditions: PropTypes.arrayOf(condition),
   predicate,
   predicates: PropTypes.arrayOf(predicate),
+  qualityCheck,
+  qualityChecks: PropTypes.arrayOf(qualityCheck),
   question,
   questions: PropTypes.arrayOf(question),
   questionGroup,
@@ -129,8 +144,6 @@ export default {
   questionResponseOptions: PropTypes.arrayOf(questionResponseOption),
   questionResponseOptionsControl,
   questionResponseNumberControl,
-  resource,
-  resources: PropTypes.arrayOf(resource),
-  theory,
-  theories: PropTypes.arrayOf(theory),
+  task,
+  tasks: PropTypes.arrayOf(task),
 };
