@@ -43,7 +43,7 @@ const appEnvironments = {
     name: 'PREVIEW',
     showName: true,
     airtable: {
-      apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/appKVLegSA7jdrBWN/',
+      apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/appoZOnpKML2dKjkQ/',
     },
     firebase: {
       apiKey: 'AIzaSyDx21FkVqjXshORafAbzPvv2kACmXhATok',
