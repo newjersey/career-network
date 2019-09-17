@@ -25,10 +25,7 @@ function AuthDialog(props) {
         <DialogContentText>
           Before we get started, please sign in using an account below.
           <br />
-          <small>
-            We use this only for the purpose of authenticating and won’t transfer or share
-            information about you to a third-party.
-          </small>
+          <small>We only use this information to provide and improve this service.</small>
         </DialogContentText>
         <AuthForm onSignInSuccessWithAuthResult={onSignInSuccessWithAuthResult} />
       </DialogContent>
