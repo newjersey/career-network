@@ -10,7 +10,7 @@ import FirebasePropTypes from '../Firebase/PropTypes';
 export default function ActionList(props) {
   const { actions, allActionDispositionEvents, onAllDone, ...restProps } = props;
   const allDone = actions
-    .map(action => isDone(action, allActionDispositionEvents))
+    .map(action => isDone(action, allActionDispositionEvents, 'actionId'))
     .reduce((a, b) => a && b, true);
 
   const onDone = (action, i) => {
