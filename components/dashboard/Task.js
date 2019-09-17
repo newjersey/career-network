@@ -67,7 +67,7 @@ export default function Task(props) {
     userDocRef.collection('taskDispositionEvents').add(data);
   }
 
-  function onAllTasksDone() {
+  function onAllActionsDone() {
     disposition('done');
   }
 
@@ -106,7 +106,7 @@ export default function Task(props) {
         <Typography variant="h5" component="h3">
           How?
         </Typography>
-        <ActionList task={task} onAllDone={onAllTasksDone} {...restProps} />
+        <ActionList task={task} onAllDone={onAllActionsDone} {...restProps} />
       </CardContent>
     </Card>
   );
