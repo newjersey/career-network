@@ -119,7 +119,7 @@ function isAnyConditionSatisfied(task, allConditions, allPredicates, allQuestion
 // Whether or not a task's trigger is true for the current user.
 function triggerApplies(task, allConditions, allPredicates, allQuestionResponses) {
   switch (task.fields.Trigger) {
-    case 'Initial assessment':
+    case 'Conditions':
       return isAnyConditionSatisfied(task, allConditions, allPredicates, allQuestionResponses);
     case 'Everyone':
       return true;

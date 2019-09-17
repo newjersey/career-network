@@ -90,12 +90,7 @@ const task = recordShape({
     'Relationship Building',
     'Marketing Yourself',
   ]),
-  Trigger: PropTypes.oneOf([
-    'Everyone',
-    'Initial assessment',
-    'External event',
-    'Ongoing assessment',
-  ]).isRequired,
+  Trigger: PropTypes.oneOf(['Everyone', 'Conditions', 'Event']).isRequired,
   Frequency: PropTypes.oneOf(['Once', 'Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly'])
     .isRequired,
   Title: PropTypes.string.isRequired,
