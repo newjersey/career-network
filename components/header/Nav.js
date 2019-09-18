@@ -109,12 +109,12 @@ function Nav(props) {
     {
       href: '/assessment',
       name: 'Questionnaire',
-      show: user && !user.isAssessmentComplete,
+      show: user && !user.isCoach && !user.isAssessmentComplete,
     },
     {
       href: '/dashboard',
       name: 'My Dashboard',
-      show: user && user.isAssessmentComplete,
+      show: user && !user.isCoach && user.isAssessmentComplete,
     },
     {
       href: '/toolkit',
@@ -131,8 +131,14 @@ function Nav(props) {
     {
       href: '/coach-assignments',
       name: 'Coach Assignments',
-      shortName: 'Coach Assignments',
+      shortName: 'Coaches',
       show: user && user.isAdmin,
+    },
+    {
+      href: '/coaching',
+      name: 'Coaching',
+      shortName: 'Coaching',
+      show: user && user.isCoach,
     },
     {
       href: '/about',
