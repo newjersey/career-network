@@ -2,14 +2,16 @@ const appEnv = require('./src/AppEnv');
 
 let env;
 
-const workingAirtableApiBase =
-  'https://careers.gardenstate.tech/api/airtable/v0/appoZOnpKML2dKjkQ/';
+// in production, we pull data from static JSON files rather than directly from Airtable
+const liveAirtableApiBase = 'https://careers.gardenstate.tech/airtable/v0/appoZOnpKML2dKjkQ/';
+const prodAirtableApiBase = '/api/';
+
 const appEnvironments = {
   dev1: {
     name: 'DEV1',
     showName: true,
     airtable: {
-      apiBase: workingAirtableApiBase,
+      apiBase: liveAirtableApiBase,
     },
     firebase: {
       apiKey: 'AIzaSyDybN2rwlC_Hwld0SJncFH8preMI4MXKic',
@@ -27,7 +29,7 @@ const appEnvironments = {
     name: 'DEV2',
     showName: true,
     airtable: {
-      apiBase: workingAirtableApiBase,
+      apiBase: liveAirtableApiBase,
     },
     firebase: {
       apiKey: 'AIzaSyDVlAiIhoIvBjCFbgai_70f823_7FiUkUQ',
@@ -45,7 +47,7 @@ const appEnvironments = {
     name: 'PREVIEW',
     showName: true,
     airtable: {
-      apiBase: workingAirtableApiBase,
+      apiBase: prodAirtableApiBase,
     },
     firebase: {
       apiKey: 'AIzaSyDx21FkVqjXshORafAbzPvv2kACmXhATok',
@@ -63,7 +65,7 @@ const appEnvironments = {
     name: 'PRODUCTION',
     showName: false,
     airtable: {
-      apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/apppchrIqVPfiWe8P/',
+      apiBase: prodAirtableApiBase,
     },
     firebase: {
       apiKey: 'AIzaSyBW2hLAzSgdv72lKicKcW_j1c86enCi8uU',
@@ -103,4 +105,5 @@ try {
 
 module.exports = {
   env,
+  liveAirtableApiBase,
 };
