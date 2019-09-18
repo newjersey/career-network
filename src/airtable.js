@@ -2,6 +2,29 @@ const fetch = require('isomorphic-unfetch');
 
 const defaultView = 'API';
 
+// White list of table names, mostly to have one central place for them all
+// (for the benefit of airtableDump.js) -- maybe better as some kind of map?
+const tableNames = [
+  'Actions',
+  'Assessment Entries',
+  'Assessment Sections',
+  'Conditions',
+  'Predicates',
+  'Quality Checks',
+  'Questions',
+  'Question Groups',
+  'Question Response Options',
+  'Tasks',
+];
+
+function validateTableName(apiPath) {
+  const tableName = apiPath.split('?')[0];
+
+  if (!tableNames.includes(tableName)) {
+    throw new Error(`Unknown Airtable table name: ${tableName}`);
+  }
+}
+
 function addQueryParam(path, param) {
   const separator = path.includes('?') ? '&' : '?';
   const key = Object.keys(param)[0];
@@ -38,6 +61,8 @@ async function fetchRecords(apiBase, apiPath) {
     return result.json();
   }
 
+  validateTableName(apiPath);
+
   const path = applyDefaultView(apiPath);
   let offset = null;
   let recordsAccum = [];
@@ -55,4 +80,5 @@ async function fetchRecords(apiBase, apiPath) {
 
 module.exports = {
   fetchRecords,
+  tableNames,
 };

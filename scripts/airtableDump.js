@@ -4,7 +4,7 @@ const chalk = require('chalk');
 const fs = require('fs');
 
 const { liveAirtableApiBase } = require('../next.config');
-const { fetchRecords } = require('../src/airtable');
+const { fetchRecords, tableNames } = require('../src/airtable').default;
 
 const { log } = console;
 const outDir = './out/api/';
@@ -27,18 +27,9 @@ async function saveRecords(apiPath) {
   }
 }
 
+// create output directory, in case it doesn't yet exist
 fs.mkdirSync(outDir, { recursive: true });
 
 log(`Downloading Airtable records from ${chalk.blue(liveAirtableApiBase)}\n`);
 
-saveRecords('Predicates');
-saveRecords('Conditions');
-saveRecords('Tasks');
-saveRecords('Actions');
-saveRecords('Quality Checks');
-
-saveRecords('Assessment Sections');
-saveRecords('Assessment Entries');
-saveRecords('Questions');
-saveRecords('Question Groups');
-saveRecords('Question Response Options');
+tableNames.forEach(tableName => saveRecords(tableName));
