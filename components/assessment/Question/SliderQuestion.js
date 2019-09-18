@@ -68,6 +68,7 @@ export default function SliderQuestion(props) {
   return (
     <div className={classes.root}>
       <FormLabel component="legend">{question.fields.Label}</FormLabel>
+      {helperText && <FormHelperText>{helperText}</FormHelperText>}
 
       <StyledSlider
         aria-label={question.fields.Label}
@@ -82,8 +83,6 @@ export default function SliderQuestion(props) {
         value={value}
         valueLabelDisplay="auto"
       />
-
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
     </div>
   );
 }

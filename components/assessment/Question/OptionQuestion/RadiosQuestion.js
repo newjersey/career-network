@@ -2,11 +2,11 @@ import { makeStyles } from '@material-ui/styles';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import FormLabel from '@material-ui/core/FormLabel';
 import PropTypes from 'prop-types';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import React from 'react';
+import Typography from '@material-ui/core/Typography';
 
 import AirtablePropTypes from '../../../Airtable/PropTypes';
 
@@ -30,7 +30,10 @@ export default function RadiosQuestion(props) {
 
   return (
     <FormControl component="fieldset" id={question.id} className={classes.formControl}>
-      <FormLabel component="legend">{question.fields.Label}</FormLabel>
+      <Typography component="legend" variant="h6" gutterBottom>
+        {question.fields.Label}
+      </Typography>
+
       <RadioGroup
         aria-label={question.fields.Label}
         onChange={e => onChange(e.target.value)}
