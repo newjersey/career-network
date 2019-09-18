@@ -37,8 +37,8 @@ saveRecords('Tasks?view=API');
 saveRecords('Actions?view=API');
 saveRecords('Quality Checks?view=API');
 
-saveRecords('Assessment%20Sections?view=API');
-saveRecords('Assessment%20Entries?view=API');
+saveRecords('Assessment Sections?view=API');
+saveRecords('Assessment Entries?view=API');
 saveRecords('Questions?view=API');
-saveRecords('Question%20Groups?view=API');
-saveRecords('Question%20Response%20Options?view=API');
+saveRecords('Question Groups?view=API');
+saveRecords('Question Response Options?view=API');
