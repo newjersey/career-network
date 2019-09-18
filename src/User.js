@@ -58,10 +58,6 @@ export default class User {
     return !!this.userData.isCoach;
   }
 
-  get isJobSeeker() {
-    return !this.isAdmin && !this.isCoach;
-  }
-
   get coachAssignments() {
     return this.userData.assignments;
   }
