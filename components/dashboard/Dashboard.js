@@ -201,6 +201,11 @@ Dashboard.propTypes = {
   allTasks: AirtablePropTypes.tasks.isRequired,
   allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
-  allActionDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
-  allTaskDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
+  allActionDispositionEvents: FirebasePropTypes.querySnapshot,
+  allTaskDispositionEvents: FirebasePropTypes.querySnapshot,
+};
+
+Dashboard.defaultProps = {
+  allActionDispositionEvents: [],
+  allTaskDispositionEvents: [],
 };
