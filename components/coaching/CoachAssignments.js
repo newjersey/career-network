@@ -68,10 +68,13 @@ export default function CoachAssignments(props) {
   const [currentAssignments, dispatch] = useReducer(assignmentsReducer, {});
   const { updateUser } = useUser();
 
-  const hasAssignment = useCallback(uid => currentAssignments[currentCoach.uid].includes(uid), [
-    currentAssignments,
-    currentCoach,
-  ]);
+  const hasAssignment = useCallback(
+    uid => {
+      const assignments = currentAssignments[currentCoach.uid];
+      return !!assignments && assignments.includes(uid);
+    },
+    [currentAssignments, currentCoach]
+  );
 
   useEffect(() => {
     if (showAllJobSeekers) {
