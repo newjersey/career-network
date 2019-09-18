@@ -39,7 +39,6 @@ export default function RadiosQuestion(props) {
         onChange={e => onChange(e.target.value)}
         name={question.id}
         value={value}
-        row
       >
         {responseOptions.map(option => (
           <FormControlLabel
