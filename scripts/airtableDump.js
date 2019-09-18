@@ -31,14 +31,14 @@ fs.mkdirSync(outDir, { recursive: true });
 
 log(`Downloading Airtable records from ${chalk.blue(liveAirtableApiBase)}\n`);
 
-saveRecords('Predicates?view=API');
-saveRecords('Conditions?view=API');
-saveRecords('Tasks?view=API');
-saveRecords('Actions?view=API');
-saveRecords('Quality Checks?view=API');
+saveRecords('Predicates');
+saveRecords('Conditions');
+saveRecords('Tasks');
+saveRecords('Actions');
+saveRecords('Quality Checks');
 
-saveRecords('Assessment Sections?view=API');
-saveRecords('Assessment Entries?view=API');
-saveRecords('Questions?view=API');
-saveRecords('Question Groups?view=API');
-saveRecords('Question Response Options?view=API');
+saveRecords('Assessment Sections');
+saveRecords('Assessment Entries');
+saveRecords('Questions');
+saveRecords('Question Groups');
+saveRecords('Question Response Options');

@@ -13,11 +13,11 @@ function DashboardPage() {
   const allActionDispositionEvents = useUserSubcollection('actionDispositionEvents');
   const allTaskDispositionEvents = useUserSubcollection('taskDispositionEvents');
   const recordProps = {
-    allPredicates: useRecords('Predicates?view=API'),
-    allConditions: useRecords('Conditions?view=API'),
-    allTasks: useRecords('Tasks?view=API'),
-    allActions: useRecords('Actions?view=API'),
-    allQualityChecks: useRecords('Quality Checks?view=API'),
+    allPredicates: useRecords('Predicates'),
+    allConditions: useRecords('Conditions'),
+    allTasks: useRecords('Tasks'),
+    allActions: useRecords('Actions'),
+    allQualityChecks: useRecords('Quality Checks'),
   };
 
   return fullyLoaded(
