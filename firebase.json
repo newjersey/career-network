@@ -4,6 +4,21 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "public": "out"
+    "public": "out",
+    "headers": [
+      {
+        "source": "/api/*",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "max-age=300"
+          }
+        ]
+      }
+    ]
   }
 }
