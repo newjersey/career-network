@@ -4,11 +4,13 @@ import { Container } from 'next/app';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
+import * as Sentry from '@sentry/browser';
 
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
+import Button from '@material-ui/core/Button';
 import theme from '../src/theme';
 
 const logoRatio = 834 / 784;
@@ -28,6 +30,12 @@ const styles = {
   error: {
     margin: '1.8em',
   },
+  feedback: {
+    marginTop: '1em',
+  },
+  statusCode: {
+    marginTop: '1em',
+  },
 };
 
 class Error extends React.Component {
@@ -43,7 +51,7 @@ class Error extends React.Component {
   }
 
   render() {
-    const { classes, showHeader, statusCode } = this.props;
+    const { classes, eventId, showHeader, statusCode } = this.props;
 
     return (
       <Container>
@@ -89,8 +97,20 @@ class Error extends React.Component {
               </Link>
               .
             </Typography>
-            <br />
-            {statusCode && <Typography variant="body2">Status Code:{statusCode}</Typography>}
+            {statusCode && (
+              <Typography variant="body2" className={classes.statusCode}>
+                Status Code: {statusCode}
+              </Typography>
+            )}
+            {eventId && (
+              <Button
+                variant="outlined"
+                className={classes.feedback}
+                onClick={() => Sentry.showReportDialog({ eventId })}
+              >
+                Report Feedback
+              </Button>
+            )}
           </main>
         </ThemeProvider>
       </Container>
@@ -99,12 +119,14 @@ class Error extends React.Component {
 }
 
 Error.propTypes = {
+  eventId: PropTypes.number,
   showHeader: PropTypes.bool,
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
   statusCode: PropTypes.number,
 };
 
 Error.defaultProps = {
+  eventId: undefined,
   showHeader: false,
   statusCode: undefined,
 };
