@@ -1,8 +1,11 @@
 {
   "projects": {
-    "prod": "nj-career-network",
     "dev1": "nj-career-network-dev1",
     "dev2": "nj-career-network-dev2",
-    "ppe": "nj-career-network-ppe"
+    "dev3": "nj-career-network-dev3",
+    "dev4": "nj-career-network-dev4",
+    "dev5": "nj-career-network-dev5",
+    "ppe": "nj-career-network-ppe",
+    "prod": "nj-career-network"
   }
 }
