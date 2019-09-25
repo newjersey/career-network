@@ -111,6 +111,9 @@ function Action(props) {
               options={{
                 className:
                   'MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary',
+                attributes: {
+                  rel: 'noopener',
+                },
               }}
             >
               {action.fields.How}
