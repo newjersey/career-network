@@ -21,8 +21,8 @@ const useStyles = makeStyles(theme => ({
 function Tools() {
   const classes = useStyles();
   const categories = useNestedRecords({
-    parentRecordsApiPath: 'Resource%20Categories?view=API%20Toolkit%20Page',
-    childRecordsApiPath: 'Resources?view=API%20Toolkit%20Page',
+    parentRecordsApiPath: 'Resource Categories?view=API Toolkit Page',
+    childRecordsApiPath: 'Resources?view=API Toolkit Page',
     childIdColumnName: 'Resources',
   });
 

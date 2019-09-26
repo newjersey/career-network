@@ -1,9 +1,16 @@
 import { makeStyles } from '@material-ui/styles';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
+import EditIcon from '@material-ui/icons/Edit';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
@@ -19,18 +26,13 @@ import PersonIcon from '@material-ui/icons/Person';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import Router from 'next/router';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogActions from '@material-ui/core/DialogActions';
-import Dialog from '@material-ui/core/Dialog';
 
-import UserClass from '../../src/User';
-import ScaffoldContainer from '../ScaffoldContainer';
-import Picture from '../Picture';
 import { useAuth } from '../Auth';
+import Picture from '../Picture';
+import ScaffoldContainer from '../ScaffoldContainer';
+import UserClass from '../../src/User';
 
 const logoRatio = 1;
 const logoWidths = {
@@ -89,7 +91,7 @@ const useStyles = makeStyles(theme => ({
 function Nav(props) {
   const { onSignOut, user } = props;
   const classes = useStyles();
-  const { showSignIn } = useAuth();
+  const { showSignIn, userDocRef } = useAuth();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isHelpOpen, setIsHelpOpen] = useState(false);
 
@@ -98,17 +100,21 @@ function Nav(props) {
   const handleSignInClick = () => showSignIn();
   const handleHelpClick = () => setIsHelpOpen(true);
   const handleHelpClose = () => setIsHelpOpen(false);
+  const onEditAssessment = () => {
+    userDocRef.set({ isAssessmentComplete: false }, { merge: true });
+    Router.push('/assessment');
+  };
 
   const pages = [
     {
       href: '/assessment',
       name: 'Questionnaire',
-      show: user && !user.isAssessmentComplete,
+      show: user && !user.isCoach && !user.isAssessmentComplete,
     },
     {
       href: '/dashboard',
       name: 'My Dashboard',
-      show: user && user.isAssessmentComplete,
+      show: user && !user.isCoach && user.isAssessmentComplete,
     },
     {
       href: '/toolkit',
@@ -125,8 +131,14 @@ function Nav(props) {
     {
       href: '/coach-assignments',
       name: 'Coach Assignments',
-      shortName: 'Coach Assignments',
+      shortName: 'Coaches',
       show: user && user.isAdmin,
+    },
+    {
+      href: '/coaching',
+      name: 'Coaching',
+      shortName: 'Coaching',
+      show: user && user.isCoach,
     },
     {
       href: '/about',
@@ -181,6 +193,12 @@ function Nav(props) {
                         </ListItem>
                       </NextLink>
                     )}
+                    <ListItem button onClick={onEditAssessment}>
+                      <ListItemIcon>
+                        <EditIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Edit assessment" />
+                    </ListItem>
                     <ListItem button onClick={onSignOut}>
                       <ListItemIcon>
                         <PowerSettingsNewIcon />

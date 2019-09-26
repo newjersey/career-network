@@ -59,7 +59,7 @@ export default class User {
   }
 
   get coachAssignments() {
-    return this.userData.assignments || [];
+    return this.userData.assignments;
   }
 
   // a bit hacky to update at runtime this way (vs. binding to DB) but quick and easy

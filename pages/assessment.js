@@ -25,11 +25,11 @@ function Assessment() {
   const [isFinished, setIsFinished] = useState(false);
   const { user, userDocRef } = useAuth();
   const recordProps = {
-    assessmentSections: useRecords('Assessment%20Sections?view=API'),
-    allAssessmentEntries: useRecords('Assessment%20Entries?view=API'),
-    allQuestions: useRecords('Questions?view=API'),
-    allQuestionGroups: useRecords('Question%20Groups?view=API'),
-    allQuestionResponseOptions: useRecords('Question%20Response%20Options?view=API'),
+    assessmentSections: useRecords('Assessment Sections'),
+    allAssessmentEntries: useRecords('Assessment Entries'),
+    allQuestions: useRecords('Questions'),
+    allQuestionGroups: useRecords('Question Groups'),
+    allQuestionResponseOptions: useRecords('Question Response Options'),
   };
 
   const handleComplete = () => {

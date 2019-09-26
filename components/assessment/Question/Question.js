@@ -6,6 +6,7 @@ import AirtablePropTypes from '../../Airtable/PropTypes';
 import BinaryQuestion from './BinaryQuestion';
 import FirebasePropTypes from '../../Firebase/PropTypes';
 import OptionQuestion from './OptionQuestion';
+import SliderQuestion from './SliderQuestion';
 import TextQuestion from './TextQuestion';
 
 function getDefaultValue(question, user) {
@@ -20,7 +21,6 @@ function getDefaultValue(question, user) {
 
   switch (question.fields['Response Type']) {
     case 'Text':
-    case 'Number':
     case 'Email':
     case 'Phone':
     case 'Date':
@@ -31,11 +31,13 @@ function getDefaultValue(question, user) {
       return false;
     case 'File':
       return null;
+    case 'Number':
     default:
       return undefined;
   }
 }
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 function Question(props) {
   const { user, userDocRef } = useAuth();
   const { question, allQuestionResponseOptions, allQuestionResponses } = props;
@@ -43,7 +45,12 @@ function Question(props) {
     Disabled: disabled,
     Hidden: hidden,
     'Response Options': responseOptionIds,
+    'Response Options Control': responseOptionsControl,
     'Response Type': responseType,
+    'Response Number Control': responseNumberControl,
+    'Response Number Min': responseNumberMin,
+    'Response Number Max': responseNumberMax,
+    'Response Number Step': responseNumberStep,
   } = question.fields;
 
   // get response persisted in database
@@ -116,11 +123,32 @@ function Question(props) {
     value,
   };
 
+  const numberProps = {
+    min: responseNumberMin,
+    max: responseNumberMax,
+    step: responseNumberStep,
+  };
+
   switch (responseType) {
     case 'Text':
       return <TextQuestion {...textQuestionProps} />;
     case 'Number':
-      return <TextQuestion {...textQuestionProps} type="number" />;
+      switch (responseNumberControl) {
+        case 'Input':
+          return <TextQuestion {...textQuestionProps} type="number" inputProps={numberProps} />;
+        case 'Slider':
+          return (
+            <SliderQuestion
+              onChange={_localValue => setLocalValue(_localValue)}
+              onChangeCommitted={_value => setValue(_value)}
+              question={question}
+              value={localValue && parseFloat(localValue)}
+              {...numberProps}
+            />
+          );
+        default:
+          return null;
+      }
     case 'Email':
       return <TextQuestion {...textQuestionProps} type="email" autoComplete="email" />;
     case 'Phone':
@@ -131,7 +159,13 @@ function Question(props) {
     case 'Binary':
       return <BinaryQuestion {...nonTextQuestionProps} />;
     case 'Option':
-      return <OptionQuestion {...nonTextQuestionProps} responseOptions={responseOptions} />;
+      return (
+        <OptionQuestion
+          {...nonTextQuestionProps}
+          responseOptions={responseOptions}
+          responseOptionsControl={responseOptionsControl}
+        />
+      );
     case 'Link':
       return null; // TODO: implement a LinkQuestion component
     case 'File':

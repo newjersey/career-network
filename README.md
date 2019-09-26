@@ -71,6 +71,21 @@ If all looks good, ship it:
 npm run deploy
 ```
 
+### Updating API snapshots
+
+In production, configuration data from Airtable is read
+from static JSON files that live in this repo rather than
+directly from the Airtable API (for stability reasons
+and better versioning of the content).
+
+To update these local JSON files, run:
+
+```sh
+npm run airtable:dump
+```
+
+To update the live content, commit the changes and deploy normally.
+
 ## Continuous Integration
 
 We use [Google Cloud Build](https://cloud.google.com/cloud-build/) to automatically build, test and deploy the

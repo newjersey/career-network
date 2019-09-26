@@ -2,12 +2,16 @@ const appEnv = require('./src/AppEnv');
 
 let env;
 
+// in production, we pull data from static JSON files rather than directly from Airtable
+const liveAirtableApiBase = 'https://careers.gardenstate.tech/airtable/v0/appoZOnpKML2dKjkQ/';
+const prodAirtableApiBase = '/api/';
+
 const appEnvironments = {
   dev1: {
     name: 'DEV1',
     showName: true,
     airtable: {
-      apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/appyVPL4DcQoC2AfG/',
+      apiBase: liveAirtableApiBase,
     },
     firebase: {
       apiKey: 'AIzaSyDybN2rwlC_Hwld0SJncFH8preMI4MXKic',
@@ -25,7 +29,7 @@ const appEnvironments = {
     name: 'DEV2',
     showName: true,
     airtable: {
-      apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/appOhDXJ6s47Moc1D/',
+      apiBase: liveAirtableApiBase,
     },
     firebase: {
       apiKey: 'AIzaSyDVlAiIhoIvBjCFbgai_70f823_7FiUkUQ',
@@ -39,11 +43,65 @@ const appEnvironments = {
       userPreauthorizationCollection: 'userPreauthorizations',
     },
   },
+  dev3: {
+    name: 'DEV3',
+    showName: true,
+    airtable: {
+      apiBase: liveAirtableApiBase,
+    },
+    firebase: {
+      apiKey: 'AIzaSyDLDRACEFdWBv7bZudMwFpo-h_BWUJeGgc',
+      authDomain: 'nj-career-network-dev3.firebaseapp.com',
+      databaseURL: 'https://nj-career-network-dev3.firebaseio.com',
+      projectId: 'nj-career-network-dev3',
+      storageBucket: 'nj-career-network-dev3.appspot.com',
+      messagingSenderId: '450017172048',
+      appId: '1:450017172048:web:fec305434b30fd999f4f55',
+      userCollection: 'users',
+      userPreauthorizationCollection: 'userPreauthorizations',
+    },
+  },
+  dev4: {
+    name: 'DEV4',
+    showName: true,
+    airtable: {
+      apiBase: liveAirtableApiBase,
+    },
+    firebase: {
+      apiKey: 'AIzaSyA6UY6N8S_oU9rNg_mAPn14fpFS55U7uM0',
+      authDomain: 'nj-career-network-dev4.firebaseapp.com',
+      databaseURL: 'https://nj-career-network-dev4.firebaseio.com',
+      projectId: 'nj-career-network-dev4',
+      storageBucket: 'nj-career-network-dev4.appspot.com',
+      messagingSenderId: '1072560330051',
+      appId: '1:1072560330051:web:afedd0bcac440b3aed8bf6',
+      userCollection: 'users',
+      userPreauthorizationCollection: 'userPreauthorizations',
+    },
+  },
+  dev5: {
+    name: 'DEV5',
+    showName: true,
+    airtable: {
+      apiBase: liveAirtableApiBase,
+    },
+    firebase: {
+      apiKey: 'AIzaSyCNdMzlu9heNVkRVD48DovbvnEMOkjLo7s',
+      authDomain: 'nj-career-network-dev5.firebaseapp.com',
+      databaseURL: 'https://nj-career-network-dev5.firebaseio.com',
+      projectId: 'nj-career-network-dev5',
+      storageBucket: 'nj-career-network-dev5.appspot.com',
+      messagingSenderId: '555215588648',
+      appId: '1:555215588648:web:c1f34ead2b56f9b6a6541d',
+      userCollection: 'users',
+      userPreauthorizationCollection: 'userPreauthorizations',
+    },
+  },
   ppe: {
     name: 'PREVIEW',
     showName: true,
     airtable: {
-      apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/appKVLegSA7jdrBWN/',
+      apiBase: prodAirtableApiBase,
     },
     firebase: {
       apiKey: 'AIzaSyDx21FkVqjXshORafAbzPvv2kACmXhATok',
@@ -61,7 +119,7 @@ const appEnvironments = {
     name: 'PRODUCTION',
     showName: false,
     airtable: {
-      apiBase: 'https://careers.gardenstate.tech/api/airtable/v0/apppchrIqVPfiWe8P/',
+      apiBase: prodAirtableApiBase,
     },
     firebase: {
       apiKey: 'AIzaSyBW2hLAzSgdv72lKicKcW_j1c86enCi8uU',
@@ -101,4 +159,5 @@ try {
 
 module.exports = {
   env,
+  liveAirtableApiBase,
 };

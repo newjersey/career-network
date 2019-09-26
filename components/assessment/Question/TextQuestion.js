@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function TextQuestion(props) {
   const classes = useStyles();
-  const { onBlur, onChange, question, ...restProps } = props;
+  const { onBlur, onChange, question, inputProps, ...restProps } = props;
 
   return (
     <TextField
@@ -27,6 +27,7 @@ export default function TextQuestion(props) {
       margin="normal"
       helperText={question.fields['Helper Text']}
       fullWidth
+      inputProps={inputProps}
       {...restProps}
     />
   );
@@ -34,6 +35,11 @@ export default function TextQuestion(props) {
 
 TextQuestion.propTypes = {
   autoComplete: PropTypes.string,
+  inputProps: PropTypes.shape({
+    max: PropTypes.number,
+    min: PropTypes.number,
+    step: PropTypes.number,
+  }),
   onBlur: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   question: AirtablePropTypes.question.isRequired,
@@ -43,5 +49,6 @@ TextQuestion.propTypes = {
 
 TextQuestion.defaultProps = {
   autoComplete: null,
+  inputProps: {},
   type: null,
 };

@@ -1,8 +1,8 @@
 import { makeStyles } from '@material-ui/styles';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
-import FormLabel from '@material-ui/core/FormLabel';
 import React from 'react';
+import Typography from '@material-ui/core/Typography';
 
 import AirtablePropTypes from '../Airtable/PropTypes';
 import FirebasePropTypes from '../Firebase/PropTypes';
@@ -28,10 +28,11 @@ export default function QuestionGroup(props) {
 
   return (
     <div className={classes.root}>
-      {/* <Typography component="h3" variant="h6">{questionGroup.fields.Label}</Typography> */}
-
       <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">{questionGroup.fields.Label}</FormLabel>
+        <Typography component="legend" variant="h6" gutterBottom>
+          {questionGroup.fields.Label}
+        </Typography>
+
         <FormGroup>
           {questions.map(question => (
             <Question key={question.id} question={question} {...restProps} />

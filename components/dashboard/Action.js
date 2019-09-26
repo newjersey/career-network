@@ -1,152 +1,188 @@
-import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import clsx from 'clsx';
-import Collapse from '@material-ui/core/Collapse';
-import Divider from '@material-ui/core/Divider';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import IconButton from '@material-ui/core/IconButton';
+import Checkbox from '@material-ui/core/Checkbox';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Linkify from 'linkifyjs/react';
+import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 
 import { useAuth } from '../Auth';
-import { useSnackbar } from '../Snackbar';
 import AirtablePropTypes from '../Airtable/PropTypes';
-import ResourceList from './ResourceList';
 
-const useStyles = makeStyles(theme => ({
-  card: {
-    margin: theme.spacing(2, 0),
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)',
-  },
-  avatar: {
-    maxWidth: 40,
-  },
-  elaborationDivider: {
-    margin: theme.spacing(4, 0, 3),
-  },
-}));
-
-export default function Action(props) {
-  const classes = useStyles();
-  const showMessage = useSnackbar();
+// TODO: refactor
+// eslint-disable-next-line sonarjs/cognitive-complexity
+function Action(props) {
   const { userDocRef } = useAuth();
-  const [expanded, setExpanded] = React.useState(false);
-  const { action, resources, elaborationResources } = props;
+  const [open, setOpen] = React.useState(false);
+  const { action, allQualityChecks, disabled, isDone, onDone, fullScreen } = props;
+  const qualityChecks = allQualityChecks.filter(
+    qc => action.fields['Action ID'] === qc.fields['Action ID'][0]
+  );
+  const defaultVerifications = new Array(qualityChecks.length);
+  defaultVerifications.fill(false);
+  const [verifications, setVerifications] = React.useState(defaultVerifications);
+  const allVerified = verifications.reduce((a, b) => a && b, true);
 
-  function handleExpandClick() {
-    setExpanded(!expanded);
-  }
+  const [claimedComplete, setClaimedComplete] = React.useState(false);
+  const useIndicative = claimedComplete || isDone;
 
   function disposition(type) {
     const data = {
       actionId: action.id,
       timestamp: new Date(),
       type,
+      // below two properties are just for a messy denormalized log
+      // (mostly to record the actions, etc. that the user actually saw,
+      // in case the configuration wording should change in the future)
+      action,
+      qualityChecks,
     };
 
     userDocRef.collection('actionDispositionEvents').add(data);
   }
 
+  function handleClickOpen() {
+    setOpen(true);
+  }
+
+  function handleClose() {
+    setOpen(false);
+  }
+
   function handleDone() {
-    showMessage('Great job!');
+    handleClose();
     disposition('done');
+    onDone();
   }
 
-  function handleSnooze() {
-    showMessage('Snoozed for one week');
-    disposition('snoozed');
+  function handleClaimedComplete() {
+    setClaimedComplete(!claimedComplete);
   }
 
-  function handleSkip() {
-    showMessage('Skipped');
-    disposition('skipped');
+  function handleVerify(i, event) {
+    const newVerifications = [...verifications];
+    newVerifications[i] = event.target.checked;
+    setVerifications(newVerifications);
   }
 
   return (
-    <Card className={classes.card}>
-      <CardActionArea onClick={handleExpandClick} aria-expanded={expanded}>
-        <CardHeader
-          avatar={
-            <img
-              alt=""
-              className={classes.avatar}
-              src={`https://static.thenounproject.com/png/${action.fields['Icon ID']}-84.png`}
-            />
-          }
-          title={
-            <Typography component="h3" variant="body1">
-              <strong>{action.fields.What}</strong>
-            </Typography>
-          }
-          // subheader="100 points"
-        />
-        <CardContent>
-          <Typography variant="body1" color="textSecondary" component="p">
-            {action.fields.Why}
+    <div>
+      <Typography
+        variant="body1"
+        component="li"
+        style={{ fontWeight: 'bold', lineHeight: '3em', color: disabled ? 'darkgray' : 'initial' }}
+      >
+        {action.fields.Title}
+        &nbsp;&nbsp;
+        {isDone ? (
+          <Button variant="outlined" color="secondary" size="small" onClick={handleClickOpen}>
+            Done
+          </Button>
+        ) : (
+          !disabled && (
+            <Button
+              variant="contained"
+              color="primary"
+              size="small"
+              onClick={handleClickOpen}
+              disabled={disabled}
+            >
+              Start
+            </Button>
+          )
+        )}
+      </Typography>
+
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{action.fields.Title}</DialogTitle>
+        <DialogContent>
+          <Typography>
+            <Linkify
+              options={{
+                className:
+                  'MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary',
+                attributes: {
+                  rel: 'noopener',
+                },
+              }}
+            >
+              {action.fields.How}
+            </Linkify>
           </Typography>
-        </CardContent>
-      </CardActionArea>
-
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <ResourceList resources={resources} title={action.fields.How} />
-
-          {elaborationResources && (
-            <React.Fragment>
-              <Divider variant="fullWidth" className={classes.elaborationDivider} />
-              <ResourceList resources={elaborationResources} title={action.fields.Elaboration} />
-            </React.Fragment>
+          {action.fields.Screenshot &&
+            action.fields.Screenshot.map(screenshot => (
+              <img
+                src={screenshot.thumbnails.large.url}
+                alt="Screenshot"
+                key={screenshot.id}
+                style={{ marginTop: '1em', marginBottom: '1em', maxWidth: '100%' }}
+              />
+            ))}
+          <br />
+          <Typography>{useIndicative ? 'I verify that:' : 'Be sure to:'}</Typography>
+          <ul
+            style={{
+              listStyle: useIndicative ? 'none' : 'initial',
+              paddingLeft: useIndicative ? 0 : '40px',
+            }}
+          >
+            {qualityChecks.map((qc, i) => (
+              <Typography
+                component="li"
+                key={qc.id}
+                style={{ minHeight: i < qualityChecks.length - 1 ? '2.75em' : 0 }}
+              >
+                {useIndicative && (
+                  <Checkbox
+                    checked={isDone || !!verifications[i]}
+                    disabled={isDone}
+                    onChange={event => handleVerify(i, event)}
+                    color="secondary"
+                    inputProps={{
+                      'aria-label': 'secondary checkbox',
+                    }}
+                  />
+                )}
+                {useIndicative ? qc.fields.Indicative : qc.fields.Imperative}
+              </Typography>
+            ))}
+          </ul>
+        </DialogContent>
+        <DialogActions>
+          {!isDone && !useIndicative && (
+            <Button onClick={handleClaimedComplete} color="primary" autoFocus>
+              Complete
+            </Button>
           )}
-        </CardContent>
-      </Collapse>
-
-      <Divider />
-
-      <CardActions disableSpacing>
-        <Button color="primary" onClick={handleDone}>
-          Done
-        </Button>
-        <Button color="primary" onClick={handleSnooze}>
-          Snooze
-        </Button>
-        <Button color="primary" onClick={handleSkip}>
-          Skip
-        </Button>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="Show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
-    </Card>
+          {!isDone && allVerified && (
+            <Button onClick={handleDone} color="secondary" autoFocus>
+              Done
+            </Button>
+          )}
+          <Button onClick={handleClose}>{isDone ? 'OK' : 'Cancel'}</Button>
+        </DialogActions>
+      </Dialog>
+    </div>
   );
 }
 
 Action.propTypes = {
+  fullScreen: PropTypes.bool.isRequired,
   action: AirtablePropTypes.action.isRequired,
-  resources: AirtablePropTypes.resources.isRequired,
-  elaborationResources: AirtablePropTypes.resources,
+  allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  isDone: PropTypes.bool.isRequired,
+  onDone: PropTypes.func.isRequired,
 };
 
-Action.defaultProps = {
-  elaborationResources: null,
-};
+export default withMobileDialog()(Action);
