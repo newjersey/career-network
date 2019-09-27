@@ -26,3 +26,7 @@ firestore-debug.log
 
 # testing
 /**/coverage
+
+# terraform
+.terraform
+terraform.tfstate.backup
