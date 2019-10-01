@@ -24,9 +24,21 @@ export default function useCoachAssignments(
           };
         }
 
+        const assessmentConfigurationSnapshot = await assignmentDoc
+          .collection('assessmentConfigurationsLog')
+          .doc('initialAssessment')
+          .get();
+
+        const assessmentConfiguration =
+          (assessmentConfigurationSnapshot &&
+            assessmentConfigurationSnapshot.exists &&
+            assessmentConfigurationSnapshot.data()) ||
+          null;
+
         return {
           authProfile: userData.authProfile,
           questionResponses: (await assignmentDoc.collection('questionResponses').get()).docs,
+          assessmentConfiguration,
         };
       });
 

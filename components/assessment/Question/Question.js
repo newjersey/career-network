@@ -1,4 +1,5 @@
 import Box from '@material-ui/core/Box';
+import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { useAuth } from '../../Auth';
@@ -40,7 +41,7 @@ function getDefaultValue(question, user) {
 // eslint-disable-next-line sonarjs/cognitive-complexity
 function Question(props) {
   const { user, userDocRef } = useAuth();
-  const { question, allQuestionResponseOptions, allQuestionResponses } = props;
+  const { question, allQuestionResponseOptions, allQuestionResponses, readOnly } = props;
   const {
     Disabled: disabled,
     Hidden: hidden,
@@ -60,7 +61,7 @@ function Question(props) {
   const value = persistedValue || defaultValue;
 
   // specific to text inputs (we don't want to update any Firebase doc more than once per second)
-  const [localValue, setLocalValue] = useState(value);
+  const [localValue, _setLocalValue] = useState(value);
 
   // get options for radio / select
   const responseOptions =
@@ -69,8 +70,23 @@ function Question(props) {
       responseOptionIds.includes(responseOption.id)
     );
 
+  const setLocalValue = useCallback(
+    _value => {
+      if (readOnly) {
+        return;
+      }
+
+      _setLocalValue(_value);
+    },
+    [readOnly]
+  );
+
   const setValue = useCallback(
     async _value => {
+      if (readOnly) {
+        return;
+      }
+
       const docRef = userDocRef.collection('questionResponses').doc(question.id);
       const data = {
         question, // save a copy of the question responded to
@@ -85,7 +101,8 @@ function Question(props) {
       }
 
       try {
-        return docRef.set(data);
+        docRef.set(data);
+        return;
       } catch (error) {
         // TODO: better error UX, and reporting solution
         // eslint-disable-next-line no-alert
@@ -93,7 +110,7 @@ function Question(props) {
         throw error;
       }
     },
-    [question, responseOptions, userDocRef]
+    [question, readOnly, responseOptions, userDocRef]
   );
 
   // set value in DB immediately if the user can't do it
@@ -108,7 +125,7 @@ function Question(props) {
     if (persistedValue) {
       setLocalValue(persistedValue);
     }
-  }, [persistedValue]);
+  }, [persistedValue, setLocalValue]);
 
   const textQuestionProps = {
     onBlur: _value => setValue(_value),
@@ -117,13 +134,13 @@ function Question(props) {
     value: localValue,
   };
 
-  const nonTextQuestionProps = {
+  const discreteQuestionProps = {
     onChange: _value => setValue(_value),
     question,
     value,
   };
 
-  const numberProps = {
+  const numberQuestionProps = {
     min: responseNumberMin,
     max: responseNumberMax,
     step: responseNumberStep,
@@ -135,7 +152,9 @@ function Question(props) {
     case 'Number':
       switch (responseNumberControl) {
         case 'Input':
-          return <TextQuestion {...textQuestionProps} type="number" inputProps={numberProps} />;
+          return (
+            <TextQuestion {...textQuestionProps} type="number" inputProps={numberQuestionProps} />
+          );
         case 'Slider':
           return (
             <SliderQuestion
@@ -143,7 +162,7 @@ function Question(props) {
               onChangeCommitted={_value => setValue(_value)}
               question={question}
               value={localValue && parseFloat(localValue)}
-              {...numberProps}
+              {...numberQuestionProps}
             />
           );
         default:
@@ -157,11 +176,11 @@ function Question(props) {
     case 'Date':
       return <TextQuestion {...textQuestionProps} type="date" InputLabelProps={{ shrink: true }} />;
     case 'Binary':
-      return <BinaryQuestion {...nonTextQuestionProps} />;
+      return <BinaryQuestion {...discreteQuestionProps} />;
     case 'Option':
       return (
         <OptionQuestion
-          {...nonTextQuestionProps}
+          {...discreteQuestionProps}
           responseOptions={responseOptions}
           responseOptionsControl={responseOptionsControl}
         />
@@ -194,4 +213,5 @@ Question.propTypes = {
   question: AirtablePropTypes.question.isRequired,
   allQuestionResponseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
+  readOnly: PropTypes.bool.isRequired,
 };

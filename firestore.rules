@@ -42,6 +42,14 @@ service cloud.firestore {
       match /sentimentEvents/{document} {
        allow read, create: if request.auth.uid == uid;
       }
+
+      // assessment configuration logs are immutable: no updating allowed
+      match /assessmentConfigurationsLog/{document} {
+        allow read, create: if request.auth.uid == uid;
+        // allow read access to coaches
+        allow read: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isCoach == true &&
+            get(/databases/$(database)/documents/users/$(request.auth.uid)).data.assignments.hasAny([uid]);
+      }
     }
 
     match /userPreauthorizations/{email} {
