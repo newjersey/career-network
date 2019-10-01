@@ -85,14 +85,16 @@ export default function AssessmentSectionList(props) {
                   Back
                 </Button>
               )}
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleNext}
-                className={classes.button}
-              >
-                {activeStep === assessmentSections.length - 1 ? 'Finish' : 'Next'}
-              </Button>
+              {(onComplete || activeStep < assessmentSections.length - 1) && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleNext}
+                  className={classes.button}
+                >
+                  {activeStep === assessmentSections.length - 1 ? 'Finish' : 'Next'}
+                </Button>
+              )}
             </div>
           </div>
         )}
@@ -108,11 +110,12 @@ AssessmentSectionList.propTypes = {
   allQuestionGroups: AirtablePropTypes.questionGroups.isRequired,
   allQuestionResponseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
-  onComplete: PropTypes.func.isRequired,
+  onComplete: PropTypes.func,
   scrollToY: PropTypes.number.isRequired,
   readOnly: PropTypes.bool,
 };
 
 AssessmentSectionList.defaultProps = {
   readOnly: false,
+  onComplete: null,
 };
