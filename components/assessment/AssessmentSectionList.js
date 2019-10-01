@@ -111,8 +111,8 @@ AssessmentSectionList.propTypes = {
   allQuestionResponseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
   onComplete: PropTypes.func,
-  scrollToY: PropTypes.number.isRequired,
   readOnly: PropTypes.bool,
+  scrollToY: PropTypes.number.isRequired,
 };
 
 AssessmentSectionList.defaultProps = {

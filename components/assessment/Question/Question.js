@@ -134,13 +134,13 @@ function Question(props) {
     value: localValue,
   };
 
-  const nonTextQuestionProps = {
+  const discreteQuestionProps = {
     onChange: _value => setValue(_value),
     question,
     value,
   };
 
-  const numberProps = {
+  const numberQuestionProps = {
     min: responseNumberMin,
     max: responseNumberMax,
     step: responseNumberStep,
@@ -152,7 +152,9 @@ function Question(props) {
     case 'Number':
       switch (responseNumberControl) {
         case 'Input':
-          return <TextQuestion {...textQuestionProps} type="number" inputProps={numberProps} />;
+          return (
+            <TextQuestion {...textQuestionProps} type="number" inputProps={numberQuestionProps} />
+          );
         case 'Slider':
           return (
             <SliderQuestion
@@ -160,7 +162,7 @@ function Question(props) {
               onChangeCommitted={_value => setValue(_value)}
               question={question}
               value={localValue && parseFloat(localValue)}
-              {...numberProps}
+              {...numberQuestionProps}
             />
           );
         default:
@@ -174,11 +176,11 @@ function Question(props) {
     case 'Date':
       return <TextQuestion {...textQuestionProps} type="date" InputLabelProps={{ shrink: true }} />;
     case 'Binary':
-      return <BinaryQuestion {...nonTextQuestionProps} />;
+      return <BinaryQuestion {...discreteQuestionProps} />;
     case 'Option':
       return (
         <OptionQuestion
-          {...nonTextQuestionProps}
+          {...discreteQuestionProps}
           responseOptions={responseOptions}
           responseOptionsControl={responseOptionsControl}
         />
