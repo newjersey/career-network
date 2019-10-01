@@ -1,5 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 import Paper from '@material-ui/core/Paper';
+import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
@@ -53,4 +54,5 @@ AssessmentSection.propTypes = {
   allQuestionGroups: AirtablePropTypes.questionGroups.isRequired,
   allQuestionResponseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
+  readOnly: PropTypes.bool.isRequired,
 };

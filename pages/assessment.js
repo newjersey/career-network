@@ -24,7 +24,7 @@ function Assessment() {
   const [scrollToY, setScrollToY] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
   const { user, userDocRef } = useAuth();
-  const recordProps = {
+  const assessmentConfiguration = {
     assessmentSections: useRecords('Assessment Sections'),
     allAssessmentEntries: useRecords('Assessment Entries'),
     allQuestions: useRecords('Questions'),
@@ -34,10 +34,22 @@ function Assessment() {
 
   const handleComplete = () => {
     setIsFinished(true);
-    Router.push('/dashboard');
+
+    // save a complete copy of the exact configassessment configuration answered
+    // (for a paper trail, and for using to display a read-only view of answers)
+    userDocRef
+      .collection('assessmentConfigurationsLog')
+      .doc('initialAssessment')
+      .set(assessmentConfiguration);
+
+    // set flag on user: initial assessment is complete
+    // (will need refactor when introducing multiple assessments)
     userDocRef.set({ isAssessmentComplete: true }, { merge: true });
+
     // a bit hacky to update at runtime this way (vs. binding to DB) but quick and easy:
     user.isAssessmentComplete = true;
+
+    Router.push('/dashboard');
   };
 
   const scrollToRef = useCallback(node => {
@@ -49,7 +61,8 @@ function Assessment() {
   return (
     <div className={classes.root}>
       <ScaffoldContainer>
-        {fullyLoaded(user, allPropsLoaded(recordProps), allQuestionResponses) && !isFinished ? (
+        {fullyLoaded(user, allPropsLoaded(assessmentConfiguration), allQuestionResponses) &&
+        !isFinished ? (
           <React.Fragment>
             <Typography ref={scrollToRef} component="h1" variant="h2" gutterBottom>
               Hi, {user && user.firstName}!
@@ -58,7 +71,7 @@ function Assessment() {
             <AssessmentSectionList
               scrollToY={scrollToY}
               onComplete={handleComplete}
-              {...recordProps}
+              {...assessmentConfiguration}
               allQuestionResponses={allQuestionResponses}
             />
           </React.Fragment>
