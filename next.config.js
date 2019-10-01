@@ -58,6 +58,7 @@ const appEnvironments = {
       messagingSenderId: '450017172048',
       appId: '1:450017172048:web:fec305434b30fd999f4f55',
       userCollection: 'users',
+      sentimentEventsCollection: 'sentimentEvents',
       userPreauthorizationCollection: 'userPreauthorizations',
     },
   },
