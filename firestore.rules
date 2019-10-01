@@ -37,6 +37,11 @@ service cloud.firestore {
       match /taskDispositionEvents/{document} {
         allow read, create: if request.auth.uid == uid;
       }
+
+      // assessment configuration logs are immutable: no updating allowed
+      match /assessmentConfigurationsLog/{document} {
+        allow read, create: if request.auth.uid == uid;
+      }
     }
 
     match /userPreauthorizations/{email} {
