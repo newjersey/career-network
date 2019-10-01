@@ -110,4 +110,9 @@ AssessmentSectionList.propTypes = {
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
   onComplete: PropTypes.func.isRequired,
   scrollToY: PropTypes.number.isRequired,
+  readOnly: PropTypes.bool,
+};
+
+AssessmentSectionList.defaultProps = {
+  readOnly: false,
 };

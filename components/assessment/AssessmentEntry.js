@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import AirtablePropTypes from '../Airtable/PropTypes';
@@ -38,4 +39,5 @@ AssessmentEntry.propTypes = {
   allQuestionGroups: AirtablePropTypes.questionGroups.isRequired,
   allQuestionResponseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
+  readOnly: PropTypes.bool.isRequired,
 };
