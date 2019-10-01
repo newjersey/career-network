@@ -45,6 +45,11 @@ service cloud.firestore {
         allow read: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isCoach == true &&
             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.assignments.hasAny([uid]);
       }
+
+      // sentiment events are immutable: no updating allowed
+      match /sentimentEvents/{document} {
+       allow read, create: if request.auth.uid == uid;
+      }
     }
 
     match /userPreauthorizations/{email} {
