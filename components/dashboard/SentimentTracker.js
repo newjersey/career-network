@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import { useAuth } from '../Auth';
@@ -26,15 +25,21 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
   },
+  emoji: {
+    fontSize: theme.spacing(10),
+    [theme.breakpoints.down('sm')]: {
+      fontSize: theme.spacing(7),
+    },
+  },
 }));
 
 const EmojiButton = ({ emoji, label, onClick }) => {
-  const isMobile = useMediaQuery('(max-width:600px)');
+  const classes = useStyles();
   return (
-    <Grid item lg={2} xs={6} style={{ textAlign: 'center' }}>
+    <Grid item lg={2} md={3} sm={3} xs={6} style={{ textAlign: 'center' }}>
       <Button onClick={() => onClick(label)}>
         <Typography align="center">
-          <span style={{ fontSize: isMobile ? 60 : 100 }} role="img" aria-label={label}>
+          <span className={classes.emoji} role="img" aria-label={label}>
             {emoji}
           </span>
           <br />
@@ -77,15 +82,9 @@ const SentimentTracker = () => {
   };
   return (
     <Card>
-      <Grid
-        container
-        className={classes.grid}
-        justify="center"
-        alignItems="center"
-        alignContent="center"
-      >
+      <Grid container className={classes.grid} justify="center" alignItems="center">
         <div className={classes.confetti} ref={confettiRef} />
-        <Grid item xs={12} alignContent="center">
+        <Grid item xs={12}>
           <Typography component="h5" variant="h5" style={{ textAlign: 'center' }}>
             What`s your mood today?
           </Typography>
