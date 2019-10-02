@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { useAuth } from '../Auth';
 import useIsSentimentSubmittedToday from '../Firebase/useIsSentimentSubmittedToday';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
   input: {
     display: 'none',
   },
@@ -19,8 +19,12 @@ const useStyles = makeStyles(() => ({
     zIndex: 999,
     position: 'fixed',
     left: '50%',
-    bottom: '15%',
+    bottom: '35%',
     transform: 'translateX(-50%)',
+  },
+  grid: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
 }));
 
@@ -75,7 +79,7 @@ const SentimentTracker = () => {
     <Card>
       <Grid
         container
-        style={{ paddingTop: 20, paddingBottom: 20 }}
+        className={classes.grid}
         justify="center"
         alignItems="center"
         alignContent="center"
