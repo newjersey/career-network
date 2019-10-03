@@ -43,16 +43,8 @@ export default function AppManager(props) {
         url = '/dashboard';
       }
 
-      (async () => {
-        cleanupRef.current = Router.push(url);
-      })();
+      cleanupRef.current = Router.push(url);
     }
-
-    return () => {
-      if (typeof cleanupRef.current === 'function') {
-        cleanupRef.current();
-      }
-    };
   }, [user]);
 
   return (

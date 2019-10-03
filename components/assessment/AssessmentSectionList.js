@@ -39,6 +39,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 export default function AssessmentSectionList(props) {
   const classes = useStyles();
   const { scrollToY } = props;
@@ -53,6 +54,16 @@ export default function AssessmentSectionList(props) {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   };
 
+  const handleStepNameClick = currentStepIndex => () => {
+    if (currentStepIndex === activeStep + 1) {
+      handleNext();
+    }
+
+    if (currentStepIndex === activeStep - 1) {
+      handleBack();
+    }
+  };
+
   useEffect(() => {
     window.scrollTo(0, activeStep === 0 ? 0 : scrollToY);
   }, [activeStep, scrollToY]);
@@ -62,13 +73,12 @@ export default function AssessmentSectionList(props) {
       onComplete();
     }
   }, [activeStep, assessmentSections, onComplete]);
-
   return (
     <div className={classes.root}>
       <Stepper activeStep={activeStep} className={classes.stepper}>
-        {assessmentSections.map(section => (
+        {assessmentSections.map((section, index) => (
           <Step key={section.id}>
-            <StepLabel>
+            <StepLabel onClick={handleStepNameClick(index)}>
               <span className={classes.stepLabel}>{section.fields['Short Name']}</span>
             </StepLabel>
           </Step>

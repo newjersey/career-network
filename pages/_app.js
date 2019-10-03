@@ -64,7 +64,7 @@ class MyApp extends App {
     }
   }
 
-  normalComponent(Component, pageProps) {
+  static normalComponent(Component, pageProps) {
     return (
       <Container>
         <Head>
@@ -76,7 +76,7 @@ class MyApp extends App {
               <AuthProvider>
                 <CssBaseline />
                 <AppManager>
-                  <Component pageContext={this.pageContext} {...pageProps} />
+                  <Component {...pageProps} />
                 </AppManager>
               </AuthProvider>
             </FirebaseProvider>
@@ -89,7 +89,7 @@ class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props;
 
-    return this.state.hasError ? <Error showHeader /> : this.normalComponent(Component, pageProps);
+    return this.state.hasError ? <Error showHeader /> : MyApp.normalComponent(Component, pageProps);
   }
 }
 
