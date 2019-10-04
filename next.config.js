@@ -22,6 +22,7 @@ const appEnvironments = {
       messagingSenderId: '81682397202',
       appId: '1:81682397202:web:5caa69d4e9c28d1e',
       userCollection: 'users',
+      sentimentEventsCollection: 'sentimentEvents',
       userPreauthorizationCollection: 'userPreauthorizations',
     },
     intercom: {
@@ -43,6 +44,7 @@ const appEnvironments = {
       messagingSenderId: '529668674367',
       appId: '1:529668674367:web:fe48e3e414bcd5d6',
       userCollection: 'users',
+      sentimentEventsCollection: 'sentimentEvents',
       userPreauthorizationCollection: 'userPreauthorizations',
     },
     intercom: {
@@ -86,6 +88,7 @@ const appEnvironments = {
       messagingSenderId: '1072560330051',
       appId: '1:1072560330051:web:afedd0bcac440b3aed8bf6',
       userCollection: 'users',
+      sentimentEventsCollection: 'sentimentEvents',
       userPreauthorizationCollection: 'userPreauthorizations',
     },
     intercom: {
@@ -107,6 +110,7 @@ const appEnvironments = {
       messagingSenderId: '555215588648',
       appId: '1:555215588648:web:c1f34ead2b56f9b6a6541d',
       userCollection: 'users',
+      sentimentEventsCollection: 'sentimentEvents',
       userPreauthorizationCollection: 'userPreauthorizations',
     },
     intercom: {
@@ -128,6 +132,7 @@ const appEnvironments = {
       messagingSenderId: '641946008142',
       appId: '1:641946008142:web:c6d623bc79bc899e',
       userCollection: 'users',
+      sentimentEventsCollection: 'sentimentEvents',
       userPreauthorizationCollection: 'userPreauthorizations',
     },
     intercom: {
@@ -149,6 +154,7 @@ const appEnvironments = {
       messagingSenderId: '114141088298',
       appId: '1:114141088298:web:ce96ec93a41e3d35',
       userCollection: 'users',
+      sentimentEventsCollection: 'sentimentEvents',
       userPreauthorizationCollection: 'userPreauthorizations',
     },
     intercom: {
