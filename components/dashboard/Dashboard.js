@@ -176,10 +176,10 @@ export default function Dashboard(props) {
         <Typography component="h1" variant="h2" gutterBottom>
           Hi, {user && user.firstName}!
         </Typography>
-        <SentimentTracker />
         <Typography variant="subtitle1" gutterBottom>
           Here’s your personalized action plan. It will update as you make progress.
         </Typography>
+        <SentimentTracker />
         <Typography variant="h5" gutterBottom className={classes.subtitle}>
           Your top {todoTaskCount} tasks
           {doneTaskCount > 0 && ` (and ${doneTaskCount} completed)`}
