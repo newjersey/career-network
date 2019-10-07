@@ -6,6 +6,24 @@ let env;
 const liveAirtableApiBase = 'https://careers.gardenstate.tech/airtable/v0/appoZOnpKML2dKjkQ/';
 const prodAirtableApiBase = '/api/';
 
+const commonFirebase = {
+  userCollection: 'users',
+  sentimentEventsCollection: 'sentimentEvents',
+  userPreauthorizationCollection: 'userPreauthorizations',
+};
+
+const devEnvFactory = index => {
+  const projectId = `nj-career-network-dev${index}`;
+
+  return {
+    authDomain: `${projectId}.firebaseapp.com`,
+    databaseURL: `https://${projectId}.firebaseio.com`,
+    projectId,
+    storageBucket: `${projectId}.appspot.com`,
+    ...commonFirebase,
+  };
+};
+
 const appEnvironments = {
   dev1: {
     name: 'DEV1',
@@ -15,15 +33,9 @@ const appEnvironments = {
     },
     firebase: {
       apiKey: 'AIzaSyDybN2rwlC_Hwld0SJncFH8preMI4MXKic',
-      authDomain: 'nj-career-network-dev1.firebaseapp.com',
-      databaseURL: 'https://nj-career-network-dev1.firebaseio.com',
-      projectId: 'nj-career-network-dev1',
-      storageBucket: 'nj-career-network-dev1.appspot.com',
       messagingSenderId: '81682397202',
       appId: '1:81682397202:web:5caa69d4e9c28d1e',
-      userCollection: 'users',
-      sentimentEventsCollection: 'sentimentEvents',
-      userPreauthorizationCollection: 'userPreauthorizations',
+      ...devEnvFactory(1),
     },
   },
   dev2: {
@@ -34,15 +46,9 @@ const appEnvironments = {
     },
     firebase: {
       apiKey: 'AIzaSyDVlAiIhoIvBjCFbgai_70f823_7FiUkUQ',
-      authDomain: 'nj-career-network-dev2.firebaseapp.com',
-      databaseURL: 'https://nj-career-network-dev2.firebaseio.com',
-      projectId: 'nj-career-network-dev2',
-      storageBucket: 'nj-career-network-dev2.appspot.com',
       messagingSenderId: '529668674367',
       appId: '1:529668674367:web:fe48e3e414bcd5d6',
-      userCollection: 'users',
-      sentimentEventsCollection: 'sentimentEvents',
-      userPreauthorizationCollection: 'userPreauthorizations',
+      ...devEnvFactory(2),
     },
   },
   dev3: {
@@ -53,15 +59,9 @@ const appEnvironments = {
     },
     firebase: {
       apiKey: 'AIzaSyDLDRACEFdWBv7bZudMwFpo-h_BWUJeGgc',
-      authDomain: 'nj-career-network-dev3.firebaseapp.com',
-      databaseURL: 'https://nj-career-network-dev3.firebaseio.com',
-      projectId: 'nj-career-network-dev3',
-      storageBucket: 'nj-career-network-dev3.appspot.com',
       messagingSenderId: '450017172048',
       appId: '1:450017172048:web:fec305434b30fd999f4f55',
-      userCollection: 'users',
-      sentimentEventsCollection: 'sentimentEvents',
-      userPreauthorizationCollection: 'userPreauthorizations',
+      ...devEnvFactory(3),
     },
   },
   dev4: {
@@ -72,15 +72,9 @@ const appEnvironments = {
     },
     firebase: {
       apiKey: 'AIzaSyA6UY6N8S_oU9rNg_mAPn14fpFS55U7uM0',
-      authDomain: 'nj-career-network-dev4.firebaseapp.com',
-      databaseURL: 'https://nj-career-network-dev4.firebaseio.com',
-      projectId: 'nj-career-network-dev4',
-      storageBucket: 'nj-career-network-dev4.appspot.com',
       messagingSenderId: '1072560330051',
       appId: '1:1072560330051:web:afedd0bcac440b3aed8bf6',
-      userCollection: 'users',
-      sentimentEventsCollection: 'sentimentEvents',
-      userPreauthorizationCollection: 'userPreauthorizations',
+      ...devEnvFactory(4),
     },
   },
   dev5: {
@@ -91,15 +85,9 @@ const appEnvironments = {
     },
     firebase: {
       apiKey: 'AIzaSyCNdMzlu9heNVkRVD48DovbvnEMOkjLo7s',
-      authDomain: 'nj-career-network-dev5.firebaseapp.com',
-      databaseURL: 'https://nj-career-network-dev5.firebaseio.com',
-      projectId: 'nj-career-network-dev5',
-      storageBucket: 'nj-career-network-dev5.appspot.com',
       messagingSenderId: '555215588648',
       appId: '1:555215588648:web:c1f34ead2b56f9b6a6541d',
-      userCollection: 'users',
-      sentimentEventsCollection: 'sentimentEvents',
-      userPreauthorizationCollection: 'userPreauthorizations',
+      ...devEnvFactory(5),
     },
   },
   ppe: {
@@ -116,9 +104,7 @@ const appEnvironments = {
       storageBucket: '',
       messagingSenderId: '641946008142',
       appId: '1:641946008142:web:c6d623bc79bc899e',
-      userCollection: 'users',
-      sentimentEventsCollection: 'sentimentEvents',
-      userPreauthorizationCollection: 'userPreauthorizations',
+      ...commonFirebase,
     },
   },
   prod: {
@@ -135,15 +121,14 @@ const appEnvironments = {
       storageBucket: 'nj-career-network.appspot.com',
       messagingSenderId: '114141088298',
       appId: '1:114141088298:web:ce96ec93a41e3d35',
-      userCollection: 'users',
-      sentimentEventsCollection: 'sentimentEvents',
-      userPreauthorizationCollection: 'userPreauthorizations',
+      ...commonFirebase,
     },
   },
   test: {
     firebase: {
       projectId: 'nj-career-network-test',
       userCollection: 'users-test',
+      sentimentEventsCollection: 'sentimentEvents-test',
       userPreauthorizationCollection: 'userPreauthorizations-test',
     },
   },
