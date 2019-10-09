@@ -4,7 +4,7 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 
 exports.firestoreBackup = functions.pubsub
-  .schedule('every 24 hours')
+  .schedule('every day 04:00')
   .timeZone('America/New_York')
   .onRun(async () => {
     const bucket = `gs://${process.env.GCLOUD_PROJECT}-backups`;
