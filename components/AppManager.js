@@ -55,6 +55,20 @@ export default function AppManager(props) {
     };
   }, [user]);
 
+  useEffect(() => {
+    const config = {
+      app_id: process.env.intercom.appId,
+      ...(user && {
+        name: user.displayName,
+        email: user.email,
+        user_id: user.uid,
+        // created_at: '<%= current_user.created_at.to_i %>', // Signup date as a Unix timestamp
+      }),
+    };
+
+    window.Intercom('boot', config);
+  }, [user]);
+
   return (
     <React.Fragment>
       {process.env.showName && <EnvName />}

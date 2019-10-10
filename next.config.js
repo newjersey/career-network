@@ -24,6 +24,9 @@ const appEnvironments = {
       userCollection: 'users',
       userPreauthorizationCollection: 'userPreauthorizations',
     },
+    intercom: {
+      appId: 'yuwothfx',
+    },
   },
   dev2: {
     name: 'DEV2',
@@ -41,6 +44,9 @@ const appEnvironments = {
       appId: '1:529668674367:web:fe48e3e414bcd5d6',
       userCollection: 'users',
       userPreauthorizationCollection: 'userPreauthorizations',
+    },
+    intercom: {
+      appId: 'yuwothfx',
     },
   },
   dev3: {
@@ -60,6 +66,9 @@ const appEnvironments = {
       userCollection: 'users',
       userPreauthorizationCollection: 'userPreauthorizations',
     },
+    intercom: {
+      appId: 'yuwothfx',
+    },
   },
   dev4: {
     name: 'DEV4',
@@ -77,6 +86,9 @@ const appEnvironments = {
       appId: '1:1072560330051:web:afedd0bcac440b3aed8bf6',
       userCollection: 'users',
       userPreauthorizationCollection: 'userPreauthorizations',
+    },
+    intercom: {
+      appId: 'yuwothfx',
     },
   },
   dev5: {
@@ -96,6 +108,9 @@ const appEnvironments = {
       userCollection: 'users',
       userPreauthorizationCollection: 'userPreauthorizations',
     },
+    intercom: {
+      appId: 'yuwothfx',
+    },
   },
   ppe: {
     name: 'PREVIEW',
@@ -114,6 +129,9 @@ const appEnvironments = {
       userCollection: 'users',
       userPreauthorizationCollection: 'userPreauthorizations',
     },
+    intercom: {
+      appId: 'sb5qwtf5',
+    },
   },
   prod: {
     name: 'PRODUCTION',
@@ -131,6 +149,9 @@ const appEnvironments = {
       appId: '1:114141088298:web:ce96ec93a41e3d35',
       userCollection: 'users',
       userPreauthorizationCollection: 'userPreauthorizations',
+    },
+    intercom: {
+      appId: 'sb5qwtf5',
     },
   },
   test: {
