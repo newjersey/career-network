@@ -66,6 +66,7 @@ export default function AppManager(props) {
       }),
     };
 
+    window.Intercom('shutdown');
     window.Intercom('boot', config);
   }, [user]);
 
