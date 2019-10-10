@@ -57,6 +57,11 @@ export default function AppManager(props) {
   }, [user]);
 
   useEffect(() => {
+    // start with a clean slate (prevent data leaks)
+    if (!user) {
+      window.Intercom('shutdown');
+    }
+
     const config = {
       app_id: process.env.intercom.appId,
 
@@ -68,8 +73,6 @@ export default function AppManager(props) {
       }),
     };
 
-    // start with a clean slate (prevent data leaks)
-    window.Intercom('shutdown');
     window.Intercom('boot', config);
   }, [user]);
 
