@@ -133,6 +133,15 @@ resource "cloudflare_record" "CNAME_strong2__domainkey" {
   value   = "strong2._domainkey.helpscout.net"
 }
 
+resource "cloudflare_record" "CNAME_intercom__domainkey" {
+  domain  = "${var.cloudflare_zone}"
+  name    = "intercom._domainkey"
+  type    = "CNAME"
+  ttl     = "1"
+  proxied = "false"
+  value   = "c1f45e04-1683-4859-b3de-3ae472eb267d.dkim.intercom.io"
+}
+
 resource "cloudflare_record" "CNAME_signup" {
   domain  = "${var.cloudflare_zone}"
   name    = "signup"
