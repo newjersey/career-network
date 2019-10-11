@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* Just a rough utility script for doing some manual data migrations in production.
  * Invoked as a plain node.js file (node scripts/foo.js) with hard coded config.
  * NTOE: permissions to data will need to be temporarily granted in Firestore.
