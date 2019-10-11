@@ -4,7 +4,7 @@ let env;
 
 // in production, we pull data from static JSON files rather than directly from Airtable
 const liveAirtableApiBase = 'https://careers.gardenstate.tech/airtable/v0/appoZOnpKML2dKjkQ/';
-const prodAirtableApiBase = '/api/';
+const prodAirtableApiBase = '/static/api/';
 
 const appEnvironments = {
   dev1: {
