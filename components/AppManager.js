@@ -64,7 +64,6 @@ export default function AppManager(props) {
 
     const config = {
       app_id: process.env.intercom.appId,
-      session_duration: 1, // effectively eliminate sessions (prevent client-side data storage leaks)
 
       ...(user && {
         name: user.displayName,
