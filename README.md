@@ -71,6 +71,22 @@ If all looks good, ship it:
 npm run deploy
 ```
 
+### DNS
+
+DNS is maintained by Terraform in the /terraform directory.
+
+For details, see: https://developers.cloudflare.com/terraform/
+
+In a nutshell (API token created at https://dash.cloudflare.com/profile/api-tokens):
+
+```sh
+export CLOUDFLARE_API_TOKEN=your-api-token
+cd terraform
+terraform init
+terraform plan
+terraform apply
+```
+
 ### Updating API snapshots
 
 In production, configuration data from Airtable is read

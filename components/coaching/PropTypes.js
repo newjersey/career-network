@@ -14,6 +14,13 @@ const AuthProfileType = PropTypes.shape({
 
 const Assignment = PropTypes.shape({
   authProfile: AuthProfileType,
+  assessmentConfiguration: PropTypes.shape({
+    assessmentSections: AirtablePropTypes.assessmentSections.isRequired,
+    allAssessmentEntries: AirtablePropTypes.assessmentEntries.isRequired,
+    allQuestions: AirtablePropTypes.questions.isRequired,
+    allQuestionGroups: AirtablePropTypes.questionGroups.isRequired,
+    allQuestionResponseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
+  }),
   questionResponses: PropTypes.oneOfType([
     FirebasePropTypes.querySnapshot,
     PropTypes.arrayOf(PropTypes.objectOf(PropTypes.func)),
@@ -22,5 +29,4 @@ const Assignment = PropTypes.shape({
 
 export default {
   assignments: PropTypes.arrayOf(Assignment).isRequired,
-  assessmentSections: AirtablePropTypes.assessmentSections.isRequired,
 };

@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/styles';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
+import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
@@ -48,4 +49,5 @@ QuestionGroup.propTypes = {
   allQuestions: AirtablePropTypes.questions.isRequired,
   allQuestionResponseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
+  readOnly: PropTypes.bool.isRequired,
 };

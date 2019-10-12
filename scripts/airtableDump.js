@@ -7,7 +7,7 @@ const { liveAirtableApiBase } = require('../next.config');
 const { fetchRecords, tableNames } = require('../src/airtable');
 
 const { log } = console;
-const outDir = './public/api/';
+const outDir = './static/api/';
 
 async function saveRecords(apiPath) {
   const filename = `${apiPath.split('?')[0]}`;
