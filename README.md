@@ -9,6 +9,9 @@ Clone repo and run (specifying the desired environment, if not `dev1`):
 
 ```sh
 npm install
+cd functions
+npm install
+cd ..
 npm run env:dev1
 npm run dev
 ```
@@ -117,9 +120,14 @@ Here are a few caveats worth having in mind:
 - The `firestoreBackup` cloud function reads the current project from the `GCLOUD_PROJECT` environment variable that is
   automatically set by the service. This means it's not tied to any specific Firebase project.
 - You'll need to check your IAM permissions in the GCP Console to grant access to the default service account for App
-  Engine. More specifically, you need to add the role `Cloud Datastore Import Export Admin` to it; otherwise you'll
-  receive a permission error when the scheduled function tries to perform the export.
+  Engine. More specifically, you need to add the role `Cloud Datastore Import Export Admin` and `Storage Admin`;
+  otherwise you'll receive a permission error when the scheduled function tries to perform the export.
+  See more: https://firebase.google.com/docs/firestore/solutions/schedule-export
+- It's advisable to set up error notifications through GCP Stackdriver, to be informed of any execution issuess:
+  https://console.cloud.google.com/errors/ (visit this page after deploying the function to enable alerts).
 
-In order to deploy the function, you can run `npm run deploy` from the `functions` folder. It should take care of
+In order to deploy the function, you can run `npm run deploy` from the root project folder (or from within the
+`functions` folder, to only deploy the functions and not the rest of the project). It should take care of
 building and preparing the code for deployment as well as setting up the scheduler and the necessary permissions in your
-account.
+account. You might want to view the function in the Firebase "Functions" UI, follow the link to
+"View in Cloud Scheduler," and manually run it a couple times to verify proper execution (logs in Firebase UI console).
