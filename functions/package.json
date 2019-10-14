@@ -27,7 +27,11 @@
   "devDependencies": {
     "eslint": "^6.4.0",
     "eslint-plugin-babel": "^5.3.0",
-    "firebase-functions-test": "^0.1.6"
+    "cookie-parser": "^1.4.4",
+    "firebase-admin": "^8.0.0",
+    "firebase-functions": "^3.1.0",
+    "firebase-functions-test": "^0.1.6",
+    "node-linkedin": "^0.5.6"
   },
   "private": true
 }
