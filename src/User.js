@@ -62,6 +62,10 @@ export default class User {
     return this.userData.assignments;
   }
 
+  get intercomUserHash() {
+    return this.userData.intercomUserHash;
+  }
+
   // a bit hacky to update at runtime this way (vs. binding to DB) but quick and easy
   set isAssessmentComplete(isAssessmentComplete) {
     this._isAssessmentComplete = isAssessmentComplete;

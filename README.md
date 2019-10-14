@@ -11,10 +11,15 @@ Clone repo and run (specifying the desired environment, if not `dev1`):
 npm install
 cd functions
 npm install
+cp .runtimeconfig.json-example .runtimeconfig.json
 cd ..
 npm run env:dev1
 npm run dev
 ```
+
+Enter your test identity verification secret into `functions/.runtimeconfig.json`
+
+See for identity verification secret info: https://www.intercom.com/help/en/articles/183-enable-identity-verification-for-web-and-mobile
 
 ## Testing
 
@@ -61,6 +66,14 @@ Specify the Firebase project to which you would like to deploy (`ppe` shown here
 ```sh
 npm run env:ppe
 ```
+
+Set production Intercom identity verification secret (or test secret if not deploying to production):
+
+```sh
+npx firebase functions:config:set intercom.identity_verification_secret="IDENTITY VERIFICATION SECRET"
+```
+
+See for identity verification secret info: https://www.intercom.com/help/en/articles/183-enable-identity-verification-for-web-and-mobile
 
 (Optional) Preview the exported static site locally:
 
