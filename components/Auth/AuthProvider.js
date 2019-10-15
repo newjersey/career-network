@@ -38,7 +38,8 @@ export default function AuthProvider(props) {
 
     try {
       const { additionalUserInfo, user: _user } = authResult;
-      const { uid } = _user;
+      const { metadata, uid } = _user;
+      const { creationTime, lastSignInTime } = metadata;
 
       const { displayName, email, emailVerified, isAnonymous, phoneNumber, photoURL } = _user;
 
@@ -57,7 +58,9 @@ export default function AuthProvider(props) {
       const userData = {
         authProfile,
         authProviders,
-        updatedTimestamp: new Date(),
+        creationTimestamp: new Date(creationTime),
+        lastSignInTimestamp: new Date(lastSignInTime),
+        lastUpdateTimestamp: new Date(),
         isAdmin: false,
       };
 

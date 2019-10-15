@@ -66,6 +66,18 @@ export default class User {
     return this.userData.intercomUserHash;
   }
 
+  get creationTimestamp() {
+    return this.userData.creationTimestamp;
+  }
+
+  get lastSignInTimestamp() {
+    return this.userData.lastSignInTimestamp;
+  }
+
+  get lastUpdateTimestamp() {
+    return this.userData.lastUpdateTimestamp;
+  }
+
   // a bit hacky to update at runtime this way (vs. binding to DB) but quick and easy
   set isAssessmentComplete(isAssessmentComplete) {
     this._isAssessmentComplete = isAssessmentComplete;

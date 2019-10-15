@@ -70,7 +70,7 @@ export default function AppManager(props) {
         email: user.email,
         user_id: user.uid,
         user_hash: user.intercomUserHash,
-        // created_at: '<%= current_user.created_at.to_i %>', // Signup date as a Unix timestamp
+        created_at: user.creationTimestamp.seconds,
       }),
     };
 
