@@ -70,6 +70,24 @@ resource "cloudflare_record" "A_4" {
   value   = "185.199.111.153"
 }
 
+resource "cloudflare_record" "A_signup_1" {
+  domain  = "${var.cloudflare_zone}"
+  name    = "signup"
+  type    = "A"
+  ttl     = "1"
+  proxied = "false"
+  value   = "151.101.1.195"
+}
+
+resource "cloudflare_record" "A_signup_2" {
+  domain  = "${var.cloudflare_zone}"
+  name    = "signup"
+  type    = "A"
+  ttl     = "1"
+  proxied = "false"
+  value   = "151.101.65.195"
+}
+
 resource "cloudflare_record" "A_link" {
   domain  = "${var.cloudflare_zone}"
   name    = "link"
@@ -133,13 +151,13 @@ resource "cloudflare_record" "CNAME_strong2__domainkey" {
   value   = "strong2._domainkey.helpscout.net"
 }
 
-resource "cloudflare_record" "CNAME_signup" {
+resource "cloudflare_record" "CNAME_intercom__domainkey" {
   domain  = "${var.cloudflare_zone}"
-  name    = "signup"
+  name    = "intercom._domainkey"
   type    = "CNAME"
   ttl     = "1"
-  proxied = "true"
-  value   = "newjersey.github.io"
+  proxied = "false"
+  value   = "c1f45e04-1683-4859-b3de-3ae472eb267d.dkim.intercom.io"
 }
 
 resource "cloudflare_record" "CNAME_www" {

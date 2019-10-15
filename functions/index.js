@@ -2,6 +2,7 @@
 const { Storage } = require('@google-cloud/storage');
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+const crypto = require('crypto');
 
 admin.initializeApp();
 
@@ -38,3 +39,21 @@ exports.firestoreBackup = functions.pubsub
       throw new Error('Export operation failed');
     }
   });
+
+exports.intercomUserHash = functions.auth.user().onCreate(user => {
+  const { identity_verification_secret: secret } = functions.config().intercom;
+  const { uid } = user;
+  const hash = crypto
+    .createHmac('sha256', secret)
+    .update(uid)
+    .digest('hex');
+
+  console.log(`Storing Intercom identity verification hash for user ID: ${uid}`);
+
+  // TODO: should this await? or return promise?
+  return admin
+    .firestore()
+    .collection('users')
+    .doc(uid)
+    .set({ intercomUserHash: hash }, { merge: true });
+});

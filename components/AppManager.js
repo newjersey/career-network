@@ -4,6 +4,7 @@
 //  - redirect to '/' upon sign out (and not show a 403)
 //  - redirect to '/assessment' or '/dashboard' upon sign in
 
+import { useBeforeunload } from 'react-beforeunload';
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useRef } from 'react';
 import Router from 'next/router';
@@ -54,6 +55,36 @@ export default function AppManager(props) {
       }
     };
   }, [user]);
+
+  useEffect(() => {
+    // start with a clean slate (prevent data leaks)
+    if (!user) {
+      window.Intercom('shutdown');
+    }
+
+    const config = {
+      app_id: process.env.intercom.appId,
+
+      ...(user && {
+        name: user.displayName,
+        email: user.email,
+        user_id: user.uid,
+        user_hash: user.intercomUserHash,
+        // created_at: '<%= current_user.created_at.to_i %>', // Signup date as a Unix timestamp
+      }),
+    };
+
+    window.Intercom('boot', config);
+  }, [user]);
+
+  // end with a clean slate (prevent data leaks)
+  useBeforeunload(event => {
+    window.Intercom('shutdown');
+
+    // The absence of a returnValue property on the event will guarantee the browser unload happens.
+    // eslint-disable-next-line no-param-reassign
+    delete event.returnValue;
+  });
 
   return (
     <React.Fragment>
