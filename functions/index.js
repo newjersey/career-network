@@ -50,7 +50,6 @@ exports.intercomUserHash = functions.auth.user().onCreate(user => {
 
   console.log(`Storing Intercom identity verification hash for user ID: ${uid}`);
 
-  // TODO: should this await? or return promise?
   return admin
     .firestore()
     .collection('users')
