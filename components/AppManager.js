@@ -64,6 +64,7 @@ export default function AppManager(props) {
 
     const config = {
       app_id: process.env.intercom.appId,
+      environment: process.env.name, // custom data attribute
 
       ...(user && {
         name: user.displayName,
