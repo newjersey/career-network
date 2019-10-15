@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { useAuth } from '../Auth';
@@ -168,6 +168,10 @@ export default function Dashboard(props) {
   const doneTaskCount = allTaskDispositionEvents.length;
   const todoTaskCount = Math.min(allApplicableTasks.length - doneTaskCount, todoTaskLimit);
   const tasks = allApplicableTasks.slice(0, todoTaskCount + doneTaskCount);
+
+  useEffect(() => {
+    window.Intercom('update', { 'Tasks completed': doneTaskCount });
+  }, [doneTaskCount]);
 
   return (
     <div className={classes.root}>

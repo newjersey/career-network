@@ -92,6 +92,7 @@ export default function Task(props) {
   function onAllActionsDone() {
     disposition('done');
     confetti(confettiRef.current, confettiConfig);
+    window.Intercom('update', { 'Last task completed': new Date() });
   }
 
   return (
