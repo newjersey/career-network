@@ -71,6 +71,10 @@ export default function AppManager(props) {
         user_id: user.uid,
         user_hash: user.intercomUserHash,
         created_at: user.creationTimestamp.seconds,
+        avatar: {
+          type: 'avatar',
+          image_url: user.photoURL,
+        },
       }),
     };
 
