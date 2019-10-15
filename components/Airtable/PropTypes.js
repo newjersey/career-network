@@ -40,6 +40,7 @@ const question = recordShape({
   Label: PropTypes.string.isRequired,
   Disabled: PropTypes.bool,
   Hidden: PropTypes.bool,
+  Slug: PropTypes.string,
   'Helper Text': PropTypes.string,
   'Response Type': questionResponseType.isRequired,
   'Response Number Min': PropTypes.number,

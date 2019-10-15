@@ -102,12 +102,18 @@ function Question(props) {
 
       try {
         docRef.set(data);
-        return;
       } catch (error) {
         // TODO: better error UX, and reporting solution
         // eslint-disable-next-line no-alert
         alert(`There was a problem saving your data:\n\n${error.message}`);
         throw error;
+      }
+
+      // special cases
+      if (question.fields.Slug === 'phone' && _value) {
+        window.Intercom('update', {
+          phone: _value,
+        });
       }
     },
     [question, readOnly, responseOptions, userDocRef]
