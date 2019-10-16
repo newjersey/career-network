@@ -1,16 +1,16 @@
 import { makeStyles } from '@material-ui/styles';
-import Router from 'next/router';
-
 import React, { useCallback, useState } from 'react';
+import Router from 'next/router';
 import Typography from '@material-ui/core/Typography';
 
+import { allPropsLoaded, fullyLoaded } from '../src/app-helper';
 import { useAuth, withAuthRequired } from '../components/Auth';
 import { useRecords } from '../components/Airtable';
 import { useUserSubcollection } from '../components/Firebase';
 import AssessmentSectionList from '../components/assessment/AssessmentSectionList';
 import FullPageProgress from '../components/FullPageProgress';
 import ScaffoldContainer from '../components/ScaffoldContainer';
-import { allPropsLoaded, fullyLoaded } from '../src/app-helper';
+import withTitle from '../components/withTitle';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -84,4 +84,4 @@ function Assessment() {
   );
 }
 
-export default withAuthRequired(Assessment);
+export default withAuthRequired(withTitle(Assessment, 'Questionnaire'));

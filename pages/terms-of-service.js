@@ -5,6 +5,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import ScaffoldContainer from '../components/ScaffoldContainer';
+import withTitle from '../components/withTitle';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -18,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function TOS() {
+function TOS() {
   const classes = useStyles();
 
   return (
@@ -290,3 +291,5 @@ export default function TOS() {
     </div>
   );
 }
+
+export default withTitle(TOS, 'Terms of Service');

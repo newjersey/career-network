@@ -1,12 +1,13 @@
 import React from 'react';
 import values from 'lodash/fp/values';
 
-import { useAuth, withAuthRequired } from '../components/Auth';
-import FullPageProgress from '../components/FullPageProgress';
 import { fullyLoaded } from '../src/app-helper';
-import useAllCoaches from '../components/Firebase/useAllCoaches';
+import { useAuth, withAuthRequired } from '../components/Auth';
 import CoachAssignments from '../components/coaching/CoachAssignments';
+import FullPageProgress from '../components/FullPageProgress';
+import useAllCoaches from '../components/Firebase/useAllCoaches';
 import useAllJobSeekers from '../components/Firebase/useAllJobSeekers';
+import withTitle from '../components/withTitle';
 
 function CoachAssignmentsPage() {
   const { user } = useAuth();
@@ -22,4 +23,4 @@ function CoachAssignmentsPage() {
   );
 }
 
-export default withAuthRequired(CoachAssignmentsPage);
+export default withAuthRequired(withTitle(CoachAssignmentsPage, 'Coach Assignments'));
