@@ -14,12 +14,10 @@ import Error from './_error';
 import FirebaseProvider from '../components/Firebase';
 import theme from '../src/theme';
 
-// eslint-disable-next-line no-unused-vars
-Router.events.on('routeChangeStart', url => {
-  NProgress.start();
-});
+Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
+Router.events.on('routeChangeComplete', () => window.Intercom('update'));
 
 class MyApp extends App {
   constructor(args) {
