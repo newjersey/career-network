@@ -80,7 +80,7 @@ export default function Task(props) {
       taskId: task.id,
       timestamp: new Date(),
       type,
-      // below property are just for a messy denormalized log
+      // below property is just for a messy denormalized log
       // (mostly to record the actions, etc. that the user actually saw,
       // in case the configuration wording should change in the future)
       task,
