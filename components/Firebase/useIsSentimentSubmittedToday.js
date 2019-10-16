@@ -20,7 +20,7 @@ export default function useIsSentimentSubmittedToday(
         .where('timestamp', '>=', today)
         .get();
 
-      return sentimentEventsQuery.docs.length > 0;
+      return !sentimentEventsQuery.empty;
     };
 
     async function fetch() {
