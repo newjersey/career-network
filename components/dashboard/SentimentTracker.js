@@ -64,7 +64,7 @@ const SentimentTracker = () => {
 
   const sentiments = [
     { emoji: '😎', label: 'Motivated' },
-    { emoji: '🤨', label: 'Discouraged' },
+    { emoji: '😔', label: 'Discouraged' },
     { emoji: '🙂', label: 'Optimistic' },
     { emoji: '😤', label: 'Overwhelmed' },
   ];
