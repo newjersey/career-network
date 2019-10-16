@@ -45,7 +45,7 @@ function Assessment() {
     // set flag on user: initial assessment is complete
     // (will need refactor when introducing multiple assessments)
     userDocRef.set({ isAssessmentComplete: true }, { merge: true });
-    window.Intercom('update', { 'Initial assessment completed': new Date() });
+    window.Intercom('update', { 'initial-assessment-completed': new Date() });
 
     // a bit hacky to update at runtime this way (vs. binding to DB) but quick and easy:
     user.isAssessmentComplete = true;

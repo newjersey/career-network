@@ -170,7 +170,7 @@ export default function Dashboard(props) {
   const tasks = allApplicableTasks.slice(0, todoTaskCount + doneTaskCount);
 
   useEffect(() => {
-    window.Intercom('update', { 'Tasks completed': doneTaskCount });
+    window.Intercom('update', { 'tasks-completed': doneTaskCount });
   }, [doneTaskCount]);
 
   return (

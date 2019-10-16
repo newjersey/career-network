@@ -92,7 +92,13 @@ export default function Task(props) {
   function onAllActionsDone() {
     disposition('done');
     confetti(confettiRef.current, confettiConfig);
-    window.Intercom('update', { 'Last task completed': new Date() });
+    window.Intercom('update', { 'last-task-completed': new Date() });
+    window.Intercom('trackEvent', 'completed-task', {
+      title: task.fields.Title,
+      category: task.fields.Category,
+      time_estimate: task.fields['Time Estimate'],
+      task_id: task.id,
+    });
   }
 
   return (
