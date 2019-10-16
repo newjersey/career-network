@@ -14,6 +14,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(5, 0),
   },
   subtitle: {
+    display: 'inline-block',
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(2),
   },
@@ -181,7 +182,12 @@ export default function Dashboard(props) {
         <Typography variant="subtitle1" gutterBottom>
           Here’s your personalized action plan. It will update as you make progress.
         </Typography>
-        <Typography variant="h5" gutterBottom className={classes.subtitle}>
+        <Typography
+          variant="h5"
+          gutterBottom
+          className={classes.subtitle}
+          data-intercom="task-count"
+        >
           Your top {todoTaskCount} tasks
           {doneTaskCount > 0 && ` (and ${doneTaskCount} completed)`}
         </Typography>
