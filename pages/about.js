@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 
 import Picture from '../components/Picture';
 import ScaffoldContainer from '../components/ScaffoldContainer';
+import withTitle from '../components/withTitle';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,7 +27,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function About() {
+function About() {
   const classes = useStyles();
 
   return (
@@ -126,3 +127,5 @@ export default function About() {
     </div>
   );
 }
+
+export default withTitle(About, 'About');

@@ -80,7 +80,7 @@ export default function Task(props) {
       taskId: task.id,
       timestamp: new Date(),
       type,
-      // below property are just for a messy denormalized log
+      // below property is just for a messy denormalized log
       // (mostly to record the actions, etc. that the user actually saw,
       // in case the configuration wording should change in the future)
       task,
@@ -92,13 +92,19 @@ export default function Task(props) {
   function onAllActionsDone() {
     disposition('done');
     confetti(confettiRef.current, confettiConfig);
-    window.Intercom('update', { 'Last task completed': new Date() });
+    window.Intercom('update', { 'last-task-completed': new Date() });
+    window.Intercom('trackEvent', 'completed-task', {
+      title: task.fields.Title,
+      category: task.fields.Category,
+      time_estimate: task.fields['Time Estimate'],
+      task_id: task.id,
+    });
   }
 
   return (
     <React.Fragment>
       <div className={classes.confetti} ref={confettiRef} />
-      <Card className={clsx(classes.root, isDone && classes.isDone)}>
+      <Card className={clsx(classes.root, isDone && classes.isDone)} data-intercom="task">
         <CardHeader
           title={
             <Typography component="h1" variant="h3">
@@ -108,7 +114,9 @@ export default function Task(props) {
         />
         <CardContent>
           {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
-          <div className={classes.timeEstimate}>🕒{task.fields['Time Estimate']} min.</div>
+          <div className={classes.timeEstimate} data-intercom="task-time-estimate">
+            🕒{task.fields['Time Estimate']} min.
+          </div>
 
           {task.fields.Category && (
             <Chip
@@ -119,20 +127,24 @@ export default function Task(props) {
             />
           )}
 
-          <Typography variant="h5" component="h3" gutterBottom>
-            Why?
-          </Typography>
-          <Typography variant="body1" component="p">
-            {task.fields.Why}
-          </Typography>
+          <div data-intercom="task-why">
+            <Typography variant="h5" component="h3" gutterBottom>
+              Why?
+            </Typography>
+            <Typography variant="body1" component="p">
+              {task.fields.Why}
+            </Typography>
+          </div>
 
           <br />
           <br />
 
-          <Typography variant="h5" component="h3">
-            How?
-          </Typography>
-          <ActionList task={task} onAllDone={onAllActionsDone} {...restProps} />
+          <div data-intercom="task-how">
+            <Typography variant="h5" component="h3">
+              How?
+            </Typography>
+            <ActionList task={task} onAllDone={onAllActionsDone} {...restProps} />
+          </div>
         </CardContent>
       </Card>
     </React.Fragment>

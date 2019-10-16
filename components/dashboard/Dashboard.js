@@ -8,7 +8,6 @@ import FirebasePropTypes from '../Firebase/PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
 import SentimentTracker from './SentimentTracker';
 import TaskList from './TaskList';
-// eslint-disable-next-line no-unused-vars
 import TimeDistanceParser from '../../src/time-distance-parser';
 
 const useStyles = makeStyles(theme => ({
@@ -16,6 +15,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(5, 0),
   },
   subtitle: {
+    display: 'inline-block',
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(2),
   },
@@ -171,7 +171,7 @@ export default function Dashboard(props) {
   const tasks = allApplicableTasks.slice(0, todoTaskCount + doneTaskCount);
 
   useEffect(() => {
-    window.Intercom('update', { 'Tasks completed': doneTaskCount });
+    window.Intercom('update', { 'tasks-completed': doneTaskCount });
   }, [doneTaskCount]);
 
   return (
@@ -184,7 +184,12 @@ export default function Dashboard(props) {
           Here’s your personalized action plan. It will update as you make progress.
         </Typography>
         <SentimentTracker />
-        <Typography variant="h5" gutterBottom className={classes.subtitle}>
+        <Typography
+          variant="h5"
+          gutterBottom
+          className={classes.subtitle}
+          data-intercom="task-count"
+        >
           Your top {todoTaskCount} tasks
           {doneTaskCount > 0 && ` (and ${doneTaskCount} completed)`}
         </Typography>

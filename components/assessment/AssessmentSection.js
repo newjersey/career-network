@@ -32,7 +32,7 @@ export default function AssessmentSection(props) {
 
   return (
     <div className={classes.root}>
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} data-intercom="assessment-section">
         <Typography component="h2" variant="h4" gutterBottom>
           {assessmentSection.fields.Name}
         </Typography>
