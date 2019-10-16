@@ -276,7 +276,11 @@ function Nav(props) {
                   {pages
                     .filter(page => page.show)
                     .map(page => (
-                      <li key={page.href} className={classes.listItem}>
+                      <li
+                        key={page.href}
+                        className={classes.listItem}
+                        data-intercom={`nav-button-${page.name.replace(/\W/, '-').toLowerCase()}`}
+                      >
                         <Typography>
                           <NextLink href={page.href}>
                             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
