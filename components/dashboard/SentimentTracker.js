@@ -23,9 +23,13 @@ const useStyles = makeStyles(theme => ({
 
 const EmojiButton = ({ emoji, label, onClick }) => {
   const classes = useStyles();
+  const handleClick = () => {
+    onClick({ emoji, label });
+  };
+
   return (
     <Grid item lg={2} md={3} sm={3} xs={6} style={{ textAlign: 'center' }}>
-      <Button onClick={() => onClick(label)} data-intercom={`sentiment-${label.toLowerCase()}`}>
+      <Button onClick={handleClick} data-intercom={`sentiment-${label.toLowerCase()}`}>
         <Typography align="center">
           <span className={classes.emoji} role="img" aria-label={label}>
             {emoji}
@@ -57,8 +61,9 @@ const SentimentTracker = () => {
   const submitSentiment = sentiment => {
     const data = {
       timestamp: new Date(),
-      sentiment,
+      ...sentiment,
     };
+
     userDocRef.collection('sentimentEvents').add(data);
     setHidden(true);
   };
