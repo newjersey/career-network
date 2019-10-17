@@ -49,6 +49,7 @@ const appEnvironments = {
       apiKey: 'AIzaSyDybN2rwlC_Hwld0SJncFH8preMI4MXKic',
       messagingSenderId: '81682397202',
       appId: '1:81682397202:web:5caa69d4e9c28d1e',
+      measurementId: 'G-KQFS1RCY04',
       ...devEnvFactory(1),
     },
     intercom: {
@@ -70,6 +71,7 @@ const appEnvironments = {
       apiKey: 'AIzaSyDVlAiIhoIvBjCFbgai_70f823_7FiUkUQ',
       messagingSenderId: '529668674367',
       appId: '1:529668674367:web:fe48e3e414bcd5d6',
+      measurementId: 'G-KNYV55NHFY',
       ...devEnvFactory(2),
     },
     intercom: {
@@ -91,6 +93,7 @@ const appEnvironments = {
       apiKey: 'AIzaSyDLDRACEFdWBv7bZudMwFpo-h_BWUJeGgc',
       messagingSenderId: '450017172048',
       appId: '1:450017172048:web:fec305434b30fd999f4f55',
+      measurementId: 'G-E6H03M8988',
       ...devEnvFactory(3),
     },
     intercom: {
@@ -112,6 +115,7 @@ const appEnvironments = {
       apiKey: 'AIzaSyA6UY6N8S_oU9rNg_mAPn14fpFS55U7uM0',
       messagingSenderId: '1072560330051',
       appId: '1:1072560330051:web:afedd0bcac440b3aed8bf6',
+      measurementId: 'G-QRQTY1GQ50',
       ...devEnvFactory(4),
     },
     intercom: {
@@ -133,6 +137,7 @@ const appEnvironments = {
       apiKey: 'AIzaSyCNdMzlu9heNVkRVD48DovbvnEMOkjLo7s',
       messagingSenderId: '555215588648',
       appId: '1:555215588648:web:c1f34ead2b56f9b6a6541d',
+      measurementId: 'G-H2X2XD7YGX',
       ...devEnvFactory(5),
     },
     intercom: {
@@ -158,6 +163,7 @@ const appEnvironments = {
       storageBucket: '',
       messagingSenderId: '641946008142',
       appId: '1:641946008142:web:c6d623bc79bc899e',
+      measurementId: 'G-C33PD6V78L',
       ...commonFirebase,
     },
     intercom: {
@@ -183,6 +189,7 @@ const appEnvironments = {
       storageBucket: 'nj-career-network.appspot.com',
       messagingSenderId: '114141088298',
       appId: '1:114141088298:web:ce96ec93a41e3d35',
+      measurementId: 'G-48C1WWQMMD',
       ...commonFirebase,
     },
     intercom: {
