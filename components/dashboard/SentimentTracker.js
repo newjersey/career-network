@@ -25,7 +25,7 @@ const EmojiButton = ({ emoji, label, onClick }) => {
   const classes = useStyles();
   return (
     <Grid item lg={2} md={3} sm={3} xs={6} style={{ textAlign: 'center' }}>
-      <Button onClick={() => onClick(label)}>
+      <Button onClick={() => onClick(label)} data-intercom={`sentiment-${label.toLowerCase()}`}>
         <Typography align="center">
           <span className={classes.emoji} role="img" aria-label={label}>
             {emoji}
