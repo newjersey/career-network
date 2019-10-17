@@ -65,6 +65,7 @@ const SentimentTracker = () => {
     };
 
     userDocRef.collection('sentimentEvents').add(data);
+    window.Intercom('trackEvent', 'logged-sentiment', sentiment);
     setHidden(true);
   };
 
