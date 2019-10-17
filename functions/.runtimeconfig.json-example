@@ -1,5 +1,9 @@
 {
   "intercom": {
     "identity_verification_secret": "[TEST] IDENTITY VERIFICATION SECRET"
+  },
+  "linkedin": {
+    "client_id": "CLIENT_ID",
+    "client_secret": "CLIENT_SECRET"
   }
 }
