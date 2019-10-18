@@ -4,7 +4,9 @@ import Router from 'next/router';
 import { useSnackbar } from '../Snackbar';
 import useAuth from './useAuth';
 
-export default function useAuthRequired(failureMessage) {
+export default function useAuthRequired(
+  failureMessage = 'You must be signed in to view this page'
+) {
   const { isAuthKnown, showSignIn, user } = useAuth();
   const showMessage = useSnackbar();
   const cleanupRef = useRef();
@@ -17,7 +19,7 @@ export default function useAuthRequired(failureMessage) {
 
       if (cleanupRef.current) {
         showSignIn();
-        showMessage(failureMessage || 'You must be signed in to view this page');
+        showMessage(failureMessage);
       }
     }
 
