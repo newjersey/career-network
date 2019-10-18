@@ -86,9 +86,4 @@ export default class User {
   get lastUpdateTimestamp() {
     return this.userData.lastUpdateTimestamp;
   }
-
-  // a bit hacky to update at runtime this way (vs. binding to DB) but quick and easy
-  set isAssessmentComplete(isAssessmentComplete) {
-    this._isAssessmentComplete = isAssessmentComplete;
-  }
 }

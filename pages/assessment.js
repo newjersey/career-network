@@ -46,10 +46,6 @@ function Assessment() {
     // (will need refactor when introducing multiple assessments)
     userDocRef.set({ isAssessmentComplete: true }, { merge: true });
     window.Intercom('update', { 'initial-assessment-completed': new Date() });
-
-    // a bit hacky to update at runtime this way (vs. binding to DB) but quick and easy:
-    user.isAssessmentComplete = true;
-
     Router.push('/dashboard');
   };
 
