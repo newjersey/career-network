@@ -1,6 +1,6 @@
-import React from 'react';
 import { fireEvent, wait } from '@testing-library/react';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import React from 'react';
 
 import { renderWrapped } from '../../support/helpers';
 import * as factories from '../../support/factories';
