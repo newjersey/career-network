@@ -15,10 +15,10 @@ export default function AuthProvider(props) {
   const { children } = props;
   const [isOpen, setIsOpen] = useState(false);
   const [userId, setUserId] = useState(null);
-  // tri-state (undefined, null, Object):
-  // user will be null when definitively signed out, and
-  // user will be undefined until auth status can be determined (upon immediate page load)
-  const [user, setUser] = useState(undefined);
+  const [user, setUser] = useState(null);
+  // Becomes true very soon after page load; false means we're searching
+  // for a Firebase auth session that may or may not exist.
+  const [isAuthKnown, setIsAuthKnown] = useState(false);
   const [wasSignedIn, setWasSignedIn] = useState(false);
   const authListener = useRef();
   const userListener = useRef();
@@ -88,7 +88,9 @@ export default function AuthProvider(props) {
         setIsOpen(false);
         setUserId(authUser.uid);
       } else {
+        // preserve ordering:
         setUserId(null);
+        setIsAuthKnown(true);
       }
     });
 
@@ -113,6 +115,7 @@ export default function AuthProvider(props) {
             // preserve this ordering:
             setUser(new User(userSnapshot));
             setWasSignedIn(true);
+            setIsAuthKnown(true);
           }
         },
         error => {
@@ -135,6 +138,7 @@ export default function AuthProvider(props) {
   }, [userDocument, userId]);
 
   const value = {
+    isAuthKnown,
     showSignIn: () => setIsOpen(true),
     signOut: () => auth().signOut(),
     user,
