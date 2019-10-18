@@ -5,13 +5,12 @@
 
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import isEmpty from 'lodash/fp/isEmpty';
-import isNil from 'lodash/fp/isNil';
 
 import { useFirebase } from '../Firebase';
 import AuthContext from './AuthContext';
 import AuthDialog from './AuthDialog';
 import User from '../../src/User';
+import UserPreAuthorizations from '../../src/UserPreAuthorizations';
 
 export default function AuthProvider(props) {
   const { children } = props;
@@ -73,40 +72,6 @@ export default function AuthProvider(props) {
     }
   };
 
-  const documentExists = doc => doc && doc.exists;
-
-  const buildPreauthFields = useCallback((userRef, preauthRef) => {
-    const userData = userRef.data();
-    if (!documentExists(preauthRef)) {
-      return isNil(userData.isCoach) ? { isCoach: false } : {};
-    }
-
-    const fields = {};
-    const preauthData = preauthRef.data();
-    if (isNil(userData.isCoach)) {
-      fields.isCoach = !!preauthData.coach;
-    }
-    if (isNil(userData.assignments) && preauthData.assignments) {
-      fields.assignments = preauthData.assignments;
-    }
-
-    return fields;
-  }, []);
-
-  const applyPreauthorizations = useCallback(
-    (uid, userRef, preauthRef) => {
-      if (!documentExists(userRef)) {
-        return;
-      }
-
-      const preauthFields = buildPreauthFields(userRef, preauthRef);
-      if (!isEmpty(preauthFields)) {
-        userDocument(uid).set(preauthFields, { merge: true });
-      }
-    },
-    [userDocument, buildPreauthFields]
-  );
-
   // Clear or set user, pulling user data from Firestore.
   useEffect(() => {
     // https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables
@@ -117,11 +82,11 @@ export default function AuthProvider(props) {
         try {
           const { email, uid } = authUser;
           const userRef = await userDocument(uid).get();
-          const preauthRef = await userPreauthorizationDocument(email).get();
+          const preAuthRef = await userPreauthorizationDocument(email).get();
 
           if (cleanupRef.current && userRef.exists) {
             // preserve this ordering:
-            applyPreauthorizations(uid, userRef, preauthRef);
+            new UserPreAuthorizations(userRef, preAuthRef).apply();
             setUser(new User(userRef));
             setWasSignedIn(true);
           }
@@ -143,7 +108,7 @@ export default function AuthProvider(props) {
 
       cleanupRef.current = null;
     };
-  }, [applyPreauthorizations, auth, userDocument, userPreauthorizationDocument]);
+  }, [auth, userDocument, userPreauthorizationDocument]);
 
   const value = {
     showSignIn: () => setIsOpen(true),
