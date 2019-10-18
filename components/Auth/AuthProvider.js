@@ -14,8 +14,11 @@ import User from '../../src/User';
 export default function AuthProvider(props) {
   const { children } = props;
   const [isOpen, setIsOpen] = useState(false);
-  const [userId, setUserId] = useState(undefined); // tri-state (undefined, null, Object)
-  const [user, setUser] = useState(undefined); // tri-state (undefined, null, Object)
+  const [userId, setUserId] = useState(null);
+  // tri-state (undefined, null, Object):
+  // user will be null when definitively signed out, and
+  // user will be undefined until auth status can be determined (upon immediate page load)
+  const [user, setUser] = useState(undefined);
   const [wasSignedIn, setWasSignedIn] = useState(false);
   const authListener = useRef();
   const userListener = useRef();
