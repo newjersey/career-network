@@ -82,7 +82,11 @@ export default function AppManager(props) {
         }),
     };
 
-    window.Intercom('boot', config);
+    // the timeout prevents some kind of race condition that throws
+    // a benign console error when booting immediately after a shutdown
+    window.setTimeout(() => window.Intercom('boot', config), 1);
+
+    return () => window.Intercom('shutdown');
   }, [user]);
 
   // end with a clean slate (prevent data leaks)
