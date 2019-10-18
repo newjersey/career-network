@@ -60,7 +60,6 @@ export default function AuthProvider(props) {
         creationTimestamp: new Date(creationTime),
         lastSignInTimestamp: new Date(lastSignInTime),
         lastUpdateTimestamp: new Date(),
-        isAdmin: false,
       };
 
       userDocument(uid).set(userData, { merge: true });
