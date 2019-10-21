@@ -6,6 +6,7 @@ import { useNestedRecords } from '../components/Airtable';
 import FullPageProgress from '../components/FullPageProgress';
 import ScaffoldContainer from '../components/ScaffoldContainer';
 import StaticCollection from '../components/StaticCollection';
+import withTitle from '../components/withTitle';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -38,4 +39,4 @@ function Resources() {
   );
 }
 
-export default Resources;
+export default withTitle(Resources, 'Resources');

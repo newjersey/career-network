@@ -102,12 +102,20 @@ function Question(props) {
 
       try {
         docRef.set(data);
-        return;
       } catch (error) {
         // TODO: better error UX, and reporting solution
         // eslint-disable-next-line no-alert
         alert(`There was a problem saving your data:\n\n${error.message}`);
         throw error;
+      }
+
+      // special cases
+      if (question.fields.Slug === 'phone' && _value) {
+        const usaRegEx = /^\D*(?:\+?1)?\D*(\d{3})\D*(\d{3})\D*(\d{4})\D*$/;
+        const matches = _value.match(usaRegEx);
+        const phone = matches ? `+1-${matches[1]}-${matches[2]}-${matches[3]}` : _value;
+
+        window.Intercom('update', { phone });
       }
     },
     [question, readOnly, responseOptions, userDocRef]

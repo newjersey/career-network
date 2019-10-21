@@ -12,6 +12,7 @@ export function authProfile(attributes = {}) {
     ...attributes,
   };
 }
+
 export function authData(attributes = {}) {
   return {
     authProfile: authProfile(),
@@ -20,6 +21,15 @@ export function authData(attributes = {}) {
     isAssessmentComplete: true,
     isCoach: false,
     isAdmin: false,
+    ...attributes,
+  };
+}
+
+export function preAuthData(attributes = {}) {
+  return {
+    assignments: ['jsOcPjKxOhbK3FqkHKB4oAwQsEj2'],
+    isAdmin: false,
+    isCoach: true,
     ...attributes,
   };
 }

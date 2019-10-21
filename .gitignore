@@ -23,6 +23,7 @@ out
 /.firebase
 firebase-debug.log
 firestore-debug.log
+functions/.runtimeconfig.json
 
 # testing
 /**/coverage
@@ -30,3 +31,7 @@ firestore-debug.log
 # terraform
 .terraform
 terraform.tfstate.backup
+
+# IDE
+.idea
+.vscode

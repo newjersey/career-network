@@ -6,19 +6,18 @@ import NProgress from 'nprogress';
 import React from 'react';
 import Router from 'next/router';
 
-import Error from './_error';
+import { siteName } from '../components/withTitle';
 import { SnackbarProvider } from '../components/Snackbar';
-import AuthProvider from '../components/Auth';
-import FirebaseProvider from '../components/Firebase';
 import AppManager from '../components/AppManager';
+import AuthProvider from '../components/Auth';
+import Error from './_error';
+import FirebaseProvider from '../components/Firebase';
 import theme from '../src/theme';
 
-// eslint-disable-next-line no-unused-vars
-Router.events.on('routeChangeStart', url => {
-  NProgress.start();
-});
+Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
+Router.events.on('routeChangeComplete', () => window.Intercom('update'));
 
 class MyApp extends App {
   constructor(args) {
@@ -68,7 +67,7 @@ class MyApp extends App {
     return (
       <Container>
         <Head>
-          <title>Career Network</title>
+          <title>{siteName}</title>
         </Head>
         <ThemeProvider theme={theme}>
           <SnackbarProvider>

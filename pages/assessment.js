@@ -1,16 +1,16 @@
 import { makeStyles } from '@material-ui/styles';
-import Router from 'next/router';
-
 import React, { useCallback, useState } from 'react';
+import Router from 'next/router';
 import Typography from '@material-ui/core/Typography';
 
+import { allPropsLoaded, englishList, fullyLoaded } from '../src/app-helper';
 import { useAuth, withAuthRequired } from '../components/Auth';
 import { useRecords } from '../components/Airtable';
 import { useUserSubcollection } from '../components/Firebase';
 import AssessmentSectionList from '../components/assessment/AssessmentSectionList';
 import FullPageProgress from '../components/FullPageProgress';
 import ScaffoldContainer from '../components/ScaffoldContainer';
-import { allPropsLoaded, fullyLoaded } from '../src/app-helper';
+import withTitle from '../components/withTitle';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -32,6 +32,27 @@ function Assessment() {
     allQuestionResponseOptions: useRecords('Question Response Options'),
   };
 
+  const buildPostAssessmentIntercomAttributes = () => {
+    const attributes = { 'initial-assessment-completed': new Date() };
+
+    // kind of a hacky one-off
+    const { allQuestionGroups } = assessmentConfiguration;
+    const resourcesQuestionGroup = allQuestionGroups.find(qg => qg.fields.Slug === 'basic-needs');
+    const resourceQuestionIds = resourcesQuestionGroup.fields.Questions;
+    const positiveResourceQuestionResponses = allQuestionResponses.filter(
+      // all "additional resources" questions checked in assessment
+      doc => resourceQuestionIds.includes(doc.id) && doc.data().value === true
+    );
+    const englishListOfResourcesRequested = englishList(
+      positiveResourceQuestionResponses.map(doc => doc.data().question.fields.Label)
+    ).toLowerCase();
+    if (englishListOfResourcesRequested) {
+      attributes['basic-resources-requested'] = englishListOfResourcesRequested;
+    }
+
+    return attributes;
+  };
+
   const handleComplete = () => {
     setIsFinished(true);
 
@@ -45,10 +66,7 @@ function Assessment() {
     // set flag on user: initial assessment is complete
     // (will need refactor when introducing multiple assessments)
     userDocRef.set({ isAssessmentComplete: true }, { merge: true });
-
-    // a bit hacky to update at runtime this way (vs. binding to DB) but quick and easy:
-    user.isAssessmentComplete = true;
-
+    window.Intercom('update', buildPostAssessmentIntercomAttributes());
     Router.push('/dashboard');
   };
 
@@ -83,4 +101,4 @@ function Assessment() {
   );
 }
 
-export default withAuthRequired(Assessment);
+export default withAuthRequired(withTitle(Assessment, 'Questionnaire'));

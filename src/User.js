@@ -1,4 +1,9 @@
 /* eslint-disable no-underscore-dangle */
+
+function ucFirst(str) {
+  return str.slice(0, 1).toUpperCase() + str.slice(1);
+}
+
 export default class User {
   constructor(userDoc) {
     this.uid = userDoc.id;
@@ -11,23 +16,27 @@ export default class User {
   get firstName() {
     const { displayName } = this.authProfile;
 
-    return (
+    return ucFirst(
       Object.values(this.authProviders)
         .map(
           profile =>
             profile.firstName || profile.first_name || profile.given_name || profile.givenName
         )
         .reduce((a, b) => a || b, null) ||
-      (displayName.includes(',') ? displayName.split(',')[1] : displayName.split(' ')[0])
+        (displayName.includes(',') ? displayName.split(',')[1] : displayName.split(' ')[0])
     ).trim();
   }
 
   get displayName() {
     const { displayName } = this.authProfile;
 
-    return displayName.includes(',')
+    return (displayName.includes(',')
       ? `${displayName.split(',')[1]} ${displayName.split(',')[0]}`.trim()
-      : displayName;
+      : displayName
+    )
+      .split(' ')
+      .map(str => ucFirst(str))
+      .join(' ');
   }
 
   get email() {
@@ -62,8 +71,19 @@ export default class User {
     return this.userData.assignments;
   }
 
-  // a bit hacky to update at runtime this way (vs. binding to DB) but quick and easy
-  set isAssessmentComplete(isAssessmentComplete) {
-    this._isAssessmentComplete = isAssessmentComplete;
+  get intercomUserHash() {
+    return this.userData.intercomUserHash;
+  }
+
+  get creationTimestamp() {
+    return this.userData.creationTimestamp;
+  }
+
+  get lastSignInTimestamp() {
+    return this.userData.lastSignInTimestamp;
+  }
+
+  get lastUpdateTimestamp() {
+    return this.userData.lastUpdateTimestamp;
   }
 }

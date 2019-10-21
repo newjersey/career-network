@@ -1,13 +1,13 @@
 import { makeStyles } from '@material-ui/styles';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { useAuth } from '../Auth';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import FirebasePropTypes from '../Firebase/PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
+import SentimentTracker from './SentimentTracker';
 import TaskList from './TaskList';
-// eslint-disable-next-line no-unused-vars
 import TimeDistanceParser from '../../src/time-distance-parser';
 
 const useStyles = makeStyles(theme => ({
@@ -15,6 +15,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(5, 0),
   },
   subtitle: {
+    display: 'inline-block',
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(2),
   },
@@ -169,6 +170,10 @@ export default function Dashboard(props) {
   const todoTaskCount = Math.min(allApplicableTasks.length - doneTaskCount, todoTaskLimit);
   const tasks = allApplicableTasks.slice(0, todoTaskCount + doneTaskCount);
 
+  useEffect(() => {
+    window.Intercom('update', { 'tasks-completed': doneTaskCount });
+  }, [doneTaskCount]);
+
   return (
     <div className={classes.root}>
       <ScaffoldContainer>
@@ -178,7 +183,13 @@ export default function Dashboard(props) {
         <Typography variant="subtitle1" gutterBottom>
           Here’s your personalized action plan. It will update as you make progress.
         </Typography>
-        <Typography variant="h5" gutterBottom className={classes.subtitle}>
+        <SentimentTracker />
+        <Typography
+          variant="h5"
+          gutterBottom
+          className={classes.subtitle}
+          data-intercom="task-count"
+        >
           Your top {todoTaskCount} tasks
           {doneTaskCount > 0 && ` (and ${doneTaskCount} completed)`}
         </Typography>

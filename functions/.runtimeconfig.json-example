@@ -1,0 +1,5 @@
+{
+  "intercom": {
+    "identity_verification_secret": "[TEST] IDENTITY VERIFICATION SECRET"
+  }
+}
