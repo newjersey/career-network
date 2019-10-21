@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -9,7 +10,14 @@ import { useAuth } from '../Auth';
 import useIsSentimentSubmittedToday from '../Firebase/useIsSentimentSubmittedToday';
 
 const useStyles = makeStyles(theme => ({
-  root: {
+  paper: {
+    marginTop: theme.spacing(2),
+    padding: theme.spacing(5, 4, 3),
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing(6, 5, 4),
+    },
+  },
+  buttons: {
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
   },
@@ -77,16 +85,16 @@ const SentimentTracker = () => {
   ];
 
   return (
-    <>
+    <Paper className={classes.paper}>
       <Typography component="h4" variant="h4" align="center">
-        What’s your mood today?
+        How are you feeling today?
       </Typography>
-      <Grid container className={classes.root} justify="center" alignItems="center">
+      <Grid container className={classes.buttons} justify="center" alignItems="center">
         {sentiments.map(sentiment => (
           <EmojiButton {...sentiment} key={sentiment.label} onClick={submitSentiment} />
         ))}
       </Grid>
-    </>
+    </Paper>
   );
 };
 
