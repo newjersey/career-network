@@ -37,7 +37,7 @@ const EmojiButton = ({ emoji, label, onClick }) => {
   };
 
   return (
-    <Grid item lg={2} md={3} sm={3} xs={6} style={{ textAlign: 'center' }}>
+    <Grid item xs={6} sm={2} style={{ textAlign: 'center' }}>
       <Button onClick={handleClick} data-intercom={`sentiment-${label.toLowerCase()}`}>
         <Typography align="center">
           <span className={classes.emoji} role="img" aria-label={label}>
@@ -87,9 +87,10 @@ const SentimentTracker = () => {
 
   const sentiments = [
     { emoji: '😎', label: 'Motivated' },
+    { emoji: '😃', label: 'Hopeful' },
+    { emoji: '🙂', label: 'Okay' },
     { emoji: '😔', label: 'Discouraged' },
-    { emoji: '🙂', label: 'Optimistic' },
-    { emoji: '😤', label: 'Overwhelmed' },
+    { emoji: '😩', label: 'Worried' },
   ];
 
   return (
