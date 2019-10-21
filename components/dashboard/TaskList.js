@@ -14,15 +14,21 @@ export default function TaskList(props) {
 
   return (
     <div>
-      {tasks.map(task => (
-        <Task
-          key={task.id}
-          task={task}
-          isDone={isDone(task, allTaskDispositionEvents, 'taskId')}
-          actions={getActions(task, allActions)}
-          {...restProps}
-        />
-      ))}
+      {tasks
+        .sort(
+          (taskA, taskB) =>
+            (isDone(taskA, allTaskDispositionEvents, 'taskId') ? 1 : 0) +
+            (isDone(taskB, allTaskDispositionEvents, 'taskId') ? -1 : 0)
+        )
+        .map(task => (
+          <Task
+            key={task.id}
+            task={task}
+            isDone={isDone(task, allTaskDispositionEvents, 'taskId')}
+            actions={getActions(task, allActions)}
+            {...restProps}
+          />
+        ))}
     </div>
   );
 }
