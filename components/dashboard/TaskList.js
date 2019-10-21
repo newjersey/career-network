@@ -38,8 +38,16 @@ export default function TaskList(props) {
   const { allActions, allTaskDispositionEvents, tasks, ...restProps } = props;
   const classes = useStyles();
   const confettiRef = useRef();
+
   const onTaskComplete = useCallback(() => {
     confetti(confettiRef.current, confettiConfig);
+    window.setTimeout(() => {
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth',
+      });
+    }, 1000);
   }, []);
 
   return (
@@ -49,8 +57,8 @@ export default function TaskList(props) {
         {tasks
           .sort(
             (taskA, taskB) =>
-              (isDone(taskA, allTaskDispositionEvents, 'taskId') ? 1 : 0) +
-              (isDone(taskB, allTaskDispositionEvents, 'taskId') ? -1 : 0)
+              isDone(taskA, allTaskDispositionEvents, 'taskId') -
+              isDone(taskB, allTaskDispositionEvents, 'taskId')
           )
           .map(task => (
             <Task
