@@ -43,14 +43,6 @@ exports.redirect = functions.https.onRequest((req, res) => {
   });
 });
 
-// TODO: it does not saves user in DB now via simulator
-/**
- * Creates a Firebase account with the given user profile and returns a custom auth token allowing
- * signing-in this account.
- * Also saves the accessToken to the datastore at /linkedInAccessToken/$uid
- *
- * @returns {Promise<string>} The Firebase custom auth token in a promise.
- */
 async function createFirebaseAccount(linkedinID, displayName, email, accessToken) {
   const uid = `linkedin:${linkedinID}`;
 
@@ -60,12 +52,13 @@ async function createFirebaseAccount(linkedinID, displayName, email, accessToken
     .ref(`/linkedInAccessToken/${uid}`)
     .set(accessToken);
 
-  // Create or update the user account.
   const newTask = admin
-    .firestore()
-    .collection('users')
-    .doc(uid)
-    .set({ displayName, email, emailVerified: true }, { merge: true })
+    .auth()
+    .updateUser(uid, {
+      displayName,
+      email,
+      emailVerified: true,
+    })
     .catch(error => {
       console.log('###', error);
       // If user does not exists we create it.
@@ -85,10 +78,22 @@ async function createFirebaseAccount(linkedinID, displayName, email, accessToken
     .firestore()
     .collection('users')
     .doc(uid)
-    .set({ displayName, email, emailVerified: true }, { merge: true });
+    .set(
+      {
+        authProfile: { displayName, email, emailVerified: true },
+        creationTimestamp: new Date(),
+        lastSignInTimestamp: new Date(),
+        lastUpdateTimestamp: new Date(),
+        isAdmin: false,
+        authProviders: {
+          'linkedin.com': { id: uid },
+        },
+      },
+      { merge: true }
+    );
 
   // Wait for all async task to complete then generate and return a custom auth token.
-  await Promise.all([newTask, createUserInDB]);
+  await Promise.all([newTask, createUserInDB, databaseTask]);
 
   const token = await admin.auth().createCustomToken(uid);
   console.log('Created Custom token for UID "', uid);
@@ -106,59 +111,46 @@ const apiHost = 'https://api.linkedin.com/v2';
 exports.token = functions.https.onRequest((req, res) => {
   const Linkedin = linkedInClient();
   try {
-    return cors(req, res, () => {
-      cookieParser()(req, res, () => {
-        if (!req.cookies.state) {
-          throw new Error(
-            'State cookie not set or expired. Maybe you took too long to authorize. Please try again.'
-          );
-        }
-        Linkedin.auth.authorize(OAUTH_SCOPES, req.cookies.state); // Makes sure the state parameter is set
-        Linkedin.auth.getAccessToken(
-          res,
-          req.query.code,
-          req.query.state,
-          async (error, results) => {
-            if (error) {
-              throw error;
-            }
-            console.log('Received Access Token:', results.access_token);
+    Linkedin.auth.authorize(OAUTH_SCOPES, req.query.state); // Makes sure the state parameter is set
+    Linkedin.auth.getAccessToken(res, req.query.code, req.query.state, async (error, results) => {
+      if (error) {
+        throw error;
+      }
 
-            const headers = {
-              Authorization: `Bearer ${results.access_token}`,
-            };
+      const headers = {
+        Authorization: `Bearer ${results.access_token}`,
+      };
 
-            const userObj = await fetch(`${apiHost}/me?projection=(id,firstName,lastName)`, {
-              headers,
-            });
+      const userObj = await fetch(`${apiHost}/me?projection=(id,firstName,lastName)`, {
+        headers,
+      });
 
-            const userJson = await userObj.json();
+      const userJson = await userObj.json();
 
-            const firstName = _.get(userJson, 'firstName.localized.en_US');
-            const lastName = _.get(userJson, 'lastName.localized.en_US');
+      const firstName = _.get(userJson, 'firstName.localized.en_US');
+      const lastName = _.get(userJson, 'lastName.localized.en_US');
 
-            const emailObj = await fetch(
-              `${apiHost}/clientAwareMemberHandles?q=members&projection=(elements*(primary,type,handle~))`,
-              { headers }
-            );
+      const emailObj = await fetch(
+        `${apiHost}/clientAwareMemberHandles?q=members&projection=(elements*(primary,type,handle~))`,
+        { headers }
+      );
 
-            const emailJson = await emailObj.json();
+      const emailJson = await emailObj.json();
 
-            const email = _.get(emailJson, 'elements[0].handle~.emailAddress');
+      const email = _.get(emailJson, 'elements[0].handle~.emailAddress');
 
-            // Create a Firebase account and get the Custom Auth Token.
-            const firebaseToken = await createFirebaseAccount(
-              userJson.id,
-              `${firstName} ${lastName}`,
-              email,
-              results.access_token
-            );
+      // Create a Firebase account and get the Custom Auth Token.
+      const firebaseToken = await createFirebaseAccount(
+        userJson.id,
+        `${firstName} ${lastName}`,
+        email,
+        results.access_token
+      );
 
-            res.jsonp({
-              token: firebaseToken,
-            });
-          }
-        );
+      return cors(req, res, () => {
+        res.json({
+          token: firebaseToken,
+        });
       });
     });
   } catch (error) {
