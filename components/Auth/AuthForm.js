@@ -28,6 +28,13 @@ export default function AuthForm(props) {
           onSignInSuccessWithAuthResult(authResult, redirectUrl);
         }
 
+        // firebase.auth().signInWithCustomToken(token).catch(function(error) {
+        //   // Handle Errors here.
+        //   var errorCode = error.code;
+        //   var errorMessage = error.message;
+        //   // ...
+        // });
+
         // Return type determines whether we continue the redirect automatically
         // or whether we leave that to developer to handle.
         return false;
@@ -70,6 +77,7 @@ export default function AuthForm(props) {
   return (
     <div className={classes.root}>
       <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth()} />
+      <a href="http://localhost:5001/nj-career-network-dev3/us-central1/redirect">Linkedin</a>
       {!uiShown && (
         <div className={classes.progressContainer}>
           <FullPageProgress />
