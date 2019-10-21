@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { useAuth } from '../Auth';
+import { useSnackbar } from '../Snackbar';
 import useIsSentimentSubmittedToday from '../Firebase/useIsSentimentSubmittedToday';
 
 const useStyles = makeStyles(theme => ({
@@ -60,6 +61,8 @@ const SentimentTracker = () => {
   const { userDocRef } = useAuth();
   const [hidden, setHidden] = useState(false);
   const isAlreadySubmittedToday = useIsSentimentSubmittedToday();
+  const showMessage = useSnackbar();
+  const { user } = useAuth();
 
   const classes = useStyles();
   if (isAlreadySubmittedToday || hidden) {
@@ -74,6 +77,7 @@ const SentimentTracker = () => {
 
     userDocRef.collection('sentimentEvents').add(data);
     window.Intercom('trackEvent', 'logged-sentiment', sentiment);
+    showMessage(`Thank you for sharing, ${user.firstName}`);
     setHidden(true);
   };
 
