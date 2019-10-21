@@ -6,6 +6,7 @@ import { useAuth } from '../Auth';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import FirebasePropTypes from '../Firebase/PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
+import SentimentTracker from './SentimentTracker';
 import TaskList from './TaskList';
 import TimeDistanceParser from '../../src/time-distance-parser';
 
@@ -182,6 +183,7 @@ export default function Dashboard(props) {
         <Typography variant="subtitle1" gutterBottom>
           Here’s your personalized action plan. It will update as you make progress.
         </Typography>
+        <SentimentTracker />
         <Typography
           variant="h5"
           gutterBottom
