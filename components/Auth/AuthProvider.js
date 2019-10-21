@@ -5,8 +5,6 @@
 
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import isEmpty from 'lodash/fp/isEmpty';
-import isNil from 'lodash/fp/isNil';
 
 import { useFirebase } from '../Firebase';
 import AuthContext from './AuthContext';
@@ -16,9 +14,14 @@ import User from '../../src/User';
 export default function AuthProvider(props) {
   const { children } = props;
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState(undefined); // tri-state (undefined, null, Object)
+  const [userId, setUserId] = useState(null);
+  const [user, setUser] = useState(null);
+  // Becomes true very soon after page load; false means we're searching
+  // for a Firebase auth session that may or may not exist.
+  const [isAuthKnown, setIsAuthKnown] = useState(false);
   const [wasSignedIn, setWasSignedIn] = useState(false);
-  const cleanupRef = useRef();
+  const authListener = useRef();
+  const userListener = useRef();
   const { auth, db } = useFirebase();
 
   const handleCancel = () => setIsOpen(false);
@@ -33,9 +36,7 @@ export default function AuthProvider(props) {
   );
 
   // Store user data in Firestore.
-  const handleSignInSuccessWithAuthResult = authResult => {
-    setIsOpen(false);
-
+  const persistUserDataFromAuthResult = async authResult => {
     try {
       const { additionalUserInfo, user: _user } = authResult;
       const { metadata, uid } = _user;
@@ -61,10 +62,12 @@ export default function AuthProvider(props) {
         creationTimestamp: new Date(creationTime),
         lastSignInTimestamp: new Date(lastSignInTime),
         lastUpdateTimestamp: new Date(),
-        isAdmin: false,
       };
 
-      userDocument(uid).set(userData, { merge: true });
+      const preAuthDoc = await userPreauthorizationDocument(email).get();
+      const preAuthData = preAuthDoc.exists ? preAuthDoc.data() : {};
+
+      userDocument(uid).set({ ...userData, ...preAuthData }, { merge: true });
     } catch (error) {
       // TODO: better error UX, and reporting solution
       // eslint-disable-next-line no-alert
@@ -73,79 +76,69 @@ export default function AuthProvider(props) {
     }
   };
 
-  const documentExists = doc => doc && doc.exists;
+  const handleSignInSuccessWithAuthResult = authResult => {
+    setIsOpen(false);
+    persistUserDataFromAuthResult(authResult);
+  };
 
-  const buildPreauthFields = useCallback((userRef, preauthRef) => {
-    const userData = userRef.data();
-    if (!documentExists(preauthRef)) {
-      return isNil(userData.isCoach) ? { isCoach: false } : {};
-    }
-
-    const fields = {};
-    const preauthData = preauthRef.data();
-    if (isNil(userData.isCoach)) {
-      fields.isCoach = !!preauthData.coach;
-    }
-    if (isNil(userData.assignments) && preauthData.assignments) {
-      fields.assignments = preauthData.assignments;
-    }
-
-    return fields;
-  }, []);
-
-  const applyPreauthorizations = useCallback(
-    (uid, userRef, preauthRef) => {
-      if (!documentExists(userRef)) {
-        return;
-      }
-
-      const preauthFields = buildPreauthFields(userRef, preauthRef);
-      if (!isEmpty(preauthFields)) {
-        userDocument(uid).set(preauthFields, { merge: true });
-      }
-    },
-    [userDocument, buildPreauthFields]
-  );
-
-  // Clear or set user, pulling user data from Firestore.
+  // Clear or set user ID upon auth state change.
   useEffect(() => {
-    // https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables
-    cleanupRef.current = auth().onAuthStateChanged(async authUser => {
+    authListener.current = auth().onAuthStateChanged(authUser => {
       if (authUser) {
         setIsOpen(false);
-
-        try {
-          const { email, uid } = authUser;
-          const userRef = await userDocument(uid).get();
-          const preauthRef = await userPreauthorizationDocument(email).get();
-
-          if (cleanupRef.current && userRef.exists) {
-            // preserve this ordering:
-            applyPreauthorizations(uid, userRef, preauthRef);
-            setUser(new User(userRef));
-            setWasSignedIn(true);
-          }
-        } catch (error) {
-          // TODO: better error UX, and reporting solution
-          // eslint-disable-next-line no-alert
-          alert(`There was a problem signing in:\n\n${error.message}`);
-          throw error;
-        }
+        setUserId(authUser.uid);
       } else {
-        setUser(null);
+        // preserve ordering:
+        setUserId(null);
+        setIsAuthKnown(true);
       }
     });
 
     return () => {
-      if (typeof cleanupRef.current === 'function') {
-        cleanupRef.current();
+      if (typeof authListener.current === 'function') {
+        authListener.current();
       }
 
-      cleanupRef.current = null;
+      authListener.current = null;
     };
-  }, [applyPreauthorizations, auth, userDocument, userPreauthorizationDocument]);
+  }, [auth]);
+
+  // Listen for user object (and changes to it), when we have a user ID.
+  useEffect(() => {
+    if (userId) {
+      const userDocRef = userDocument(userId);
+
+      userListener.current = userDocRef.onSnapshot(
+        userSnapshot => {
+          // wait for data to persist (first login)
+          if (userSnapshot.exists) {
+            // preserve this ordering:
+            setUser(new User(userSnapshot));
+            setWasSignedIn(true);
+            setIsAuthKnown(true);
+          }
+        },
+        error => {
+          // eslint-disable-next-line no-alert
+          alert(`There was a problem signing in:\n\n${error.message}`);
+          throw error;
+        }
+      );
+    } else {
+      setUser(null);
+    }
+
+    return () => {
+      if (typeof userListener.current === 'function') {
+        userListener.current();
+      }
+
+      userListener.current = null;
+    };
+  }, [userDocument, userId]);
 
   const value = {
+    isAuthKnown,
     showSignIn: () => setIsOpen(true),
     signOut: () => auth().signOut(),
     user,

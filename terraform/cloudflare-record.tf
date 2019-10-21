@@ -169,6 +169,15 @@ resource "cloudflare_record" "CNAME_www" {
   value   = "${var.cloudflare_zone}"
 }
 
+resource "cloudflare_record" "CNAME_resources" {
+  domain  = "${var.cloudflare_zone}"
+  name    = "resources"
+  type    = "CNAME"
+  ttl     = "1"
+  proxied = "true"
+  value   = "custom.intercom.help"
+}
+
 resource "cloudflare_record" "MX_alt1" {
   domain  = "${var.cloudflare_zone}"
   name    = "${var.cloudflare_zone}"

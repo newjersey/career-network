@@ -57,6 +57,7 @@ const questionGroup = recordShape({
   Name: PropTypes.string.isRequired,
   Label: PropTypes.string.isRequired,
   Questions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  Slug: PropTypes.string,
 });
 
 const questionResponseOption = recordShape({

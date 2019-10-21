@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 import Router from 'next/router';
 import Typography from '@material-ui/core/Typography';
 
-import { allPropsLoaded, fullyLoaded } from '../src/app-helper';
+import { allPropsLoaded, englishList, fullyLoaded } from '../src/app-helper';
 import { useAuth, withAuthRequired } from '../components/Auth';
 import { useRecords } from '../components/Airtable';
 import { useUserSubcollection } from '../components/Firebase';
@@ -32,6 +32,27 @@ function Assessment() {
     allQuestionResponseOptions: useRecords('Question Response Options'),
   };
 
+  const buildPostAssessmentIntercomAttributes = () => {
+    const attributes = { 'initial-assessment-completed': new Date() };
+
+    // kind of a hacky one-off
+    const { allQuestionGroups } = assessmentConfiguration;
+    const resourcesQuestionGroup = allQuestionGroups.find(qg => qg.fields.Slug === 'basic-needs');
+    const resourceQuestionIds = resourcesQuestionGroup.fields.Questions;
+    const positiveResourceQuestionResponses = allQuestionResponses.filter(
+      // all "additional resources" questions checked in assessment
+      doc => resourceQuestionIds.includes(doc.id) && doc.data().value === true
+    );
+    const englishListOfResourcesRequested = englishList(
+      positiveResourceQuestionResponses.map(doc => doc.data().question.fields.Label)
+    ).toLowerCase();
+    if (englishListOfResourcesRequested) {
+      attributes['basic-resources-requested'] = englishListOfResourcesRequested;
+    }
+
+    return attributes;
+  };
+
   const handleComplete = () => {
     setIsFinished(true);
 
@@ -45,11 +66,7 @@ function Assessment() {
     // set flag on user: initial assessment is complete
     // (will need refactor when introducing multiple assessments)
     userDocRef.set({ isAssessmentComplete: true }, { merge: true });
-    window.Intercom('update', { 'initial-assessment-completed': new Date() });
-
-    // a bit hacky to update at runtime this way (vs. binding to DB) but quick and easy:
-    user.isAssessmentComplete = true;
-
+    window.Intercom('update', buildPostAssessmentIntercomAttributes());
     Router.push('/dashboard');
   };
 
