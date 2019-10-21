@@ -1,4 +1,3 @@
-import { confetti } from 'dom-confetti';
 import { makeStyles } from '@material-ui/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -10,7 +9,7 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import PropTypes from 'prop-types';
-import React, { useRef } from 'react';
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { useAuth } from '../Auth';
@@ -49,27 +48,7 @@ const useStyles = makeStyles(theme => ({
     top: -theme.spacing(2.5),
     marginBottom: theme.spacing(3.5),
   },
-  confetti: {
-    zIndex: 999,
-    position: 'fixed',
-    left: '50%',
-    bottom: '15%',
-    transform: 'translateX(-50%)',
-  },
 }));
-
-const confettiConfig = {
-  angle: '90',
-  spread: '70',
-  startVelocity: 60,
-  elementCount: '80',
-  dragFriction: 0.1,
-  duration: '6500',
-  stagger: '1',
-  width: '10px',
-  height: '16px',
-  colors: ['#a864fd', '#29cdff', '#78ff44', '#ff718d', '#fdff6a'],
-};
 
 function bgColor(task) {
   return {
@@ -81,9 +60,8 @@ function bgColor(task) {
 }
 
 export default function Task(props) {
-  const { task, isDone, ...restProps } = props;
+  const { task, isDone, onDone, ...restProps } = props;
   const { userDocRef } = useAuth();
-  const confettiRef = useRef();
   const classes = useStyles();
 
   function disposition(type) {
@@ -101,8 +79,8 @@ export default function Task(props) {
   }
 
   function onAllActionsDone() {
+    onDone(task);
     disposition('done');
-    confetti(confettiRef.current, confettiConfig);
     window.Intercom('update', { 'last-task-completed': new Date() });
     window.Intercom('trackEvent', 'completed-task', {
       title: task.fields.Title,
@@ -188,10 +166,7 @@ export default function Task(props) {
       <TaskCard />
     </CompletedTask>
   ) : (
-    <>
-      <div className={classes.confetti} ref={confettiRef} />
-      <TaskCard />
-    </>
+    <TaskCard />
   );
 }
 
@@ -199,6 +174,7 @@ Task.propTypes = {
   actions: AirtablePropTypes.actions.isRequired,
   task: AirtablePropTypes.task.isRequired,
   isDone: PropTypes.bool.isRequired,
+  onDone: PropTypes.func.isRequired,
   allActionDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
   allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
 };
