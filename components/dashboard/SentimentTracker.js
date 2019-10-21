@@ -77,6 +77,10 @@ const SentimentTracker = () => {
 
     userDocRef.collection('sentimentEvents').add(data);
     window.Intercom('trackEvent', 'logged-sentiment', sentiment);
+    window.Intercom('update', {
+      'last-mood': sentiment.emoji,
+      'last-sentiment': sentiment.label,
+    });
     showMessage(`Thank you for sharing, ${user.firstName}`);
     setHidden(true);
   };
