@@ -5,6 +5,10 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Chip from '@material-ui/core/Chip';
 import clsx from 'clsx';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import PropTypes from 'prop-types';
 import React, { useRef } from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -15,8 +19,9 @@ import AirtablePropTypes from '../Airtable/PropTypes';
 import FirebasePropTypes from '../Firebase/PropTypes';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    marginBottom: theme.spacing(4),
+  card: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
     padding: theme.spacing(3, 3, 2),
     [theme.breakpoints.up('sm')]: {
       position: 'relative',
@@ -24,7 +29,13 @@ const useStyles = makeStyles(theme => ({
     },
   },
   isDone: {
-    backgroundColor: '#efe',
+    padding: 0,
+    margin: 0,
+    boxShadow: 'none',
+  },
+  isDoneCardChild: {
+    // padding: 0,
+    margin: (null, 0),
   },
   timeEstimate: {
     [theme.breakpoints.up('sm')]: {
@@ -101,18 +112,18 @@ export default function Task(props) {
     });
   }
 
-  return (
-    <React.Fragment>
-      <div className={classes.confetti} ref={confettiRef} />
-      <Card className={clsx(classes.root, isDone && classes.isDone)} data-intercom="task">
+  const TaskCard = () => {
+    return (
+      <Card className={clsx(classes.card, isDone && classes.isDone)} data-intercom="task">
         <CardHeader
+          className={clsx(isDone && classes.isDoneCardChild)}
           title={
             <Typography component="h1" variant="h3">
               <strong>{task.fields.Title}</strong>
             </Typography>
           }
         />
-        <CardContent>
+        <CardContent className={clsx(isDone && classes.isDoneCardChild)}>
           {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
           <div className={classes.timeEstimate} data-intercom="task-time-estimate">
             🕒{task.fields['Time Estimate']} min.
@@ -147,7 +158,40 @@ export default function Task(props) {
           </div>
         </CardContent>
       </Card>
-    </React.Fragment>
+    );
+  };
+
+  const CompletedTask = _props => {
+    const { children } = _props;
+
+    return (
+      <ExpansionPanel>
+        <ExpansionPanelSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls={`task-${task.id}-expansion-content`}
+          id={`task-${task.id}-expansion`}
+        >
+          <Typography className={classes.heading}>
+            <Typography component="span" color="secondary">
+              ✓
+            </Typography>{' '}
+            {task.fields.Title}
+          </Typography>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>{children}</ExpansionPanelDetails>
+      </ExpansionPanel>
+    );
+  };
+
+  return isDone ? (
+    <CompletedTask>
+      <TaskCard />
+    </CompletedTask>
+  ) : (
+    <>
+      <div className={classes.confetti} ref={confettiRef} />
+      <TaskCard />
+    </>
   );
 }
 
