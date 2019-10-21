@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
 
 import { isDone } from '../../src/app-helper';
 import Action from './Action';
@@ -9,10 +8,6 @@ import FirebasePropTypes from '../Firebase/PropTypes';
 
 export default function ActionList(props) {
   const { actions, allActionDispositionEvents, onAllDone, ...restProps } = props;
-  const allDone = actions
-    .map(action => isDone(action, allActionDispositionEvents, 'actionId'))
-    .reduce((a, b) => a && b, true);
-
   const onDone = (action, i) => {
     // last action in the task
     if (i === actions.length - 1) {
@@ -34,15 +29,6 @@ export default function ActionList(props) {
           />
         ))}
       </ol>
-      {allDone && (
-        <center>
-          {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
-          <Typography variant="h4" color="secondary">
-            <br />
-            You finished this task—great job!&nbsp;&nbsp;🎉
-          </Typography>
-        </center>
-      )}
     </div>
   );
 }
