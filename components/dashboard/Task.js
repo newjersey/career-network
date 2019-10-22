@@ -48,6 +48,13 @@ const useStyles = makeStyles(theme => ({
     top: -theme.spacing(2.5),
     marginBottom: theme.spacing(3.5),
   },
+  summaryType: {
+    position: 'absolute',
+    right: theme.spacing(9),
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+  },
 }));
 
 function bgColor(task) {
@@ -155,6 +162,14 @@ export default function Task(props) {
             </Typography>{' '}
             {task.fields.Title}
           </Typography>
+          {task.fields.Category && (
+            <Chip
+              size="small"
+              label={task.fields.Category}
+              className={classes.summaryType}
+              style={{ backgroundColor: bgColor(task) }}
+            />
+          )}
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>{children}</ExpansionPanelDetails>
       </ExpansionPanel>
