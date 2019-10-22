@@ -43,12 +43,12 @@ export default function AuthForm(props) {
       // Leave the lines as is for the providers you want to offer your users.
       auth.GoogleAuthProvider.PROVIDER_ID,
       // auth.FacebookAuthProvider.PROVIDER_ID,
-      {
-        provider: 'microsoft.com',
-        providerName: 'Microsoft',
-        buttonColor: '#575352',
-        iconUrl: '/static/img/microsoft.svg',
-      },
+      // {
+      //   provider: 'microsoft.com',
+      //   providerName: 'Microsoft',
+      //   buttonColor: '#575352',
+      //   iconUrl: '/static/img/microsoft.svg',
+      // },
       {
         provider: 'yahoo.com',
         providerName: 'Yahoo',
