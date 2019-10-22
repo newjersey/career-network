@@ -64,7 +64,10 @@ export default function AuthProvider(props) {
         lastUpdateTimestamp: new Date(),
       };
 
-      const preAuthDoc = await userPreauthorizationDocument(email).get();
+      const userRef = await userDocument(uid).get();
+      const emailFromDb = email || userRef.get('email');
+
+      const preAuthDoc = await userPreauthorizationDocument(emailFromDb).get();
       const preAuthData = preAuthDoc.exists ? preAuthDoc.data() : {};
 
       userDocument(uid).set({ ...userData, ...preAuthData }, { merge: true });
