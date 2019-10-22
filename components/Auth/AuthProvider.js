@@ -24,7 +24,15 @@ export default function AuthProvider(props) {
   const userListener = useRef();
   const { auth, db } = useFirebase();
 
-  const handleCancel = () => setIsOpen(false);
+  const showSignIn = () => {
+    setIsOpen(true);
+    window.Intercom('trackEvent', 'sign-in-form-opened');
+  };
+
+  const hideSignIn = () => {
+    setIsOpen(false);
+    window.Intercom('trackEvent', 'sign-in-form-closed');
+  };
 
   const userDocument = useCallback(
     uid => db.collection(process.env.firebase.userCollection).doc(uid),
@@ -139,7 +147,7 @@ export default function AuthProvider(props) {
 
   const value = {
     isAuthKnown,
-    showSignIn: () => setIsOpen(true),
+    showSignIn,
     signOut: () => auth().signOut(),
     user,
     userDocRef: user && userDocument(user.uid),
@@ -152,7 +160,7 @@ export default function AuthProvider(props) {
 
       <AuthDialog
         open={isOpen}
-        onCancel={handleCancel}
+        onCancel={hideSignIn}
         onSignInSuccessWithAuthResult={handleSignInSuccessWithAuthResult}
       />
     </React.Fragment>
