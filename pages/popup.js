@@ -4,13 +4,11 @@ import firebase from 'firebase';
 
 import fetch from 'isomorphic-unfetch';
 
-const url = 'http://localhost:5001/nj-career-network-dev3/us-central1/token';
+const url = `https://us-central1-${process.env.firebase.projectId}.cloudfunctions.net/token`;
 
 const Popup = function() {
   const router = useRouter();
   const { code, state } = router.query;
-
-  // console.log(state, stateCookie);
 
   useEffect(() => {
     fetch(`${url}?code=${code}&state=${state}`, {

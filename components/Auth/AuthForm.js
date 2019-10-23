@@ -66,11 +66,12 @@ export default function AuthForm(props) {
     // Privacy policy url.
     privacyPolicyUrl: '/privacy-policy',
   };
+  const linkedinUrl = `https://us-central1-${process.env.firebase.projectId}.cloudfunctions.net/redirect`;
 
   return (
     <div className={classes.root}>
       <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth()} />
-      <a href="http://localhost:5001/nj-career-network-dev3/us-central1/redirect">Linkedin</a>
+      <a href={linkedinUrl}>Linkedin</a>
       {!uiShown && (
         <div className={classes.progressContainer}>
           <FullPageProgress />

@@ -5,22 +5,16 @@ const cookieParser = require('cookie-parser');
 const nodeLinkedin = require('node-linkedin');
 const fetch = require('isomorphic-unfetch');
 const _ = require('lodash');
-
-const cors = require('cors')({
-  origin: true,
-});
+const cors = require('cors')({ origin: true });
 
 const OAUTH_SCOPES = ['r_liteprofile', 'r_emailaddress', 'w_member_social'];
+const { projectId } = JSON.parse(process.env.FIREBASE_CONFIG);
 
-/**
- * Creates a configured LinkedIn API Client instance.
- */
 function linkedInClient() {
-  // LinkedIn OAuth 2 setup
   return nodeLinkedin(
     functions.config().linkedin.client_id,
     functions.config().linkedin.client_secret,
-    'http://localhost:3000/popup'
+    `https://${projectId}.firebaseapp.com/popup`
   );
 }
 
