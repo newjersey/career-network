@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
 import firebase from 'firebase';
-
 import fetch from 'isomorphic-unfetch';
+import withPageQuery from '../components/Auth/witRouterQuery';
 
 const url = `https://us-central1-${process.env.firebase.projectId}.cloudfunctions.net/token`;
 
-const Popup = function() {
-  const router = useRouter();
+const Popup = function({ router }) {
   const { code, state } = router.query;
 
   useEffect(() => {
@@ -15,21 +14,22 @@ const Popup = function() {
       mode: 'cors',
     })
       .then(r => r.json())
-      .then(r => {
-        console.log(r);
-
-        firebase
-          .auth()
-          .signInWithCustomToken(r.token)
-          .catch(function(error) {
-            // Handle Errors here.
-            console.log(error);
-          });
-      })
-      .catch(console.log);
+      .then(r => firebase.auth().signInWithCustomToken(r.token))
+      .catch(error => {
+        alert(`There was a problem signin in ${error.message}`);
+      });
   }, []);
 
-  return <div>POPUP</div>;
+  return <div>Redirecting...</div>;
 };
 
-export default Popup;
+Popup.propTypes = {
+  router: PropTypes.shape({
+    query: PropTypes.shape({
+      code: PropTypes.string.isRequired,
+      state: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
+};
+
+export default withPageQuery(Popup);
