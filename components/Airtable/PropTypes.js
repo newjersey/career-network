@@ -33,6 +33,8 @@ const assessmentEntry = recordShape({
   'Order Within Section': PropTypes.number.isRequired,
   Question: PropTypes.arrayOf(PropTypes.string),
   'Question Group': PropTypes.arrayOf(PropTypes.string),
+  'Show If Question': PropTypes.arrayOf(PropTypes.string),
+  'Show If Question Response Options': PropTypes.arrayOf(PropTypes.string),
 });
 
 const question = recordShape({
