@@ -59,10 +59,10 @@ const useStyles = makeStyles(theme => ({
 
 function bgColor(task) {
   return {
-    'Marketing Yourself': '#d0f0fd',
-    'Relationship Building': '#d2f7c5',
-    'Searching / Posting / Applying Online': '#ffeab6',
-    'Researching People & Companies': '#ffdce5',
+    'Marketing yourself': '#d0f0fd',
+    'Relationship building': '#d2f7c5',
+    'Searching/applying for jobs': '#ffeab6',
+    'Researching people & companies': '#ffdce5',
   }[task.fields.Category];
 }
 
