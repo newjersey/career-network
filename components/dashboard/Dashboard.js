@@ -184,7 +184,7 @@ export default function Dashboard(props) {
         </Typography>
         <SentimentTracker />
         <Typography variant="h5" className={classes.subtitle} data-intercom="task-count">
-          Your top {todoTaskCount} tasks
+          Your top {todoTaskCount} goals
           {doneTaskCount > 0 && ` (and ${doneTaskCount} completed)`}
         </Typography>
         <TaskList
