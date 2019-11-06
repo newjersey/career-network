@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const cookieParser = require('cookie-parser');
 const nodeLinkedin = require('node-linkedin');
 const fetch = require('isomorphic-unfetch');
-const _ = require('lodash');
+const get = require('lodash/get');
 const cors = require('cors')({ origin: true });
 
 const OAUTH_SCOPES = ['r_liteprofile', 'r_emailaddress', 'w_member_social'];
@@ -22,7 +22,7 @@ function linkedInClient() {
  * Redirects the User to the LinkedIn authentication consent screen. ALso the 'state' cookie is set for later state
  * verification.
  */
-exports.redirect = functions.https.onRequest((req, res) => {
+exports.linkedinRedirect = functions.https.onRequest((req, res) => {
   const Linkedin = linkedInClient();
 
   cookieParser()(req, res, () => {
@@ -46,27 +46,27 @@ async function createFirebaseAccount(linkedinID, displayName, email, accessToken
     .ref(`/linkedInAccessToken/${uid}`)
     .set(accessToken);
 
-  const newTask = admin
-    .auth()
-    .updateUser(uid, {
+  try {
+    await admin.auth().updateUser(uid, {
       displayName,
       email,
       emailVerified: true,
-    })
-    .catch(error => {
-      console.log('###', error);
-      // If user does not exists we create it.
-      if (error.code === 'auth/user-not-found') {
-        console.log('going to create new user', uid, displayName, email);
-        return admin.auth().createUser({
-          uid,
-          displayName,
-          email,
-          emailVerified: true,
-        });
-      }
-      throw error;
     });
+  } catch (error) {
+    console.log('###', error);
+    // If user does not exists we create it.
+    if (error.code === 'auth/user-not-found') {
+      console.log('going to create new user', uid, displayName, email);
+      await admin.auth().createUser({
+        uid,
+        displayName,
+        email,
+        emailVerified: true,
+      });
+    } else {
+      throw error;
+    }
+  }
 
   const createUserInDB = admin
     .firestore()
@@ -87,7 +87,7 @@ async function createFirebaseAccount(linkedinID, displayName, email, accessToken
     );
 
   // Wait for all async task to complete then generate and return a custom auth token.
-  await Promise.all([newTask, createUserInDB, databaseTask]);
+  await Promise.all([createUserInDB, databaseTask]);
 
   const token = await admin.auth().createCustomToken(uid);
   console.log('Created Custom token for UID "', uid);
@@ -102,7 +102,7 @@ async function createFirebaseAccount(linkedinID, displayName, email, accessToken
  */
 
 const apiHost = 'https://api.linkedin.com/v2';
-exports.token = functions.https.onRequest((req, res) => {
+exports.linkedinAuthorize = functions.https.onRequest((req, res) => {
   const Linkedin = linkedInClient();
   try {
     Linkedin.auth.authorize(OAUTH_SCOPES, req.query.state); // Makes sure the state parameter is set
@@ -121,8 +121,8 @@ exports.token = functions.https.onRequest((req, res) => {
 
       const userJson = await userObj.json();
 
-      const firstName = _.get(userJson, 'firstName.localized.en_US');
-      const lastName = _.get(userJson, 'lastName.localized.en_US');
+      const firstName = get(userJson, 'firstName.localized.en_US');
+      const lastName = get(userJson, 'lastName.localized.en_US');
 
       const emailObj = await fetch(
         `${apiHost}/clientAwareMemberHandles?q=members&projection=(elements*(primary,type,handle~))`,
@@ -131,7 +131,7 @@ exports.token = functions.https.onRequest((req, res) => {
 
       const emailJson = await emailObj.json();
 
-      const email = _.get(emailJson, 'elements[0].handle~.emailAddress');
+      const email = get(emailJson, 'elements[0].handle~.emailAddress');
 
       // Create a Firebase account and get the Custom Auth Token.
       const firebaseToken = await createFirebaseAccount(

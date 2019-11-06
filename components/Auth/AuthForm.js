@@ -66,7 +66,7 @@ export default function AuthForm(props) {
     // Privacy policy url.
     privacyPolicyUrl: '/privacy-policy',
   };
-  const linkedinUrl = `https://us-central1-${process.env.firebase.projectId}.cloudfunctions.net/redirect`;
+  const linkedinUrl = `https://us-central1-${process.env.firebase.projectId}.cloudfunctions.net/linkedinRedirect`;
 
   return (
     <div className={classes.root}>
