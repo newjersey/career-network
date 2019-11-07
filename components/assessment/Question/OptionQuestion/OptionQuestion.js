@@ -6,11 +6,11 @@ import RadiosQuestion from './RadiosQuestion';
 import AirtablePropTypes from '../../../Airtable/PropTypes';
 
 export default function OptionQuestion(props) {
-  const { responseOptionsControl, ...restProps } = props;
+  const { isInGroup, responseOptionsControl, ...restProps } = props;
 
   switch (responseOptionsControl) {
     case 'Dropdown':
-      return <DropdownQuestion {...restProps} />;
+      return <DropdownQuestion {...restProps} horizontalOnDesktop={isInGroup} />;
     case 'Radios':
       return <RadiosQuestion {...restProps} />;
     default:
@@ -19,6 +19,7 @@ export default function OptionQuestion(props) {
 }
 
 OptionQuestion.propTypes = {
+  isInGroup: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   question: AirtablePropTypes.question.isRequired,
   responseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
@@ -27,5 +28,6 @@ OptionQuestion.propTypes = {
 };
 
 OptionQuestion.defaultProps = {
+  isInGroup: false,
   value: null,
 };
