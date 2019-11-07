@@ -94,7 +94,7 @@ const SentimentTracker = () => {
   ];
 
   return (
-    <Paper className={classes.paper}>
+    <Paper className={classes.paper} data-intercom="sentiment-container">
       <Typography component="h4" variant="h4" align="center">
         How are you feeling today?
       </Typography>

@@ -1,12 +1,15 @@
-import { confetti } from 'dom-confetti';
 import { makeStyles } from '@material-ui/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Chip from '@material-ui/core/Chip';
 import clsx from 'clsx';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import PropTypes from 'prop-types';
-import React, { useRef } from 'react';
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { useAuth } from '../Auth';
@@ -15,8 +18,9 @@ import AirtablePropTypes from '../Airtable/PropTypes';
 import FirebasePropTypes from '../Firebase/PropTypes';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    marginBottom: theme.spacing(4),
+  card: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
     padding: theme.spacing(3, 3, 2),
     [theme.breakpoints.up('sm')]: {
       position: 'relative',
@@ -24,7 +28,13 @@ const useStyles = makeStyles(theme => ({
     },
   },
   isDone: {
-    backgroundColor: '#efe',
+    padding: 0,
+    margin: 0,
+    boxShadow: 'none',
+  },
+  isDoneCardChild: {
+    // padding: 0,
+    margin: (null, 0),
   },
   timeEstimate: {
     [theme.breakpoints.up('sm')]: {
@@ -38,41 +48,27 @@ const useStyles = makeStyles(theme => ({
     top: -theme.spacing(2.5),
     marginBottom: theme.spacing(3.5),
   },
-  confetti: {
-    zIndex: 999,
-    position: 'fixed',
-    left: '50%',
-    bottom: '15%',
-    transform: 'translateX(-50%)',
+  summaryType: {
+    position: 'absolute',
+    right: theme.spacing(9),
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
   },
 }));
 
-const confettiConfig = {
-  angle: '90',
-  spread: '70',
-  startVelocity: 60,
-  elementCount: '80',
-  dragFriction: 0.1,
-  duration: '6500',
-  stagger: '1',
-  width: '10px',
-  height: '16px',
-  colors: ['#a864fd', '#29cdff', '#78ff44', '#ff718d', '#fdff6a'],
-};
-
 function bgColor(task) {
   return {
-    'Marketing Yourself': '#d0f0fd',
-    'Relationship Building': '#d2f7c5',
-    'Searching / Posting / Applying Online': '#ffeab6',
-    'Researching People & Companies': '#ffdce5',
+    'Marketing yourself': '#d0f0fd',
+    'Relationship building': '#d2f7c5',
+    'Searching/applying for jobs': '#ffeab6',
+    'Researching people & companies': '#ffdce5',
   }[task.fields.Category];
 }
 
 export default function Task(props) {
-  const { task, isDone, ...restProps } = props;
+  const { task, isDone, onDone, ...restProps } = props;
   const { userDocRef } = useAuth();
-  const confettiRef = useRef();
   const classes = useStyles();
 
   function disposition(type) {
@@ -90,8 +86,8 @@ export default function Task(props) {
   }
 
   function onAllActionsDone() {
+    onDone(task);
     disposition('done');
-    confetti(confettiRef.current, confettiConfig);
     window.Intercom('update', { 'last-task-completed': new Date() });
     window.Intercom('trackEvent', 'completed-task', {
       title: task.fields.Title,
@@ -101,18 +97,18 @@ export default function Task(props) {
     });
   }
 
-  return (
-    <React.Fragment>
-      <div className={classes.confetti} ref={confettiRef} />
-      <Card className={clsx(classes.root, isDone && classes.isDone)} data-intercom="task">
+  const TaskCard = () => {
+    return (
+      <Card className={clsx(classes.card, isDone && classes.isDone)} data-intercom="task">
         <CardHeader
+          className={clsx(isDone && classes.isDoneCardChild)}
           title={
             <Typography component="h1" variant="h3">
               <strong>{task.fields.Title}</strong>
             </Typography>
           }
         />
-        <CardContent>
+        <CardContent className={clsx(isDone && classes.isDoneCardChild)}>
           {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
           <div className={classes.timeEstimate} data-intercom="task-time-estimate">
             🕒{task.fields['Time Estimate']} min.
@@ -147,7 +143,45 @@ export default function Task(props) {
           </div>
         </CardContent>
       </Card>
-    </React.Fragment>
+    );
+  };
+
+  const CompletedTask = _props => {
+    const { children } = _props;
+
+    return (
+      <ExpansionPanel>
+        <ExpansionPanelSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls={`task-${task.id}-expansion-content`}
+          id={`task-${task.id}-expansion`}
+        >
+          <Typography className={classes.heading}>
+            <Typography component="span" color="secondary">
+              ✓
+            </Typography>{' '}
+            {task.fields.Title}
+          </Typography>
+          {task.fields.Category && (
+            <Chip
+              size="small"
+              label={task.fields.Category}
+              className={classes.summaryType}
+              style={{ backgroundColor: bgColor(task) }}
+            />
+          )}
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>{children}</ExpansionPanelDetails>
+      </ExpansionPanel>
+    );
+  };
+
+  return isDone ? (
+    <CompletedTask>
+      <TaskCard />
+    </CompletedTask>
+  ) : (
+    <TaskCard />
   );
 }
 
@@ -155,6 +189,7 @@ Task.propTypes = {
   actions: AirtablePropTypes.actions.isRequired,
   task: AirtablePropTypes.task.isRequired,
   isDone: PropTypes.bool.isRequired,
+  onDone: PropTypes.func.isRequired,
   allActionDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
   allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
 };

@@ -16,8 +16,7 @@ const useStyles = makeStyles(theme => ({
   },
   subtitle: {
     display: 'inline-block',
-    marginTop: theme.spacing(5),
-    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(3),
   },
 }));
 
@@ -184,13 +183,8 @@ export default function Dashboard(props) {
           Here’s your personalized action plan. It will update as you make progress.
         </Typography>
         <SentimentTracker />
-        <Typography
-          variant="h5"
-          gutterBottom
-          className={classes.subtitle}
-          data-intercom="task-count"
-        >
-          Your top {todoTaskCount} tasks
+        <Typography variant="h5" className={classes.subtitle} data-intercom="task-count">
+          Top {todoTaskCount} goals
           {doneTaskCount > 0 && ` (and ${doneTaskCount} completed)`}
         </Typography>
         <TaskList
