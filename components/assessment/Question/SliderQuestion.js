@@ -11,6 +11,11 @@ const useStyles = makeStyles(theme => ({
   root: {
     marginTop: theme.spacing(1),
   },
+  label: {
+    [theme.breakpoints.up('sm')]: {
+      fontWeight: 'bolder',
+    },
+  },
 }));
 
 const height = 6;
@@ -67,7 +72,9 @@ export default function SliderQuestion(props) {
 
   return (
     <div className={classes.root}>
-      <FormLabel component="legend">{question.fields.Label}</FormLabel>
+      <FormLabel className={classes.label} component="legend">
+        {question.fields.Label}
+      </FormLabel>
       {helperText && <FormHelperText>{helperText}</FormHelperText>}
 
       <StyledSlider

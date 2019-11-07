@@ -1,12 +1,15 @@
 import { makeStyles } from '@material-ui/styles';
+import clsx from 'clsx';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import FormLabel from '@material-ui/core/FormLabel';
 import Grid from '@material-ui/core/Grid';
+import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Select from '@material-ui/core/Select';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import AirtablePropTypes from '../../../Airtable/PropTypes';
 
@@ -17,59 +20,81 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(1),
     width: '100%',
   },
-  questionLabel: {
-    fontSize: '1.2em',
+  horizontalLabel: {
     fontWeight: 'bolder',
-  },
-  helperText: {
-    marginTop: theme.spacing(0.5),
-    fontSize: '1em',
   },
 }));
 
 export default function DropdownQuestion(props) {
   const classes = useStyles();
-  const { onChange, question, responseOptions, value } = props;
+  const { horizontalOnDesktop, onChange, question, responseOptions, value } = props;
+  const isDesktop = useMediaQuery(theme => theme.breakpoints.up('sm'));
+  const horizontal = horizontalOnDesktop && isDesktop;
   const helperText = question.fields['Helper Text'];
+
+  const Label = _props => {
+    const { LabelComponent } = _props;
+    return (
+      <LabelComponent htmlFor={question.id} className={clsx(horizontal && classes.horizontalLabel)}>
+        {question.fields.Label}
+      </LabelComponent>
+    );
+  };
+
+  const HelperText = () => <FormHelperText>{helperText}</FormHelperText>;
+
+  const Dropdown = () => (
+    <Select
+      disabled={question.fields.Disabled}
+      fullWidth
+      inputProps={{
+        name: question.id,
+        id: question.id,
+      }}
+      onChange={e => onChange(e.target.value)}
+      value={value}
+    >
+      {responseOptions.map(option => (
+        <MenuItem key={option.id} value={option.id}>
+          {option.fields.Name}
+        </MenuItem>
+      ))}
+    </Select>
+  );
+
+  const Vertical = () => (
+    <>
+      <Label LabelComponent={InputLabel} />
+      <Dropdown />
+      {helperText && <HelperText />}
+    </>
+  );
+
+  const Horizontal = () => (
+    <>
+      <Label LabelComponent={FormLabel} />
+      <Grid container justify="space-between">
+        {helperText && (
+          <Grid item xs={12} sm={7} md={8}>
+            <HelperText />
+          </Grid>
+        )}
+        <Grid item xs={12} sm={4} md={3}>
+          <Dropdown />
+        </Grid>
+      </Grid>
+    </>
+  );
 
   return (
     <FormControl className={classes.formControl}>
-      <Grid container justify="space-between">
-        <Grid item md={12} sm={12}>
-          <Typography className={classes.questionLabel}>{question.fields.Label}</Typography>
-        </Grid>
-        {helperText && (
-          <Grid item md={8} sm={7} xs={12}>
-            <Grid item md={11}>
-              <FormHelperText className={classes.helperText}>{helperText}</FormHelperText>
-            </Grid>
-          </Grid>
-        )}
-        <Grid item md={3} sm={4} xs={8} align="right">
-          <Select
-            disabled={question.fields.Disabled}
-            inputProps={{
-              name: question.id,
-              id: question.id,
-            }}
-            align="left"
-            fullWidth
-            onChange={e => onChange(e.target.value)}
-            value={value}
-          >
-            {responseOptions.map(option => (
-              <MenuItem key={option.id} value={option.id}>
-                {option.fields.Name}
-              </MenuItem>
-            ))}
-          </Select>
-        </Grid>
-      </Grid>
+      {horizontal ? <Horizontal /> : <Vertical />}
     </FormControl>
   );
 }
 
 DropdownQuestion.propTypes = {
+  horizontalOnDesktop: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   question: AirtablePropTypes.question.isRequired,
   responseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
@@ -77,5 +102,6 @@ DropdownQuestion.propTypes = {
 };
 
 DropdownQuestion.defaultProps = {
+  horizontalOnDesktop: false,
   value: null,
 };

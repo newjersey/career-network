@@ -36,7 +36,7 @@ export default function QuestionGroup(props) {
 
         <FormGroup>
           {questions.map(question => (
-            <Question key={question.id} question={question} {...restProps} />
+            <Question key={question.id} question={question} {...restProps} isInGroup />
           ))}
         </FormGroup>
       </FormControl>
