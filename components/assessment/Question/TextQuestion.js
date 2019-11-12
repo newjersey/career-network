@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 
 import AirtablePropTypes from '../../Airtable/PropTypes';
@@ -14,7 +14,23 @@ const useStyles = makeStyles(theme => ({
 
 export default function TextQuestion(props) {
   const classes = useStyles();
-  const { onBlur, onChange, question, inputProps, ...restProps } = props;
+  const {
+    inputProps,
+    isInGroup,
+    onBlur,
+    onChange,
+    onValidationChange,
+    question,
+    reflectValidity,
+    value,
+    ...restProps
+  } = props;
+  const isValid = !!value;
+  const reflectError = reflectValidity && !isValid;
+
+  useEffect(() => {
+    onValidationChange(isValid);
+  }, [isValid, onValidationChange]);
 
   return (
     <TextField
@@ -28,6 +44,8 @@ export default function TextQuestion(props) {
       helperText={question.fields['Helper Text']}
       fullWidth
       inputProps={inputProps}
+      error={reflectError}
+      value={value}
       {...restProps}
     />
   );
@@ -40,9 +58,12 @@ TextQuestion.propTypes = {
     min: PropTypes.number,
     step: PropTypes.number,
   }),
+  isInGroup: PropTypes.bool,
   onBlur: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
+  onValidationChange: PropTypes.func.isRequired,
   question: AirtablePropTypes.question.isRequired,
+  reflectValidity: PropTypes.bool,
   type: PropTypes.string,
   value: PropTypes.string.isRequired,
 };
@@ -50,5 +71,7 @@ TextQuestion.propTypes = {
 TextQuestion.defaultProps = {
   autoComplete: null,
   inputProps: {},
+  isInGroup: false,
+  reflectValidity: false,
   type: null,
 };

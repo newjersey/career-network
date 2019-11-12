@@ -89,8 +89,9 @@ function Assessment() {
             <AssessmentSectionList
               scrollToY={scrollToY}
               onComplete={handleComplete}
-              {...assessmentConfiguration}
               allQuestionResponses={allQuestionResponses}
+              {...assessmentConfiguration}
+              enforceValidity
             />
           </React.Fragment>
         ) : (

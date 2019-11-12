@@ -41,7 +41,15 @@ function getDefaultValue(question, user) {
 // eslint-disable-next-line sonarjs/cognitive-complexity
 function Question(props) {
   const { user, userDocRef } = useAuth();
-  const { question, allQuestionResponseOptions, allQuestionResponses, isInGroup, readOnly } = props;
+  const {
+    question,
+    allQuestionResponseOptions,
+    allQuestionResponses,
+    isInGroup,
+    onValidationChange,
+    readOnly,
+    reflectValidity,
+  } = props;
   const {
     Disabled: disabled,
     Hidden: hidden,
@@ -135,18 +143,23 @@ function Question(props) {
     }
   }, [persistedValue, setLocalValue]);
 
-  const textQuestionProps = {
+  const commonQuestionProps = {
     isInGroup,
+    question,
+    onValidationChange,
+    reflectValidity,
+  };
+
+  const textQuestionProps = {
+    ...commonQuestionProps,
     onBlur: _value => setValue(_value),
     onChange: _value => setLocalValue(_value),
-    question,
     value: localValue,
   };
 
   const discreteQuestionProps = {
-    isInGroup,
+    ...commonQuestionProps,
     onChange: _value => setValue(_value),
-    question,
     value,
   };
 
@@ -224,7 +237,9 @@ Question.propTypes = {
   allQuestionResponseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
   isInGroup: PropTypes.bool,
+  onValidationChange: PropTypes.func.isRequired,
   readOnly: PropTypes.bool.isRequired,
+  reflectValidity: PropTypes.bool.isRequired,
 };
 
 Question.defaultProps = {

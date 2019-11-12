@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/styles';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import AirtablePropTypes from '../Airtable/PropTypes';
@@ -24,8 +24,13 @@ const useStyles = makeStyles(theme => ({
 
 export default function AssessmentSection(props) {
   const classes = useStyles();
-  const { assessmentSection, allAssessmentEntries, allQuestionResponses, ...restProps } = props;
-
+  const {
+    assessmentSection,
+    allAssessmentEntries,
+    allQuestionResponses,
+    onValidationChange,
+    ...restProps
+  } = props;
   const assessmentEntries = allAssessmentEntries.filter(entry =>
     assessmentSection.fields['Assessment Entries'].includes(entry.id)
   );
@@ -65,25 +70,55 @@ export default function AssessmentSection(props) {
     }
   };
 
+  const assessmentEntriesToShow = assessmentEntries.filter(ae => shouldShow(ae));
+  const validationStates = useRef(Array.from(Array(assessmentEntriesToShow.length)));
+  const wasValid = useRef(null);
+
+  // keep track of each AssessmentEntry validation status (in a way that doesn't trigger a rerender)
+  const handleValidationChange = useCallback(
+    index => isValid => {
+      validationStates.current[index] = isValid;
+    },
+    []
+  );
+
+  // this will fire after handleValidationChange() fires for each AssessmentEntry
+  useEffect(() => {
+    // remove any array entries beyond how many we expect (use case: dynamically hide a question)
+    validationStates.current.splice(assessmentEntriesToShow.length);
+
+    // determine if the AssessmentSection is valid
+    const isValid = validationStates.current.map(a => !!a).reduce((a, b) => a && b, true);
+
+    // fire parent callback if validation has changed
+    if (wasValid.current !== isValid) {
+      onValidationChange(isValid);
+    }
+
+    // keep track of validation status so we can detect changes
+    wasValid.current = isValid;
+  });
+
   return (
     <div className={classes.root}>
       <Paper className={classes.paper} data-intercom="assessment-section">
         <Typography component="h2" variant="h4" gutterBottom>
           {assessmentSection.fields.Name}
         </Typography>
+
         {assessmentSection.fields.Description && (
           <Typography variant="subtitle2">{assessmentSection.fields.Description}</Typography>
         )}
-        {assessmentEntries
-          .filter(assessmentEntry => shouldShow(assessmentEntry))
-          .map(assessmentEntry => (
-            <AssessmentEntry
-              key={assessmentEntry.id}
-              assessmentEntry={assessmentEntry}
-              allQuestionResponses={allQuestionResponses}
-              {...restProps}
-            />
-          ))}
+
+        {assessmentEntriesToShow.map((assessmentEntry, index) => (
+          <AssessmentEntry
+            key={assessmentEntry.id}
+            assessmentEntry={assessmentEntry}
+            allQuestionResponses={allQuestionResponses}
+            onValidationChange={handleValidationChange(index)}
+            {...restProps}
+          />
+        ))}
       </Paper>
     </div>
   );
@@ -97,4 +132,6 @@ AssessmentSection.propTypes = {
   allQuestionResponseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
   readOnly: PropTypes.bool.isRequired,
+  reflectValidity: PropTypes.bool.isRequired,
+  onValidationChange: PropTypes.func.isRequired,
 };

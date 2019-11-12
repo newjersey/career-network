@@ -21,7 +21,9 @@ export default function OptionQuestion(props) {
 OptionQuestion.propTypes = {
   isInGroup: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
+  onValidationChange: PropTypes.func.isRequired,
   question: AirtablePropTypes.question.isRequired,
+  reflectValidity: PropTypes.bool,
   responseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
   responseOptionsControl: AirtablePropTypes.questionResponseOptionsControl.isRequired,
   value: PropTypes.string,
@@ -29,5 +31,6 @@ OptionQuestion.propTypes = {
 
 OptionQuestion.defaultProps = {
   isInGroup: false,
+  reflectValidity: false,
   value: null,
 };
