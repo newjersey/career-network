@@ -169,6 +169,14 @@ function Question(props) {
     step: responseNumberStep,
   };
 
+  const sliderProps = {
+    ...commonQuestionProps,
+    ...numberQuestionProps,
+    onChange: _localValue => setLocalValue(_localValue),
+    onChangeCommitted: _value => setValue(_value),
+    value: localValue && parseFloat(localValue),
+  };
+
   switch (responseType) {
     case 'Text':
       return <TextQuestion {...textQuestionProps} />;
@@ -179,15 +187,7 @@ function Question(props) {
             <TextQuestion {...textQuestionProps} type="number" inputProps={numberQuestionProps} />
           );
         case 'Slider':
-          return (
-            <SliderQuestion
-              onChange={_localValue => setLocalValue(_localValue)}
-              onChangeCommitted={_value => setValue(_value)}
-              question={question}
-              value={localValue && parseFloat(localValue)}
-              {...numberQuestionProps}
-            />
-          );
+          return <SliderQuestion {...sliderProps} />;
         default:
           return null;
       }

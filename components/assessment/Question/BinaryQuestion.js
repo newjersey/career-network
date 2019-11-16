@@ -6,14 +6,19 @@ import React, { useEffect, useRef } from 'react';
 import AirtablePropTypes from '../../Airtable/PropTypes';
 
 export default function BinaryQuestion(props) {
-  const { onChange, question, value } = props;
+  const { onChange, onValidationChange, question, value } = props;
   const checkbox = useRef(null);
 
   useEffect(() => {
     // hack: persist check box values when they're first rendered,
     // otherwise we don't get "false" recorded on checkboxes never touched.
     onChange(checkbox.current.checked);
-  });
+  }, [onChange]);
+
+  useEffect(() => {
+    // always report as valid (since there's no real "incomplete" state)
+    onValidationChange(true);
+  }, [onValidationChange]);
 
   return (
     <FormControlLabel
@@ -34,6 +39,7 @@ export default function BinaryQuestion(props) {
 
 BinaryQuestion.propTypes = {
   onChange: PropTypes.func.isRequired,
+  onValidationChange: PropTypes.func.isRequired,
   question: AirtablePropTypes.question.isRequired,
   value: PropTypes.bool.isRequired,
 };
