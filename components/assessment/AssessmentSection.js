@@ -82,12 +82,12 @@ export default function AssessmentSection(props) {
     []
   );
 
-  // this will fire after handleValidationChange() fires for each AssessmentEntry
+  // this will fire once after handleValidationChange() fires for each AssessmentEntry
   useEffect(() => {
     // remove any array entries beyond how many we expect (use case: dynamically hide a question)
     validationStates.current.splice(assessmentEntriesToShow.length);
 
-    // determine if the AssessmentSection is valid
+    // determine if the AssessmentSection as a whole is valid
     const isValid = validationStates.current.map(a => !!a).reduce((a, b) => a && b, true);
 
     // fire parent callback if validation has changed
