@@ -19,13 +19,14 @@ export default function TextQuestion(props) {
     isInGroup,
     onBlur,
     onChange,
+    optional,
     onValidationChange,
     question,
     reflectValidity,
     value,
     ...restProps
   } = props;
-  const isValid = !!value;
+  const isValid = optional || !!value;
   const reflectError = reflectValidity && !isValid;
 
   useEffect(() => {
@@ -62,6 +63,7 @@ TextQuestion.propTypes = {
   onBlur: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   onValidationChange: PropTypes.func.isRequired,
+  optional: PropTypes.bool.isRequired,
   question: AirtablePropTypes.question.isRequired,
   reflectValidity: PropTypes.bool,
   type: PropTypes.string,

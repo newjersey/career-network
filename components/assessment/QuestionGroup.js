@@ -81,6 +81,7 @@ QuestionGroup.propTypes = {
   allQuestionResponseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
   onValidationChange: PropTypes.func.isRequired,
+  optional: PropTypes.bool.isRequired,
   readOnly: PropTypes.bool.isRequired,
   reflectValidity: PropTypes.bool.isRequired,
 };

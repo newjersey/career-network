@@ -35,6 +35,7 @@ const assessmentEntry = recordShape({
   'Question Group': PropTypes.arrayOf(PropTypes.string),
   'Show If Question': PropTypes.arrayOf(PropTypes.string),
   'Show If Question Response Options': PropTypes.arrayOf(PropTypes.string),
+  Optional: PropTypes.bool,
 });
 
 const question = recordShape({

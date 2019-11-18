@@ -13,13 +13,19 @@ export default function AssessmentEntry(props) {
   // and with only one item; naming them plurally
   // as a reminder that they are, in fact, arrays.
   const { 'Question Group': questionGroups, Question: questions } = assessmentEntry.fields;
+  const optional = !!assessmentEntry.fields.Optional;
 
   if (questionGroups && questionGroups.length) {
     const id = questionGroups[0];
     const questionGroup = allQuestionGroups.find(qg => qg.id === id);
 
     return (
-      <QuestionGroup questionGroup={questionGroup} allQuestions={allQuestions} {...restProps} />
+      <QuestionGroup
+        questionGroup={questionGroup}
+        allQuestions={allQuestions}
+        optional={optional}
+        {...restProps}
+      />
     );
   }
 
@@ -27,7 +33,7 @@ export default function AssessmentEntry(props) {
     const id = questions[0];
     const question = allQuestions.find(q => q.id === id);
 
-    return <Question question={question} {...restProps} />;
+    return <Question question={question} optional={optional} {...restProps} />;
   }
 
   throw new Error(`Missing child reference in AssessmentEntry ${assessmentEntry.id}`);

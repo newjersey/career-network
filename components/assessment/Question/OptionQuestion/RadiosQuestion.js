@@ -24,9 +24,17 @@ const useStyles = makeStyles(theme => ({
 
 export default function RadiosQuestion(props) {
   const classes = useStyles();
-  const { onChange, onValidationChange, question, reflectValidity, responseOptions, value } = props;
+  const {
+    onChange,
+    onValidationChange,
+    optional,
+    question,
+    reflectValidity,
+    responseOptions,
+    value,
+  } = props;
   const helperText = question.fields['Helper Text'];
-  const isValid = !!value;
+  const isValid = optional || !!value;
   const reflectError = reflectValidity && !isValid;
 
   useEffect(() => {
@@ -67,6 +75,7 @@ export default function RadiosQuestion(props) {
 RadiosQuestion.propTypes = {
   onChange: PropTypes.func.isRequired,
   onValidationChange: PropTypes.func.isRequired,
+  optional: PropTypes.bool.isRequired,
   question: AirtablePropTypes.question.isRequired,
   reflectValidity: PropTypes.bool,
   responseOptions: AirtablePropTypes.questionResponseOptions.isRequired,

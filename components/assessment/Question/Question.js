@@ -47,6 +47,7 @@ function Question(props) {
     allQuestionResponses,
     isInGroup,
     onValidationChange,
+    optional,
     readOnly,
     reflectValidity,
   } = props;
@@ -145,6 +146,7 @@ function Question(props) {
 
   const commonQuestionProps = {
     isInGroup,
+    optional,
     question,
     onValidationChange,
     reflectValidity,
@@ -238,6 +240,7 @@ Question.propTypes = {
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
   isInGroup: PropTypes.bool,
   onValidationChange: PropTypes.func.isRequired,
+  optional: PropTypes.bool.isRequired,
   readOnly: PropTypes.bool.isRequired,
   reflectValidity: PropTypes.bool.isRequired,
 };

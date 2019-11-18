@@ -31,6 +31,7 @@ export default function DropdownQuestion(props) {
     horizontalOnDesktop,
     onChange,
     onValidationChange,
+    optional,
     question,
     reflectValidity,
     responseOptions,
@@ -39,7 +40,7 @@ export default function DropdownQuestion(props) {
   const isDesktop = useMediaQuery(theme => theme.breakpoints.up('sm'));
   const horizontal = horizontalOnDesktop && isDesktop;
   const helperText = question.fields['Helper Text'];
-  const isValid = !!value || value === 0;
+  const isValid = optional || !!value || value === 0;
   const reflectError = reflectValidity && !isValid;
 
   useEffect(() => {
@@ -116,6 +117,7 @@ DropdownQuestion.propTypes = {
   horizontalOnDesktop: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   onValidationChange: PropTypes.func.isRequired,
+  optional: PropTypes.bool.isRequired,
   question: AirtablePropTypes.question.isRequired,
   reflectValidity: PropTypes.bool,
   responseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
