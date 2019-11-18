@@ -1,11 +1,12 @@
 import React from 'react';
 
+import { allPropsLoaded, fullyLoaded } from '../src/app-helper';
 import { useAuth, withAuthRequired } from '../components/Auth';
 import { useRecords } from '../components/Airtable';
 import { useUserSubcollection } from '../components/Firebase';
 import Dashboard from '../components/dashboard/Dashboard';
 import FullPageProgress from '../components/FullPageProgress';
-import { allPropsLoaded, fullyLoaded } from '../src/app-helper';
+import withTitle from '../components/withTitle';
 
 function DashboardPage() {
   const { user } = useAuth();
@@ -37,4 +38,4 @@ function DashboardPage() {
   );
 }
 
-export default withAuthRequired(DashboardPage);
+export default withAuthRequired(withTitle(DashboardPage, 'Dashboard'));

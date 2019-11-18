@@ -169,15 +169,13 @@ resource "cloudflare_record" "CNAME_www" {
   value   = "${var.cloudflare_zone}"
 }
 
-resource "cloudflare_record" "MX_front-mail" {
+resource "cloudflare_record" "CNAME_resources" {
   domain  = "${var.cloudflare_zone}"
-  name    = "front-mail"
-  type    = "MX"
+  name    = "resources"
+  type    = "CNAME"
   ttl     = "1"
-  proxied = "false"
-
-  priority = "100"
-  value    = "mx.sendgrid.net"
+  proxied = "true"
+  value   = "custom.intercom.help"
 }
 
 resource "cloudflare_record" "MX_alt1" {
@@ -269,24 +267,6 @@ resource "cloudflare_record" "TXT__dmarc" {
   ttl     = "1"
   proxied = "false"
   value   = "v=DMARC1; p=none; rua=mailto:dmarc@gardenstate.tech"
-}
-
-resource "cloudflare_record" "TXT_fnt__domainkey" {
-  domain  = "${var.cloudflare_zone}"
-  name    = "fnt._domainkey"
-  type    = "TXT"
-  ttl     = "1"
-  proxied = "false"
-  value   = "k=rsa; t=s; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCxNN2Frdjod5MDqdKtzysJXcZT6giCNnZE/yw6ogdG8livYUlHcxZ3hywBClYy3hZjt3B0uwKBtyfKGd0rnJM7HqY0T9l41czhMpGDFkP71Yx3SLPtSukY818y2gabyJccZXAg9Eg6EJYRjNsDUV/EOkI+n4KkorH4wy7+hfHLIwIDAQAB"
-}
-
-resource "cloudflare_record" "TXT_front-mail_SPF" {
-  domain  = "${var.cloudflare_zone}"
-  name    = "front-mail"
-  type    = "TXT"
-  ttl     = "1"
-  proxied = "false"
-  value   = "v=spf1 include:sendgrid.net ~all"
 }
 
 resource "cloudflare_record" "TXT_firebase" {

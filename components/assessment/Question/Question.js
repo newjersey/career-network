@@ -41,7 +41,16 @@ function getDefaultValue(question, user) {
 // eslint-disable-next-line sonarjs/cognitive-complexity
 function Question(props) {
   const { user, userDocRef } = useAuth();
-  const { question, allQuestionResponseOptions, allQuestionResponses, readOnly } = props;
+  const {
+    question,
+    allQuestionResponseOptions,
+    allQuestionResponses,
+    isInGroup,
+    onValidationChange,
+    optional,
+    readOnly,
+    reflectValidity,
+  } = props;
   const {
     Disabled: disabled,
     Hidden: hidden,
@@ -111,9 +120,11 @@ function Question(props) {
 
       // special cases
       if (question.fields.Slug === 'phone' && _value) {
-        window.Intercom('update', {
-          phone: _value,
-        });
+        const usaRegEx = /^\D*(?:\+?1)?\D*(\d{3})\D*(\d{3})\D*(\d{4})\D*$/;
+        const matches = _value.match(usaRegEx);
+        const phone = matches ? `+1-${matches[1]}-${matches[2]}-${matches[3]}` : _value;
+
+        window.Intercom('update', { phone });
       }
     },
     [question, readOnly, responseOptions, userDocRef]
@@ -133,16 +144,24 @@ function Question(props) {
     }
   }, [persistedValue, setLocalValue]);
 
+  const commonQuestionProps = {
+    isInGroup,
+    optional,
+    question,
+    onValidationChange,
+    reflectValidity,
+  };
+
   const textQuestionProps = {
+    ...commonQuestionProps,
     onBlur: _value => setValue(_value),
     onChange: _value => setLocalValue(_value),
-    question,
     value: localValue,
   };
 
   const discreteQuestionProps = {
+    ...commonQuestionProps,
     onChange: _value => setValue(_value),
-    question,
     value,
   };
 
@@ -150,6 +169,14 @@ function Question(props) {
     min: responseNumberMin,
     max: responseNumberMax,
     step: responseNumberStep,
+  };
+
+  const sliderProps = {
+    ...commonQuestionProps,
+    ...numberQuestionProps,
+    onChange: _localValue => setLocalValue(_localValue),
+    onChangeCommitted: _value => setValue(_value),
+    value: localValue && parseFloat(localValue),
   };
 
   switch (responseType) {
@@ -162,15 +189,7 @@ function Question(props) {
             <TextQuestion {...textQuestionProps} type="number" inputProps={numberQuestionProps} />
           );
         case 'Slider':
-          return (
-            <SliderQuestion
-              onChange={_localValue => setLocalValue(_localValue)}
-              onChangeCommitted={_value => setValue(_value)}
-              question={question}
-              value={localValue && parseFloat(localValue)}
-              {...numberQuestionProps}
-            />
-          );
+          return <SliderQuestion {...sliderProps} />;
         default:
           return null;
       }
@@ -219,5 +238,13 @@ Question.propTypes = {
   question: AirtablePropTypes.question.isRequired,
   allQuestionResponseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
+  isInGroup: PropTypes.bool,
+  onValidationChange: PropTypes.func.isRequired,
+  optional: PropTypes.bool.isRequired,
   readOnly: PropTypes.bool.isRequired,
+  reflectValidity: PropTypes.bool.isRequired,
+};
+
+Question.defaultProps = {
+  isInGroup: false,
 };

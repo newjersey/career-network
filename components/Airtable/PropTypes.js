@@ -33,6 +33,9 @@ const assessmentEntry = recordShape({
   'Order Within Section': PropTypes.number.isRequired,
   Question: PropTypes.arrayOf(PropTypes.string),
   'Question Group': PropTypes.arrayOf(PropTypes.string),
+  'Show If Question': PropTypes.arrayOf(PropTypes.string),
+  'Show If Question Response Options': PropTypes.arrayOf(PropTypes.string),
+  Optional: PropTypes.bool,
 });
 
 const question = recordShape({
@@ -57,6 +60,7 @@ const questionGroup = recordShape({
   Name: PropTypes.string.isRequired,
   Label: PropTypes.string.isRequired,
   Questions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  Slug: PropTypes.string,
 });
 
 const questionResponseOption = recordShape({
@@ -86,10 +90,10 @@ const task = recordShape({
   Priority: PropTypes.number.isRequired,
   'Time Estimate': PropTypes.number.isRequired,
   Category: PropTypes.oneOf([
-    'Searching / Posting / Applying Online',
-    'Researching People & Companies',
-    'Relationship Building',
-    'Marketing Yourself',
+    'Searching/applying for jobs',
+    'Researching people & companies',
+    'Relationship building',
+    'Marketing yourself',
   ]),
   Trigger: PropTypes.oneOf(['Everyone', 'Conditions', 'Event']).isRequired,
   Frequency: PropTypes.oneOf(['Once', 'Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly'])

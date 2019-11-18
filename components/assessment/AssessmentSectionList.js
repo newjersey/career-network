@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Stepper from '@material-ui/core/Stepper';
+import Typography from '@material-ui/core/Typography';
 
 import AirtablePropTypes from '../Airtable/PropTypes';
 import AssessmentSection from './AssessmentSection';
@@ -27,30 +28,45 @@ const useStyles = makeStyles(theme => ({
   buttons: {
     display: 'flex',
     justifyContent: 'flex-end',
+    alignItems: 'center',
     margin: theme.spacing(3, 0, 5),
     marginLeft: 'auto',
     marginRight: 'auto', // TODO fix this grossness
     maxWidth: 780,
   },
   button: {
-    '&:first-child': {
-      marginRight: theme.spacing(1),
-    },
+    marginLeft: theme.spacing(1),
   },
 }));
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 export default function AssessmentSectionList(props) {
   const classes = useStyles();
   const { scrollToY } = props;
   const [activeStep, setActiveStep] = useState(0);
-  const { assessmentSections, onComplete, ...restProps } = props;
+  const [isActiveSectionValid, setIsActiveSectionValid] = useState(false);
+  const [reflectValidity, setReflectValidity] = useState(false);
+  const { assessmentSections, enforceValidity, onComplete, ...restProps } = props;
 
   const handleNext = () => {
-    setActiveStep(prevActiveStep => prevActiveStep + 1);
+    if (isActiveSectionValid || !enforceValidity) {
+      setActiveStep(prevActiveStep => prevActiveStep + 1);
+    } else {
+      setReflectValidity(true);
+    }
   };
 
   const handleBack = () => {
+    setReflectValidity(false);
     setActiveStep(prevActiveStep => prevActiveStep - 1);
+  };
+
+  const handleValidationChange = isValid => {
+    setIsActiveSectionValid(isValid);
+
+    if (isValid) {
+      setReflectValidity(false);
+    }
   };
 
   useEffect(() => {
@@ -78,8 +94,18 @@ export default function AssessmentSectionList(props) {
       <div>
         {activeStep !== assessmentSections.length && (
           <div>
-            <AssessmentSection assessmentSection={assessmentSections[activeStep]} {...restProps} />
+            <AssessmentSection
+              assessmentSection={assessmentSections[activeStep]}
+              onValidationChange={handleValidationChange}
+              reflectValidity={reflectValidity}
+              {...restProps}
+            />
             <div className={classes.buttons}>
+              {reflectValidity && !isActiveSectionValid && (
+                <Typography variant="subtitle2" color="error" className={classes.error}>
+                  Please complete all questions.
+                </Typography>
+              )}
               {!!activeStep && (
                 <Button onClick={handleBack} className={classes.button}>
                   Back
@@ -110,12 +136,14 @@ AssessmentSectionList.propTypes = {
   allQuestionGroups: AirtablePropTypes.questionGroups.isRequired,
   allQuestionResponseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
+  enforceValidity: PropTypes.bool,
   onComplete: PropTypes.func,
   readOnly: PropTypes.bool,
   scrollToY: PropTypes.number.isRequired,
 };
 
 AssessmentSectionList.defaultProps = {
+  enforceValidity: false,
   readOnly: false,
   onComplete: null,
 };

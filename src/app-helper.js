@@ -33,3 +33,23 @@ export function isDone(dispositionable, allDispositionEvents, idKey) {
 
   return !!currentDispositionEvent && currentDispositionEvent.data().type === 'done';
 }
+
+/**
+ *
+ * @param {*} array An array of any types that have string representations.
+ * @returns A string joining the array items with commas and "and" before final item.
+ */
+export function englishList(array, oxfordComma = true) {
+  switch (array.length) {
+    case 0:
+      return '';
+    case 1:
+      return array[0];
+    case 2:
+      return array.join(' and ');
+    default:
+      return `${array.slice(0, array.length - 1).join(', ')}${oxfordComma ? ',' : ''} and ${
+        array[array.length - 1]
+      }`;
+  }
+}

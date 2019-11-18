@@ -23,6 +23,11 @@ const useStyles = makeStyles(theme => ({
     position: 'relative',
     top: 2,
   },
+  socialContainer: {
+    [theme.breakpoints.down('md')]: {
+      paddingRight: theme.spacing(9),
+    },
+  },
   link: {
     color,
     textDecoration: 'none',
@@ -102,7 +107,7 @@ function Footer() {
           <Grid item xs>
             {copyright}
           </Grid>
-          <Grid item xs="auto">
+          <Grid item xs="auto" className={classes.socialContainer}>
             {social}
           </Grid>
         </Grid>

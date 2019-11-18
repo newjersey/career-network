@@ -1,13 +1,7 @@
 import { makeStyles } from '@material-ui/styles';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import EditIcon from '@material-ui/icons/Edit';
@@ -93,13 +87,11 @@ function Nav(props) {
   const classes = useStyles();
   const { showSignIn, userDocRef } = useAuth();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [isHelpOpen, setIsHelpOpen] = useState(false);
 
   const openDrawer = () => setIsDrawerOpen(true);
   const closeDrawer = () => setIsDrawerOpen(false);
   const handleSignInClick = () => showSignIn();
-  const handleHelpClick = () => setIsHelpOpen(true);
-  const handleHelpClose = () => setIsHelpOpen(false);
+  const handleHelpClick = () => window.Intercom('show');
   const onEditAssessment = () => {
     userDocRef.set({ isAssessmentComplete: false }, { merge: true });
     Router.push('/assessment');
@@ -284,7 +276,11 @@ function Nav(props) {
                   {pages
                     .filter(page => page.show)
                     .map(page => (
-                      <li key={page.href} className={classes.listItem}>
+                      <li
+                        key={page.href}
+                        className={classes.listItem}
+                        data-intercom={`nav-button-${page.name.replace(/\W/, '-').toLowerCase()}`}
+                      >
                         <Typography>
                           <NextLink href={page.href}>
                             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
@@ -301,25 +297,6 @@ function Nav(props) {
           </Grid>
         </Grid>
       </ScaffoldContainer>
-      <Dialog
-        open={isHelpOpen}
-        onClose={handleHelpClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">Help</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Please email us with any questions or feedback:{' '}
-            <a href="mailto:careers@gardenstate.tech">careers@gardenstate.tech</a>
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleHelpClose} color="primary" autoFocus>
-            Ok
-          </Button>
-        </DialogActions>
-      </Dialog>
     </React.Fragment>
   );
 }

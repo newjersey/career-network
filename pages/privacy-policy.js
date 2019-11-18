@@ -4,6 +4,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import ScaffoldContainer from '../components/ScaffoldContainer';
+import withTitle from '../components/withTitle';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function PrivacyPolicy() {
+function PrivacyPolicy() {
   const classes = useStyles();
 
   return (
@@ -293,3 +294,5 @@ export default function PrivacyPolicy() {
     </div>
   );
 }
+
+export default withTitle(PrivacyPolicy, 'Privacy Policy');

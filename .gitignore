@@ -31,3 +31,7 @@ functions/.runtimeconfig.json
 # terraform
 .terraform
 terraform.tfstate.backup
+
+# IDE
+.idea
+.vscode

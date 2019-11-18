@@ -7,19 +7,18 @@ import React from 'react';
 import Router from 'next/router';
 import * as Sentry from '@sentry/browser';
 
-import Error from './_error';
+import { siteName } from '../components/withTitle';
 import { SnackbarProvider } from '../components/Snackbar';
-import AuthProvider from '../components/Auth';
-import FirebaseProvider from '../components/Firebase';
 import AppManager from '../components/AppManager';
+import AuthProvider from '../components/Auth';
+import Error from './_error';
+import FirebaseProvider from '../components/Firebase';
 import theme from '../src/theme';
 
-// eslint-disable-next-line no-unused-vars
-Router.events.on('routeChangeStart', url => {
-  NProgress.start();
-});
+Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
+Router.events.on('routeChangeComplete', () => window.Intercom('update'));
 
 Sentry.init({
   environment: process.env.name,
@@ -73,11 +72,11 @@ class MyApp extends App {
     }
   }
 
-  normalComponent(Component, pageProps) {
+  static normalComponent(Component, pageProps) {
     return (
       <Container>
         <Head>
-          <title>Career Network</title>
+          <title>{siteName}</title>
         </Head>
         <ThemeProvider theme={theme}>
           <SnackbarProvider>
@@ -85,7 +84,7 @@ class MyApp extends App {
               <AuthProvider>
                 <CssBaseline />
                 <AppManager>
-                  <Component pageContext={this.pageContext} {...pageProps} />
+                  <Component {...pageProps} />
                 </AppManager>
               </AuthProvider>
             </FirebaseProvider>
@@ -101,7 +100,7 @@ class MyApp extends App {
     return this.state.hasError ? (
       <Error eventId={this.state.eventId} showHeader />
     ) : (
-      this.normalComponent(Component, pageProps)
+      MyApp.normalComponent(Component, pageProps)
     );
   }
 }

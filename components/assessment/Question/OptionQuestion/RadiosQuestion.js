@@ -2,11 +2,11 @@ import { makeStyles } from '@material-ui/styles';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import FormLabel from '@material-ui/core/FormLabel';
 import PropTypes from 'prop-types';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
-import React from 'react';
-import Typography from '@material-ui/core/Typography';
+import React, { useEffect } from 'react';
 
 import AirtablePropTypes from '../../../Airtable/PropTypes';
 
@@ -24,15 +24,28 @@ const useStyles = makeStyles(theme => ({
 
 export default function RadiosQuestion(props) {
   const classes = useStyles();
-  const { onChange, question, responseOptions, value } = props;
-
+  const {
+    onChange,
+    onValidationChange,
+    optional,
+    question,
+    reflectValidity,
+    responseOptions,
+    value,
+  } = props;
   const helperText = question.fields['Helper Text'];
+  const isValid = optional || !!value;
+  const reflectError = reflectValidity && !isValid;
+
+  useEffect(() => {
+    onValidationChange(isValid);
+  }, [isValid, onValidationChange]);
 
   return (
     <FormControl component="fieldset" id={question.id} className={classes.formControl}>
-      <Typography component="legend" variant="h6" gutterBottom>
+      <FormLabel component="legend" error={reflectError}>
         {question.fields.Label}
-      </Typography>
+      </FormLabel>
 
       <RadioGroup
         aria-label={question.fields.Label}
@@ -61,11 +74,15 @@ export default function RadiosQuestion(props) {
 
 RadiosQuestion.propTypes = {
   onChange: PropTypes.func.isRequired,
+  onValidationChange: PropTypes.func.isRequired,
+  optional: PropTypes.bool.isRequired,
   question: AirtablePropTypes.question.isRequired,
+  reflectValidity: PropTypes.bool,
   responseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
   value: PropTypes.string,
 };
 
 RadiosQuestion.defaultProps = {
+  reflectValidity: false,
   value: null,
 };
