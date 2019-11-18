@@ -1,16 +1,15 @@
-import React from 'react';
-import { ThemeProvider, withStyles } from '@material-ui/styles';
 import { Container } from 'next/app';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import PropTypes from 'prop-types';
-import Head from 'next/head';
+import { ThemeProvider, withStyles } from '@material-ui/styles';
 import * as Sentry from '@sentry/browser';
-
 import AppBar from '@material-ui/core/AppBar';
-import Typography from '@material-ui/core/Typography';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
+import Head from 'next/head';
 import Link from '@material-ui/core/Link';
-import Button from '@material-ui/core/Button';
+import PropTypes from 'prop-types';
+import React from 'react';
+import Typography from '@material-ui/core/Typography';
+
 import theme from '../src/theme';
 
 const logoRatio = 834 / 784;
@@ -52,6 +51,10 @@ class Error extends React.Component {
 
   render() {
     const { classes, eventId, showHeader, statusCode } = this.props;
+
+    if (eventId) {
+      Sentry.showReportDialog({ eventId });
+    }
 
     return (
       <Container>
@@ -101,15 +104,6 @@ class Error extends React.Component {
               <Typography variant="body2" className={classes.statusCode}>
                 Status Code: {statusCode}
               </Typography>
-            )}
-            {eventId && (
-              <Button
-                variant="outlined"
-                className={classes.feedback}
-                onClick={() => Sentry.showReportDialog({ eventId })}
-              >
-                Report Feedback
-              </Button>
             )}
           </main>
         </ThemeProvider>
