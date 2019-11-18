@@ -22,7 +22,7 @@ Router.events.on('routeChangeComplete', () => window.Intercom('update'));
 
 Sentry.init({
   environment: process.env.name,
-  dsn: 'https://3deb0f7b679840f28bb7931c8c33b206@sentry.io/1733812',
+  dsn: process.env.sentry.dsn,
 });
 
 class MyApp extends App {
