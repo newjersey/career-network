@@ -6,6 +6,7 @@ import NProgress from 'nprogress';
 import React from 'react';
 import Router from 'next/router';
 import * as Sentry from '@sentry/browser';
+import * as Integrations from '@sentry/integrations';
 
 import { siteName } from '../components/withTitle';
 import { SnackbarProvider } from '../components/Snackbar';
@@ -23,6 +24,7 @@ Router.events.on('routeChangeComplete', () => window.Intercom('update'));
 Sentry.init({
   environment: process.env.name,
   dsn: process.env.sentry.dsn,
+  integrations: [new Integrations.CaptureConsole()],
 });
 
 class MyApp extends App {
