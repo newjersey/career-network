@@ -1,14 +1,15 @@
-import React from 'react';
-import { ThemeProvider, withStyles } from '@material-ui/styles';
 import { Container } from 'next/app';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import PropTypes from 'prop-types';
-import Head from 'next/head';
-
+import { ThemeProvider, withStyles } from '@material-ui/styles';
+import * as Sentry from '@sentry/browser';
 import AppBar from '@material-ui/core/AppBar';
-import Typography from '@material-ui/core/Typography';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
+import Head from 'next/head';
 import Link from '@material-ui/core/Link';
+import PropTypes from 'prop-types';
+import React from 'react';
+import Typography from '@material-ui/core/Typography';
+
 import theme from '../src/theme';
 
 const logoRatio = 834 / 784;
@@ -28,6 +29,12 @@ const styles = {
   error: {
     margin: '1.8em',
   },
+  feedback: {
+    marginTop: '1em',
+  },
+  statusCode: {
+    marginTop: '1em',
+  },
 };
 
 class Error extends React.Component {
@@ -43,7 +50,11 @@ class Error extends React.Component {
   }
 
   render() {
-    const { classes, showHeader, statusCode } = this.props;
+    const { classes, eventId, showHeader, statusCode } = this.props;
+
+    if (eventId) {
+      Sentry.showReportDialog({ eventId });
+    }
 
     return (
       <Container>
@@ -89,8 +100,11 @@ class Error extends React.Component {
               </Link>
               .
             </Typography>
-            <br />
-            {statusCode && <Typography variant="body2">Status Code:{statusCode}</Typography>}
+            {statusCode && (
+              <Typography variant="body2" className={classes.statusCode}>
+                Status Code: {statusCode}
+              </Typography>
+            )}
           </main>
         </ThemeProvider>
       </Container>
@@ -99,12 +113,14 @@ class Error extends React.Component {
 }
 
 Error.propTypes = {
+  eventId: PropTypes.number,
   showHeader: PropTypes.bool,
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
   statusCode: PropTypes.number,
 };
 
 Error.defaultProps = {
+  eventId: undefined,
   showHeader: false,
   statusCode: undefined,
 };

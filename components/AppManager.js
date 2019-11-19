@@ -5,6 +5,7 @@
 //  - redirect to '/assessment' or '/dashboard' upon sign in
 
 import { useBeforeunload } from 'react-beforeunload';
+import * as Sentry from '@sentry/browser';
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useRef } from 'react';
 import Router from 'next/router';
@@ -34,6 +35,12 @@ export default function AppManager(props) {
       showMessage('Signed out');
     }
   }, [showMessage, user, wasSignedIn]);
+
+  useEffect(() => {
+    Sentry.configureScope(scope => {
+      scope.setUser(user ? { id: user.uid } : null);
+    });
+  }, [user]);
 
   useEffect(() => {
     if (user) {

@@ -5,6 +5,8 @@ import Head from 'next/head';
 import NProgress from 'nprogress';
 import React from 'react';
 import Router from 'next/router';
+import * as Sentry from '@sentry/browser';
+import * as Integrations from '@sentry/integrations';
 
 import { siteName } from '../components/withTitle';
 import { SnackbarProvider } from '../components/Snackbar';
@@ -18,6 +20,12 @@ Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 Router.events.on('routeChangeComplete', () => window.Intercom('update'));
+
+Sentry.init({
+  environment: process.env.name,
+  dsn: process.env.sentry.dsn,
+  integrations: [new Integrations.CaptureConsole()],
+});
 
 class MyApp extends App {
   constructor(args) {
@@ -35,7 +43,7 @@ class MyApp extends App {
 
       return { pageProps };
     } catch (error) {
-      // TODO: send error to reporting system (Sentry, Rollbar, etc.)
+      Sentry.captureException(error);
       return { hasError: true };
     }
   }
@@ -51,8 +59,11 @@ class MyApp extends App {
   }
 
   componentDidCatch(error, errorInfo) {
-    // TODO: send error to reporting system (Sentry, Rollbar, etc.)
-    this.setState({ error, errorInfo });
+    Sentry.withScope(scope => {
+      scope.setExtras(errorInfo);
+      const eventId = Sentry.captureException(error);
+      this.setState({ error, errorInfo, eventId });
+    });
   }
 
   componentDidMount() {
@@ -88,7 +99,11 @@ class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props;
 
-    return this.state.hasError ? <Error showHeader /> : MyApp.normalComponent(Component, pageProps);
+    return this.state.hasError ? (
+      <Error eventId={this.state.eventId} showHeader />
+    ) : (
+      MyApp.normalComponent(Component, pageProps)
+    );
   }
 }
 

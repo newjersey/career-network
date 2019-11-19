@@ -18,6 +18,15 @@
             "value": "max-age=300"
           }
         ]
+      },
+      {
+        "source": "*",
+        "headers": [
+          {
+            "key": "Expect-CT",
+            "value": "report-uri=\"https://sentry.io/api/1733812/security/?sentry_key=3deb0f7b679840f28bb7931c8c33b206\""
+          }
+        ]
       }
     ]
   },
