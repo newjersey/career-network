@@ -13,6 +13,7 @@ cd functions
 npm install
 cp .runtimeconfig.json-example .runtimeconfig.json
 cd ..
+npx firebase login
 npm run env:dev1
 npm run dev
 ```
