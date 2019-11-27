@@ -1,6 +1,8 @@
 import { makeStyles } from '@material-ui/styles';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 
 import { useAuth } from '../Auth';
 import AirtablePropTypes from '../Airtable/PropTypes';
@@ -9,6 +11,7 @@ import ScaffoldContainer from '../ScaffoldContainer';
 import SentimentTracker from './SentimentTracker';
 import TaskList from './TaskList';
 import TimeDistanceParser from '../../src/time-distance-parser';
+import ActivityInputDialog from './ActivityInputDialog';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -168,6 +171,10 @@ export default function Dashboard(props) {
   const doneTaskCount = allTaskDispositionEvents.length;
   const todoTaskCount = Math.min(allApplicableTasks.length - doneTaskCount, todoTaskLimit);
   const tasks = allApplicableTasks.slice(0, todoTaskCount + doneTaskCount);
+  const [showActivityInputDialog, setShowActivityInputDialog] = useState(false);
+  // function handleOpenActivityInput() {
+  //   ActivityInputDialog.
+  // }
 
   useEffect(() => {
     window.Intercom('update', { 'tasks-completed': doneTaskCount });
@@ -175,6 +182,10 @@ export default function Dashboard(props) {
 
   return (
     <div className={classes.root}>
+      <ActivityInputDialog
+        show={showActivityInputDialog}
+        onClose={() => setShowActivityInputDialog(false)}
+      />
       <ScaffoldContainer>
         <Typography component="h1" variant="h2" gutterBottom>
           Hi, {user && user.firstName}!
@@ -183,10 +194,20 @@ export default function Dashboard(props) {
           Here’s your personalized action plan. It will update as you make progress.
         </Typography>
         <SentimentTracker />
-        <Typography variant="h5" className={classes.subtitle} data-intercom="task-count">
-          Top {todoTaskCount} goals
-          {doneTaskCount > 0 && ` (and ${doneTaskCount} completed)`}
-        </Typography>
+        <Grid container alignItems="baseline" justify="space-between" direction="row">
+          <Typography variant="h5" className={classes.subtitle} data-intercom="task-count">
+            Top {todoTaskCount} goals
+            {doneTaskCount > 0 && ` (and ${doneTaskCount} completed)`}
+          </Typography>
+          <Button
+            variant="contained"
+            size="large"
+            color="primary"
+            onClick={() => setShowActivityInputDialog(true)}
+          >
+            Log Activity
+          </Button>
+        </Grid>
         <TaskList
           tasks={tasks}
           allActions={allActions}
