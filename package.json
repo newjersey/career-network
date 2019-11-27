@@ -9,6 +9,12 @@
   "author": "New Jersey Office of Innovation",
   "license": "MIT",
   "private": true,
+  "browserslist": [
+    "last 2 versions",
+    "> 1%",
+    "maintained node versions",
+    "not dead"
+  ],
   "dependencies": {
     "@material-ui/core": "^4.4.0",
     "@material-ui/icons": "^4.2.1",
@@ -33,6 +39,7 @@
     "styled-jsx": "^3.2.2"
   },
   "scripts": {
+    "browserslist": "browserslist",
     "dev": "next",
     "env": "node scripts/env",
     "env:dev1": "npm run env -- dev1",
@@ -66,6 +73,7 @@
     "@testing-library/react-hooks": "^1.1.0",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
+    "browserlist": "^1.0.1",
     "chalk": "^2.4.2",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.1",
