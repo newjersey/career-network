@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
+import { useAuth } from '../Auth';
 
 const styles = theme => ({
   root: {
@@ -51,7 +52,16 @@ const DialogActions = withStyles(theme => ({
 }))(MuiDialogActions);
 
 function ActivityInputDialog({ show, onClose }) {
-  const handleSave = () => onClose();
+  const { userDocRef } = useAuth();
+
+  const handleSave = () => {
+    const data = {
+      timestamp: new Date(),
+      activityType: 'my activity',
+    };
+    userDocRef.collection('activityLogEntries').add(data);
+    onClose();
+  };
 
   return (
     <div>
