@@ -49,7 +49,7 @@
     "env:ppe": "npm run env -- ppe",
     "env:prod": "npm run env -- prod",
     "lint": "eslint .",
-    "build": "npm run env && npm run lint && next build",
+    "build": "npm run env && npm run lint && ANALYZE=true next build",
     "clean": "rm -rf .next/ out/",
     "airtable:dump": "node scripts/airtableDump",
     "export": "npm run clean && npm run build && next export -o out && cp -R public/ out/",
