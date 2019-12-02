@@ -1,3 +1,4 @@
+const withBundleAnalyzer = require('@next/bundle-analyzer')({ enabled: true });
 const appEnv = require('./src/AppEnv');
 
 let env;
@@ -190,7 +191,7 @@ try {
   throw new Error(`${err.message} – do you need to run 'npm run env:X'?`);
 }
 
-module.exports = {
+module.exports = withBundleAnalyzer({
   env,
   liveAirtableApiBase,
-};
+});
