@@ -12,6 +12,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
 import { useAuth } from '../Auth';
 
 const styles = theme => ({
@@ -92,24 +94,39 @@ function ActivityInputDialog({ show, onClose }) {
   const classes = useActivityDialogStyles();
   const formId = 'activity-input';
   const { userDocRef } = useAuth();
+  const [error, setError] = useState();
+  const [submitting, setSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [formValues, setFormValues] = useState(activityFormValues);
 
   const handleSave = () => {
     const data = {
       timestamp: new Date(),
-      activityType: 'my activity',
+      ...formValues,
     };
-    userDocRef.collection('activityLogEntries').add(data);
-    onClose();
+    setError();
+    setSubmitting(true);
+    userDocRef
+      .collection('activityLogEntries')
+      .add(data)
+      .then(() => {
+        setSubmitting(false);
+        setSuccess(true);
+      })
+      .catch(err => {
+        setSubmitting(false);
+        setError(err.message);
+      });
   };
 
   return (
-    <div>
-      <Dialog fullWidth onClose={onClose} aria-labelledby="customized-dialog-title" open={show}>
-        <DialogTitle id="customized-dialog-title" onClose={onClose}>
-          Add Activity
-        </DialogTitle>
-        <DialogContent dividers>
+    <Dialog fullWidth onClose={onClose} aria-labelledby="customized-dialog-title" open={show}>
+      <DialogTitle id="customized-dialog-title" onClose={onClose}>
+        Add Activity
+      </DialogTitle>
+      <DialogContent dividers>
+        {submitting && <CircularProgress />}
+        {!(submitting || success) && (
           <FormControl className={classes.formControl}>
             <InputLabel id={`${formId}-activityType`}>Activity</InputLabel>
             <Select
@@ -125,14 +142,20 @@ function ActivityInputDialog({ show, onClose }) {
               ))}
             </Select>
           </FormControl>
-        </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleSave} color="primary">
-            Save changes
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
+        )}
+        {error && (
+          <Typography color="error" variant="h4">
+            Error: {error}
+          </Typography>
+        )}
+        {success && <Typography variant="h4">Success!</Typography>}
+      </DialogContent>
+      <DialogActions>
+        <Button autoFocus onClick={handleSave} color="primary">
+          Save changes
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 }
 
