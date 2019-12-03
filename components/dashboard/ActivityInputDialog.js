@@ -12,9 +12,12 @@ import CloseIcon from '@material-ui/icons/Close';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
+import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import DateFnsUtils from '@date-io/date-fns';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 
 import { useAuth } from '../Auth';
 
@@ -98,9 +101,30 @@ const ACTIVITY_TYPES = [
   'Other',
 ];
 
+const TIME_SPENT_TYPE = [
+  {
+    label: '30 minutes',
+    value: 30,
+  },
+  {
+    label: '60 minutes',
+    value: 60,
+  },
+  {
+    label: '90 minutes',
+    value: 90,
+  },
+  {
+    label: '120+ minutes',
+    value: 120,
+  },
+];
+
 const activityFormValues = {
   activityType: ACTIVITY_TYPES[0],
   description: undefined,
+  dateCompleted: new Date(),
+  timeSpent: TIME_SPENT_TYPE[0].value,
 };
 
 function ActivityInputDialog({ show, onClose }) {
@@ -168,6 +192,38 @@ function ActivityInputDialog({ show, onClose }) {
                 onChange={e => setFormValues({ ...formValues, description: e.target.value })}
                 className={classes.textField}
               />
+            </FormControl>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <Grid container className={classes.formControl}>
+                <KeyboardDatePicker
+                  disableToolbar
+                  variant="inline"
+                  format="MM/dd/yyyy"
+                  margin="normal"
+                  id="date-picker-inline"
+                  label="Date picker inline"
+                  value={formValues.dateCompleted}
+                  onChange={date => setFormValues({ ...formValues, dateCompleted: date })}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+                />
+              </Grid>
+            </MuiPickersUtilsProvider>
+            <FormControl className={classes.formControl}>
+              <InputLabel id={`${formId}-timeSpent`}>Time Spent</InputLabel>
+              <Select
+                labelId={`${formId}-timeSpent`}
+                id="timeSpent-select"
+                value={formValues.timeSpent}
+                onChange={e => setFormValues({ ...formValues, timeSpent: e.target.value })}
+              >
+                {TIME_SPENT_TYPE.map(timeSpentType => (
+                  <MenuItem key={timeSpentType.label} value={timeSpentType.value}>
+                    {timeSpentType.label}
+                  </MenuItem>
+                ))}
+              </Select>
             </FormControl>
           </form>
         )}
