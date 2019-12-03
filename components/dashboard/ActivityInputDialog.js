@@ -14,6 +14,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+
 import { useAuth } from '../Auth';
 
 const styles = theme => ({
@@ -62,9 +64,19 @@ const DialogActions = withStyles(theme => ({
 
 /** ACTIVITY INPUT DIALOG */
 const useActivityDialogStyles = makeStyles(theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+  },
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
+    width: '100%',
+  },
+  textField: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1),
   },
 }));
 
@@ -88,6 +100,7 @@ const ACTIVITY_TYPES = [
 
 const activityFormValues = {
   activityType: ACTIVITY_TYPES[0],
+  description: undefined,
 };
 
 function ActivityInputDialog({ show, onClose }) {
@@ -127,21 +140,36 @@ function ActivityInputDialog({ show, onClose }) {
       <DialogContent dividers>
         {submitting && <CircularProgress />}
         {!(submitting || success) && (
-          <FormControl className={classes.formControl}>
-            <InputLabel id={`${formId}-activityType`}>Activity</InputLabel>
-            <Select
-              labelId={`${formId}-activityType`}
-              id="activityType-select"
-              value={formValues.activityType}
-              onChange={e => setFormValues({ ...formValues, activityType: e.target.value })}
-            >
-              {ACTIVITY_TYPES.map(activity => (
-                <MenuItem key={activity} value={activity}>
-                  {activity}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          <form className={classes.container} id={formId}>
+            <FormControl className={classes.formControl}>
+              <InputLabel id={`${formId}-activityType`}>Activity</InputLabel>
+              <Select
+                labelId={`${formId}-activityType`}
+                id="activityType-select"
+                value={formValues.activityType}
+                onChange={e => setFormValues({ ...formValues, activityType: e.target.value })}
+              >
+                {ACTIVITY_TYPES.map(activity => (
+                  <MenuItem key={activity} value={activity}>
+                    {activity}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl className={classes.formControl}>
+              <InputLabel shrink htmlFor="description-textfield">
+                Description
+              </InputLabel>
+              <TextField
+                id="description-textfield"
+                value={formValues.description}
+                fullWidth
+                placeholder=" "
+                onChange={e => setFormValues({ ...formValues, description: e.target.value })}
+                className={classes.textField}
+              />
+            </FormControl>
+          </form>
         )}
         {error && (
           <Typography color="error" variant="h4">
