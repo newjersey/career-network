@@ -172,9 +172,6 @@ export default function Dashboard(props) {
   const todoTaskCount = Math.min(allApplicableTasks.length - doneTaskCount, todoTaskLimit);
   const tasks = allApplicableTasks.slice(0, todoTaskCount + doneTaskCount);
   const [showActivityInputDialog, setShowActivityInputDialog] = useState(false);
-  // function handleOpenActivityInput() {
-  //   ActivityInputDialog.
-  // }
 
   useEffect(() => {
     window.Intercom('update', { 'tasks-completed': doneTaskCount });
