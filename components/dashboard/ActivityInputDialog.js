@@ -127,12 +127,22 @@ const TIME_SPENT_TYPE = [
 
 const DIFFICULTY_LEVEL = ['Easy', 'Medium', 'Hard'];
 
+const FEELINGS = [
+  'Confident',
+  'Discouraged',
+  'Overwhelmed',
+  'Frustrated',
+  'Optimistic',
+  'Motivated',
+];
+
 const activityFormValues = {
   activityType: ACTIVITY_TYPES[0],
   description: undefined,
   dateCompleted: new Date(),
   timeSpent: TIME_SPENT_TYPE[0].value,
   difficultyLevel: DIFFICULTY_LEVEL[0],
+  activityFeeling: [],
 };
 
 function ActivityInputDialog({ show, onClose }) {
@@ -245,6 +255,19 @@ function ActivityInputDialog({ show, onClose }) {
                 />
               </Grid>
             </FormControl>
+            <FormControl className={classes.formControl} id={`${formId}-feelings`}>
+              <Typography variant="caption" color="textSecondary">
+                This activity made me feel...
+              </Typography>
+              <Grid xs={12} md={6} className={classes.toggleButton}>
+                <ToggleButton
+                  options={FEELINGS}
+                  multiSelect
+                  value={formValues.activityFeeling}
+                  handleChange={e => setFormValues({ ...formValues, activityFeeling: e })}
+                />
+              </Grid>
+            </FormControl>
           </form>
         )}
         {error && (
@@ -256,7 +279,7 @@ function ActivityInputDialog({ show, onClose }) {
       </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={handleSave} color="primary">
-          Save changes
+          Submit
         </Button>
       </DialogActions>
     </Dialog>

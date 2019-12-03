@@ -17,7 +17,7 @@ function ToggleButton({ options, value, handleChange, multiSelect }) {
   const isSelected = v => (multiSelect ? selected.includes(v) : selected === v);
   const addSelected = v => (multiSelect ? setSelected([...selected, v]) : setSelected(v));
   const removeSelected = v =>
-    multiSelect ? setSelected(selected.filter(el => el === v)) : setSelected();
+    multiSelect ? setSelected(selected.filter(el => el !== v)) : setSelected();
 
   const handleUpdate = v => {
     if (isSelected(v)) {
@@ -28,7 +28,7 @@ function ToggleButton({ options, value, handleChange, multiSelect }) {
     handleChange(v);
   };
   return (
-    <Grid container direction="row" justify="flex-start" alignItems="flex-start">
+    <Grid container direction="row" justify="flex-start" alignItems="center">
       {options.map(opt => (
         <Button
           className={classes.button}
