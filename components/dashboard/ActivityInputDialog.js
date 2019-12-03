@@ -233,17 +233,17 @@ function ActivityInputDialog({ show, onClose }) {
                 ))}
               </Select>
             </FormControl>
-            <FormControl className={classes.formControl}>
+            <FormControl className={classes.formControl} id={`${formId}-difficultyLevel-radio`}>
               <Typography variant="caption" color="textSecondary">
                 Difficulty Level
               </Typography>
-              <ToggleButton
-                id={`${formId}-difficultyLevel-radio`}
-                className={classes.toggleButton}
-                options={DIFFICULTY_LEVEL}
-                value={formValues.difficultyLevel}
-                handleChange={e => setFormValues({ ...formValues, difficultyLevel: e })}
-              />
+              <Grid item xs={12} md={6} className={classes.toggleButton}>
+                <ToggleButton
+                  options={DIFFICULTY_LEVEL}
+                  value={formValues.difficultyLevel}
+                  handleChange={e => setFormValues({ ...formValues, difficultyLevel: e })}
+                />
+              </Grid>
             </FormControl>
           </form>
         )}
