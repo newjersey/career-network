@@ -20,6 +20,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 
 import { useAuth } from '../Auth';
+import ToggleButton from '../ToggleButton';
 
 const styles = theme => ({
   root: {
@@ -81,6 +82,10 @@ const useActivityDialogStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(1),
   },
+  toggleButton: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
 }));
 
 const ACTIVITY_TYPES = [
@@ -120,11 +125,14 @@ const TIME_SPENT_TYPE = [
   },
 ];
 
+const DIFFICULTY_LEVEL = ['Easy', 'Medium', 'Hard'];
+
 const activityFormValues = {
   activityType: ACTIVITY_TYPES[0],
   description: undefined,
   dateCompleted: new Date(),
   timeSpent: TIME_SPENT_TYPE[0].value,
+  difficultyLevel: DIFFICULTY_LEVEL[0],
 };
 
 function ActivityInputDialog({ show, onClose }) {
@@ -200,8 +208,8 @@ function ActivityInputDialog({ show, onClose }) {
                   variant="inline"
                   format="MM/dd/yyyy"
                   margin="normal"
-                  id="date-picker-inline"
-                  label="Date picker inline"
+                  id={`${formId}--dateCompleted`}
+                  label="Date Completed"
                   value={formValues.dateCompleted}
                   onChange={date => setFormValues({ ...formValues, dateCompleted: date })}
                   KeyboardButtonProps={{
@@ -224,6 +232,18 @@ function ActivityInputDialog({ show, onClose }) {
                   </MenuItem>
                 ))}
               </Select>
+            </FormControl>
+            <FormControl className={classes.formControl}>
+              <Typography variant="caption" color="textSecondary">
+                Difficulty Level
+              </Typography>
+              <ToggleButton
+                id={`${formId}-difficultyLevel-radio`}
+                className={classes.toggleButton}
+                options={DIFFICULTY_LEVEL}
+                value={formValues.difficultyLevel}
+                handleChange={e => setFormValues({ ...formValues, difficultyLevel: e })}
+              />
             </FormControl>
           </form>
         )}
