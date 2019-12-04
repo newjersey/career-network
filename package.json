@@ -9,6 +9,11 @@
   "author": "New Jersey Office of Innovation",
   "license": "MIT",
   "private": true,
+  "browserslist": [
+    "last 2 versions",
+    "> 1%",
+    "not dead"
+  ],
   "dependencies": {
     "@date-io/date-fns": "^1.3.12",
     "@material-ui/core": "^4.4.0",
@@ -19,6 +24,7 @@
     "@sentry/integrations": "^5.8.0",
     "clsx": "^1.0.4",
     "date-fns": "^2.0.0-beta.5",
+    "core-js": "^3.4.5",
     "dayjs": "^1.8.15",
     "dom-confetti": "^0.1.1",
     "firebase": "^6.5.0",
@@ -36,6 +42,8 @@
     "styled-jsx": "^3.2.2"
   },
   "scripts": {
+    "analyze": "ANALYZE=true next build",
+    "browserslist": "browserslist",
     "dev": "next",
     "env": "node scripts/env",
     "env:dev1": "npm run env -- dev1",
@@ -62,13 +70,16 @@
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.7.4",
     "@firebase/testing": "^0.11.5",
     "@material-ui/codemod": "^4.3.0",
+    "@next/bundle-analyzer": "^9.1.4",
     "@testing-library/jest-dom": "^4.1.0",
     "@testing-library/react": "^8.0.4",
     "@testing-library/react-hooks": "^1.1.0",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
+    "browserlist": "^1.0.1",
     "chalk": "^2.4.2",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.1",
