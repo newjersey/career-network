@@ -293,7 +293,7 @@ function ActivityInputDialog({ show, onClose }) {
             </FormControl>
             <FormControl className={classes.formControl} id={`${formId}-feelings`}>
               <Typography variant="caption" color="textSecondary">
-                This activity made me feel...
+                This Activity Made Me Feel … (Select All that Apply)
               </Typography>
               <Grid
                 container
