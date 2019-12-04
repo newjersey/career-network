@@ -90,20 +90,15 @@ const useActivityDialogStyles = makeStyles(theme => ({
 }));
 
 const ACTIVITY_TYPES = [
-  'Attended Job Fair',
-  'Attended Networking Event',
-  'Call/Meeting with Recruiter',
-  'Completed online application',
-  'Created/revised marketing materials (business card, LinkedIn profile, etc.)',
-  'Customized resume/cover letter for specific job opening',
-  'Informational Interview',
-  'Interacted on LinkedIn (messaged or made new contact, commented on a post/article)',
-  'Looked for/reviewed job openings (Indeed, LinkedIn, Monster, CareerBuilder, etc.)',
-  'Meeting/Call with Contact',
-  'Posted on LinkedIn (shared link, wrote a post, wrote an article)',
-  'Prepared for interview ',
-  'Researched contacts at target company',
+  'Searched for job openings (e.g., Indeed, LinkedIn, Monster, CareerBuilder, etc.)',
+  'Completed job application',
+  'Created, revised, or customized marketing materials (e.g., resume, cover letter, business card, LinkedIn profile, LinkedIn post, etc.)',
+  'Prepared for interview',
+  'Attend networking event/job fair',
+  'Virtual networking interaction (via email, LinkedIn, etc.)',
+  'Meeting/Call with contact',
   'Researched target company/industry',
+  'Researched contacts at target company',
   'Other',
 ];
 
@@ -318,7 +313,7 @@ function ActivityInputDialog({ show, onClose }) {
             </FormControl>
             <TextField
               id="whyIfeelThisWay-textfield"
-              label="Why You Feel This Way"
+              label="Why Do You Feel This Way"
               multiline
               rows="4"
               className={classes.textField}
@@ -338,7 +333,7 @@ function ActivityInputDialog({ show, onClose }) {
         {success && (
           <Grid container direction="column" justify="center" alignItems="center">
             <CheckCircleIcon style={{ fontSize: 200, color: 'green' }}> </CheckCircleIcon>
-            <Typography variant="h4">Success!</Typography>
+            <Typography variant="h4">Activity added!</Typography>
           </Grid>
         )}
       </DialogContent>
