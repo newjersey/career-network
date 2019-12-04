@@ -28,7 +28,7 @@ function ToggleButton({ options, value, handleChange, multiSelect }) {
     handleChange(v);
   };
   return (
-    <Grid container direction="row" justify="flex-start" alignItems="center">
+    <Grid container>
       {options.map(opt => (
         <Button
           className={classes.button}

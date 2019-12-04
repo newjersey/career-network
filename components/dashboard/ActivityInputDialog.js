@@ -18,6 +18,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 import { useAuth } from '../Auth';
 import ToggleButton from '../ToggleButton';
@@ -130,11 +131,16 @@ const DIFFICULTY_LEVEL = ['Easy', 'Medium', 'Hard'];
 const FEELINGS = [
   'Confident',
   'Discouraged',
-  'Overwhelmed',
   'Frustrated',
   'Optimistic',
   'Motivated',
+  'Overwhelmed',
 ];
+
+// random shuffle of Feeling types.
+FEELINGS.sort(() => {
+  return 0.5 - Math.random();
+});
 
 const activityFormValues = {
   activityType: ACTIVITY_TYPES[0],
@@ -177,7 +183,7 @@ function ActivityInputDialog({ show, onClose }) {
   return (
     <Dialog fullWidth onClose={onClose} aria-labelledby="customized-dialog-title" open={show}>
       <DialogTitle id="customized-dialog-title" onClose={onClose}>
-        Add Activity
+        <Typography variant="h5">Add Activity</Typography>
       </DialogTitle>
       <DialogContent dividers>
         {submitting && <CircularProgress />}
@@ -275,7 +281,12 @@ function ActivityInputDialog({ show, onClose }) {
             Error: {error}
           </Typography>
         )}
-        {success && <Typography variant="h4">Success!</Typography>}
+        {success && (
+          <Grid container direction="column" justify="center" alignItems="center">
+            <CheckCircleIcon style={{ fontSize: 200, color: 'green' }}> </CheckCircleIcon>
+            <Typography variant="h4">Success!</Typography>
+          </Grid>
+        )}
       </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={handleSave} color="primary">
