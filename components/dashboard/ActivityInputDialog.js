@@ -235,6 +235,7 @@ function ActivityInputDialog({ show, onClose }) {
               <Grid container className={classes.formControl}>
                 <KeyboardDatePicker
                   disableToolbar
+                  disableFuture
                   variant="inline"
                   format="MM/dd/yyyy"
                   margin="normal"
