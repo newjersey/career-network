@@ -144,12 +144,16 @@ FEELINGS.sort(() => {
 
 const activityFormValues = {
   activityType: ACTIVITY_TYPES[0],
-  description: undefined,
+  description: '',
   dateCompleted: new Date(),
   timeSpentInMinutes: TIME_SPENT_TYPE[0].value,
   difficultyLevel: DIFFICULTY_LEVEL[0],
   activityFeeling: [],
   whyIfeelThisWay: null,
+};
+
+const isEmpty = s => {
+  return s === undefined || s === null || s === '';
 };
 
 function ActivityInputDialog({ show, onClose }) {
@@ -160,6 +164,16 @@ function ActivityInputDialog({ show, onClose }) {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [formValues, setFormValues] = useState(activityFormValues);
+  const [formErrors, setFormErrors] = useState({});
+
+  const isFormValid = () => {
+    setFormErrors({});
+    if (isEmpty(formValues.description)) {
+      setFormErrors({ ...formErrors, description: 'Field is required.' });
+      return false;
+    }
+    return true;
+  };
 
   const handleSave = () => {
     const data = {
@@ -167,18 +181,21 @@ function ActivityInputDialog({ show, onClose }) {
       ...formValues,
     };
     setError();
-    setSubmitting(true);
-    userDocRef
-      .collection('activityLogEntries')
-      .add(data)
-      .then(() => {
-        setSubmitting(false);
-        setSuccess(true);
-      })
-      .catch(err => {
-        setSubmitting(false);
-        setError(err.message);
-      });
+
+    if (isFormValid()) {
+      setSubmitting(true);
+      userDocRef
+        .collection('activityLogEntries')
+        .add(data)
+        .then(() => {
+          setSubmitting(false);
+          setSuccess(true);
+        })
+        .catch(err => {
+          setSubmitting(false);
+          setError(err.message);
+        });
+    }
   };
 
   const resetComponent = () => {
@@ -186,6 +203,7 @@ function ActivityInputDialog({ show, onClose }) {
     setSuccess(false);
     setSubmitting(false);
     setFormValues(activityFormValues);
+    setFormErrors({});
   };
 
   return (
@@ -225,6 +243,8 @@ function ActivityInputDialog({ show, onClose }) {
               <TextField
                 id="description-textfield"
                 value={formValues.description}
+                error={formErrors && formErrors.description}
+                helperText={formErrors && formErrors.description ? formErrors.description : ''}
                 fullWidth
                 placeholder=" "
                 onChange={e => setFormValues({ ...formValues, description: e.target.value })}
