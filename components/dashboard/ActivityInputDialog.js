@@ -149,6 +149,7 @@ const activityFormValues = {
   timeSpent: TIME_SPENT_TYPE[0].value,
   difficultyLevel: DIFFICULTY_LEVEL[0],
   activityFeeling: [],
+  whyIfeelThisWay: undefined,
 };
 
 function ActivityInputDialog({ show, onClose }) {
@@ -274,6 +275,17 @@ function ActivityInputDialog({ show, onClose }) {
                 />
               </Grid>
             </FormControl>
+            <TextField
+              id="whyIfeelThisWay-textfield"
+              label="Why I Feel This Way"
+              multiline
+              rows="4"
+              className={classes.textField}
+              margin="normal"
+              variant="outlined"
+              fullWidth
+              onChange={e => setFormValues({ ...formValues, whyIfeelThisWay: e.target.value })}
+            />
           </form>
         )}
         {error && (
@@ -289,9 +301,11 @@ function ActivityInputDialog({ show, onClose }) {
         )}
       </DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={handleSave} color="primary">
-          Submit
-        </Button>
+        {!success && (
+          <Button autoFocus onClick={handleSave} color="primary">
+            Submit
+          </Button>
+        )}
       </DialogActions>
     </Dialog>
   );
