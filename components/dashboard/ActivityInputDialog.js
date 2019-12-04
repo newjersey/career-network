@@ -146,10 +146,10 @@ const activityFormValues = {
   activityType: ACTIVITY_TYPES[0],
   description: undefined,
   dateCompleted: new Date(),
-  timeSpent: TIME_SPENT_TYPE[0].value,
+  timeSpentInMinutes: TIME_SPENT_TYPE[0].value,
   difficultyLevel: DIFFICULTY_LEVEL[0],
   activityFeeling: [],
-  whyIfeelThisWay: undefined,
+  whyIfeelThisWay: null,
 };
 
 function ActivityInputDialog({ show, onClose }) {
@@ -181,8 +181,21 @@ function ActivityInputDialog({ show, onClose }) {
       });
   };
 
+  const resetComponent = () => {
+    setError();
+    setSuccess(false);
+    setSubmitting(false);
+    setFormValues(activityFormValues);
+  };
+
   return (
-    <Dialog fullWidth onClose={onClose} aria-labelledby="customized-dialog-title" open={show}>
+    <Dialog
+      fullWidth
+      onClose={onClose}
+      aria-labelledby="customized-dialog-title"
+      open={show}
+      onExited={resetComponent}
+    >
       <DialogTitle id="customized-dialog-title" onClose={onClose}>
         <Typography variant="h5">Add Activity</Typography>
       </DialogTitle>
@@ -240,8 +253,8 @@ function ActivityInputDialog({ show, onClose }) {
               <Select
                 labelId={`${formId}-timeSpent`}
                 id="timeSpent-select"
-                value={formValues.timeSpent}
-                onChange={e => setFormValues({ ...formValues, timeSpent: e.target.value })}
+                value={formValues.timeSpentInMinutes}
+                onChange={e => setFormValues({ ...formValues, timeSpentInMinutes: e.target.value })}
               >
                 {TIME_SPENT_TYPE.map(timeSpentType => (
                   <MenuItem key={timeSpentType.label} value={timeSpentType.value}>
@@ -266,7 +279,14 @@ function ActivityInputDialog({ show, onClose }) {
               <Typography variant="caption" color="textSecondary">
                 This activity made me feel...
               </Typography>
-              <Grid xs={12} md={6} className={classes.toggleButton}>
+              <Grid
+                container
+                xs={12}
+                justify="space-evenly"
+                alignItems="center"
+                direction="row"
+                className={classes.toggleButton}
+              >
                 <ToggleButton
                   options={FEELINGS}
                   multiSelect
@@ -284,6 +304,7 @@ function ActivityInputDialog({ show, onClose }) {
               margin="normal"
               variant="outlined"
               fullWidth
+              value={formValues.whyIfeelThisWay}
               onChange={e => setFormValues({ ...formValues, whyIfeelThisWay: e.target.value })}
             />
           </form>
