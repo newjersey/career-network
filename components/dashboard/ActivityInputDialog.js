@@ -297,7 +297,7 @@ function ActivityInputDialog({ show, onClose }) {
             </FormControl>
             <TextField
               id="whyIfeelThisWay-textfield"
-              label="Why I Feel This Way"
+              label="Why You Feel This Way"
               multiline
               rows="4"
               className={classes.textField}
