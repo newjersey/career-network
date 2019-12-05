@@ -13,6 +13,7 @@ function DashboardPage() {
   const allQuestionResponses = useUserSubcollection('questionResponses');
   const allActionDispositionEvents = useUserSubcollection('actionDispositionEvents');
   const allTaskDispositionEvents = useUserSubcollection('taskDispositionEvents');
+  const allActivityLogEntries = useUserSubcollection('activityLogEntries');
   const recordProps = {
     allPredicates: useRecords('Predicates'),
     allConditions: useRecords('Conditions'),
@@ -31,6 +32,7 @@ function DashboardPage() {
       allQuestionResponses={allQuestionResponses}
       allActionDispositionEvents={allActionDispositionEvents}
       allTaskDispositionEvents={allTaskDispositionEvents}
+      allActivityLogEntries={allActivityLogEntries}
       {...recordProps}
     />
   ) : (
