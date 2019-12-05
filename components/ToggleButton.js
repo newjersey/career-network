@@ -25,8 +25,9 @@ function ToggleButton({ options, value, handleChange, multiSelect }) {
     } else {
       addSelected(v);
     }
-    handleChange(v);
+    handleChange(selected);
   };
+
   return (
     <Grid container>
       {options.map(opt => (
