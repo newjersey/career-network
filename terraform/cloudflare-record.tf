@@ -69,6 +69,24 @@ resource "cloudflare_record" "A_business-preview_2" {
   value   = "151.101.65.195"
 }
 
+resource "cloudflare_record" "A_business-dev_1" {
+  domain  = "${var.cloudflare_zone}"
+  name    = "business-dev"
+  type    = "A"
+  ttl     = "1"
+  proxied = "true"
+  value   = "151.101.1.195"
+}
+
+resource "cloudflare_record" "A_business-dev_2" {
+  domain  = "${var.cloudflare_zone}"
+  name    = "business-dev"
+  type    = "A"
+  ttl     = "1"
+  proxied = "true"
+  value   = "151.101.65.195"
+}
+
 resource "cloudflare_record" "A_1" {
   domain  = "${var.cloudflare_zone}"
   name    = "${var.cloudflare_zone}"
@@ -166,6 +184,15 @@ resource "cloudflare_record" "CNAME_auth_business-preview" {
   ttl     = "1"
   proxied = "false"
   value   = "nj-business-helper-ppe.firebaseapp.com"
+}
+
+resource "cloudflare_record" "CNAME_auth_business-dev" {
+  domain  = "${var.cloudflare_zone}"
+  name    = "auth.business-dev"
+  type    = "CNAME"
+  ttl     = "1"
+  proxied = "false"
+  value   = "nj-business-helper-dev1.firebaseapp.com"
 }
 
 resource "cloudflare_record" "CNAME_firebase1__domainkey" {
