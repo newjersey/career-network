@@ -20,6 +20,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
+import shuffle from 'lodash/fp/shuffle';
 
 import { useAuth } from '../Auth';
 import ToggleButton from '../ToggleButton';
@@ -137,11 +138,6 @@ const FEELINGS = [
   'Overwhelmed',
 ];
 
-// random shuffle of Feeling types.
-FEELINGS.sort(() => {
-  return 0.5 - Math.random();
-});
-
 const activityFormValues = {
   activityType: ACTIVITY_TYPES[0],
   description: '',
@@ -165,6 +161,7 @@ function ActivityInputDialog({ show, onClose }) {
   const [success, setSuccess] = useState(false);
   const [formValues, setFormValues] = useState(activityFormValues);
   const [formErrors, setFormErrors] = useState({});
+  const [shuffledFeelings, setShuffledFeelings] = useState(shuffle(FEELINGS));
 
   const isFormValid = () => {
     setFormErrors({});
@@ -204,6 +201,7 @@ function ActivityInputDialog({ show, onClose }) {
     setSubmitting(false);
     setFormValues(activityFormValues);
     setFormErrors({});
+    setShuffledFeelings(shuffle(FEELINGS)); // random shuffle of Feeling types.
   };
 
   return (
@@ -309,7 +307,7 @@ function ActivityInputDialog({ show, onClose }) {
                 className={classes.toggleButton}
               >
                 <ToggleButton
-                  options={FEELINGS}
+                  options={shuffledFeelings}
                   multiSelect
                   value={String(formValues.activityFeeling)}
                   handleChange={e => setFormValues({ ...formValues, activityFeeling: e })}
