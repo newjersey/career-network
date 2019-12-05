@@ -3,9 +3,10 @@ import 'firebase/firestore';
 import PropTypes from 'prop-types';
 
 const { QueryDocumentSnapshot } = firebase.firestore;
-
-const querySnapshot = PropTypes.arrayOf(PropTypes.instanceOf(QueryDocumentSnapshot));
+const queryDocumentSnapshot = PropTypes.instanceOf(QueryDocumentSnapshot);
+const querySnapshot = PropTypes.arrayOf(queryDocumentSnapshot);
 
 export default {
+  queryDocumentSnapshot,
   querySnapshot,
 };
