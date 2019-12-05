@@ -9,6 +9,7 @@ import AirtablePropTypes from '../Airtable/PropTypes';
 import FirebasePropTypes from '../Firebase/PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
 import SentimentTracker from './SentimentTracker';
+import ActivityList from './ActivityList';
 import TaskList from './TaskList';
 import TimeDistanceParser from '../../src/time-distance-parser';
 import ActivityInputDialog from './ActivityInputDialog';
@@ -162,6 +163,7 @@ export default function Dashboard(props) {
     allActions,
     allActionDispositionEvents,
     allTaskDispositionEvents,
+    allActivityLogEntries,
     ...restProps
   } = props;
 
@@ -191,27 +193,38 @@ export default function Dashboard(props) {
           Here’s your personalized action plan. It will update as you make progress.
         </Typography>
         <SentimentTracker />
-        <Grid container alignItems="baseline" justify="space-between" direction="row">
-          <Typography variant="h5" className={classes.subtitle} data-intercom="task-count">
-            Top {todoTaskCount} goals
-            {doneTaskCount > 0 && ` (and ${doneTaskCount} completed)`}
-          </Typography>
-          <Button
-            variant="contained"
-            size="large"
-            color="primary"
-            onClick={() => setShowActivityInputDialog(true)}
-          >
-            Log Activity
-          </Button>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={9}>
+            <Grid container alignItems="baseline" justify="space-between" direction="row">
+              <Typography variant="h5" className={classes.subtitle} data-intercom="task-count">
+                Top {todoTaskCount} goals
+                {doneTaskCount > 0 && ` (and ${doneTaskCount} completed)`}
+              </Typography>
+              <Button
+                variant="contained"
+                size="large"
+                color="primary"
+                onClick={() => setShowActivityInputDialog(true)}
+              >
+                Log Activity
+              </Button>
+            </Grid>
+
+            <TaskList
+              tasks={tasks}
+              allActions={allActions}
+              allActionDispositionEvents={allActionDispositionEvents}
+              allTaskDispositionEvents={allTaskDispositionEvents}
+              {...restProps}
+            />
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <Typography variant="h5" className={classes.subtitle} data-intercom="activity-title">
+              Latest activities
+            </Typography>
+            <ActivityList activities={allActivityLogEntries} />
+          </Grid>
         </Grid>
-        <TaskList
-          tasks={tasks}
-          allActions={allActions}
-          allActionDispositionEvents={allActionDispositionEvents}
-          allTaskDispositionEvents={allTaskDispositionEvents}
-          {...restProps}
-        />
       </ScaffoldContainer>
     </div>
   );
@@ -226,9 +239,11 @@ Dashboard.propTypes = {
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
   allActionDispositionEvents: FirebasePropTypes.querySnapshot,
   allTaskDispositionEvents: FirebasePropTypes.querySnapshot,
+  allActivityLogEntries: FirebasePropTypes.querySnapshot,
 };
 
 Dashboard.defaultProps = {
   allActionDispositionEvents: [],
   allTaskDispositionEvents: [],
+  allActivityLogEntries: [],
 };

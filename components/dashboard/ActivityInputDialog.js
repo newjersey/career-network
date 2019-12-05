@@ -19,6 +19,7 @@ import TextField from '@material-ui/core/TextField';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 
 import { useAuth } from '../Auth';
 import ToggleButton from '../ToggleButton';
@@ -90,20 +91,15 @@ const useActivityDialogStyles = makeStyles(theme => ({
 }));
 
 const ACTIVITY_TYPES = [
-  'Attended Job Fair',
-  'Attended Networking Event',
-  'Call/Meeting with Recruiter',
-  'Completed online application',
-  'Created/revised marketing materials (business card, LinkedIn profile, etc.)',
-  'Customized resume/cover letter for specific job opening',
-  'Informational Interview',
-  'Interacted on LinkedIn (messaged or made new contact, commented on a post/article)',
-  'Looked for/reviewed job openings (Indeed, LinkedIn, Monster, CareerBuilder, etc.)',
-  'Meeting/Call with Contact',
-  'Posted on LinkedIn (shared link, wrote a post, wrote an article)',
-  'Prepared for interview ',
-  'Researched contacts at target company',
+  'Searched for job openings (e.g., Indeed, LinkedIn, Monster, CareerBuilder, etc.)',
+  'Completed job application',
+  'Created, revised, or customized marketing materials (e.g., resume, cover letter, business card, LinkedIn profile, LinkedIn post, etc.)',
+  'Prepared for interview',
+  'Attend networking event/job fair',
+  'Virtual networking interaction (via email, LinkedIn, etc.)',
+  'Meeting/Call with contact',
   'Researched target company/industry',
+  'Researched contacts at target company',
   'Other',
 ];
 
@@ -224,8 +220,7 @@ function ActivityInputDialog({ show, onClose }) {
             <FormControl className={classes.formControl}>
               <InputLabel id={`${formId}-activityType`}>Activity</InputLabel>
               <Select
-                labelId={`${formId}-activityType`}
-                id="activityType-select"
+                id={`${formId}-activityType-select`}
                 value={formValues.activityType}
                 onChange={e => setFormValues({ ...formValues, activityType: e.target.value })}
               >
@@ -241,7 +236,7 @@ function ActivityInputDialog({ show, onClose }) {
                 Description
               </InputLabel>
               <TextField
-                id="description-textfield"
+                id={`${formId}-description-textfield`}
                 value={formValues.description}
                 error={formErrors && formErrors.description}
                 helperText={formErrors && formErrors.description ? formErrors.description : ''}
@@ -259,7 +254,7 @@ function ActivityInputDialog({ show, onClose }) {
                   variant="inline"
                   format="MM/dd/yyyy"
                   margin="normal"
-                  id={`${formId}--dateCompleted`}
+                  id={`${formId}-dateCompleted`}
                   label="Date Completed"
                   value={formValues.dateCompleted}
                   onChange={date => setFormValues({ ...formValues, dateCompleted: date })}
@@ -273,7 +268,7 @@ function ActivityInputDialog({ show, onClose }) {
               <InputLabel id={`${formId}-timeSpent`}>Time Spent</InputLabel>
               <Select
                 labelId={`${formId}-timeSpent`}
-                id="timeSpent-select"
+                id={`${formId}-timeSpent-select`}
                 value={formValues.timeSpentInMinutes}
                 onChange={e => setFormValues({ ...formValues, timeSpentInMinutes: e.target.value })}
               >
@@ -291,18 +286,19 @@ function ActivityInputDialog({ show, onClose }) {
               <Grid item xs={12} md={6} className={classes.toggleButton}>
                 <ToggleButton
                   options={DIFFICULTY_LEVEL}
-                  value={formValues.difficultyLevel}
+                  value={String(formValues.difficultyLevel)}
                   handleChange={e => setFormValues({ ...formValues, difficultyLevel: e })}
                 />
               </Grid>
             </FormControl>
             <FormControl className={classes.formControl} id={`${formId}-feelings`}>
               <Typography variant="caption" color="textSecondary">
-                This activity made me feel...
+                This Activity Made Me Feel … (Select All that Apply)
               </Typography>
               <Grid
                 container
                 xs={12}
+                item
                 justify="space-evenly"
                 alignItems="center"
                 direction="row"
@@ -311,14 +307,14 @@ function ActivityInputDialog({ show, onClose }) {
                 <ToggleButton
                   options={FEELINGS}
                   multiSelect
-                  value={formValues.activityFeeling}
+                  value={String(formValues.activityFeeling)}
                   handleChange={e => setFormValues({ ...formValues, activityFeeling: e })}
                 />
               </Grid>
             </FormControl>
             <TextField
-              id="whyIfeelThisWay-textfield"
-              label="Why You Feel This Way"
+              id={`${formId}-whyIfeelThisWay-textfield`}
+              label="Why Do You Feel This Way"
               multiline
               rows="4"
               className={classes.textField}
@@ -337,8 +333,8 @@ function ActivityInputDialog({ show, onClose }) {
         )}
         {success && (
           <Grid container direction="column" justify="center" alignItems="center">
-            <CheckCircleIcon style={{ fontSize: 200, color: 'green' }}> </CheckCircleIcon>
-            <Typography variant="h4">Success!</Typography>
+            <CheckCircleIcon style={{ fontSize: 100, color: 'green' }} />
+            <Typography variant="h4">Activity added!</Typography>
           </Grid>
         )}
       </DialogContent>
@@ -363,4 +359,4 @@ ActivityInputDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default ActivityInputDialog;
+export default withMobileDialog()(ActivityInputDialog);

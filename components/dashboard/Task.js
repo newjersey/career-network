@@ -102,11 +102,8 @@ export default function Task(props) {
       <Card className={clsx(classes.card, isDone && classes.isDone)} data-intercom="task">
         <CardHeader
           className={clsx(isDone && classes.isDoneCardChild)}
-          title={
-            <Typography component="h1" variant="h3">
-              <strong>{task.fields.Title}</strong>
-            </Typography>
-          }
+          title={<strong>{task.fields.Title}</strong>}
+          titleTypographyProps={{ component: 'h1', variant: 'h3' }}
         />
         <CardContent className={clsx(isDone && classes.isDoneCardChild)}>
           {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
