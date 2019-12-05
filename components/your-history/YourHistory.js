@@ -1,10 +1,18 @@
 import { makeStyles } from '@material-ui/styles';
+import { format } from 'date-fns';
 import Grid from '@material-ui/core/Grid';
 import React, { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import ScaffoldContainer from '../ScaffoldContainer';
 import YourHistoryPropTypes from './PropTypes';
+
+import ActivityCard from './ActivityCard';
+
+function getFormattedDateCompleted(timestamp) {
+  const date = timestamp.toDate();
+  return format(date, 'MMMM do');
+}
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -33,7 +41,11 @@ export default function YourHistory(props) {
         <Grid container direction="row" justify="space-between" alignItems="flex-start">
           <Typography>Your Hiistory</Typography>
           {visibleActivities.map(activity => (
-            <Typography>{activity.description}</Typography>
+            <ActivityCard
+              key={activity.timestamp}
+              {...activity}
+              dateCompleted={getFormattedDateCompleted(activity.dateCompleted)}
+            />
           ))}
         </Grid>
       </ScaffoldContainer>
