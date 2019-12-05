@@ -19,6 +19,7 @@ import TextField from '@material-ui/core/TextField';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 
 import { useAuth } from '../Auth';
 import ToggleButton from '../ToggleButton';
@@ -219,8 +220,7 @@ function ActivityInputDialog({ show, onClose }) {
             <FormControl className={classes.formControl}>
               <InputLabel id={`${formId}-activityType`}>Activity</InputLabel>
               <Select
-                labelId={`${formId}-activityType`}
-                id="activityType-select"
+                id={`${formId}-activityType-select`}
                 value={formValues.activityType}
                 onChange={e => setFormValues({ ...formValues, activityType: e.target.value })}
               >
@@ -236,7 +236,7 @@ function ActivityInputDialog({ show, onClose }) {
                 Description
               </InputLabel>
               <TextField
-                id="description-textfield"
+                id={`${formId}-description-textfield`}
                 value={formValues.description}
                 error={formErrors && formErrors.description}
                 helperText={formErrors && formErrors.description ? formErrors.description : ''}
@@ -254,7 +254,7 @@ function ActivityInputDialog({ show, onClose }) {
                   variant="inline"
                   format="MM/dd/yyyy"
                   margin="normal"
-                  id={`${formId}--dateCompleted`}
+                  id={`${formId}-dateCompleted`}
                   label="Date Completed"
                   value={formValues.dateCompleted}
                   onChange={date => setFormValues({ ...formValues, dateCompleted: date })}
@@ -268,7 +268,7 @@ function ActivityInputDialog({ show, onClose }) {
               <InputLabel id={`${formId}-timeSpent`}>Time Spent</InputLabel>
               <Select
                 labelId={`${formId}-timeSpent`}
-                id="timeSpent-select"
+                id={`${formId}-timeSpent-select`}
                 value={formValues.timeSpentInMinutes}
                 onChange={e => setFormValues({ ...formValues, timeSpentInMinutes: e.target.value })}
               >
@@ -286,7 +286,7 @@ function ActivityInputDialog({ show, onClose }) {
               <Grid item xs={12} md={6} className={classes.toggleButton}>
                 <ToggleButton
                   options={DIFFICULTY_LEVEL}
-                  value={formValues.difficultyLevel}
+                  value={String(formValues.difficultyLevel)}
                   handleChange={e => setFormValues({ ...formValues, difficultyLevel: e })}
                 />
               </Grid>
@@ -298,6 +298,7 @@ function ActivityInputDialog({ show, onClose }) {
               <Grid
                 container
                 xs={12}
+                item
                 justify="space-evenly"
                 alignItems="center"
                 direction="row"
@@ -306,13 +307,13 @@ function ActivityInputDialog({ show, onClose }) {
                 <ToggleButton
                   options={FEELINGS}
                   multiSelect
-                  value={formValues.activityFeeling}
+                  value={String(formValues.activityFeeling)}
                   handleChange={e => setFormValues({ ...formValues, activityFeeling: e })}
                 />
               </Grid>
             </FormControl>
             <TextField
-              id="whyIfeelThisWay-textfield"
+              id={`${formId}-whyIfeelThisWay-textfield`}
               label="Why Do You Feel This Way"
               multiline
               rows="4"
@@ -332,7 +333,7 @@ function ActivityInputDialog({ show, onClose }) {
         )}
         {success && (
           <Grid container direction="column" justify="center" alignItems="center">
-            <CheckCircleIcon style={{ fontSize: 200, color: 'green' }}> </CheckCircleIcon>
+            <CheckCircleIcon style={{ fontSize: 100, color: 'green' }} />
             <Typography variant="h4">Activity added!</Typography>
           </Grid>
         )}
@@ -353,4 +354,4 @@ ActivityInputDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default ActivityInputDialog;
+export default withMobileDialog()(ActivityInputDialog);
