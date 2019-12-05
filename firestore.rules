@@ -55,6 +55,11 @@ service cloud.firestore {
       match /sentimentEvents/{document} {
        allow read, create: if request.auth.uid == uid;
       }
+
+      // activity log entries are immutable: no updating allowed
+      match /activityLogEntries/{document} {
+       allow read, create: if request.auth.uid == uid;
+      }
     }
 
     match /userPreauthorizations/{email} {
