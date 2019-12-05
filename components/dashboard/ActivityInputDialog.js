@@ -105,19 +105,23 @@ const ACTIVITY_TYPES = [
 
 const TIME_SPENT_TYPE = [
   {
-    label: '30 minutes',
+    label: '15 Minutes',
+    value: 15,
+  },
+  {
+    label: '30 Minutes',
     value: 30,
   },
   {
-    label: '60 minutes',
+    label: '1 Hour',
     value: 60,
   },
   {
-    label: '90 minutes',
+    label: '1.5 Hours',
     value: 90,
   },
   {
-    label: '120+ minutes',
+    label: '2+ Hours',
     value: 120,
   },
 ];
