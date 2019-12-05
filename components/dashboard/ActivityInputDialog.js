@@ -92,16 +92,47 @@ const useActivityDialogStyles = makeStyles(theme => ({
 }));
 
 const ACTIVITY_TYPES = [
-  'Searched for job openings (e.g., Indeed, LinkedIn, Monster, CareerBuilder, etc.)',
-  'Completed job application',
-  'Created, revised, or customized marketing materials (e.g., resume, cover letter, business card, LinkedIn profile, LinkedIn post, etc.)',
-  'Prepared for interview',
-  'Attend networking event/job fair',
-  'Virtual networking interaction (via email, LinkedIn, etc.)',
-  'Meeting/Call with contact',
-  'Researched target company/industry',
-  'Researched contacts at target company',
-  'Other',
+  {
+    value: 'openings',
+    label: 'Searched for job openings (e.g. Indeed, LinkedIn, Monster, CareerBuilder, etc.)',
+  },
+  {
+    value: 'application',
+    label: 'Completed job application',
+  },
+  {
+    value: 'materials',
+    label:
+      'Created, revised, or customized marketing materials (e.g. resume, cover letter, business card, LinkedIn profile, LinkedIn post, etc.)',
+  },
+  {
+    value: 'interview-prep',
+    label: 'Prepared for interview',
+  },
+  {
+    value: 'networking-irl',
+    label: 'Attend networking event/job fair',
+  },
+  {
+    value: 'networking-virtual',
+    label: 'Virtual networking interaction (via email, LinkedIn, etc.)',
+  },
+  {
+    value: 'contact',
+    label: 'Meeting/call with contact',
+  },
+  {
+    value: 'research-company-industry',
+    label: 'Researched target company/industry',
+  },
+  {
+    value: 'research-contacts',
+    label: 'Researched contacts at target company',
+  },
+  {
+    value: 'other',
+    label: 'Other',
+  },
 ];
 
 const TIME_SPENT_TYPE = [
@@ -139,7 +170,8 @@ const FEELINGS = [
 ];
 
 const activityFormValues = {
-  activityType: ACTIVITY_TYPES[0],
+  activityTypeValue: ACTIVITY_TYPES[0].value,
+  activityTypeLabel: ACTIVITY_TYPES[0].label,
   description: '',
   dateCompleted: new Date(),
   timeSpentInMinutes: TIME_SPENT_TYPE[0].value,
@@ -223,12 +255,20 @@ function ActivityInputDialog({ show, onClose }) {
               <InputLabel id={`${formId}-activityType`}>Activity</InputLabel>
               <Select
                 id={`${formId}-activityType-select`}
-                value={formValues.activityType}
-                onChange={e => setFormValues({ ...formValues, activityType: e.target.value })}
+                value={formValues.activityTypeValue}
+                onChange={e =>
+                  setFormValues({
+                    ...formValues,
+                    activityTypeValue: e.target.value,
+                    activityTypeLabel: ACTIVITY_TYPES.find(
+                      activityType => activityType.value === e.target.value
+                    ).label,
+                  })
+                }
               >
                 {ACTIVITY_TYPES.map(activity => (
-                  <MenuItem key={activity} value={activity}>
-                    {activity}
+                  <MenuItem key={activity.value} value={activity.value}>
+                    {activity.label}
                   </MenuItem>
                 ))}
               </Select>
