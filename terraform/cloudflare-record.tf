@@ -15,6 +15,23 @@ resource "cloudflare_record" "A_careers_2" {
   proxied = "true"
   value   = "151.101.65.195"
 }
+resource "cloudflare_record" "A_business_1" {
+  domain  = "${var.cloudflare_zone}"
+  name    = "business"
+  type    = "A"
+  ttl     = "1"
+  proxied = "true"
+  value   = "151.101.1.195"
+}
+
+resource "cloudflare_record" "A_business_2" {
+  domain  = "${var.cloudflare_zone}"
+  name    = "business"
+  type    = "A"
+  ttl     = "1"
+  proxied = "true"
+  value   = "151.101.65.195"
+}
 
 resource "cloudflare_record" "A_careers-preview_1" {
   domain  = "${var.cloudflare_zone}"
@@ -28,6 +45,42 @@ resource "cloudflare_record" "A_careers-preview_1" {
 resource "cloudflare_record" "A_careers-preview_2" {
   domain  = "${var.cloudflare_zone}"
   name    = "careers-preview"
+  type    = "A"
+  ttl     = "1"
+  proxied = "true"
+  value   = "151.101.65.195"
+}
+
+resource "cloudflare_record" "A_business-preview_1" {
+  domain  = "${var.cloudflare_zone}"
+  name    = "business-preview"
+  type    = "A"
+  ttl     = "1"
+  proxied = "true"
+  value   = "151.101.1.195"
+}
+
+resource "cloudflare_record" "A_business-preview_2" {
+  domain  = "${var.cloudflare_zone}"
+  name    = "business-preview"
+  type    = "A"
+  ttl     = "1"
+  proxied = "true"
+  value   = "151.101.65.195"
+}
+
+resource "cloudflare_record" "A_business-dev_1" {
+  domain  = "${var.cloudflare_zone}"
+  name    = "business-dev"
+  type    = "A"
+  ttl     = "1"
+  proxied = "true"
+  value   = "151.101.1.195"
+}
+
+resource "cloudflare_record" "A_business-dev_2" {
+  domain  = "${var.cloudflare_zone}"
+  name    = "business-dev"
   type    = "A"
   ttl     = "1"
   proxied = "true"
@@ -106,6 +159,15 @@ resource "cloudflare_record" "CNAME_auth_careers" {
   value   = "nj-career-network.firebaseapp.com"
 }
 
+resource "cloudflare_record" "CNAME_auth_business" {
+  domain  = "${var.cloudflare_zone}"
+  name    = "auth.business"
+  type    = "CNAME"
+  ttl     = "1"
+  proxied = "false"
+  value   = "nj-business-helper.firebaseapp.com"
+}
+
 resource "cloudflare_record" "CNAME_auth_careers-preview" {
   domain  = "${var.cloudflare_zone}"
   name    = "auth.careers-preview"
@@ -113,6 +175,24 @@ resource "cloudflare_record" "CNAME_auth_careers-preview" {
   ttl     = "1"
   proxied = "false"
   value   = "nj-career-network-ppe.firebaseapp.com"
+}
+
+resource "cloudflare_record" "CNAME_auth_business-preview" {
+  domain  = "${var.cloudflare_zone}"
+  name    = "auth.business-preview"
+  type    = "CNAME"
+  ttl     = "1"
+  proxied = "false"
+  value   = "nj-business-helper-ppe.firebaseapp.com"
+}
+
+resource "cloudflare_record" "CNAME_auth_business-dev" {
+  domain  = "${var.cloudflare_zone}"
+  name    = "auth.business-dev"
+  type    = "CNAME"
+  ttl     = "1"
+  proxied = "false"
+  value   = "nj-business-helper-dev1.firebaseapp.com"
 }
 
 resource "cloudflare_record" "CNAME_firebase1__domainkey" {
