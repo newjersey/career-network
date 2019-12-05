@@ -344,6 +344,11 @@ function ActivityInputDialog({ show, onClose }) {
             Submit
           </Button>
         )}
+        {success && (
+          <Button autoFocus onClick={resetComponent} color="primary">
+            Add Another Activity
+          </Button>
+        )}
       </DialogActions>
     </Dialog>
   );
