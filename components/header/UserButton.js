@@ -7,7 +7,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import NextLink from 'next/link';
+import Router from 'next/router';
 import PersonIcon from '@material-ui/icons/Person';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import PropTypes from 'prop-types';
@@ -74,23 +74,19 @@ export default function UserButton(props) {
       <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleCloseUser}>
         <MenuItem disabled>{email}</MenuItem>
         {isAssessmentComplete ? (
-          <NextLink href="/dashboard">
-            <MenuItem>
-              <ListItemIcon>
-                <DashboardIcon />
-              </ListItemIcon>
-              <ListItemText primary="My dashboard" />
-            </MenuItem>
-          </NextLink>
+          <MenuItem onClick={() => Router.push('/dashboard')}>
+            <ListItemIcon>
+              <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText primary="My dashboard" />
+          </MenuItem>
         ) : (
-          <NextLink href="/assessment">
-            <MenuItem>
-              <ListItemIcon>
-                <AssignmentIcon />
-              </ListItemIcon>
-              <ListItemText primary="Questionnaire" />
-            </MenuItem>
-          </NextLink>
+          <MenuItem onClick={() => Router.push('/assessment')}>
+            <ListItemIcon>
+              <AssignmentIcon />
+            </ListItemIcon>
+            <ListItemText primary="Questionnaire" />
+          </MenuItem>
         )}
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
