@@ -206,6 +206,10 @@ function ActivityInputDialog({ show, onClose }) {
 
   const handleSave = () => {
     const data = {
+      config: {
+        activityTypes: ACTIVITY_TYPES,
+        feelings: FEELINGS,
+      },
       timestamp: new Date(),
       ...formValues,
     };
