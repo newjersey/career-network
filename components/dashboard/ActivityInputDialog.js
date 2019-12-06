@@ -145,6 +145,7 @@ FEELINGS.sort(() => {
 const activityFormValues = {
   activityType: ACTIVITY_TYPES[0],
   description: '',
+  briefDescription: '',
   dateCompleted: new Date(),
   timeSpentInMinutes: TIME_SPENT_TYPE[0].value,
   difficultyLevel: DIFFICULTY_LEVEL[0],
@@ -156,6 +157,7 @@ const isEmpty = s => {
   return s === undefined || s === null || s === '';
 };
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 function ActivityInputDialog({ show, onClose }) {
   const classes = useActivityDialogStyles();
   const formId = 'activity-input';
@@ -234,6 +236,21 @@ function ActivityInputDialog({ show, onClose }) {
                   </MenuItem>
                 ))}
               </Select>
+            </FormControl>
+            <FormControl className={classes.formControl}>
+              <InputLabel shrink htmlFor="briefDescription-textfield">
+                Brief Description
+              </InputLabel>
+              <TextField
+                id={`${formId}-briefDescription-textfield`}
+                value={formValues.briefDescription}
+                fullWidth
+                placeholder=" "
+                onChange={e => setFormValues({ ...formValues, briefDescription: e.target.value })}
+                className={classes.textField}
+                inputProps={{ maxlength: 80 }}
+                max
+              />
             </FormControl>
             <FormControl className={classes.formControl}>
               <InputLabel shrink htmlFor="description-textfield">

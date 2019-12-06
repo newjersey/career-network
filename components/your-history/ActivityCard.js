@@ -43,6 +43,10 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between',
     alignItems: 'flex-start',
   },
+  description: {
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(4),
+  },
 }));
 
 function ActivityCard(props) {
@@ -52,13 +56,13 @@ function ActivityCard(props) {
     timestamp,
     activityType,
     description,
+    briefDescription,
     dateCompleted,
     timeSpentInMinutes,
     difficultyLevel,
     activityFeeling,
     whyIfeelThisWay,
   } = props;
-
   return (
     <Card className={classes.card}>
       <CardContent>
@@ -70,40 +74,35 @@ function ActivityCard(props) {
             {getFormattedDateEntered(timestamp)}
           </Typography>
         </div>
-        <div className={classes.group}>
-          <Typography variant="h6" component="h2">
-            {description}
-          </Typography>
-        </div>
-        <div className={classes.group}>
-          <Typography variant="body2" component="p">
-            longer description
-          </Typography>
-        </div>
-        <div className={classes.group}>
-          <Grid container>
-            <Grid item xs={4}>
-              <Typography variant="body2" className={classes.label}>
-                Completed On
-              </Typography>
-              <Typography variant="body1">{getFormattedDateCompleted(dateCompleted)}</Typography>
-            </Grid>
-            <Grid item xs={4}>
-              <Typography variant="body2" className={classes.label}>
-                Difficulty
-              </Typography>
-              <Typography variant="body1">{difficultyLevel}</Typography>
-            </Grid>
-            <Grid item xs={4}>
-              <Typography variant="body2" className={classes.label}>
-                Estimated Time
-              </Typography>
-              <Typography variant="body1" component="span" display="block">
-                {timeSpentInMinutes} Minutes
-              </Typography>
-            </Grid>
+
+        <Typography variant="h6" component="h2" className={classes.group}>
+          {briefDescription}
+        </Typography>
+        <Typography variant="body2" component="p" className={classes.description}>
+          {description}
+        </Typography>
+        <Grid container className={classes.group}>
+          <Grid item xs={4}>
+            <Typography variant="body2" className={classes.label}>
+              Completed On
+            </Typography>
+            <Typography variant="body1">{getFormattedDateCompleted(dateCompleted)}</Typography>
           </Grid>
-        </div>
+          <Grid item xs={4}>
+            <Typography variant="body2" className={classes.label}>
+              Difficulty
+            </Typography>
+            <Typography variant="body1">{difficultyLevel}</Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography variant="body2" className={classes.label}>
+              Estimated Time
+            </Typography>
+            <Typography variant="body1" component="span" display="block">
+              {timeSpentInMinutes} Minutes
+            </Typography>
+          </Grid>
+        </Grid>
         <Divider className={classes.divider} />
         <div className={classes.group}>
           <Typography variant="body2" className={classes.label} gutterBottom>
@@ -137,6 +136,7 @@ ActivityCard.defaultProps = {
   difficultyLevel: '',
   activityFeeling: [],
   whyIfeelThisWay: '',
+  briefDescription: '',
   timestamp: null,
 };
 

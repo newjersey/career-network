@@ -10,6 +10,7 @@ export const ActivityPropTypes = PropTypes.shape({
   timeSpentInMinutes: PropTypes.number,
   activityFeeling: PropTypes.arrayOf(PropTypes.string),
   whyIFeelThisWay: PropTypes.string,
+  briefDescription: PropTypes.string,
 });
 
 export default {
