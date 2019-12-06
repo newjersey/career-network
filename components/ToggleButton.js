@@ -32,6 +32,7 @@ function ToggleButton({ options, value, handleChange, multiSelect }) {
     <Grid container>
       {options.map(opt => (
         <Button
+          key={opt}
           className={classes.button}
           variant="contained"
           onClick={() => handleUpdate(opt)}
