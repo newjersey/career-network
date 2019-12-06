@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
-import { format, compareAsc, isSameMonth, isSameYear } from 'date-fns';
+import { format, compareDesc, isSameMonth, isSameYear } from 'date-fns';
 import CalendarIcon from '@material-ui/icons/CalendarTodayRounded';
 import Grid from '@material-ui/core/Grid';
 import React, { useState, useEffect } from 'react';
@@ -13,8 +13,9 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(5, 0),
   },
   pageHeader: {
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3),
+    marginTop: theme.spacing(5),
+    marginBottom: theme.spacing(5),
+    fontWeight: theme.typography.fontWeightMedium,
   },
   listItem: {
     marginTop: theme.spacing(2),
@@ -63,12 +64,16 @@ export default function YourHistory(props) {
           Your Activities
         </Typography>
         {activityMonths
-          .sort((a, b) => compareAsc(new Date(a), new Date(b)))
+          .sort((a, b) => compareDesc(new Date(a), new Date(b)))
           .map(dateString => (
             <div className={classes.section}>
               <div className={classes.sectionHeader}>
-                <CalendarIcon className={classes.calendarIcon} />
-                <Typography display="inline" style={{ textTransform: 'uppercase' }}>
+                <CalendarIcon className={classes.calendarIcon} fontSize="small" />
+                <Typography
+                  variant="subtitle2"
+                  display="inline"
+                  style={{ textTransform: 'uppercase' }}
+                >
                   {dateString}
                 </Typography>
               </div>

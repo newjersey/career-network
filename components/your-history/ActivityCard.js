@@ -29,10 +29,11 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2),
   },
   group: {
+    marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
   label: {
-    lineHeight: 1.2,
+    fontWeight: theme.typography.fontWeightMedium,
   },
   chip: {
     marginRight: theme.spacing(1),
@@ -40,7 +41,7 @@ const useStyles = makeStyles(theme => ({
   header: {
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'baseline',
+    alignItems: 'flex-start',
   },
 }));
 
@@ -62,46 +63,52 @@ function ActivityCard(props) {
     <Card className={classes.card}>
       <CardContent>
         <div className={classes.header}>
-          <Typography variant="body1" component="p" gutterBottom noWrap style={{ maxWidth: '50%' }}>
+          <Typography variant="body1" noWrap style={{ maxWidth: '50%', fontWeight: 500 }}>
             {activityType}
           </Typography>
-          <Typography variant="body1" component="p" gutterBottom noWrap>
+          <Typography variant="caption" component="p" noWrap>
             {getFormattedDateEntered(timestamp)}
           </Typography>
         </div>
-        <Typography variant="h6" component="h2" gutterBottom>
-          {description}
-        </Typography>
+        <div className={classes.group}>
+          <Typography variant="h6" component="h2">
+            {description}
+          </Typography>
+        </div>
         <div className={classes.group}>
           <Typography variant="body2" component="p">
             longer description
           </Typography>
         </div>
-        <Grid container>
-          <Grid item xs={4}>
-            <Typography variant="overline" className={classes.label}>
-              Completed On
-            </Typography>
-            <Typography variant="body1">{getFormattedDateCompleted(dateCompleted)}</Typography>
+        <div className={classes.group}>
+          <Grid container>
+            <Grid item xs={4}>
+              <Typography variant="body2" className={classes.label}>
+                Completed On
+              </Typography>
+              <Typography variant="body1">{getFormattedDateCompleted(dateCompleted)}</Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography variant="body2" className={classes.label}>
+                Difficulty
+              </Typography>
+              <Typography variant="body1">{difficultyLevel}</Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography variant="body2" className={classes.label}>
+                Estimated Time
+              </Typography>
+              <Typography variant="body1" component="span" display="block">
+                {timeSpentInMinutes} Minutes
+              </Typography>
+            </Grid>
           </Grid>
-          <Grid item xs={4}>
-            <Typography variant="overline" className={classes.label}>
-              Difficulty
-            </Typography>
-            <Typography variant="body1">{difficultyLevel}</Typography>
-          </Grid>
-          <Grid item xs={4}>
-            <Typography variant="overline" className={classes.label}>
-              Estimated Time
-            </Typography>
-            <Typography variant="body1" component="span" display="block">
-              {timeSpentInMinutes} Minutes
-            </Typography>
-          </Grid>
-        </Grid>
+        </div>
         <Divider className={classes.divider} />
         <div className={classes.group}>
-          <Typography variant="overline">I felt...</Typography>
+          <Typography variant="body2" className={classes.label} gutterBottom>
+            I felt...
+          </Typography>
           <Grid>
             {activityFeeling.map(feeling => (
               <Chip key={feeling} label={feeling} className={classes.chip} />
@@ -109,7 +116,7 @@ function ActivityCard(props) {
           </Grid>
         </div>
         <div className={classes.group}>
-          <Typography variant="overline" className={classes.label}>
+          <Typography variant="body2" className={classes.label} gutterBottom>
             I felt like this because...
           </Typography>
           <Typography variant="body2" component="p">
