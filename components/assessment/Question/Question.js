@@ -25,6 +25,7 @@ function getDefaultValue(question, user) {
     case 'Email':
     case 'Phone':
     case 'Date':
+    case 'Number':
     case 'Option':
     case 'Link':
       return '';
@@ -32,7 +33,6 @@ function getDefaultValue(question, user) {
       return false;
     case 'File':
       return null;
-    case 'Number':
     default:
       return undefined;
   }
