@@ -23,6 +23,8 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(2),
   },
   calendarIcon: {
     marginRight: theme.spacing(1),
@@ -72,7 +74,9 @@ export default function YourHistory(props) {
               </div>
               <Grid direction="row" justify="center" alignItems="flex-start">
                 {visibleActivities
-                  .filter(activity => !isInMonthYear(activity.dateCompleted, new Date(dateString)))
+                  .filter(activity =>
+                    isInMonthYear(activity.dateCompleted.toDate(), new Date(dateString))
+                  )
                   .map(activity => (
                     <Grid item xs={12} className={classes.listItem}>
                       <ActivityCard key={activity.timestamp} {...activity} />
