@@ -17,6 +17,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import DateFnsUtils from '@date-io/date-fns';
+import startOfDay from 'date-fns/startOfDay';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
@@ -172,7 +173,7 @@ const activityFormValues = {
   activityTypeValue: ACTIVITY_TYPES[0].value,
   activityTypeLabel: ACTIVITY_TYPES[0].label,
   description: '',
-  dateCompleted: new Date(),
+  dateCompleted: startOfDay(new Date()),
   timeSpentInMinutes: TIME_SPENT_TYPE[0].value,
   difficultyLevel: DIFFICULTY_LEVEL[0],
   activityFeeling: [],
@@ -301,7 +302,9 @@ function ActivityInputDialog({ show, onClose }) {
                   id={`${formId}-dateCompleted`}
                   label="Date Completed"
                   value={formValues.dateCompleted}
-                  onChange={date => setFormValues({ ...formValues, dateCompleted: date })}
+                  onChange={date =>
+                    setFormValues({ ...formValues, dateCompleted: startOfDay(date) })
+                  }
                   KeyboardButtonProps={{
                     'aria-label': 'change date',
                   }}
