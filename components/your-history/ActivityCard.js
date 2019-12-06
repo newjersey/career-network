@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
+import { format } from 'date-fns';
 import Card from '@material-ui/core/Card';
 import Chip from '@material-ui/core/Chip';
 import Divider from '@material-ui/core/Divider';
@@ -8,6 +8,16 @@ import Grid from '@material-ui/core/Grid';
 
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import { ActivityPropTypes } from './PropTypes';
+
+function getFormattedDateCompleted(timestamp) {
+  const date = timestamp.toDate();
+  return format(date, 'MMMM do');
+}
+function getFormattedDateEntered(timestamp) {
+  const date = timestamp.toDate();
+  return format(date, 'P');
+}
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -27,12 +37,18 @@ const useStyles = makeStyles(theme => ({
   chip: {
     marginRight: theme.spacing(1),
   },
+  header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'baseline',
+  },
 }));
 
 function ActivityCard(props) {
   const classes = useStyles();
 
   const {
+    timestamp,
     activityType,
     description,
     dateCompleted,
@@ -45,14 +61,17 @@ function ActivityCard(props) {
   return (
     <Card className={classes.card}>
       <CardContent>
-        <div className={classes.group}>
-          <Typography variant="body1" component="p" gutterBottom noWrap>
+        <div className={classes.header}>
+          <Typography variant="body1" component="p" gutterBottom noWrap style={{ maxWidth: '50%' }}>
             {activityType}
           </Typography>
-          <Typography variant="h6" component="h2" gutterBottom>
-            {description}
+          <Typography variant="body1" component="p" gutterBottom noWrap>
+            {getFormattedDateEntered(timestamp)}
           </Typography>
         </div>
+        <Typography variant="h6" component="h2" gutterBottom>
+          {description}
+        </Typography>
         <div className={classes.group}>
           <Typography variant="body2" component="p">
             longer description
@@ -63,7 +82,7 @@ function ActivityCard(props) {
             <Typography variant="overline" className={classes.label}>
               Completed On
             </Typography>
-            <Typography variant="body1">{dateCompleted}</Typography>
+            <Typography variant="body1">{getFormattedDateCompleted(dateCompleted)}</Typography>
           </Grid>
           <Grid item xs={4}>
             <Typography variant="overline" className={classes.label}>
@@ -102,15 +121,7 @@ function ActivityCard(props) {
   );
 }
 
-ActivityCard.propTypes = {
-  activityType: PropTypes.string,
-  description: PropTypes.string.isRequired,
-  dateCompleted: PropTypes.instanceOf(Date),
-  timeSpentInMinutes: PropTypes.number,
-  difficultyLevel: PropTypes.string,
-  activityFeeling: PropTypes.arrayOf(PropTypes.string),
-  whyIfeelThisWay: PropTypes.string,
-};
+ActivityCard.propTypes = ActivityPropTypes;
 
 ActivityCard.defaultProps = {
   activityType: '',
@@ -119,6 +130,7 @@ ActivityCard.defaultProps = {
   difficultyLevel: '',
   activityFeeling: [],
   whyIfeelThisWay: '',
+  timestamp: null,
 };
 
 export default ActivityCard;
