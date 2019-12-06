@@ -22,6 +22,7 @@ import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/picker
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import shuffle from 'lodash/fp/shuffle';
+import firebase from 'firebase/app';
 
 import { useAuth } from '../Auth';
 import ToggleButton from '../ToggleButton';
@@ -204,30 +205,42 @@ function ActivityInputDialog({ show, onClose }) {
     return true;
   };
 
-  const handleSave = () => {
+  const submit = () => {
+    const increment = firebase.firestore.FieldValue.increment(1);
+    const timestamp = firebase.firestore.FieldValue.serverTimestamp();
     const data = {
       config: {
         activityTypes: ACTIVITY_TYPES,
         feelings: FEELINGS,
       },
-      timestamp: new Date(),
+      timestamp,
       ...formValues,
     };
+    const stats = {
+      activityLogEntriesCount: increment,
+      activityLogEntriesLatestTimestamp: timestamp,
+    };
+
+    setSubmitting(true);
+    userDocRef
+      .collection('activityLogEntries')
+      .add(data)
+      .then(() => {
+        setSubmitting(false);
+        setSuccess(true);
+        userDocRef.set({ stats }, { merge: true });
+      })
+      .catch(err => {
+        setSubmitting(false);
+        setError(err.message);
+      });
+  };
+
+  const handleSave = () => {
     setError();
 
     if (isFormValid()) {
-      setSubmitting(true);
-      userDocRef
-        .collection('activityLogEntries')
-        .add(data)
-        .then(() => {
-          setSubmitting(false);
-          setSuccess(true);
-        })
-        .catch(err => {
-          setSubmitting(false);
-          setError(err.message);
-        });
+      submit();
     }
   };
 
