@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import FirebasePropTypes from '../Firebase/PropTypes';
 
 export const ActivityPropTypes = PropTypes.shape({
+  activityTypeLabel: PropTypes.string,
+  activityTypeValue: PropTypes.string,
   dateCompleted: FirebasePropTypes.timestamp,
   timestamp: FirebasePropTypes.timestamp,
   description: PropTypes.string.isRequired,

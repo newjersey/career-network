@@ -54,7 +54,7 @@ function ActivityCard(props) {
 
   const {
     timestamp,
-    activityType,
+    activityTypeLabel,
     description,
     briefDescription,
     dateCompleted,
@@ -68,7 +68,7 @@ function ActivityCard(props) {
       <CardContent>
         <div className={classes.header}>
           <Typography variant="body1" noWrap style={{ maxWidth: '50%', fontWeight: 500 }}>
-            {activityType}
+            {activityTypeLabel}
           </Typography>
           <Typography variant="caption" component="p" noWrap>
             {getFormattedDateEntered(timestamp)}
@@ -130,7 +130,8 @@ function ActivityCard(props) {
 ActivityCard.propTypes = ActivityPropTypes;
 
 ActivityCard.defaultProps = {
-  activityType: '',
+  activityTypeValue: '',
+  activityTypeLabel: '',
   dateCompleted: null,
   timeSpentInMinutes: null,
   difficultyLevel: '',
