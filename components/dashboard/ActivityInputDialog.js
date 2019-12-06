@@ -177,7 +177,7 @@ const activityFormValues = {
   timeSpentInMinutes: TIME_SPENT_TYPE[0].value,
   difficultyLevel: DIFFICULTY_LEVEL[0],
   activityFeeling: [],
-  whyIfeelThisWay: null,
+  whyIfeelThisWay: '',
 };
 
 const isEmpty = s => {
