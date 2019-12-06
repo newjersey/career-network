@@ -94,36 +94,35 @@ const useActivityDialogStyles = makeStyles(theme => ({
 const ACTIVITY_TYPES = [
   {
     value: 'openings',
-    label: 'Searched for job openings (e.g. Indeed, LinkedIn, Monster, CareerBuilder, etc.)',
+    label: 'Searched for job openings (Indeed, LinkedIn, Monster, CareerBuilder, etc.)',
   },
   {
     value: 'application',
-    label: 'Completed job application',
+    label: 'Completed a job application',
   },
   {
     value: 'materials',
-    label:
-      'Created, revised, or customized marketing materials (e.g. resume, cover letter, business card, LinkedIn profile, LinkedIn post, etc.)',
+    label: 'Worked on marketing materials (resume, cover letter,LinkedIn profile/activity, etc.)',
   },
   {
     value: 'interview-prep',
-    label: 'Prepared for interview',
+    label: 'Prepared for an interview',
   },
   {
     value: 'networking-irl',
-    label: 'Attend networking event/job fair',
+    label: 'Attended a networking event/job fair',
   },
   {
     value: 'networking-virtual',
-    label: 'Virtual networking interaction (via email, LinkedIn, etc.)',
+    label: 'Had a virtual networking interaction (via email, LinkedIn, etc.)',
   },
   {
     value: 'contact',
-    label: 'Meeting/call with contact',
+    label: 'Had a meeting/call with a contact',
   },
   {
     value: 'research-company-industry',
-    label: 'Researched target company/industry',
+    label: 'Researched a target company/industry',
   },
   {
     value: 'research-contacts',
