@@ -283,10 +283,9 @@ function ActivityInputDialog({ show, onClose }) {
               <TextField
                 id={`${formId}-description-textfield`}
                 value={formValues.description}
-                error={formErrors && formErrors.description}
-                helperText={formErrors && formErrors.description ? formErrors.description : ''}
+                error={!!(formErrors && formErrors.description)}
+                helperText={(formErrors && formErrors.description) || ''}
                 fullWidth
-                placeholder=" "
                 onChange={e => setFormValues({ ...formValues, description: e.target.value })}
                 className={classes.textField}
               />
