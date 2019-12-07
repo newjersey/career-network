@@ -104,7 +104,7 @@ const ACTIVITY_TYPES = [
   },
   {
     value: 'materials',
-    label: 'Worked on marketing materials (resume, cover letter,LinkedIn profile/activity, etc.)',
+    label: 'Worked on marketing materials (resume, cover letter, LinkedIn profile/activity, etc.)',
   },
   {
     value: 'interview-prep',
