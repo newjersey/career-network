@@ -343,7 +343,6 @@ function ActivityInputDialog({ show, onClose }) {
             <FormControl className={classes.formControl}>
               <InputLabel id={`${formId}-timeSpent`}>Time Spent</InputLabel>
               <Select
-                labelId={`${formId}-timeSpent`}
                 id={`${formId}-timeSpent-select`}
                 value={formValues.timeSpentInMinutes}
                 onChange={e => setFormValues({ ...formValues, timeSpentInMinutes: e.target.value })}
