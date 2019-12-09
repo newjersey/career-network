@@ -1,9 +1,9 @@
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { format, compareDesc, isSameMonth, isSameYear } from 'date-fns';
+import Typography from '@material-ui/core/Typography';
 import CalendarIcon from '@material-ui/icons/CalendarTodayRounded';
 import Grid from '@material-ui/core/Grid';
-import React, { useState, useEffect } from 'react';
-import Typography from '@material-ui/core/Typography';
 import ActivityCard from './ActivityCard';
 import YourHistoryPropTypes from './PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
@@ -66,7 +66,7 @@ export default function YourHistory(props) {
         {activityMonths
           .sort((a, b) => compareDesc(new Date(a), new Date(b)))
           .map(dateString => (
-            <div className={classes.section}>
+            <div className={classes.section} key={dateString}>
               <div className={classes.sectionHeader}>
                 <CalendarIcon className={classes.calendarIcon} fontSize="small" />
                 <Typography
@@ -77,14 +77,14 @@ export default function YourHistory(props) {
                   {dateString}
                 </Typography>
               </div>
-              <Grid direction="row" justify="center" alignItems="flex-start">
+              <Grid container direction="row" justify="center" alignItems="flex-start">
                 {visibleActivities
                   .filter(activity =>
                     isInMonthYear(activity.dateCompleted.toDate(), new Date(dateString))
                   )
                   .map(activity => (
-                    <Grid item xs={12} className={classes.listItem}>
-                      <ActivityCard key={activity.timestamp} {...activity} />
+                    <Grid item xs={12} className={classes.listItem} key={activity.timestamp}>
+                      <ActivityCard {...activity} />
                     </Grid>
                   ))}
               </Grid>

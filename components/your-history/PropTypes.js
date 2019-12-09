@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import FirebasePropTypes from '../Firebase/PropTypes';
 
-export const ActivityPropTypes = PropTypes.shape({
+export const ActivityPropTypes = {
   activityTypeLabel: PropTypes.string,
   activityTypeValue: PropTypes.string,
   dateCompleted: FirebasePropTypes.timestamp,
@@ -13,8 +13,8 @@ export const ActivityPropTypes = PropTypes.shape({
   activityFeeling: PropTypes.arrayOf(PropTypes.string),
   whyIFeelThisWay: PropTypes.string,
   briefDescription: PropTypes.string,
-});
+};
 
 export default {
-  activities: FirebasePropTypes.querySnapshot.isRequired,
+  activities: FirebasePropTypes.querySnapshot,
 };
