@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { format, compareDesc, isSameMonth, isSameYear } from 'date-fns';
 import Typography from '@material-ui/core/Typography';
@@ -34,28 +34,26 @@ const useStyles = makeStyles(theme => ({
 
 export default function YourHistory(props) {
   const classes = useStyles();
-  const [visibleActivities, setVisibleActivities] = useState([]);
-  const [activityMonths, setActivityMonths] = useState([]);
   const { activities } = props;
+  let visibleActivities = [];
+  let activityMonths = [];
 
   const isInMonthYear = (date, monthYear) =>
     isSameMonth(date, monthYear) && isSameYear(date, monthYear);
 
-  useEffect(() => {
-    if (!activities.empty) {
-      const dates = [];
-      const temp = activities.map(a => {
-        const activity = a.data();
-        const date = format(activity.dateCompleted.toDate(), 'MMMM y');
-        if (!dates.includes(date)) {
-          dates.push(date);
-        }
-        return activity;
-      });
-      setVisibleActivities(temp);
-      setActivityMonths(dates);
-    }
-  }, [activities]); //eslint-disable-line
+  if (!activities.empty) {
+    const dates = [];
+    const temp = activities.map(a => {
+      const activity = a.data();
+      const date = format(activity.dateCompleted.toDate(), 'MMMM y');
+      if (!dates.includes(date)) {
+        dates.push(date);
+      }
+      return activity;
+    });
+    visibleActivities = temp;
+    activityMonths = dates;
+  }
 
   return (
     <div className={classes.root}>
