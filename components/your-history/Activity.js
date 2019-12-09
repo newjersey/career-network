@@ -135,10 +135,10 @@ function Activity(props) {
 Activity.propTypes = {
   activityTypeLabel: PropTypes.string,
   dateCompleted: FirebasePropTypes.timestamp,
-  timestamp: FirebasePropTypes.timestamp,
+  timestamp: FirebasePropTypes.timestamp.isRequired,
   description: PropTypes.string.isRequired,
-  difficultyLevel: PropTypes.string,
-  timeSpentInMinutes: PropTypes.number,
+  difficultyLevel: PropTypes.string.isRequired,
+  timeSpentInMinutes: PropTypes.number.isRequired,
   activityFeeling: PropTypes.arrayOf(PropTypes.string),
   whyIFeelThisWay: PropTypes.string,
   briefDescription: PropTypes.string,
@@ -147,12 +147,9 @@ Activity.propTypes = {
 Activity.defaultProps = {
   activityTypeLabel: '',
   dateCompleted: null,
-  timeSpentInMinutes: null,
-  difficultyLevel: '',
   activityFeeling: [],
   whyIFeelThisWay: '',
   briefDescription: '',
-  timestamp: null,
 };
 
 export default Activity;
