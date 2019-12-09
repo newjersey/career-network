@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -20,9 +20,11 @@ import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 import { useAuth } from '../Auth';
 import ToggleButton from '../ToggleButton';
+import validate from './ActivityInputValidationRules';
 
 const styles = theme => ({
   root: {
@@ -143,17 +145,13 @@ FEELINGS.sort(() => {
 });
 
 const activityFormValues = {
-  activityType: ACTIVITY_TYPES[0],
+  activityType: '',
   description: '',
   dateCompleted: new Date(),
-  timeSpentInMinutes: TIME_SPENT_TYPE[0].value,
-  difficultyLevel: DIFFICULTY_LEVEL[0],
+  timeSpentInMinutes: '',
+  difficultyLevel: '',
   activityFeeling: [],
   whyIfeelThisWay: null,
-};
-
-const isEmpty = s => {
-  return s === undefined || s === null || s === '';
 };
 
 function ActivityInputDialog({ show, onClose }) {
@@ -161,46 +159,48 @@ function ActivityInputDialog({ show, onClose }) {
   const formId = 'activity-input';
   const { userDocRef } = useAuth();
   const [error, setError] = useState();
+  const [attemptSubmitting, setAttemptSubmitting] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [formValues, setFormValues] = useState(activityFormValues);
   const [formErrors, setFormErrors] = useState({});
 
-  const isFormValid = () => {
-    setFormErrors({});
-    if (isEmpty(formValues.description)) {
-      setFormErrors({ ...formErrors, description: 'Field is required.' });
-      return false;
-    }
-    return true;
+  const handleSave = () => {
+    setError();
+    setAttemptSubmitting(true);
+    setFormErrors(validate(formValues));
   };
 
-  const handleSave = () => {
+  const saveData = () => {
+    setAttemptSubmitting(false);
+    setSubmitting(true);
     const data = {
       timestamp: new Date(),
       ...formValues,
     };
-    setError();
-
-    if (isFormValid()) {
-      setSubmitting(true);
-      userDocRef
-        .collection('activityLogEntries')
-        .add(data)
-        .then(() => {
-          setSubmitting(false);
-          setSuccess(true);
-        })
-        .catch(err => {
-          setSubmitting(false);
-          setError(err.message);
-        });
-    }
+    userDocRef
+      .collection('activityLogEntries')
+      .add(data)
+      .then(() => {
+        setSubmitting(false);
+        setSuccess(true);
+      })
+      .catch(err => {
+        setSubmitting(false);
+        setError(err.message);
+      });
   };
+
+  useEffect(() => {
+    if (Object.keys(formErrors).length === 0 && attemptSubmitting) {
+      saveData();
+    }
+  }, [formErrors]);
 
   const resetComponent = () => {
     setError();
     setSuccess(false);
+    setAttemptSubmitting(false);
     setSubmitting(false);
     setFormValues(activityFormValues);
     setFormErrors({});
@@ -226,6 +226,7 @@ function ActivityInputDialog({ show, onClose }) {
               <Select
                 id={`${formId}-activityType-select`}
                 value={formValues.activityType}
+                error={formErrors && formErrors.activityType}
                 onChange={e => setFormValues({ ...formValues, activityType: e.target.value })}
               >
                 {ACTIVITY_TYPES.map(activity => (
@@ -234,6 +235,9 @@ function ActivityInputDialog({ show, onClose }) {
                   </MenuItem>
                 ))}
               </Select>
+              <FormHelperText error>
+                {formErrors && formErrors.activityType ? formErrors.activityType : ''}
+              </FormHelperText>
             </FormControl>
             <FormControl className={classes.formControl}>
               <InputLabel shrink htmlFor="description-textfield">
@@ -282,6 +286,9 @@ function ActivityInputDialog({ show, onClose }) {
                   </MenuItem>
                 ))}
               </Select>
+              <FormHelperText error>
+                {formErrors && formErrors.timeSpentInMinutes ? formErrors.timeSpentInMinutes : ''}
+              </FormHelperText>
             </FormControl>
             <FormControl className={classes.formControl} id={`${formId}-difficultyLevel-radio`}>
               <Typography variant="caption" color="textSecondary">
@@ -294,6 +301,9 @@ function ActivityInputDialog({ show, onClose }) {
                   handleChange={e => setFormValues({ ...formValues, difficultyLevel: e })}
                 />
               </Grid>
+              <FormHelperText error>
+                {formErrors && formErrors.difficultyLevel ? formErrors.difficultyLevel : ''}
+              </FormHelperText>
             </FormControl>
             <FormControl className={classes.formControl} id={`${formId}-feelings`}>
               <Typography variant="caption" color="textSecondary">
