@@ -300,7 +300,6 @@ function ActivityInputDialog({ show, onClose }) {
                 id={`${formId}-briefDescription-textfield`}
                 value={formValues.briefDescription}
                 fullWidth
-                placeholder=" "
                 onChange={e => setFormValues({ ...formValues, briefDescription: e.target.value })}
                 className={classes.textField}
                 inputProps={{ maxLength: 80 }}
@@ -382,7 +381,7 @@ function ActivityInputDialog({ show, onClose }) {
                 <ToggleButton
                   options={shuffledFeelings}
                   multiSelect
-                  value={String(formValues.activityFeeling)}
+                  value={formValues.activityFeeling}
                   handleChange={e => setFormValues({ ...formValues, activityFeeling: e })}
                 />
               </Grid>

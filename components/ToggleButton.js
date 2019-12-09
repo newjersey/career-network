@@ -51,7 +51,7 @@ ToggleButton.defaultProps = {
 
 ToggleButton.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]).isRequired,
+  value: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string), PropTypes.string]).isRequired,
   handleChange: PropTypes.func.isRequired,
   multiSelect: PropTypes.bool,
 };
