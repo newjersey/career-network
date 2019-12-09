@@ -105,24 +105,28 @@ function ActivityCard(props) {
           </Grid>
         </Grid>
         <Divider className={classes.divider} />
-        <div className={classes.group}>
-          <Typography variant="body2" className={classes.label} gutterBottom>
-            I felt...
-          </Typography>
-          <Grid>
-            {activityFeeling.map(feeling => (
-              <Chip key={feeling} label={feeling} className={classes.chip} />
-            ))}
-          </Grid>
-        </div>
-        <div className={classes.group}>
-          <Typography variant="body2" className={classes.label} gutterBottom>
-            I felt like this because...
-          </Typography>
-          <Typography variant="body2" component="p">
-            {whyIFeelThisWay}
-          </Typography>
-        </div>
+        {activityFeeling.length > 0 && (
+          <div className={classes.group}>
+            <Typography variant="body2" className={classes.label} gutterBottom>
+              I felt...
+            </Typography>
+            <Grid>
+              {activityFeeling.map(feeling => (
+                <Chip key={feeling} label={feeling} className={classes.chip} />
+              ))}
+            </Grid>
+          </div>
+        )}
+        {whyIFeelThisWay && whyIFeelThisWay.length > 0 && (
+          <div className={classes.group}>
+            <Typography variant="body2" className={classes.label} gutterBottom>
+              I felt like this because...
+            </Typography>
+            <Typography variant="body2" component="p">
+              {whyIFeelThisWay}
+            </Typography>
+          </div>
+        )}
       </CardContent>
     </Card>
   );
