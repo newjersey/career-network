@@ -27,6 +27,9 @@ import firebase from 'firebase/app';
 import { useAuth } from '../Auth';
 import ToggleButton from '../ToggleButton';
 
+import useFormValidation from '../../src/formValidationHook';
+import activityFormValidation from './ActivityForm/activityFormValidation';
+
 const styles = theme => ({
   root: {
     margin: 0,
@@ -171,85 +174,84 @@ const FEELINGS = [
 ];
 
 const activityFormValues = {
-  activityTypeValue: ACTIVITY_TYPES[0].value,
-  activityTypeLabel: ACTIVITY_TYPES[0].label,
+  activityType: ACTIVITY_TYPES[0],
   description: '',
   dateCompleted: startOfDay(new Date()),
-  timeSpentInMinutes: TIME_SPENT_TYPE[0].value,
+  timeSpent: TIME_SPENT_TYPE[0],
   difficultyLevel: DIFFICULTY_LEVEL[0],
   activityFeeling: [],
-  whyIfeelThisWay: '',
+  whyIFeelThisWay: '',
 };
 
-const isEmpty = s => {
-  return s === undefined || s === null || s === '';
-};
+// const isEmpty = s => {
+//   return s === undefined || s === null || s === '';
+// };
 
 function ActivityInputDialog({ show, onClose }) {
   const classes = useActivityDialogStyles();
   const formId = 'activity-input';
   const { userDocRef } = useAuth();
-  const [error, setError] = useState();
-  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState();
+  // const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [formValues, setFormValues] = useState(activityFormValues);
-  const [formErrors, setFormErrors] = useState({});
+  // const [formValues, setFormValues] = useState(activityFormValues);
+  // const [formErrors, setFormErrors] = useState({});
   const [shuffledFeelings, setShuffledFeelings] = useState(shuffle(FEELINGS));
-
-  const isFormValid = () => {
-    setFormErrors({});
-    if (isEmpty(formValues.description)) {
-      setFormErrors({ ...formErrors, description: 'Field is required.' });
-      return false;
-    }
-    return true;
-  };
-
-  const submit = () => {
+  // const isFormValid = () => {
+  //   setFormErrors({});
+  //   if (isEmpty(formValues.description)) {
+  //     setFormErrors({ ...formErrors, description: 'Field is required.' });
+  //     return false;
+  //   }
+  //   return true;
+  // };
+  function submit(formValues) {
     const increment = firebase.firestore.FieldValue.increment(1);
     const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+    const { timeSpent, activityType, dateCompleted, ...formData } = formValues;
     const data = {
       config: {
         activityTypes: ACTIVITY_TYPES,
         feelings: FEELINGS,
       },
       timestamp,
-      ...formValues,
+      ...formData,
+      timeSpentInMinutes: timeSpent.value,
+      dateCompleted: startOfDay(dateCompleted),
+      activityTypeLabel: activityType.label,
+      activityTypeValue: activityType.value,
     };
     const stats = {
       activityLogEntriesCount: increment,
       activityLogEntriesLatestTimestamp: timestamp,
     };
-
-    setSubmitting(true);
     userDocRef
       .collection('activityLogEntries')
       .add(data)
       .then(() => {
-        setSubmitting(false);
         setSuccess(true);
         userDocRef.set({ stats }, { merge: true });
       })
       .catch(err => {
-        setSubmitting(false);
-        setError(err.message);
+        setSubmitError(err.message);
       });
-  };
+  }
 
-  const handleSave = () => {
-    setError();
-
-    if (isFormValid()) {
-      submit();
-    }
-  };
+  const {
+    handleSubmit,
+    handleChange,
+    handleChangeCustom,
+    values,
+    errors,
+    isSubmitting,
+  } = useFormValidation(activityFormValues, activityFormValidation, submit);
 
   const resetComponent = () => {
-    setError();
+    // setError();
     setSuccess(false);
-    setSubmitting(false);
-    setFormValues(activityFormValues);
-    setFormErrors({});
+    // setSubmitting(false);
+    // setFormValues(activityFormValues);
+    // setFormErrors({});
     setShuffledFeelings(shuffle(FEELINGS)); // random shuffle of Feeling types.
   };
 
@@ -265,26 +267,19 @@ function ActivityInputDialog({ show, onClose }) {
         <Typography variant="h5">Add Activity</Typography>
       </DialogTitle>
       <DialogContent dividers>
-        {submitting && <CircularProgress />}
-        {!(submitting || success) && (
+        {isSubmitting && <CircularProgress />}
+        {!(isSubmitting || success) && (
           <form className={classes.container} id={formId}>
             <FormControl className={classes.formControl}>
               <InputLabel id={`${formId}-activityType`}>Activity</InputLabel>
               <Select
                 id={`${formId}-activityType-select`}
-                value={formValues.activityTypeValue}
-                onChange={e =>
-                  setFormValues({
-                    ...formValues,
-                    activityTypeValue: e.target.value,
-                    activityTypeLabel: ACTIVITY_TYPES.find(
-                      activityType => activityType.value === e.target.value
-                    ).label,
-                  })
-                }
+                value={values.activityType}
+                inputProps={{ name: 'activityType' }}
+                onChange={handleChange}
               >
                 {ACTIVITY_TYPES.map(activity => (
-                  <MenuItem key={activity.value} value={activity.value}>
+                  <MenuItem key={activity.value} value={activity}>
                     {activity.label}
                   </MenuItem>
                 ))}
@@ -296,11 +291,12 @@ function ActivityInputDialog({ show, onClose }) {
               </InputLabel>
               <TextField
                 id={`${formId}-description-textfield`}
-                value={formValues.description}
-                error={!!(formErrors && formErrors.description)}
-                helperText={(formErrors && formErrors.description) || ''}
+                inputProps={{ name: 'description' }}
+                value={values.description}
+                error={!!(errors && errors.description)}
+                helperText={(errors && errors.description) || ''}
                 fullWidth
-                onChange={e => setFormValues({ ...formValues, description: e.target.value })}
+                onChange={handleChange}
                 className={classes.textField}
               />
             </FormControl>
@@ -314,10 +310,9 @@ function ActivityInputDialog({ show, onClose }) {
                   margin="normal"
                   id={`${formId}-dateCompleted`}
                   label="Date Completed"
-                  value={formValues.dateCompleted}
-                  onChange={date =>
-                    setFormValues({ ...formValues, dateCompleted: startOfDay(date) })
-                  }
+                  inputProps={{ name: 'dateCompleted' }}
+                  value={values.dateCompleted}
+                  onChange={date => handleChangeCustom('dateCompleted', date)}
                   KeyboardButtonProps={{
                     'aria-label': 'change date',
                   }}
@@ -329,11 +324,12 @@ function ActivityInputDialog({ show, onClose }) {
               <Select
                 labelId={`${formId}-timeSpent`}
                 id={`${formId}-timeSpent-select`}
-                value={formValues.timeSpentInMinutes}
-                onChange={e => setFormValues({ ...formValues, timeSpentInMinutes: e.target.value })}
+                value={values.timeSpent}
+                inputProps={{ name: 'timeSpent' }}
+                onChange={handleChange}
               >
                 {TIME_SPENT_TYPE.map(timeSpentType => (
-                  <MenuItem key={timeSpentType.label} value={timeSpentType.value}>
+                  <MenuItem key={timeSpentType.value} value={timeSpentType}>
                     {timeSpentType.label}
                   </MenuItem>
                 ))}
@@ -346,8 +342,8 @@ function ActivityInputDialog({ show, onClose }) {
               <Grid item xs={12} md={6} className={classes.toggleButton}>
                 <ToggleButton
                   options={DIFFICULTY_LEVEL}
-                  value={String(formValues.difficultyLevel)}
-                  handleChange={e => setFormValues({ ...formValues, difficultyLevel: e })}
+                  value={values.difficultyLevel}
+                  handleChange={newVal => handleChangeCustom('difficultyLevel', newVal)}
                 />
               </Grid>
             </FormControl>
@@ -367,13 +363,13 @@ function ActivityInputDialog({ show, onClose }) {
                 <ToggleButton
                   options={shuffledFeelings}
                   multiSelect
-                  value={String(formValues.activityFeeling)}
-                  handleChange={e => setFormValues({ ...formValues, activityFeeling: e })}
+                  value={values.activityFeeling}
+                  handleChange={newVal => handleChangeCustom('activityFeeling', newVal)}
                 />
               </Grid>
             </FormControl>
             <TextField
-              id={`${formId}-whyIfeelThisWay-textfield`}
+              id={`${formId}-whyIFeelThisWay-textfield`}
               label="Why Do You Feel This Way"
               multiline
               rows="4"
@@ -381,14 +377,15 @@ function ActivityInputDialog({ show, onClose }) {
               margin="normal"
               variant="outlined"
               fullWidth
-              value={formValues.whyIfeelThisWay}
-              onChange={e => setFormValues({ ...formValues, whyIfeelThisWay: e.target.value })}
+              inputProps={{ name: 'whyIFeelThisWay' }}
+              value={values.whyIFeelThisWay}
+              onChange={handleChange}
             />
           </form>
         )}
-        {error && (
+        {submitError && (
           <Typography color="error" variant="h4">
-            Error: {error}
+            Error: {submitError}
           </Typography>
         )}
         {success && (
@@ -400,7 +397,7 @@ function ActivityInputDialog({ show, onClose }) {
       </DialogContent>
       <DialogActions>
         {!success && (
-          <Button autoFocus onClick={handleSave} color="primary">
+          <Button disabled={isSubmitting} onClick={handleSubmit} color="primary">
             Submit
           </Button>
         )}
