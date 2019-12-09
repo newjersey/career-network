@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import ActivityCard from './ActivityCard';
 import YourHistoryPropTypes from './PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
+import { isDone } from '../../src/app-helper';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -34,12 +35,12 @@ const useStyles = makeStyles(theme => ({
 
 export default function YourHistory(props) {
   const classes = useStyles();
-  const { activities } = props;
+  const { activities, tasks, taskDispositionEvents } = props;
   let visibleActivities = [];
   let activityMonths = [];
-
   const isInMonthYear = (date, monthYear) =>
     isSameMonth(date, monthYear) && isSameYear(date, monthYear);
+  const completedTasks = tasks.filter(task => isDone(task, taskDispositionEvents, 'taskId'));
 
   if (!activities.empty) {
     const dates = [];
@@ -58,6 +59,7 @@ export default function YourHistory(props) {
   return (
     <div className={classes.root}>
       <ScaffoldContainer>
+        {JSON.stringify(completedTasks)}
         <Typography variant="h5" component="h5" className={classes.pageHeader}>
           Your Activities
         </Typography>
