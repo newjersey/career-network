@@ -303,8 +303,7 @@ function ActivityInputDialog({ show, onClose }) {
                 placeholder=" "
                 onChange={e => setFormValues({ ...formValues, briefDescription: e.target.value })}
                 className={classes.textField}
-                inputProps={{ maxlength: 80 }}
-                max
+                inputProps={{ maxLength: 80 }}
               />
             </FormControl>
             <FormControl className={classes.formControl}>
