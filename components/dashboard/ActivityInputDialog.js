@@ -293,7 +293,7 @@ function ActivityInputDialog({ show, onClose }) {
               </Select>
             </FormControl>
             <FormControl className={classes.formControl}>
-              <InputLabel shrink htmlFor="briefDescription-textfield">
+              <InputLabel shrink htmlFor={`${formId}-briefDescription-textfield`}>
                 Brief Description
               </InputLabel>
               <TextField
@@ -307,7 +307,7 @@ function ActivityInputDialog({ show, onClose }) {
               />
             </FormControl>
             <FormControl className={classes.formControl}>
-              <InputLabel shrink htmlFor="description-textfield">
+              <InputLabel shrink htmlFor={`${formId}-description-textfield`}>
                 Description
               </InputLabel>
               <TextField
@@ -323,12 +323,12 @@ function ActivityInputDialog({ show, onClose }) {
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <Grid container className={classes.formControl}>
                 <KeyboardDatePicker
+                  id={`${formId}-dateCompleted`}
                   disableToolbar
                   disableFuture
                   variant="inline"
                   format="MM/dd/yyyy"
                   margin="normal"
-                  id={`${formId}-dateCompleted`}
                   label="Date Completed"
                   value={formValues.dateCompleted}
                   onChange={date =>
@@ -354,7 +354,7 @@ function ActivityInputDialog({ show, onClose }) {
                 ))}
               </Select>
             </FormControl>
-            <FormControl className={classes.formControl} id={`${formId}-difficultyLevel-radio`}>
+            <FormControl className={classes.formControl} id={`${formId}-difficultyLevel`}>
               <Typography variant="caption" color="textSecondary">
                 Difficulty Level
               </Typography>
