@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function ActivityCard(props) {
+function Activity(props) {
   const classes = useStyles();
 
   const {
@@ -68,7 +68,7 @@ function ActivityCard(props) {
     <Card className={classes.card}>
       <CardContent>
         <div className={classes.header}>
-          <Typography variant="body1" noWrap style={{ maxWidth: '50%', fontWeight: 500 }}>
+          <Typography variant="body1" noWrap style={{ maxWidth: '75%', fontWeight: 500 }}>
             {activityTypeLabel}
           </Typography>
           <Typography variant="caption" component="p" noWrap>
@@ -132,7 +132,7 @@ function ActivityCard(props) {
   );
 }
 
-ActivityCard.propTypes = {
+Activity.propTypes = {
   activityTypeLabel: PropTypes.string,
   dateCompleted: FirebasePropTypes.timestamp,
   timestamp: FirebasePropTypes.timestamp,
@@ -144,7 +144,7 @@ ActivityCard.propTypes = {
   briefDescription: PropTypes.string,
 };
 
-ActivityCard.defaultProps = {
+Activity.defaultProps = {
   activityTypeLabel: '',
   dateCompleted: null,
   timeSpentInMinutes: null,
@@ -155,4 +155,4 @@ ActivityCard.defaultProps = {
   timestamp: null,
 };
 
-export default ActivityCard;
+export default Activity;
