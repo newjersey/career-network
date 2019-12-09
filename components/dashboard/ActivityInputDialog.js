@@ -17,10 +17,13 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import DateFnsUtils from '@date-io/date-fns';
+import startOfDay from 'date-fns/startOfDay';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import shuffle from 'lodash/fp/shuffle';
+import firebase from 'firebase/app';
 
 import { useAuth } from '../Auth';
 import ToggleButton from '../ToggleButton';
@@ -93,16 +96,46 @@ const useActivityDialogStyles = makeStyles(theme => ({
 }));
 
 const ACTIVITY_TYPES = [
-  'Searched for job openings (e.g., Indeed, LinkedIn, Monster, CareerBuilder, etc.)',
-  'Completed job application',
-  'Created, revised, or customized marketing materials (e.g., resume, cover letter, business card, LinkedIn profile, LinkedIn post, etc.)',
-  'Prepared for interview',
-  'Attend networking event/job fair',
-  'Virtual networking interaction (via email, LinkedIn, etc.)',
-  'Meeting/Call with contact',
-  'Researched target company/industry',
-  'Researched contacts at target company',
-  'Other',
+  {
+    value: 'openings',
+    label: 'Searched for job openings (Indeed, LinkedIn, Monster, CareerBuilder, etc.)',
+  },
+  {
+    value: 'application',
+    label: 'Completed a job application',
+  },
+  {
+    value: 'materials',
+    label: 'Worked on marketing materials (resume, cover letter, LinkedIn profile/activity, etc.)',
+  },
+  {
+    value: 'interview-prep',
+    label: 'Prepared for an interview',
+  },
+  {
+    value: 'networking-irl',
+    label: 'Attended a networking event/job fair',
+  },
+  {
+    value: 'networking-virtual',
+    label: 'Had a virtual networking interaction (via email, LinkedIn, etc.)',
+  },
+  {
+    value: 'contact',
+    label: 'Had a meeting/call with a contact',
+  },
+  {
+    value: 'research-company-industry',
+    label: 'Researched a target company/industry',
+  },
+  {
+    value: 'research-contacts',
+    label: 'Researched contacts at target company',
+  },
+  {
+    value: 'other',
+    label: 'Other',
+  },
 ];
 
 const TIME_SPENT_TYPE = [
@@ -139,19 +172,15 @@ const FEELINGS = [
   'Overwhelmed',
 ];
 
-// random shuffle of Feeling types.
-FEELINGS.sort(() => {
-  return 0.5 - Math.random();
-});
-
 const activityFormValues = {
-  activityType: '',
+  activityTypeValue: '',
+  activityTypeLabel: '',
   description: '',
-  dateCompleted: new Date(),
+  dateCompleted: startOfDay(new Date()),
   timeSpentInMinutes: '',
   difficultyLevel: '',
   activityFeeling: [],
-  whyIfeelThisWay: null,
+  whyIfeelThisWay: '',
 };
 
 function ActivityInputDialog({ show, onClose }) {
@@ -164,6 +193,7 @@ function ActivityInputDialog({ show, onClose }) {
   const [success, setSuccess] = useState(false);
   const [formValues, setFormValues] = useState(activityFormValues);
   const [formErrors, setFormErrors] = useState({});
+  const [shuffledFeelings, setShuffledFeelings] = useState(shuffle(FEELINGS));
 
   const handleSave = () => {
     setError();
@@ -171,31 +201,37 @@ function ActivityInputDialog({ show, onClose }) {
     setFormErrors(validate(formValues));
   };
 
-  const saveData = () => {
+  const submit = () => {
     setAttemptSubmitting(false);
     setSubmitting(true);
+    const increment = firebase.firestore.FieldValue.increment(1);
+    const timestamp = firebase.firestore.FieldValue.serverTimestamp();
     const data = {
-      timestamp: new Date(),
+      config: {
+        activityTypes: ACTIVITY_TYPES,
+        feelings: FEELINGS,
+      },
+      timestamp,
       ...formValues,
     };
+    const stats = {
+      activityLogEntriesCount: increment,
+      activityLogEntriesLatestTimestamp: timestamp,
+    };
+
     userDocRef
       .collection('activityLogEntries')
       .add(data)
       .then(() => {
         setSubmitting(false);
         setSuccess(true);
+        userDocRef.set({ stats }, { merge: true });
       })
       .catch(err => {
         setSubmitting(false);
         setError(err.message);
       });
   };
-
-  useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && attemptSubmitting) {
-      saveData();
-    }
-  }, [formErrors]);
 
   const resetComponent = () => {
     setError();
@@ -204,7 +240,14 @@ function ActivityInputDialog({ show, onClose }) {
     setSubmitting(false);
     setFormValues(activityFormValues);
     setFormErrors({});
+    setShuffledFeelings(shuffle(FEELINGS)); // random shuffle of Feeling types.
   };
+
+  useEffect(() => {
+    if (Object.keys(formErrors).length === 0 && attemptSubmitting) {
+      submit();
+    }
+  }, [formErrors]);
 
   return (
     <Dialog
@@ -225,18 +268,25 @@ function ActivityInputDialog({ show, onClose }) {
               <InputLabel id={`${formId}-activityType`}>Activity</InputLabel>
               <Select
                 id={`${formId}-activityType-select`}
-                value={formValues.activityType}
-                error={formErrors && formErrors.activityType}
-                onChange={e => setFormValues({ ...formValues, activityType: e.target.value })}
+                value={formValues.activityTypeValue}
+                onChange={e =>
+                  setFormValues({
+                    ...formValues,
+                    activityTypeValue: e.target.value,
+                    activityTypeLabel: ACTIVITY_TYPES.find(
+                      activityType => activityType.value === e.target.value
+                    ).label,
+                  })
+                }
               >
                 {ACTIVITY_TYPES.map(activity => (
-                  <MenuItem key={activity} value={activity}>
-                    {activity}
+                  <MenuItem key={activity.value} value={activity.value}>
+                    {activity.label}
                   </MenuItem>
                 ))}
               </Select>
               <FormHelperText error>
-                {formErrors && formErrors.activityType ? formErrors.activityType : ''}
+                {formErrors && formErrors.activityTypeValue ? formErrors.activityTypeValue : ''}
               </FormHelperText>
             </FormControl>
             <FormControl className={classes.formControl}>
@@ -246,10 +296,9 @@ function ActivityInputDialog({ show, onClose }) {
               <TextField
                 id={`${formId}-description-textfield`}
                 value={formValues.description}
-                error={formErrors && formErrors.description}
-                helperText={formErrors && formErrors.description ? formErrors.description : ''}
+                error={!!(formErrors && formErrors.description)}
+                helperText={(formErrors && formErrors.description) || ''}
                 fullWidth
-                placeholder=" "
                 onChange={e => setFormValues({ ...formValues, description: e.target.value })}
                 className={classes.textField}
               />
@@ -265,7 +314,9 @@ function ActivityInputDialog({ show, onClose }) {
                   id={`${formId}-dateCompleted`}
                   label="Date Completed"
                   value={formValues.dateCompleted}
-                  onChange={date => setFormValues({ ...formValues, dateCompleted: date })}
+                  onChange={date =>
+                    setFormValues({ ...formValues, dateCompleted: startOfDay(date) })
+                  }
                   KeyboardButtonProps={{
                     'aria-label': 'change date',
                   }}
@@ -319,7 +370,7 @@ function ActivityInputDialog({ show, onClose }) {
                 className={classes.toggleButton}
               >
                 <ToggleButton
-                  options={FEELINGS}
+                  options={shuffledFeelings}
                   multiSelect
                   value={String(formValues.activityFeeling)}
                   handleChange={e => setFormValues({ ...formValues, activityFeeling: e })}

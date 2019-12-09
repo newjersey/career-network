@@ -17,7 +17,7 @@ dayjs.extend(relativeTime);
 const difficultyColor = difficulty => {
   return {
     easy: '#d2f7c5',
-    challenging: '#ffeab6',
+    medium: '#ffeab6',
     hard: '#ffdce5',
   }[difficulty.toLowerCase()];
 };
@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
 export default function Activity({ activity }) {
   const classes = useStyles();
   const {
-    activityType,
+    activityTypeLabel,
     dateCompleted,
     description,
     timeSpentInMinutes,
@@ -51,7 +51,7 @@ export default function Activity({ activity }) {
   return (
     <Card className={classes.card} data-intercom="activity">
       <CardHeader
-        title={upperFirst(activityType)}
+        title={upperFirst(activityTypeLabel)}
         titleTypographyProps={{ component: 'h2' }}
         subheader={dayjs(dateCompleted.toDate()).fromNow()}
         classes={{ title: classes.cardHeaderTitle }}

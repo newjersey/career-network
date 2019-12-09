@@ -1,7 +1,7 @@
 export default function validate(formValues) {
   const formErrors = {};
-  if (!formValues.activityType) {
-    formErrors.activityType = 'Activity is required.';
+  if (!formValues.activityTypeValue) {
+    formErrors.activityTypeValue = 'Activity is required.';
   }
   if (!formValues.description) {
     formErrors.description = 'Description is required.';
