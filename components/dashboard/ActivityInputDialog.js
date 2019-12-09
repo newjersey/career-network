@@ -183,28 +183,14 @@ const activityFormValues = {
   whyIFeelThisWay: '',
 };
 
-// const isEmpty = s => {
-//   return s === undefined || s === null || s === '';
-// };
-
 function ActivityInputDialog({ show, onClose }) {
   const classes = useActivityDialogStyles();
   const formId = 'activity-input';
   const { userDocRef } = useAuth();
   const [submitError, setSubmitError] = useState();
-  // const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
-  // const [formValues, setFormValues] = useState(activityFormValues);
-  // const [formErrors, setFormErrors] = useState({});
   const [shuffledFeelings, setShuffledFeelings] = useState(shuffle(FEELINGS));
-  // const isFormValid = () => {
-  //   setFormErrors({});
-  //   if (isEmpty(formValues.description)) {
-  //     setFormErrors({ ...formErrors, description: 'Field is required.' });
-  //     return false;
-  //   }
-  //   return true;
-  // };
+
   function submit(formValues) {
     const increment = firebase.firestore.FieldValue.increment(1);
     const timestamp = firebase.firestore.FieldValue.serverTimestamp();
