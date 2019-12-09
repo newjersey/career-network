@@ -8,7 +8,8 @@ import Grid from '@material-ui/core/Grid';
 
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { ActivityPropTypes } from './PropTypes';
+import PropTypes from 'prop-types';
+import FirebasePropTypes from '../Firebase/PropTypes';
 
 function getFormattedDateCompleted(timestamp) {
   const date = timestamp.toDate();
@@ -61,7 +62,7 @@ function ActivityCard(props) {
     timeSpentInMinutes,
     difficultyLevel,
     activityFeeling,
-    whyIfeelThisWay,
+    whyIFeelThisWay,
   } = props;
   return (
     <Card className={classes.card}>
@@ -119,7 +120,7 @@ function ActivityCard(props) {
             I felt like this because...
           </Typography>
           <Typography variant="body2" component="p">
-            {whyIfeelThisWay}
+            {whyIFeelThisWay}
           </Typography>
         </div>
       </CardContent>
@@ -127,16 +128,25 @@ function ActivityCard(props) {
   );
 }
 
-ActivityCard.propTypes = ActivityPropTypes;
+ActivityCard.propTypes = {
+  activityTypeLabel: PropTypes.string,
+  dateCompleted: FirebasePropTypes.timestamp,
+  timestamp: FirebasePropTypes.timestamp,
+  description: PropTypes.string.isRequired,
+  difficultyLevel: PropTypes.string,
+  timeSpentInMinutes: PropTypes.number,
+  activityFeeling: PropTypes.arrayOf(PropTypes.string),
+  whyIFeelThisWay: PropTypes.string,
+  briefDescription: PropTypes.string,
+};
 
 ActivityCard.defaultProps = {
-  activityTypeValue: '',
   activityTypeLabel: '',
   dateCompleted: null,
   timeSpentInMinutes: null,
   difficultyLevel: '',
   activityFeeling: [],
-  whyIfeelThisWay: '',
+  whyIFeelThisWay: '',
   briefDescription: '',
   timestamp: null,
 };
