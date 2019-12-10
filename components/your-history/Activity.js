@@ -50,7 +50,6 @@ function Activity(props) {
   const classes = useStyles();
 
   const {
-    timestamp,
     activityTypeLabel,
     description,
     briefDescription,
@@ -129,7 +128,6 @@ function Activity(props) {
 Activity.propTypes = {
   activityTypeLabel: PropTypes.string,
   dateCompleted: FirebasePropTypes.timestamp,
-  timestamp: FirebasePropTypes.timestamp.isRequired,
   description: PropTypes.string.isRequired,
   difficultyLevel: PropTypes.string.isRequired,
   timeSpentInMinutes: PropTypes.number.isRequired,
