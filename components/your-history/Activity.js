@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function ActivityCard(props) {
+function Activity(props) {
   const classes = useStyles();
 
   const {
@@ -64,11 +64,12 @@ function ActivityCard(props) {
     activityFeeling,
     whyIFeelThisWay,
   } = props;
+
   return (
     <Card className={classes.card}>
       <CardContent>
         <div className={classes.header}>
-          <Typography variant="body1" noWrap style={{ maxWidth: '50%', fontWeight: 500 }}>
+          <Typography variant="body1" noWrap style={{ maxWidth: '75%', fontWeight: 500 }}>
             {activityTypeLabel}
           </Typography>
           <Typography variant="caption" component="p" noWrap>
@@ -132,27 +133,24 @@ function ActivityCard(props) {
   );
 }
 
-ActivityCard.propTypes = {
+Activity.propTypes = {
   activityTypeLabel: PropTypes.string,
   dateCompleted: FirebasePropTypes.timestamp,
-  timestamp: FirebasePropTypes.timestamp,
+  timestamp: FirebasePropTypes.timestamp.isRequired,
   description: PropTypes.string.isRequired,
-  difficultyLevel: PropTypes.string,
-  timeSpentInMinutes: PropTypes.number,
+  difficultyLevel: PropTypes.string.isRequired,
+  timeSpentInMinutes: PropTypes.number.isRequired,
   activityFeeling: PropTypes.arrayOf(PropTypes.string),
   whyIFeelThisWay: PropTypes.string,
   briefDescription: PropTypes.string,
 };
 
-ActivityCard.defaultProps = {
+Activity.defaultProps = {
   activityTypeLabel: '',
   dateCompleted: null,
-  timeSpentInMinutes: null,
-  difficultyLevel: '',
   activityFeeling: [],
   whyIFeelThisWay: '',
   briefDescription: '',
-  timestamp: null,
 };
 
-export default ActivityCard;
+export default Activity;

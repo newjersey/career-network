@@ -4,7 +4,7 @@ import { format, compareDesc, isSameMonth, isSameYear } from 'date-fns';
 import Typography from '@material-ui/core/Typography';
 import CalendarIcon from '@material-ui/icons/CalendarTodayRounded';
 import Grid from '@material-ui/core/Grid';
-import ActivityCard from './ActivityCard';
+import Activity from './Activity';
 import YourHistoryPropTypes from './PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
 
@@ -43,14 +43,21 @@ export default function YourHistory(props) {
 
   if (!activities.empty) {
     const dates = [];
-    const temp = activities.map(a => {
-      const activity = a.data();
-      const date = format(activity.dateCompleted.toDate(), 'MMMM y');
-      if (!dates.includes(date)) {
-        dates.push(date);
-      }
-      return activity;
-    });
+    const temp = activities
+      .map(a => {
+        const activity = a.data();
+        const date = format(activity.dateCompleted.toDate(), 'MMMM y');
+        if (!dates.includes(date)) {
+          dates.push(date);
+        }
+        return activity;
+      })
+      .sort((activityA, activityB) =>
+        compareDesc(
+          new Date(activityA.dateCompleted.toDate()),
+          new Date(activityB.dateCompleted.toDate())
+        )
+      );
     visibleActivities = temp;
     activityMonths = dates;
   }
@@ -82,7 +89,7 @@ export default function YourHistory(props) {
                   )
                   .map(activity => (
                     <Grid item xs={12} className={classes.listItem} key={activity.timestamp}>
-                      <ActivityCard {...activity} />
+                      <Activity {...activity} />
                     </Grid>
                   ))}
               </Grid>
