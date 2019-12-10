@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import CalendarIcon from '@material-ui/icons/CalendarTodayRounded';
 import Grid from '@material-ui/core/Grid';
 import Activity from './Activity';
+import CompletedTask from './CompletedTask';
 import YourHistoryPropTypes from './PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
 
@@ -55,6 +56,7 @@ function filterDoneFromTaskDispositionEvents(events) {
           title: task.fields.Task,
           why: task.fields.Why,
           dateCompleted: timestamp.toDate(),
+          cardType: 'task',
         };
       }
       return null;
@@ -66,7 +68,6 @@ export default function YourHistory(props) {
     isSameMonth(date, monthYear) && isSameYear(date, monthYear);
   const classes = useStyles();
   const { activities, taskDispositionEvents } = props;
-  let visibleActivities = [];
   let activityMonths = [];
   let completedTasks = [];
   let cards = [];
@@ -85,10 +86,10 @@ export default function YourHistory(props) {
       return {
         ...activity,
         dateCmp: activity.dateCompleted.toDate(),
+        cardType: 'activity',
       };
     });
 
-    visibleActivities = temp;
     activityMonths = dates;
     cards = [...temp, ...completedTasks].sort((a, b) =>
       compareDesc(new Date(a.dateCmp), new Date(b.dateCmp))
@@ -117,15 +118,21 @@ export default function YourHistory(props) {
                 </Typography>
               </div>
               <Grid container direction="row" justify="center" alignItems="flex-start">
-                {visibleActivities
-                  .filter(activity =>
-                    isInMonthYear(activity.dateCompleted.toDate(), new Date(dateString))
-                  )
-                  .map(activity => (
-                    <Grid item xs={12} className={classes.listItem} key={activity.timestamp}>
-                      <Activity {...activity} />
-                    </Grid>
-                  ))}
+                {cards
+                  .filter(card => isInMonthYear(card.dateCmp, new Date(dateString)))
+                  .map(
+                    card =>
+                      (card.cardType === 'activity' && (
+                        <Grid item xs={12} className={classes.listItem} key={card.timestamp}>
+                          <Activity {...card} />
+                        </Grid>
+                      )) ||
+                      (card.cardType === 'task' && (
+                        <Grid item xs={12} className={classes.listItem} key={card.timestamp}>
+                          <CompletedTask {...card} />
+                        </Grid>
+                      ))
+                  )}
               </Grid>
             </div>
           ))}
