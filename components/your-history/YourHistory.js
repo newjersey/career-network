@@ -99,7 +99,6 @@ export default function YourHistory(props) {
   return (
     <div className={classes.root}>
       <ScaffoldContainer>
-        {JSON.stringify(cards)}
         <Typography variant="h5" component="h5" className={classes.pageHeader}>
           Your Activities
         </Typography>

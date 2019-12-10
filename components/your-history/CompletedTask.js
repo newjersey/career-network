@@ -1,7 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { format } from 'date-fns';
+import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
+import Chip from '@material-ui/core/Chip';
 import Grid from '@material-ui/core/Grid';
 
 import CardContent from '@material-ui/core/CardContent';
@@ -43,6 +45,15 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+function bgColor(category) {
+  return {
+    'Marketing yourself': '#d0f0fd',
+    'Relationship building': '#d2f7c5',
+    'Searching/applying for jobs': '#ffeab6',
+    'Researching people & companies': '#ffdce5',
+  }[category];
+}
+
 function CompleteTask(props) {
   const classes = useStyles();
 
@@ -52,10 +63,15 @@ function CompleteTask(props) {
     <Card className={classes.card}>
       <CardContent>
         <div className={classes.header}>
-          <Typography variant="body1" noWrap style={{ maxWidth: '75%', fontWeight: 500 }}>
-            {category}
-          </Typography>
-          <Typography variant="caption" component="p" noWrap>
+          {category && (
+            <Chip
+              size="small"
+              label={category}
+              className={classes.type}
+              style={{ backgroundColor: bgColor(category) }}
+            />
+          )}
+          <Typography variant="caption" component="p">
             icon
           </Typography>
         </div>
@@ -64,6 +80,9 @@ function CompleteTask(props) {
           {title}
         </Typography>
         <Typography variant="body2" component="p" className={classes.description}>
+          <Box fontWeight="fontWeightBold" display="inline">
+            Why?{' '}
+          </Box>
           {why}
         </Typography>
         <Grid container className={classes.group}>
