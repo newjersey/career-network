@@ -71,18 +71,14 @@ export default function History(props) {
   let activityMonths = [];
   let completedTasks = [];
   let cards = [];
+  const dates = [];
 
   if (!taskDispositionEvents.empty) {
     completedTasks = filterDoneFromTaskDispositionEvents(taskDispositionEvents);
   }
   if (!activities.empty) {
-    const dates = [];
     const temp = activities.map(a => {
       const activity = a.data();
-      const date = format(activity.dateCompleted.toDate(), 'MMMM y');
-      if (!dates.includes(date)) {
-        dates.push(date);
-      }
       return {
         ...activity,
         dateCmp: activity.dateCompleted.toDate(),
@@ -95,6 +91,14 @@ export default function History(props) {
       compareDesc(new Date(a.dateCmp), new Date(b.dateCmp))
     );
   }
+
+  cards.forEach(c => {
+    const date = format(c.dateCmp, 'MMMM y');
+    if (!dates.includes(date)) {
+      dates.push(date);
+    }
+  });
+  activityMonths = dates.sort((a, b) => compareDesc(new Date(a), new Date(b)));
 
   return (
     <div className={classes.root}>
