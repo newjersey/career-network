@@ -5,6 +5,7 @@ import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import Chip from '@material-ui/core/Chip';
 import Grid from '@material-ui/core/Grid';
+import VpnKey from '@material-ui/icons/VpnKey';
 
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -72,9 +73,7 @@ function CompleteTask(props) {
               style={{ backgroundColor: bgColor(category) }}
             />
           )}
-          <Typography variant="caption" component="p" style={{ position: 'absolute', right: 0 }}>
-            Icon
-          </Typography>
+          <VpnKey style={{ position: 'absolute', right: 0 }} />
         </div>
 
         <Typography variant="h6" component="h2" className={classes.group}>

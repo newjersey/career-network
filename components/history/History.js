@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function filterDoneFromTaskDispositionEvents(events) {
-  // TODO: remove duplicates and prefer most recent task timestamp
+  // Remove duplicates and prefer most recent task timestamp
   const taskIds = events.reduce(
     (unique, item) =>
       unique.includes(item.data().taskId) ? unique : [...unique, item.data().taskId],
