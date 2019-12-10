@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import CalendarIcon from '@material-ui/icons/CalendarTodayRounded';
 import Grid from '@material-ui/core/Grid';
 import Activity from './Activity';
-import YourHistoryPropTypes from './PropTypes';
+import HistoryPropTypes from './PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
 
 const useStyles = makeStyles(theme => ({
@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function YourHistory(props) {
+export default function History(props) {
   const classes = useStyles();
   const { activities } = props;
   let visibleActivities = [];
@@ -100,4 +100,4 @@ export default function YourHistory(props) {
   );
 }
 
-YourHistory.propTypes = YourHistoryPropTypes;
+History.propTypes = HistoryPropTypes;
