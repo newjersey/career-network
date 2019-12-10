@@ -64,6 +64,7 @@ function Activity(props) {
     activityFeeling,
     whyIFeelThisWay,
   } = props;
+
   return (
     <Card className={classes.card}>
       <CardContent>
