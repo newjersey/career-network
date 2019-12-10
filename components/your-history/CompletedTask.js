@@ -38,6 +38,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
+    position: 'relative',
   },
   description: {
     marginTop: theme.spacing(4),
@@ -71,8 +72,8 @@ function CompleteTask(props) {
               style={{ backgroundColor: bgColor(category) }}
             />
           )}
-          <Typography variant="caption" component="p">
-            icon
+          <Typography variant="caption" component="p" style={{ position: 'absolute', right: 0 }}>
+            Icon
           </Typography>
         </div>
 

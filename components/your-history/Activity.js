@@ -15,10 +15,6 @@ function getFormattedDateCompleted(timestamp) {
   const date = timestamp.toDate();
   return format(date, 'MMMM do');
 }
-function getFormattedDateEntered(timestamp) {
-  const date = timestamp.toDate();
-  return format(date, 'P');
-}
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -71,9 +67,6 @@ function Activity(props) {
         <div className={classes.header}>
           <Typography variant="body1" noWrap style={{ maxWidth: '75%', fontWeight: 500 }}>
             {activityTypeLabel}
-          </Typography>
-          <Typography variant="caption" component="p" noWrap>
-            {getFormattedDateEntered(timestamp)}
           </Typography>
         </div>
 
