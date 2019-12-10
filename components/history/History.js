@@ -90,7 +90,7 @@ export default function History(props) {
       };
     });
 
-    activityMonths = dates;
+    activityMonths = dates.sort((a, b) => compareDesc(new Date(a), new Date(b)));
     cards = [...temp, ...completedTasks].sort((a, b) =>
       compareDesc(new Date(a.dateCmp), new Date(b.dateCmp))
     );
@@ -102,39 +102,33 @@ export default function History(props) {
         <Typography variant="h5" component="h5" className={classes.pageHeader}>
           Your Activities
         </Typography>
-        {activityMonths
-          .sort((a, b) => compareDesc(new Date(a), new Date(b)))
-          .map(dateString => (
-            <div className={classes.section} key={dateString}>
-              <div className={classes.sectionHeader}>
-                <CalendarIcon className={classes.calendarIcon} fontSize="small" />
-                <Typography
-                  variant="subtitle2"
-                  display="inline"
-                  style={{ textTransform: 'uppercase' }}
-                >
-                  {dateString}
-                </Typography>
-              </div>
-              <Grid container direction="row" justify="center" alignItems="flex-start">
-                {cards
-                  .filter(card => isInMonthYear(card.dateCmp, new Date(dateString)))
-                  .map(
-                    card =>
-                      (card.cardType === 'activity' && (
-                        <Grid item xs={12} className={classes.listItem} key={card.timestamp}>
-                          <Activity {...card} />
-                        </Grid>
-                      )) ||
-                      (card.cardType === 'task' && (
-                        <Grid item xs={12} className={classes.listItem} key={card.timestamp}>
-                          <CompletedTask {...card} />
-                        </Grid>
-                      ))
-                  )}
-              </Grid>
+        {activityMonths.map(dateString => (
+          <div className={classes.section} key={dateString}>
+            <div className={classes.sectionHeader}>
+              <CalendarIcon className={classes.calendarIcon} fontSize="small" />
+              <Typography
+                variant="subtitle2"
+                display="inline"
+                style={{ textTransform: 'uppercase' }}
+              >
+                {dateString}
+              </Typography>
             </div>
-          ))}
+            <Grid container direction="row" justify="center" alignItems="flex-start">
+              {cards
+                .filter(card => isInMonthYear(card.dateCmp, new Date(dateString)))
+                .map(card => (
+                  <Grid item xs={12} className={classes.listItem} key={card.timestamp}>
+                    {card.cardType === 'activity' ? (
+                      <Activity {...card} />
+                    ) : (
+                      <CompletedTask {...card} />
+                    )}
+                  </Grid>
+                ))}
+            </Grid>
+          </div>
+        ))}
       </ScaffoldContainer>
     </div>
   );
