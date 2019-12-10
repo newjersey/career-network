@@ -3,5 +3,6 @@ import AirtablePropTypes from '../Airtable/PropTypes';
 
 export default {
   activities: FirebasePropTypes.querySnapshot,
-  completedTasks: AirtablePropTypes.tasks,
+  tasks: AirtablePropTypes.tasks,
+  taskDispositionEvents: FirebasePropTypes.querySnapshot,
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { fullyLoaded, allPropsLoaded } from '../src/app-helper';
+import { fullyLoaded, allPropsLoaded, isDone } from '../src/app-helper';
 import { useAuth, withAuthRequired } from '../components/Auth';
 import { useUserSubcollection } from '../components/Firebase';
 import { useRecords } from '../components/Airtable';
@@ -10,12 +10,15 @@ import withTitle from '../components/withTitle';
 function YourHistoryPage() {
   const { user } = useAuth();
   const allUserActivities = useUserSubcollection('activityLogEntries');
-  const recordProps = {
-    allTasks: useRecords('Tasks'),
-  };
+  const allTaskDispositionEvents = useUserSubcollection('taskDispositionEvents');
+  const allTasks = useRecords('Tasks');
 
-  return fullyLoaded(user, allUserActivities, allPropsLoaded(recordProps)) ? (
-    <YourHistory activities={allUserActivities} completedTasks={recordProps.allTasks} />
+  return fullyLoaded(user, allUserActivities, allTaskDispositionEvents, allTasks) ? (
+    <YourHistory
+      activities={allUserActivities}
+      tasks={allTasks}
+      taskDispositionEvents={allTaskDispositionEvents}
+    />
   ) : (
     <FullPageProgress />
   );
