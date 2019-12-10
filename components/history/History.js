@@ -6,7 +6,7 @@ import CalendarIcon from '@material-ui/icons/CalendarTodayRounded';
 import Grid from '@material-ui/core/Grid';
 import Activity from './Activity';
 import CompletedTask from './CompletedTask';
-import YourHistoryPropTypes from './PropTypes';
+import HistoryPropTypes from './PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
 
 const useStyles = makeStyles(theme => ({
@@ -63,7 +63,7 @@ function filterDoneFromTaskDispositionEvents(events) {
     });
 }
 
-export default function YourHistory(props) {
+export default function History(props) {
   const isInMonthYear = (date, monthYear) =>
     isSameMonth(date, monthYear) && isSameYear(date, monthYear);
   const classes = useStyles();
@@ -140,4 +140,4 @@ export default function YourHistory(props) {
   );
 }
 
-YourHistory.propTypes = YourHistoryPropTypes;
+History.propTypes = HistoryPropTypes;

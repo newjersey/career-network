@@ -48,7 +48,7 @@ export default function AppManager(props) {
       if (user.isCoach) {
         url = '/coaching';
       } else if (user.isAssessmentComplete) {
-        url = Router.router && Router.route === '/your-history' ? '/your-history' : '/dashboard';
+        url = Router.router && Router.route === '/history' ? '/history' : '/dashboard';
       }
 
       (async () => {
