@@ -179,7 +179,7 @@ const activityFormValues = {
   timeSpentInMinutes: TIME_SPENT_TYPE[0].value,
   difficultyLevel: DIFFICULTY_LEVEL[0],
   activityFeeling: [],
-  whyIfeelThisWay: '',
+  whyIFeelThisWay: '',
 };
 
 const isEmpty = s => {
@@ -387,7 +387,7 @@ function ActivityInputDialog({ show, onClose }) {
               </Grid>
             </FormControl>
             <TextField
-              id={`${formId}-whyIfeelThisWay-textfield`}
+              id={`${formId}-whyIFeelThisWay-textfield`}
               label="Why Do You Feel This Way"
               multiline
               rows="4"
@@ -395,8 +395,8 @@ function ActivityInputDialog({ show, onClose }) {
               margin="normal"
               variant="outlined"
               fullWidth
-              value={formValues.whyIfeelThisWay}
-              onChange={e => setFormValues({ ...formValues, whyIfeelThisWay: e.target.value })}
+              value={formValues.whyIFeelThisWay}
+              onChange={e => setFormValues({ ...formValues, whyIFeelThisWay: e.target.value })}
             />
           </form>
         )}
