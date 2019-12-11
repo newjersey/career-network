@@ -9,6 +9,11 @@ import CompletedTask from './CompletedTask';
 import HistoryPropTypes from './PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
 
+function getFormattedDateCompleted(timestamp) {
+  const date = timestamp.toDate();
+  return format(date, 'MMMM do');
+}
+
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(5, 0),
@@ -55,7 +60,7 @@ function filterDoneFromTaskDispositionEvents(events) {
           category: task.fields.Category,
           title: task.fields.Task,
           why: task.fields.Why,
-          dateCompleted: timestamp.toDate(),
+          dateCompleted: getFormattedDateCompleted(timestamp),
           cardType: 'task',
         };
       }
@@ -78,10 +83,11 @@ export default function History(props) {
   }
   if (!activities.empty) {
     const temp = activities.map(a => {
-      const activity = a.data();
+      const { dateCompleted, ...activity } = a.data();
       return {
         ...activity,
-        dateCmp: activity.dateCompleted.toDate(),
+        dateCompleted: getFormattedDateCompleted(dateCompleted),
+        dateCmp: dateCompleted.toDate(),
         cardType: 'activity',
       };
     });
@@ -122,11 +128,11 @@ export default function History(props) {
               {cards
                 .filter(card => isInMonthYear(card.dateCmp, new Date(dateString)))
                 .map(card => (
-                  <Grid item xs={12} className={classes.listItem} key={card.timestamp}>
+                  <Grid item xs={12} className={classes.listItem}>
                     {card.cardType === 'activity' ? (
-                      <Activity {...card} />
+                      <Activity {...card} key={card.timestamp} />
                     ) : (
-                      <CompletedTask {...card} />
+                      <CompletedTask {...card} key={card.timestamp} />
                     )}
                   </Grid>
                 ))}
