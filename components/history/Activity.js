@@ -90,7 +90,7 @@ function Activity(props) {
           </Grid>
           <Grid item xs={4}>
             <Typography variant="body2" className={classes.label}>
-              Estimated Time
+              Time Spent
             </Typography>
             <Typography variant="body1" component="span" display="block">
               {timeSpentInMinutes} Minutes
