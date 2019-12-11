@@ -61,6 +61,7 @@ function filterDoneFromTaskDispositionEvents(events) {
           title: task.fields.Task,
           why: task.fields.Why,
           dateCompleted: getFormattedDateCompleted(timestamp),
+          timestamp,
           cardType: 'task',
         };
       }
@@ -128,11 +129,11 @@ export default function History(props) {
               {cards
                 .filter(card => isInMonthYear(card.dateCmp, new Date(dateString)))
                 .map(card => (
-                  <Grid item xs={12} className={classes.listItem}>
+                  <Grid key={card.timestamp} item xs={12} className={classes.listItem}>
                     {card.cardType === 'activity' ? (
-                      <Activity {...card} key={card.timestamp} />
+                      <Activity {...card} />
                     ) : (
-                      <CompletedTask {...card} key={card.timestamp} />
+                      <CompletedTask {...card} />
                     )}
                   </Grid>
                 ))}
