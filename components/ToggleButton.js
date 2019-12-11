@@ -15,17 +15,14 @@ function ToggleButton({ options, value, handleChange, multiSelect }) {
   const classes = useStyles();
 
   const isSelected = v => (multiSelect ? selected.includes(v) : selected === v);
-  const addSelected = v => (multiSelect ? setSelected([...selected, v]) : setSelected(v));
-  const removeSelected = v =>
-    multiSelect ? setSelected(selected.filter(el => el !== v)) : setSelected();
+  const addSelected = v => (multiSelect ? [...selected, v] : v);
+  const removeSelected = v => (multiSelect ? selected.filter(el => el !== v) : undefined);
 
   const handleUpdate = v => {
-    if (isSelected(v)) {
-      removeSelected(v);
-    } else {
-      addSelected(v);
-    }
-    handleChange(selected);
+    const newSelection = isSelected(v) ? removeSelected(v) : addSelected(v);
+
+    handleChange(newSelection);
+    setSelected(newSelection);
   };
 
   return (
