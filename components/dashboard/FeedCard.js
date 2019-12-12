@@ -37,9 +37,13 @@ export default function FeedCard(props) {
   return (
     <Card className={classes.card} data-intercom={cardType}>
       <CardHeader
-        title={title}
+        title={<Typography variant="body1">{subheader}</Typography>}
         titleTypographyProps={{ component: 'h2' }}
-        subheader={subheader}
+        subheader={
+          <Typography variant="h6" component="h2">
+            {title}
+          </Typography>
+        }
         classes={{ title: classes.cardHeaderTitle }}
         action={icon}
       />
@@ -69,7 +73,12 @@ FeedCard.propTypes = {
   title: PropTypes.string.isRequired,
   subheader: PropTypes.string.isRequired,
   date: FirebasePropTypes.timestamp.isRequired,
-  timeSpentInMinutes: PropTypes.string.isRequired,
-  icon: PropTypes.string.isRequired,
+  timeSpentInMinutes: PropTypes.string,
+  icon: PropTypes.string,
   cardType: PropTypes.string.isRequired,
+};
+
+FeedCard.defaultProps = {
+  icon: null,
+  timeSpentInMinutes: null,
 };
