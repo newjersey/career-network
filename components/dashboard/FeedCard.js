@@ -5,6 +5,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 import PropTypes from 'prop-types';
 import DateCompleted from '../DateCompleted';
 import FirebasePropTypes from '../Firebase/PropTypes';
@@ -23,6 +24,10 @@ const useStyles = makeStyles(theme => ({
       paddingBottom: theme.spacing(2),
     },
   },
+  divider: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2),
+  },
 }));
 
 export default function FeedCard(props) {
@@ -39,6 +44,7 @@ export default function FeedCard(props) {
         action={icon}
       />
       <CardContent className={classes.cardContent}>
+        <Divider className={classes.divider} />
         <Grid container direction="row" justify="space-between" alignItems="center">
           <Grid item>
             <DateCompleted variant="body2">{date}</DateCompleted>
