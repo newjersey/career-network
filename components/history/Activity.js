@@ -23,7 +23,7 @@ function getFormattedDateEntered(timestamp) {
 const useStyles = makeStyles(theme => ({
   card: {
     minWidth: 275,
-    padding: theme.spacing(2),
+    padding: theme.spacing(2, 2, 0),
   },
   divider: {
     marginTop: theme.spacing(2),
