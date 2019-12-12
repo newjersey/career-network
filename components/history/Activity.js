@@ -4,10 +4,10 @@ import Card from '@material-ui/core/Card';
 import Chip from '@material-ui/core/Chip';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
-
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
+import DateCompleted from '../DateCompleted';
 import FirebasePropTypes from '../Firebase/PropTypes';
 
 const useStyles = makeStyles(theme => ({
@@ -74,7 +74,7 @@ function Activity(props) {
             <Typography variant="body2" className={classes.label}>
               Completed On
             </Typography>
-            <Typography variant="body1">{dateCompleted}</Typography>
+            <DateCompleted variant="body1">{dateCompleted}</DateCompleted>
           </Grid>
           <Grid item xs={4}>
             <Typography variant="body2" className={classes.label}>
