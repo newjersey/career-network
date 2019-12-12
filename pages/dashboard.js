@@ -3,7 +3,7 @@ import React from 'react';
 import { allPropsLoaded, fullyLoaded } from '../src/app-helper';
 import { useAuth, withAuthRequired } from '../components/Auth';
 import { useRecords } from '../components/Airtable';
-import { useUserSubcollection } from '../components/Firebase';
+import { useUserSubcollection, useCompletedTasks } from '../components/Firebase';
 import Dashboard from '../components/dashboard/Dashboard';
 import FullPageProgress from '../components/FullPageProgress';
 import withTitle from '../components/withTitle';
@@ -14,6 +14,7 @@ function DashboardPage() {
   const allActionDispositionEvents = useUserSubcollection('actionDispositionEvents');
   const allTaskDispositionEvents = useUserSubcollection('taskDispositionEvents');
   const allActivityLogEntries = useUserSubcollection('activityLogEntries');
+  const completedTasks = useCompletedTasks();
   const recordProps = {
     allPredicates: useRecords('Predicates'),
     allConditions: useRecords('Conditions'),
@@ -26,13 +27,15 @@ function DashboardPage() {
     user,
     allPropsLoaded(recordProps),
     allQuestionResponses,
-    allActionDispositionEvents
+    allActionDispositionEvents,
+    completedTasks
   ) ? (
     <Dashboard
       allQuestionResponses={allQuestionResponses}
       allActionDispositionEvents={allActionDispositionEvents}
       allTaskDispositionEvents={allTaskDispositionEvents}
       allActivityLogEntries={allActivityLogEntries}
+      completedTasks={completedTasks}
       {...recordProps}
     />
   ) : (
