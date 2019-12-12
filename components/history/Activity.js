@@ -134,8 +134,8 @@ function Activity(props) {
 }
 
 Activity.propTypes = {
-  activityTypeLabel: PropTypes.string,
-  dateCompleted: FirebasePropTypes.timestamp,
+  activityTypeLabel: PropTypes.string.isRequired,
+  dateCompleted: FirebasePropTypes.timestamp.isRequired,
   timestamp: FirebasePropTypes.timestamp.isRequired,
   description: PropTypes.string.isRequired,
   difficultyLevel: PropTypes.string.isRequired,
@@ -146,8 +146,6 @@ Activity.propTypes = {
 };
 
 Activity.defaultProps = {
-  activityTypeLabel: '',
-  dateCompleted: null,
   activityFeeling: [],
   whyIFeelThisWay: '',
   briefDescription: '',
