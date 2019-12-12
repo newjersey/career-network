@@ -174,17 +174,19 @@ const activityFormValues = {
   activityTypeValue: ACTIVITY_TYPES[0].value,
   activityTypeLabel: ACTIVITY_TYPES[0].label,
   description: '',
+  briefDescription: '',
   dateCompleted: startOfDay(new Date()),
   timeSpentInMinutes: TIME_SPENT_TYPE[0].value,
   difficultyLevel: DIFFICULTY_LEVEL[0],
   activityFeeling: [],
-  whyIfeelThisWay: '',
+  whyIFeelThisWay: '',
 };
 
 const isEmpty = s => {
   return s === undefined || s === null || s === '';
 };
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 function ActivityInputDialog({ show, onClose }) {
   const classes = useActivityDialogStyles();
   const formId = 'activity-input';
@@ -291,7 +293,20 @@ function ActivityInputDialog({ show, onClose }) {
               </Select>
             </FormControl>
             <FormControl className={classes.formControl}>
-              <InputLabel shrink htmlFor="description-textfield">
+              <InputLabel shrink htmlFor={`${formId}-briefDescription-textfield`}>
+                Brief Description
+              </InputLabel>
+              <TextField
+                id={`${formId}-briefDescription-textfield`}
+                value={formValues.briefDescription}
+                fullWidth
+                onChange={e => setFormValues({ ...formValues, briefDescription: e.target.value })}
+                className={classes.textField}
+                inputProps={{ maxLength: 80 }}
+              />
+            </FormControl>
+            <FormControl className={classes.formControl}>
+              <InputLabel shrink htmlFor={`${formId}-description-textfield`}>
                 Description
               </InputLabel>
               <TextField
@@ -307,12 +322,12 @@ function ActivityInputDialog({ show, onClose }) {
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <Grid container className={classes.formControl}>
                 <KeyboardDatePicker
+                  id={`${formId}-dateCompleted`}
                   disableToolbar
                   disableFuture
                   variant="inline"
                   format="MM/dd/yyyy"
                   margin="normal"
-                  id={`${formId}-dateCompleted`}
                   label="Date Completed"
                   value={formValues.dateCompleted}
                   onChange={date =>
@@ -327,7 +342,6 @@ function ActivityInputDialog({ show, onClose }) {
             <FormControl className={classes.formControl}>
               <InputLabel id={`${formId}-timeSpent`}>Time Spent</InputLabel>
               <Select
-                labelId={`${formId}-timeSpent`}
                 id={`${formId}-timeSpent-select`}
                 value={formValues.timeSpentInMinutes}
                 onChange={e => setFormValues({ ...formValues, timeSpentInMinutes: e.target.value })}
@@ -339,7 +353,7 @@ function ActivityInputDialog({ show, onClose }) {
                 ))}
               </Select>
             </FormControl>
-            <FormControl className={classes.formControl} id={`${formId}-difficultyLevel-radio`}>
+            <FormControl className={classes.formControl} id={`${formId}-difficultyLevel`}>
               <Typography variant="caption" color="textSecondary">
                 Difficulty Level
               </Typography>
@@ -367,13 +381,13 @@ function ActivityInputDialog({ show, onClose }) {
                 <ToggleButton
                   options={shuffledFeelings}
                   multiSelect
-                  value={String(formValues.activityFeeling)}
+                  value={formValues.activityFeeling}
                   handleChange={e => setFormValues({ ...formValues, activityFeeling: e })}
                 />
               </Grid>
             </FormControl>
             <TextField
-              id={`${formId}-whyIfeelThisWay-textfield`}
+              id={`${formId}-whyIFeelThisWay-textfield`}
               label="Why Do You Feel This Way"
               multiline
               rows="4"
@@ -381,8 +395,8 @@ function ActivityInputDialog({ show, onClose }) {
               margin="normal"
               variant="outlined"
               fullWidth
-              value={formValues.whyIfeelThisWay}
-              onChange={e => setFormValues({ ...formValues, whyIfeelThisWay: e.target.value })}
+              value={formValues.whyIFeelThisWay}
+              onChange={e => setFormValues({ ...formValues, whyIFeelThisWay: e.target.value })}
             />
           </form>
         )}
