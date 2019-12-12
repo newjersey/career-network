@@ -9,11 +9,6 @@ import CompletedTask from './CompletedTask';
 import HistoryPropTypes from './PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
 
-function getFormattedDateCompleted(timestamp) {
-  const date = timestamp.toDate();
-  return format(date, 'MMMM do');
-}
-
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(5, 0),
@@ -38,74 +33,56 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function filterDoneFromTaskDispositionEvents(events) {
-  // Remove duplicates and prefer most recent task timestamp
-  const taskIds = events.reduce(
-    (unique, item) =>
-      unique.includes(item.data().taskId) ? unique : [...unique, item.data().taskId],
-    []
-  );
-  return taskIds
-    .map(
-      tId =>
-        events
-          .filter(event => event.data().taskId === tId)
-          .sort((a, b) => b.data().timestamp.seconds - a.data().timestamp.seconds)[0]
-    )
-    .map(taskEvent => {
-      if (taskEvent.data().type === 'done') {
-        const { task, timestamp } = taskEvent.data();
-        return {
-          dateCmp: timestamp.toDate(),
-          category: task.fields.Category,
-          title: task.fields.Task,
-          why: task.fields.Why,
-          dateCompleted: getFormattedDateCompleted(timestamp),
-          timestamp,
-          cardType: 'task',
-        };
-      }
-      return null;
-    });
+function getFormattedDateCompleted(timestamp) {
+  const date = timestamp.toDate();
+  return format(date, 'MMMM do');
 }
 
 export default function History(props) {
   const isInMonthYear = (date, monthYear) =>
     isSameMonth(date, monthYear) && isSameYear(date, monthYear);
   const classes = useStyles();
-  const { activities, taskDispositionEvents } = props;
+  const { activities, completedTasks } = props;
   let activityMonths = [];
-  let completedTasks = [];
   let cards = [];
-  const dates = [];
 
-  if (!taskDispositionEvents.empty) {
-    completedTasks = filterDoneFromTaskDispositionEvents(taskDispositionEvents);
-  }
   if (!activities.empty) {
-    const temp = activities.map(a => {
+    const activitiesTemp = activities.map(a => {
       const { dateCompleted, ...activity } = a.data();
       return {
         ...activity,
         dateCompleted: getFormattedDateCompleted(dateCompleted),
         dateCmp: dateCompleted.toDate(),
-        cardType: 'activity',
+        cardType: 'ACTIVITY',
       };
     });
 
-    activityMonths = dates.sort((a, b) => compareDesc(new Date(a), new Date(b)));
-    cards = [...temp, ...completedTasks].sort((a, b) =>
+    const tasksTemp = !completedTasks.empty
+      ? completedTasks.map(taskEvent => {
+          const { task, timestamp } = taskEvent.data();
+          return {
+            ...task,
+            category: task.fields.Category,
+            title: task.fields.Task,
+            why: task.fields.Why,
+            dateCompleted: getFormattedDateCompleted(timestamp),
+            dateCmp: timestamp.toDate(),
+            timestamp,
+            cardType: 'TASK',
+          };
+        })
+      : [];
+
+    cards = [...activitiesTemp, ...tasksTemp].sort((a, b) =>
       compareDesc(new Date(a.dateCmp), new Date(b.dateCmp))
     );
+    activityMonths = cards
+      .map(c => c.dateCmp)
+      .reduce((datesArr, current) => {
+        const date = format(current, 'MMMM y');
+        return !datesArr.includes(date) ? [...datesArr, date] : datesArr;
+      }, []);
   }
-
-  cards.forEach(c => {
-    const date = format(c.dateCmp, 'MMMM y');
-    if (!dates.includes(date)) {
-      dates.push(date);
-    }
-  });
-  activityMonths = dates.sort((a, b) => compareDesc(new Date(a), new Date(b)));
 
   return (
     <div className={classes.root}>
@@ -130,7 +107,7 @@ export default function History(props) {
                 .filter(card => isInMonthYear(card.dateCmp, new Date(dateString)))
                 .map(card => (
                   <Grid key={card.timestamp} item xs={12} className={classes.listItem}>
-                    {card.cardType === 'activity' ? (
+                    {card.cardType === 'ACTIVITY' ? (
                       <Activity {...card} />
                     ) : (
                       <CompletedTask {...card} />
