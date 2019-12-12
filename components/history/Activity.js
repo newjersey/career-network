@@ -105,10 +105,10 @@ function Activity(props) {
             </Typography>
           </Grid>
         </Grid>
-        {(activityFeeling.length || whyIFeelThisWay.length) && (
+        {(!!activityFeeling.length || !!whyIFeelThisWay.length) && (
           <Divider className={classes.divider} />
         )}
-        {activityFeeling.length && (
+        {!!activityFeeling.length && (
           <div className={classes.group}>
             <Typography variant="body2" className={classes.label} gutterBottom>
               I felt...
@@ -120,7 +120,7 @@ function Activity(props) {
             </Grid>
           </div>
         )}
-        {whyIFeelThisWay.length && (
+        {!!whyIFeelThisWay.length && (
           <div className={classes.group}>
             <Typography variant="body2" className={classes.label} gutterBottom>
               I felt like this because...
