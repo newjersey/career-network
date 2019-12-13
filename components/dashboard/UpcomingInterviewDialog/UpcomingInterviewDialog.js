@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import Typography from '@material-ui/core/Typography';
-import startOfDay from 'date-fns/startOfDay';
 import Divider from '@material-ui/core/Divider';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -12,11 +10,12 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import MenuItem from '@material-ui/core/MenuItem';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { makeStyles } from '@material-ui/core/styles';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import PropTypes from 'prop-types';
 import firebase from 'firebase/app';
-import { makeStyles } from '@material-ui/core/styles';
+import startOfDay from 'date-fns/startOfDay';
 import DateFnsUtils from '@date-io/date-fns';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import upcomingInterviewFormValidation from './upcomingInterviewFormValidation';
 import useFormValidation from './formValidationHook';
 import { useAuth } from '../../Auth';
@@ -58,6 +57,9 @@ const upcomingInterviewFormValues = {
 };
 
 const useStyles = makeStyles(theme => ({
+  dialogTitle: {
+    marginTop: theme.spacing(2),
+  },
   selectItem: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -73,10 +75,19 @@ const useStyles = makeStyles(theme => ({
   select: {
     width: '100%',
   },
+  divider: {
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+  },
   datepicker: {
     marginTop: theme.spacing(1),
   },
+  dialogFooter: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
 }));
+
 export default function UpcomingInterviewDialog(props) {
   const formId = 'upcoming-interview';
   const classes = useStyles();
@@ -84,6 +95,7 @@ export default function UpcomingInterviewDialog(props) {
   const { userDocRef } = useAuth();
   const [success, setSuccess] = useState(false);
   const [submitError, setSubmitError] = useState();
+
   function submit(values) {
     const increment = firebase.firestore.FieldValue.increment(1);
     const timestamp = firebase.firestore.FieldValue.serverTimestamp();
@@ -117,14 +129,16 @@ export default function UpcomingInterviewDialog(props) {
   return (
     <Dialog fullWidth open={show} aria-labelledby="upcoming-interview-dialog">
       <DialogTitle id="upcoming-interview-dialog" onClose={onClose}>
-        <Typography variant="h6">Have an upcoming interview?</Typography>
-      </DialogTitle>
-      <DialogContent>
-        <DialogContentText>
+        <Typography variant="h6" className={classes.dialogTitle}>
+          Have an upcoming interview?
+        </Typography>
+        <Typography variant="body1" color="textSecondary">
           If you have an interview coming up, let us know and we can send helpful guidance on how to
           prepare.
-        </DialogContentText>
-        <Divider />
+        </Typography>
+      </DialogTitle>
+      <Divider className={classes.divider} />
+      <DialogContent>
         <FormControl className={classes.formControl}>
           <InputLabel shrink id={`${formId}-type-label`}>
             Interview Type
@@ -231,7 +245,7 @@ export default function UpcomingInterviewDialog(props) {
         />
         {isSubmitting && <CircularProgress />}
       </DialogContent>
-      <DialogActions>
+      <DialogActions className={classes.dialogFooter}>
         <Button fullWidth variant="contained" onClick={handleSubmit} color="primary">
           Let Us Know
         </Button>

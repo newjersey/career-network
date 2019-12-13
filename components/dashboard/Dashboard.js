@@ -2,6 +2,8 @@ import { makeStyles } from '@material-ui/styles';
 import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 
 import { useAuth } from '../Auth';
@@ -192,7 +194,7 @@ export default function Dashboard(props) {
         onClose={() => setActiveDialog()}
       />
       <UpcomingInterviewDialog
-        show={activeDialog !== DIALOGS.UPCOMING_INTERVIEW}
+        show={activeDialog === DIALOGS.UPCOMING_INTERVIEW}
         onClose={() => setActiveDialog()}
       />
       <ScaffoldContainer>
@@ -233,6 +235,23 @@ export default function Dashboard(props) {
               Latest activities
             </Typography>
             <ActivityList activities={allActivityLogEntries} />
+            <Card>
+              <CardContent>
+                <Typography variant="body1" fontWeight="bold">
+                  Have an upcoming interview?
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                  If you have an interview, let us know and we can send helpful guidance to prepare.
+                </Typography>
+                <Button
+                  fullWidth
+                  variant="outlined"
+                  onClick={() => setActiveDialog(DIALOGS.UPCOMING_INTERVIEW)}
+                >
+                  Let Us Know
+                </Button>
+              </CardContent>
+            </Card>
           </Grid>
         </Grid>
       </ScaffoldContainer>
