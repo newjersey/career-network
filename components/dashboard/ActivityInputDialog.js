@@ -19,12 +19,12 @@ import TextField from '@material-ui/core/TextField';
 import DateFnsUtils from '@date-io/date-fns';
 import startOfDay from 'date-fns/startOfDay';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import shuffle from 'lodash/fp/shuffle';
 import firebase from 'firebase/app';
 
 import { useAuth } from '../Auth';
+import SubmitSuccess from './SubmitSuccess';
 import ToggleButton from '../ToggleButton';
 
 const styles = theme => ({
@@ -405,12 +405,7 @@ function ActivityInputDialog({ show, onClose }) {
             Error: {error}
           </Typography>
         )}
-        {success && (
-          <Grid container direction="column" justify="center" alignItems="center">
-            <CheckCircleIcon style={{ fontSize: 100, color: 'green' }} />
-            <Typography variant="h4">Activity added!</Typography>
-          </Grid>
-        )}
+        <SubmitSuccess message="Activity added!" show={success} />
       </DialogContent>
       <DialogActions>
         {!success && (

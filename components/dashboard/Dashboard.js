@@ -13,6 +13,7 @@ import ActivityList from './ActivityList';
 import TaskList from './TaskList';
 import TimeDistanceParser from '../../src/time-distance-parser';
 import ActivityInputDialog from './ActivityInputDialog';
+import UpcomingInterviewDialog from './UpcomingInterviewDialog/UpcomingInterviewDialog';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -151,6 +152,11 @@ function tasksToShow(_props) {
     .sort((a, b) => b.fields.Priority - a.fields.Priority);
 }
 
+const DIALOGS = {
+  ACTIVITY_INPUT: 'ActivityInputDialog',
+  UPCOMING_INTERVIEW: 'UpcomingInterviewDialog',
+};
+
 // eslint-disable-next-line sonarjs/cognitive-complexity
 export default function Dashboard(props) {
   const classes = useStyles();
@@ -173,7 +179,7 @@ export default function Dashboard(props) {
   const doneTaskCount = allTaskDispositionEvents.length;
   const todoTaskCount = Math.min(allApplicableTasks.length - doneTaskCount, todoTaskLimit);
   const tasks = allApplicableTasks.slice(0, todoTaskCount + doneTaskCount);
-  const [showActivityInputDialog, setShowActivityInputDialog] = useState(false);
+  const [activeDialog, setActiveDialog] = useState();
 
   useEffect(() => {
     window.Intercom('update', { 'tasks-completed': doneTaskCount });
@@ -182,8 +188,12 @@ export default function Dashboard(props) {
   return (
     <div className={classes.root}>
       <ActivityInputDialog
-        show={showActivityInputDialog}
-        onClose={() => setShowActivityInputDialog(false)}
+        show={activeDialog === DIALOGS.ACTIVITY_INPUT}
+        onClose={() => setActiveDialog()}
+      />
+      <UpcomingInterviewDialog
+        show={activeDialog !== DIALOGS.UPCOMING_INTERVIEW}
+        onClose={() => setActiveDialog()}
       />
       <ScaffoldContainer>
         <Typography component="h1" variant="h2" gutterBottom>
@@ -204,7 +214,7 @@ export default function Dashboard(props) {
                 variant="contained"
                 size="large"
                 color="primary"
-                onClick={() => setShowActivityInputDialog(true)}
+                onClick={() => setActiveDialog(DIALOGS.ACTIVITY_INPUT)}
               >
                 Log Activity
               </Button>
