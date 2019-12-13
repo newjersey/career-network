@@ -14,7 +14,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import PropTypes from 'prop-types';
 import firebase from 'firebase/app';
-import startOfDay from 'date-fns/startOfDay';
 import DateFnsUtils from '@date-io/date-fns';
 import upcomingInterviewFormValidation from './upcomingInterviewFormValidation';
 import useFormValidation from './formValidationHook';
@@ -99,17 +98,20 @@ export default function UpcomingInterviewDialog(props) {
   function submit(values) {
     const increment = firebase.firestore.FieldValue.increment(1);
     const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+
+    const { type, ...formData } = values;
     const data = {
-      ...values,
-      type: values.type.value,
+      ...formData,
+      type: type.value,
       timestamp,
     };
     const stats = {
       interviewLogEntriesCount: increment,
       interviewLogEntriesLatest: timestamp,
     };
+
     userDocRef
-      .collectioni('interviewLogEntries')
+      .collection('interviewLogEntries')
       .add(data)
       .then(() => {
         setSuccess(true);
@@ -195,8 +197,8 @@ export default function UpcomingInterviewDialog(props) {
             format="MM/dd/yyyy"
             margin="normal"
             label="Interview Date"
-            value={values.date || null}
-            onChange={d => handleChangeCustom('date', startOfDay(d))}
+            value={values.date}
+            onChange={d => handleChangeCustom('date', d)}
             KeyboardButtonProps={{
               'aria-label': 'change date',
             }}
