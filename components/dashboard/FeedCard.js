@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import VpnKey from '@material-ui/icons/VpnKey';
 import PropTypes from 'prop-types';
 import DateCompleted from '../DateCompleted';
 import FirebasePropTypes from '../Firebase/PropTypes';
@@ -17,6 +18,7 @@ const useStyles = makeStyles(theme => ({
   },
   cardHeaderTitle: {
     fontSize: '1.2rem',
+    position: 'relative',
   },
   cardContent: {
     paddingTop: 0,
@@ -37,7 +39,14 @@ export default function FeedCard(props) {
   return (
     <Card className={classes.card} data-intercom={cardType}>
       <CardHeader
-        title={<Typography variant="body1">{subheader}</Typography>}
+        title={
+          <Grid container justify="space-between">
+            <Typography variant="body1" style={{ maxWidth: '75%' }}>
+              {subheader}
+            </Typography>
+            {cardType === 'TASK' && <VpnKey style={{ position: 'absolute', right: 0 }} />}
+          </Grid>
+        }
         titleTypographyProps={{ component: 'h2' }}
         subheader={
           <Typography variant="h6" component="h2">

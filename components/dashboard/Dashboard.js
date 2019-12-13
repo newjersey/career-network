@@ -221,7 +221,7 @@ export default function Dashboard(props) {
           </Grid>
           <Grid item xs={12} md={3}>
             <Typography variant="h5" className={classes.subtitle} data-intercom="activity-title">
-              Latest activities
+              Completed Activities
             </Typography>
             <ActivityList activities={allActivityLogEntries} completedTasks={completedTasks} />
           </Grid>
