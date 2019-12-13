@@ -36,12 +36,10 @@ const useFormValidation = (initialState, validate, runOnSubmit) => {
   }, [touched, values]);
 
   const handleChange = event => {
-    console.log(event.target.name, event.target.value);
     setValues({
       ...values,
       [event.target.name]: event.target.value,
     });
-    console.log(values);
   };
 
   const handleChangeCustom = (inputName, inputValue) => {

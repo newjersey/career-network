@@ -86,6 +86,7 @@ export default function UpcomingInterviewDialog(props) {
     const timestamp = firebase.firestore.FieldValue.serverTimestamp();
     const data = {
       ...values,
+      type: values.type.value,
       timestamp,
     };
     const stats = {
@@ -123,16 +124,24 @@ export default function UpcomingInterviewDialog(props) {
         </DialogContentText>
         <Divider />
         <FormControl className={classes.formControl}>
-          <InputLabel>Interview Type</InputLabel>
+          <InputLabel shrink id={`${formId}-type-label`}>
+            Interview Type
+          </InputLabel>
           <Select
+            labelid={`${formId}-type-label`}
             className={classes.select}
             id={`${formId}-type`}
             value={values.type}
             inputProps={{ name: 'type' }}
             onChange={handleChange}
+            renderValue={t => t.label}
           >
+            <MenuItem value={undefined} disabled>
+              What kind of interview is it?
+            </MenuItem>
+
             {INTERVIEW_TYPES.map(type => (
-              <MenuItem value={type.value} key={type.value} className={classes.selectItem}>
+              <MenuItem value={type} key={type.value} className={classes.selectItem}>
                 <Typography variant="body1" style={{ width: '100%' }}>
                   {type.label}
                 </Typography>
@@ -165,14 +174,34 @@ export default function UpcomingInterviewDialog(props) {
             />
           </Grid>
         </MuiPickersUtilsProvider>
-        <TextField
-          autoFocus
-          margin="dense"
-          id="name"
-          label="Email Address"
-          type="email"
-          fullWidth
-        />
+        <FormControl className={classes.formControl}>
+          <TextField
+            label="Interview Company"
+            id={`${formId}-company`}
+            value={values.company}
+            fullWidth
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onChange={handleChange}
+            inputProps={{ name: 'company' }}
+            placeholder="Who is the interview with?"
+          />
+        </FormControl>
+        <FormControl className={classes.formControl}>
+          <TextField
+            id={`${formId}-role`}
+            value={values.role}
+            label="Role / Position"
+            fullWidth
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onChange={handleChange}
+            inputProps={{ name: 'role' }}
+            placeholder="What role did you apply for?"
+          />
+        </FormControl>
         {submitError && (
           <Typography color="error" variant="h4">
             Error: {submitError}
