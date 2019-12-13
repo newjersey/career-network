@@ -7,11 +7,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
+import startOfDay from 'date-fns/startOfDay';
 import Divider from '@material-ui/core/Divider';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
-import Grid from '@material-ui/core/Grid';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import MenuItem from '@material-ui/core/MenuItem';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -65,13 +65,18 @@ const useStyles = makeStyles(theme => ({
     flexWrap: 'wrap',
     flexDirection: 'row',
     width: theme.breakpoints.width('sm'),
+    whiteSpace: 'normal',
   },
   formControl: {
-    margin: theme.spacing(1),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
     width: '100%',
   },
   select: {
     width: '100%',
+  },
+  datepicker: {
+    marginTop: theme.spacing(1),
   },
 }));
 export default function UpcomingInterviewDialog(props) {
@@ -102,11 +107,14 @@ export default function UpcomingInterviewDialog(props) {
       })
       .catch(err => setSubmitError(err.message));
   }
-  const { handleSubmit, handleChange, values, errors, isSubmitting } = useFormValidation(
-    upcomingInterviewFormValues,
-    upcomingInterviewFormValidation,
-    submit
-  );
+  const {
+    handleSubmit,
+    handleChange,
+    handleChangeCustom,
+    values,
+    errors,
+    isSubmitting,
+  } = useFormValidation(upcomingInterviewFormValues, upcomingInterviewFormValidation, submit);
 
   return (
     <Dialog
@@ -128,51 +136,63 @@ export default function UpcomingInterviewDialog(props) {
             Interview Type
           </InputLabel>
           <Select
-            labelid={`${formId}-type-label`}
+            labelId={`${formId}-type-label`}
             className={classes.select}
             id={`${formId}-type`}
-            value={values.type}
+            value={values.type || ''}
+            error={errors.type}
+            helperText={errors.type}
             inputProps={{ name: 'type' }}
             onChange={handleChange}
-            renderValue={t => t.label}
+            renderValue={t =>
+              t ? (
+                t.label
+              ) : (
+                <Typography variant="body1" color="textSecondary">
+                  What kind of interview is it?
+                </Typography>
+              )
+            }
+            displayEmpty
           >
-            <MenuItem value={undefined} disabled>
-              What kind of interview is it?
-            </MenuItem>
-
             {INTERVIEW_TYPES.map(type => (
-              <MenuItem value={type} key={type.value} className={classes.selectItem}>
-                <Typography variant="body1" style={{ width: '100%' }}>
+              <MenuItem
+                value={type}
+                key={type.value}
+                className={classes.selectItem}
+                component="div"
+              >
+                <Typography variant="body1" component="span" style={{ width: '100%' }}>
                   {type.label}
                 </Typography>
-                <Typography variant="caption" component="p" style={{ wordBreak: 'break-all' }}>
+                <Typography variant="caption" component="span" style={{ wordBreak: 'break-all' }}>
                   {type.description}
                 </Typography>
               </MenuItem>
             ))}
           </Select>
-          <FormHelperText error={errors.type && errors.type.length > 0}>
+          <FormHelperText dense error={errors.type && errors.type.length > 0}>
             {errors.type}
           </FormHelperText>
         </FormControl>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <Grid container className={classes.formControl}>
-            <KeyboardDatePicker
-              id={`${formId}-date`}
-              disableToolbar
-              disableFuture
-              variant="inline"
-              format="MM/dd/yyyy"
-              margin="normal"
-              label="Interview Date"
-              value={values.date}
-              inputProps={{ name: 'date' }}
-              onChange={handleChange}
-              KeyboardButtonProps={{
-                'aria-label': 'change date',
-              }}
-            />
-          </Grid>
+          <KeyboardDatePicker
+            className={classes.datepicker}
+            id={`${formId}-date`}
+            emptyLabel="When is your interview?"
+            disableToolbar
+            variant="inline"
+            error={errors.date}
+            helperText={errors.date}
+            format="MM/dd/yyyy"
+            margin="normal"
+            label="Interview Date"
+            value={values.date || null}
+            onChange={d => handleChangeCustom('date', startOfDay(d))}
+            KeyboardButtonProps={{
+              'aria-label': 'change date',
+            }}
+          />
         </MuiPickersUtilsProvider>
         <FormControl className={classes.formControl}>
           <TextField
@@ -180,10 +200,12 @@ export default function UpcomingInterviewDialog(props) {
             id={`${formId}-company`}
             value={values.company}
             fullWidth
+            error={errors.company}
             InputLabelProps={{
               shrink: true,
             }}
             onChange={handleChange}
+            helperText={errors.company}
             inputProps={{ name: 'company' }}
             placeholder="Who is the interview with?"
           />
@@ -197,6 +219,8 @@ export default function UpcomingInterviewDialog(props) {
             InputLabelProps={{
               shrink: true,
             }}
+            error={errors.role}
+            helperText={errors.role}
             onChange={handleChange}
             inputProps={{ name: 'role' }}
             placeholder="What role did you apply for?"
@@ -214,7 +238,7 @@ export default function UpcomingInterviewDialog(props) {
         {isSubmitting && <CircularProgress />}
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleSubmit} color="primary">
+        <Button fullWidth variant="contained" onClick={handleSubmit} color="primary">
           Let Us Know
         </Button>
       </DialogActions>
