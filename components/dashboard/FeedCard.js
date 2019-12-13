@@ -73,7 +73,7 @@ FeedCard.propTypes = {
   title: PropTypes.string.isRequired,
   subheader: PropTypes.string.isRequired,
   date: FirebasePropTypes.timestamp.isRequired,
-  timeSpentInMinutes: PropTypes.string,
+  timeSpentInMinutes: PropTypes.number,
   icon: PropTypes.string,
   cardType: PropTypes.string.isRequired,
 };
