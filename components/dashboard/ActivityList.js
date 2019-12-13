@@ -28,8 +28,8 @@ export default function ActivityList(props) {
         item.cardType === 'ACTIVITY' ? (
           <FeedCard
             cardType={item.cardType}
-            title={item.activityTypeLabel}
-            subheader={item.briefDescription}
+            title={item.briefDescription}
+            subheader={item.activityTypeLabel}
             date={item.dateCompleted}
             timeSpentInMinutes={item.timeSpentInMinutes}
             key={item.timestamp}
@@ -37,8 +37,8 @@ export default function ActivityList(props) {
         ) : (
           <FeedCard
             cardType={item.cardType}
-            title={item.task.fields.Category}
-            subheader={item.task.fields.Title}
+            title={item.task.fields.Title}
+            subheader={item.task.fields.Category}
             date={item.timestamp}
             key={item.taskId}
           />

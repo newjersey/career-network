@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   },
   cardHeaderTitle: {
     fontSize: '1.2rem',
-    position: 'relative',
+    paddingBottom: theme.spacing(1),
   },
   cardContent: {
     paddingTop: 0,
@@ -41,10 +41,7 @@ export default function FeedCard(props) {
       <CardHeader
         title={
           <Grid container justify="space-between">
-            <Typography variant="body1" style={{ maxWidth: '75%' }}>
-              {subheader}
-            </Typography>
-            {cardType === 'TASK' && <VpnKey style={{ position: 'absolute', right: 0 }} />}
+            <Typography variant="body2">{subheader}</Typography>
           </Grid>
         }
         titleTypographyProps={{ component: 'h2' }}
@@ -63,14 +60,15 @@ export default function FeedCard(props) {
             <DateCompleted variant="body2">{date}</DateCompleted>
           </Grid>
           <Grid item>
-            {timeSpentInMinutes && (
+            {(timeSpentInMinutes && (
               <Typography variant="body2">
                 <span role="img" aria-label="Clock">
                   🕒
                 </span>
                 {timeSpentInMinutes} Minutes
               </Typography>
-            )}
+            )) ||
+              (cardType === 'TASK' && <VpnKey />)}
           </Grid>
         </Grid>
       </CardContent>
