@@ -8,10 +8,10 @@ function recordShape(fieldsShape) {
 }
 
 const TASK_CATEGORIES = {
-  'Marketing yourself': { color: '#d0f0fd' },
-  'Relationship building': { color: '#d2f7c5' },
-  'Searching/applying for jobs': { color: '#ffeab6' },
-  'Researching people & companies': { color: '#ffdce5' },
+  'Marketing Materials': { color: '#d0f0fd' },
+  'Relationship-Building': { color: '#d2f7c5' },
+  'Finding Openings/Applying': { color: '#ffeab6' },
+  'Researching People & Organizations': { color: '#ffdce5' },
 };
 
 const questionResponseType = PropTypes.oneOf([
