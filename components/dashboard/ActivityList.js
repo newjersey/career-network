@@ -23,8 +23,7 @@ export default function ActivityList(props) {
 
   return (
     <div>
-      {!completedTasks.length && <Typography color="textSecondary">No completed tasks</Typography>}
-      {!activities.length && <Typography color="textSecondary">None</Typography>}
+      {sorted.length < 1 && <Typography color="textSecondary">None</Typography>}
       {sorted.map(item =>
         item.cardType === 'ACTIVITY' ? (
           <FeedCard
@@ -33,7 +32,7 @@ export default function ActivityList(props) {
             subheader={item.briefDescription}
             date={item.dateCompleted}
             timeSpentInMinutes={item.timeSpentInMinutes}
-            key={item.id}
+            key={item.timestamp}
           />
         ) : (
           <FeedCard
