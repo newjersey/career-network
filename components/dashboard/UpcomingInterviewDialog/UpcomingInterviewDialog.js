@@ -2,10 +2,7 @@ import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import startOfDay from 'date-fns/startOfDay';
 import Divider from '@material-ui/core/Divider';
@@ -24,6 +21,7 @@ import upcomingInterviewFormValidation from './upcomingInterviewFormValidation';
 import useFormValidation from './formValidationHook';
 import { useAuth } from '../../Auth';
 import SubmitSuccess from '../SubmitSuccess';
+import { DialogActions, DialogContent, DialogTitle } from '../../DialogComponents';
 
 const INTERVIEW_TYPES = [
   {
@@ -117,14 +115,10 @@ export default function UpcomingInterviewDialog(props) {
   } = useFormValidation(upcomingInterviewFormValues, upcomingInterviewFormValidation, submit);
 
   return (
-    <Dialog
-      fullWidth
-      maxWidth="sm"
-      open={show}
-      onClose={onClose}
-      aria-labelledby="upcoming-interview-dialog"
-    >
-      <DialogTitle id="upcoming-interview-dialog">Have an upcoming interview?</DialogTitle>
+    <Dialog fullWidth open={show} aria-labelledby="upcoming-interview-dialog">
+      <DialogTitle id="upcoming-interview-dialog" onClose={onClose}>
+        <Typography variant="h6">Have an upcoming interview?</Typography>
+      </DialogTitle>
       <DialogContent>
         <DialogContentText>
           If you have an interview coming up, let us know and we can send helpful guidance on how to
