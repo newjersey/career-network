@@ -7,6 +7,13 @@ function recordShape(fieldsShape) {
   });
 }
 
+const TASK_CATEGORIES = {
+  'Marketing Materials': { color: '#d0f0fd' },
+  'Relationship-Building': { color: '#d2f7c5' },
+  'Finding Openings/Applying': { color: '#ffeab6' },
+  'Researching People & Organizations': { color: '#ffdce5' },
+};
+
 const questionResponseType = PropTypes.oneOf([
   'Option',
   'Text',
@@ -89,12 +96,7 @@ const task = recordShape({
   'Task ID': PropTypes.number.isRequired,
   Priority: PropTypes.number.isRequired,
   'Time Estimate': PropTypes.number.isRequired,
-  Category: PropTypes.oneOf([
-    'Searching/applying for jobs',
-    'Researching people & companies',
-    'Relationship building',
-    'Marketing yourself',
-  ]),
+  Category: PropTypes.oneOf(Object.keys(TASK_CATEGORIES)),
   Trigger: PropTypes.oneOf(['Everyone', 'Conditions', 'Event']).isRequired,
   Frequency: PropTypes.oneOf(['Once', 'Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly'])
     .isRequired,
@@ -151,4 +153,5 @@ export default {
   questionResponseNumberControl,
   task,
   tasks: PropTypes.arrayOf(task),
+  TASK_CATEGORIES,
 };

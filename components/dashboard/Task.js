@@ -58,12 +58,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function bgColor(task) {
-  return {
-    'Marketing yourself': '#d0f0fd',
-    'Relationship building': '#d2f7c5',
-    'Searching/applying for jobs': '#ffeab6',
-    'Researching people & companies': '#ffdce5',
-  }[task.fields.Category];
+  return AirtablePropTypes.TASK_CATEGORIES[task.fields.Category].color;
 }
 
 export default function Task(props) {
