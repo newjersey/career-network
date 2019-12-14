@@ -57,6 +57,8 @@
     "build": "npm run env && npm run lint && next build",
     "clean": "rm -rf .next/ out/",
     "airtable:dump": "node scripts/airtableDump",
+    "firebase:dump:indexes": "firebase firestore:indexes > firestore.indexes.json",
+    "firebase:dump": "npm run firebase:dump:indexes",
     "export": "npm run clean && npm run build && next export -o out && cp -R public/ out/",
     "preview": "npm run export && firebase serve",
     "release": "git rev-parse --short HEAD | (read hash; firebase deploy -m \"Release at $hash\" )",

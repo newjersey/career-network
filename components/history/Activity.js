@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 const useStyles = makeStyles(theme => ({
   card: {
     minWidth: 275,
-    padding: theme.spacing(2),
+    padding: theme.spacing(2, 2, 0),
   },
   divider: {
     marginTop: theme.spacing(2),
@@ -90,8 +90,10 @@ function Activity(props) {
             </Typography>
           </Grid>
         </Grid>
-        <Divider className={classes.divider} />
-        {activityFeeling.length > 0 && (
+        {(!!activityFeeling.length || !!whyIFeelThisWay.length) && (
+          <Divider className={classes.divider} />
+        )}
+        {!!activityFeeling.length && (
           <div className={classes.group}>
             <Typography variant="body2" className={classes.label} gutterBottom>
               I felt...
@@ -103,7 +105,7 @@ function Activity(props) {
             </Grid>
           </div>
         )}
-        {whyIFeelThisWay && whyIFeelThisWay.length > 0 && (
+        {!!whyIFeelThisWay.length && (
           <div className={classes.group}>
             <Typography variant="body2" className={classes.label} gutterBottom>
               I felt like this because...
@@ -119,8 +121,8 @@ function Activity(props) {
 }
 
 Activity.propTypes = {
-  activityTypeLabel: PropTypes.string,
-  dateCompleted: PropTypes.string,
+  activityTypeLabel: PropTypes.string.isRequired,
+  dateCompleted: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   difficultyLevel: PropTypes.string.isRequired,
   timeSpentInMinutes: PropTypes.number.isRequired,
@@ -130,8 +132,6 @@ Activity.propTypes = {
 };
 
 Activity.defaultProps = {
-  activityTypeLabel: '',
-  dateCompleted: null,
   activityFeeling: [],
   whyIFeelThisWay: '',
   briefDescription: '',
