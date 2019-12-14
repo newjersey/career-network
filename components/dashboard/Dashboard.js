@@ -163,7 +163,7 @@ export default function Dashboard(props) {
     allActions,
     allActionDispositionEvents,
     allTaskDispositionEvents,
-    allActivityLogEntries,
+    recentActivityLogEntries,
     ...restProps
   } = props;
 
@@ -222,7 +222,7 @@ export default function Dashboard(props) {
             <Typography variant="h5" className={classes.subtitle} data-intercom="activity-title">
               Latest activities
             </Typography>
-            <ActivityList activities={allActivityLogEntries} />
+            <ActivityList activities={recentActivityLogEntries} />
           </Grid>
         </Grid>
       </ScaffoldContainer>
@@ -239,11 +239,11 @@ Dashboard.propTypes = {
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
   allActionDispositionEvents: FirebasePropTypes.querySnapshot,
   allTaskDispositionEvents: FirebasePropTypes.querySnapshot,
-  allActivityLogEntries: FirebasePropTypes.querySnapshot,
+  recentActivityLogEntries: FirebasePropTypes.querySnapshot,
 };
 
 Dashboard.defaultProps = {
   allActionDispositionEvents: [],
   allTaskDispositionEvents: [],
-  allActivityLogEntries: [],
+  recentActivityLogEntries: [],
 };
