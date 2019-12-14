@@ -1,7 +1,35 @@
-import hash from 'object-hash';
 import { useEffect, useRef, useState } from 'react';
 
 import useAuth from '../Auth/useAuth';
+
+// Adapted from JSum implementation: https://github.com/fraunhoferfokus/JSum
+// Foregoing a full library to avoid the weight, since this is such a narrow need.
+// Note that this just serializes (doesn't create an actual hash) as we don't
+// expect large objects and therefore don't need to worry about a long string.
+function hash(obj) {
+  if (Array.isArray(obj)) {
+    const stringifiedArr = [];
+    for (let i = 0; i < obj.length; i += 1) {
+      stringifiedArr[i] = hash(obj[i]);
+    }
+
+    return JSON.stringify(stringifiedArr);
+  }
+
+  if (typeof obj === 'object' && obj !== null) {
+    const acc = [];
+    const sortedKeys = Object.keys(obj).sort();
+
+    for (let i = 0; i < sortedKeys.length; i += 1) {
+      const k = sortedKeys[i];
+      acc[i] = `${k}:${hash(obj[k])}`;
+    }
+
+    return acc.join('|');
+  }
+
+  return obj;
+}
 
 // see: https://firebase.google.com/docs/reference/js/firebase.firestore.Query.html
 const SUPPORTED_QUERY_METHODS = [
