@@ -199,7 +199,6 @@ export default function Dashboard(props) {
             <Grid container alignItems="baseline" justify="space-between" direction="row">
               <Typography variant="h5" className={classes.subtitle} data-intercom="task-count">
                 Top {todoTaskCount} goals
-                {doneTaskCount > 0 && ` (and ${doneTaskCount} completed)`}
               </Typography>
               <Button
                 variant="contained"
