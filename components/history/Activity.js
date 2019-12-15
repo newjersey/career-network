@@ -1,6 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { format } from 'date-fns';
 import Card from '@material-ui/core/Card';
 import Chip from '@material-ui/core/Chip';
 import Divider from '@material-ui/core/Divider';
@@ -9,16 +8,6 @@ import Grid from '@material-ui/core/Grid';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
-import FirebasePropTypes from '../Firebase/PropTypes';
-
-function getFormattedDateCompleted(timestamp) {
-  const date = timestamp.toDate();
-  return format(date, 'MMMM do');
-}
-function getFormattedDateEntered(timestamp) {
-  const date = timestamp.toDate();
-  return format(date, 'P');
-}
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -54,7 +43,6 @@ function Activity(props) {
   const classes = useStyles();
 
   const {
-    timestamp,
     activityTypeLabel,
     description,
     briefDescription,
@@ -72,9 +60,6 @@ function Activity(props) {
           <Typography variant="body1" noWrap style={{ maxWidth: '75%', fontWeight: 500 }}>
             {activityTypeLabel}
           </Typography>
-          <Typography variant="caption" component="p" noWrap>
-            {getFormattedDateEntered(timestamp)}
-          </Typography>
         </div>
 
         <Typography variant="h6" component="h2" className={classes.group}>
@@ -88,7 +73,7 @@ function Activity(props) {
             <Typography variant="body2" className={classes.label}>
               Completed On
             </Typography>
-            <Typography variant="body1">{getFormattedDateCompleted(dateCompleted)}</Typography>
+            <Typography variant="body1">{dateCompleted}</Typography>
           </Grid>
           <Grid item xs={4}>
             <Typography variant="body2" className={classes.label}>
@@ -137,8 +122,7 @@ function Activity(props) {
 
 Activity.propTypes = {
   activityTypeLabel: PropTypes.string.isRequired,
-  dateCompleted: FirebasePropTypes.timestamp.isRequired,
-  timestamp: FirebasePropTypes.timestamp.isRequired,
+  dateCompleted: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   difficultyLevel: PropTypes.string.isRequired,
   timeSpentInMinutes: PropTypes.number.isRequired,
