@@ -47,7 +47,7 @@ export default function History(props) {
       ...activity,
       dateCompleted,
       dateCmp: dateCompleted.toDate(),
-      cardType: 'ACTIVITY',
+      component: Activity,
     };
   });
 
@@ -61,7 +61,7 @@ export default function History(props) {
       dateCompleted: timestamp,
       dateCmp: timestamp.toDate(),
       timestamp,
-      cardType: 'TASK',
+      component: CompletedTask,
     };
   });
 
@@ -98,11 +98,7 @@ export default function History(props) {
                 .filter(card => isInMonthYear(card.dateCmp, new Date(dateString)))
                 .map(card => (
                   <Grid key={card.timestamp} item xs={12} className={classes.listItem}>
-                    {card.cardType === 'ACTIVITY' ? (
-                      <Activity {...card} />
-                    ) : (
-                      <CompletedTask {...card} />
-                    )}
+                    <card.component {...card} />
                   </Grid>
                 ))}
             </Grid>
