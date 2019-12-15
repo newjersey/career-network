@@ -79,7 +79,7 @@ export default function History(props) {
     <div className={classes.root}>
       <ScaffoldContainer>
         <Typography variant="h5" component="h5" className={classes.pageHeader}>
-          Your Activities
+          All Progress
         </Typography>
         {activityMonths.map(dateString => (
           <div key={dateString}>

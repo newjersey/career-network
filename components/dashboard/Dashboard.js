@@ -200,7 +200,7 @@ export default function Dashboard(props) {
           <Grid item xs={12} md={9}>
             <Grid container alignItems="baseline" justify="space-between" direction="row">
               <Typography variant="h5" className={classes.subtitle} data-intercom="task-count">
-                Top {todoTaskCount} goals
+                Top {todoTaskCount} Goals
               </Typography>
               <Button
                 variant="contained"
@@ -222,7 +222,7 @@ export default function Dashboard(props) {
           </Grid>
           <Grid item xs={12} md={3}>
             <Typography variant="h5" className={classes.subtitle} data-intercom="activity-title">
-              Completed Activities
+              Recent Progress
             </Typography>
             <ActivityList
               activities={recentActivityLogEntries}

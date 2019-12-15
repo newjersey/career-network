@@ -51,9 +51,9 @@ export default function ActivityList(props) {
           )
         )}
       {!!sorted.length && (
-        <NextLink href="/history">
+        <NextLink href="/progress">
           <Button color="primary" variant="contained" fullWidth>
-            See All History
+            See All Progress
           </Button>
         </NextLink>
       )}
