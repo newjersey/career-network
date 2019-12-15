@@ -1,18 +1,19 @@
 import { makeStyles } from '@material-ui/styles';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 
 import { useAuth } from '../Auth';
+import ActivityInputDialog from './ActivityInputDialog';
+import ActivityList from './ActivityList';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import FirebasePropTypes from '../Firebase/PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
 import SentimentTracker from './SentimentTracker';
-import ActivityList from './ActivityList';
 import TaskList from './TaskList';
 import TimeDistanceParser from '../../src/time-distance-parser';
-import ActivityInputDialog from './ActivityInputDialog';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -164,6 +165,7 @@ export default function Dashboard(props) {
     allActionDispositionEvents,
     allTaskDispositionEvents,
     completedTasks,
+    historyLimit,
     recentActivityLogEntries,
     ...restProps
   } = props;
@@ -222,7 +224,11 @@ export default function Dashboard(props) {
             <Typography variant="h5" className={classes.subtitle} data-intercom="activity-title">
               Completed Activities
             </Typography>
-            <ActivityList activities={recentActivityLogEntries} completedTasks={completedTasks} />
+            <ActivityList
+              activities={recentActivityLogEntries}
+              completedTasks={completedTasks}
+              limit={historyLimit}
+            />
           </Grid>
         </Grid>
       </ScaffoldContainer>
@@ -240,6 +246,7 @@ Dashboard.propTypes = {
   allActionDispositionEvents: FirebasePropTypes.querySnapshot,
   allTaskDispositionEvents: FirebasePropTypes.querySnapshot,
   completedTasks: FirebasePropTypes.querySnapshot,
+  historyLimit: PropTypes.number.isRequired,
   recentActivityLogEntries: FirebasePropTypes.querySnapshot,
 };
 

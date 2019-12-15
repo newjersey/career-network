@@ -3,21 +3,28 @@ import React from 'react';
 import { allPropsLoaded, fullyLoaded } from '../src/app-helper';
 import { useAuth, withAuthRequired } from '../components/Auth';
 import { useRecords } from '../components/Airtable';
-import { useUserSubcollection, useCompletedTasks } from '../components/Firebase';
+import { useUserSubcollection } from '../components/Firebase';
 import Dashboard from '../components/dashboard/Dashboard';
 import FullPageProgress from '../components/FullPageProgress';
 import withTitle from '../components/withTitle';
+
+const HISTORY_LIMIT = 3;
 
 function DashboardPage() {
   const { user } = useAuth();
   const allQuestionResponses = useUserSubcollection('questionResponses');
   const allActionDispositionEvents = useUserSubcollection('actionDispositionEvents');
   const allTaskDispositionEvents = useUserSubcollection('taskDispositionEvents');
-  const completedTasks = useCompletedTasks();
+  const completedTasks = useUserSubcollection(
+    'taskDispositionEvents',
+    { where: ['type', '==', 'done'] },
+    { orderBy: ['timestamp', 'desc'] },
+    { limit: HISTORY_LIMIT }
+  );
   const recentActivityLogEntries = useUserSubcollection(
     'activityLogEntries',
     { orderBy: ['timestamp', 'desc'] },
-    { limit: 3 }
+    { limit: HISTORY_LIMIT }
   );
   const recordProps = {
     allPredicates: useRecords('Predicates'),
@@ -39,6 +46,7 @@ function DashboardPage() {
       allActionDispositionEvents={allActionDispositionEvents}
       allTaskDispositionEvents={allTaskDispositionEvents}
       completedTasks={completedTasks}
+      historyLimit={HISTORY_LIMIT}
       recentActivityLogEntries={recentActivityLogEntries}
       {...recordProps}
     />

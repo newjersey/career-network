@@ -1,7 +1,7 @@
 import React from 'react';
 import { fullyLoaded } from '../src/app-helper';
 import { useAuth, withAuthRequired } from '../components/Auth';
-import { useUserSubcollection, useCompletedTasks } from '../components/Firebase';
+import { useUserSubcollection } from '../components/Firebase';
 import History from '../components/history/History';
 import FullPageProgress from '../components/FullPageProgress';
 import withTitle from '../components/withTitle';
@@ -9,7 +9,11 @@ import withTitle from '../components/withTitle';
 function HistoryPage() {
   const { user } = useAuth();
   const allUserActivities = useUserSubcollection('activityLogEntries');
-  const completedTasks = useCompletedTasks();
+  const completedTasks = useUserSubcollection(
+    'taskDispositionEvents',
+    { where: ['type', '==', 'done'] },
+    { orderBy: ['timestamp', 'desc'] }
+  );
 
   return fullyLoaded(user, allUserActivities, completedTasks) ? (
     <History activities={allUserActivities} completedTasks={completedTasks} />
