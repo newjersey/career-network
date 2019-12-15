@@ -6,7 +6,6 @@ import Grid from '@material-ui/core/Grid';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import VpnKey from '@material-ui/icons/VpnKey';
 import PropTypes from 'prop-types';
 import DateCompleted from '../DateCompleted';
 import FirebasePropTypes from '../Firebase/PropTypes';
@@ -34,10 +33,10 @@ const useStyles = makeStyles(theme => ({
 
 export default function ProgressFeedItem(props) {
   const classes = useStyles();
-  const { title, subheader, date, timeSpentInMinutes, icon, cardType } = props;
+  const { title, subheader, date, timeSpentInMinutes, icon } = props;
 
   return (
-    <Card className={classes.card} data-intercom={cardType}>
+    <Card className={classes.card} data-intercom="progress-feed-item">
       <CardHeader
         title={
           <Grid container justify="space-between">
@@ -51,7 +50,6 @@ export default function ProgressFeedItem(props) {
           </Typography>
         }
         classes={{ title: classes.cardHeaderTitle }}
-        action={icon}
       />
       <CardContent className={classes.cardContent}>
         <Divider className={classes.divider} />
@@ -60,15 +58,15 @@ export default function ProgressFeedItem(props) {
             <DateCompleted variant="body2">{date}</DateCompleted>
           </Grid>
           <Grid item>
-            {(timeSpentInMinutes && (
+            {timeSpentInMinutes && (
               <Typography variant="body2">
                 <span role="img" aria-label="Clock">
                   🕒
                 </span>
                 {timeSpentInMinutes} Minutes
               </Typography>
-            )) ||
-              (cardType === 'TASK' && <VpnKey />)}
+            )}
+            {icon}
           </Grid>
         </Grid>
       </CardContent>
@@ -81,8 +79,7 @@ ProgressFeedItem.propTypes = {
   subheader: PropTypes.string.isRequired,
   date: FirebasePropTypes.timestamp.isRequired,
   timeSpentInMinutes: PropTypes.number,
-  icon: PropTypes.string,
-  cardType: PropTypes.string.isRequired,
+  icon: PropTypes.element,
 };
 
 ProgressFeedItem.defaultProps = {

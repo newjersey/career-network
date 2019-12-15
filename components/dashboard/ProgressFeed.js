@@ -4,6 +4,7 @@ import NextLink from 'next/link';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import VpnKey from '@material-ui/icons/VpnKey';
 
 import FirebasePropTypes from '../Firebase/PropTypes';
 import ProgressFeedItem from './ProgressFeedItem';
@@ -19,7 +20,6 @@ export default function ProgressFeed(props) {
     ...activities.map(item => ({
       timestamp: getTimestamp(item),
       props: {
-        cardType: 'ACTIVITY',
         title: item.data().briefDescription,
         subheader: item.data().activityTypeLabel,
         date: item.data().dateCompleted,
@@ -30,7 +30,7 @@ export default function ProgressFeed(props) {
     ...completedTasks.map(item => ({
       timestamp: getTimestamp(item),
       props: {
-        cardType: 'TASK',
+        icon: <VpnKey />,
         title: item.data().task.fields.Title,
         subheader: item.data().task.fields.Category,
         date: item.data().timestamp,
