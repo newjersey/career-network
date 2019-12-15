@@ -15,18 +15,16 @@ function ToggleButton({ options, value, handleChange, multiSelect }) {
   const classes = useStyles();
 
   const isSelected = v => (multiSelect ? selected.includes(v) : selected === v);
-  const addSelected = v => (multiSelect ? setSelected([...selected, v]) : setSelected(v));
-  const removeSelected = v =>
-    multiSelect ? setSelected(selected.filter(el => el !== v)) : setSelected();
+  const addSelected = v => (multiSelect ? [...selected, v] : v);
+  const removeSelected = v => (multiSelect ? selected.filter(el => el !== v) : undefined);
 
   const handleUpdate = v => {
-    if (isSelected(v)) {
-      removeSelected(v);
-    } else {
-      addSelected(v);
-    }
-    handleChange(v);
+    const newSelection = isSelected(v) ? removeSelected(v) : addSelected(v);
+
+    handleChange(newSelection);
+    setSelected(newSelection);
   };
+
   return (
     <Grid container>
       {options.map(opt => (
@@ -50,7 +48,7 @@ ToggleButton.defaultProps = {
 
 ToggleButton.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]).isRequired,
+  value: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string), PropTypes.string]).isRequired,
   handleChange: PropTypes.func.isRequired,
   multiSelect: PropTypes.bool,
 };

@@ -55,16 +55,11 @@ export default function TaskList(props) {
       <div className={classes.confetti} ref={confettiRef} />
       <div>
         {tasks
-          .sort(
-            (taskA, taskB) =>
-              isDone(taskA, allTaskDispositionEvents, 'taskId') -
-              isDone(taskB, allTaskDispositionEvents, 'taskId')
-          )
+          .filter(task => !isDone(task, allTaskDispositionEvents, 'taskId'))
           .map(task => (
             <Task
               key={task.id}
               task={task}
-              isDone={isDone(task, allTaskDispositionEvents, 'taskId')}
               onDone={onTaskComplete}
               actions={getActions(task, allActions)}
               {...restProps}
