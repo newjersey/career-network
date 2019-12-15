@@ -94,16 +94,13 @@ function CompleteTask(props) {
 
 CompleteTask.propTypes = {
   category: PropTypes.string,
-  dateCompleted: PropTypes.string,
-  title: PropTypes.string,
-  why: PropTypes.string,
+  dateCompleted: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  why: PropTypes.string.isRequired,
 };
 
 CompleteTask.defaultProps = {
-  category: '',
-  dateCompleted: null,
-  title: '',
-  why: '',
+  category: undefined,
 };
 
 export default CompleteTask;
