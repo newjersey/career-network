@@ -1,4 +1,6 @@
 import { compareDesc } from 'date-fns';
+import Button from '@material-ui/core/Button';
+import NextLink from 'next/link';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -48,6 +50,13 @@ export default function ActivityList(props) {
             />
           )
         )}
+      {!!sorted.length && (
+        <NextLink href="/history">
+          <Button color="primary" variant="contained" fullWidth>
+            See All History
+          </Button>
+        </NextLink>
+      )}
     </div>
   );
 }
