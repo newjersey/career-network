@@ -114,7 +114,7 @@ export default function History(props) {
           Your Activities
         </Typography>
         {activityMonths.map(dateString => (
-          <div className={classes.section} key={dateString}>
+          <div key={dateString}>
             <div className={classes.sectionHeader}>
               <CalendarIcon className={classes.calendarIcon} fontSize="small" />
               <Typography
