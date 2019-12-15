@@ -9,6 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import VpnKey from '@material-ui/icons/VpnKey';
 
 import AirtablePropTypes from '../Airtable/PropTypes';
+import DateCompleted from '../DateCompleted';
+import FirebasePropTypes from '../Firebase/PropTypes';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -77,7 +79,7 @@ function CompleteTask(props) {
             <Typography variant="body2" className={classes.label}>
               Completed On
             </Typography>
-            <Typography variant="body1">{dateCompleted}</Typography>
+            <DateCompleted variant="body1">{dateCompleted}</DateCompleted>
           </Grid>
         </Grid>
       </CardContent>
@@ -87,7 +89,7 @@ function CompleteTask(props) {
 
 CompleteTask.propTypes = {
   categoryName: PropTypes.string,
-  dateCompleted: PropTypes.string.isRequired,
+  dateCompleted: FirebasePropTypes.timestamp.isRequired,
   title: PropTypes.string.isRequired,
   why: PropTypes.string.isRequired,
 };
