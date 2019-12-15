@@ -39,9 +39,11 @@ export default function ProgressFeedItem(props) {
     <Card className={classes.card} data-intercom="progress-feed-item">
       <CardHeader
         title={
-          <Grid container justify="space-between">
-            <Typography variant="body2">{subheader}</Typography>
-          </Grid>
+          subheader && (
+            <Grid container justify="space-between">
+              <Typography variant="body2">{subheader}</Typography>
+            </Grid>
+          )
         }
         titleTypographyProps={{ component: 'h2' }}
         subheader={
@@ -76,7 +78,7 @@ export default function ProgressFeedItem(props) {
 
 ProgressFeedItem.propTypes = {
   title: PropTypes.string.isRequired,
-  subheader: PropTypes.string.isRequired,
+  subheader: PropTypes.string,
   date: FirebasePropTypes.timestamp.isRequired,
   timeSpentInMinutes: PropTypes.number,
   icon: PropTypes.element,
@@ -84,5 +86,6 @@ ProgressFeedItem.propTypes = {
 
 ProgressFeedItem.defaultProps = {
   icon: null,
+  subheader: null,
   timeSpentInMinutes: null,
 };
