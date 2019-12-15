@@ -10,9 +10,14 @@ import FirebasePropTypes from '../Firebase/PropTypes';
 
 export default function ActivityList(props) {
   const { activities, completedTasks, limit } = props;
+
+  // protect against immediately-created items that don't yet have a server-generated timestamp
+  const getTimestamp = item =>
+    (item.data().timestamp && item.data().timestamp.toDate()) || new Date();
+
   const sorted = [
     ...activities.map(item => ({
-      timestamp: item.data().timestamp,
+      timestamp: getTimestamp(item),
       feedItemProps: {
         cardType: 'ACTIVITY',
         title: item.data().briefDescription,
@@ -23,7 +28,7 @@ export default function ActivityList(props) {
       },
     })),
     ...completedTasks.map(item => ({
-      timestamp: item.data().timestamp,
+      timestamp: getTimestamp(item),
       feedItemProps: {
         cardType: 'TASK',
         title: item.data().task.fields.Title,
@@ -32,7 +37,7 @@ export default function ActivityList(props) {
         key: item.data().taskId,
       },
     })),
-  ].sort((a, b) => compareDesc(a.timestamp.toDate(), b.timestamp.toDate()));
+  ].sort((a, b) => compareDesc(a.timestamp, b.timestamp));
 
   return (
     <div>
