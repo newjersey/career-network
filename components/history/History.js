@@ -33,11 +33,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function getFormattedDateCompleted(timestamp) {
-  const date = timestamp.toDate();
-  return format(date, 'MMMM do');
-}
-
 export default function History(props) {
   const isInMonthYear = (date, monthYear) =>
     isSameMonth(date, monthYear) && isSameYear(date, monthYear);
@@ -51,7 +46,7 @@ export default function History(props) {
       const { dateCompleted, ...activity } = a.data();
       return {
         ...activity,
-        dateCompleted: getFormattedDateCompleted(dateCompleted),
+        dateCompleted,
         dateCmp: dateCompleted.toDate(),
         cardType: 'ACTIVITY',
       };
@@ -62,10 +57,10 @@ export default function History(props) {
           const { task, timestamp } = taskEvent.data();
           return {
             ...task,
-            category: task.fields.Category,
+            categoryName: task.fields.Category,
             title: task.fields.Task,
             why: task.fields.Why,
-            dateCompleted: getFormattedDateCompleted(timestamp),
+            dateCompleted: timestamp,
             dateCmp: timestamp.toDate(),
             timestamp,
             cardType: 'TASK',
@@ -91,7 +86,7 @@ export default function History(props) {
           Your Activities
         </Typography>
         {activityMonths.map(dateString => (
-          <div className={classes.section} key={dateString}>
+          <div key={dateString}>
             <div className={classes.sectionHeader}>
               <CalendarIcon className={classes.calendarIcon} fontSize="small" />
               <Typography

@@ -1,13 +1,14 @@
-import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 import Chip from '@material-ui/core/Chip';
 import Grid from '@material-ui/core/Grid';
+import PropTypes from 'prop-types';
+import React from 'react';
+import Typography from '@material-ui/core/Typography';
 import VpnKey from '@material-ui/icons/VpnKey';
 
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import PropTypes from 'prop-types';
+import AirtablePropTypes from '../Airtable/PropTypes';
 import DateCompleted from '../DateCompleted';
 import FirebasePropTypes from '../Firebase/PropTypes';
 
@@ -42,19 +43,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function bgColor(category) {
-  return {
-    'Marketing yourself': '#d0f0fd',
-    'Relationship building': '#d2f7c5',
-    'Searching/applying for jobs': '#ffeab6',
-    'Researching people & companies': '#ffdce5',
-  }[category];
-}
-
 function CompleteTask(props) {
   const classes = useStyles();
 
-  const { category, title, why, dateCompleted } = props;
+  const { categoryName, title, why, dateCompleted } = props;
+  const category = categoryName && AirtablePropTypes.findTaskCategory(categoryName);
 
   return (
     <Card className={classes.card}>
@@ -63,9 +56,9 @@ function CompleteTask(props) {
           {category && (
             <Chip
               size="small"
-              label={category}
+              label={category.name}
               className={classes.type}
-              style={{ backgroundColor: bgColor(category) }}
+              style={{ backgroundColor: category.color }}
             />
           )}
           <VpnKey style={{ position: 'absolute', right: 0 }} />
@@ -95,10 +88,14 @@ function CompleteTask(props) {
 }
 
 CompleteTask.propTypes = {
-  category: PropTypes.string.isRequired,
+  categoryName: PropTypes.string,
   dateCompleted: FirebasePropTypes.timestamp.isRequired,
   title: PropTypes.string.isRequired,
   why: PropTypes.string.isRequired,
+};
+
+CompleteTask.defaultProps = {
+  categoryName: undefined,
 };
 
 export default CompleteTask;
