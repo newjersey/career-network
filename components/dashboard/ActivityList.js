@@ -11,18 +11,16 @@ import FirebasePropTypes from '../Firebase/PropTypes';
 export default function ActivityList(props) {
   const { activities, completedTasks, limit } = props;
   const sorted = [
-    ...(!activities.empty &&
-      activities.map(a => ({
-        ...a.data(),
-        dateCmp: a.data().dateCompleted.toDate(),
-        cardType: 'ACTIVITY',
-      }))),
-    ...(!completedTasks.empty &&
-      completedTasks.map(t => ({
-        ...t.data(),
-        dateCmp: t.data().timestamp.toDate(),
-        cardType: 'TASK',
-      }))),
+    ...activities.map(a => ({
+      ...a.data(),
+      dateCmp: a.data().dateCompleted.toDate(),
+      cardType: 'ACTIVITY',
+    })),
+    ...completedTasks.map(t => ({
+      ...t.data(),
+      dateCmp: t.data().timestamp.toDate(),
+      cardType: 'TASK',
+    })),
   ].sort((a, b) => compareDesc(new Date(a.dateCmp), new Date(b.dateCmp)));
 
   return (
