@@ -41,43 +41,39 @@ export default function History(props) {
   let activityMonths = [];
   let cards = [];
 
-  if (!activities.empty) {
-    const activitiesTemp = activities.map(a => {
-      const { dateCompleted, ...activity } = a.data();
-      return {
-        ...activity,
-        dateCompleted,
-        dateCmp: dateCompleted.toDate(),
-        cardType: 'ACTIVITY',
-      };
-    });
+  const activitiesTemp = activities.map(a => {
+    const { dateCompleted, ...activity } = a.data();
+    return {
+      ...activity,
+      dateCompleted,
+      dateCmp: dateCompleted.toDate(),
+      cardType: 'ACTIVITY',
+    };
+  });
 
-    const tasksTemp = !completedTasks.empty
-      ? completedTasks.map(taskEvent => {
-          const { task, timestamp } = taskEvent.data();
-          return {
-            ...task,
-            categoryName: task.fields.Category,
-            title: task.fields.Task,
-            why: task.fields.Why,
-            dateCompleted: timestamp,
-            dateCmp: timestamp.toDate(),
-            timestamp,
-            cardType: 'TASK',
-          };
-        })
-      : [];
+  const tasksTemp = completedTasks.map(taskEvent => {
+    const { task, timestamp } = taskEvent.data();
+    return {
+      ...task,
+      categoryName: task.fields.Category,
+      title: task.fields.Task,
+      why: task.fields.Why,
+      dateCompleted: timestamp,
+      dateCmp: timestamp.toDate(),
+      timestamp,
+      cardType: 'TASK',
+    };
+  });
 
-    cards = [...activitiesTemp, ...tasksTemp].sort((a, b) =>
-      compareDesc(new Date(a.dateCmp), new Date(b.dateCmp))
-    );
-    activityMonths = cards
-      .map(c => c.dateCmp)
-      .reduce((datesArr, current) => {
-        const date = format(current, 'MMMM y');
-        return !datesArr.includes(date) ? [...datesArr, date] : datesArr;
-      }, []);
-  }
+  cards = [...activitiesTemp, ...tasksTemp].sort((a, b) =>
+    compareDesc(new Date(a.dateCmp), new Date(b.dateCmp))
+  );
+  activityMonths = cards
+    .map(c => c.dateCmp)
+    .reduce((datesArr, current) => {
+      const date = format(current, 'MMMM y');
+      return !datesArr.includes(date) ? [...datesArr, date] : datesArr;
+    }, []);
 
   return (
     <div className={classes.root}>
