@@ -13,15 +13,13 @@ export default function ActivityList(props) {
   const sorted = [
     ...activities.map(a => ({
       ...a.data(),
-      dateCmp: a.data().timestamp.toDate(),
       cardType: 'ACTIVITY',
     })),
     ...completedTasks.map(t => ({
       ...t.data(),
-      dateCmp: t.data().timestamp.toDate(),
       cardType: 'TASK',
     })),
-  ].sort((a, b) => compareDesc(new Date(a.dateCmp), new Date(b.dateCmp)));
+  ].sort((a, b) => compareDesc(a.timestamp.toDate(), b.timestamp.toDate()));
 
   return (
     <div>
