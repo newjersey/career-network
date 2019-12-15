@@ -7,9 +7,9 @@ import Typography from '@material-ui/core/Typography';
 
 import { useAuth } from '../Auth';
 import ActivityInputDialog from './ActivityInputDialog';
-import ActivityList from './ActivityList';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import FirebasePropTypes from '../Firebase/PropTypes';
+import ProgressFeed from './ProgressFeed';
 import ScaffoldContainer from '../ScaffoldContainer';
 import SentimentTracker from './SentimentTracker';
 import TaskList from './TaskList';
@@ -224,7 +224,7 @@ export default function Dashboard(props) {
             <Typography variant="h5" className={classes.subtitle} data-intercom="activity-title">
               Recent Progress
             </Typography>
-            <ActivityList
+            <ProgressFeed
               activities={recentActivityLogEntries}
               completedTasks={completedTasks}
               limit={historyLimit}

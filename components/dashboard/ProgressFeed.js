@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import FeedCard from './FeedCard';
 import FirebasePropTypes from '../Firebase/PropTypes';
+import ProgressFeedItem from './ProgressFeedItem';
 
-export default function ActivityList(props) {
+export default function ProgressFeed(props) {
   const { activities, completedTasks, limit } = props;
 
   // protect against immediately-created items that don't yet have a server-generated timestamp
@@ -18,7 +18,7 @@ export default function ActivityList(props) {
   const sorted = [
     ...activities.map(item => ({
       timestamp: getTimestamp(item),
-      feedItemProps: {
+      props: {
         cardType: 'ACTIVITY',
         title: item.data().briefDescription,
         subheader: item.data().activityTypeLabel,
@@ -29,7 +29,7 @@ export default function ActivityList(props) {
     })),
     ...completedTasks.map(item => ({
       timestamp: getTimestamp(item),
-      feedItemProps: {
+      props: {
         cardType: 'TASK',
         title: item.data().task.fields.Title,
         subheader: item.data().task.fields.Category,
@@ -43,7 +43,7 @@ export default function ActivityList(props) {
     <div>
       {!sorted.length && <Typography color="textSecondary">None</Typography>}
       {sorted.slice(0, limit).map(item => (
-        <FeedCard {...item.feedItemProps} />
+        <ProgressFeedItem {...item.props} />
       ))}
       {!!sorted.length && (
         <NextLink href="/progress">
@@ -56,7 +56,7 @@ export default function ActivityList(props) {
   );
 }
 
-ActivityList.propTypes = {
+ProgressFeed.propTypes = {
   activities: FirebasePropTypes.querySnapshot.isRequired,
   completedTasks: FirebasePropTypes.querySnapshot.isRequired,
   limit: PropTypes.number.isRequired,

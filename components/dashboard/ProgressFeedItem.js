@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function FeedCard(props) {
+export default function ProgressFeedItem(props) {
   const classes = useStyles();
   const { title, subheader, date, timeSpentInMinutes, icon, cardType } = props;
 
@@ -76,7 +76,7 @@ export default function FeedCard(props) {
   );
 }
 
-FeedCard.propTypes = {
+ProgressFeedItem.propTypes = {
   title: PropTypes.string.isRequired,
   subheader: PropTypes.string.isRequired,
   date: FirebasePropTypes.timestamp.isRequired,
@@ -85,7 +85,7 @@ FeedCard.propTypes = {
   cardType: PropTypes.string.isRequired,
 };
 
-FeedCard.defaultProps = {
+ProgressFeedItem.defaultProps = {
   icon: null,
   timeSpentInMinutes: null,
 };
