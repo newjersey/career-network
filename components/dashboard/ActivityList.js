@@ -13,7 +13,7 @@ export default function ActivityList(props) {
   const sorted = [
     ...activities.map(a => ({
       ...a.data(),
-      dateCmp: a.data().dateCompleted.toDate(),
+      dateCmp: a.data().timestamp.toDate(),
       cardType: 'ACTIVITY',
     })),
     ...completedTasks.map(t => ({
