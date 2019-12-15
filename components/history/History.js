@@ -57,7 +57,7 @@ function filterDoneFromTaskDispositionEvents(events) {
         const { task, timestamp } = taskEvent.data();
         return {
           dateCmp: timestamp.toDate(),
-          category: task.fields.Category,
+          categoryName: task.fields.Category,
           title: task.fields.Task,
           why: task.fields.Why,
           dateCompleted: getFormattedDateCompleted(timestamp),

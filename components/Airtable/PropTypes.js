@@ -7,11 +7,31 @@ function recordShape(fieldsShape) {
   });
 }
 
-const TASK_CATEGORIES = {
-  'Marketing Materials': { color: '#d0f0fd' },
-  'Relationship-Building': { color: '#d2f7c5' },
-  'Finding Openings/Applying': { color: '#ffeab6' },
-  'Researching People & Organizations': { color: '#ffdce5' },
+const TASK_CATEGORIES = [
+  { color: '#d0f0fd', name: 'Marketing Materials', legacyNames: ['Marketing yourself'] },
+  { color: '#d2f7c5', name: 'Relationship-Building', legacyNames: ['Relationship building'] },
+  {
+    color: '#ffeab6',
+    name: 'Finding Openings/Applying',
+    legacyNames: ['Searching/applying for jobs'],
+  },
+  {
+    color: '#ffdce5',
+    name: 'Researching People & Organizations',
+    legacyNames: ['Researching people & companies'],
+  },
+];
+
+const findTaskCategory = name => {
+  const result =
+    TASK_CATEGORIES.find(cat => cat.name === name) ||
+    TASK_CATEGORIES.find(cat => cat.legacyNames.includes(name));
+
+  if (!result) {
+    throw new Error(`Unrecognized task cateogry name: ${name}`);
+  }
+
+  return result;
 };
 
 const questionResponseType = PropTypes.oneOf([
@@ -96,7 +116,7 @@ const task = recordShape({
   'Task ID': PropTypes.number.isRequired,
   Priority: PropTypes.number.isRequired,
   'Time Estimate': PropTypes.number.isRequired,
-  Category: PropTypes.oneOf(Object.keys(TASK_CATEGORIES)),
+  Category: PropTypes.oneOf(TASK_CATEGORIES.map(category => category.name)),
   Trigger: PropTypes.oneOf(['Everyone', 'Conditions', 'Event']).isRequired,
   Frequency: PropTypes.oneOf(['Once', 'Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly'])
     .isRequired,
@@ -154,4 +174,5 @@ export default {
   task,
   tasks: PropTypes.arrayOf(task),
   TASK_CATEGORIES,
+  findTaskCategory,
 };

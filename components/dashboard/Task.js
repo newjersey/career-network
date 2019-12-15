@@ -58,7 +58,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function bgColor(task) {
-  return AirtablePropTypes.TASK_CATEGORIES[task.fields.Category].color;
+  return AirtablePropTypes.findTaskCategory(task.fields.Category).color;
 }
 
 export default function Task(props) {
