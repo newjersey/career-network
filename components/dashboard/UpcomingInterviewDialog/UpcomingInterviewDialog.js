@@ -49,13 +49,6 @@ const INTERVIEW_TYPES = [
   },
 ];
 
-const upcomingInterviewFormValues = {
-  type: undefined,
-  date: undefined,
-  company: undefined,
-  role: undefined,
-};
-
 const useStyles = makeStyles(theme => ({
   dialogTitle: {
     marginTop: theme.spacing(2),
@@ -119,7 +112,7 @@ export default function UpcomingInterviewDialog(props) {
     errors,
     isSubmitting,
     reset,
-  } = useFormValidation(upcomingInterviewFormValues, upcomingInterviewFormValidation, submit);
+  } = useFormValidation({}, upcomingInterviewFormValidation, submit);
 
   const handleClose = () => {
     reset();
@@ -150,7 +143,6 @@ export default function UpcomingInterviewDialog(props) {
                 horizontal: 'left',
                 vertical: 'bottom',
               },
-              disableListWrap: false,
               getContentAnchorEl: null,
             }}
             onChange={handleChange}
