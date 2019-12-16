@@ -49,6 +49,18 @@ function About() {
         >
           <Grid item>
             <Picture
+              path="nj-lwd.webp"
+              fallbackType="png"
+              className={classes.image}
+              alt="New Jersey Department of Labor and Workforce Development Logo"
+              style={{ borderRadius: '50%' }}
+            />
+            <Typography variant="caption" component="p" align="center">
+              NJ Department of Labor
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Picture
               path="rutgers.webp"
               fallbackType="png"
               className={classes.image}
