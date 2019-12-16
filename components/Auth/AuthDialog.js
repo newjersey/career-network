@@ -22,10 +22,13 @@ function AuthDialog(props) {
     >
       <DialogTitle id="sign-in-dialog-title">Sign in</DialogTitle>
       <DialogContent>
-        <DialogContentText>
+        <DialogContentText style={{ maxWidth: 460 }}>
           Before we get started, please sign in using an account below.
           <br />
-          <small>We only use this information to provide and improve this service.</small>
+          <small>
+            Your data is private and secure – we only use this information to provide and improve
+            this service.
+          </small>
         </DialogContentText>
         <AuthForm onSignInSuccessWithAuthResult={onSignInSuccessWithAuthResult} />
       </DialogContent>
