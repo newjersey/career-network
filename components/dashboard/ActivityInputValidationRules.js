@@ -1,16 +1,20 @@
 export default function validate(formValues) {
-  const formErrors = {};
-  if (!formValues.activityTypeValue) {
-    formErrors.activityTypeValue = 'Activity is required.';
-  }
-  if (!formValues.description) {
-    formErrors.description = 'Description is required.';
-  }
-  if (!formValues.timeSpentInMinutes) {
-    formErrors.timeSpentInMinutes = 'Time Spent is required.';
-  }
-  if (!formValues.difficultyLevel) {
-    formErrors.difficultyLevel = 'Difficulty Level is required.';
-  }
-  return formErrors;
+  const REQUIRED_FIELDS = {
+    activityTypeValue: 'Activity',
+    description: 'Description',
+    timeSpentInMinutes: 'Time Spent',
+    difficultyLevel: 'Difficulty Level',
+  };
+
+  return Object.entries(REQUIRED_FIELDS)
+    .filter(pair => !formValues[pair[0]])
+    .map(pair => ({
+      key: pair[0],
+      error: `${pair[1]} is required.`,
+    }))
+    .reduce((formErrors, { key, error }) => {
+      const result = { ...formErrors };
+      result[key] = error;
+      return result;
+    }, {});
 }
