@@ -73,7 +73,6 @@ const DialogActions = withStyles(theme => ({
   },
 }))(MuiDialogActions);
 
-/** ACTIVITY INPUT DIALOG */
 const useActivityDialogStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
@@ -138,7 +137,7 @@ const ACTIVITY_TYPES = [
   },
 ];
 
-const TIME_SPENT_TYPE = [
+const TIME_SPENT_OPTIONS = [
   {
     label: '15 minutes',
     value: 15,
@@ -161,7 +160,7 @@ const TIME_SPENT_TYPE = [
   },
 ];
 
-const DIFFICULTY_LEVEL = ['Easy', 'Medium', 'Hard'];
+const DIFFICULTY_LEVELS = ['Easy', 'Medium', 'Hard'];
 
 const FEELINGS = [
   'Confident',
@@ -172,7 +171,7 @@ const FEELINGS = [
   'Overwhelmed',
 ];
 
-const activityFormValues = {
+const initialFormValues = {
   activityTypeValue: '',
   activityTypeLabel: '',
   description: '',
@@ -193,7 +192,7 @@ function ActivityInputDialog({ show, onClose }) {
   const [attemptSubmitting, setAttemptSubmitting] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [formValues, setFormValues] = useState(activityFormValues);
+  const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState({});
   const [shuffledFeelings, setShuffledFeelings] = useState(shuffle(FEELINGS));
 
@@ -240,7 +239,7 @@ function ActivityInputDialog({ show, onClose }) {
     setSuccess(false);
     setAttemptSubmitting(false);
     setSubmitting(false);
-    setFormValues(activityFormValues);
+    setFormValues(initialFormValues);
     setFormErrors({});
     setShuffledFeelings(shuffle(FEELINGS)); // random shuffle of Feeling types.
   };
@@ -345,9 +344,9 @@ function ActivityInputDialog({ show, onClose }) {
                 value={formValues.timeSpentInMinutes}
                 onChange={e => setFormValues({ ...formValues, timeSpentInMinutes: e.target.value })}
               >
-                {TIME_SPENT_TYPE.map(timeSpentType => (
-                  <MenuItem key={timeSpentType.label} value={timeSpentType.value}>
-                    {timeSpentType.label}
+                {TIME_SPENT_OPTIONS.map(timeSpentOption => (
+                  <MenuItem key={timeSpentOption.label} value={timeSpentOption.value}>
+                    {timeSpentOption.label}
                   </MenuItem>
                 ))}
               </Select>
@@ -361,7 +360,7 @@ function ActivityInputDialog({ show, onClose }) {
               </Typography>
               <Grid item xs={12} md={6} className={classes.toggleButton}>
                 <ToggleButton
-                  options={DIFFICULTY_LEVEL}
+                  options={DIFFICULTY_LEVELS}
                   value={String(formValues.difficultyLevel)}
                   handleChange={e => setFormValues({ ...formValues, difficultyLevel: e })}
                 />
