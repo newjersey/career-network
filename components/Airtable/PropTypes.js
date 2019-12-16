@@ -8,17 +8,25 @@ function recordShape(fieldsShape) {
 }
 
 const TASK_CATEGORIES = [
-  { color: '#d0f0fd', name: 'Marketing Materials', legacyNames: ['Marketing yourself'] },
-  { color: '#d2f7c5', name: 'Relationship-Building', legacyNames: ['Relationship building'] },
+  {
+    color: '#d0f0fd',
+    name: 'Marketing Materials',
+    legacyNames: ['Marketing yourself', 'Marketing Yourself'],
+  },
+  {
+    color: '#d2f7c5',
+    name: 'Relationship-Building',
+    legacyNames: ['Relationship building', 'Relationship Building'],
+  },
   {
     color: '#ffeab6',
     name: 'Finding Openings/Applying',
-    legacyNames: ['Searching/applying for jobs'],
+    legacyNames: ['Searching/applying for jobs', 'Searching / Posting / Applying Online'],
   },
   {
     color: '#ffdce5',
     name: 'Researching People & Organizations',
-    legacyNames: ['Researching people & companies'],
+    legacyNames: ['Researching people & companies', 'Researching People & Companies'],
   },
 ];
 
