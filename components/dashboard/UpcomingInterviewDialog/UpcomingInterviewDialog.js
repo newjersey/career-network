@@ -16,7 +16,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 
-import upcomingInterviewFormValidation from './upcomingInterviewFormValidation';
+import upcomingInterviewFormValidation from './UpcomingInterviewValidationRules';
 import useFormValidation from './formValidationHook';
 import { useAuth } from '../../Auth';
 import SubmitSuccess from '../SubmitSuccess';
