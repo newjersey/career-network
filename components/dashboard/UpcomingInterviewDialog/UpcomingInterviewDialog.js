@@ -71,9 +71,6 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
-  datepicker: {
-    marginTop: theme.spacing(1),
-  },
   dialogFooter: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
@@ -112,6 +109,7 @@ export default function UpcomingInterviewDialog(props) {
       })
       .catch(err => setSubmitError(err.message));
   }
+
   const {
     handleSubmit,
     handleChange,
@@ -119,11 +117,17 @@ export default function UpcomingInterviewDialog(props) {
     values,
     errors,
     isSubmitting,
+    reset,
   } = useFormValidation(upcomingInterviewFormValues, upcomingInterviewFormValidation, submit);
+
+  const handleClose = () => {
+    reset();
+    onClose();
+  };
 
   return (
     <Dialog fullWidth open={show} aria-labelledby="upcoming-interview-dialog">
-      <DialogTitle id="upcoming-interview-dialog" onClose={onClose}>
+      <DialogTitle id="upcoming-interview-dialog" onClose={handleClose}>
         <Typography variant="h6" className={classes.dialogTitle}>
           Have an upcoming interview?
         </Typography>
@@ -162,10 +166,8 @@ export default function UpcomingInterviewDialog(props) {
           >
             {INTERVIEW_TYPES.map(type => (
               <MenuItem value={type} key={type.value} className={classes.selectItem}>
-                <Typography variant="body1" component="span" style={{ width: '100%' }}>
-                  {type.label}
-                </Typography>
-                <Typography variant="caption" component="span" style={{ wordBreak: 'break-word' }}>
+                <Typography variant="body1">{type.label}</Typography>
+                <Typography variant="caption" style={{ wordBreak: 'break-word' }}>
                   {type.description}
                 </Typography>
               </MenuItem>
@@ -173,19 +175,23 @@ export default function UpcomingInterviewDialog(props) {
           </Select>
           <FormHelperText margin="dense">{errors.type}</FormHelperText>
         </FormControl>
-        <FormControl error={errors.date}>
+        <FormControl>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
               id={`${formId}-date`}
-              className={classes.datepicker}
-              emptyLabel="When is your interview?"
               disableToolbar
               disablePast
               variant="inline"
+              placeholder="When is your interview?"
+              InputLabelProps={{
+                shrink: true,
+              }}
               helperText={errors.date}
+              error={errors.date}
               format="MM/dd/yyyy"
               label="Interview Date"
-              value={values.date}
+              color="textSecondary"
+              value={values.date || null}
               onChange={d => handleChangeCustom('date', d)}
               KeyboardButtonProps={{
                 'aria-label': 'change date',

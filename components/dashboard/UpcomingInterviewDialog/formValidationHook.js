@@ -62,6 +62,13 @@ const useFormValidation = (initialState, validate, runOnSubmit) => {
     setSubmitting(true);
   };
 
+  const reset = () => {
+    setValues(initialState);
+    setErrors({});
+    setTouched([]);
+    setSubmitting(false);
+  };
+
   return {
     handleSubmit,
     handleChange,
@@ -70,6 +77,7 @@ const useFormValidation = (initialState, validate, runOnSubmit) => {
     errors,
     isSubmitting,
     handleChangeCustom,
+    reset,
   };
 };
 
