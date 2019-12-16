@@ -49,12 +49,6 @@ const useFormValidation = (initialState, validate, runOnSubmit) => {
     });
   };
 
-  const handleBlur = event => {
-    if (!touched.includes(event.target.name)) {
-      setTouched([...touched, event.target.name]);
-    }
-  };
-
   const handleSubmit = event => {
     event.preventDefault();
     const validationErrors = validate(values);
@@ -72,7 +66,6 @@ const useFormValidation = (initialState, validate, runOnSubmit) => {
   return {
     handleSubmit,
     handleChange,
-    handleBlur,
     values,
     errors,
     isSubmitting,
