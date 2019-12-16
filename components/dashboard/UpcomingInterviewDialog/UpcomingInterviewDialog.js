@@ -189,6 +189,7 @@ export default function UpcomingInterviewDialog(props) {
               InputLabelProps={{ shrink: true }}
               KeyboardButtonProps={{ 'aria-label': 'change date' }}
               label="Interview Date"
+              margin="normal"
               onChange={d => handleChangeCustom('date', d)}
               placeholder="When is your interview?"
               value={values.date || null}
