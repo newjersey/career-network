@@ -301,6 +301,8 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
             <TextField
               label="Brief Description"
               value={formValues.briefDescription}
+              error={!!(formErrors && formErrors.briefDescription)}
+              helperText={(formErrors && formErrors.briefDescription) || null}
               fullWidth
               onChange={e => setFormValues({ ...formValues, briefDescription: e.target.value })}
               className={classes.textField}
