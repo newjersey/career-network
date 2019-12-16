@@ -308,7 +308,7 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
             />
 
             <TextField
-              label="Description"
+              label="Notes and Reflection"
               value={formValues.description}
               error={!!(formErrors && formErrors.description)}
               helperText={(formErrors && formErrors.description) || null}
