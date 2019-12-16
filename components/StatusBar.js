@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
 export default function StatusBar() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const str1 = 'This site is in alpha and a ';
+  const str1 = 'This site is in beta and a ';
   const str2 = 'work in progress';
 
   function handleClickOpen() {
@@ -65,7 +65,7 @@ export default function StatusBar() {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="status-bar-dialog-description">
-            The Garden State Career Network is in alpha. You are welcome to sign-up and use this
+            The Garden State Career Network is in beta. You are welcome to sign-up and use this
             website, but please be aware that we are actively building the site and it may change.
             If you notice anything that doesn’t work or have any feedback, please{' '}
             <Link href="mailto:careers@gardenstate.tech?subject=Website Feedback">contact us</Link>.
