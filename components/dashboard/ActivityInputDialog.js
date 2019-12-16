@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles, useTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
+import DialogActions from '@material-ui/core/DialogActions';
 import Select from '@material-ui/core/Select';
 import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
@@ -17,7 +17,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import DateFnsUtils from '@date-io/date-fns';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import startOfDay from 'date-fns/startOfDay';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
@@ -29,27 +31,21 @@ import { useAuth } from '../Auth';
 import ToggleButton from '../ToggleButton';
 import validate from './ActivityInputValidationRules';
 
+const FORM_ELEMENT_MARGINS = [1, 0];
+
 const styles = theme => ({
-  root: {
-    margin: 0,
-    padding: theme.spacing(2),
-  },
   closeButton: {
     position: 'absolute',
     right: theme.spacing(1),
     top: theme.spacing(1),
     color: theme.palette.grey[500],
   },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
 });
 
 const DialogTitle = withStyles(styles)(props => {
   const { children, classes, onClose, ...other } = props;
   return (
-    <MuiDialogTitle disableTypography className={classes.root} {...other}>
+    <MuiDialogTitle disableTypography {...other}>
       {children}
       {onClose ? (
         <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
@@ -62,35 +58,20 @@ const DialogTitle = withStyles(styles)(props => {
 
 const DialogContent = withStyles(theme => ({
   root: {
-    padding: theme.spacing(2),
+    paddingTop: theme.spacing(1),
   },
 }))(MuiDialogContent);
 
-const DialogActions = withStyles(theme => ({
-  root: {
-    margin: 0,
-    padding: theme.spacing(1),
-  },
-}))(MuiDialogActions);
-
 const useActivityDialogStyles = makeStyles(theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-  },
   formControl: {
-    margin: theme.spacing(1),
     width: '100%',
+    margin: theme.spacing(...FORM_ELEMENT_MARGINS),
   },
   textField: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(1),
+    margin: theme.spacing(...FORM_ELEMENT_MARGINS),
   },
   toggleButton: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(2),
   },
 }));
 
@@ -188,6 +169,8 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
   const classes = useActivityDialogStyles();
   const formId = 'activity-input';
   const { userDocRef } = useAuth();
+  const theme = useTheme();
+  const isXs = useMediaQuery(theme.breakpoints.only('xs'));
   const [error, setError] = useState();
   const [attemptSubmitting, setAttemptSubmitting] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -196,42 +179,23 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
   const [formErrors, setFormErrors] = useState({});
   const [shuffledFeelings, setShuffledFeelings] = useState(shuffle(FEELINGS));
 
+  const datePickerTheme = createMuiTheme({
+    overrides: {
+      MuiFormControl: {
+        marginNormal: {
+          marginTop: theme.spacing(FORM_ELEMENT_MARGINS[0]),
+          marginRight: theme.spacing(FORM_ELEMENT_MARGINS[1]),
+          marginBottom: theme.spacing(FORM_ELEMENT_MARGINS[0]),
+          marginLeft: theme.spacing(FORM_ELEMENT_MARGINS[1]),
+        },
+      },
+    },
+  });
+
   const handleSave = () => {
     setError();
     setAttemptSubmitting(true);
     setFormErrors(validate(formValues));
-  };
-
-  const submit = () => {
-    setAttemptSubmitting(false);
-    setSubmitting(true);
-    const increment = firebase.firestore.FieldValue.increment(1);
-    const timestamp = firebase.firestore.FieldValue.serverTimestamp();
-    const data = {
-      config: {
-        activityTypes: ACTIVITY_TYPES,
-        feelings: FEELINGS,
-      },
-      timestamp,
-      ...formValues,
-    };
-    const stats = {
-      activityLogEntriesCount: increment,
-      activityLogEntriesLatestTimestamp: timestamp,
-    };
-
-    userDocRef
-      .collection('activityLogEntries')
-      .add(data)
-      .then(() => {
-        setSubmitting(false);
-        setSuccess(true);
-        userDocRef.set({ stats }, { merge: true });
-      })
-      .catch(err => {
-        setSubmitting(false);
-        setError(err.message);
-      });
   };
 
   const resetComponent = () => {
@@ -245,10 +209,42 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
   };
 
   useEffect(() => {
+    const submit = () => {
+      setAttemptSubmitting(false);
+      setSubmitting(true);
+      const increment = firebase.firestore.FieldValue.increment(1);
+      const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+      const data = {
+        config: {
+          activityTypes: ACTIVITY_TYPES,
+          feelings: FEELINGS,
+        },
+        timestamp,
+        ...formValues,
+      };
+      const stats = {
+        activityLogEntriesCount: increment,
+        activityLogEntriesLatestTimestamp: timestamp,
+      };
+
+      userDocRef
+        .collection('activityLogEntries')
+        .add(data)
+        .then(() => {
+          setSubmitting(false);
+          setSuccess(true);
+          userDocRef.set({ stats }, { merge: true });
+        })
+        .catch(err => {
+          setSubmitting(false);
+          setError(err.message);
+        });
+    };
+
     if (Object.keys(formErrors).length === 0 && attemptSubmitting) {
       submit();
     }
-  }, [formErrors]);
+  }, [attemptSubmitting, formErrors, formValues, userDocRef]);
 
   return (
     <Dialog
@@ -262,14 +258,24 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
       <DialogTitle id="customized-dialog-title" onClose={onClose}>
         <Typography variant="h5">Add Activity</Typography>
       </DialogTitle>
+
       <DialogContent dividers>
         {submitting && <CircularProgress />}
         {!(submitting || success) && (
-          <form className={classes.container} id={formId}>
+          <form id={formId}>
             <FormControl className={classes.formControl}>
-              <InputLabel id={`${formId}-activityType`}>Activity</InputLabel>
+              <InputLabel
+                error={!!(formErrors && formErrors.activityTypeValue)}
+                htmlFor={`${formId}-activityType`}
+              >
+                Activity
+              </InputLabel>
               <Select
-                id={`${formId}-activityType-select`}
+                inputProps={{
+                  name: 'activityType',
+                  id: `${formId}-activityType`,
+                }}
+                error={!!(formErrors && formErrors.activityTypeValue)}
                 value={formValues.activityTypeValue}
                 onChange={e =>
                   setFormValues({
@@ -287,101 +293,113 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
                   </MenuItem>
                 ))}
               </Select>
-              <FormHelperText error>
-                {formErrors && formErrors.activityTypeValue ? formErrors.activityTypeValue : ''}
-              </FormHelperText>
+              {formErrors && formErrors.activityTypeValue && (
+                <FormHelperText error>{formErrors.activityTypeValue}</FormHelperText>
+              )}
             </FormControl>
-            <FormControl className={classes.formControl}>
-              <InputLabel shrink htmlFor={`${formId}-briefDescription-textfield`}>
-                Brief Description
-              </InputLabel>
-              <TextField
-                id={`${formId}-briefDescription-textfield`}
-                value={formValues.briefDescription}
-                fullWidth
-                onChange={e => setFormValues({ ...formValues, briefDescription: e.target.value })}
-                className={classes.textField}
-                inputProps={{ maxLength: 80 }}
-              />
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <InputLabel shrink htmlFor={`${formId}-description-textfield`}>
-                Description
-              </InputLabel>
-              <TextField
-                id={`${formId}-description-textfield`}
-                value={formValues.description}
-                error={!!(formErrors && formErrors.description)}
-                helperText={(formErrors && formErrors.description) || ''}
-                fullWidth
-                onChange={e => setFormValues({ ...formValues, description: e.target.value })}
-                className={classes.textField}
-              />
-            </FormControl>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <Grid container className={classes.formControl}>
-                <KeyboardDatePicker
-                  id={`${formId}-dateCompleted`}
-                  disableToolbar
-                  disableFuture
-                  variant="inline"
-                  format="MM/dd/yyyy"
-                  margin="normal"
-                  label="Date Completed"
-                  value={formValues.dateCompleted}
-                  onChange={date =>
-                    setFormValues({ ...formValues, dateCompleted: startOfDay(date) })
-                  }
-                  KeyboardButtonProps={{
-                    'aria-label': 'change date',
-                  }}
-                />
+
+            <TextField
+              label="Brief Description"
+              value={formValues.briefDescription}
+              fullWidth
+              onChange={e => setFormValues({ ...formValues, briefDescription: e.target.value })}
+              className={classes.textField}
+              inputProps={{ maxLength: 80 }}
+            />
+
+            <TextField
+              label="Description"
+              value={formValues.description}
+              error={!!(formErrors && formErrors.description)}
+              helperText={(formErrors && formErrors.description) || null}
+              fullWidth
+              onChange={e => setFormValues({ ...formValues, description: e.target.value })}
+              className={classes.textField}
+            />
+
+            <Grid container justify="space-between" alignItems="flex-start" spacing={isXs ? 0 : 3}>
+              <Grid item xs={12} sm={6}>
+                <MuiThemeProvider theme={datePickerTheme}>
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <KeyboardDatePicker
+                      disableToolbar
+                      disableFuture
+                      fullWidth
+                      variant="inline"
+                      format="MM/dd/yyyy"
+                      margin="normal"
+                      label="Date Completed"
+                      value={formValues.dateCompleted}
+                      onChange={date =>
+                        setFormValues({ ...formValues, dateCompleted: startOfDay(date) })
+                      }
+                      KeyboardButtonProps={{
+                        'aria-label': 'change date',
+                      }}
+                    />
+                  </MuiPickersUtilsProvider>
+                </MuiThemeProvider>
               </Grid>
-            </MuiPickersUtilsProvider>
+
+              <Grid item xs={12} sm={6}>
+                <FormControl className={classes.formControl}>
+                  <InputLabel
+                    error={!!(formErrors && formErrors.timeSpentInMinutes)}
+                    htmlFor={`${formId}-timeSpent`}
+                  >
+                    Time Spent
+                  </InputLabel>
+                  <Select
+                    inputProps={{
+                      name: 'timeSpent',
+                      id: `${formId}-timeSpent-select`,
+                    }}
+                    error={!!(formErrors && formErrors.timeSpentInMinutes)}
+                    value={formValues.timeSpentInMinutes}
+                    onChange={e =>
+                      setFormValues({ ...formValues, timeSpentInMinutes: e.target.value })
+                    }
+                  >
+                    {TIME_SPENT_OPTIONS.map(timeSpentOption => (
+                      <MenuItem key={timeSpentOption.label} value={timeSpentOption.value}>
+                        {timeSpentOption.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  {formErrors && formErrors.timeSpentInMinutes && (
+                    <FormHelperText error>{formErrors.timeSpentInMinutes}</FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+            </Grid>
+
             <FormControl className={classes.formControl}>
-              <InputLabel id={`${formId}-timeSpent`}>Time Spent</InputLabel>
-              <Select
-                id={`${formId}-timeSpent-select`}
-                value={formValues.timeSpentInMinutes}
-                onChange={e => setFormValues({ ...formValues, timeSpentInMinutes: e.target.value })}
-              >
-                {TIME_SPENT_OPTIONS.map(timeSpentOption => (
-                  <MenuItem key={timeSpentOption.label} value={timeSpentOption.value}>
-                    {timeSpentOption.label}
-                  </MenuItem>
-                ))}
-              </Select>
-              <FormHelperText error>
-                {formErrors && formErrors.timeSpentInMinutes ? formErrors.timeSpentInMinutes : ''}
-              </FormHelperText>
-            </FormControl>
-            <FormControl className={classes.formControl} id={`${formId}-difficultyLevel`}>
-              <Typography variant="caption" color="textSecondary">
+              <InputLabel error={!!(formErrors && formErrors.difficultyLevel)} shrink>
                 Difficulty Level
-              </Typography>
+              </InputLabel>
               <Grid item xs={12} md={6} className={classes.toggleButton}>
                 <ToggleButton
+                  className={classes.toggleButton}
                   options={DIFFICULTY_LEVELS}
                   value={String(formValues.difficultyLevel)}
                   handleChange={e => setFormValues({ ...formValues, difficultyLevel: e })}
                 />
               </Grid>
-              <FormHelperText error>
-                {formErrors && formErrors.difficultyLevel ? formErrors.difficultyLevel : ''}
-              </FormHelperText>
+              {formErrors && formErrors.difficultyLevel && (
+                <FormHelperText error>{formErrors.difficultyLevel}</FormHelperText>
+              )}
             </FormControl>
-            <FormControl className={classes.formControl} id={`${formId}-feelings`}>
-              <Typography variant="caption" color="textSecondary">
-                This Activity Made Me Feel … (Select All that Apply)
-              </Typography>
+
+            <FormControl className={classes.formControl}>
+              <InputLabel shrink>This activity made me feel… (select all that apply)</InputLabel>
               <Grid
+                className={classes.toggleButton}
                 container
                 xs={12}
                 item
                 justify="space-evenly"
                 alignItems="center"
                 direction="row"
-                className={classes.toggleButton}
               >
                 <ToggleButton
                   options={shuffledFeelings}
@@ -391,9 +409,9 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
                 />
               </Grid>
             </FormControl>
+
             <TextField
-              id={`${formId}-whyIFeelThisWay-textfield`}
-              label="Why Do You Feel This Way"
+              label="Why do you feel this way?"
               multiline
               rows="4"
               className={classes.textField}
