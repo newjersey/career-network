@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import Box from '@material-ui/core/Box';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -20,7 +21,7 @@ import upcomingInterviewFormValidation from './UpcomingInterviewValidationRules'
 import useFormValidation from './formValidationHook';
 import { useAuth } from '../../Auth';
 import SubmitSuccess from '../SubmitSuccess';
-import { DialogActions, DialogContent, DialogTitle } from '../../DialogComponents';
+import { DialogContent, DialogTitle } from '../../DialogComponents';
 
 const INTERVIEW_TYPES = [
   {
@@ -63,10 +64,6 @@ const useStyles = makeStyles(theme => ({
   divider: {
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
-  dialogFooter: {
-    marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
 }));
@@ -114,14 +111,9 @@ export default function UpcomingInterviewDialog(props) {
     reset,
   } = useFormValidation({}, upcomingInterviewFormValidation, submit);
 
-  const handleClose = () => {
-    reset();
-    onClose();
-  };
-
   return (
-    <Dialog fullWidth open={show} aria-labelledby="upcoming-interview-dialog">
-      <DialogTitle id="upcoming-interview-dialog" onClose={handleClose}>
+    <Dialog fullWidth open={show} aria-labelledby="upcoming-interview-dialog" onExited={reset}>
+      <DialogTitle id="upcoming-interview-dialog" onClose={onClose}>
         <Typography variant="h6" className={classes.dialogTitle}>
           Have an upcoming interview?
         </Typography>
@@ -132,105 +124,109 @@ export default function UpcomingInterviewDialog(props) {
       </DialogTitle>
       <Divider className={classes.divider} />
       <DialogContent>
-        <FormControl fullWidth error={errors.type}>
-          <InputLabel shrink>Interview Type</InputLabel>
-          <Select
-            displayEmpty
-            id={`${formId}-type`}
-            inputProps={{ name: 'type' }}
-            MenuProps={{
-              anchorOrigin: {
-                horizontal: 'left',
-                vertical: 'bottom',
-              },
-              getContentAnchorEl: null,
-            }}
-            onChange={handleChange}
-            renderValue={t =>
-              t ? (
-                t.label
-              ) : (
-                <Typography variant="body1" color="textSecondary">
-                  What kind of interview is it?
-                </Typography>
-              )
-            }
-            value={values.type || ''}
-          >
-            {INTERVIEW_TYPES.map(type => (
-              <MenuItem value={type} key={type.value} className={classes.selectItem}>
-                <Typography variant="body1">{type.label}</Typography>
-                <Typography variant="caption" style={{ wordBreak: 'break-word' }}>
-                  {type.description}
-                </Typography>
-              </MenuItem>
-            ))}
-          </Select>
-          <FormHelperText margin="dense">{errors.type}</FormHelperText>
-        </FormControl>
-        <FormControl>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
-              color="textSecondary"
-              disablePast
-              disableToolbar
-              error={errors.date}
-              format="MM/dd/yyyy"
-              helperText={errors.date}
-              id={`${formId}-date`}
+        {isSubmitting && <CircularProgress />}
+        <SubmitSuccess
+          message="Thank you for entering...we'll be providing some recommendations"
+          show={success}
+        />
+        {!(success || isSubmitting) && (
+          <form id={formId}>
+            <FormControl fullWidth error={errors.type}>
+              <InputLabel shrink>Interview Type</InputLabel>
+              <Select
+                displayEmpty
+                id={`${formId}-type`}
+                inputProps={{ name: 'type' }}
+                MenuProps={{
+                  anchorOrigin: {
+                    horizontal: 'left',
+                    vertical: 'bottom',
+                  },
+                  getContentAnchorEl: null,
+                }}
+                onChange={handleChange}
+                renderValue={t =>
+                  t ? (
+                    t.label
+                  ) : (
+                    <Typography variant="body1" color="textSecondary">
+                      What kind of interview is it?
+                    </Typography>
+                  )
+                }
+                value={values.type || ''}
+              >
+                {INTERVIEW_TYPES.map(type => (
+                  <MenuItem value={type} key={type.value} className={classes.selectItem}>
+                    <Typography variant="body1">{type.label}</Typography>
+                    <Typography variant="caption" style={{ wordBreak: 'break-word' }}>
+                      {type.description}
+                    </Typography>
+                  </MenuItem>
+                ))}
+              </Select>
+              <FormHelperText margin="dense">{errors.type}</FormHelperText>
+            </FormControl>
+            <FormControl>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  color="textSecondary"
+                  disablePast
+                  disableToolbar
+                  error={errors.date}
+                  format="MM/dd/yyyy"
+                  helperText={errors.date}
+                  id={`${formId}-date`}
+                  InputLabelProps={{ shrink: true }}
+                  KeyboardButtonProps={{ 'aria-label': 'change date' }}
+                  label="Interview Date"
+                  margin="normal"
+                  onChange={d => handleChangeCustom('date', d)}
+                  placeholder="When is your interview?"
+                  value={values.date || null}
+                  variant="inline"
+                />
+              </MuiPickersUtilsProvider>
+            </FormControl>
+            <TextField
+              error={errors.company}
+              fullWidth
+              helperText={errors.company}
+              id={`${formId}-company`}
               InputLabelProps={{ shrink: true }}
-              KeyboardButtonProps={{ 'aria-label': 'change date' }}
-              label="Interview Date"
+              inputProps={{ name: 'company' }}
+              label="Interview Company"
               margin="normal"
-              onChange={d => handleChangeCustom('date', d)}
-              placeholder="When is your interview?"
-              value={values.date || null}
-              variant="inline"
+              onChange={handleChange}
+              placeholder="Who is the interview with?"
+              value={values.company}
             />
-          </MuiPickersUtilsProvider>
-        </FormControl>
-        <TextField
-          error={errors.company}
-          fullWidth
-          helperText={errors.company}
-          id={`${formId}-company`}
-          InputLabelProps={{ shrink: true }}
-          inputProps={{ name: 'company' }}
-          label="Interview Company"
-          margin="normal"
-          onChange={handleChange}
-          placeholder="Who is the interview with?"
-          value={values.company}
-        />
-        <TextField
-          error={errors.role}
-          fullWidth
-          helperText={errors.role}
-          id={`${formId}-role`}
-          InputLabelProps={{ shrink: true }}
-          inputProps={{ name: 'role' }}
-          label="Role / Position"
-          margin="normal"
-          onChange={handleChange}
-          placeholder="What role did you apply for?"
-          value={values.role}
-        />
+            <TextField
+              error={errors.role}
+              fullWidth
+              helperText={errors.role}
+              id={`${formId}-role`}
+              InputLabelProps={{ shrink: true }}
+              inputProps={{ name: 'role' }}
+              label="Role / Position"
+              margin="normal"
+              onChange={handleChange}
+              placeholder="What role did you apply for?"
+              value={values.role}
+            />
+            <Box my={2}>
+              <Button fullWidth variant="contained" onClick={handleSubmit} color="primary">
+                Let Us Know
+              </Button>
+            </Box>
+          </form>
+        )}
         {submitError && (
           <Typography color="error" variant="h6">
             Error: {submitError}
           </Typography>
         )}
-        <SubmitSuccess
-          message="Thank you for entering...we'll be providing some recommendations"
-          show={success}
-        />
-        {isSubmitting && <CircularProgress />}
       </DialogContent>
-      <DialogActions className={classes.dialogFooter}>
-        <Button fullWidth variant="contained" onClick={handleSubmit} color="primary">
-          Let Us Know
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 }

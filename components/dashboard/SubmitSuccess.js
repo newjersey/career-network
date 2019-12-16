@@ -11,6 +11,7 @@ const SubmitSuccess = ({ message, show }) =>
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
+      textAlign="center"
       py={3}
       mb={2}
     >
