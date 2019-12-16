@@ -125,18 +125,18 @@ function Activity(props) {
 Activity.propTypes = {
   activityTypeLabel: PropTypes.string.isRequired,
   dateCompleted: FirebasePropTypes.timestamp.isRequired,
-  description: PropTypes.string.isRequired,
+  description: PropTypes.string,
   difficultyLevel: PropTypes.string.isRequired,
   timeSpentInMinutes: PropTypes.number.isRequired,
   activityFeeling: PropTypes.arrayOf(PropTypes.string),
   whyIFeelThisWay: PropTypes.string,
-  briefDescription: PropTypes.string,
+  briefDescription: PropTypes.string.isRequired,
 };
 
 Activity.defaultProps = {
   activityFeeling: [],
   whyIFeelThisWay: '',
-  briefDescription: '',
+  description: '',
 };
 
 export default Activity;

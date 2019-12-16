@@ -1,7 +1,7 @@
 export default function validate(formValues) {
   const REQUIRED_FIELDS = {
     activityTypeValue: 'Activity',
-    description: 'Description',
+    briefDescription: 'Brief Description',
     timeSpentInMinutes: 'Time Spent',
     difficultyLevel: 'Difficulty Level',
   };
