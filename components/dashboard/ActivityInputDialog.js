@@ -184,7 +184,7 @@ const initialFormValues = {
 };
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
-function ActivityInputDialog({ show, onClose }) {
+function ActivityInputDialog({ fullScreen, show, onClose }) {
   const classes = useActivityDialogStyles();
   const formId = 'activity-input';
   const { userDocRef } = useAuth();
@@ -252,6 +252,7 @@ function ActivityInputDialog({ show, onClose }) {
 
   return (
     <Dialog
+      fullScreen={fullScreen}
       fullWidth
       onClose={onClose}
       aria-labelledby="customized-dialog-title"
@@ -433,6 +434,7 @@ function ActivityInputDialog({ show, onClose }) {
 }
 
 ActivityInputDialog.propTypes = {
+  fullScreen: PropTypes.bool.isRequired,
   show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
