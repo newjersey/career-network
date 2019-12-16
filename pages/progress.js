@@ -9,9 +9,14 @@ import withTitle from '../components/withTitle';
 function HistoryPage() {
   const { user } = useAuth();
   const allUserActivities = useUserSubcollection('activityLogEntries');
+  const completedTasks = useUserSubcollection(
+    'taskDispositionEvents',
+    { where: ['type', '==', 'done'] },
+    { orderBy: ['timestamp', 'desc'] }
+  );
 
-  return fullyLoaded(user, allUserActivities) ? (
-    <History activities={allUserActivities} />
+  return fullyLoaded(user, allUserActivities, completedTasks) ? (
+    <History activities={allUserActivities} completedTasks={completedTasks} />
   ) : (
     <FullPageProgress />
   );

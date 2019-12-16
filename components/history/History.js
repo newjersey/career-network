@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import CalendarIcon from '@material-ui/icons/CalendarTodayRounded';
 import Grid from '@material-ui/core/Grid';
 import Activity from './Activity';
+import CompletedTask from './CompletedTask';
 import HistoryPropTypes from './PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
 
@@ -33,68 +34,76 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function History(props) {
-  const classes = useStyles();
-  const { activities } = props;
-  let visibleActivities = [];
-  let activityMonths = [];
-
   const isInMonthYear = (date, monthYear) =>
     isSameMonth(date, monthYear) && isSameYear(date, monthYear);
+  const classes = useStyles();
+  const { activities, completedTasks } = props;
+  let activityMonths = [];
+  let cards = [];
 
-  if (!activities.empty) {
-    const dates = [];
-    const temp = activities
-      .map(a => {
-        const activity = a.data();
-        const date = format(activity.dateCompleted.toDate(), 'MMMM y');
-        if (!dates.includes(date)) {
-          dates.push(date);
-        }
-        return activity;
-      })
-      .sort((activityA, activityB) =>
-        compareDesc(
-          new Date(activityA.dateCompleted.toDate()),
-          new Date(activityB.dateCompleted.toDate())
-        )
-      );
-    visibleActivities = temp;
-    activityMonths = dates;
-  }
+  const activitiesTemp = activities.map(a => {
+    const { dateCompleted, ...activity } = a.data();
+    return {
+      ...activity,
+      dateCompleted,
+      dateCmp: dateCompleted.toDate(),
+      component: Activity,
+    };
+  });
+
+  const tasksTemp = completedTasks.map(taskEvent => {
+    const { task, timestamp } = taskEvent.data();
+    return {
+      ...task,
+      categoryName: task.fields.Category,
+      title: task.fields.Task,
+      why: task.fields.Why,
+      dateCompleted: timestamp,
+      dateCmp: timestamp.toDate(),
+      timestamp,
+      component: CompletedTask,
+    };
+  });
+
+  cards = [...activitiesTemp, ...tasksTemp].sort((a, b) =>
+    compareDesc(new Date(a.dateCmp), new Date(b.dateCmp))
+  );
+  activityMonths = cards
+    .map(c => c.dateCmp)
+    .reduce((datesArr, current) => {
+      const date = format(current, 'MMMM y');
+      return !datesArr.includes(date) ? [...datesArr, date] : datesArr;
+    }, []);
 
   return (
     <div className={classes.root}>
       <ScaffoldContainer>
         <Typography variant="h5" component="h5" className={classes.pageHeader}>
-          Your Activities
+          All Progress
         </Typography>
-        {activityMonths
-          .sort((a, b) => compareDesc(new Date(a), new Date(b)))
-          .map(dateString => (
-            <div className={classes.section} key={dateString}>
-              <div className={classes.sectionHeader}>
-                <CalendarIcon className={classes.calendarIcon} fontSize="small" />
-                <Typography
-                  variant="subtitle2"
-                  display="inline"
-                  style={{ textTransform: 'uppercase' }}
-                >
-                  {dateString}
-                </Typography>
-              </div>
-              <Grid container direction="row" justify="center" alignItems="flex-start">
-                {visibleActivities
-                  .filter(activity =>
-                    isInMonthYear(activity.dateCompleted.toDate(), new Date(dateString))
-                  )
-                  .map(activity => (
-                    <Grid item xs={12} className={classes.listItem} key={activity.timestamp}>
-                      <Activity {...activity} />
-                    </Grid>
-                  ))}
-              </Grid>
+        {activityMonths.map(dateString => (
+          <div key={dateString}>
+            <div className={classes.sectionHeader}>
+              <CalendarIcon className={classes.calendarIcon} fontSize="small" />
+              <Typography
+                variant="subtitle2"
+                display="inline"
+                style={{ textTransform: 'uppercase' }}
+              >
+                {dateString}
+              </Typography>
             </div>
-          ))}
+            <Grid container direction="row" justify="center" alignItems="flex-start">
+              {cards
+                .filter(card => isInMonthYear(card.dateCmp, new Date(dateString)))
+                .map(card => (
+                  <Grid key={card.timestamp} item xs={12} className={classes.listItem}>
+                    <card.component {...card} />
+                  </Grid>
+                ))}
+            </Grid>
+          </div>
+        ))}
       </ScaffoldContainer>
     </div>
   );

@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles(theme => ({
   button: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(1, 2, 1, 0),
   },
 }));
 

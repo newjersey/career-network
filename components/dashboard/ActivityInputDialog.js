@@ -1,47 +1,44 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import DateFnsUtils from '@date-io/date-fns';
 import Dialog from '@material-ui/core/Dialog';
-import Select from '@material-ui/core/Select';
-import PropTypes from 'prop-types';
+import firebase from 'firebase/app';
 import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import Grid from '@material-ui/core/Grid';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import DateFnsUtils from '@date-io/date-fns';
-import startOfDay from 'date-fns/startOfDay';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import withMobileDialog from '@material-ui/core/withMobileDialog';
+import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
+import Select from '@material-ui/core/Select';
 import shuffle from 'lodash/fp/shuffle';
-import firebase from 'firebase/app';
+import startOfDay from 'date-fns/startOfDay';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 
+import { DialogTitle, DialogContent, DialogActions } from '../DialogComponents';
 import { useAuth } from '../Auth';
 import SubmitSuccess from './SubmitSuccess';
 import ToggleButton from '../ToggleButton';
-import { DialogTitle, DialogContent, DialogActions } from '../DialogComponents';
+import validate from './ActivityInputValidationRules';
 
-/** ACTIVITY INPUT DIALOG */
+const FORM_ELEMENT_MARGINS = [1, 0];
+
 const useActivityDialogStyles = makeStyles(theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-  },
   formControl: {
-    margin: theme.spacing(1),
     width: '100%',
+    margin: theme.spacing(...FORM_ELEMENT_MARGINS),
   },
   textField: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(1),
+    margin: theme.spacing(...FORM_ELEMENT_MARGINS),
   },
   toggleButton: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(2),
   },
 }));
 
@@ -88,7 +85,7 @@ const ACTIVITY_TYPES = [
   },
 ];
 
-const TIME_SPENT_TYPE = [
+const TIME_SPENT_OPTIONS = [
   {
     label: '15 minutes',
     value: 15,
@@ -111,7 +108,7 @@ const TIME_SPENT_TYPE = [
   },
 ];
 
-const DIFFICULTY_LEVEL = ['Easy', 'Medium', 'Hard'];
+const DIFFICULTY_LEVELS = ['Easy', 'Medium', 'Hard'];
 
 const FEELINGS = [
   'Confident',
@@ -122,93 +119,103 @@ const FEELINGS = [
   'Overwhelmed',
 ];
 
-const activityFormValues = {
-  activityTypeValue: ACTIVITY_TYPES[0].value,
-  activityTypeLabel: ACTIVITY_TYPES[0].label,
+const initialFormValues = {
+  activityTypeValue: '',
+  activityTypeLabel: '',
   description: '',
   briefDescription: '',
   dateCompleted: startOfDay(new Date()),
-  timeSpentInMinutes: TIME_SPENT_TYPE[0].value,
-  difficultyLevel: DIFFICULTY_LEVEL[0],
+  timeSpentInMinutes: '',
+  difficultyLevel: '',
   activityFeeling: [],
   whyIFeelThisWay: '',
 };
 
-const isEmpty = s => {
-  return s === undefined || s === null || s === '';
-};
-
 // eslint-disable-next-line sonarjs/cognitive-complexity
-function ActivityInputDialog({ show, onClose }) {
+function ActivityInputDialog({ fullScreen, show, onClose }) {
   const classes = useActivityDialogStyles();
   const formId = 'activity-input';
   const { userDocRef } = useAuth();
+  const theme = useTheme();
+  const isXs = useMediaQuery(theme.breakpoints.only('xs'));
   const [error, setError] = useState();
+  const [attemptSubmitting, setAttemptSubmitting] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [formValues, setFormValues] = useState(activityFormValues);
+  const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState({});
   const [shuffledFeelings, setShuffledFeelings] = useState(shuffle(FEELINGS));
 
-  const isFormValid = () => {
-    setFormErrors({});
-    if (isEmpty(formValues.description)) {
-      setFormErrors({ ...formErrors, description: 'Field is required.' });
-      return false;
-    }
-    return true;
-  };
-
-  const submit = () => {
-    const increment = firebase.firestore.FieldValue.increment(1);
-    const timestamp = firebase.firestore.FieldValue.serverTimestamp();
-    const data = {
-      config: {
-        activityTypes: ACTIVITY_TYPES,
-        feelings: FEELINGS,
+  const datePickerTheme = createMuiTheme({
+    overrides: {
+      MuiFormControl: {
+        marginNormal: {
+          marginTop: theme.spacing(FORM_ELEMENT_MARGINS[0]),
+          marginRight: theme.spacing(FORM_ELEMENT_MARGINS[1]),
+          marginBottom: theme.spacing(FORM_ELEMENT_MARGINS[0]),
+          marginLeft: theme.spacing(FORM_ELEMENT_MARGINS[1]),
+        },
       },
-      timestamp,
-      ...formValues,
-    };
-    const stats = {
-      activityLogEntriesCount: increment,
-      activityLogEntriesLatestTimestamp: timestamp,
-    };
-
-    setSubmitting(true);
-    userDocRef
-      .collection('activityLogEntries')
-      .add(data)
-      .then(() => {
-        setSubmitting(false);
-        setSuccess(true);
-        userDocRef.set({ stats }, { merge: true });
-      })
-      .catch(err => {
-        setSubmitting(false);
-        setError(err.message);
-      });
-  };
+    },
+  });
 
   const handleSave = () => {
     setError();
-
-    if (isFormValid()) {
-      submit();
-    }
+    setAttemptSubmitting(true);
+    setFormErrors(validate(formValues));
   };
 
   const resetComponent = () => {
     setError();
     setSuccess(false);
+    setAttemptSubmitting(false);
     setSubmitting(false);
-    setFormValues(activityFormValues);
+    setFormValues(initialFormValues);
     setFormErrors({});
     setShuffledFeelings(shuffle(FEELINGS)); // random shuffle of Feeling types.
   };
 
+  useEffect(() => {
+    const submit = () => {
+      setAttemptSubmitting(false);
+      setSubmitting(true);
+      const increment = firebase.firestore.FieldValue.increment(1);
+      const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+      const data = {
+        config: {
+          activityTypes: ACTIVITY_TYPES,
+          feelings: FEELINGS,
+        },
+        timestamp,
+        ...formValues,
+      };
+      const stats = {
+        activityLogEntriesCount: increment,
+        activityLogEntriesLatestTimestamp: timestamp,
+      };
+
+      userDocRef
+        .collection('activityLogEntries')
+        .add(data)
+        .then(() => {
+          setSubmitting(false);
+          setSuccess(true);
+          userDocRef.set({ stats }, { merge: true });
+        })
+        .catch(err => {
+          setSubmitting(false);
+          setError(err.message);
+        });
+    };
+
+    if (Object.keys(formErrors).length === 0 && attemptSubmitting) {
+      submit();
+    }
+  }, [attemptSubmitting, formErrors, formValues, userDocRef]);
+
   return (
     <Dialog
+      fullScreen={fullScreen}
       fullWidth
       onClose={onClose}
       aria-labelledby="customized-dialog-title"
@@ -218,14 +225,24 @@ function ActivityInputDialog({ show, onClose }) {
       <DialogTitle id="customized-dialog-title" onClose={onClose}>
         <Typography variant="h5">Add Activity</Typography>
       </DialogTitle>
+
       <DialogContent dividers>
         {submitting && <CircularProgress />}
         {!(submitting || success) && (
-          <form className={classes.container} id={formId}>
+          <form id={formId}>
             <FormControl className={classes.formControl}>
-              <InputLabel id={`${formId}-activityType`}>Activity</InputLabel>
+              <InputLabel
+                error={!!(formErrors && formErrors.activityTypeValue)}
+                htmlFor={`${formId}-activityType`}
+              >
+                Activity
+              </InputLabel>
               <Select
-                id={`${formId}-activityType-select`}
+                inputProps={{
+                  name: 'activityType',
+                  id: `${formId}-activityType`,
+                }}
+                error={!!(formErrors && formErrors.activityTypeValue)}
                 value={formValues.activityTypeValue}
                 onChange={e =>
                   setFormValues({
@@ -243,92 +260,113 @@ function ActivityInputDialog({ show, onClose }) {
                   </MenuItem>
                 ))}
               </Select>
+              {formErrors && formErrors.activityTypeValue && (
+                <FormHelperText error>{formErrors.activityTypeValue}</FormHelperText>
+              )}
             </FormControl>
-            <FormControl className={classes.formControl}>
-              <InputLabel shrink htmlFor={`${formId}-briefDescription-textfield`}>
-                Brief Description
-              </InputLabel>
-              <TextField
-                id={`${formId}-briefDescription-textfield`}
-                value={formValues.briefDescription}
-                fullWidth
-                onChange={e => setFormValues({ ...formValues, briefDescription: e.target.value })}
-                className={classes.textField}
-                inputProps={{ maxLength: 80 }}
-              />
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <InputLabel shrink htmlFor={`${formId}-description-textfield`}>
-                Description
-              </InputLabel>
-              <TextField
-                id={`${formId}-description-textfield`}
-                value={formValues.description}
-                error={!!(formErrors && formErrors.description)}
-                helperText={(formErrors && formErrors.description) || ''}
-                fullWidth
-                onChange={e => setFormValues({ ...formValues, description: e.target.value })}
-                className={classes.textField}
-              />
-            </FormControl>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <Grid container className={classes.formControl}>
-                <KeyboardDatePicker
-                  id={`${formId}-dateCompleted`}
-                  disableToolbar
-                  disableFuture
-                  variant="inline"
-                  format="MM/dd/yyyy"
-                  margin="normal"
-                  label="Date Completed"
-                  value={formValues.dateCompleted}
-                  onChange={date =>
-                    setFormValues({ ...formValues, dateCompleted: startOfDay(date) })
-                  }
-                  KeyboardButtonProps={{
-                    'aria-label': 'change date',
-                  }}
-                />
+
+            <TextField
+              label="Brief Description"
+              value={formValues.briefDescription}
+              fullWidth
+              onChange={e => setFormValues({ ...formValues, briefDescription: e.target.value })}
+              className={classes.textField}
+              inputProps={{ maxLength: 80 }}
+            />
+
+            <TextField
+              label="Description"
+              value={formValues.description}
+              error={!!(formErrors && formErrors.description)}
+              helperText={(formErrors && formErrors.description) || null}
+              fullWidth
+              onChange={e => setFormValues({ ...formValues, description: e.target.value })}
+              className={classes.textField}
+            />
+
+            <Grid container justify="space-between" alignItems="flex-start" spacing={isXs ? 0 : 3}>
+              <Grid item xs={12} sm={6}>
+                <MuiThemeProvider theme={datePickerTheme}>
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <KeyboardDatePicker
+                      disableToolbar
+                      disableFuture
+                      fullWidth
+                      variant="inline"
+                      format="MM/dd/yyyy"
+                      margin="normal"
+                      label="Date Completed"
+                      value={formValues.dateCompleted}
+                      onChange={date =>
+                        setFormValues({ ...formValues, dateCompleted: startOfDay(date) })
+                      }
+                      KeyboardButtonProps={{
+                        'aria-label': 'change date',
+                      }}
+                    />
+                  </MuiPickersUtilsProvider>
+                </MuiThemeProvider>
               </Grid>
-            </MuiPickersUtilsProvider>
+
+              <Grid item xs={12} sm={6}>
+                <FormControl className={classes.formControl}>
+                  <InputLabel
+                    error={!!(formErrors && formErrors.timeSpentInMinutes)}
+                    htmlFor={`${formId}-timeSpent`}
+                  >
+                    Time Spent
+                  </InputLabel>
+                  <Select
+                    inputProps={{
+                      name: 'timeSpent',
+                      id: `${formId}-timeSpent-select`,
+                    }}
+                    error={!!(formErrors && formErrors.timeSpentInMinutes)}
+                    value={formValues.timeSpentInMinutes}
+                    onChange={e =>
+                      setFormValues({ ...formValues, timeSpentInMinutes: e.target.value })
+                    }
+                  >
+                    {TIME_SPENT_OPTIONS.map(timeSpentOption => (
+                      <MenuItem key={timeSpentOption.label} value={timeSpentOption.value}>
+                        {timeSpentOption.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  {formErrors && formErrors.timeSpentInMinutes && (
+                    <FormHelperText error>{formErrors.timeSpentInMinutes}</FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+            </Grid>
+
             <FormControl className={classes.formControl}>
-              <InputLabel id={`${formId}-timeSpent`}>Time Spent</InputLabel>
-              <Select
-                id={`${formId}-timeSpent-select`}
-                value={formValues.timeSpentInMinutes}
-                onChange={e => setFormValues({ ...formValues, timeSpentInMinutes: e.target.value })}
-              >
-                {TIME_SPENT_TYPE.map(timeSpentType => (
-                  <MenuItem key={timeSpentType.label} value={timeSpentType.value}>
-                    {timeSpentType.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl className={classes.formControl} id={`${formId}-difficultyLevel`}>
-              <Typography variant="caption" color="textSecondary">
+              <InputLabel error={!!(formErrors && formErrors.difficultyLevel)} shrink>
                 Difficulty Level
-              </Typography>
+              </InputLabel>
               <Grid item xs={12} md={6} className={classes.toggleButton}>
                 <ToggleButton
-                  options={DIFFICULTY_LEVEL}
+                  className={classes.toggleButton}
+                  options={DIFFICULTY_LEVELS}
                   value={String(formValues.difficultyLevel)}
                   handleChange={e => setFormValues({ ...formValues, difficultyLevel: e })}
                 />
               </Grid>
+              {formErrors && formErrors.difficultyLevel && (
+                <FormHelperText error>{formErrors.difficultyLevel}</FormHelperText>
+              )}
             </FormControl>
-            <FormControl className={classes.formControl} id={`${formId}-feelings`}>
-              <Typography variant="caption" color="textSecondary">
-                This Activity Made Me Feel … (Select All that Apply)
-              </Typography>
+
+            <FormControl className={classes.formControl}>
+              <InputLabel shrink>This activity made me feel… (select all that apply)</InputLabel>
               <Grid
+                className={classes.toggleButton}
                 container
                 xs={12}
                 item
                 justify="space-evenly"
                 alignItems="center"
                 direction="row"
-                className={classes.toggleButton}
               >
                 <ToggleButton
                   options={shuffledFeelings}
@@ -338,9 +376,9 @@ function ActivityInputDialog({ show, onClose }) {
                 />
               </Grid>
             </FormControl>
+
             <TextField
-              id={`${formId}-whyIFeelThisWay-textfield`}
-              label="Why Do You Feel This Way"
+              label="Why do you feel this way?"
               multiline
               rows="4"
               className={classes.textField}
@@ -376,6 +414,7 @@ function ActivityInputDialog({ show, onClose }) {
 }
 
 ActivityInputDialog.propTypes = {
+  fullScreen: PropTypes.bool.isRequired,
   show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };

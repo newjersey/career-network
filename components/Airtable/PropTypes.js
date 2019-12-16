@@ -7,6 +7,33 @@ function recordShape(fieldsShape) {
   });
 }
 
+const TASK_CATEGORIES = [
+  { color: '#d0f0fd', name: 'Marketing Materials', legacyNames: ['Marketing yourself'] },
+  { color: '#d2f7c5', name: 'Relationship-Building', legacyNames: ['Relationship building'] },
+  {
+    color: '#ffeab6',
+    name: 'Finding Openings/Applying',
+    legacyNames: ['Searching/applying for jobs'],
+  },
+  {
+    color: '#ffdce5',
+    name: 'Researching People & Organizations',
+    legacyNames: ['Researching people & companies'],
+  },
+];
+
+const findTaskCategory = name => {
+  const result =
+    TASK_CATEGORIES.find(cat => cat.name === name) ||
+    TASK_CATEGORIES.find(cat => cat.legacyNames.includes(name));
+
+  if (!result) {
+    throw new Error(`Unrecognized task cateogry name: ${name}`);
+  }
+
+  return result;
+};
+
 const questionResponseType = PropTypes.oneOf([
   'Option',
   'Text',
@@ -89,12 +116,7 @@ const task = recordShape({
   'Task ID': PropTypes.number.isRequired,
   Priority: PropTypes.number.isRequired,
   'Time Estimate': PropTypes.number.isRequired,
-  Category: PropTypes.oneOf([
-    'Searching/applying for jobs',
-    'Researching people & companies',
-    'Relationship building',
-    'Marketing yourself',
-  ]),
+  Category: PropTypes.oneOf(TASK_CATEGORIES.map(category => category.name)),
   Trigger: PropTypes.oneOf(['Everyone', 'Conditions', 'Event']).isRequired,
   Frequency: PropTypes.oneOf(['Once', 'Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly'])
     .isRequired,
@@ -151,4 +173,6 @@ export default {
   questionResponseNumberControl,
   task,
   tasks: PropTypes.arrayOf(task),
+  TASK_CATEGORIES,
+  findTaskCategory,
 };

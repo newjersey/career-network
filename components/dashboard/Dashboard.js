@@ -1,20 +1,21 @@
 import { makeStyles } from '@material-ui/styles';
-import React, { useEffect, useState } from 'react';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import Typography from '@material-ui/core/Typography';
 
 import { useAuth } from '../Auth';
+import ActivityInputDialog from './ActivityInputDialog';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import FirebasePropTypes from '../Firebase/PropTypes';
+import ProgressFeed from './ProgressFeed';
 import ScaffoldContainer from '../ScaffoldContainer';
 import SentimentTracker from './SentimentTracker';
-import ActivityList from './ActivityList';
 import TaskList from './TaskList';
 import TimeDistanceParser from '../../src/time-distance-parser';
-import ActivityInputDialog from './ActivityInputDialog';
 import UpcomingInterviewDialog from './UpcomingInterviewDialog/UpcomingInterviewDialog';
 
 const useStyles = makeStyles(theme => ({
@@ -171,7 +172,9 @@ export default function Dashboard(props) {
     allActions,
     allActionDispositionEvents,
     allTaskDispositionEvents,
-    allActivityLogEntries,
+    completedTasks,
+    historyLimit,
+    recentActivityLogEntries,
     ...restProps
   } = props;
 
@@ -209,8 +212,7 @@ export default function Dashboard(props) {
           <Grid item xs={12} md={9}>
             <Grid container alignItems="baseline" justify="space-between" direction="row">
               <Typography variant="h5" className={classes.subtitle} data-intercom="task-count">
-                Top {todoTaskCount} goals
-                {doneTaskCount > 0 && ` (and ${doneTaskCount} completed)`}
+                Top {todoTaskCount} Goals
               </Typography>
               <Button
                 variant="contained"
@@ -232,9 +234,13 @@ export default function Dashboard(props) {
           </Grid>
           <Grid item xs={12} md={3}>
             <Typography variant="h5" className={classes.subtitle} data-intercom="activity-title">
-              Latest activities
+              Recent Progress
             </Typography>
-            <ActivityList activities={allActivityLogEntries} />
+            <ProgressFeed
+              activities={recentActivityLogEntries}
+              completedTasks={completedTasks}
+              limit={historyLimit}
+            />
             <Card>
               <CardContent>
                 <Typography variant="body1" fontWeight="bold">
@@ -268,11 +274,14 @@ Dashboard.propTypes = {
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
   allActionDispositionEvents: FirebasePropTypes.querySnapshot,
   allTaskDispositionEvents: FirebasePropTypes.querySnapshot,
-  allActivityLogEntries: FirebasePropTypes.querySnapshot,
+  completedTasks: FirebasePropTypes.querySnapshot,
+  historyLimit: PropTypes.number.isRequired,
+  recentActivityLogEntries: FirebasePropTypes.querySnapshot,
 };
 
 Dashboard.defaultProps = {
   allActionDispositionEvents: [],
   allTaskDispositionEvents: [],
-  allActivityLogEntries: [],
+  completedTasks: [],
+  recentActivityLogEntries: [],
 };
