@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import firebase from 'firebase/app';
+import DateFnsUtils from '@date-io/date-fns';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -12,9 +15,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import PropTypes from 'prop-types';
-import firebase from 'firebase/app';
-import DateFnsUtils from '@date-io/date-fns';
+
 import upcomingInterviewFormValidation from './upcomingInterviewFormValidation';
 import useFormValidation from './formValidationHook';
 import { useAuth } from '../../Auth';
@@ -141,16 +142,16 @@ export default function UpcomingInterviewDialog(props) {
         <FormControl fullWidth error={errors.type}>
           <InputLabel shrink>Interview Type</InputLabel>
           <Select
+            displayEmpty
             id={`${formId}-type`}
-            value={values.type || ''}
             inputProps={{ name: 'type' }}
             MenuProps={{
-              getContentAnchorEl: null,
               anchorOrigin: {
                 horizontal: 'left',
                 vertical: 'bottom',
               },
               disableListWrap: false,
+              getContentAnchorEl: null,
             }}
             onChange={handleChange}
             renderValue={t =>
@@ -162,7 +163,7 @@ export default function UpcomingInterviewDialog(props) {
                 </Typography>
               )
             }
-            displayEmpty
+            value={values.type || ''}
           >
             {INTERVIEW_TYPES.map(type => (
               <MenuItem value={type} key={type.value} className={classes.selectItem}>
@@ -178,59 +179,51 @@ export default function UpcomingInterviewDialog(props) {
         <FormControl>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
-              id={`${formId}-date`}
-              disableToolbar
+              color="textSecondary"
               disablePast
-              variant="inline"
-              placeholder="When is your interview?"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              helperText={errors.date}
+              disableToolbar
               error={errors.date}
               format="MM/dd/yyyy"
+              helperText={errors.date}
+              id={`${formId}-date`}
+              InputLabelProps={{ shrink: true }}
+              KeyboardButtonProps={{ 'aria-label': 'change date' }}
               label="Interview Date"
-              color="textSecondary"
-              value={values.date || null}
               onChange={d => handleChangeCustom('date', d)}
-              KeyboardButtonProps={{
-                'aria-label': 'change date',
-              }}
+              placeholder="When is your interview?"
+              value={values.date || null}
+              variant="inline"
             />
           </MuiPickersUtilsProvider>
         </FormControl>
         <TextField
-          id={`${formId}-company`}
-          label="Interview Company"
-          value={values.company}
-          fullWidth
-          margin="normal"
           error={errors.company}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          onChange={handleChange}
+          fullWidth
           helperText={errors.company}
+          id={`${formId}-company`}
+          InputLabelProps={{ shrink: true }}
           inputProps={{ name: 'company' }}
+          label="Interview Company"
+          margin="normal"
+          onChange={handleChange}
           placeholder="Who is the interview with?"
+          value={values.company}
         />
         <TextField
-          id={`${formId}-role`}
-          value={values.role}
-          label="Role / Position"
-          fullWidth
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
           error={errors.role}
+          fullWidth
           helperText={errors.role}
-          onChange={handleChange}
+          id={`${formId}-role`}
+          InputLabelProps={{ shrink: true }}
           inputProps={{ name: 'role' }}
+          label="Role / Position"
+          margin="normal"
+          onChange={handleChange}
           placeholder="What role did you apply for?"
+          value={values.role}
         />
         {submitError && (
-          <Typography color="error" variant="h4">
+          <Typography color="error" variant="h6">
             Error: {submitError}
           </Typography>
         )}
