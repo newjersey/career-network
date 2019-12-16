@@ -63,20 +63,13 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     flexDirection: 'row',
-    width: theme.breakpoints.width('sm'),
+    maxWidth: theme.breakpoints.width('sm'),
     whiteSpace: 'normal',
-  },
-  formControl: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-    width: '100%',
-  },
-  select: {
-    width: '100%',
   },
   divider: {
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   datepicker: {
     marginTop: theme.spacing(1),
@@ -141,18 +134,20 @@ export default function UpcomingInterviewDialog(props) {
       </DialogTitle>
       <Divider className={classes.divider} />
       <DialogContent>
-        <FormControl className={classes.formControl}>
-          <InputLabel shrink id={`${formId}-type-label`}>
-            Interview Type
-          </InputLabel>
+        <FormControl fullWidth error={errors.type}>
+          <InputLabel shrink>Interview Type</InputLabel>
           <Select
-            labelId={`${formId}-type-label`}
-            className={classes.select}
             id={`${formId}-type`}
             value={values.type || ''}
-            error={errors.type}
-            helperText={errors.type}
             inputProps={{ name: 'type' }}
+            MenuProps={{
+              getContentAnchorEl: null,
+              anchorOrigin: {
+                horizontal: 'left',
+                vertical: 'bottom',
+              },
+              disableListWrap: false,
+            }}
             onChange={handleChange}
             renderValue={t =>
               t ? (
@@ -166,76 +161,68 @@ export default function UpcomingInterviewDialog(props) {
             displayEmpty
           >
             {INTERVIEW_TYPES.map(type => (
-              <MenuItem
-                value={type}
-                key={type.value}
-                className={classes.selectItem}
-                component="div"
-              >
+              <MenuItem value={type} key={type.value} className={classes.selectItem}>
                 <Typography variant="body1" component="span" style={{ width: '100%' }}>
                   {type.label}
                 </Typography>
-                <Typography variant="caption" component="span" style={{ wordBreak: 'break-all' }}>
+                <Typography variant="caption" component="span" style={{ wordBreak: 'break-word' }}>
                   {type.description}
                 </Typography>
               </MenuItem>
             ))}
           </Select>
-          <FormHelperText dense error={errors.type && errors.type.length > 0}>
-            {errors.type}
-          </FormHelperText>
+          <FormHelperText margin="dense">{errors.type}</FormHelperText>
         </FormControl>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <KeyboardDatePicker
-            className={classes.datepicker}
-            id={`${formId}-date`}
-            emptyLabel="When is your interview?"
-            disableToolbar
-            variant="inline"
-            error={errors.date}
-            helperText={errors.date}
-            format="MM/dd/yyyy"
-            margin="normal"
-            label="Interview Date"
-            value={values.date}
-            onChange={d => handleChangeCustom('date', d)}
-            KeyboardButtonProps={{
-              'aria-label': 'change date',
-            }}
-          />
-        </MuiPickersUtilsProvider>
-        <FormControl className={classes.formControl}>
-          <TextField
-            label="Interview Company"
-            id={`${formId}-company`}
-            value={values.company}
-            fullWidth
-            error={errors.company}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            onChange={handleChange}
-            helperText={errors.company}
-            inputProps={{ name: 'company' }}
-            placeholder="Who is the interview with?"
-          />
+        <FormControl error={errors.date}>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDatePicker
+              id={`${formId}-date`}
+              className={classes.datepicker}
+              emptyLabel="When is your interview?"
+              disableToolbar
+              disablePast
+              variant="inline"
+              helperText={errors.date}
+              format="MM/dd/yyyy"
+              label="Interview Date"
+              value={values.date}
+              onChange={d => handleChangeCustom('date', d)}
+              KeyboardButtonProps={{
+                'aria-label': 'change date',
+              }}
+            />
+          </MuiPickersUtilsProvider>
         </FormControl>
-        <FormControl className={classes.formControl}>
-          <TextField
-            id={`${formId}-role`}
-            value={values.role}
-            label="Role / Position"
-            fullWidth
-            InputLabelProps={{
-              shrink: true,
-            }}
-            error={errors.role}
-            helperText={errors.role}
-            onChange={handleChange}
-            inputProps={{ name: 'role' }}
-            placeholder="What role did you apply for?"
-          />
-        </FormControl>
+        <TextField
+          id={`${formId}-company`}
+          label="Interview Company"
+          value={values.company}
+          fullWidth
+          margin="normal"
+          error={errors.company}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          onChange={handleChange}
+          helperText={errors.company}
+          inputProps={{ name: 'company' }}
+          placeholder="Who is the interview with?"
+        />
+        <TextField
+          id={`${formId}-role`}
+          value={values.role}
+          label="Role / Position"
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          error={errors.role}
+          helperText={errors.role}
+          onChange={handleChange}
+          inputProps={{ name: 'role' }}
+          placeholder="What role did you apply for?"
+        />
         {submitError && (
           <Typography color="error" variant="h4">
             Error: {submitError}

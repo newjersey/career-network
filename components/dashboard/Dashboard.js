@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -241,23 +242,26 @@ export default function Dashboard(props) {
               completedTasks={completedTasks}
               limit={historyLimit}
             />
-            <Card>
-              <CardContent>
-                <Typography variant="body1" fontWeight="bold">
-                  Have an upcoming interview?
-                </Typography>
-                <Typography variant="body1" gutterBottom>
-                  If you have an interview, let us know and we can send helpful guidance to prepare.
-                </Typography>
-                <Button
-                  fullWidth
-                  variant="outlined"
-                  onClick={() => setActiveDialog(DIALOGS.UPCOMING_INTERVIEW)}
-                >
-                  Let Us Know
-                </Button>
-              </CardContent>
-            </Card>
+            <Box my={2}>
+              <Card>
+                <CardContent>
+                  <Typography variant="body1" fontWeight="bold">
+                    Have an upcoming interview?
+                  </Typography>
+                  <Typography variant="body1" gutterBottom>
+                    If you have an interview, let us know and we can send helpful guidance to
+                    prepare.
+                  </Typography>
+                  <Button
+                    fullWidth
+                    variant="outlined"
+                    onClick={() => setActiveDialog(DIALOGS.UPCOMING_INTERVIEW)}
+                  >
+                    Let Us Know
+                  </Button>
+                </CardContent>
+              </Card>
+            </Box>
           </Grid>
         </Grid>
       </ScaffoldContainer>
