@@ -13,6 +13,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import DateFnsUtils from '@date-io/date-fns';
@@ -190,6 +191,8 @@ function ActivityInputDialog({ show, onClose }) {
   const classes = useActivityDialogStyles();
   const formId = 'activity-input';
   const { userDocRef } = useAuth();
+  const [error, setError] = useState();
+  const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [formValues, setFormValues] = useState(activityFormValues);
   const [formErrors, setFormErrors] = useState({});
@@ -220,27 +223,33 @@ function ActivityInputDialog({ show, onClose }) {
       activityLogEntriesLatestTimestamp: timestamp,
     };
 
+    setSubmitting(true);
     userDocRef
       .collection('activityLogEntries')
       .add(data)
       .then(() => {
+        setSubmitting(false);
+        setSuccess(true);
         userDocRef.set({ stats }, { merge: true });
       })
       .catch(err => {
-        throw new Error(`Could not save activity: ${err.message}`);
+        setSubmitting(false);
+        setError(err.message);
       });
-
-    setSuccess(true);
   };
 
   const handleSave = () => {
+    setError();
+
     if (isFormValid()) {
       submit();
     }
   };
 
   const resetComponent = () => {
+    setError();
     setSuccess(false);
+    setSubmitting(false);
     setFormValues(activityFormValues);
     setFormErrors({});
     setShuffledFeelings(shuffle(FEELINGS)); // random shuffle of Feeling types.
@@ -258,7 +267,8 @@ function ActivityInputDialog({ show, onClose }) {
         <Typography variant="h5">Add Activity</Typography>
       </DialogTitle>
       <DialogContent dividers>
-        {!success && (
+        {submitting && <CircularProgress />}
+        {!(submitting || success) && (
           <form className={classes.container} id={formId}>
             <FormControl className={classes.formControl}>
               <InputLabel id={`${formId}-activityType`}>Activity</InputLabel>
@@ -389,6 +399,11 @@ function ActivityInputDialog({ show, onClose }) {
               onChange={e => setFormValues({ ...formValues, whyIFeelThisWay: e.target.value })}
             />
           </form>
+        )}
+        {error && (
+          <Typography color="error" variant="h4">
+            Error: {error}
+          </Typography>
         )}
         {success && (
           <Grid container direction="column" justify="center" alignItems="center">
