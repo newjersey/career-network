@@ -13,6 +13,12 @@ function Gauge(props) {
   return (
     <Box mt={2} display="flex" justifyContent="center" alignItems="flex-end" position="relative">
       <svg width={diameter} height={diameter / 2} style={{ transform: 'rotateY(180deg)' }}>
+        <defs>
+          <linearGradient id="percentGradient" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor={stroke} />
+            <stop offset="100%" stopColor="#ffffff" />
+          </linearGradient>
+        </defs>
         <circle
           cx={coordinateForCircle}
           cy={coordinateForCircle}
@@ -25,19 +31,23 @@ function Gauge(props) {
           style={{
             strokeDashoffset: circumference,
           }}
+          strokeLinecap="round"
+          strokeJoin="round"
         />
         <circle
           cx={coordinateForCircle}
           cy={coordinateForCircle}
           r={radius}
           fill="none"
-          stroke={stroke}
+          stroke="url(#percentGradient)"
           strokeWidth={strokeWidth}
           strokeDasharray={circumference}
           style={{
             strokeDashoffset: semiCirclePercentage,
             transition: 'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s',
           }}
+          strokeLinecap="round"
+          strokeJoin="round"
         />
       </svg>
       <Box position="absolute" width={1}>
