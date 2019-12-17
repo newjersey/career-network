@@ -264,14 +264,10 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
         {!(submitting || success) && (
           <form id={formId}>
             <FormControl className={classes.formControl}>
-              <InputLabel
-                error={!!(formErrors && formErrors.activityTypeValue)}
-                htmlFor={`${formId}-activityType`}
-              >
+              <InputLabel error={!!(formErrors && formErrors.activityTypeValue)}>
                 Activity
               </InputLabel>
               <Select
-                id={`${formId}-activityType`}
                 inputProps={{
                   name: 'activityType',
                 }}
@@ -345,16 +341,12 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
 
               <Grid item xs={12} sm={6}>
                 <FormControl className={classes.formControl}>
-                  <InputLabel
-                    error={!!(formErrors && formErrors.timeSpentInMinutes)}
-                    htmlFor={`${formId}-timeSpent`}
-                  >
+                  <InputLabel error={!!(formErrors && formErrors.timeSpentInMinutes)}>
                     Time Spent
                   </InputLabel>
                   <Select
                     inputProps={{
                       name: 'timeSpent',
-                      id: `${formId}-timeSpent-select`,
                     }}
                     error={!!(formErrors && formErrors.timeSpentInMinutes)}
                     value={formValues.timeSpentInMinutes}
