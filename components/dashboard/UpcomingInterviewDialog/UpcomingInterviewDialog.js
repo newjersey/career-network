@@ -6,8 +6,6 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import Box from '@material-ui/core/Box';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -21,7 +19,7 @@ import upcomingInterviewFormValidation from './UpcomingInterviewValidationRules'
 import useFormValidation from './formValidationHook';
 import { useAuth } from '../../Auth';
 import SubmitSuccess from '../SubmitSuccess';
-import { DialogContent, DialogTitle } from '../../DialogComponents';
+import { DialogContent, DialogTitle, DialogActions } from '../../DialogComponents';
 
 const INTERVIEW_TYPES = [
   {
@@ -51,20 +49,12 @@ const INTERVIEW_TYPES = [
 ];
 
 const useStyles = makeStyles(theme => ({
-  dialogTitle: {
-    marginTop: theme.spacing(2),
-  },
   selectItem: {
     display: 'flex',
     flexWrap: 'wrap',
     flexDirection: 'row',
     maxWidth: theme.breakpoints.width('sm'),
     whiteSpace: 'normal',
-  },
-  divider: {
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    marginBottom: theme.spacing(2),
   },
 }));
 
@@ -114,16 +104,13 @@ export default function UpcomingInterviewDialog(props) {
   return (
     <Dialog fullWidth open={show} aria-labelledby="upcoming-interview-dialog" onExited={reset}>
       <DialogTitle id="upcoming-interview-dialog" onClose={onClose}>
-        <Typography variant="h6" className={classes.dialogTitle}>
-          Have an upcoming interview?
-        </Typography>
+        <Typography variant="h6">Have an upcoming interview?</Typography>
         <Typography variant="body1" color="textSecondary">
           If you have an interview coming up, let us know and we can send helpful guidance on how to
           prepare.
         </Typography>
       </DialogTitle>
-      <Divider className={classes.divider} />
-      <DialogContent>
+      <DialogContent dividers>
         {isSubmitting && <CircularProgress />}
         <SubmitSuccess
           message="Thank you for entering...we'll be providing some recommendations"
@@ -131,19 +118,12 @@ export default function UpcomingInterviewDialog(props) {
         />
         {!(success || isSubmitting) && (
           <form id={formId}>
-            <FormControl fullWidth error={!!errors.type}>
+            <FormControl fullWidth margin="normal" error={!!errors.type}>
               <InputLabel shrink>Interview Type</InputLabel>
               <Select
                 displayEmpty
                 id={`${formId}-type`}
                 inputProps={{ name: 'type' }}
-                MenuProps={{
-                  anchorOrigin: {
-                    horizontal: 'left',
-                    vertical: 'bottom',
-                  },
-                  getContentAnchorEl: null,
-                }}
                 onChange={handleChange}
                 renderValue={t =>
                   t ? (
@@ -163,7 +143,7 @@ export default function UpcomingInterviewDialog(props) {
                   </MenuItem>
                 ))}
               </Select>
-              <FormHelperText margin="dense">{errors.type}</FormHelperText>
+              {!!errors.type && <FormHelperText>{errors.type}</FormHelperText>}
             </FormControl>
             <FormControl>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -211,19 +191,19 @@ export default function UpcomingInterviewDialog(props) {
               placeholder="What role did you apply for?"
               value={values.role}
             />
-            <Box my={2}>
-              <Button fullWidth variant="contained" onClick={handleSubmit} color="primary">
-                Let Us Know
-              </Button>
-            </Box>
           </form>
         )}
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleSubmit} color="primary">
+          Let Us Know
+        </Button>
         {submitError && (
           <Typography color="error" variant="h6">
             Error: {submitError}
           </Typography>
         )}
-      </DialogContent>
+      </DialogActions>
     </Dialog>
   );
 }
