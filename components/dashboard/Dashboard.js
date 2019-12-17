@@ -14,6 +14,7 @@ import ScaffoldContainer from '../ScaffoldContainer';
 import SentimentTracker from './SentimentTracker';
 import TaskList from './TaskList';
 import TimeDistanceParser from '../../src/time-distance-parser';
+import Gauge from '../Gauge';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -171,6 +172,7 @@ export default function Dashboard(props) {
   } = props;
 
   const todoTaskLimit = 3;
+  const percentage = 0.75;
 
   const allApplicableTasks = tasksToShow(props);
   const doneTaskCount = allTaskDispositionEvents.length;
@@ -197,7 +199,13 @@ export default function Dashboard(props) {
         </Typography>
         <SentimentTracker />
         <Grid container spacing={3}>
-          <Grid item xs={12} md={9}>
+          <Grid item xs={12} md>
+            <Typography variant="h5" className={classes.subtitle}>
+              Confidence Level
+            </Typography>
+            <Gauge percentage={percentage} />
+          </Grid>
+          <Grid item xs={12} md={6}>
             <Grid container alignItems="baseline" justify="space-between" direction="row">
               <Typography variant="h5" className={classes.subtitle} data-intercom="task-count">
                 Top {todoTaskCount} Goals
@@ -220,7 +228,7 @@ export default function Dashboard(props) {
               {...restProps}
             />
           </Grid>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} md>
             <Typography variant="h5" className={classes.subtitle} data-intercom="activity-title">
               Recent Progress
             </Typography>
