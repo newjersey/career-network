@@ -1,42 +1,25 @@
-import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    paddingTop: theme.spacing(2),
-    position: 'relative',
-  },
-  percentageValue: {
-    width: '100%',
-    left: '0',
-    bottom: '0',
-    position: 'absolute',
-  },
-}));
+import Box from '@material-ui/core/Box';
 
 function Gauge(props) {
-  const classes = useStyles();
-  const { diameter, stroke, strokeWidth, background, percentage } = props;
+  const { diameter, stroke, strokeWidth, percentage } = props;
   const coordinateForCircle = diameter / 2;
   const radius = (diameter - 2 * strokeWidth) / 2;
   const circumference = Math.PI * radius;
   const semiCirclePercentage = percentage * circumference;
 
   return (
-    <div className={classes.root}>
-      <svg
-        width={diameter}
-        height={diameter / 2}
-        style={{ transform: 'rotateY(180deg)', overflow: 'hidden' }}
-      >
+    <Box mt={2} display="flex" justifyContent="center" alignItems="flex-end" position="relative">
+      <svg width={diameter} height={diameter / 2} style={{ transform: 'rotateY(180deg)' }}>
         <circle
           cx={coordinateForCircle}
           cy={coordinateForCircle}
           r={radius}
           fill="none"
-          stroke={background}
+          stroke={stroke}
+          strokeOpacity="10%"
           strokeWidth={strokeWidth}
           strokeDasharray={circumference}
           style={{
@@ -57,31 +40,29 @@ function Gauge(props) {
           }}
         />
       </svg>
-      <span className={classes.percentageValue}>
-        <Typography variant="h5" align="center">
+      <Box position="absolute" width={1}>
+        <Typography variant="h5" align="center" style={{ fontWeight: 'bold' }}>
           {percentage * 100}%
         </Typography>
         <Typography variant="body2" align="center">
-          feeling confident
+          Feeling Confident
         </Typography>
-      </span>
-    </div>
+      </Box>
+    </Box>
   );
 }
 
 Gauge.propTypes = {
   stroke: PropTypes.string,
   strokeWidth: PropTypes.number,
-  background: PropTypes.string,
   diameter: PropTypes.number,
   percentage: PropTypes.number.isRequired,
 };
 
 Gauge.defaultProps = {
-  stroke: '#02B732',
+  stroke: '#1881c5',
   strokeWidth: 10,
-  background: '#D0D0CE',
-  diameter: 200,
+  diameter: 218,
 };
 
 export default Gauge;
