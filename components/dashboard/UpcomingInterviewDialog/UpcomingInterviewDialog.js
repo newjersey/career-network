@@ -16,6 +16,7 @@ import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 
+import startOfDay from 'date-fns/startOfDay';
 import upcomingInterviewFormValidation from './UpcomingInterviewValidationRules';
 import useFormValidation from './formValidationHook';
 import { useAuth } from '../../Auth';
@@ -79,9 +80,10 @@ export default function UpcomingInterviewDialog(props) {
     const increment = firebase.firestore.FieldValue.increment(1);
     const timestamp = firebase.firestore.FieldValue.serverTimestamp();
 
-    const { type, ...formData } = values;
+    const { type, date, ...formData } = values;
     const data = {
       ...formData,
+      date: startOfDay(date),
       type: type.value,
       timestamp,
     };
