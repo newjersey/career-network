@@ -6,14 +6,14 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import DateFnsUtils from '@date-io/date-fns';
 import Dialog from '@material-ui/core/Dialog';
 import firebase from 'firebase/app';
+import Select from '@material-ui/core/Select';
+import PropTypes from 'prop-types';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
-import Select from '@material-ui/core/Select';
 import shuffle from 'lodash/fp/shuffle';
 import startOfDay from 'date-fns/startOfDay';
 import TextField from '@material-ui/core/TextField';
@@ -39,6 +39,9 @@ const useActivityDialogStyles = makeStyles(theme => ({
   },
   toggleButton: {
     marginTop: theme.spacing(2),
+  },
+  menuItem: {
+    whiteSpace: 'normal',
   },
 }));
 
@@ -251,7 +254,11 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
                 }
               >
                 {ACTIVITY_TYPES.map(activity => (
-                  <MenuItem key={activity.value} value={activity.value}>
+                  <MenuItem
+                    key={activity.value}
+                    value={activity.value}
+                    className={classes.menuItem}
+                  >
                     {activity.label}
                   </MenuItem>
                 ))}
@@ -393,12 +400,12 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
       </DialogContent>
       <DialogActions>
         {!success && (
-          <Button autoFocus onClick={handleSave} color="primary">
+          <Button autoFocus onClick={handleSave} fullWidth color="primary">
             Submit
           </Button>
         )}
         {success && (
-          <Button autoFocus onClick={resetComponent} color="primary">
+          <Button autoFocus onClick={resetComponent} fullWidth color="primary">
             Add Another Activity
           </Button>
         )}
