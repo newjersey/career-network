@@ -49,6 +49,13 @@ const INTERVIEW_TYPES = [
 ];
 
 const useStyles = makeStyles(theme => ({
+  placeholder: {
+    color: 'currentColor',
+    opacity: theme.palette.type === 'light' ? 0.42 : 0.5,
+    transition: theme.transitions.create('opacity', {
+      duration: theme.transitions.duration.shorter,
+    }),
+  },
   selectItem: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -129,7 +136,7 @@ export default function UpcomingInterviewDialog(props) {
                   type ? (
                     type.label
                   ) : (
-                    <Typography variant="body1" color="textSecondary">
+                    <Typography variant="body1" className={classes.placeholder}>
                       What kind of interview is it?
                     </Typography>
                   )
