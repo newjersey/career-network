@@ -159,9 +159,7 @@ export default function UpcomingInterviewDialog(props) {
                 {INTERVIEW_TYPES.map(type => (
                   <MenuItem value={type} key={type.value} className={classes.selectItem}>
                     <Typography variant="body1">{type.label}</Typography>
-                    <Typography variant="caption" style={{ wordBreak: 'break-word' }}>
-                      {type.description}
-                    </Typography>
+                    <Typography variant="caption">{type.description}</Typography>
                   </MenuItem>
                 ))}
               </Select>
