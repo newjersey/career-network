@@ -66,9 +66,9 @@ export default function DropdownQuestion(props) {
     <Select
       disabled={question.fields.Disabled}
       fullWidth
+      id={question.id}
       inputProps={{
         name: question.id,
-        id: question.id,
       }}
       onChange={e => onChange(e.target.value)}
       error={reflectError}
