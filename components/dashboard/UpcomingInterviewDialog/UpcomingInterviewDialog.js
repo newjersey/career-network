@@ -120,7 +120,7 @@ export default function UpcomingInterviewDialog(props) {
       <DialogContent dividers>
         {isSubmitting && <CircularProgress />}
         <SubmitSuccess
-          message="Thank you for entering...we'll be providing some recommendations"
+          message="Thank you for entering; we'll be providing some recommendations."
           show={success}
         />
         {!(success || isSubmitting) && (
