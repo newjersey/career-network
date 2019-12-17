@@ -124,14 +124,13 @@ export default function UpcomingInterviewDialog(props) {
       </DialogTitle>
       <Divider className={classes.divider} />
       <DialogContent>
-        {isSubmitting && <CircularProgress />}
         <SubmitSuccess
           message="Thank you for entering...we'll be providing some recommendations"
           show={success}
         />
         {!(success || isSubmitting) && (
           <form id={formId}>
-            <FormControl fullWidth error={errors.type}>
+            <FormControl fullWidth error={!!errors.type}>
               <InputLabel shrink>Interview Type</InputLabel>
               <Select
                 displayEmpty
@@ -173,7 +172,7 @@ export default function UpcomingInterviewDialog(props) {
                   color="textSecondary"
                   disablePast
                   disableToolbar
-                  error={errors.date}
+                  error={!!errors.date}
                   format="MM/dd/yyyy"
                   helperText={errors.date}
                   id={`${formId}-date`}
@@ -189,7 +188,7 @@ export default function UpcomingInterviewDialog(props) {
               </MuiPickersUtilsProvider>
             </FormControl>
             <TextField
-              error={errors.company}
+              error={!!errors.company}
               fullWidth
               helperText={errors.company}
               id={`${formId}-company`}
@@ -202,7 +201,7 @@ export default function UpcomingInterviewDialog(props) {
               value={values.company}
             />
             <TextField
-              error={errors.role}
+              error={!!errors.role}
               fullWidth
               helperText={errors.role}
               id={`${formId}-role`}
@@ -227,6 +226,18 @@ export default function UpcomingInterviewDialog(props) {
           </Typography>
         )}
       </DialogContent>
+      <Box
+        display={isSubmitting ? 'flex' : 'none'}
+        position="absolute"
+        width={1}
+        height={1}
+        bgcolor="background.paper"
+        justifyContent="center"
+        alignItems="center"
+        style={{ opacity: 0.6 }}
+      >
+        <CircularProgress />
+      </Box>
     </Dialog>
   );
 }
