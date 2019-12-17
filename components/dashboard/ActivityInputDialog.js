@@ -271,9 +271,9 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
                 Activity
               </InputLabel>
               <Select
+                id={`${formId}-activityType`}
                 inputProps={{
                   name: 'activityType',
-                  id: `${formId}-activityType`,
                 }}
                 error={!!(formErrors && formErrors.activityTypeValue)}
                 value={formValues.activityTypeValue}
