@@ -175,7 +175,7 @@ export default function UpcomingInterviewDialog(props) {
                   helperText={errors.date}
                   id={`${formId}-date`}
                   InputLabelProps={{ shrink: true }}
-                  KeyboardButtonProps={{ 'aria-label': 'change date' }}
+                  KeyboardButtonProps={{ 'aria-label': 'Interview Date' }}
                   label="Interview Date"
                   margin="normal"
                   onChange={d => handleChangeCustom('date', d)}
