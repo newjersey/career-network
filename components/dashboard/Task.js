@@ -3,6 +3,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Chip from '@material-ui/core/Chip';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -21,6 +22,9 @@ const useStyles = makeStyles(theme => ({
       position: 'relative',
       padding: theme.spacing(4, 4, 1),
     },
+  },
+  interviewPrepCard: {
+    border: '3px solid orange',
   },
   timeEstimate: {
     [theme.breakpoints.up('sm')]: {
@@ -74,8 +78,19 @@ export default function Task(props) {
     });
   }
 
+  function getTaskSpecificClass(slug) {
+    if (['in-person', 'live-video', 'recorded-video', 'phone-screen'].includes(slug)) {
+      return classes.interviewPrepCard;
+    }
+
+    return null;
+  }
+
   return (
-    <Card className={classes.card} data-intercom="task">
+    <Card
+      className={clsx(classes.card, getTaskSpecificClass(task.fields.Slug))}
+      data-intercom="task"
+    >
       <CardHeader
         title={<strong>{task.fields.Title}</strong>}
         titleTypographyProps={{ component: 'h1', variant: 'h3' }}
