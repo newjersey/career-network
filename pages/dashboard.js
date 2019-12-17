@@ -53,6 +53,7 @@ function DashboardPage() {
       completedTasks={completedTasks}
       confidentActivityLogEntries={confidentActivityLogEntries}
       historyLimit={HISTORY_LIMIT}
+      activityLogEntriesCount={user.activityLogEntriesCount}
       recentActivityLogEntries={recentActivityLogEntries}
       {...recordProps}
     />

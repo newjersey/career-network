@@ -169,6 +169,7 @@ export default function Dashboard(props) {
     confidentActivityLogEntries,
     historyLimit,
     recentActivityLogEntries,
+    activityLogEntriesCount,
     ...restProps
   } = props;
 
@@ -179,9 +180,9 @@ export default function Dashboard(props) {
   const todoTaskCount = Math.min(allApplicableTasks.length - doneTaskCount, todoTaskLimit);
   const tasks = allApplicableTasks.slice(0, todoTaskCount + doneTaskCount);
   const [showActivityInputDialog, setShowActivityInputDialog] = useState(false);
-
-  const confidentActivityCount = confidentActivityLogEntries.length;
-  const confidentLevel = Math.trunc((confidentActivityCount / user.activityLogEntriesCount) * 100);
+  const confidencePercentage = Math.trunc(
+    (confidentActivityLogEntries.length / activityLogEntriesCount) * 100
+  );
 
   useEffect(() => {
     window.Intercom('update', { 'tasks-completed': doneTaskCount });
@@ -206,7 +207,7 @@ export default function Dashboard(props) {
             <Typography variant="h5" className={classes.subtitle}>
               Confidence Level
             </Typography>
-            <Gauge percentage={confidentLevel} />
+            <Gauge percentage={confidencePercentage} />
           </Grid>
           <Grid item xs={12} md={6}>
             <Grid container alignItems="baseline" justify="space-between" direction="row">
@@ -260,6 +261,7 @@ Dashboard.propTypes = {
   confidentActivityLogEntries: FirebasePropTypes.querySnapshot,
   historyLimit: PropTypes.number.isRequired,
   recentActivityLogEntries: FirebasePropTypes.querySnapshot,
+  activityLogEntriesCount: PropTypes.number.isRequired,
 };
 
 Dashboard.defaultProps = {
