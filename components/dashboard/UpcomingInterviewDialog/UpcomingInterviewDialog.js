@@ -6,14 +6,13 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import Box from '@material-ui/core/Box';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import MenuItem from '@material-ui/core/MenuItem';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 
@@ -21,7 +20,7 @@ import upcomingInterviewFormValidation from './UpcomingInterviewValidationRules'
 import useFormValidation from './formValidationHook';
 import { useAuth } from '../../Auth';
 import SubmitSuccess from '../SubmitSuccess';
-import { DialogContent, DialogTitle } from '../../DialogComponents';
+import { DialogContent, DialogTitle, DialogActions } from '../../DialogComponents';
 
 const INTERVIEW_TYPES = [
   {
@@ -51,8 +50,12 @@ const INTERVIEW_TYPES = [
 ];
 
 const useStyles = makeStyles(theme => ({
-  dialogTitle: {
-    marginTop: theme.spacing(2),
+  placeholder: {
+    color: 'currentColor',
+    opacity: theme.palette.type === 'light' ? 0.42 : 0.5,
+    transition: theme.transitions.create('opacity', {
+      duration: theme.transitions.duration.shorter,
+    }),
   },
   selectItem: {
     display: 'flex',
@@ -60,11 +63,6 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'row',
     maxWidth: theme.breakpoints.width('sm'),
     whiteSpace: 'normal',
-  },
-  divider: {
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    marginBottom: theme.spacing(2),
   },
 }));
 
@@ -111,21 +109,29 @@ export default function UpcomingInterviewDialog(props) {
     reset,
   } = useFormValidation({}, upcomingInterviewFormValidation, submit);
 
+  const handleExited = () => {
+    reset();
+    setSubmitError();
+    setSuccess(false);
+  };
+
   return (
-    <Dialog fullWidth open={show} aria-labelledby="upcoming-interview-dialog" onExited={reset}>
+    <Dialog
+      fullWidth
+      open={show}
+      aria-labelledby="upcoming-interview-dialog"
+      onExited={handleExited}
+    >
       <DialogTitle id="upcoming-interview-dialog" onClose={onClose}>
-        <Typography variant="h6" className={classes.dialogTitle}>
-          Have an upcoming interview?
-        </Typography>
+        <Typography variant="h6">Have an upcoming interview?</Typography>
         <Typography variant="body1" color="textSecondary">
           If you have an interview coming up, let us know and we can send helpful guidance on how to
           prepare.
         </Typography>
       </DialogTitle>
-      <Divider className={classes.divider} />
-      <DialogContent>
+      <DialogContent dividers>
         <SubmitSuccess
-          message="Thank you for entering...we'll be providing some recommendations"
+          message="Thank you for entering; we'll be providing some recommendations."
           show={success}
         />
         {!(success || isSubmitting) && (
@@ -136,19 +142,12 @@ export default function UpcomingInterviewDialog(props) {
                 displayEmpty
                 id={`${formId}-type`}
                 inputProps={{ name: 'type' }}
-                MenuProps={{
-                  anchorOrigin: {
-                    horizontal: 'left',
-                    vertical: 'bottom',
-                  },
-                  getContentAnchorEl: null,
-                }}
                 onChange={handleChange}
-                renderValue={t =>
-                  t ? (
-                    t.label
+                renderValue={type =>
+                  type ? (
+                    type.label
                   ) : (
-                    <Typography variant="body1" color="textSecondary">
+                    <Typography variant="body1" className={classes.placeholder}>
                       What kind of interview is it?
                     </Typography>
                   )
@@ -158,18 +157,15 @@ export default function UpcomingInterviewDialog(props) {
                 {INTERVIEW_TYPES.map(type => (
                   <MenuItem value={type} key={type.value} className={classes.selectItem}>
                     <Typography variant="body1">{type.label}</Typography>
-                    <Typography variant="caption" style={{ wordBreak: 'break-word' }}>
-                      {type.description}
-                    </Typography>
+                    <Typography variant="caption">{type.description}</Typography>
                   </MenuItem>
                 ))}
               </Select>
-              <FormHelperText margin="dense">{errors.type}</FormHelperText>
+              {!!errors.type && <FormHelperText>{errors.type}</FormHelperText>}
             </FormControl>
             <FormControl>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
-                  color="textSecondary"
                   disablePast
                   disableToolbar
                   error={!!errors.date}
@@ -177,7 +173,7 @@ export default function UpcomingInterviewDialog(props) {
                   helperText={errors.date}
                   id={`${formId}-date`}
                   InputLabelProps={{ shrink: true }}
-                  KeyboardButtonProps={{ 'aria-label': 'change date' }}
+                  KeyboardButtonProps={{ 'aria-label': 'Interview Date' }}
                   label="Interview Date"
                   margin="normal"
                   onChange={d => handleChangeCustom('date', d)}
@@ -188,17 +184,17 @@ export default function UpcomingInterviewDialog(props) {
               </MuiPickersUtilsProvider>
             </FormControl>
             <TextField
-              error={!!errors.company}
+              error={!!errors.organization}
               fullWidth
-              helperText={errors.company}
-              id={`${formId}-company`}
+              helperText={errors.organization}
+              id={`${formId}-organization`}
               InputLabelProps={{ shrink: true }}
-              inputProps={{ name: 'company' }}
-              label="Interview Company"
+              inputProps={{ name: 'organization' }}
+              label="Organization"
               margin="normal"
               onChange={handleChange}
               placeholder="Who is the interview with?"
-              value={values.company}
+              value={values.organization}
             />
             <TextField
               error={!!errors.role}
@@ -213,19 +209,25 @@ export default function UpcomingInterviewDialog(props) {
               placeholder="What role did you apply for?"
               value={values.role}
             />
-            <Box my={2}>
-              <Button fullWidth variant="contained" onClick={handleSubmit} color="primary">
-                Let Us Know
-              </Button>
-            </Box>
           </form>
+        )}
+      </DialogContent>
+      <DialogActions>
+        {success ? (
+          <Button onClick={onClose} color="primary">
+            Close
+          </Button>
+        ) : (
+          <Button onClick={handleSubmit} color="primary">
+            Let Us Know
+          </Button>
         )}
         {submitError && (
           <Typography color="error" variant="h6">
             Error: {submitError}
           </Typography>
         )}
-      </DialogContent>
+      </DialogActions>
       <Box
         display={isSubmitting ? 'flex' : 'none'}
         position="absolute"
