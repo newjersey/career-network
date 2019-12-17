@@ -108,8 +108,19 @@ export default function UpcomingInterviewDialog(props) {
     reset,
   } = useFormValidation({}, upcomingInterviewFormValidation, submit);
 
+  const handleExited = () => {
+    reset();
+    setSubmitError();
+    setSuccess(false);
+  };
+
   return (
-    <Dialog fullWidth open={show} aria-labelledby="upcoming-interview-dialog" onExited={reset}>
+    <Dialog
+      fullWidth
+      open={show}
+      aria-labelledby="upcoming-interview-dialog"
+      onExited={handleExited}
+    >
       <DialogTitle id="upcoming-interview-dialog" onClose={onClose}>
         <Typography variant="h6">Have an upcoming interview?</Typography>
         <Typography variant="body1" color="textSecondary">
@@ -202,9 +213,15 @@ export default function UpcomingInterviewDialog(props) {
         )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleSubmit} color="primary">
-          Let Us Know
-        </Button>
+        {success ? (
+          <Button onClick={onClose} color="primary">
+            Close
+          </Button>
+        ) : (
+          <Button onClick={handleSubmit} color="primary">
+            Let Us Know
+          </Button>
+        )}
         {submitError && (
           <Typography color="error" variant="h6">
             Error: {submitError}
