@@ -92,4 +92,8 @@ export default class User {
   get lastUpdateTimestamp() {
     return this.userData.lastUpdateTimestamp;
   }
+
+  get activityLogEntriesCount() {
+    return this.userData.stats.activityLogEntriesCount;
+  }
 }

@@ -8,7 +8,7 @@ function Gauge(props) {
   const coordinateForCircle = diameter / 2;
   const radius = (diameter - 2 * strokeWidth) / 2;
   const circumference = Math.PI * radius;
-  const semiCirclePercentage = percentage * circumference;
+  const semiCirclePercentage = (percentage / 100) * circumference;
 
   return (
     <Box mt={2} display="flex" justifyContent="center" alignItems="flex-end" position="relative">
@@ -42,7 +42,7 @@ function Gauge(props) {
       </svg>
       <Box position="absolute" width={1}>
         <Typography variant="h5" align="center" style={{ fontWeight: 'bold' }}>
-          {percentage * 100}%
+          {percentage}%
         </Typography>
         <Typography variant="body2" align="center">
           Feeling Confident

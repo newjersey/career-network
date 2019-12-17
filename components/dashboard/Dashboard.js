@@ -166,19 +166,22 @@ export default function Dashboard(props) {
     allActionDispositionEvents,
     allTaskDispositionEvents,
     completedTasks,
+    confidentActivityLogEntries,
     historyLimit,
     recentActivityLogEntries,
     ...restProps
   } = props;
 
   const todoTaskLimit = 3;
-  const percentage = 0.75;
 
   const allApplicableTasks = tasksToShow(props);
   const doneTaskCount = allTaskDispositionEvents.length;
   const todoTaskCount = Math.min(allApplicableTasks.length - doneTaskCount, todoTaskLimit);
   const tasks = allApplicableTasks.slice(0, todoTaskCount + doneTaskCount);
   const [showActivityInputDialog, setShowActivityInputDialog] = useState(false);
+
+  const confidentActivityCount = confidentActivityLogEntries.length;
+  const confidentLevel = Math.trunc((confidentActivityCount / user.activityLogEntriesCount) * 100);
 
   useEffect(() => {
     window.Intercom('update', { 'tasks-completed': doneTaskCount });
@@ -203,7 +206,7 @@ export default function Dashboard(props) {
             <Typography variant="h5" className={classes.subtitle}>
               Confidence Level
             </Typography>
-            <Gauge percentage={percentage} />
+            <Gauge percentage={confidentLevel} />
           </Grid>
           <Grid item xs={12} md={6}>
             <Grid container alignItems="baseline" justify="space-between" direction="row">
@@ -254,6 +257,7 @@ Dashboard.propTypes = {
   allActionDispositionEvents: FirebasePropTypes.querySnapshot,
   allTaskDispositionEvents: FirebasePropTypes.querySnapshot,
   completedTasks: FirebasePropTypes.querySnapshot,
+  confidentActivityLogEntries: FirebasePropTypes.querySnapshot,
   historyLimit: PropTypes.number.isRequired,
   recentActivityLogEntries: FirebasePropTypes.querySnapshot,
 };
@@ -262,5 +266,6 @@ Dashboard.defaultProps = {
   allActionDispositionEvents: [],
   allTaskDispositionEvents: [],
   completedTasks: [],
+  confidentActivityLogEntries: [],
   recentActivityLogEntries: [],
 };
