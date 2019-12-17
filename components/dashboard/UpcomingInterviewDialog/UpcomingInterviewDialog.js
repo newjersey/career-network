@@ -49,6 +49,7 @@ const INTERVIEW_TYPES = [
   },
 ];
 
+const MAX_WIDTH = 'sm';
 const useStyles = makeStyles(theme => ({
   placeholder: {
     color: 'currentColor',
@@ -61,7 +62,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     flexDirection: 'row',
-    maxWidth: theme.breakpoints.width('sm'),
+    maxWidth: theme.breakpoints.width(MAX_WIDTH) - theme.spacing(6),
     whiteSpace: 'normal',
   },
 }));
@@ -118,6 +119,7 @@ export default function UpcomingInterviewDialog(props) {
   return (
     <Dialog
       fullWidth
+      maxWidth={MAX_WIDTH}
       open={show}
       aria-labelledby="upcoming-interview-dialog"
       onExited={handleExited}
