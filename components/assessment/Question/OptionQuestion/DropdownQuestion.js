@@ -50,11 +50,7 @@ export default function DropdownQuestion(props) {
   const Label = _props => {
     const { LabelComponent } = _props;
     return (
-      <LabelComponent
-        htmlFor={question.id}
-        className={clsx(horizontal && classes.horizontalLabel)}
-        error={reflectError}
-      >
+      <LabelComponent className={clsx(horizontal && classes.horizontalLabel)} error={reflectError}>
         {question.fields.Label}
       </LabelComponent>
     );
@@ -66,7 +62,6 @@ export default function DropdownQuestion(props) {
     <Select
       disabled={question.fields.Disabled}
       fullWidth
-      id={question.id}
       inputProps={{
         name: question.id,
       }}
