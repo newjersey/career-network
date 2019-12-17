@@ -425,12 +425,12 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
       </DialogContent>
       <DialogActions>
         {!success && (
-          <Button autoFocus onClick={handleSave} color="primary">
+          <Button autoFocus onClick={handleSave} fullWidth color="primary">
             Submit
           </Button>
         )}
         {success && (
-          <Button autoFocus onClick={resetComponent} color="primary">
+          <Button autoFocus onClick={resetComponent} fullWidth color="primary">
             Add Another Activity
           </Button>
         )}
