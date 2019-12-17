@@ -11,8 +11,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import MenuItem from '@material-ui/core/MenuItem';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 
@@ -21,6 +19,7 @@ import upcomingInterviewFormValidation from './UpcomingInterviewValidationRules'
 import useFormValidation from './formValidationHook';
 import { useAuth } from '../../Auth';
 import SubmitSuccess from '../SubmitSuccess';
+import FullPageProgress from '../../FullPageProgress';
 import { DialogContent, DialogTitle, DialogActions } from '../../DialogComponents';
 
 const INTERVIEW_TYPES = [
@@ -230,18 +229,7 @@ export default function UpcomingInterviewDialog(props) {
           </Typography>
         )}
       </DialogActions>
-      <Box
-        display={isSubmitting ? 'flex' : 'none'}
-        position="absolute"
-        width={1}
-        height={1}
-        bgcolor="background.paper"
-        justifyContent="center"
-        alignItems="center"
-        style={{ opacity: 0.6 }}
-      >
-        <CircularProgress />
-      </Box>
+      {isSubmitting && <FullPageProgress />}
     </Dialog>
   );
 }
