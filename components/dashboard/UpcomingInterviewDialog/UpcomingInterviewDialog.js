@@ -125,9 +125,9 @@ export default function UpcomingInterviewDialog(props) {
                 id={`${formId}-type`}
                 inputProps={{ name: 'type' }}
                 onChange={handleChange}
-                renderValue={t =>
-                  t ? (
-                    t.label
+                renderValue={type =>
+                  type ? (
+                    type.label
                   ) : (
                     <Typography variant="body1" color="textSecondary">
                       What kind of interview is it?
