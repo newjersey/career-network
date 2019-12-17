@@ -167,26 +167,24 @@ export default function UpcomingInterviewDialog(props) {
               </Select>
               {!!errors.type && <FormHelperText>{errors.type}</FormHelperText>}
             </FormControl>
-            <FormControl>
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <KeyboardDatePicker
-                  disablePast
-                  disableToolbar
-                  error={!!errors.date}
-                  format="MM/dd/yyyy"
-                  helperText={errors.date}
-                  id={`${formId}-date`}
-                  InputLabelProps={{ shrink: true }}
-                  KeyboardButtonProps={{ 'aria-label': 'Interview Date' }}
-                  label="Interview Date"
-                  margin="normal"
-                  onChange={d => handleChangeCustom('date', d)}
-                  placeholder="When is your interview?"
-                  value={values.date || null}
-                  variant="inline"
-                />
-              </MuiPickersUtilsProvider>
-            </FormControl>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <KeyboardDatePicker
+                disablePast
+                disableToolbar
+                error={!!errors.date}
+                format="MM/dd/yyyy"
+                helperText={errors.date}
+                id={`${formId}-date`}
+                InputLabelProps={{ shrink: true }}
+                KeyboardButtonProps={{ 'aria-label': 'Interview Date' }}
+                label="Interview Date"
+                margin="normal"
+                onChange={d => handleChangeCustom('date', d)}
+                placeholder="When is your interview?"
+                value={values.date || null}
+                variant="inline"
+              />
+            </MuiPickersUtilsProvider>
             <TextField
               error={!!errors.organization}
               fullWidth
