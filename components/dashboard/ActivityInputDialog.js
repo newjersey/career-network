@@ -67,6 +67,9 @@ const useActivityDialogStyles = makeStyles(theme => ({
   toggleButton: {
     marginTop: theme.spacing(2),
   },
+  menuItem: {
+    whiteSpace: 'normal',
+  },
 }));
 
 const ACTIVITY_TYPES = [
@@ -278,7 +281,11 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
                 }
               >
                 {ACTIVITY_TYPES.map(activity => (
-                  <MenuItem key={activity.value} value={activity.value}>
+                  <MenuItem
+                    key={activity.value}
+                    value={activity.value}
+                    className={classes.menuItem}
+                  >
                     {activity.label}
                   </MenuItem>
                 ))}
