@@ -196,7 +196,7 @@ export default function UpcomingInterviewDialog(props) {
               margin="normal"
               onChange={handleChange}
               placeholder="Who is the interview with?"
-              value={values.organization}
+              value={values.organization || ''}
             />
             <TextField
               error={!!errors.role}
@@ -209,7 +209,7 @@ export default function UpcomingInterviewDialog(props) {
               margin="normal"
               onChange={handleChange}
               placeholder="What role did you apply for?"
-              value={values.role}
+              value={values.role || ''}
             />
           </form>
         )}
