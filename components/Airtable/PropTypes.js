@@ -124,6 +124,7 @@ const task = recordShape({
   'Task ID': PropTypes.number.isRequired,
   Priority: PropTypes.number.isRequired,
   'Time Estimate': PropTypes.number.isRequired,
+  Slug: PropTypes.string,
   Category: PropTypes.oneOf(TASK_CATEGORIES.map(category => category.name)),
   Trigger: PropTypes.oneOf(['Everyone', 'Conditions', 'Event']).isRequired,
   Frequency: PropTypes.oneOf(['Once', 'Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly'])

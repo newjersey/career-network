@@ -1,4 +1,5 @@
 import React from 'react';
+import startOfDay from 'date-fns/startOfDay';
 
 import { allPropsLoaded, fullyLoaded } from '../src/app-helper';
 import { useAuth, withAuthRequired } from '../components/Auth';
@@ -26,6 +27,9 @@ function DashboardPage() {
     { orderBy: ['timestamp', 'desc'] },
     { limit: HISTORY_LIMIT }
   );
+  const nonPastInterviewLogEntries = useUserSubcollection('interviewLogEntries', {
+    where: ['date', '>=', startOfDay(new Date())],
+  });
   const recordProps = {
     allPredicates: useRecords('Predicates'),
     allConditions: useRecords('Conditions'),
@@ -47,6 +51,7 @@ function DashboardPage() {
       allTaskDispositionEvents={allTaskDispositionEvents}
       completedTasks={completedTasks}
       historyLimit={HISTORY_LIMIT}
+      nonPastInterviewLogEntries={nonPastInterviewLogEntries}
       recentActivityLogEntries={recentActivityLogEntries}
       {...recordProps}
     />

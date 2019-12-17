@@ -127,10 +127,19 @@ function isAnyConditionSatisfied(task, allConditions, allPredicates, allQuestion
 }
 
 // Whether or not a task's trigger is true for the current user.
-function triggerApplies(task, allConditions, allPredicates, allQuestionResponses) {
+function triggerApplies(
+  task,
+  allConditions,
+  allPredicates,
+  allQuestionResponses,
+  nonPastInterviewLogEntries
+) {
   switch (task.fields.Trigger) {
     case 'Conditions':
       return isAnyConditionSatisfied(task, allConditions, allPredicates, allQuestionResponses);
+    case 'Event':
+      // future: generalize for other event types
+      return nonPastInterviewLogEntries.some(entry => entry.data().type === task.fields.Slug);
     case 'Everyone':
       return true;
     default:
@@ -144,6 +153,7 @@ function tasksToShow(_props) {
     allPredicates,
     allTasks,
     allQuestionResponses,
+    nonPastInterviewLogEntries,
     // allActions,
     // allActionDispositionEvents,
   } = _props;
@@ -153,7 +163,15 @@ function tasksToShow(_props) {
   // 3. TODO: does frequency indicate to show (heeding dispositions)?
   // 4. sort
   return allTasks
-    .filter(task => triggerApplies(task, allConditions, allPredicates, allQuestionResponses))
+    .filter(task =>
+      triggerApplies(
+        task,
+        allConditions,
+        allPredicates,
+        allQuestionResponses,
+        nonPastInterviewLogEntries
+      )
+    )
     .sort((a, b) => b.fields.Priority - a.fields.Priority);
 }
 
@@ -284,6 +302,7 @@ Dashboard.propTypes = {
   allTaskDispositionEvents: FirebasePropTypes.querySnapshot,
   completedTasks: FirebasePropTypes.querySnapshot,
   historyLimit: PropTypes.number.isRequired,
+  nonPastInterviewLogEntries: FirebasePropTypes.querySnapshot,
   recentActivityLogEntries: FirebasePropTypes.querySnapshot,
 };
 
@@ -291,5 +310,6 @@ Dashboard.defaultProps = {
   allActionDispositionEvents: [],
   allTaskDispositionEvents: [],
   completedTasks: [],
+  nonPastInterviewLogEntries: [],
   recentActivityLogEntries: [],
 };
