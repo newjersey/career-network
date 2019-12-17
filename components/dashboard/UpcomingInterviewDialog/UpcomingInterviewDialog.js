@@ -173,17 +173,17 @@ export default function UpcomingInterviewDialog(props) {
               </MuiPickersUtilsProvider>
             </FormControl>
             <TextField
-              error={!!errors.company}
+              error={!!errors.organization}
               fullWidth
-              helperText={errors.company}
-              id={`${formId}-company`}
+              helperText={errors.organization}
+              id={`${formId}-organization`}
               InputLabelProps={{ shrink: true }}
-              inputProps={{ name: 'company' }}
-              label="Interview Company"
+              inputProps={{ name: 'organization' }}
+              label="Organization"
               margin="normal"
               onChange={handleChange}
               placeholder="Who is the interview with?"
-              value={values.company}
+              value={values.organization}
             />
             <TextField
               error={!!errors.role}
