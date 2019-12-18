@@ -13,18 +13,33 @@ import ActionList from './ActionList';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import FirebasePropTypes from '../Firebase/PropTypes';
 
+const HIGHLIGHT_COLOR = '#f9ad57';
 const useStyles = makeStyles(theme => ({
   card: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
     padding: theme.spacing(3, 3, 2),
+    position: 'relative',
     [theme.breakpoints.up('sm')]: {
       position: 'relative',
       padding: theme.spacing(4, 4, 1),
     },
   },
-  interviewPrepCard: {
-    border: '3px solid orange',
+  highlight: {
+    border: `3px solid ${HIGHLIGHT_COLOR}`,
+  },
+  highlightLabel: {
+    backgroundColor: HIGHLIGHT_COLOR,
+    position: 'absolute',
+    top: 0,
+    left: theme.spacing(5),
+    [theme.breakpoints.up('sm')]: {
+      left: theme.spacing(6),
+    },
+    padding: theme.spacing(1),
+    borderBottomLeftRadius: theme.shape.borderRadius,
+    borderBottomRightRadius: theme.shape.borderRadius,
+    fontWeight: theme.typography.fontWeightMedium,
   },
   timeEstimate: {
     [theme.breakpoints.up('sm')]: {
@@ -49,6 +64,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Task(props) {
   const { task, onDone, ...restProps } = props;
+  const { 'Highlight Label': highlightLabel } = task.fields;
   const { userDocRef } = useAuth();
   const classes = useStyles();
 
@@ -78,19 +94,10 @@ export default function Task(props) {
     });
   }
 
-  function getTaskSpecificClass(slug) {
-    if (['in-person', 'live-video', 'recorded-video', 'phone-screen'].includes(slug)) {
-      return classes.interviewPrepCard;
-    }
-
-    return null;
-  }
-
   return (
-    <Card
-      className={clsx(classes.card, getTaskSpecificClass(task.fields.Slug))}
-      data-intercom="task"
-    >
+    <Card className={clsx(classes.card, highlightLabel && classes.highlight)} data-intercom="task">
+      {!!highlightLabel && <div className={classes.highlightLabel}>{highlightLabel}</div>}
+
       <CardHeader
         title={<strong>{task.fields.Title}</strong>}
         titleTypographyProps={{ component: 'h1', variant: 'h3' }}
