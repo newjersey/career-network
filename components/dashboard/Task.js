@@ -3,6 +3,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Chip from '@material-ui/core/Chip';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -12,15 +13,33 @@ import ActionList from './ActionList';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import FirebasePropTypes from '../Firebase/PropTypes';
 
+const HIGHLIGHT_COLOR = '#f9ad57';
 const useStyles = makeStyles(theme => ({
   card: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
     padding: theme.spacing(3, 3, 2),
+    position: 'relative',
     [theme.breakpoints.up('sm')]: {
       position: 'relative',
       padding: theme.spacing(4, 4, 1),
     },
+  },
+  highlight: {
+    border: `3px solid ${HIGHLIGHT_COLOR}`,
+  },
+  highlightLabel: {
+    backgroundColor: HIGHLIGHT_COLOR,
+    position: 'absolute',
+    top: 0,
+    left: theme.spacing(5),
+    [theme.breakpoints.up('sm')]: {
+      left: theme.spacing(6),
+    },
+    padding: theme.spacing(1),
+    borderBottomLeftRadius: theme.shape.borderRadius,
+    borderBottomRightRadius: theme.shape.borderRadius,
+    fontWeight: theme.typography.fontWeightMedium,
   },
   timeEstimate: {
     [theme.breakpoints.up('sm')]: {
@@ -45,6 +64,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Task(props) {
   const { task, onDone, ...restProps } = props;
+  const { 'Highlight Label': highlightLabel } = task.fields;
   const { userDocRef } = useAuth();
   const classes = useStyles();
 
@@ -75,7 +95,9 @@ export default function Task(props) {
   }
 
   return (
-    <Card className={classes.card} data-intercom="task">
+    <Card className={clsx(classes.card, highlightLabel && classes.highlight)} data-intercom="task">
+      {!!highlightLabel && <div className={classes.highlightLabel}>{highlightLabel}</div>}
+
       <CardHeader
         title={<strong>{task.fields.Title}</strong>}
         titleTypographyProps={{ component: 'h1', variant: 'h3' }}
