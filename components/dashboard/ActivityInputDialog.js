@@ -30,6 +30,7 @@ import firebase from 'firebase/app';
 import { useAuth } from '../Auth';
 import ToggleButton from '../ToggleButton';
 import validate from './ActivityInputValidationRules';
+import getActivityCategory from './ActivityCategory';
 
 const FORM_ELEMENT_MARGINS = [1, 0];
 
@@ -208,6 +209,7 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
       setSubmitting(true);
       const increment = firebase.firestore.FieldValue.increment(1);
       const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+      const category = getActivityCategory(formValues.activityTypeValue);
       const data = {
         config: {
           activityTypes: ACTIVITY_TYPES,
@@ -215,6 +217,7 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
         },
         timestamp,
         ...formValues,
+        category,
       };
       const stats = {
         activityLogEntriesCount: increment,
