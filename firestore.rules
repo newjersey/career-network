@@ -60,6 +60,11 @@ service cloud.firestore {
       match /activityLogEntries/{document} {
        allow read, create: if request.auth.uid == uid;
       }
+
+      // interview log entries are immutable: no updating allowed
+      match /interviewLogEntries/{document} {
+       allow read, create: if request.auth.uid == uid;
+      }
     }
 
     match /userPreauthorizations/{email} {

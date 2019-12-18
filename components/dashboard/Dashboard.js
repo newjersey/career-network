@@ -1,5 +1,9 @@
 import { makeStyles } from '@material-ui/styles';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState, useRef } from 'react';
@@ -15,6 +19,7 @@ import SentimentTracker from './SentimentTracker';
 import TaskList from './TaskList';
 import TimeDistanceParser from '../../src/time-distance-parser';
 import Gauge from '../Gauge';
+import UpcomingInterviewDialog from './UpcomingInterviewDialog/UpcomingInterviewDialog';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -153,6 +158,11 @@ function tasksToShow(_props) {
     .sort((a, b) => b.fields.Priority - a.fields.Priority);
 }
 
+const DIALOGS = {
+  ACTIVITY_INPUT: 'ActivityInputDialog',
+  UPCOMING_INTERVIEW: 'UpcomingInterviewDialog',
+};
+
 // eslint-disable-next-line sonarjs/cognitive-complexity
 export default function Dashboard(props) {
   const classes = useStyles();
@@ -175,11 +185,11 @@ export default function Dashboard(props) {
 
   const todoTaskLimit = 3;
 
+  const [activeDialog, setActiveDialog] = useState();
   const allApplicableTasks = tasksToShow(props);
   const doneTaskCount = allTaskDispositionEvents.length;
   const todoTaskCount = Math.min(allApplicableTasks.length - doneTaskCount, todoTaskLimit);
   const tasks = allApplicableTasks.slice(0, todoTaskCount + doneTaskCount);
-  const [showActivityInputDialog, setShowActivityInputDialog] = useState(false);
   const totalActivitiesCount = useRef(activityLogEntriesCount);
   const totalConfidentActivitiesCount = useRef(confidentActivityLogEntries.length);
 
@@ -198,8 +208,12 @@ export default function Dashboard(props) {
   return (
     <div className={classes.root}>
       <ActivityInputDialog
-        show={showActivityInputDialog}
-        onClose={() => setShowActivityInputDialog(false)}
+        show={activeDialog === DIALOGS.ACTIVITY_INPUT}
+        onClose={() => setActiveDialog()}
+      />
+      <UpcomingInterviewDialog
+        show={activeDialog === DIALOGS.UPCOMING_INTERVIEW}
+        onClose={() => setActiveDialog()}
       />
       <ScaffoldContainer>
         <Typography component="h1" variant="h2" gutterBottom>
@@ -228,7 +242,7 @@ export default function Dashboard(props) {
                 variant="contained"
                 size="large"
                 color="primary"
-                onClick={() => setShowActivityInputDialog(true)}
+                onClick={() => setActiveDialog(DIALOGS.ACTIVITY_INPUT)}
               >
                 Log Activity
               </Button>
@@ -251,6 +265,29 @@ export default function Dashboard(props) {
               completedTasks={completedTasks}
               limit={historyLimit}
             />
+            <Box my={3}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h6" gutterBottom>
+                    Upcoming interview?
+                  </Typography>
+                  <Typography variant="body1" gutterBottom>
+                    If you have an interview, let us know and we can send helpful guidance to
+                    prepare.
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button
+                    fullWidth
+                    variant="outlined"
+                    onClick={() => setActiveDialog(DIALOGS.UPCOMING_INTERVIEW)}
+                    data-intercom="log-interview"
+                  >
+                    Let Us Know
+                  </Button>
+                </CardActions>
+              </Card>
+            </Box>
           </Grid>
         </Grid>
       </ScaffoldContainer>
