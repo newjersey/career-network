@@ -147,7 +147,9 @@ function triggerApplies(
   }
 }
 
-function tasksToShow(_props) {
+// This should return all tasks that apply to a user, not considering their dispositions
+// (i.e. all tasks relevant to the user, even ones that have been completed).
+function getAllApplicableTasks(_props) {
   const {
     allConditions,
     allPredicates,
@@ -200,7 +202,7 @@ export default function Dashboard(props) {
 
   const todoTaskLimit = 3;
 
-  const allApplicableTasks = tasksToShow(props);
+  const allApplicableTasks = getAllApplicableTasks(props);
   const doneTaskCount = allTaskDispositionEvents.length;
   const todoTaskCount = Math.min(allApplicableTasks.length - doneTaskCount, todoTaskLimit);
   const tasks = allApplicableTasks.slice(0, todoTaskCount + doneTaskCount);
