@@ -207,7 +207,7 @@ export default function Dashboard(props) {
             <Typography variant="h5" className={classes.subtitle}>
               Confidence Level
             </Typography>
-            <Gauge percentage={confidencePercentage} />
+            <Gauge percentage={confidencePercentage} label="Feeling Confident" />
           </Grid>
           <Grid item xs={12} md={6}>
             <Grid container alignItems="baseline" justify="space-between" direction="row">

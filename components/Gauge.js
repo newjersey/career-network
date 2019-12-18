@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 function Gauge(props) {
-  const { diameter, stroke, strokeWidth, percentage } = props;
+  const { diameter, stroke, strokeWidth, percentage, label } = props;
   const coordinateForCircle = diameter / 2;
   const radius = (diameter - 2 * strokeWidth) / 2;
   const circumference = Math.PI * radius;
@@ -55,7 +55,7 @@ function Gauge(props) {
           {percentage}%
         </Typography>
         <Typography variant="body2" align="center">
-          Feeling Confident
+          {label}
         </Typography>
       </Box>
     </Box>
@@ -67,6 +67,7 @@ Gauge.propTypes = {
   strokeWidth: PropTypes.number,
   diameter: PropTypes.number,
   percentage: PropTypes.number.isRequired,
+  label: PropTypes.string.isRequired,
 };
 
 Gauge.defaultProps = {
