@@ -129,28 +129,37 @@ function isAnyConditionSatisfied(task, allConditions, allPredicates, allQuestion
     .reduce((a, b) => a || b, false);
 }
 
-function doesEventExistThatTriggersTask(task, nonPastInterviewLogEntries) {
-  // look for interview prep events (add checks for other event types here as we create them)
-  return nonPastInterviewLogEntries.some(entry => entry.data().type === task.fields.Slug);
+// Whether or not a task's event requirement (if exists) has been satisfied by a triggering event.
+function triggeringEventSatisfied(task, eventCollections) {
+  const { TASK_TRIGGERING_EVENT_TYPES: eventTypes } = AirtablePropTypes;
+  const { 'Triggering Event': eventType } = task.fields;
+  const { nonPastInterviewLogEntries } = eventCollections;
+
+  switch (eventType) {
+    case undefined:
+      // task does not require an event
+      return true;
+    case eventTypes.INTERVIEW_IN_PERSON:
+    case eventTypes.INTERVIEW_LIVE_VIDEO:
+    case eventTypes.INTERVIEW_RECORDED_VIDEO:
+    case eventTypes.INTERVIEW_PHONE_SCREEN:
+      return nonPastInterviewLogEntries.some(event => event.data().type === eventType);
+    default:
+      throw new Error(`Unexpected task-triggering event type: ${eventType}`);
+  }
 }
 
 // Whether or not a task's trigger is true for the current user.
-function triggerApplies(
-  task,
-  allConditions,
-  allPredicates,
-  allQuestionResponses,
-  nonPastInterviewLogEntries
-) {
-  switch (task.fields.Trigger) {
+function triggerApplies(task, allConditions, allPredicates, allQuestionResponses) {
+  const { Trigger: trigger } = task.fields;
+
+  switch (trigger) {
     case 'Conditions':
       return isAnyConditionSatisfied(task, allConditions, allPredicates, allQuestionResponses);
-    case 'Event':
-      return doesEventExistThatTriggersTask(task, nonPastInterviewLogEntries);
     case 'Everyone':
       return true;
     default:
-      return false;
+      throw new Error(`Unexpected task trigger: ${trigger}`);
   }
 }
 
@@ -167,21 +176,14 @@ function getTasks(_props, limit) {
 
   // 1. does trigger apply?
   // 2. TODO: are prerequisites satisfied?
-  // 3. TODO: does frequency indicate to show (heeding dispositions)?
+  // 3. has triggering event been satisfied?
   // 4. has the task not already been done?
   // 5. TODO: apply frequency?
   // 6. sort
   // 7. limit
   return allTasks
-    .filter(task =>
-      triggerApplies(
-        task,
-        allConditions,
-        allPredicates,
-        allQuestionResponses,
-        nonPastInterviewLogEntries
-      )
-    )
+    .filter(task => triggerApplies(task, allConditions, allPredicates, allQuestionResponses))
+    .filter(task => triggeringEventSatisfied(task, { nonPastInterviewLogEntries }))
     .filter(task => !isDone(task, allTaskDispositionEvents, 'taskId'))
     .sort((a, b) => b.fields.Priority - a.fields.Priority)
     .slice(0, limit);
