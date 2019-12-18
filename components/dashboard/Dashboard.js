@@ -107,7 +107,7 @@ function isTrue(predicateId, allPredicates, allQuestionResponses) {
 }
 
 // Whether or not any of a condition's predicates are true for the current user.
-function isSatisfied(conditionId, allConditions, allPredicates, allQuestionResponses) {
+function isConditionSatisfied(conditionId, allConditions, allPredicates, allQuestionResponses) {
   const condition = allConditions.find(_condition => _condition.id === conditionId);
 
   if (!condition) {
@@ -125,7 +125,7 @@ function isSatisfied(conditionId, allConditions, allPredicates, allQuestionRespo
 function isAnyConditionSatisfied(task, allConditions, allPredicates, allQuestionResponses) {
   // prettier-ignore
   return task.fields.Conditions
-    .map(conditionId => isSatisfied(conditionId, allConditions, allPredicates, allQuestionResponses))
+    .map(conditionId => isConditionSatisfied(conditionId, allConditions, allPredicates, allQuestionResponses))
     .reduce((a, b) => a || b, false);
 }
 
