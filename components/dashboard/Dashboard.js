@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { useAuth } from '../Auth';
@@ -180,9 +180,16 @@ export default function Dashboard(props) {
   const todoTaskCount = Math.min(allApplicableTasks.length - doneTaskCount, todoTaskLimit);
   const tasks = allApplicableTasks.slice(0, todoTaskCount + doneTaskCount);
   const [showActivityInputDialog, setShowActivityInputDialog] = useState(false);
-  const confidencePercentage = Math.trunc(
-    (confidentActivityLogEntries.length / activityLogEntriesCount) * 100
-  );
+  const totalActivitiesCount = useRef(activityLogEntriesCount);
+  const totalConfidentActivitiesCount = useRef(confidentActivityLogEntries.length);
+
+  // We only want to update the Gauge once the number of entries has been updated
+  useEffect(() => {
+    if (totalActivitiesCount.current !== activityLogEntriesCount) {
+      totalActivitiesCount.current = activityLogEntriesCount;
+      totalConfidentActivitiesCount.current = confidentActivityLogEntries.length;
+    }
+  }, [activityLogEntriesCount, confidentActivityLogEntries.length]);
 
   useEffect(() => {
     window.Intercom('update', { 'tasks-completed': doneTaskCount });
@@ -207,7 +214,10 @@ export default function Dashboard(props) {
             <Typography variant="h5" className={classes.subtitle}>
               Confidence Level
             </Typography>
-            <Gauge percentage={confidencePercentage} label="Feeling Confident" />
+            <Gauge
+              percentage={totalConfidentActivitiesCount.current / totalActivitiesCount.current}
+              label="Feeling Confident"
+            />
           </Grid>
           <Grid item xs={12} md={6}>
             <Grid container alignItems="baseline" justify="space-between" direction="row">

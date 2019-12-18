@@ -5,10 +5,11 @@ import Box from '@material-ui/core/Box';
 
 function Gauge(props) {
   const { diameter, stroke, strokeWidth, percentage, label } = props;
+  const calculatedPercent = Math.trunc(percentage * 100);
   const coordinateForCircle = diameter / 2;
   const radius = (diameter - 2 * strokeWidth) / 2;
   const circumference = Math.PI * radius;
-  const semiCirclePercentage = (percentage / 100) * circumference;
+  const semiCirclePercentage = (calculatedPercent / 100) * circumference;
 
   return (
     <Box mt={2} display="flex" justifyContent="center" alignItems="flex-end" position="relative">
@@ -52,7 +53,7 @@ function Gauge(props) {
       </svg>
       <Box position="absolute" width={1}>
         <Typography variant="h5" align="center" style={{ fontWeight: 'bold' }}>
-          {percentage}%
+          {calculatedPercent}%
         </Typography>
         <Typography variant="body2" align="center">
           {label}
