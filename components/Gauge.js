@@ -33,7 +33,6 @@ function Gauge(props) {
             strokeDashoffset: circumference,
           }}
           strokeLinecap="round"
-          strokeJoin="round"
         />
         <circle
           cx={coordinateForCircle}
@@ -48,7 +47,6 @@ function Gauge(props) {
             transition: 'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s',
           }}
           strokeLinecap="round"
-          strokeJoin="round"
         />
       </svg>
       <Box position="absolute" width={1}>
