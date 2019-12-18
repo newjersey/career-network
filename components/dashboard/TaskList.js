@@ -2,7 +2,6 @@ import { confetti } from 'dom-confetti';
 import { makeStyles } from '@material-ui/styles';
 import React, { useCallback, useRef } from 'react';
 
-import { isDone } from '../../src/app-helper';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import FirebasePropTypes from '../Firebase/PropTypes';
 import Task from './Task';
@@ -54,17 +53,15 @@ export default function TaskList(props) {
     <>
       <div className={classes.confetti} ref={confettiRef} />
       <div>
-        {tasks
-          .filter(task => !isDone(task, allTaskDispositionEvents, 'taskId'))
-          .map(task => (
-            <Task
-              key={task.id}
-              task={task}
-              onDone={onTaskComplete}
-              actions={getActions(task, allActions)}
-              {...restProps}
-            />
-          ))}
+        {tasks.map(task => (
+          <Task
+            key={task.id}
+            task={task}
+            onDone={onTaskComplete}
+            actions={getActions(task, allActions)}
+            {...restProps}
+          />
+        ))}
       </div>
     </>
   );

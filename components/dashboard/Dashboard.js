@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
+import { isDone } from '../../src/app-helper';
 import { useAuth } from '../Auth';
 import ActivityInputDialog from './ActivityInputDialog';
 import AirtablePropTypes from '../Airtable/PropTypes';
@@ -151,23 +152,22 @@ function triggerApplies(
   }
 }
 
-// This should return all tasks that apply to a user, not considering their dispositions
-// (i.e. all tasks relevant to the user, even ones that have been completed).
+// This should return all outstanding tasks that currently apply to a user.
 function getAllApplicableTasks(_props) {
   const {
     allConditions,
     allPredicates,
     allTasks,
+    allTaskDispositionEvents,
     allQuestionResponses,
     nonPastInterviewLogEntries,
-    // allActions,
-    // allActionDispositionEvents,
   } = _props;
 
   // 1. does trigger apply?
   // 2. TODO: are prerequisites satisfied?
   // 3. TODO: does frequency indicate to show (heeding dispositions)?
-  // 4. sort
+  // 4. has the task not already been done?
+  // 5. sort
   return allTasks
     .filter(task =>
       triggerApplies(
@@ -178,6 +178,7 @@ function getAllApplicableTasks(_props) {
         nonPastInterviewLogEntries
       )
     )
+    .filter(task => !isDone(task, allTaskDispositionEvents, 'taskId'))
     .sort((a, b) => b.fields.Priority - a.fields.Priority);
 }
 
