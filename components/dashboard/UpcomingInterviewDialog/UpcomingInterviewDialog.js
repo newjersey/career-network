@@ -101,6 +101,13 @@ export default function UpcomingInterviewDialog(props) {
       .catch(err => setSubmitError(err.message));
   }
 
+  const initialState = {
+    date: null,
+    organization: '',
+    role: '',
+    type: '',
+  };
+
   const {
     handleSubmit,
     handleChange,
@@ -109,7 +116,7 @@ export default function UpcomingInterviewDialog(props) {
     errors,
     isSubmitting,
     reset,
-  } = useFormValidation({}, upcomingInterviewFormValidation, submit);
+  } = useFormValidation(initialState, upcomingInterviewFormValidation, submit);
 
   const handleExited = () => {
     reset();
@@ -155,7 +162,7 @@ export default function UpcomingInterviewDialog(props) {
                     </Typography>
                   )
                 }
-                value={values.type || ''}
+                value={values.type}
               >
                 {INTERVIEW_TYPES.map(type => (
                   <MenuItem value={type} key={type.value} className={classes.selectItem}>
@@ -180,7 +187,7 @@ export default function UpcomingInterviewDialog(props) {
                 margin="normal"
                 onChange={d => handleChangeCustom('date', d)}
                 placeholder="When is your interview?"
-                value={values.date || null}
+                value={values.date}
                 variant="inline"
               />
             </MuiPickersUtilsProvider>
@@ -195,7 +202,7 @@ export default function UpcomingInterviewDialog(props) {
               margin="normal"
               onChange={handleChange}
               placeholder="Who is the interview with?"
-              value={values.organization || ''}
+              value={values.organization}
             />
             <TextField
               error={!!errors.role}
@@ -208,7 +215,7 @@ export default function UpcomingInterviewDialog(props) {
               margin="normal"
               onChange={handleChange}
               placeholder="What role did you apply for?"
-              value={values.role || ''}
+              value={values.role}
             />
           </form>
         )}
