@@ -126,6 +126,11 @@ function isAnyConditionSatisfied(task, allConditions, allPredicates, allQuestion
     .reduce((a, b) => a || b, false);
 }
 
+function doesEventExistThatTriggersTask(task, nonPastInterviewLogEntries) {
+  // look for interview prep events (add checks for other event types here as we create them)
+  return nonPastInterviewLogEntries.some(entry => entry.data().type === task.fields.Slug);
+}
+
 // Whether or not a task's trigger is true for the current user.
 function triggerApplies(
   task,
@@ -138,8 +143,7 @@ function triggerApplies(
     case 'Conditions':
       return isAnyConditionSatisfied(task, allConditions, allPredicates, allQuestionResponses);
     case 'Event':
-      // future: generalize for other event types
-      return nonPastInterviewLogEntries.some(entry => entry.data().type === task.fields.Slug);
+      return doesEventExistThatTriggersTask(task, nonPastInterviewLogEntries);
     case 'Everyone':
       return true;
     default:
