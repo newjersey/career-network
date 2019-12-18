@@ -149,17 +149,17 @@ function triggeringEventSatisfied(task, eventCollections) {
   }
 }
 
-// Whether or not a task's trigger is true for the current user.
-function triggerApplies(task, allConditions, allPredicates, allQuestionResponses) {
-  const { Trigger: trigger } = task.fields;
+// Whether or not the current user is a member of the task's audience.
+function audienceApplies(task, allConditions, allPredicates, allQuestionResponses) {
+  const { Audience: audience } = task.fields;
 
-  switch (trigger) {
+  switch (audience) {
     case 'Conditions':
       return isAnyConditionSatisfied(task, allConditions, allPredicates, allQuestionResponses);
     case 'Everyone':
       return true;
     default:
-      throw new Error(`Unexpected task trigger: ${trigger}`);
+      throw new Error(`Unexpected task audience: ${audience}`);
   }
 }
 
@@ -174,7 +174,7 @@ function getTasks(_props, limit) {
     nonPastInterviewLogEntries,
   } = _props;
 
-  // 1. does trigger apply?
+  // 1. does audience apply?
   // 2. TODO: are prerequisites satisfied?
   // 3. has triggering event been satisfied?
   // 4. has the task not already been done?
@@ -182,7 +182,7 @@ function getTasks(_props, limit) {
   // 6. sort
   // 7. limit
   return allTasks
-    .filter(task => triggerApplies(task, allConditions, allPredicates, allQuestionResponses))
+    .filter(task => audienceApplies(task, allConditions, allPredicates, allQuestionResponses))
     .filter(task => triggeringEventSatisfied(task, { nonPastInterviewLogEntries }))
     .filter(task => !isDone(task, allTaskDispositionEvents, 'taskId'))
     .sort((a, b) => b.fields.Priority - a.fields.Priority)

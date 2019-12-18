@@ -134,7 +134,7 @@ const task = recordShape({
   'Triggering Event': PropTypes.oneOf(Object.values(TASK_TRIGGERING_EVENT_TYPES)),
   'Highlight Label': PropTypes.string,
   Category: PropTypes.oneOf(TASK_CATEGORIES.map(category => category.name)),
-  Trigger: PropTypes.oneOf(['Everyone', 'Conditions']).isRequired,
+  Audience: PropTypes.oneOf(['Everyone', 'Conditions']).isRequired,
   Frequency: PropTypes.oneOf(['Once', 'Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly'])
     .isRequired,
   Title: PropTypes.string.isRequired,
