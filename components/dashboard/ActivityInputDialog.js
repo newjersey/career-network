@@ -1,60 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import { withStyles, makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import DateFnsUtils from '@date-io/date-fns';
 import Dialog from '@material-ui/core/Dialog';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
+import firebase from 'firebase/app';
 import Select from '@material-ui/core/Select';
 import PropTypes from 'prop-types';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
 import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import Grid from '@material-ui/core/Grid';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import DateFnsUtils from '@date-io/date-fns';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import startOfDay from 'date-fns/startOfDay';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import withMobileDialog from '@material-ui/core/withMobileDialog';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import React, { useState, useEffect } from 'react';
 import shuffle from 'lodash/fp/shuffle';
-import firebase from 'firebase/app';
+import startOfDay from 'date-fns/startOfDay';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 
+import { DialogTitle, DialogContent, DialogActions } from '../DialogComponents';
 import { useAuth } from '../Auth';
+import SubmitSuccess from './SubmitSuccess';
 import ToggleButton from '../ToggleButton';
 import validate from './ActivityInputValidationRules';
 
 const FORM_ELEMENT_MARGINS = [1, 0];
-
-const styles = theme => ({
-  closeButton: {
-    position: 'absolute',
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: theme.palette.grey[500],
-  },
-});
-
-const DialogTitle = withStyles(styles)(props => {
-  const { children, classes, onClose, ...other } = props;
-  return (
-    <MuiDialogTitle disableTypography {...other}>
-      {children}
-      {onClose ? (
-        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
-      ) : null}
-    </MuiDialogTitle>
-  );
-});
 
 const useActivityDialogStyles = makeStyles(theme => ({
   formControl: {
@@ -423,12 +396,7 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
             Error: {error}
           </Typography>
         )}
-        {success && (
-          <Grid container direction="column" justify="center" alignItems="center">
-            <CheckCircleIcon style={{ fontSize: 100, color: 'green' }} />
-            <Typography variant="h4">Activity added!</Typography>
-          </Grid>
-        )}
+        <SubmitSuccess message="Activity added!" show={success} />
       </DialogContent>
       <DialogActions>
         {!success && (
