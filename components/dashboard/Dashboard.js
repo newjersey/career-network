@@ -19,7 +19,7 @@ import SentimentTracker from './SentimentTracker';
 import TaskList from './TaskList';
 import TimeDistanceParser from '../../src/time-distance-parser';
 import Gauge from '../Gauge';
-import ConfidenceList from './ConfidenceList';
+import ActivityCategoryTable from './ActivityCategoryTable';
 import UpcomingInterviewDialog from './UpcomingInterviewDialog/UpcomingInterviewDialog';
 
 const useStyles = makeStyles(theme => ({
@@ -257,7 +257,7 @@ export default function Dashboard(props) {
               percentage={totalConfidentActivitiesCount.current / totalActivitiesCount.current}
               label="Feeling Confident"
             />
-            <ConfidenceList confidenceByCategories={confidenceByCategories} />
+            <ActivityCategoryTable confidenceByCategories={confidenceByCategories} />
           </Grid>
           <Grid item xs={12} md={6}>
             <Grid container alignItems="baseline" justify="space-between" direction="row">
