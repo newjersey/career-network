@@ -26,11 +26,10 @@ function DashboardPage() {
     where: ['activityFeeling', 'array-contains', 'Confident'],
   });
 
-  const recentActivityLogEntries = useUserSubcollection(
-    'activityLogEntries',
-    { orderBy: ['timestamp', 'desc'] },
-    { limit: HISTORY_LIMIT }
-  );
+  const recentActivityLogEntries = useUserSubcollection('activityLogEntries', {
+    orderBy: ['timestamp', 'desc'],
+  });
+
   const recordProps = {
     allPredicates: useRecords('Predicates'),
     allConditions: useRecords('Conditions'),

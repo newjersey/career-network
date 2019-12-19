@@ -15,6 +15,7 @@ import SentimentTracker from './SentimentTracker';
 import TaskList from './TaskList';
 import TimeDistanceParser from '../../src/time-distance-parser';
 import Gauge from '../Gauge';
+import ConfidenceList from './ConfidenceList';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -184,6 +185,30 @@ export default function Dashboard(props) {
     (confidentActivityLogEntries.length / activityLogEntriesCount) * 100
   );
 
+  const confidenceCounts = confidentActivityLogEntries
+    .map(c => c.data().category)
+    .reduce(
+      (counts, current) => ({
+        ...counts,
+        [current]: (counts[current] || 0) + 1,
+      }),
+      {}
+    );
+
+  const totalCounts = recentActivityLogEntries
+    .map(r => r.data().category)
+    .reduce(
+      (counts, current) => ({
+        ...counts,
+        [current]: (counts[current] || 0) + 1,
+      }),
+      {}
+    );
+
+  const confidenceByCategories = Object.keys(totalCounts).map(key => {
+    return { category: key, confident: confidenceCounts[key] || 0, total: totalCounts[key] };
+  });
+
   useEffect(() => {
     window.Intercom('update', { 'tasks-completed': doneTaskCount });
   }, [doneTaskCount]);
@@ -208,6 +233,7 @@ export default function Dashboard(props) {
               Confidence Level
             </Typography>
             <Gauge percentage={confidencePercentage} />
+            <ConfidenceList confidenceByCategories={confidenceByCategories} />
           </Grid>
           <Grid item xs={12} md={6}>
             <Grid container alignItems="baseline" justify="space-between" direction="row">
