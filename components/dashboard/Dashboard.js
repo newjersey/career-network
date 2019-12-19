@@ -257,6 +257,7 @@ export default function Dashboard(props) {
                 size="large"
                 color="primary"
                 onClick={() => setActiveDialog(DIALOGS.ACTIVITY_INPUT)}
+                data-intercom="log-activity-button"
               >
                 Log Activity
               </Button>
@@ -279,7 +280,7 @@ export default function Dashboard(props) {
               completedTasks={completedTasks}
               limit={historyLimit}
             />
-            <Box my={3}>
+            <Box my={3} data-intercom="log-interview">
               <Card>
                 <CardContent>
                   <Typography variant="h6" gutterBottom>
@@ -295,7 +296,6 @@ export default function Dashboard(props) {
                     fullWidth
                     variant="outlined"
                     onClick={() => setActiveDialog(DIALOGS.UPCOMING_INTERVIEW)}
-                    data-intercom="log-interview"
                   >
                     Let Us Know
                   </Button>
