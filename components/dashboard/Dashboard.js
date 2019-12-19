@@ -222,13 +222,9 @@ export default function Dashboard(props) {
     ...restProps
   } = props;
 
-  const todoTaskLimit = 3;
-
-  const [activeDialog, setActiveDialog] = useState();
-  const allApplicableTasks = tasksToShow(props);
+  const tasks = getTasks(props, TASK_COUNT_LIMIT);
   const doneTaskCount = allTaskDispositionEvents.length;
-  const todoTaskCount = Math.min(allApplicableTasks.length - doneTaskCount, todoTaskLimit);
-  const tasks = allApplicableTasks.slice(0, todoTaskCount + doneTaskCount);
+  const [activeDialog, setActiveDialog] = useState();
 
   const confidenceCounts = confidentActivityLogEntries
     .map(entry => entry.data().category)
@@ -253,9 +249,6 @@ export default function Dashboard(props) {
   const confidenceByCategories = Object.keys(totalCounts).map(key => {
     return { category: key, confident: confidenceCounts[key] || 0, total: totalCounts[key] };
   });
-  const tasks = getTasks(props, TASK_COUNT_LIMIT);
-  const doneTaskCount = allTaskDispositionEvents.length;
-  const [activeDialog, setActiveDialog] = useState();
 
   useEffect(() => {
     window.Intercom('update', { 'tasks-completed': doneTaskCount });
