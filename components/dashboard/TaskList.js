@@ -34,7 +34,7 @@ function getActions(task, allActions) {
 }
 
 export default function TaskList(props) {
-  const { allActions, allTaskDispositionEvents, tasks, ...restProps } = props;
+  const { allActions, tasks, ...restProps } = props;
   const classes = useStyles();
   const confettiRef = useRef();
 
@@ -71,6 +71,5 @@ TaskList.propTypes = {
   allActions: AirtablePropTypes.actions.isRequired,
   allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
   allActionDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
-  allTaskDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
   tasks: AirtablePropTypes.tasks.isRequired,
 };
