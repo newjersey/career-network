@@ -24,7 +24,7 @@ export default function ProgressFeed(props) {
         subheader: item.data().activityTypeLabel,
         date: item.data().dateCompleted,
         timeSpentInMinutes: item.data().timeSpentInMinutes,
-        key: item.data().timestamp,
+        key: item.id,
       },
     })),
     ...completedTasks.map(item => ({
@@ -34,7 +34,7 @@ export default function ProgressFeed(props) {
         title: item.data().task.fields.Title,
         subheader: item.data().task.fields.Category,
         date: item.data().timestamp,
-        key: item.data().taskId,
+        key: item.id,
       },
     })),
   ].sort((a, b) => compareDesc(a.timestamp, b.timestamp));

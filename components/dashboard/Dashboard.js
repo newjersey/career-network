@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
+import { isDone } from '../../src/app-helper';
 import { useAuth } from '../Auth';
 import ActivityInputDialog from './ActivityInputDialog';
 import AirtablePropTypes from '../Airtable/PropTypes';
@@ -20,6 +21,8 @@ import TaskList from './TaskList';
 import TimeDistanceParser from '../../src/time-distance-parser';
 import ActivityCategoryTable from './ActivityCategoryTable';
 import UpcomingInterviewDialog from './UpcomingInterviewDialog/UpcomingInterviewDialog';
+
+const TASK_COUNT_LIMIT = 3;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -105,7 +108,7 @@ function isTrue(predicateId, allPredicates, allQuestionResponses) {
 }
 
 // Whether or not any of a condition's predicates are true for the current user.
-function isSatisfied(conditionId, allConditions, allPredicates, allQuestionResponses) {
+function isConditionSatisfied(conditionId, allConditions, allPredicates, allQuestionResponses) {
   const condition = allConditions.find(_condition => _condition.id === conditionId);
 
   if (!condition) {
@@ -123,39 +126,76 @@ function isSatisfied(conditionId, allConditions, allPredicates, allQuestionRespo
 function isAnyConditionSatisfied(task, allConditions, allPredicates, allQuestionResponses) {
   // prettier-ignore
   return task.fields.Conditions
-    .map(conditionId => isSatisfied(conditionId, allConditions, allPredicates, allQuestionResponses))
+    .map(conditionId => isConditionSatisfied(conditionId, allConditions, allPredicates, allQuestionResponses))
     .reduce((a, b) => a || b, false);
 }
 
-// Whether or not a task's trigger is true for the current user.
-function triggerApplies(task, allConditions, allPredicates, allQuestionResponses) {
-  switch (task.fields.Trigger) {
+// Whether or not a task is yet to be completed by the user.
+function needsCompletion(task, allTaskDispositionEvents, eventCollections) {
+  const { TASK_TRIGGERING_EVENT_TYPES: eventTypes } = AirtablePropTypes;
+  const { 'Triggering Event': eventType } = task.fields;
+  const { interviewLogEntries } = eventCollections;
+
+  switch (eventType) {
+    case undefined:
+      // task does not require an event
+      return !isDone(task, allTaskDispositionEvents, 'taskId');
+    case eventTypes.INTERVIEW_IN_PERSON:
+    case eventTypes.INTERVIEW_LIVE_VIDEO:
+    case eventTypes.INTERVIEW_RECORDED_VIDEO:
+    case eventTypes.INTERVIEW_PHONE_SCREEN:
+      // need completion if the latest event is newer than the latest disposition
+      return (
+        interviewLogEntries
+          .filter(event => event.data().type === eventType)
+          .map(event => (event.data().timestamp ? event.data().timestamp.seconds : 0))
+          .reduce((a, b) => Math.max(a, b), 0) >
+        allTaskDispositionEvents
+          .filter(event => event.data().taskId === task.id)
+          .map(event => (event.data().timestamp ? event.data().timestamp.seconds : 0))
+          .reduce((a, b) => Math.max(a, b), 0)
+      );
+    default:
+      throw new Error(`Unexpected task-triggering event type: ${eventType}`);
+  }
+}
+
+// Whether or not the current user is a member of the task's audience.
+function audienceApplies(task, allConditions, allPredicates, allQuestionResponses) {
+  const { Audience: audience } = task.fields;
+
+  switch (audience) {
     case 'Conditions':
       return isAnyConditionSatisfied(task, allConditions, allPredicates, allQuestionResponses);
     case 'Everyone':
       return true;
     default:
-      return false;
+      throw new Error(`Unexpected task audience: ${audience}`);
   }
 }
 
-function tasksToShow(_props) {
+// This should return all outstanding tasks that currently apply to a user (capped at the max limit).
+function getTasks(_props, limit) {
   const {
     allConditions,
     allPredicates,
     allTasks,
+    allTaskDispositionEvents,
     allQuestionResponses,
-    // allActions,
-    // allActionDispositionEvents,
+    interviewLogEntries,
   } = _props;
 
-  // 1. does trigger apply?
+  // 1. does audience apply?
   // 2. TODO: are prerequisites satisfied?
-  // 3. TODO: does frequency indicate to show (heeding dispositions)?
-  // 4. sort
+  // 3. has the task not already been done?
+  // 4. TODO: apply frequency?
+  // 5. sort
+  // 6. limit
   return allTasks
-    .filter(task => triggerApplies(task, allConditions, allPredicates, allQuestionResponses))
-    .sort((a, b) => b.fields.Priority - a.fields.Priority);
+    .filter(task => audienceApplies(task, allConditions, allPredicates, allQuestionResponses))
+    .filter(task => needsCompletion(task, allTaskDispositionEvents, { interviewLogEntries }))
+    .sort((a, b) => b.fields.Priority - a.fields.Priority)
+    .slice(0, limit);
 }
 
 const DIALOGS = {
@@ -213,6 +253,9 @@ export default function Dashboard(props) {
   const confidenceByCategories = Object.keys(totalCounts).map(key => {
     return { category: key, confident: confidenceCounts[key] || 0, total: totalCounts[key] };
   });
+  const tasks = getTasks(props, TASK_COUNT_LIMIT);
+  const doneTaskCount = allTaskDispositionEvents.length;
+  const [activeDialog, setActiveDialog] = useState();
 
   useEffect(() => {
     window.Intercom('update', { 'tasks-completed': doneTaskCount });
@@ -250,7 +293,7 @@ export default function Dashboard(props) {
           <Grid item xs={12} md={6}>
             <Grid container alignItems="baseline" justify="space-between" direction="row">
               <Typography variant="h5" className={classes.subtitle} data-intercom="task-count">
-                Top {todoTaskCount} Goals
+                Top {tasks.length} Goals
               </Typography>
               <Button
                 variant="contained"
@@ -322,6 +365,7 @@ Dashboard.propTypes = {
   confidentActivityLogEntries: FirebasePropTypes.querySnapshot,
   historyLimit: PropTypes.number.isRequired,
   allActivityLogEntries: FirebasePropTypes.querySnapshot,
+  interviewLogEntries: FirebasePropTypes.querySnapshot,
 };
 
 Dashboard.defaultProps = {
@@ -330,4 +374,5 @@ Dashboard.defaultProps = {
   completedTasks: [],
   confidentActivityLogEntries: [],
   allActivityLogEntries: [],
+  interviewLogEntries: [],
 };

@@ -15,6 +15,7 @@ function DashboardPage() {
   const allQuestionResponses = useUserSubcollection('questionResponses');
   const allActionDispositionEvents = useUserSubcollection('actionDispositionEvents');
   const allTaskDispositionEvents = useUserSubcollection('taskDispositionEvents');
+  const interviewLogEntries = useUserSubcollection('interviewLogEntries');
   const completedTasks = useUserSubcollection(
     'taskDispositionEvents',
     { where: ['type', '==', 'done'] },
@@ -55,6 +56,7 @@ function DashboardPage() {
       completedTasks={completedTasks}
       confidentActivityLogEntries={confidentActivityLogEntries}
       historyLimit={HISTORY_LIMIT}
+      interviewLogEntries={interviewLogEntries}
       {...recordProps}
     />
   ) : (
