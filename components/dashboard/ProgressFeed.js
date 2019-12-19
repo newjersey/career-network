@@ -47,7 +47,7 @@ export default function ProgressFeed(props) {
       ))}
       {!!sorted.length && (
         <NextLink href="/progress">
-          <Button color="primary" variant="contained" fullWidth>
+          <Button color="primary" variant="contained" data-intercom="all-progress-button" fullWidth>
             See All Progress
           </Button>
         </NextLink>
