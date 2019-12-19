@@ -129,8 +129,8 @@ function isAnyConditionSatisfied(task, allConditions, allPredicates, allQuestion
     .reduce((a, b) => a || b, false);
 }
 
-// Whether or not a task's event requirement (if exists) has been satisfied by a triggering event.
-function triggeringEventSatisfied(task, eventCollections) {
+// Whether or not a task is yet to be completed by the user.
+function needsCompletion(task, allTaskDispositionEvents, eventCollections) {
   const { TASK_TRIGGERING_EVENT_TYPES: eventTypes } = AirtablePropTypes;
   const { 'Triggering Event': eventType } = task.fields;
   const { nonPastInterviewLogEntries } = eventCollections;
@@ -138,12 +138,22 @@ function triggeringEventSatisfied(task, eventCollections) {
   switch (eventType) {
     case undefined:
       // task does not require an event
-      return true;
+      return !isDone(task, allTaskDispositionEvents, 'taskId');
     case eventTypes.INTERVIEW_IN_PERSON:
     case eventTypes.INTERVIEW_LIVE_VIDEO:
     case eventTypes.INTERVIEW_RECORDED_VIDEO:
     case eventTypes.INTERVIEW_PHONE_SCREEN:
-      return nonPastInterviewLogEntries.some(event => event.data().type === eventType);
+      // need completion if the latest event is newer than the latest disposition
+      return (
+        nonPastInterviewLogEntries
+          .filter(event => event.data().type === eventType)
+          .map(event => (event.data().timestamp ? event.data().timestamp.seconds : 0))
+          .reduce((a, b) => Math.max(a, b), 0) >
+        allTaskDispositionEvents
+          .filter(event => event.data().taskId === task.id)
+          .map(event => (event.data().timestamp ? event.data().timestamp.seconds : 0))
+          .reduce((a, b) => Math.max(a, b), 0)
+      );
     default:
       throw new Error(`Unexpected task-triggering event type: ${eventType}`);
   }
@@ -176,15 +186,13 @@ function getTasks(_props, limit) {
 
   // 1. does audience apply?
   // 2. TODO: are prerequisites satisfied?
-  // 3. has triggering event been satisfied?
-  // 4. has the task not already been done?
-  // 5. TODO: apply frequency?
-  // 6. sort
-  // 7. limit
+  // 3. has the task not already been done?
+  // 4. TODO: apply frequency?
+  // 5. sort
+  // 6. limit
   return allTasks
     .filter(task => audienceApplies(task, allConditions, allPredicates, allQuestionResponses))
-    .filter(task => triggeringEventSatisfied(task, { nonPastInterviewLogEntries }))
-    .filter(task => !isDone(task, allTaskDispositionEvents, 'taskId'))
+    .filter(task => needsCompletion(task, allTaskDispositionEvents, { nonPastInterviewLogEntries }))
     .sort((a, b) => b.fields.Priority - a.fields.Priority)
     .slice(0, limit);
 }
