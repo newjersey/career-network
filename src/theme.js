@@ -15,6 +15,9 @@ const theme = createMuiTheme({
       main: '#4D840A',
       dark: '#45770A',
     },
+    text: {
+      secondary: '#44444f',
+    },
   },
   typography: {
     fontSize: 12,
@@ -24,6 +27,14 @@ const theme = createMuiTheme({
     },
     subtitle2: {
       textTransform: 'uppercase',
+    },
+    body2: {
+      letterSpacing: 'normal',
+      lineHeight: 1.67,
+    },
+    overline: {
+      letterSpacing: 'normal',
+      fontSize: '0.6875rem',
     },
   },
 });

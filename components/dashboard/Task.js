@@ -48,6 +48,9 @@ const useStyles = makeStyles(theme => ({
       right: theme.spacing(4),
     },
   },
+  textBlock: {
+    marginBottom: theme.spacing(3),
+  },
   type: {
     position: 'relative',
     top: -theme.spacing(2.5),
@@ -119,10 +122,20 @@ export default function Task(props) {
       <CardHeader title={task.fields.Title} titleTypographyProps={{ component: 'h5' }} />
       <CardContent>
         {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
-        <div className={classes.timeEstimate} data-intercom="task-time-estimate">
-          🕒{task.fields['Time Estimate']} min.
+        <div className={classes.timeEstimate}>
+          <Typography variant="overline" component="p" style={{ lineHeight: '1.4' }}>
+            Estimated Time
+          </Typography>
+          <Typography
+            data-intercom="task-time-estimate"
+            variant="body2"
+            component="p"
+            color="textSecondary"
+            style={{ fontWeight: 500 }}
+          >
+            {task.fields['Time Estimate']} Minutes 🕒
+          </Typography>
         </div>
-
         {task.fields.Category && (
           <Chip
             size="small"
@@ -134,20 +147,17 @@ export default function Task(props) {
           />
         )}
 
-        <div data-intercom="task-why">
-          <Typography variant="subtitle2" component="h3" gutterBottom>
+        <div data-intercom="task-why" className={classes.textBlock}>
+          <Typography variant="subtitle2" component="h3" color="textSecondary" gutterBottom>
             Why?
           </Typography>
-          <Typography variant="body1" component="p">
+          <Typography variant="body2" component="p" color="textSecondary">
             {task.fields.Why}
           </Typography>
         </div>
 
-        <br />
-        <br />
-
         <div data-intercom="task-how">
-          <Typography variant="subtitle2" component="h3">
+          <Typography variant="subtitle2" component="h3" color="textSecondary">
             How?
           </Typography>
           <ActionList

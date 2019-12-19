@@ -99,7 +99,9 @@ function Action(props) {
           flex={1}
           ml={1}
         >
-          <Typography variant="body1">{action.fields.Title}</Typography>
+          <Typography variant="body2" color="textSecondary">
+            {action.fields.Title}
+          </Typography>
         </Box>
         {isDone ? (
           <Button variant="outlined" color="secondary" size="small" onClick={handleClickOpen}>
