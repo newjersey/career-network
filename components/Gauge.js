@@ -4,11 +4,12 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 function Gauge(props) {
-  const { diameter, stroke, strokeWidth, percentage } = props;
+  const { diameter, stroke, strokeWidth, percentage, label } = props;
+  const calculatedPercent = Math.trunc(percentage * 100);
   const coordinateForCircle = diameter / 2;
   const radius = (diameter - 2 * strokeWidth) / 2;
   const circumference = Math.PI * radius;
-  const semiCirclePercentage = (percentage / 100) * circumference;
+  const semiCirclePercentage = (calculatedPercent / 100) * circumference;
 
   return (
     <Box mt={2} display="flex" justifyContent="center" alignItems="flex-end" position="relative">
@@ -32,7 +33,6 @@ function Gauge(props) {
             strokeDashoffset: circumference,
           }}
           strokeLinecap="round"
-          strokeJoin="round"
         />
         <circle
           cx={coordinateForCircle}
@@ -47,15 +47,14 @@ function Gauge(props) {
             transition: 'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s',
           }}
           strokeLinecap="round"
-          strokeJoin="round"
         />
       </svg>
       <Box position="absolute" width={1}>
         <Typography variant="h5" align="center" style={{ fontWeight: 'bold' }}>
-          {percentage}%
+          {calculatedPercent}%
         </Typography>
         <Typography variant="body2" align="center">
-          Feeling Confident
+          {label}
         </Typography>
       </Box>
     </Box>
@@ -67,6 +66,7 @@ Gauge.propTypes = {
   strokeWidth: PropTypes.number,
   diameter: PropTypes.number,
   percentage: PropTypes.number.isRequired,
+  label: PropTypes.string.isRequired,
 };
 
 Gauge.defaultProps = {
