@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import Box from '@material-ui/core/Box';
 import { isDone } from '../../src/app-helper';
 import Action from './Action';
 import AirtablePropTypes from '../Airtable/PropTypes';
@@ -17,7 +18,7 @@ export default function ActionList(props) {
 
   return (
     <div>
-      <ol>
+      <Box width={1} p={0} component="ol">
         {actions.map((action, i) => (
           <Action
             key={action.id}
@@ -28,7 +29,7 @@ export default function ActionList(props) {
             {...restProps}
           />
         ))}
-      </ol>
+      </Box>
     </div>
   );
 }

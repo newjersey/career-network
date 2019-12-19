@@ -1,5 +1,8 @@
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import Box from '@material-ui/core/Box';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -70,14 +73,34 @@ function Action(props) {
   }
 
   return (
-    <div>
-      <Typography
-        variant="body1"
+    <>
+      <Box
+        width={1}
+        display="flex"
+        border={1}
+        borderColor="divider"
+        borderRadius={3}
+        justifyContent="space-between"
+        alignItems="center"
+        p={1}
+        my={1}
         component="li"
-        style={{ fontWeight: 'bold', lineHeight: '3em', color: disabled ? 'darkgray' : 'initial' }}
       >
-        {action.fields.Title}
-        &nbsp;&nbsp;
+        {isDone ? (
+          <CheckBoxIcon color="secondary" />
+        ) : (
+          <CheckBoxOutlineBlankIcon color="disabled" />
+        )}
+        <Box
+          display="flex"
+          height={1}
+          justifyContent="flex-start"
+          alignItems="center"
+          flex={1}
+          ml={1}
+        >
+          <Typography variant="body1">{action.fields.Title}</Typography>
+        </Box>
         {isDone ? (
           <Button variant="outlined" color="secondary" size="small" onClick={handleClickOpen}>
             Done
@@ -95,8 +118,7 @@ function Action(props) {
             </Button>
           )
         )}
-      </Typography>
-
+      </Box>
       <Dialog
         fullScreen={fullScreen}
         open={open}
@@ -172,7 +194,7 @@ function Action(props) {
           <Button onClick={handleClose}>{isDone ? 'OK' : 'Cancel'}</Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 }
 
