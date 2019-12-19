@@ -6,17 +6,9 @@ import TableRow from '@material-ui/core/TableRow';
 import TableBody from '@material-ui/core/TableBody';
 import Table from '@material-ui/core/Table';
 import Paper from '@material-ui/core/Paper';
-import { TableFooter } from '@material-ui/core';
 
 export default function ActivityCategoryTable(props) {
-  const { confidenceByCategories } = props;
-  const confidenceTotal = confidenceByCategories.reduce(
-    (sums, item) => ({
-      confident: (sums.confident || 0) + item.confident,
-      total: (sums.total || 0) + item.total,
-    }),
-    {}
-  );
+  const { confidenceByCategories, confidentActivitiesCount, totalActivitiesCount } = props;
 
   return (
     <Box mt={4}>
@@ -33,15 +25,13 @@ export default function ActivityCategoryTable(props) {
                 </TableCell>
               </TableRow>
             ))}
-          </TableBody>
-          <TableFooter>
-            <TableRow>
+            <TableRow selected>
               <TableCell>Total Reported Activities</TableCell>
               <TableCell>
-                {confidenceTotal.confident}/{confidenceTotal.total}
+                {confidentActivitiesCount}/{totalActivitiesCount}
               </TableCell>
             </TableRow>
-          </TableFooter>
+          </TableBody>
         </Table>
       </Paper>
     </Box>
@@ -56,4 +46,6 @@ ActivityCategoryTable.propTypes = {
       total: PropTypes.number.isRequired,
     })
   ).isRequired,
+  confidentActivitiesCount: PropTypes.number.isRequired,
+  totalActivitiesCount: PropTypes.number.isRequired,
 };

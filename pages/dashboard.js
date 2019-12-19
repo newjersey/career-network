@@ -26,7 +26,7 @@ function DashboardPage() {
     where: ['activityFeeling', 'array-contains', 'Confident'],
   });
 
-  const recentActivityLogEntries = useUserSubcollection('activityLogEntries', {
+  const allActivityLogEntries = useUserSubcollection('activityLogEntries', {
     orderBy: ['timestamp', 'desc'],
   });
 
@@ -49,11 +49,10 @@ function DashboardPage() {
       allQuestionResponses={allQuestionResponses}
       allActionDispositionEvents={allActionDispositionEvents}
       allTaskDispositionEvents={allTaskDispositionEvents}
+      allActivityLogEntries={allActivityLogEntries}
       completedTasks={completedTasks}
       confidentActivityLogEntries={confidentActivityLogEntries}
       historyLimit={HISTORY_LIMIT}
-      activityLogEntriesCount={user.activityLogEntriesCount}
-      recentActivityLogEntries={recentActivityLogEntries}
       {...recordProps}
     />
   ) : (
