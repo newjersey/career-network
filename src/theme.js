@@ -37,6 +37,18 @@ const theme = createMuiTheme({
       fontSize: '0.6875rem',
     },
   },
+  overrides: {
+    MuiButton: {
+      contained: {
+        boxShadow: 'none',
+      },
+    },
+  },
+  props: {
+    MuiCard: {
+      elevation: 0,
+    },
+  },
 });
 
 export default responsiveFontSizes(theme);

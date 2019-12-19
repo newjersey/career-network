@@ -136,8 +136,9 @@ export default function Task(props) {
             component="p"
             color="textSecondary"
             style={{ fontWeight: 500 }}
+            gutterBottom
           >
-            {task.fields['Time Estimate']} Minutes 🕒
+            {task.fields['Time Estimate']} Minutes ⏰
           </Typography>
         </div>
         {task.fields.Category && (
