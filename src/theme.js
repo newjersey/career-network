@@ -1,5 +1,7 @@
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 
+const HeaderFont = 'Public Sans';
+
 // Create a theme instance.
 const theme = createMuiTheme({
   palette: {
@@ -17,6 +19,7 @@ const theme = createMuiTheme({
   typography: {
     fontSize: 12,
     h5: {
+      fontFamily: HeaderFont,
       fontWeight: 700,
     },
     subtitle2: {
