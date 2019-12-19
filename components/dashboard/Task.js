@@ -117,7 +117,11 @@ export default function Task(props) {
   }
 
   return (
-    <Card className={clsx(classes.card, highlightLabel && classes.highlight)} data-intercom="task">
+    <Card
+      className={clsx(classes.card, highlightLabel && classes.highlight)}
+      data-intercom="task"
+      elevation={0}
+    >
       {!!highlightLabel && <div className={classes.highlightLabel}>{highlightLabel}</div>}
       <CardHeader title={task.fields.Title} titleTypographyProps={{ component: 'h5' }} />
       <CardContent>
