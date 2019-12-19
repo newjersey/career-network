@@ -30,6 +30,13 @@ const TASK_CATEGORIES = [
   },
 ];
 
+const TASK_TRIGGERING_EVENT_TYPES = {
+  INTERVIEW_IN_PERSON: 'in-person',
+  INTERVIEW_LIVE_VIDEO: 'live-video',
+  INTERVIEW_RECORDED_VIDEO: 'recorded-video',
+  INTERVIEW_PHONE_SCREEN: 'phone-screen',
+};
+
 const findTaskCategory = name => {
   const result =
     TASK_CATEGORIES.find(cat => cat.name === name) ||
@@ -124,8 +131,10 @@ const task = recordShape({
   'Task ID': PropTypes.number.isRequired,
   Priority: PropTypes.number.isRequired,
   'Time Estimate': PropTypes.number.isRequired,
+  'Triggering Event': PropTypes.oneOf(Object.values(TASK_TRIGGERING_EVENT_TYPES)),
+  'Highlight Label': PropTypes.string,
   Category: PropTypes.oneOf(TASK_CATEGORIES.map(category => category.name)),
-  Trigger: PropTypes.oneOf(['Everyone', 'Conditions', 'Event']).isRequired,
+  Audience: PropTypes.oneOf(['Everyone', 'Conditions']).isRequired,
   Frequency: PropTypes.oneOf(['Once', 'Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly'])
     .isRequired,
   Title: PropTypes.string.isRequired,
@@ -183,4 +192,5 @@ export default {
   tasks: PropTypes.arrayOf(task),
   TASK_CATEGORIES,
   findTaskCategory,
+  TASK_TRIGGERING_EVENT_TYPES,
 };
