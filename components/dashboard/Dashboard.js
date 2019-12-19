@@ -18,7 +18,6 @@ import ScaffoldContainer from '../ScaffoldContainer';
 import SentimentTracker from './SentimentTracker';
 import TaskList from './TaskList';
 import TimeDistanceParser from '../../src/time-distance-parser';
-import Gauge from '../Gauge';
 import ActivityCategoryTable from './ActivityCategoryTable';
 import UpcomingInterviewDialog from './UpcomingInterviewDialog/UpcomingInterviewDialog';
 
@@ -242,10 +241,6 @@ export default function Dashboard(props) {
             <Typography variant="h5" className={classes.subtitle}>
               Confidence Level
             </Typography>
-            <Gauge
-              percentage={confidentActivityLogEntries.length / allActivityLogEntries.length}
-              label="Feeling Confident"
-            />
             <ActivityCategoryTable
               confidenceByCategories={confidenceByCategories}
               confidentActivitiesCount={confidentActivityLogEntries.length}

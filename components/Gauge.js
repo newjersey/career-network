@@ -10,9 +10,8 @@ function Gauge(props) {
   const radius = (diameter - 2 * strokeWidth) / 2;
   const circumference = Math.PI * radius;
   const semiCirclePercentage = (calculatedPercent / 100) * circumference;
-
   return (
-    <Box mt={2} display="flex" justifyContent="center" alignItems="flex-end" position="relative">
+    <Box display="flex" justifyContent="center" alignItems="flex-end" position="relative">
       <svg width={diameter} height={diameter / 2} style={{ transform: 'rotateY(180deg)' }}>
         <defs>
           <linearGradient id="percentGradient" x1="0" y1="0" x2="1" y2="1">

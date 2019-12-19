@@ -43,6 +43,8 @@ function DashboardPage() {
     allPropsLoaded(recordProps),
     allQuestionResponses,
     allActionDispositionEvents,
+    confidentActivityLogEntries,
+    allActivityLogEntries,
     completedTasks
   ) ? (
     <Dashboard
