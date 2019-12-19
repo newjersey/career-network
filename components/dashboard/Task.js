@@ -63,7 +63,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Task(props) {
-  const { task, onDone, ...restProps } = props;
+  const {
+    allActionDispositionEvents,
+    allTaskDispositionEvents,
+    task,
+    onDone,
+    ...restProps
+  } = props;
   const { 'Highlight Label': highlightLabel } = task.fields;
   const { userDocRef } = useAuth();
   const classes = useStyles();
@@ -92,6 +98,19 @@ export default function Task(props) {
       time_estimate: task.fields['Time Estimate'],
       task_id: task.id,
     });
+  }
+
+  // Returns action disposition events that ocurred after the last time this task was completed.
+  // Kind of ugly, but supports the ability to complete the same task multiple times.
+  function getActionDispositionEvents() {
+    const lastCompleted = allTaskDispositionEvents
+      .filter(event => event.data().taskId === task.id && event.data().type === 'done')
+      .map(event => (event.data().timestamp ? event.data().timestamp.seconds : 0))
+      .reduce((a, b) => Math.max(a, b), 0);
+
+    return allActionDispositionEvents.filter(
+      event => (event.data().timestamp ? event.data().timestamp.seconds : 0) > lastCompleted
+    );
   }
 
   return (
@@ -135,7 +154,11 @@ export default function Task(props) {
           <Typography variant="h5" component="h3">
             How?
           </Typography>
-          <ActionList task={task} onAllDone={onAllActionsDone} {...restProps} />
+          <ActionList
+            actionDispositionEvents={getActionDispositionEvents()}
+            onAllDone={onAllActionsDone}
+            {...restProps}
+          />
         </div>
       </CardContent>
     </Card>
@@ -146,6 +169,7 @@ Task.propTypes = {
   actions: AirtablePropTypes.actions.isRequired,
   task: AirtablePropTypes.task.isRequired,
   onDone: PropTypes.func.isRequired,
+  allTaskDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
   allActionDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
   allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
 };
