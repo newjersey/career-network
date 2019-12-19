@@ -14,6 +14,15 @@ const theme = createMuiTheme({
       dark: '#45770A',
     },
   },
+  typography: {
+    fontSize: 12,
+    h5: {
+      fontWeight: 700,
+    },
+    subtitle2: {
+      textTransform: 'uppercase',
+    },
+  },
 });
 
 export default responsiveFontSizes(theme);

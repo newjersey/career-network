@@ -116,11 +116,7 @@ export default function Task(props) {
   return (
     <Card className={clsx(classes.card, highlightLabel && classes.highlight)} data-intercom="task">
       {!!highlightLabel && <div className={classes.highlightLabel}>{highlightLabel}</div>}
-
-      <CardHeader
-        title={<strong>{task.fields.Title}</strong>}
-        titleTypographyProps={{ component: 'h1', variant: 'h3' }}
-      />
+      <CardHeader title={task.fields.Title} titleTypographyProps={{ component: 'h5' }} />
       <CardContent>
         {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
         <div className={classes.timeEstimate} data-intercom="task-time-estimate">
@@ -139,7 +135,7 @@ export default function Task(props) {
         )}
 
         <div data-intercom="task-why">
-          <Typography variant="h5" component="h3" gutterBottom>
+          <Typography variant="subtitle2" component="h3" gutterBottom>
             Why?
           </Typography>
           <Typography variant="body1" component="p">
@@ -151,7 +147,7 @@ export default function Task(props) {
         <br />
 
         <div data-intercom="task-how">
-          <Typography variant="h5" component="h3">
+          <Typography variant="subtitle2" component="h3">
             How?
           </Typography>
           <ActionList
