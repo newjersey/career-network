@@ -133,7 +133,7 @@ function isAnyConditionSatisfied(task, allConditions, allPredicates, allQuestion
 function needsCompletion(task, allTaskDispositionEvents, eventCollections) {
   const { TASK_TRIGGERING_EVENT_TYPES: eventTypes } = AirtablePropTypes;
   const { 'Triggering Event': eventType } = task.fields;
-  const { nonPastInterviewLogEntries } = eventCollections;
+  const { interviewLogEntries } = eventCollections;
 
   switch (eventType) {
     case undefined:
@@ -145,7 +145,7 @@ function needsCompletion(task, allTaskDispositionEvents, eventCollections) {
     case eventTypes.INTERVIEW_PHONE_SCREEN:
       // need completion if the latest event is newer than the latest disposition
       return (
-        nonPastInterviewLogEntries
+        interviewLogEntries
           .filter(event => event.data().type === eventType)
           .map(event => (event.data().timestamp ? event.data().timestamp.seconds : 0))
           .reduce((a, b) => Math.max(a, b), 0) >
@@ -181,7 +181,7 @@ function getTasks(_props, limit) {
     allTasks,
     allTaskDispositionEvents,
     allQuestionResponses,
-    nonPastInterviewLogEntries,
+    interviewLogEntries,
   } = _props;
 
   // 1. does audience apply?
@@ -192,7 +192,7 @@ function getTasks(_props, limit) {
   // 6. limit
   return allTasks
     .filter(task => audienceApplies(task, allConditions, allPredicates, allQuestionResponses))
-    .filter(task => needsCompletion(task, allTaskDispositionEvents, { nonPastInterviewLogEntries }))
+    .filter(task => needsCompletion(task, allTaskDispositionEvents, { interviewLogEntries }))
     .sort((a, b) => b.fields.Priority - a.fields.Priority)
     .slice(0, limit);
 }
@@ -320,7 +320,7 @@ Dashboard.propTypes = {
   allTaskDispositionEvents: FirebasePropTypes.querySnapshot,
   completedTasks: FirebasePropTypes.querySnapshot,
   historyLimit: PropTypes.number.isRequired,
-  nonPastInterviewLogEntries: FirebasePropTypes.querySnapshot,
+  interviewLogEntries: FirebasePropTypes.querySnapshot,
   recentActivityLogEntries: FirebasePropTypes.querySnapshot,
 };
 
@@ -328,6 +328,6 @@ Dashboard.defaultProps = {
   allActionDispositionEvents: [],
   allTaskDispositionEvents: [],
   completedTasks: [],
-  nonPastInterviewLogEntries: [],
+  interviewLogEntries: [],
   recentActivityLogEntries: [],
 };
