@@ -18,7 +18,9 @@ export default function ActivityCategoryTable(props) {
       <Paper>
         <Box pt={4} pb={4}>
           <Gauge
-            percentage={confidentActivitiesCount / totalActivitiesCount}
+            percentage={
+              totalActivitiesCount === 0 ? 0 : confidentActivitiesCount / totalActivitiesCount
+            }
             label="Feeling Confident"
           />
         </Box>
