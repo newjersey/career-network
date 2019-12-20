@@ -11,10 +11,11 @@ import Typography from '@material-ui/core/Typography';
 
 import FirebasePropTypes from '../Firebase/PropTypes';
 import Gauge from '../Gauge';
+import getActivityCategory from './ActivityCategory';
 
 function getCountsByCategory(activityLogEntries) {
   return activityLogEntries
-    .map(entry => entry.data().category)
+    .map(entry => getActivityCategory(entry.data().activityTypeValue))
     .reduce(
       (counts, current) => ({
         ...counts,
