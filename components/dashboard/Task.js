@@ -3,6 +3,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Chip from '@material-ui/core/Chip';
+import Grid from '@material-ui/core/Grid';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -120,8 +121,13 @@ export default function Task(props) {
     <Card className={clsx(classes.card, highlightLabel && classes.highlight)} data-intercom="task">
       {!!highlightLabel && <div className={classes.highlightLabel}>{highlightLabel}</div>}
       <CardHeader
-        title={task.fields.Title}
-        titleTypographyProps={{ component: 'h1', variant: 'h5' }}
+        title={
+          <Grid xs={12} md={9}>
+            <Typography component="h1" variant="h5" display="block">
+              {task.fields.Title}
+            </Typography>
+          </Grid>
+        }
       />
       <CardContent>
         {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
