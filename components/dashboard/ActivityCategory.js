@@ -1,6 +1,6 @@
 import AirtablePropTypes from '../Airtable/PropTypes';
 
-export default function getActivityCategory(activity) {
+export default function getActivityCategory(activityTypeValue) {
   const CATEGORIES = AirtablePropTypes.TASK_CATEGORIES;
 
   const ACTIVITY_CATEGORY_MAPPINGS = {
@@ -14,5 +14,5 @@ export default function getActivityCategory(activity) {
     'research-contacts': CATEGORIES.research.name,
     other: CATEGORIES.other.name,
   };
-  return ACTIVITY_CATEGORY_MAPPINGS[activity];
+  return ACTIVITY_CATEGORY_MAPPINGS[activityTypeValue];
 }
