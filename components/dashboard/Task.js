@@ -122,7 +122,7 @@ export default function Task(props) {
       {!!highlightLabel && <div className={classes.highlightLabel}>{highlightLabel}</div>}
       <CardHeader
         title={
-          <Grid xs={12} md={9}>
+          <Grid item xs={12} md={9}>
             <Typography component="h1" variant="h5" display="block">
               {task.fields.Title}
             </Typography>

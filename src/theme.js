@@ -23,7 +23,7 @@ const theme = createMuiTheme({
     },
   },
   typography: {
-    fontSize: 12,
+    fontSize: 14,
     h5: {
       fontFamily: HeaderFont,
       fontWeight: 700,
