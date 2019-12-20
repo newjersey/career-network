@@ -113,7 +113,7 @@ class Error extends React.Component {
 }
 
 Error.propTypes = {
-  eventId: PropTypes.number,
+  eventId: PropTypes.string,
   showHeader: PropTypes.bool,
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
   statusCode: PropTypes.number,
