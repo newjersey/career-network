@@ -117,13 +117,12 @@ export default function Task(props) {
   }
 
   return (
-    <Card
-      className={clsx(classes.card, highlightLabel && classes.highlight)}
-      data-intercom="task"
-      elevation={0}
-    >
+    <Card className={clsx(classes.card, highlightLabel && classes.highlight)} data-intercom="task">
       {!!highlightLabel && <div className={classes.highlightLabel}>{highlightLabel}</div>}
-      <CardHeader title={task.fields.Title} titleTypographyProps={{ component: 'h5' }} />
+      <CardHeader
+        title={task.fields.Title}
+        titleTypographyProps={{ component: 'h1', variant: 'h5' }}
+      />
       <CardContent>
         {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
         <div className={classes.timeEstimate}>
