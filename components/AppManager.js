@@ -21,6 +21,7 @@ export default function AppManager(props) {
   const { user, signOut, wasSignedIn } = useAuth();
   const cleanupRef = useRef();
   const showMessage = useSnackbar();
+  const userExists = !!user;
   const userId = user && user.uid;
 
   const handleSignOut = useCallback(async () => {
@@ -29,13 +30,13 @@ export default function AppManager(props) {
   }, [signOut]);
 
   useEffect(() => {
-    if (userId) {
+    if (userExists) {
       showMessage('Signed in');
     } else if (wasSignedIn) {
       // Check wasSignedIn, else block will fire upon initial page load.
       showMessage('Signed out');
     }
-  }, [showMessage, userId, wasSignedIn]);
+  }, [showMessage, userExists, wasSignedIn]);
 
   useEffect(() => {
     Sentry.configureScope(scope => {
