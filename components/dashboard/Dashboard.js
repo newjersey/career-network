@@ -226,24 +226,6 @@ export default function Dashboard(props) {
   const doneTaskCount = allTaskDispositionEvents.length;
   const [activeDialog, setActiveDialog] = useState();
 
-  function getCountsByCategory(activityLogEntries) {
-    return activityLogEntries
-      .map(entry => entry.data().category)
-      .reduce(
-        (counts, current) => ({
-          ...counts,
-          [current]: (counts[current] || 0) + 1,
-        }),
-        {}
-      );
-  }
-
-  const confidenceCounts = getCountsByCategory(confidentActivityLogEntries);
-  const totalCounts = getCountsByCategory(allActivityLogEntries);
-  const confidenceByCategories = Object.keys(totalCounts).map(key => {
-    return { category: key, confident: confidenceCounts[key] || 0, total: totalCounts[key] };
-  });
-
   useEffect(() => {
     window.Intercom('update', { 'tasks-completed': doneTaskCount });
   }, [doneTaskCount]);
@@ -272,9 +254,9 @@ export default function Dashboard(props) {
               Confidence Level
             </Typography>
             <ActivityCategoryTable
-              confidenceByCategories={confidenceByCategories}
-              confidentActivitiesCount={confidentActivityLogEntries.length}
-              totalActivitiesCount={allActivityLogEntries.length}
+              allActivityLogEntries={allActivityLogEntries}
+              subsetActivityLogEntries={confidentActivityLogEntries}
+              label="Feeling Confident"
             />
           </Grid>
           <Grid item xs={12} md={6}>
