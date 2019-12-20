@@ -125,12 +125,11 @@ export default function Task(props) {
       />
       <CardContent>
         {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
-        <div className={classes.timeEstimate}>
+        <div className={classes.timeEstimate} data-intercom="task-time-estimate">
           <Typography variant="overline" component="p" style={{ lineHeight: '1.4' }}>
             Estimated Time
           </Typography>
           <Typography
-            data-intercom="task-time-estimate"
             variant="body2"
             component="p"
             color="textSecondary"
