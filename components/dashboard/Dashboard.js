@@ -226,26 +226,20 @@ export default function Dashboard(props) {
   const doneTaskCount = allTaskDispositionEvents.length;
   const [activeDialog, setActiveDialog] = useState();
 
-  const confidenceCounts = confidentActivityLogEntries
-    .map(entry => entry.data().category)
-    .reduce(
-      (counts, current) => ({
-        ...counts,
-        [current]: (counts[current] || 0) + 1,
-      }),
-      {}
-    );
+  function getCountsByCategory(activityLogEntries) {
+    return activityLogEntries
+      .map(entry => entry.data().category)
+      .reduce(
+        (counts, current) => ({
+          ...counts,
+          [current]: (counts[current] || 0) + 1,
+        }),
+        {}
+      );
+  }
 
-  const totalCounts = allActivityLogEntries
-    .map(entry => entry.data().category)
-    .reduce(
-      (counts, current) => ({
-        ...counts,
-        [current]: (counts[current] || 0) + 1,
-      }),
-      {}
-    );
-
+  const confidenceCounts = getCountsByCategory(confidentActivityLogEntries);
+  const totalCounts = getCountsByCategory(allActivityLogEntries);
   const confidenceByCategories = Object.keys(totalCounts).map(key => {
     return { category: key, confident: confidenceCounts[key] || 0, total: totalCounts[key] };
   });
