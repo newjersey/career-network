@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Snackbar from './Snackbar';
@@ -7,7 +7,7 @@ export default function SnackbarManager(props) {
   const { message } = props;
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleClose = () => setIsOpen(false);
+  const handleClose = useCallback(() => setIsOpen(false), []);
 
   useEffect(() => {
     setIsOpen(!!message);

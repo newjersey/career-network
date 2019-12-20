@@ -10,11 +10,12 @@ export default function useAuthRequired(
   const { isAuthKnown, showSignIn, user } = useAuth();
   const showMessage = useSnackbar();
   const cleanupRef = useRef();
+  const userId = user && user.uid;
 
   useEffect(() => {
     // check isAuthKnown to ensure we don't falsely assume a user is not logged in
     // before the user object has a chance to populate
-    if (isAuthKnown && !user) {
+    if (isAuthKnown && !userId) {
       cleanupRef.current = Router.push('/');
 
       if (cleanupRef.current) {
@@ -30,5 +31,5 @@ export default function useAuthRequired(
 
       cleanupRef.current = null;
     };
-  }, [failureMessage, isAuthKnown, showMessage, showSignIn, user]);
+  }, [failureMessage, isAuthKnown, showMessage, showSignIn, userId]);
 }

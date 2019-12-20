@@ -207,6 +207,14 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
           setSubmitting(false);
           setSuccess(true);
           userDocRef.set({ stats }, { merge: true });
+          window.Intercom('update', { 'last-activity-logged': new Date() });
+          window.Intercom('trackEvent', 'logged-activity', {
+            type: data.activityTypeValue,
+            description: data.briefDescription,
+            minutes_spent: data.timeSpentInMinutes,
+            difficulty: data.difficultyLevel,
+            feelings: data.activityFeeling.join(', '),
+          });
         })
         .catch(err => {
           setSubmitting(false);

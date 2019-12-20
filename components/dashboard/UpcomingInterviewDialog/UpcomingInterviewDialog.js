@@ -97,6 +97,13 @@ export default function UpcomingInterviewDialog(props) {
       .then(() => {
         setSuccess(true);
         userDocRef.set({ stats }, { merge: true });
+        window.Intercom('update', { 'last-interview-logged': new Date() });
+        window.Intercom('trackEvent', 'logged-interview', {
+          type: data.type,
+          interview_date: data.date,
+          organization: data.organization,
+          role: data.role,
+        });
       })
       .catch(err => setSubmitError(err.message));
   }
