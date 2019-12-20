@@ -6,7 +6,7 @@ export default function getActivityCategory(activity) {
     research: 'Researching People & Organizations',
     other: 'Other',
   };
-  const ACTIVITY_CATEGORIE_MAPPINGS = {
+  const ACTIVITY_CATEGORY_MAPPINGS = {
     openings: CATEGORIES.apply,
     application: CATEGORIES.apply,
     'interview-prep': CATEGORIES.apply,
@@ -17,5 +17,5 @@ export default function getActivityCategory(activity) {
     'research-contacts': CATEGORIES.research,
     other: CATEGORIES.other,
   };
-  return ACTIVITY_CATEGORIE_MAPPINGS[activity];
+  return ACTIVITY_CATEGORY_MAPPINGS[activity];
 }
