@@ -176,7 +176,7 @@ function Question(props) {
     ...numberQuestionProps,
     onChange: _localValue => setLocalValue(_localValue),
     onChangeCommitted: _value => setValue(_value),
-    value: localValue && parseFloat(localValue),
+    value: localValue ? parseFloat(localValue) : undefined,
   };
 
   switch (responseType) {
