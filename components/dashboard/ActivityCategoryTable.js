@@ -16,7 +16,7 @@ export default function ActivityCategoryTable(props) {
   return (
     <Box mt={2}>
       <Paper>
-        <Box pt={4} pb={4}>
+        <Box py={4}>
           <Gauge
             percentage={
               totalActivitiesCount === 0 ? 0 : confidentActivitiesCount / totalActivitiesCount
