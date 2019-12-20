@@ -7,28 +7,33 @@ function recordShape(fieldsShape) {
   });
 }
 
-const TASK_CATEGORIES = [
-  {
+const TASK_CATEGORIES = {
+  marketing: {
     color: '#d0f0fd',
     name: 'Marketing Materials',
     legacyNames: ['Marketing yourself', 'Marketing Yourself'],
   },
-  {
+  relationship: {
     color: '#d2f7c5',
     name: 'Relationship-Building',
     legacyNames: ['Relationship building', 'Relationship Building'],
   },
-  {
+  apply: {
     color: '#ffeab6',
     name: 'Finding Openings/Applying',
     legacyNames: ['Searching/applying for jobs', 'Searching / Posting / Applying Online'],
   },
-  {
+  research: {
     color: '#ffdce5',
     name: 'Researching People & Organizations',
     legacyNames: ['Researching people & companies', 'Researching People & Companies'],
   },
-];
+  other: {
+    color: '#eeeeee',
+    name: 'Other',
+    legacyNames: [],
+  },
+};
 
 const TASK_TRIGGERING_EVENT_TYPES = {
   INTERVIEW_IN_PERSON: 'in-person',
@@ -39,8 +44,8 @@ const TASK_TRIGGERING_EVENT_TYPES = {
 
 const findTaskCategory = name => {
   const result =
-    TASK_CATEGORIES.find(cat => cat.name === name) ||
-    TASK_CATEGORIES.find(cat => cat.legacyNames.includes(name));
+    Object.values(TASK_CATEGORIES).find(cat => cat.name === name) ||
+    Object.values(TASK_CATEGORIES).find(cat => cat.legacyNames.includes(name));
 
   if (!result) {
     throw new Error(`Unrecognized task cateogry name: ${name}`);
@@ -133,7 +138,7 @@ const task = recordShape({
   'Time Estimate': PropTypes.number.isRequired,
   'Triggering Event': PropTypes.oneOf(Object.values(TASK_TRIGGERING_EVENT_TYPES)),
   'Highlight Label': PropTypes.string,
-  Category: PropTypes.oneOf(TASK_CATEGORIES.map(category => category.name)),
+  Category: PropTypes.oneOf(Object.values(TASK_CATEGORIES).map(category => category.name)),
   Audience: PropTypes.oneOf(['Everyone', 'Conditions']).isRequired,
   Frequency: PropTypes.oneOf(['Once', 'Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly'])
     .isRequired,

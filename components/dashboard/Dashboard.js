@@ -6,7 +6,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { isDone } from '../../src/app-helper';
@@ -19,7 +19,7 @@ import ScaffoldContainer from '../ScaffoldContainer';
 import SentimentTracker from './SentimentTracker';
 import TaskList from './TaskList';
 import TimeDistanceParser from '../../src/time-distance-parser';
-import Gauge from '../Gauge';
+import ActivityCategoryTable from './ActivityCategoryTable';
 import UpcomingInterviewDialog from './UpcomingInterviewDialog/UpcomingInterviewDialog';
 
 const TASK_COUNT_LIMIT = 3;
@@ -218,24 +218,13 @@ export default function Dashboard(props) {
     completedTasks,
     confidentActivityLogEntries,
     historyLimit,
-    recentActivityLogEntries,
-    activityLogEntriesCount,
+    allActivityLogEntries,
     ...restProps
   } = props;
 
-  const [activeDialog, setActiveDialog] = useState();
-  const doneTaskCount = allTaskDispositionEvents.length;
   const tasks = getTasks(props, TASK_COUNT_LIMIT);
-  const totalActivitiesCount = useRef(activityLogEntriesCount);
-  const totalConfidentActivitiesCount = useRef(confidentActivityLogEntries.length);
-
-  // We only want to update the Gauge once the number of entries has been updated
-  useEffect(() => {
-    if (totalActivitiesCount.current !== activityLogEntriesCount) {
-      totalActivitiesCount.current = activityLogEntriesCount;
-      totalConfidentActivitiesCount.current = confidentActivityLogEntries.length;
-    }
-  }, [activityLogEntriesCount, confidentActivityLogEntries.length]);
+  const doneTaskCount = allTaskDispositionEvents.length;
+  const [activeDialog, setActiveDialog] = useState();
 
   useEffect(() => {
     window.Intercom('update', { 'tasks-completed': doneTaskCount });
@@ -264,8 +253,9 @@ export default function Dashboard(props) {
             <Typography variant="h5" className={classes.subtitle}>
               Confidence Level
             </Typography>
-            <Gauge
-              percentage={totalConfidentActivitiesCount.current / totalActivitiesCount.current}
+            <ActivityCategoryTable
+              allActivityLogEntries={allActivityLogEntries}
+              subsetActivityLogEntries={confidentActivityLogEntries}
               label="Feeling Confident"
             />
           </Grid>
@@ -298,7 +288,7 @@ export default function Dashboard(props) {
               Recent Progress
             </Typography>
             <ProgressFeed
-              activities={recentActivityLogEntries}
+              activities={allActivityLogEntries}
               completedTasks={completedTasks}
               limit={historyLimit}
             />
@@ -343,9 +333,8 @@ Dashboard.propTypes = {
   completedTasks: FirebasePropTypes.querySnapshot,
   confidentActivityLogEntries: FirebasePropTypes.querySnapshot,
   historyLimit: PropTypes.number.isRequired,
+  allActivityLogEntries: FirebasePropTypes.querySnapshot,
   interviewLogEntries: FirebasePropTypes.querySnapshot,
-  recentActivityLogEntries: FirebasePropTypes.querySnapshot,
-  activityLogEntriesCount: PropTypes.number.isRequired,
 };
 
 Dashboard.defaultProps = {
@@ -353,6 +342,6 @@ Dashboard.defaultProps = {
   allTaskDispositionEvents: [],
   completedTasks: [],
   confidentActivityLogEntries: [],
+  allActivityLogEntries: [],
   interviewLogEntries: [],
-  recentActivityLogEntries: [],
 };

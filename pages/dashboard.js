@@ -27,11 +27,10 @@ function DashboardPage() {
     where: ['activityFeeling', 'array-contains', 'Confident'],
   });
 
-  const recentActivityLogEntries = useUserSubcollection(
-    'activityLogEntries',
-    { orderBy: ['timestamp', 'desc'] },
-    { limit: HISTORY_LIMIT }
-  );
+  const allActivityLogEntries = useUserSubcollection('activityLogEntries', {
+    orderBy: ['timestamp', 'desc'],
+  });
+
   const recordProps = {
     allPredicates: useRecords('Predicates'),
     allConditions: useRecords('Conditions'),
@@ -45,18 +44,19 @@ function DashboardPage() {
     allPropsLoaded(recordProps),
     allQuestionResponses,
     allActionDispositionEvents,
+    confidentActivityLogEntries,
+    allActivityLogEntries,
     completedTasks
   ) ? (
     <Dashboard
       allQuestionResponses={allQuestionResponses}
       allActionDispositionEvents={allActionDispositionEvents}
       allTaskDispositionEvents={allTaskDispositionEvents}
+      allActivityLogEntries={allActivityLogEntries}
       completedTasks={completedTasks}
       confidentActivityLogEntries={confidentActivityLogEntries}
       historyLimit={HISTORY_LIMIT}
-      activityLogEntriesCount={user.activityLogEntriesCount}
       interviewLogEntries={interviewLogEntries}
-      recentActivityLogEntries={recentActivityLogEntries}
       {...recordProps}
     />
   ) : (
