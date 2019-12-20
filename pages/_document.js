@@ -24,6 +24,10 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           />
           <link
+            href="https://fonts.googleapis.com/css?family=Public+Sans:600,700&display=swap"
+            rel="stylesheet"
+          />
+          <link
             rel="apple-touch-icon"
             sizes="180x180"
             href="/static/favicons/apple-touch-icon.png"

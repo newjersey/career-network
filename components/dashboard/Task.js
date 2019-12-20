@@ -3,6 +3,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Chip from '@material-ui/core/Chip';
+import Grid from '@material-ui/core/Grid';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -47,6 +48,9 @@ const useStyles = makeStyles(theme => ({
       top: theme.spacing(4),
       right: theme.spacing(4),
     },
+  },
+  textBlock: {
+    marginBottom: theme.spacing(3),
   },
   type: {
     position: 'relative',
@@ -116,17 +120,31 @@ export default function Task(props) {
   return (
     <Card className={clsx(classes.card, highlightLabel && classes.highlight)} data-intercom="task">
       {!!highlightLabel && <div className={classes.highlightLabel}>{highlightLabel}</div>}
-
       <CardHeader
-        title={<strong>{task.fields.Title}</strong>}
-        titleTypographyProps={{ component: 'h1', variant: 'h3' }}
+        title={
+          <Grid item xs={12} md={9}>
+            <Typography component="h1" variant="h5" display="block">
+              {task.fields.Title}
+            </Typography>
+          </Grid>
+        }
       />
       <CardContent>
         {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
         <div className={classes.timeEstimate} data-intercom="task-time-estimate">
-          🕒{task.fields['Time Estimate']} min.
+          <Typography variant="overline" component="p" style={{ lineHeight: '1.4' }}>
+            Estimated Time
+          </Typography>
+          <Typography
+            variant="body2"
+            component="p"
+            color="textSecondary"
+            style={{ fontWeight: 500 }}
+            gutterBottom
+          >
+            {task.fields['Time Estimate']} Minutes ⏰
+          </Typography>
         </div>
-
         {task.fields.Category && (
           <Chip
             size="small"
@@ -138,20 +156,17 @@ export default function Task(props) {
           />
         )}
 
-        <div data-intercom="task-why">
-          <Typography variant="h5" component="h3" gutterBottom>
+        <div data-intercom="task-why" className={classes.textBlock}>
+          <Typography variant="subtitle2" component="h3" color="textSecondary" gutterBottom>
             Why?
           </Typography>
-          <Typography variant="body1" component="p">
+          <Typography variant="body2" component="p" color="textSecondary">
             {task.fields.Why}
           </Typography>
         </div>
 
-        <br />
-        <br />
-
         <div data-intercom="task-how">
-          <Typography variant="h5" component="h3">
+          <Typography variant="subtitle2" component="h3" color="textSecondary">
             How?
           </Typography>
           <ActionList
