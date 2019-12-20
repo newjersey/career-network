@@ -1,21 +1,18 @@
+import AirtablePropTypes from '../Airtable/PropTypes';
+
 export default function getActivityCategory(activity) {
-  const CATEGORIES = {
-    apply: 'Finding openings/Applying',
-    marketing: 'Marketing Materials',
-    relationship: 'Relationship-Building',
-    research: 'Researching People & Organizations',
-    other: 'Other',
-  };
+  const CATEGORIES = AirtablePropTypes.TASK_CATEGORIES;
+
   const ACTIVITY_CATEGORY_MAPPINGS = {
-    openings: CATEGORIES.apply,
-    application: CATEGORIES.apply,
-    'interview-prep': CATEGORIES.apply,
-    materials: CATEGORIES.marketing,
-    'networking-irl': CATEGORIES.relationship,
-    'networking-virtual': CATEGORIES.relationship,
-    'research-company-industry': CATEGORIES.research,
-    'research-contacts': CATEGORIES.research,
-    other: CATEGORIES.other,
+    openings: CATEGORIES.apply.name,
+    application: CATEGORIES.apply.name,
+    'interview-prep': CATEGORIES.apply.name,
+    materials: CATEGORIES.marketing.name,
+    'networking-irl': CATEGORIES.relationship.name,
+    'networking-virtual': CATEGORIES.relationship.name,
+    'research-company-industry': CATEGORIES.research.name,
+    'research-contacts': CATEGORIES.research.name,
+    other: CATEGORIES.other.name,
   };
   return ACTIVITY_CATEGORY_MAPPINGS[activity];
 }
