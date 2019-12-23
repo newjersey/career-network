@@ -28,6 +28,11 @@ const TASK_CATEGORIES = {
     name: 'Researching People & Organizations',
     legacyNames: ['Researching people & companies', 'Researching People & Companies'],
   },
+  mindset: {
+    color: '#ede2fe',
+    name: 'Success Mindset',
+    legacyNames: [],
+  },
   other: {
     color: '#eeeeee',
     name: 'Other',
