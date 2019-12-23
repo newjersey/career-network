@@ -206,7 +206,7 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
           userDocRef.set({ stats }, { merge: true });
           window.Intercom('update', { 'last-activity-logged': new Date() });
           window.Intercom('trackEvent', 'logged-activity', {
-            type: data.activityTypeValue,
+            type: data.activityTypeLabel,
             description: data.briefDescription,
             difficulty: data.difficultyLevel,
             feelings: data.activityFeeling.join(', '),
