@@ -208,9 +208,9 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
           window.Intercom('trackEvent', 'logged-activity', {
             type: data.activityTypeValue,
             description: data.briefDescription,
-            minutes_spent: data.timeSpentInMinutes,
             difficulty: data.difficultyLevel,
             feelings: data.activityFeeling.join(', '),
+            why_i_feel_this_way: data.whyIFeelThisWay,
           });
         })
         .catch(err => {
