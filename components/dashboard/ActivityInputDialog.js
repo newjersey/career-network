@@ -6,14 +6,14 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import DateFnsUtils from '@date-io/date-fns';
 import Dialog from '@material-ui/core/Dialog';
 import firebase from 'firebase/app';
-import Select from '@material-ui/core/Select';
-import PropTypes from 'prop-types';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
+import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
+import Select from '@material-ui/core/Select';
 import shuffle from 'lodash/fp/shuffle';
 import startOfDay from 'date-fns/startOfDay';
 import TextField from '@material-ui/core/TextField';
@@ -23,6 +23,7 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 
 import { DialogTitle, DialogContent, DialogActions } from '../DialogComponents';
 import { useAuth } from '../Auth';
+import AirtablePropTypes from '../Airtable/PropTypes';
 import SubmitSuccess from './SubmitSuccess';
 import ToggleButton from '../ToggleButton';
 import validate from './ActivityInputValidationRules';
@@ -49,42 +50,52 @@ const ACTIVITY_TYPES = [
   {
     value: 'openings',
     label: 'Searched for job openings (Indeed, LinkedIn, Monster, CareerBuilder, etc.)',
+    category: AirtablePropTypes.TASK_CATEGORIES.apply,
   },
   {
     value: 'application',
     label: 'Completed a job application',
+    category: AirtablePropTypes.TASK_CATEGORIES.apply,
   },
   {
     value: 'materials',
     label: 'Worked on marketing materials (resume, cover letter, LinkedIn profile/activity, etc.)',
+    category: AirtablePropTypes.TASK_CATEGORIES.marketing,
   },
   {
     value: 'interview-prep',
     label: 'Prepared for an interview',
+    category: AirtablePropTypes.TASK_CATEGORIES.apply,
   },
   {
     value: 'networking-irl',
     label: 'Attended a networking event/job fair',
+    category: AirtablePropTypes.TASK_CATEGORIES.relationship,
   },
   {
     value: 'networking-virtual',
     label: 'Had a virtual networking interaction (via email, LinkedIn, etc.)',
+    category: AirtablePropTypes.TASK_CATEGORIES.relationship,
   },
   {
     value: 'contact',
     label: 'Had a meeting/call with a contact',
+    category: AirtablePropTypes.TASK_CATEGORIES.relationship,
   },
   {
     value: 'research-company-industry',
     label: 'Researched a target company/industry',
+    category: AirtablePropTypes.TASK_CATEGORIES.research,
   },
   {
     value: 'research-contacts',
     label: 'Researched contacts at target company',
+    category: AirtablePropTypes.TASK_CATEGORIES.research,
   },
   {
     value: 'other',
     label: 'Other',
+    category: AirtablePropTypes.TASK_CATEGORIES.other,
   },
 ];
 
@@ -429,3 +440,4 @@ ActivityInputDialog.propTypes = {
 };
 
 export default withMobileDialog()(ActivityInputDialog);
+export { ACTIVITY_TYPES };

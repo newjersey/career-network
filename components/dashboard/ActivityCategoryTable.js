@@ -9,13 +9,16 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 
+import { ACTIVITY_TYPES } from './ActivityInputDialog';
 import FirebasePropTypes from '../Firebase/PropTypes';
 import Gauge from '../Gauge';
-import getActivityCategory from './ActivityCategory';
 
 function getCountsByCategory(activityLogEntries) {
+  const getActivityCategoryName = activityTypeValue =>
+    ACTIVITY_TYPES.find(activityType => activityType.value === activityTypeValue).category.name;
+
   return activityLogEntries
-    .map(entry => getActivityCategory(entry.data().activityTypeValue))
+    .map(entry => getActivityCategoryName(entry.data().activityTypeValue))
     .reduce(
       (counts, current) => ({
         ...counts,
