@@ -8,6 +8,7 @@ export default function getActivityCategory(activityTypeValue) {
     application: CATEGORIES.apply.name,
     'interview-prep': CATEGORIES.apply.name,
     materials: CATEGORIES.marketing.name,
+    contact: CATEGORIES.relationship.name,
     'networking-irl': CATEGORIES.relationship.name,
     'networking-virtual': CATEGORIES.relationship.name,
     'research-company-industry': CATEGORIES.research.name,
