@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
+import { timestampSeconds } from '../../src/app-helper';
 import { useAuth } from '../Auth';
 import ActionList from './ActionList';
 import AirtablePropTypes from '../Airtable/PropTypes';
@@ -109,12 +110,10 @@ export default function Task(props) {
   function getActionDispositionEvents() {
     const lastCompleted = allTaskDispositionEvents
       .filter(event => event.data().taskId === task.id && event.data().type === 'done')
-      .map(event => (event.data().timestamp ? event.data().timestamp.seconds : 0))
+      .map(event => timestampSeconds(event))
       .reduce((a, b) => Math.max(a, b), 0);
 
-    return allActionDispositionEvents.filter(
-      event => (event.data().timestamp ? event.data().timestamp.seconds : 0) > lastCompleted
-    );
+    return allActionDispositionEvents.filter(event => timestampSeconds(event) > lastCompleted);
   }
 
   return (

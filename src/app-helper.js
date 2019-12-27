@@ -18,6 +18,14 @@ export function fullyLoaded(...items) {
 }
 
 /**
+ * Given a Firestore entry that might have a property 'timestamp',
+ * return the timestamp's value in seconds or 0 if not set.
+ */
+export function timestampSeconds(docRef) {
+  return docRef.data().timestamp ? docRef.data().timestamp.seconds : 0;
+}
+
+/**
  * Returns whether or not the current disposition of a given
  * dispositionable object is 'done' given an array of disposition events
  * and an ID key with which to match the dispositionable to these events.
@@ -29,7 +37,7 @@ export function isDone(dispositionable, allDispositionEvents, idKey) {
   // TODO: sort on the server
   const currentDispositionEvent = allDispositionEvents
     .filter(e => e.data()[idKey] === dispositionable.id)
-    .sort((a, b) => b.data().timestamp.seconds - a.data().timestamp.seconds)[0];
+    .sort((a, b) => timestampSeconds(b) - timestampSeconds(a))[0];
 
   return !!currentDispositionEvent && currentDispositionEvent.data().type === 'done';
 }
