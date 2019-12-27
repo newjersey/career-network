@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import { isDone, timestampSeconds } from '../../src/app-helper';
+import { isDone, mostRecent } from '../../src/app-helper';
 import { useAuth } from '../Auth';
 import ActivityInputDialog from './ActivityInputDialog';
 import AirtablePropTypes from '../Airtable/PropTypes';
@@ -146,14 +146,8 @@ function needsCompletion(task, allTaskDispositionEvents, eventCollections) {
     case eventTypes.INTERVIEW_PHONE_SCREEN:
       // need completion if the latest event is newer than the latest disposition
       return (
-        interviewLogEntries
-          .filter(event => event.data().type === eventType)
-          .map(event => timestampSeconds(event))
-          .reduce((a, b) => Math.max(a, b), 0) >
-        allTaskDispositionEvents
-          .filter(event => event.data().taskId === task.id)
-          .map(event => timestampSeconds(event))
-          .reduce((a, b) => Math.max(a, b), 0)
+        mostRecent(interviewLogEntries.filter(event => event.data().type === eventType)) >
+        mostRecent(allTaskDispositionEvents.filter(event => event.data().taskId === task.id))
       );
     default:
       throw new Error(`Unexpected task-triggering event type: ${eventType}`);

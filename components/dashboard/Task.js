@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import { timestampSeconds } from '../../src/app-helper';
+import { mostRecent, timestampSeconds } from '../../src/app-helper';
 import { useAuth } from '../Auth';
 import ActionList from './ActionList';
 import AirtablePropTypes from '../Airtable/PropTypes';
@@ -108,10 +108,11 @@ export default function Task(props) {
   // Returns action disposition events that ocurred after the last time this task was completed.
   // Kind of ugly, but supports the ability to complete the same task multiple times.
   function getActionDispositionEvents() {
-    const lastCompleted = allTaskDispositionEvents
-      .filter(event => event.data().taskId === task.id && event.data().type === 'done')
-      .map(event => timestampSeconds(event))
-      .reduce((a, b) => Math.max(a, b), 0);
+    const lastCompleted = mostRecent(
+      allTaskDispositionEvents.filter(
+        event => event.data().taskId === task.id && event.data().type === 'done'
+      )
+    );
 
     return allActionDispositionEvents.filter(event => timestampSeconds(event) > lastCompleted);
   }

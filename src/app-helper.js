@@ -26,6 +26,14 @@ export function timestampSeconds(docRef) {
 }
 
 /**
+ * Given a Firestore collection snapshot, returns the entry that has the
+ * greatest 'timestamp' property.
+ */
+export function mostRecent(snapshot) {
+  return snapshot.map(event => timestampSeconds(event)).reduce((a, b) => Math.max(a, b), 0);
+}
+
+/**
  * Returns whether or not the current disposition of a given
  * dispositionable object is 'done' given an array of disposition events
  * and an ID key with which to match the dispositionable to these events.
