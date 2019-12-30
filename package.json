@@ -29,7 +29,7 @@
     "dom-confetti": "^0.1.1",
     "firebase": "^6.6.2",
     "isomorphic-unfetch": "^3.0.0",
-    "jss": "^9.8.7",
+    "jss": "^10.0.2",
     "linkifyjs": "^2.1.8",
     "lodash": "^4.17.15",
     "next": "^8.1.0",
