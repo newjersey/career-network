@@ -99,7 +99,6 @@
     "husky": "^3.1.0",
     "jest": "^24.9.0",
     "jest-date-mock": "^1.0.7",
-    "jest-dom": "^4.0.0",
     "lint-staged": "^9.5.0",
     "nanoid": "^2.1.8",
     "prettier": "^1.19.1",
