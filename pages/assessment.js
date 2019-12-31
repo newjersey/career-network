@@ -81,7 +81,7 @@ function Assessment() {
       <ScaffoldContainer>
         {fullyLoaded(user, allPropsLoaded(assessmentConfiguration), allQuestionResponses) &&
         !isFinished ? (
-          <React.Fragment>
+          <>
             <Typography ref={scrollToRef} component="h1" variant="h2" gutterBottom>
               Hi, {user && user.firstName}!
             </Typography>
@@ -93,7 +93,7 @@ function Assessment() {
               {...assessmentConfiguration}
               enforceValidity
             />
-          </React.Fragment>
+          </>
         ) : (
           <FullPageProgress />
         )}

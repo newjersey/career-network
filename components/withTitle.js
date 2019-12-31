@@ -7,12 +7,12 @@ const withTitle = (WrappedComponent, pageTitle) => props => {
   const title = pageTitle ? `${pageTitle} – ${siteName}` : siteName;
 
   return (
-    <React.Fragment>
+    <>
       <Head>
         <title>{title}</title>
       </Head>
       <WrappedComponent {...props} />
-    </React.Fragment>
+    </>
   );
 };
 

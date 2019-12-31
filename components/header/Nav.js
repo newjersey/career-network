@@ -148,14 +148,14 @@ function Nav(props) {
   ];
 
   return (
-    <React.Fragment>
+    <>
       <Drawer anchor="right" open={isDrawerOpen} onClose={closeDrawer}>
         <div tabIndex={0} role="button" onClick={closeDrawer} onKeyDown={closeDrawer}>
           <div className={classes.drawerList}>
             <Hidden smUp implementation="js">
               <List>
                 {user ? (
-                  <React.Fragment>
+                  <>
                     <NextLink href="/dashboard">
                       <ListItem button>
                         <ListItemIcon>
@@ -197,7 +197,7 @@ function Nav(props) {
                       </ListItemIcon>
                       <ListItemText primary="Sign out" />
                     </ListItem>
-                  </React.Fragment>
+                  </>
                 ) : (
                   <ListItem button onClick={handleSignInClick}>
                     <ListItemIcon>
@@ -297,7 +297,7 @@ function Nav(props) {
           </Grid>
         </Grid>
       </ScaffoldContainer>
-    </React.Fragment>
+    </>
   );
 }
 

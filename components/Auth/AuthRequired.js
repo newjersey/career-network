@@ -11,7 +11,7 @@ export default function AuthRequired(props) {
 
   useAuthRequired();
 
-  return <React.Fragment>{user ? children : <FullPageProgress />}</React.Fragment>;
+  return <>{user ? children : <FullPageProgress />}</>;
 }
 
 AuthRequired.propTypes = {

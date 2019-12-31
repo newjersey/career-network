@@ -157,7 +157,7 @@ export default function AuthProvider(props) {
   };
 
   return (
-    <React.Fragment>
+    <>
       <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 
       <AuthDialog
@@ -165,7 +165,7 @@ export default function AuthProvider(props) {
         onCancel={hideSignIn}
         onSignInSuccessWithAuthResult={handleSignInSuccessWithAuthResult}
       />
-    </React.Fragment>
+    </>
   );
 }
 

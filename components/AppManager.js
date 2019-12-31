@@ -120,12 +120,12 @@ export default function AppManager(props) {
   });
 
   return (
-    <React.Fragment>
+    <>
       {process.env.showName && <EnvName />}
       <Header onSignOut={handleSignOut} user={user} />
       <main>{children}</main>
       <Footer />
-    </React.Fragment>
+    </>
   );
 }
 

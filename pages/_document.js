@@ -123,10 +123,10 @@ MyDocument.getInitialProps = async ctx => {
     ...initialProps,
     // Styles fragment is rendered after the app and page rendering finish.
     styles: (
-      <React.Fragment>
+      <>
         {sheets.getStyleElement()}
         {flush() || null}
-      </React.Fragment>
+      </>
     ),
   };
 };

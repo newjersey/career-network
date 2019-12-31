@@ -72,7 +72,7 @@ function Footer() {
   );
 
   const social = (
-    <React.Fragment>
+    <>
       {socialIcons.map(icon => (
         <Grid item key={icon.name}>
           <Link href={icon.href} aria-label={icon.name}>
@@ -80,11 +80,11 @@ function Footer() {
           </Link>
         </Grid>
       ))}
-    </React.Fragment>
+    </>
   );
 
   const copyright = (
-    <React.Fragment>
+    <>
       <Grid container spacing={2}>
         {links.map(link => (
           <Grid item key={link.href}>
@@ -97,7 +97,7 @@ function Footer() {
           </Grid>
         ))}
       </Grid>
-    </React.Fragment>
+    </>
   );
 
   return (

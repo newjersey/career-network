@@ -46,7 +46,7 @@ export default function UserButton(props) {
   };
 
   return (
-    <React.Fragment>
+    <>
       <Grid container alignItems="center">
         <Grid item>
           <Typography
@@ -95,7 +95,7 @@ export default function UserButton(props) {
           <ListItemText primary="Sign out" />
         </MenuItem>
       </Menu>
-    </React.Fragment>
+    </>
   );
 }
 

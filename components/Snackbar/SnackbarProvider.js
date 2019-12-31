@@ -9,11 +9,11 @@ export default function SnackbarProvider(props) {
   const [message, setMessage] = useState(null);
 
   return (
-    <React.Fragment>
+    <>
       <SnackbarContext.Provider value={setMessage}>{children}</SnackbarContext.Provider>
 
       <SnackbarManager message={message} />
-    </React.Fragment>
+    </>
   );
 }
 
