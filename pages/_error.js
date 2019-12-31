@@ -1,4 +1,3 @@
-import { Container } from 'next/app';
 import { ThemeProvider, withStyles } from '@material-ui/styles';
 import * as Sentry from '@sentry/browser';
 import AppBar from '@material-ui/core/AppBar';
@@ -57,7 +56,7 @@ class Error extends React.Component {
     }
 
     return (
-      <Container>
+      <>
         <Head>
           <title>Unexpected Error - Career Network</title>
         </Head>
@@ -107,7 +106,7 @@ class Error extends React.Component {
             )}
           </main>
         </ThemeProvider>
-      </Container>
+      </>
     );
   }
 }

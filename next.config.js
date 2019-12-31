@@ -195,5 +195,6 @@ try {
 
 module.exports = withBundleAnalyzer({
   env,
+  exportTrailingSlash: true,
   liveAirtableApiBase,
 });

@@ -32,12 +32,12 @@
     "jss": "^10.0.2",
     "linkifyjs": "^2.1.8",
     "lodash": "^4.17.15",
-    "next": "^8.1.0",
+    "next": "^9.1.6",
     "nprogress": "^0.2.0",
     "prop-types": "^15.7.2",
-    "react": "~16.10.0",
+    "react": "^16.12.0",
     "react-beforeunload": "^2.1.0",
-    "react-dom": "~16.10.0",
+    "react-dom": "^16.12.0",
     "react-firebaseui": "^4.0.0",
     "styled-jsx": "^3.2.4"
   },
@@ -59,7 +59,7 @@
     "airtable:dump": "node scripts/airtableDump",
     "firebase:dump:indexes": "firebase firestore:indexes > firestore.indexes.json",
     "firebase:dump": "npm run firebase:dump:indexes",
-    "export": "npm run clean && npm run build && next export -o out && cp -R public/ out/",
+    "export": "npm run clean && npm run build && next export -o out",
     "preview": "npm run export && firebase serve",
     "release": "git rev-parse --short HEAD | (read hash; firebase deploy -m \"Release at $hash\" )",
     "deploy": "npm run export && npm run release",
@@ -103,7 +103,7 @@
     "nanoid": "^2.1.8",
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1",
-    "react-test-renderer": "~16.10.0"
+    "react-test-renderer": "^16.12.0"
   },
   "husky": {
     "hooks": {

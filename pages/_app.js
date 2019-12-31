@@ -1,5 +1,5 @@
 import { ThemeProvider } from '@material-ui/styles';
-import App, { Container } from 'next/app';
+import App from 'next/app';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Head from 'next/head';
 import NProgress from 'nprogress';
@@ -97,7 +97,7 @@ class MyApp extends App {
 
   static normalComponent(Component, pageProps) {
     return (
-      <Container>
+      <>
         <Head>
           <title>{siteName}</title>
         </Head>
@@ -113,7 +113,7 @@ class MyApp extends App {
             </FirebaseProvider>
           </SnackbarProvider>
         </ThemeProvider>
-      </Container>
+      </>
     );
   }
 
