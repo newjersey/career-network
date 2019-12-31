@@ -9,7 +9,7 @@ const mimeTypeMap = {
 };
 
 function Picture(props) {
-  const { path, fallbackType, ...restProps } = props;
+  const { path, fallbackType, alt, className, style } = props;
   const src = basePath + path;
   const fallbackSrc = basePath + path.replace(/webp$/, fallbackType);
 
@@ -17,10 +17,10 @@ function Picture(props) {
     <picture>
       <source type="image/webp" srcSet={src} />
       <source type={mimeTypeMap[fallbackType]} srcSet={fallbackSrc} />
-      <img src={fallbackSrc} {...restProps} />
+      <img src={fallbackSrc} alt={alt} className={className} style={style} />
     </picture>
   ) : (
-    <img src={src} {...restProps} />
+    <img src={src} alt={alt} className={className} style={style} />
   );
 }
 
@@ -28,6 +28,14 @@ Picture.propTypes = {
   alt: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
   fallbackType: PropTypes.oneOf(['png', 'jpg']).isRequired,
+  className: PropTypes.string,
+  // eslint-disable-next-line react/forbid-prop-types
+  style: PropTypes.object,
+};
+
+Picture.defaultProps = {
+  className: undefined,
+  style: undefined,
 };
 
 export default Picture;

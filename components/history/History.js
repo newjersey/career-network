@@ -100,6 +100,7 @@ export default function History(props) {
                 .filter(card => isInMonthYear(card.dateCmp, new Date(dateString)))
                 .map(card => (
                   <Grid key={card.id} item xs={12} className={classes.listItem}>
+                    {/* eslint-disable-next-line react/jsx-props-no-spreading */}
                     <card.component {...card} />
                   </Grid>
                 ))}
