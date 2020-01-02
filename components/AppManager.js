@@ -52,7 +52,11 @@ export default function AppManager(props) {
       if (userIsCoach) {
         url = '/coaching';
       } else if (userIsAssessmentComplete) {
-        url = Router.router && Router.route === '/progress' ? '/progress' : '/dashboard';
+        url =
+          Router.router &&
+          ['/progress', '/about', '/privacy-policy', '/terms-of-service'].includes(Router.route)
+            ? Router.route
+            : '/dashboard';
       }
 
       (async () => {
