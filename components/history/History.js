@@ -1,13 +1,20 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { format, compareDesc, isSameMonth, isSameYear } from 'date-fns';
+import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import CalendarIcon from '@material-ui/icons/CalendarTodayRounded';
+import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Activity from './Activity';
 import CompletedTask from './CompletedTask';
 import HistoryPropTypes from './PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
+
+import AirtablePropTypes from '../Airtable/PropTypes';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,6 +47,13 @@ export default function History(props) {
   const { activities, completedTasks } = props;
   let activityMonths = [];
   let cards = [];
+
+  const categoryOptions = Object.keys(AirtablePropTypes.TASK_CATEGORIES).map(category => {
+    return {
+      label: category,
+      isSelected: true,
+    };
+  });
 
   const activitiesTemp = activities.map(a => {
     const { dateCompleted, ...activity } = a.data();
@@ -77,36 +91,69 @@ export default function History(props) {
       return !datesArr.includes(date) ? [...datesArr, date] : datesArr;
     }, []);
 
+  const handleChange = label => event => {
+    const index = categoryOptions.findIndex(option => option.label === label);
+    categoryOptions[index].isSelected = event.target.checked;
+  };
+
   return (
     <div className={classes.root}>
       <ScaffoldContainer>
-        <Typography variant="h5" component="h5" className={classes.pageHeader}>
-          All Progress
-        </Typography>
-        {activityMonths.map(dateString => (
-          <div key={dateString}>
-            <div className={classes.sectionHeader}>
-              <CalendarIcon className={classes.calendarIcon} fontSize="small" />
-              <Typography
-                variant="subtitle2"
-                display="inline"
-                style={{ textTransform: 'uppercase' }}
-              >
-                {dateString}
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={3}>
+            <Paper>
+              <Typography variant="h5" component="h5" className={classes.pageHeader}>
+                Filter List By...
               </Typography>
-            </div>
-            <Grid container direction="row" justify="center" alignItems="flex-start">
-              {cards
-                .filter(card => isInMonthYear(card.dateCmp, new Date(dateString)))
-                .map(card => (
-                  <Grid key={card.id} item xs={12} className={classes.listItem}>
-                    {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-                    <card.component {...card} />
-                  </Grid>
-                ))}
-            </Grid>
-          </div>
-        ))}
+              <FormControl>
+                <FormGroup>
+                  {categoryOptions.map(option => (
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          defaultChecked
+                          onChange={handleChange(option.label)}
+                          value="primary"
+                          label={option.label}
+                        />
+                      }
+                      label={AirtablePropTypes.TASK_CATEGORIES[option.label].name}
+                    />
+                  ))}
+                </FormGroup>
+              </FormControl>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Typography variant="h5" component="h5" className={classes.pageHeader}>
+              All Progress
+            </Typography>
+            {activityMonths.map(dateString => (
+              <div key={dateString}>
+                <div className={classes.sectionHeader}>
+                  <CalendarIcon className={classes.calendarIcon} fontSize="small" />
+                  <Typography
+                    variant="subtitle2"
+                    display="inline"
+                    style={{ textTransform: 'uppercase' }}
+                  >
+                    {dateString}
+                  </Typography>
+                </div>
+                <Grid container direction="row" justify="center" alignItems="flex-start">
+                  {cards
+                    .filter(card => isInMonthYear(card.dateCmp, new Date(dateString)))
+                    .map(card => (
+                      <Grid key={card.id} item xs={12} className={classes.listItem}>
+                        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+                        <card.component {...card} />
+                      </Grid>
+                    ))}
+                </Grid>
+              </div>
+            ))}
+          </Grid>
+        </Grid>
       </ScaffoldContainer>
     </div>
   );
