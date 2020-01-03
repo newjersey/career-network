@@ -93,6 +93,16 @@ const ACTIVITY_TYPES = [
     category: AirtablePropTypes.TASK_CATEGORIES.research,
   },
   {
+    value: 'organization',
+    label: 'Organized my search & routines',
+    category: AirtablePropTypes.TASK_CATEGORIES.mindset,
+  },
+  {
+    value: 'self-care',
+    label: 'Self-care to deal with stress of the search',
+    category: AirtablePropTypes.TASK_CATEGORIES.mindset,
+  },
+  {
     value: 'other',
     label: 'Other',
     category: AirtablePropTypes.TASK_CATEGORIES.other,
