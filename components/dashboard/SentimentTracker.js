@@ -21,6 +21,7 @@ const useStyles = makeStyles(theme => ({
   buttons: {
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
+    maxWidth: '75%',
   },
   emoji: {
     fontSize: theme.spacing(10),
@@ -37,7 +38,7 @@ const EmojiButton = ({ emoji, label, onClick }) => {
   };
 
   return (
-    <Grid item xs={6} sm={2} style={{ textAlign: 'center' }}>
+    <Grid item style={{ textAlign: 'center' }}>
       <Button onClick={handleClick} data-intercom={`sentiment-${label.toLowerCase()}`}>
         <Typography align="center">
           <span className={classes.emoji} role="img" aria-label={label}>
@@ -98,10 +99,18 @@ const SentimentTracker = () => {
       <Typography component="h4" variant="h4" align="center">
         How are you feeling today?
       </Typography>
-      <Grid container className={classes.buttons} justify="center" alignItems="center">
-        {sentiments.map(sentiment => (
-          <EmojiButton {...sentiment} key={sentiment.label} onClick={submitSentiment} />
-        ))}
+      <Grid container justify="center">
+        <Grid
+          container
+          item
+          className={classes.buttons}
+          justify="space-between"
+          alignItems="center"
+        >
+          {sentiments.map(sentiment => (
+            <EmojiButton {...sentiment} key={sentiment.label} onClick={submitSentiment} />
+          ))}
+        </Grid>
       </Grid>
     </Paper>
   );
