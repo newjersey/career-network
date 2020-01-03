@@ -47,12 +47,15 @@ export default function AppManager(props) {
   const userIsCoach = user && user.isCoach;
   const userIsAssessmentComplete = user && user.isAssessmentComplete;
   useEffect(() => {
-    if (userId) {
-      let url = '/assessment';
+    if (userId && Router.router && Router.route === '/') {
+      let url;
+
       if (userIsCoach) {
         url = '/coaching';
       } else if (userIsAssessmentComplete) {
-        url = Router.router && Router.route === '/progress' ? '/progress' : '/dashboard';
+        url = '/dashboard';
+      } else {
+        url = '/assessment';
       }
 
       (async () => {
