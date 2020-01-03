@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { format, compareDesc, isSameMonth, isSameYear } from 'date-fns';
 import Paper from '@material-ui/core/Paper';
@@ -38,6 +38,12 @@ const useStyles = makeStyles(theme => ({
   calendarIcon: {
     marginRight: theme.spacing(1),
   },
+  paper: {
+    padding: theme.spacing(5, 4, 3),
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing(6, 5, 4),
+    },
+  },
 }));
 
 export default function History(props) {
@@ -48,12 +54,12 @@ export default function History(props) {
   let activityMonths = [];
   let cards = [];
 
-  const categoryOptions = Object.keys(AirtablePropTypes.TASK_CATEGORIES).map(category => {
-    return {
-      label: category,
-      isSelected: true,
-    };
-  });
+  const allCategoryFilters = Object.values(AirtablePropTypes.TASK_CATEGORIES).map(
+    category => category.name
+  );
+  const [activeCategoryFilters, setActiveCategoryFilters] = useState(
+    Object.fromEntries(allCategoryFilters.map(filterName => [filterName, true]))
+  );
 
   const activitiesTemp = activities.map(a => {
     const { dateCompleted, ...activity } = a.data();
@@ -91,9 +97,8 @@ export default function History(props) {
       return !datesArr.includes(date) ? [...datesArr, date] : datesArr;
     }, []);
 
-  const handleChange = label => event => {
-    const index = categoryOptions.findIndex(option => option.label === label);
-    categoryOptions[index].isSelected = event.target.checked;
+  const handleChange = name => event => {
+    setActiveCategoryFilters({ ...activeCategoryFilters, [name]: event.target.checked });
   };
 
   return (
@@ -101,23 +106,31 @@ export default function History(props) {
       <ScaffoldContainer>
         <Grid container spacing={3}>
           <Grid item xs={12} md={3}>
-            <Paper>
-              <Typography variant="h5" component="h5" className={classes.pageHeader}>
+            <Paper className={classes.paper}>
+              <Typography variant="h5" gutterBottom>
                 Filter List By...
+              </Typography>
+              <Typography variant="subtitle2" gutterBottom>
+                ACTIVITY TYPE
               </Typography>
               <FormControl>
                 <FormGroup>
-                  {categoryOptions.map(option => (
+                  {allCategoryFilters.map(option => (
                     <FormControlLabel
+                      key={option}
                       control={
                         <Checkbox
-                          defaultChecked
-                          onChange={handleChange(option.label)}
-                          value="primary"
-                          label={option.label}
+                          onChange={handleChange(option)}
+                          value={option}
+                          label={option}
+                          checked={
+                            activeCategoryFilters[option] === undefined
+                              ? true
+                              : activeCategoryFilters[option]
+                          }
                         />
                       }
-                      label={AirtablePropTypes.TASK_CATEGORIES[option.label].name}
+                      label={option}
                     />
                   ))}
                 </FormGroup>
@@ -143,6 +156,7 @@ export default function History(props) {
                 <Grid container direction="row" justify="center" alignItems="flex-start">
                   {cards
                     .filter(card => isInMonthYear(card.dateCmp, new Date(dateString)))
+                    .filter(card => activeCategoryFilters[card.categoryName] === true)
                     .map(card => (
                       <Grid key={card.id} item xs={12} className={classes.listItem}>
                         {/* eslint-disable-next-line react/jsx-props-no-spreading */}
