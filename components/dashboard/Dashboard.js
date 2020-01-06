@@ -300,29 +300,29 @@ export default function Dashboard(props) {
                 completedTasks={completedTasks}
                 limit={historyLimit}
               />
-              <Box my={3} data-intercom="log-interview">
-                <Card>
-                  <CardContent>
-                    <Typography variant="h6" gutterBottom>
-                      Upcoming interview?
-                    </Typography>
-                    <Typography variant="body1" gutterBottom>
-                      If you have an interview, let us know and we can send helpful guidance to
-                      prepare.
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button
-                      fullWidth
-                      variant="outlined"
-                      onClick={() => setActiveDialog(DIALOGS.UPCOMING_INTERVIEW)}
-                    >
-                      Let Us Know
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Box>
             </Card>
+            <Box my={3} data-intercom="log-interview">
+              <Card>
+                <CardContent>
+                  <Typography variant="h6" gutterBottom>
+                    Upcoming interview?
+                  </Typography>
+                  <Typography variant="body1" gutterBottom>
+                    If you have an interview, let us know and we can send helpful guidance to
+                    prepare.
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button
+                    fullWidth
+                    variant="outlined"
+                    onClick={() => setActiveDialog(DIALOGS.UPCOMING_INTERVIEW)}
+                  >
+                    Let Us Know
+                  </Button>
+                </CardActions>
+              </Card>
+            </Box>
           </Grid>
         </Grid>
       </ScaffoldContainer>
