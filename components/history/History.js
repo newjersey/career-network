@@ -9,12 +9,13 @@ import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+
+import { ACTIVITY_TYPES } from '../dashboard/ActivityInputDialog';
 import Activity from './Activity';
+import AirtablePropTypes from '../Airtable/PropTypes';
 import CompletedTask from './CompletedTask';
 import HistoryPropTypes from './PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
-
-import AirtablePropTypes from '../Airtable/PropTypes';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -61,10 +62,14 @@ export default function History(props) {
     Object.fromEntries(allCategoryFilters.map(filterName => [filterName, true]))
   );
 
+  const getActivityCategoryName = activityTypeValue =>
+    ACTIVITY_TYPES.find(activityType => activityType.value === activityTypeValue).category.name;
+
   const activitiesTemp = activities.map(a => {
-    const { dateCompleted, ...activity } = a.data();
+    const { activityTypeValue, dateCompleted, ...activity } = a.data();
     return {
       ...activity,
+      categoryName: getActivityCategoryName(activityTypeValue),
       dateCompleted,
       dateCmp: dateCompleted.toDate(),
       component: Activity,
