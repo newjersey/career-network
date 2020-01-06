@@ -1,19 +1,17 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/styles';
 import { format, compareDesc, isSameMonth, isSameYear } from 'date-fns';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/styles';
+import Box from '@material-ui/core/Box';
 import CalendarIcon from '@material-ui/icons/CalendarTodayRounded';
-import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
-import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Paper from '@material-ui/core/Paper';
+import React, { useState } from 'react';
+import Typography from '@material-ui/core/Typography';
 
 import { ACTIVITY_TYPES } from '../dashboard/ActivityInputDialog';
 import Activity from './Activity';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import CompletedTask from './CompletedTask';
+import Filter from './Filter';
 import HistoryPropTypes from './PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
 
@@ -102,7 +100,7 @@ export default function History(props) {
       return !datesArr.includes(date) ? [...datesArr, date] : datesArr;
     }, []);
 
-  const handleChange = name => event => {
+  const onChange = name => event => {
     setActiveCategoryFilters({ ...activeCategoryFilters, [name]: event.target.checked });
   };
 
@@ -111,36 +109,17 @@ export default function History(props) {
       <ScaffoldContainer>
         <Grid container spacing={3}>
           <Grid item xs={12} md={3}>
-            <Paper className={classes.paper}>
-              <Typography variant="h5" gutterBottom>
-                Filter List By...
-              </Typography>
-              <Typography variant="subtitle2" gutterBottom>
-                ACTIVITY TYPE
-              </Typography>
-              <FormControl>
-                <FormGroup>
-                  {allCategoryFilters.map(option => (
-                    <FormControlLabel
-                      key={option}
-                      control={
-                        <Checkbox
-                          onChange={handleChange(option)}
-                          value={option}
-                          label={option}
-                          checked={
-                            activeCategoryFilters[option] === undefined
-                              ? true
-                              : activeCategoryFilters[option]
-                          }
-                        />
-                      }
-                      label={option}
-                    />
-                  ))}
-                </FormGroup>
-              </FormControl>
-            </Paper>
+            <Box mt={20}>
+              <Paper className={classes.paper}>
+                <Typography variant="h5" gutterBottom>
+                  Filter List By...
+                </Typography>
+                <Typography variant="subtitle2" gutterBottom>
+                  ACTIVITY TYPE
+                </Typography>
+                <Filter filterOptions={activeCategoryFilters} onChange={onChange} />
+              </Paper>
+            </Box>
           </Grid>
           <Grid item xs={12} md={6}>
             <Typography variant="h5" component="h5" className={classes.pageHeader}>
