@@ -52,7 +52,7 @@ function Gauge(props) {
         <Typography variant="h5" align="center" style={{ fontWeight: 'bold' }}>
           {calculatedPercent}%
         </Typography>
-        <Typography variant="body2" align="center">
+        <Typography variant="body2" align="center" color="textSecondary">
           {label}
         </Typography>
       </Box>
