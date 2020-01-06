@@ -1,3 +1,4 @@
+import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import PropTypes from 'prop-types';
@@ -27,7 +28,15 @@ function getCountsByCategory(activityLogEntries) {
     );
 }
 
+const useStyles = makeStyles(() => ({
+  totalTableRow: {
+    backgroundColor: '#f7f8fa',
+    borderBottom: 'none',
+  },
+}));
+
 export default function ActivityCategoryTable(props) {
+  const classes = useStyles();
   const { allActivityLogEntries, subsetActivityLogEntries, label } = props;
   const subsetCounts = getCountsByCategory(subsetActivityLogEntries);
   const totalCounts = getCountsByCategory(allActivityLogEntries);
@@ -51,7 +60,9 @@ export default function ActivityCategoryTable(props) {
           {subsetByCategories.map(sub => (
             <TableRow key={sub.category}>
               <TableCell component="th" scope="row">
-                <Typography variant="body2">{sub.category}</Typography>
+                <Typography variant="body2" color="textSecondary">
+                  {sub.category}
+                </Typography>
               </TableCell>
               <TableCell align="right">
                 <Typography variant="body2" noWrap style={{ fontWeight: 'bold' }}>
@@ -60,11 +71,13 @@ export default function ActivityCategoryTable(props) {
               </TableCell>
             </TableRow>
           ))}
-          <TableRow selected>
-            <TableCell component="th" scope="row">
-              <Typography variant="body2">Total Reported Activities</Typography>
+          <TableRow className={classes.totalTableRow}>
+            <TableCell component="th" scope="row" className={classes.totalTableRow}>
+              <Typography variant="body2" color="textSecondary">
+                Total Reported Activities
+              </Typography>
             </TableCell>
-            <TableCell align="right">
+            <TableCell align="right" className={classes.totalTableRow}>
               <Typography variant="body2" noWrap style={{ fontWeight: 'bold' }}>
                 {subsetActivitiesCount} of {totalActivitiesCount}
               </Typography>
