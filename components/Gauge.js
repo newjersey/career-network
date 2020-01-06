@@ -43,7 +43,8 @@ function Gauge(props) {
           strokeDasharray={circumference}
           style={{
             strokeDashoffset: semiCirclePercentage,
-            transition: 'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s',
+            transition:
+              'stroke-dashoffset .5s ease-in-out, stroke-dasharray .5s ease-in-out, stroke .5s',
           }}
           strokeLinecap="round"
         />
