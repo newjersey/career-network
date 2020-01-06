@@ -1,11 +1,19 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import PropTypes from 'prop-types';
-import React from 'react';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    marginBottom: theme.spacing(1),
+  },
+}));
 
 export default function Filter(props) {
+  const classes = useStyles();
   const { filterOptions, onChange } = props;
 
   return (
@@ -15,11 +23,13 @@ export default function Filter(props) {
           {Object.keys(filterOptions).map(option => (
             <FormControlLabel
               key={option}
+              classes={{
+                root: classes.root,
+              }}
               control={
                 <Checkbox
                   onChange={onChange(option)}
                   value={option}
-                  label={option}
                   checked={filterOptions[option] === undefined ? true : filterOptions[option]}
                 />
               }
