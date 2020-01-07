@@ -6,7 +6,6 @@ import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import VpnKey from '@material-ui/icons/VpnKey';
 
 import AirtablePropTypes from '../Airtable/PropTypes';
 import DateCompleted from '../DateCompleted';
@@ -61,7 +60,6 @@ function CompleteTask(props) {
               style={{ backgroundColor: category.color }}
             />
           )}
-          <VpnKey style={{ position: 'absolute', right: 0 }} />
         </div>
 
         <Typography variant="h6" component="h2" className={classes.group}>
