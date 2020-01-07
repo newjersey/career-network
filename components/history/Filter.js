@@ -17,28 +17,26 @@ export default function Filter(props) {
   const { filterOptions, onChange } = props;
 
   return (
-    <div>
-      <FormControl>
-        <FormGroup>
-          {Object.keys(filterOptions).map(option => (
-            <FormControlLabel
-              key={option}
-              classes={{
-                root: classes.root,
-              }}
-              control={
-                <Checkbox
-                  onChange={onChange(option)}
-                  value={option}
-                  checked={filterOptions[option] === undefined ? true : filterOptions[option]}
-                />
-              }
-              label={option}
-            />
-          ))}
-        </FormGroup>
-      </FormControl>
-    </div>
+    <FormControl>
+      <FormGroup>
+        {Object.keys(filterOptions).map(option => (
+          <FormControlLabel
+            key={option}
+            classes={{
+              root: classes.root,
+            }}
+            control={
+              <Checkbox
+                onChange={onChange(option)}
+                value={option}
+                checked={filterOptions[option] === undefined ? true : filterOptions[option]}
+              />
+            }
+            label={option}
+          />
+        ))}
+      </FormGroup>
+    </FormControl>
   );
 }
 
