@@ -1,10 +1,10 @@
+import React, { useState } from 'react';
 import { format, compareDesc, isSameMonth, isSameYear } from 'date-fns';
 import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 import CalendarIcon from '@material-ui/icons/CalendarTodayRounded';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { ACTIVITY_TYPES } from '../dashboard/ActivityInputDialog';
