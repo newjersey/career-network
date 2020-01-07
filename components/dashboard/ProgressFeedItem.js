@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -13,12 +14,7 @@ const useStyles = makeStyles(theme => ({
   card: {
     backgroundColor: theme.palette.background.info,
   },
-  cardHeaderTitle: {
-    fontSize: '1.2rem',
-    paddingBottom: theme.spacing(1),
-  },
   cardContent: {
-    paddingTop: 0,
     '&:last-child': {
       paddingBottom: theme.spacing(2),
     },
@@ -35,30 +31,17 @@ export default function ProgressFeedItem(props) {
 
   return (
     <Card className={classes.card} data-intercom="progress-feed-item">
-      {/* <CardHeader
-        title={
-          subheader && (
-            <Grid container justify="space-between">
-              <Typography variant="body2">{subheader}</Typography>
-            </Grid>
-          )
-        }
-        titleTypographyProps={{ component: 'h2' }}
-        subheader={
-          <Typography variant="h6" component="h2">
-            {title}
-          </Typography>
-        }
-        classes={{ title: classes.cardHeaderTitle }}
-      /> */}
       <CardContent className={classes.cardContent}>
-        {subheader && (
-          <Grid container justify="space-between">
-            <Typography variant="body2" component="h2">
-              {subheader}
-            </Typography>
-          </Grid>
-        )}
+        <Box display="flex" justify="space-between" width={1}>
+          <Box flexGrow={1}>
+            {subheader && (
+              <Typography variant="body2" component="h2" gutterBottom>
+                {subheader}
+              </Typography>
+            )}
+          </Box>
+          <Box>{icon}</Box>
+        </Box>
         <Typography variant="h6" component="h2">
           {title}
         </Typography>
@@ -71,12 +54,11 @@ export default function ProgressFeedItem(props) {
             {timeSpentInMinutes && (
               <Typography variant="body2">
                 <span role="img" aria-label="Clock">
-                  🕒
+                  ⏰
                 </span>
                 {timeSpentInMinutes} Minutes
               </Typography>
             )}
-            {icon}
           </Grid>
         </Grid>
       </CardContent>
