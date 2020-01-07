@@ -1,7 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -12,8 +11,7 @@ import FirebasePropTypes from '../Firebase/PropTypes';
 
 const useStyles = makeStyles(theme => ({
   card: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
+    backgroundColor: theme.palette.background.info,
   },
   cardHeaderTitle: {
     fontSize: '1.2rem',
@@ -37,7 +35,7 @@ export default function ProgressFeedItem(props) {
 
   return (
     <Card className={classes.card} data-intercom="progress-feed-item">
-      <CardHeader
+      {/* <CardHeader
         title={
           subheader && (
             <Grid container justify="space-between">
@@ -52,8 +50,18 @@ export default function ProgressFeedItem(props) {
           </Typography>
         }
         classes={{ title: classes.cardHeaderTitle }}
-      />
+      /> */}
       <CardContent className={classes.cardContent}>
+        {subheader && (
+          <Grid container justify="space-between">
+            <Typography variant="body2" component="h2">
+              {subheader}
+            </Typography>
+          </Grid>
+        )}
+        <Typography variant="h6" component="h2">
+          {title}
+        </Typography>
         <Divider className={classes.divider} />
         <Grid container direction="row" justify="space-between" alignItems="center">
           <Grid item>

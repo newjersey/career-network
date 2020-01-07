@@ -248,7 +248,7 @@ export default function Dashboard(props) {
         <SentimentTracker />
         <Grid container spacing={3}>
           <Grid item xs={12} md>
-            <Card className={classes.siderail}>
+            <Card className={classes.siderail} variant="outlined">
               <CardHeader
                 title="Confidence Level"
                 titleTypographyProps={{ component: 'h2', variant: 'h6' }}
@@ -286,7 +286,7 @@ export default function Dashboard(props) {
             />
           </Grid>
           <Grid item xs={12} md>
-            <Card className={classes.siderail}>
+            <Card className={classes.siderail} variant="outlined">
               <CardHeader
                 title={
                   <Typography component="h2" variant="h6" data-intercom="activity-title">

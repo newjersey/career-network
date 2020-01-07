@@ -1,8 +1,9 @@
-import { compareDesc } from 'date-fns';
-import Button from '@material-ui/core/Button';
-import NextLink from 'next/link';
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import { compareDesc } from 'date-fns';
+import NextLink from 'next/link';
+import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import VpnKey from '@material-ui/icons/VpnKey';
 
@@ -40,19 +41,28 @@ export default function ProgressFeed(props) {
   ].sort((a, b) => compareDesc(a.timestamp, b.timestamp));
 
   return (
-    <div>
+    <Box display="flex" flexDirection="row" flexWrap="wrap" p={2}>
       {!sorted.length && <Typography color="textSecondary">None</Typography>}
       {sorted.slice(0, limit).map(item => (
-        <ProgressFeedItem {...item.props} />
+        <Box width={1} mb={1}>
+          <ProgressFeedItem {...item.props} />
+        </Box>
       ))}
       {!!sorted.length && (
-        <NextLink href="/progress">
-          <Button color="primary" variant="contained" data-intercom="all-progress-button" fullWidth>
-            See All Progress
-          </Button>
-        </NextLink>
+        <Box width={1} mt={1}>
+          <NextLink href="/progress">
+            <Button
+              color="primary"
+              variant="contained"
+              data-intercom="all-progress-button"
+              fullWidth
+            >
+              See All
+            </Button>
+          </NextLink>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 }
 
