@@ -13,11 +13,16 @@ import FirebasePropTypes from '../Firebase/PropTypes';
 const useStyles = makeStyles(theme => ({
   card: {
     backgroundColor: theme.palette.background.info,
+    width: '100%',
+    marginBottom: theme.spacing(1),
   },
   cardContent: {
     '&:last-child': {
       paddingBottom: theme.spacing(2),
     },
+  },
+  cardTitle: {
+    fontSize: '1rem',
   },
   divider: {
     marginTop: theme.spacing(1),
@@ -42,7 +47,7 @@ export default function ProgressFeedItem(props) {
           </Box>
           <Box>{icon}</Box>
         </Box>
-        <Typography variant="h6" component="h2">
+        <Typography variant="h6" component="h2" className={classes.cardTitle}>
           {title}
         </Typography>
         <Divider className={classes.divider} />

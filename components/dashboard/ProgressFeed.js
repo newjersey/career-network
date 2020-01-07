@@ -44,9 +44,7 @@ export default function ProgressFeed(props) {
     <Box display="flex" flexDirection="row" flexWrap="wrap" p={2}>
       {!sorted.length && <Typography color="textSecondary">None</Typography>}
       {sorted.slice(0, limit).map(item => (
-        <Box width={1} mb={1}>
-          <ProgressFeedItem {...item.props} />
-        </Box>
+        <ProgressFeedItem {...item.props} />
       ))}
       {!!sorted.length && (
         <Box width={1} mt={1}>

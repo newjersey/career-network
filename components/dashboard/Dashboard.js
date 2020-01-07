@@ -276,7 +276,6 @@ export default function Dashboard(props) {
                 Log Activity
               </Button>
             </Grid>
-
             <TaskList
               tasks={tasks}
               allActions={allActions}
