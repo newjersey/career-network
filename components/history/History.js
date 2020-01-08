@@ -43,6 +43,10 @@ const useStyles = makeStyles(theme => ({
       padding: theme.spacing(6, 5, 4),
     },
   },
+  siderailHeader: {
+    marginBottom: theme.spacing(3),
+    fontSize: 16,
+  },
 }));
 
 export default function History(props) {
@@ -111,10 +115,10 @@ export default function History(props) {
           <Grid item xs={12} md={3}>
             <Box mt={20}>
               <Paper className={classes.paper}>
-                <Typography variant="h5" gutterBottom>
+                <Typography variant="h5" className={classes.siderailHeader}>
                   Filter List By...
                 </Typography>
-                <Typography variant="subtitle2" gutterBottom>
+                <Typography variant="h5" style={{ fontSize: 14, color: '#92929d' }} gutterBottom>
                   ACTIVITY TYPE
                 </Typography>
                 <Filter filterOptions={activeCategoryFilters} onChange={onChange} />

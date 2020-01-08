@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
+import CancelIcon from '@material-ui/icons/Cancel';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -29,6 +30,7 @@ export default function Filter(props) {
               <Checkbox
                 onChange={onChange(option)}
                 value={option}
+                checkedIcon={<CancelIcon />}
                 checked={filterOptions[option] === undefined ? true : filterOptions[option]}
               />
             }
