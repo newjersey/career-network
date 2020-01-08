@@ -301,7 +301,7 @@ export default function Dashboard(props) {
               />
             </Card>
             <Box my={3} data-intercom="log-interview">
-              <Card>
+              <Card variant="outlined">
                 <CardContent>
                   <Typography variant="h6" gutterBottom>
                     Upcoming interview?
