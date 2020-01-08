@@ -5,7 +5,6 @@ import NextLink from 'next/link';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import VpnKey from '@material-ui/icons/VpnKey';
 
 import FirebasePropTypes from '../Firebase/PropTypes';
 import ProgressFeedItem from './ProgressFeedItem';
@@ -31,7 +30,6 @@ export default function ProgressFeed(props) {
     ...completedTasks.map(item => ({
       timestamp: getTimestamp(item),
       props: {
-        icon: <VpnKey />,
         title: item.data().task.fields.Title,
         subheader: item.data().task.fields.Category,
         date: item.data().timestamp,
