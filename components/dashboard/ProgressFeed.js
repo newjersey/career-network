@@ -49,7 +49,7 @@ export default function ProgressFeed(props) {
   ].sort((a, b) => compareDesc(a.timestamp, b.timestamp));
 
   return (
-    <Box display="flex" flexDirection="row" flexWrap="wrap" p={2}>
+    <Box display="flex" flexDirection="row" flexWrap="wrap" px={2} pb={2}>
       {!sorted.length && <Typography color="textSecondary">None</Typography>}
       {sorted.slice(0, limit).map(item => (
         <ProgressFeedItem {...item.props} />
