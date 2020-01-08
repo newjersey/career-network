@@ -2,6 +2,7 @@ import React, { useEffect, useState, useLayoutEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
+import Hidden from '@material-ui/core/Hidden';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -254,7 +255,9 @@ export default function Dashboard(props) {
         <SentimentTracker />
         <Grid container spacing={3}>
           <Grid item xs={12} md>
-            <Box width={1} height={headerHeight} />
+            <Hidden only="xs">
+              <Box width={1} height={headerHeight} />
+            </Hidden>
             <Card className={classes.siderail} variant="outlined">
               <CardHeader
                 title="Confidence Level"
@@ -298,7 +301,9 @@ export default function Dashboard(props) {
             />
           </Grid>
           <Grid item xs={12} md>
-            <Box width={1} height={headerHeight} />
+            <Hidden only="xs">
+              <Box width={1} height={headerHeight} />
+            </Hidden>
             <Card className={classes.siderail} variant="outlined">
               <CardHeader
                 title={
