@@ -80,8 +80,8 @@ function About() {
           </Grid>
         </Grid>
         <Typography className={classes.body1}>
-          The Garden State Career Network (GSCN) is a new online platform designed to help you
-          navigate and succeed in the job search process. GSCN is being designed by the Heldrich
+          The New Jersey Career Network (NJCN) is a new online platform designed to help you
+          navigate and succeed in the job search process. NJCN is being designed by the Heldrich
           Center for Workforce Development at Rutgers University and the New Jersey Office of
           Innovation in partnership with the New Jersey Department of Labor and Workforce
           Development.
@@ -132,7 +132,7 @@ function About() {
           support your mood and motivation during the search.
         </Typography>
         <Typography className={classes.body1}>
-          Job search is hard. Let the Garden State Career Network help you learn what works for you
+          Job search is hard. Let the New Jersey Career Network help you learn what works for you
           and implement effective job search routines that will lead to your next opportunity.
         </Typography>
       </ScaffoldContainer>

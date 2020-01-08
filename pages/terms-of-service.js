@@ -29,7 +29,7 @@ function TOS() {
           TERMS OF CONDITIONS AND USE
         </Typography>
         <Typography className={classes.body1}>
-          Welcome! Thank you for visiting the Garden State Career Network website
+          Welcome! Thank you for visiting the New Jersey Career Network website
           (&quot;Website&quot;), a project of the Heldrich Center for Workforce Development.
           (&quot;our&quot;, &quot;we&quot;, &quot;us&quot;).
         </Typography>
