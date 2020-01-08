@@ -1,3 +1,5 @@
+import React, { useEffect, useState, useLayoutEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -6,8 +8,6 @@ import CardActions from '@material-ui/core/CardActions';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
-import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { isDone, mostRecent } from '../../src/app-helper';
@@ -205,6 +205,7 @@ const DIALOGS = {
 export default function Dashboard(props) {
   const classes = useStyles();
   const { user } = useAuth();
+  const headerRef = useRef(null);
   const {
     allConditions,
     allPredicates,
@@ -223,10 +224,15 @@ export default function Dashboard(props) {
   const tasks = getTasks(props, TASK_COUNT_LIMIT);
   const doneTaskCount = allTaskDispositionEvents.length;
   const [activeDialog, setActiveDialog] = useState();
+  const [headerHeight, setHeaderHeight] = useState();
 
   useEffect(() => {
     window.Intercom('update', { 'tasks-completed': doneTaskCount });
   }, [doneTaskCount]);
+
+  useLayoutEffect(() => {
+    setHeaderHeight(headerRef.current.getBoundingClientRect().height);
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -248,6 +254,7 @@ export default function Dashboard(props) {
         <SentimentTracker />
         <Grid container spacing={3}>
           <Grid item xs={12} md>
+            <Box width={1} height={headerHeight} />
             <Card className={classes.siderail} variant="outlined">
               <CardHeader
                 title="Confidence Level"
@@ -262,7 +269,13 @@ export default function Dashboard(props) {
             </Card>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Grid container alignItems="baseline" justify="space-between" direction="row">
+            <Box
+              display="flex"
+              alignItems="baseline"
+              justifyContent="space-between"
+              width={1}
+              ref={headerRef}
+            >
               <Typography variant="h5" className={classes.subtitle} data-intercom="task-count">
                 Top {tasks.length} Goals
               </Typography>
@@ -275,7 +288,7 @@ export default function Dashboard(props) {
               >
                 Log Activity
               </Button>
-            </Grid>
+            </Box>
             <TaskList
               tasks={tasks}
               allActions={allActions}
@@ -285,6 +298,7 @@ export default function Dashboard(props) {
             />
           </Grid>
           <Grid item xs={12} md>
+            <Box width={1} height={headerHeight} />
             <Card className={classes.siderail} variant="outlined">
               <CardHeader
                 title={
