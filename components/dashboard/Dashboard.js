@@ -286,21 +286,14 @@ export default function Dashboard(props) {
             />
           </Grid>
           <Grid item xs={12} md>
-            <Card className={classes.siderail}>
-              <CardHeader
-                title={
-                  <Typography component="h2" variant="h6" data-intercom="activity-title">
-                    Recent Progress
-                  </Typography>
-                }
-                disableTypography
-              />
-              <ProgressFeed
-                activities={allActivityLogEntries}
-                completedTasks={completedTasks}
-                limit={historyLimit}
-              />
-            </Card>
+            <Typography variant="h5" className={classes.subtitle} data-intercom="activity-title">
+              Recent Progress
+            </Typography>
+            <ProgressFeed
+              activities={allActivityLogEntries}
+              completedTasks={completedTasks}
+              limit={historyLimit}
+            />
             <Box my={3} data-intercom="log-interview">
               <Card>
                 <CardContent>
