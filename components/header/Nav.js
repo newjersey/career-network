@@ -235,7 +235,7 @@ function Nav(props) {
                     <Picture
                       path="nj.webp"
                       fallbackType="png"
-                      alt="Garden State Career Network"
+                      alt="New Jersey Career Network"
                       className={classes.logo}
                     />
                   </Grid>

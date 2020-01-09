@@ -21,7 +21,6 @@ const useStyles = makeStyles(theme => ({
 const height = 6;
 const StyledSlider = withStyles({
   root: {
-    // color: '#52af77',
     height,
     paddingRight: height / -2,
   },
@@ -35,7 +34,6 @@ const StyledSlider = withStyles({
     left: `calc(-50% + ${height / 2}px)`,
   },
   mark: {
-    // backgroundColor: '#bfbfbf',
     height,
     width: height,
     borderRadius: height / 2,

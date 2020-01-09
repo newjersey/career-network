@@ -3,6 +3,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
+import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
@@ -30,6 +31,9 @@ const useStyles = makeStyles(theme => ({
   },
   subtitle: {
     display: 'inline-block',
+    marginTop: theme.spacing(3),
+  },
+  siderail: {
     marginTop: theme.spacing(3),
   },
 }));
@@ -244,14 +248,18 @@ export default function Dashboard(props) {
         <SentimentTracker />
         <Grid container spacing={3}>
           <Grid item xs={12} md>
-            <Typography variant="h5" className={classes.subtitle}>
-              Confidence Level
-            </Typography>
-            <ActivityCategoryTable
-              allActivityLogEntries={allActivityLogEntries}
-              subsetActivityLogEntries={confidentActivityLogEntries}
-              label="Feeling Confident"
-            />
+            <Card className={classes.siderail}>
+              <CardHeader
+                title="Confidence Level"
+                titleTypographyProps={{ component: 'h2', variant: 'h6' }}
+              />
+
+              <ActivityCategoryTable
+                allActivityLogEntries={allActivityLogEntries}
+                subsetActivityLogEntries={confidentActivityLogEntries}
+                label="Feeling Confident"
+              />
+            </Card>
           </Grid>
           <Grid item xs={12} md={6}>
             <Grid container alignItems="baseline" justify="space-between" direction="row">

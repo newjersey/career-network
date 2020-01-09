@@ -43,7 +43,8 @@ function Gauge(props) {
           strokeDasharray={circumference}
           style={{
             strokeDashoffset: semiCirclePercentage,
-            transition: 'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s',
+            transition:
+              'stroke-dashoffset .5s ease-in-out, stroke-dasharray .5s ease-in-out, stroke .5s',
           }}
           strokeLinecap="round"
         />
@@ -52,7 +53,7 @@ function Gauge(props) {
         <Typography variant="h5" align="center" style={{ fontWeight: 'bold' }}>
           {calculatedPercent}%
         </Typography>
-        <Typography variant="body2" align="center">
+        <Typography variant="body2" align="center" color="textSecondary">
           {label}
         </Typography>
       </Box>

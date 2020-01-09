@@ -1,10 +1,45 @@
 /* eslint-disable no-console */
 const { Storage } = require('@google-cloud/storage');
-const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const crypto = require('crypto');
+const functions = require('firebase-functions');
+const https = require('https');
 
 admin.initializeApp();
+
+// Uses native https package with streams to keep things quick and light.
+exports.airtableProxy = functions.https.onRequest((req, res) => {
+  const { api_key: apiKey } = functions.config().airtable;
+  const options = {
+    headers: { Authorization: `Bearer ${apiKey}` },
+    host: 'api.airtable.com',
+    path: req.url.replace(/^\/api\/airtable/, ''),
+  };
+
+  const proxy = https.get(options, result => {
+    const resultHeaders = {};
+    const getHeader = key => result.headers[key];
+
+    // We don't really need any of these headers to our client, but it's nice metadata to forward.
+    // All other headers from Airtable (at the time of writing) are undesirable to forward
+    // (e.g. , access-control-allow-methods, server, set-cookie, etc.).
+    ['content-type', 'etag', 'x-airtable-has-non-empty-changes-payload'].forEach(key => {
+      if (getHeader(key)) {
+        resultHeaders[key] = getHeader(key);
+      }
+    });
+
+    res.writeHead(result.statusCode, result.statusMessage, resultHeaders);
+
+    result.pipe(res, {
+      end: true,
+    });
+  });
+
+  req.pipe(proxy, {
+    end: true,
+  });
+});
 
 exports.firestoreBackup = functions.pubsub
   .schedule('every day 04:00')
