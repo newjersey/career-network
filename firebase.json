@@ -28,6 +28,12 @@
           }
         ]
       }
+    ],
+    "rewrites": [
+      {
+        "source": "/api/airtable/**",
+        "function": "airtableProxy"
+      }
     ]
   },
   "functions": {

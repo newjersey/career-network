@@ -11,6 +11,7 @@ import { ACTIVITY_TYPES } from '../dashboard/ActivityInputDialog';
 import Activity from './Activity';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import CompletedTask from './CompletedTask';
+import EmptyState from './EmptyState';
 import Filter from './Filter';
 import HistoryPropTypes from './PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
@@ -108,52 +109,70 @@ export default function History(props) {
     setActiveCategoryFilters({ ...activeCategoryFilters, [name]: event.target.checked });
   };
 
+  const isEmpty = () => {
+    return cards.filter(card => activeCategoryFilters[card.categoryName] === true).length === 0;
+  };
+
   return (
     <div className={classes.root}>
       <ScaffoldContainer>
         <Grid container spacing={3}>
           <Grid item xs={12} md={3}>
-            <Box mt={20}>
-              <Paper className={classes.paper}>
-                <Typography variant="h5" className={classes.siderailHeader}>
-                  Filter List By...
-                </Typography>
-                <Typography variant="h5" style={{ fontSize: 14, color: '#92929d' }} gutterBottom>
-                  ACTIVITY TYPE
-                </Typography>
-                <Filter filterOptions={activeCategoryFilters} onChange={onChange} />
-              </Paper>
-            </Box>
+            {!isEmpty() && (
+              <Box mt={20}>
+                <Paper className={classes.paper}>
+                  <Typography variant="h5" className={classes.siderailHeader}>
+                    Filter List By...
+                  </Typography>
+                  <Typography variant="h5" style={{ fontSize: 14, color: '#92929d' }} gutterBottom>
+                    ACTIVITY TYPE
+                  </Typography>
+                  <Filter filterOptions={activeCategoryFilters} onChange={onChange} />
+                </Paper>
+              </Box>
+            )}
           </Grid>
           <Grid item xs={12} md={6}>
             <Typography variant="h5" component="h5" className={classes.pageHeader}>
               All Progress
             </Typography>
-            {activityMonths.map(dateString => (
-              <div key={dateString}>
-                <div className={classes.sectionHeader}>
-                  <CalendarIcon className={classes.calendarIcon} fontSize="small" />
-                  <Typography
-                    variant="subtitle2"
-                    display="inline"
-                    style={{ textTransform: 'uppercase' }}
-                  >
-                    {dateString}
-                  </Typography>
+            {isEmpty() && (
+              <Box mt={11}>
+                <EmptyState />
+              </Box>
+            )}
+            {!isEmpty() &&
+              activityMonths.map(dateString => (
+                <div key={dateString}>
+                  {cards.filter(
+                    card =>
+                      isInMonthYear(card.dateCmp, new Date(dateString)) &&
+                      activeCategoryFilters[card.categoryName] === true
+                  ).length > 0 && (
+                    <div className={classes.sectionHeader}>
+                      <CalendarIcon className={classes.calendarIcon} fontSize="small" />
+                      <Typography
+                        variant="subtitle2"
+                        display="inline"
+                        style={{ textTransform: 'uppercase' }}
+                      >
+                        {dateString}
+                      </Typography>
+                    </div>
+                  )}
+                  <Grid container direction="row" justify="center" alignItems="flex-start">
+                    {cards
+                      .filter(card => isInMonthYear(card.dateCmp, new Date(dateString)))
+                      .filter(card => activeCategoryFilters[card.categoryName] === true)
+                      .map(card => (
+                        <Grid key={card.id} item xs={12} className={classes.listItem}>
+                          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+                          <card.component {...card} />
+                        </Grid>
+                      ))}
+                  </Grid>
                 </div>
-                <Grid container direction="row" justify="center" alignItems="flex-start">
-                  {cards
-                    .filter(card => isInMonthYear(card.dateCmp, new Date(dateString)))
-                    .filter(card => activeCategoryFilters[card.categoryName] === true)
-                    .map(card => (
-                      <Grid key={card.id} item xs={12} className={classes.listItem}>
-                        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-                        <card.component {...card} />
-                      </Grid>
-                    ))}
-                </Grid>
-              </div>
-            ))}
+              ))}
           </Grid>
         </Grid>
       </ScaffoldContainer>

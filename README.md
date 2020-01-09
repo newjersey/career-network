@@ -18,7 +18,9 @@ npm run env:dev1
 npm run dev
 ```
 
-Enter your test identity verification secret into `functions/.runtimeconfig.json`
+Enter your personal secret Airtable API key into `functions/.runtimeconfig.json` (from https://airtable.com/account)
+
+Enter your Intercom test identity verification secret into `functions/.runtimeconfig.json`
 
 See for identity verification secret info: https://www.intercom.com/help/en/articles/183-enable-identity-verification-for-web-and-mobile
 
@@ -74,6 +76,16 @@ Set production Intercom identity verification secret (or test secret if not depl
 npx firebase functions:config:set intercom.identity_verification_secret="IDENTITY VERIFICATION SECRET"
 ```
 
+Set Airtable API key (generally only needed in dev, since `npm run airtable:dump` should be used to pull data from Airtable and commit to `public/static/api/` for production deployments).
+This is generally only needed if you want to test new Airtable content locally or dump
+Airtable content to the persisted data files using the aforementioned command.
+
+```sh
+npx firebase functions:config:set airtable.api_key="AIRTABLE API KEY"
+```
+
+Set
+
 See for identity verification secret info: https://www.intercom.com/help/en/articles/183-enable-identity-verification-for-web-and-mobile
 
 (Optional) Preview the exported static site locally:
@@ -112,6 +124,12 @@ directly from the Airtable API (for stability reasons
 and better versioning of the content).
 
 To update these local JSON files, run:
+
+```sh
+npm run dev
+```
+
+Then, in a separate shell:
 
 ```sh
 npm run airtable:dump
