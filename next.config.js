@@ -34,7 +34,7 @@ const appEnvironments = {
     name: 'DEV1',
     showName: true,
     airtable: {
-      apiBase: liveAirtableApiBase,
+      apiBase: prodAirtableApiBase,
     },
     firebase: {
       apiKey: 'AIzaSyDybN2rwlC_Hwld0SJncFH8preMI4MXKic',
@@ -53,7 +53,7 @@ const appEnvironments = {
     name: 'DEV2',
     showName: true,
     airtable: {
-      apiBase: liveAirtableApiBase,
+      apiBase: prodAirtableApiBase,
     },
     firebase: {
       apiKey: 'AIzaSyDVlAiIhoIvBjCFbgai_70f823_7FiUkUQ',
@@ -72,7 +72,7 @@ const appEnvironments = {
     name: 'DEV3',
     showName: true,
     airtable: {
-      apiBase: liveAirtableApiBase,
+      apiBase: prodAirtableApiBase,
     },
     firebase: {
       apiKey: 'AIzaSyDLDRACEFdWBv7bZudMwFpo-h_BWUJeGgc',
@@ -107,7 +107,7 @@ const appEnvironments = {
     name: 'DEV5',
     showName: true,
     airtable: {
-      apiBase: liveAirtableApiBase,
+      apiBase: prodAirtableApiBase,
     },
     firebase: {
       apiKey: 'AIzaSyCNdMzlu9heNVkRVD48DovbvnEMOkjLo7s',
