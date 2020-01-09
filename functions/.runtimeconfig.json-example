@@ -1,5 +1,8 @@
 {
   "intercom": {
     "identity_verification_secret": "[TEST] IDENTITY VERIFICATION SECRET"
+  },
+  "airtable": {
+    "api_key": "YOUR SECRET ACCOUNT API KEY"
   }
 }

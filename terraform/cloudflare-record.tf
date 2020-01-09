@@ -38,7 +38,7 @@ resource "cloudflare_record" "A_careers-preview_1" {
   name    = "careers-preview"
   type    = "A"
   ttl     = "1"
-  proxied = "true"
+  proxied = "false"
   value   = "151.101.1.195"
 }
 
@@ -47,7 +47,7 @@ resource "cloudflare_record" "A_careers-preview_2" {
   name    = "careers-preview"
   type    = "A"
   ttl     = "1"
-  proxied = "true"
+  proxied = "false"
   value   = "151.101.65.195"
 }
 
@@ -245,7 +245,7 @@ resource "cloudflare_record" "CNAME_www" {
   name    = "www"
   type    = "CNAME"
   ttl     = "1"
-  proxied = "true"
+  proxied = "false"
   value   = "${var.cloudflare_zone}"
 }
 
