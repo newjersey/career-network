@@ -6,7 +6,7 @@ const appEnv = require('./src/AppEnv');
 let env;
 
 // in production, we pull data from static JSON files rather than directly from Airtable
-const liveAirtableApiBase = 'https://careers.gardenstate.tech/airtable/v0/appoZOnpKML2dKjkQ/';
+const liveAirtableApiBase = '/api/airtable/v0/appoZOnpKML2dKjkQ/';
 const prodAirtableApiBase = '/static/api/';
 
 const sentryDsn = 'https://3deb0f7b679840f28bb7931c8c33b206@sentry.io/1733812';

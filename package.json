@@ -44,7 +44,7 @@
   "scripts": {
     "analyze": "ANALYZE=true next build",
     "browserslist": "browserslist",
-    "dev": "next",
+    "dev": "next & firebase serve",
     "env": "node scripts/env",
     "env:dev1": "npm run env -- dev1",
     "env:dev2": "npm run env -- dev2",
@@ -60,7 +60,7 @@
     "firebase:dump:indexes": "firebase firestore:indexes > firestore.indexes.json",
     "firebase:dump": "npm run firebase:dump:indexes",
     "export": "npm run clean && npm run build && next export -o out",
-    "preview": "npm run export && firebase serve",
+    "preview": "npm run export && firebase serve && open http://0.0.0.0:5000/",
     "release": "git rev-parse --short HEAD | (read hash; firebase deploy -m \"Release at $hash\" )",
     "deploy": "npm run export && npm run release",
     "start": "next start",
