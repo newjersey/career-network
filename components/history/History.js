@@ -127,16 +127,22 @@ export default function History(props) {
             </Typography>
             {activityMonths.map(dateString => (
               <div key={dateString}>
-                <div className={classes.sectionHeader}>
-                  <CalendarIcon className={classes.calendarIcon} fontSize="small" />
-                  <Typography
-                    variant="subtitle2"
-                    display="inline"
-                    style={{ textTransform: 'uppercase' }}
-                  >
-                    {dateString}
-                  </Typography>
-                </div>
+                {cards.filter(
+                  card =>
+                    isInMonthYear(card.dateCmp, new Date(dateString)) &&
+                    activeCategoryFilters[card.categoryName] === true
+                ).length > 0 && (
+                  <div className={classes.sectionHeader}>
+                    <CalendarIcon className={classes.calendarIcon} fontSize="small" />
+                    <Typography
+                      variant="subtitle2"
+                      display="inline"
+                      style={{ textTransform: 'uppercase' }}
+                    >
+                      {dateString}
+                    </Typography>
+                  </div>
+                )}
                 <Grid container direction="row" justify="center" alignItems="flex-start">
                   {cards
                     .filter(card => isInMonthYear(card.dateCmp, new Date(dateString)))
