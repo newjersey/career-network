@@ -144,9 +144,15 @@ export default function History(props) {
               </Typography>
             </Box>
             {isEmpty() && (
-              <Box mt={11}>
+              <div>
+                <Hidden only="xs">
+                  <Box
+                    width={1}
+                    height={headerHeight - headerRef.current.getBoundingClientRect().height}
+                  />
+                </Hidden>
                 <EmptyState />
-              </Box>
+              </div>
             )}
             {!isEmpty() &&
               activityMonths.map(dateString => (
