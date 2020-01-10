@@ -60,7 +60,7 @@ function Activity(props) {
     <Card className={classes.card}>
       <CardContent>
         <div className={classes.header}>
-          <Typography variant="body1" noWrap style={{ maxWidth: '75%', fontWeight: 500 }}>
+          <Typography variant="body2" noWrap style={{ maxWidth: '75%' }}>
             {activityTypeLabel}
           </Typography>
         </div>

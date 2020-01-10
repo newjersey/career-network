@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect, useRef } from 'react';
 import { format, compareDesc, isSameMonth, isSameYear } from 'date-fns';
 import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 import CalendarIcon from '@material-ui/icons/CalendarTodayRounded';
+import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+import Hidden from '@material-ui/core/Hidden';
 import Typography from '@material-ui/core/Typography';
 
 import { ACTIVITY_TYPES } from '../dashboard/ActivityInputDialog';
@@ -21,32 +22,25 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(5, 0),
   },
   pageHeader: {
-    marginTop: theme.spacing(5),
-    marginBottom: theme.spacing(5),
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(2),
     fontWeight: theme.typography.fontWeightMedium,
   },
   listItem: {
-    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   sectionHeader: {
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
     marginTop: theme.spacing(4),
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(3),
   },
   calendarIcon: {
     marginRight: theme.spacing(1),
   },
-  paper: {
-    padding: theme.spacing(5, 4, 3),
-    [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing(6, 5, 4),
-    },
-  },
-  siderailHeader: {
-    marginBottom: theme.spacing(3),
-    fontSize: 16,
+  siderail: {
+    padding: theme.spacing(4),
   },
 }));
 
@@ -55,8 +49,18 @@ export default function History(props) {
     isSameMonth(date, monthYear) && isSameYear(date, monthYear);
   const classes = useStyles();
   const { activities, completedTasks } = props;
+  const headerRef = useRef(null);
+  const sectionHeaderRef = useRef(null);
+  const [headerHeight, setHeaderHeight] = useState();
   let activityMonths = [];
   let cards = [];
+
+  useLayoutEffect(() => {
+    setHeaderHeight(
+      headerRef.current.getBoundingClientRect().height +
+        sectionHeaderRef.current.getBoundingClientRect().height
+    );
+  }, []);
 
   const allCategoryFilters = Object.values(AirtablePropTypes.TASK_CATEGORIES).map(
     category => category.name
@@ -118,24 +122,29 @@ export default function History(props) {
       <ScaffoldContainer>
         <Grid container spacing={3}>
           <Grid item xs={12} md={3}>
+            <Hidden only="xs">
+              <Box width={1} height={headerHeight} />
+            </Hidden>
             {!isEmpty() && (
-              <Box mt={20}>
-                <Paper className={classes.paper}>
-                  <Typography variant="h5" className={classes.siderailHeader}>
+              <Card className={classes.siderail} variant="outlined">
+                <Box mb={3}>
+                  <Typography component="h2" variant="h6">
                     Filter List By...
                   </Typography>
-                  <Typography variant="h5" style={{ fontSize: 14, color: '#92929d' }} gutterBottom>
-                    ACTIVITY TYPE
-                  </Typography>
-                  <Filter filterOptions={activeCategoryFilters} onChange={onChange} />
-                </Paper>
-              </Box>
+                </Box>
+                <Typography variant="h5" style={{ fontSize: 14, color: '#92929d' }} gutterBottom>
+                  ACTIVITY TYPE
+                </Typography>
+                <Filter filterOptions={activeCategoryFilters} onChange={onChange} />
+              </Card>
             )}
           </Grid>
           <Grid item xs={12} md={6}>
-            <Typography variant="h5" component="h5" className={classes.pageHeader}>
-              All Progress
-            </Typography>
+            <Box display="flex" alignItems="baseline" width={1} ref={headerRef}>
+              <Typography variant="h5" component="h5" className={classes.pageHeader}>
+                All Progress
+              </Typography>
+            </Box>
             {isEmpty() && (
               <Box mt={11}>
                 <EmptyState />
@@ -149,16 +158,18 @@ export default function History(props) {
                       isInMonthYear(card.dateCmp, new Date(dateString)) &&
                       activeCategoryFilters[card.categoryName] === true
                   ).length > 0 && (
-                    <div className={classes.sectionHeader}>
-                      <CalendarIcon className={classes.calendarIcon} fontSize="small" />
-                      <Typography
-                        variant="subtitle2"
-                        display="inline"
-                        style={{ textTransform: 'uppercase' }}
-                      >
-                        {dateString}
-                      </Typography>
-                    </div>
+                    <Box display="flex" alignItems="baseline" width={1} ref={sectionHeaderRef}>
+                      <div className={classes.sectionHeader}>
+                        <CalendarIcon className={classes.calendarIcon} fontSize="small" />
+                        <Typography
+                          variant="subtitle2"
+                          display="inline"
+                          style={{ textTransform: 'uppercase' }}
+                        >
+                          {dateString}
+                        </Typography>
+                      </div>
+                    </Box>
                   )}
                   <Grid container direction="row" justify="center" alignItems="flex-start">
                     {cards
