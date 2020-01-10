@@ -1,7 +1,6 @@
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import Box from '@material-ui/core/Box';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -9,6 +8,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Linkify from 'linkifyjs/react';
 import PropTypes from 'prop-types';
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
@@ -87,9 +87,9 @@ function Action(props) {
         component="li"
       >
         {isDone ? (
-          <CheckBoxIcon color="secondary" />
+          <CheckCircleIcon color="secondary" />
         ) : (
-          <CheckBoxOutlineBlankIcon color="disabled" />
+          <RadioButtonUncheckedIcon color="disabled" />
         )}
         <Box
           display="flex"
