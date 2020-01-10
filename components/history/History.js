@@ -125,19 +125,17 @@ export default function History(props) {
             <Hidden only="xs">
               <Box width={1} height={headerHeight} />
             </Hidden>
-            {!isEmpty() && (
-              <Card className={classes.siderail} variant="outlined">
-                <Box mb={3}>
-                  <Typography component="h2" variant="h6">
-                    Filter List By...
-                  </Typography>
-                </Box>
-                <Typography variant="h5" style={{ fontSize: 14, color: '#92929d' }} gutterBottom>
-                  ACTIVITY TYPE
+            <Card className={classes.siderail} variant="outlined">
+              <Box mb={3}>
+                <Typography component="h2" variant="h6">
+                  Filter List By...
                 </Typography>
-                <Filter filterOptions={activeCategoryFilters} onChange={onChange} />
-              </Card>
-            )}
+              </Box>
+              <Typography variant="h5" style={{ fontSize: 14, color: '#92929d' }} gutterBottom>
+                ACTIVITY TYPE
+              </Typography>
+              <Filter filterOptions={activeCategoryFilters} onChange={onChange} />
+            </Card>
           </Grid>
           <Grid item xs={12} md={6}>
             <Box display="flex" alignItems="baseline" width={1} ref={headerRef}>
