@@ -114,19 +114,17 @@ export default function History(props) {
       <ScaffoldContainer>
         <Grid container spacing={3}>
           <Grid item xs={12} md={3}>
-            {!isEmpty() && (
-              <Box mt={20}>
-                <Paper className={classes.paper}>
-                  <Typography variant="h5" gutterBottom>
-                    Filter List By...
-                  </Typography>
-                  <Typography variant="subtitle2" gutterBottom>
-                    ACTIVITY TYPE
-                  </Typography>
-                  <Filter filterOptions={activeCategoryFilters} onChange={onChange} />
-                </Paper>
-              </Box>
-            )}
+            <Box mt={20}>
+              <Paper className={classes.paper}>
+                <Typography variant="h5" gutterBottom>
+                  Filter List By...
+                </Typography>
+                <Typography variant="subtitle2" gutterBottom>
+                  ACTIVITY TYPE
+                </Typography>
+                <Filter filterOptions={activeCategoryFilters} onChange={onChange} />
+              </Paper>
+            </Box>
           </Grid>
           <Grid item xs={12} md={6}>
             <Typography variant="h5" component="h5" className={classes.pageHeader}>

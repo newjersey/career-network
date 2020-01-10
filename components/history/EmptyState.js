@@ -29,12 +29,12 @@ const EmptyState = () => {
     <Card className={classes.card}>
       <CardContent>
         <div className={classes.header} align="center">
-          <Typography variant="h5">No Activities Added</Typography>
+          <Typography variant="h5">No Activities</Typography>
         </div>
         <div className={classes.description} align="center">
           <Typography variant="body2" component="p">
-            You have yet to add any of your activities. Once you log and complete your activities we
-            will track them here to visualize your progress over time.
+            You have yet to add any of your activities for the selected filters. Once you log and
+            complete your activities we will track them here to visualize your progress over time.
           </Typography>
         </div>
         <div className={classes.button} align="center">
