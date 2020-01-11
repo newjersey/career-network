@@ -116,6 +116,28 @@ terraform plan
 terraform apply
 ```
 
+**New method:** DNS is now managed through GCP.
+
+Get a service account key:
+
+1. https://console.cloud.google.com/iam-admin/serviceaccounts?project=nj-career-network
+2. Find "terraform" service account
+3. Create a new key for the "terraform" service account
+4. Move the downloaded key to terraform/credentials
+5. Update `google.tf` to reflect the filename of your key (if many people are managing this someday, maybe we instead just each export our key paths to `GOOGLE_CLOUD_KEYFILE_JSON`).
+
+Then the same as above:
+
+```sh
+cd terraform
+terraform init
+terraform plan
+terraform apply
+```
+
+You must manually configure the DC records (DNSSEC) created by GCP in your registrar:
+https://console.cloud.google.com/net-services/dns/zones/njcareers-org?project=nj-career-network
+
 ### Updating API snapshots
 
 In production, configuration data from Airtable is read
