@@ -19,11 +19,12 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.hint,
   },
   image: {
-    maxHeight: 140,
+    height: 140,
+    maxWidth: 280,
   },
-  images: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(3),
+  topImages: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
 }));
 
@@ -44,8 +45,8 @@ function About() {
           direction="row"
           justify="space-around"
           alignItems="center"
-          spacing={4}
-          className={classes.images}
+          spacing={6}
+          className={classes.topImages}
         >
           <Grid item>
             <Picture
@@ -79,12 +80,29 @@ function About() {
             </Typography>
           </Grid>
         </Grid>
+        <Grid container direction="row" justify="space-evenly" alignItems="center" spacing={1}>
+          <Grid item>
+            <Picture
+              path="lumina_horiz_cmyk.svg"
+              className={classes.image}
+              alt="The Lumina Foundation logo"
+            />
+          </Grid>
+          <Grid item>
+            <Picture
+              path="new-america-logo-black.svg"
+              className={classes.image}
+              alt="New America logo"
+            />
+          </Grid>
+        </Grid>
         <Typography className={classes.body1}>
           The New Jersey Career Network (NJCN) is a new online platform designed to help you
           navigate and succeed in the job search process. NJCN is being designed by the Heldrich
           Center for Workforce Development at Rutgers University and the New Jersey Office of
-          Innovation in partnership with the New Jersey Department of Labor and Workforce
-          Development.
+          Innovation, in partnership with the New Jersey Department of Labor and Workforce
+          Development, with support from The Lumina Foundation and the Digital Impact and Governance
+          Initiative at New America.
         </Typography>
         <Typography className={classes.body1}>
           Whether you are just starting out or have been searching for a while, this platform will
