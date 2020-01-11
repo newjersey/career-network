@@ -82,15 +82,15 @@ function About() {
         </Grid>
         <Grid container direction="row" justify="space-evenly" alignItems="center" spacing={1}>
           <Grid item>
-            <Picture
-              path="lumina_horiz_cmyk.svg"
+            <img
+              src="/static/img/lumina_horiz_cmyk.svg"
               className={classes.image}
               alt="The Lumina Foundation logo"
             />
           </Grid>
           <Grid item>
-            <Picture
-              path="new-america-logo-black.svg"
+            <img
+              src="/static/img/new-america-logo-black.svg"
               className={classes.image}
               alt="New America logo"
             />
