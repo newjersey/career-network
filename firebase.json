@@ -7,7 +7,7 @@
     "public": "out",
     "headers": [
       {
-        "source": "/api/*",
+        "source": "/static/api/**",
         "headers": [
           {
             "key": "Content-Type",
