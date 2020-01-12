@@ -3,7 +3,7 @@ resource "cloudflare_record" "A_careers_1" {
   name    = "careers"
   type    = "A"
   ttl     = "1"
-  proxied = "false"
+  proxied = "true"
   value   = "151.101.1.195"
 }
 
@@ -12,7 +12,7 @@ resource "cloudflare_record" "A_careers_2" {
   name    = "careers"
   type    = "A"
   ttl     = "1"
-  proxied = "false"
+  proxied = "true"
   value   = "151.101.65.195"
 }
 resource "cloudflare_record" "A_business_1" {
