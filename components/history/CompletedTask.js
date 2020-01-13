@@ -51,7 +51,7 @@ function CompleteTask(props) {
   const category = categoryName && AirtablePropTypes.findTaskCategory(categoryName);
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} variant="outlined">
       <CardContent>
         <div className={classes.header}>
           {category && (
