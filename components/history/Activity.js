@@ -20,12 +20,18 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
+  fullDivider: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    margin: theme.spacing(-4),
+  },
   group: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
   label: {
-    fontWeight: theme.typography.fontWeightMedium,
+    fontSize: 13,
+    color: 'textSecondary',
   },
   chip: {
     marginRight: theme.spacing(1),
@@ -59,46 +65,61 @@ function Activity(props) {
     <Card className={classes.card}>
       <CardContent>
         <div className={classes.header}>
-          <Typography variant="body1" noWrap style={{ maxWidth: '75%', fontWeight: 500 }}>
+          <Typography variant="body2" noWrap style={{ maxWidth: '75%' }}>
             {activityTypeLabel}
           </Typography>
         </div>
 
-        <Typography variant="h6" component="h2" className={classes.group}>
+        <Typography component="h1" variant="h5" display="block" className={classes.group}>
           {briefDescription}
         </Typography>
-        <Typography variant="body2" component="p" className={classes.description}>
+        <Typography
+          variant="body2"
+          component="p"
+          color="textSecondary"
+          className={classes.description}
+        >
           {description}
         </Typography>
+        <Divider className={classes.divider} />
         <Grid container className={classes.group}>
           <Grid item xs={4}>
             <Typography variant="body2" className={classes.label}>
-              Completed On
+              Date Completed
             </Typography>
-            <DateCompleted variant="body1">{dateCompleted}</DateCompleted>
+            <DateCompleted variant="body1" style={{ fontWeight: 500 }}>
+              {dateCompleted}
+            </DateCompleted>
           </Grid>
           <Grid item xs={4}>
             <Typography variant="body2" className={classes.label}>
-              Difficulty
+              Difficulty Level
             </Typography>
-            <Typography variant="body1">{difficultyLevel}</Typography>
+            <Typography variant="body1" style={{ fontWeight: 500 }}>
+              {difficultyLevel}
+            </Typography>
           </Grid>
           <Grid item xs={4}>
             <Typography variant="body2" className={classes.label}>
               Time Spent
             </Typography>
-            <Typography variant="body1" component="span" display="block">
+            <Typography
+              variant="body1"
+              component="span"
+              display="block"
+              style={{ fontWeight: 500 }}
+            >
               {timeSpentInMinutes} Minutes
             </Typography>
           </Grid>
         </Grid>
         {(!!activityFeeling.length || !!whyIFeelThisWay.length) && (
-          <Divider className={classes.divider} />
+          <Divider className={classes.fullDivider} />
         )}
         {!!activityFeeling.length && (
           <div className={classes.group}>
             <Typography variant="body2" className={classes.label} gutterBottom>
-              I felt...
+              I Felt...
             </Typography>
             <Grid>
               {activityFeeling.map(feeling => (
@@ -110,9 +131,9 @@ function Activity(props) {
         {!!whyIFeelThisWay.length && (
           <div className={classes.group}>
             <Typography variant="body2" className={classes.label} gutterBottom>
-              I felt like this because...
+              I Felt Like This Because...
             </Typography>
-            <Typography variant="body2" component="p">
+            <Typography variant="body2" component="p" color="#2c2f41">
               {whyIFeelThisWay}
             </Typography>
           </div>

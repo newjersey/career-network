@@ -28,9 +28,9 @@ function getCountsByCategory(activityLogEntries) {
     );
 }
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
   totalTableRow: {
-    backgroundColor: '#f7f8fa',
+    backgroundColor: theme.palette.background.info,
     borderBottom: 'none',
   },
 }));
