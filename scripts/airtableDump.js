@@ -7,14 +7,15 @@ const { liveAirtableApiBase } = require('../next.config');
 const { fetchRecords, tableNames } = require('../src/airtable');
 
 const { log } = console;
-const outDir = './public/static/api/';
+const apiBaseUrl = `http://localhost:5000${liveAirtableApiBase}`;
+const outDir = './static/api/';
 
 async function saveRecords(apiPath) {
   const filename = `${apiPath.split('?')[0]}`;
   const outPath = `${outDir}${filename}`;
 
   try {
-    const records = await fetchRecords(liveAirtableApiBase, apiPath);
+    const records = await fetchRecords(apiBaseUrl, apiPath);
     const json = JSON.stringify({ records });
 
     fs.writeFile(outPath, json, err => {
@@ -33,6 +34,6 @@ fs.writeFile(`${outDir}.timestamp`, new Date(), err => {
   if (err) throw err;
 });
 
-log(`Downloading Airtable records from ${chalk.blue(liveAirtableApiBase)}\n`);
+log(`Downloading Airtable records from ${chalk.blue(apiBaseUrl)}\n`);
 
 tableNames.forEach(tableName => saveRecords(tableName));

@@ -13,7 +13,6 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import AirtablePropTypes from '../../../Airtable/PropTypes';
 
-// eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles(theme => ({
   formControl: {
     marginTop: theme.spacing(1),

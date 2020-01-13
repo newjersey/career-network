@@ -38,7 +38,7 @@ resource "cloudflare_record" "A_careers-preview_1" {
   name    = "careers-preview"
   type    = "A"
   ttl     = "1"
-  proxied = "true"
+  proxied = "false"
   value   = "151.101.1.195"
 }
 
@@ -47,7 +47,25 @@ resource "cloudflare_record" "A_careers-preview_2" {
   name    = "careers-preview"
   type    = "A"
   ttl     = "1"
-  proxied = "true"
+  proxied = "false"
+  value   = "151.101.65.195"
+}
+
+resource "cloudflare_record" "A_resources_1" {
+  domain  = "${var.cloudflare_zone}"
+  name    = "resources"
+  type    = "A"
+  ttl     = "1"
+  proxied = "false"
+  value   = "151.101.1.195"
+}
+
+resource "cloudflare_record" "A_resources_2" {
+  domain  = "${var.cloudflare_zone}"
+  name    = "resources"
+  type    = "A"
+  ttl     = "1"
+  proxied = "false"
   value   = "151.101.65.195"
 }
 
@@ -245,17 +263,8 @@ resource "cloudflare_record" "CNAME_www" {
   name    = "www"
   type    = "CNAME"
   ttl     = "1"
-  proxied = "true"
+  proxied = "false"
   value   = "${var.cloudflare_zone}"
-}
-
-resource "cloudflare_record" "CNAME_resources" {
-  domain  = "${var.cloudflare_zone}"
-  name    = "resources"
-  type    = "CNAME"
-  ttl     = "1"
-  proxied = "true"
-  value   = "custom.intercom.help"
 }
 
 resource "cloudflare_record" "MX_alt1" {

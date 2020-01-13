@@ -44,7 +44,7 @@
   "scripts": {
     "analyze": "ANALYZE=true next build",
     "browserslist": "browserslist",
-    "dev": "next",
+    "dev": "next & firebase serve",
     "env": "node scripts/env",
     "env:dev1": "npm run env -- dev1",
     "env:dev2": "npm run env -- dev2",

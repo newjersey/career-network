@@ -18,7 +18,9 @@ npm run env:dev1
 npm run dev
 ```
 
-Enter your test identity verification secret into `functions/.runtimeconfig.json`
+Enter your personal secret Airtable API key into `functions/.runtimeconfig.json` (from https://airtable.com/account)
+
+Enter your Intercom test identity verification secret into `functions/.runtimeconfig.json`
 
 See for identity verification secret info: https://www.intercom.com/help/en/articles/183-enable-identity-verification-for-web-and-mobile
 
@@ -74,6 +76,16 @@ Set production Intercom identity verification secret (or test secret if not depl
 npx firebase functions:config:set intercom.identity_verification_secret="IDENTITY VERIFICATION SECRET"
 ```
 
+Set Airtable API key (generally only needed in dev, since `npm run airtable:dump` should be used to pull data from Airtable and commit to `public/static/api/` for production deployments).
+This is generally only needed if you want to test new Airtable content locally or dump
+Airtable content to the persisted data files using the aforementioned command.
+
+```sh
+npx firebase functions:config:set airtable.api_key="AIRTABLE API KEY"
+```
+
+Set
+
 See for identity verification secret info: https://www.intercom.com/help/en/articles/183-enable-identity-verification-for-web-and-mobile
 
 (Optional) Preview the exported static site locally:
@@ -104,6 +116,28 @@ terraform plan
 terraform apply
 ```
 
+**New method:** DNS is now managed through GCP.
+
+Get a service account key:
+
+1. https://console.cloud.google.com/iam-admin/serviceaccounts?project=nj-career-network
+2. Find "terraform" service account
+3. Create a new key for the "terraform" service account
+4. Move the downloaded key to terraform/credentials
+5. Update `google.tf` to reflect the filename of your key (if many people are managing this someday, maybe we instead just each export our key paths to `GOOGLE_CLOUD_KEYFILE_JSON`).
+
+Then the same as above:
+
+```sh
+cd terraform
+terraform init
+terraform plan
+terraform apply
+```
+
+You must manually configure the DC records (DNSSEC) created by GCP in your registrar:
+https://console.cloud.google.com/net-services/dns/zones/njcareers-org?project=nj-career-network
+
 ### Updating API snapshots
 
 In production, configuration data from Airtable is read
@@ -112,6 +146,12 @@ directly from the Airtable API (for stability reasons
 and better versioning of the content).
 
 To update these local JSON files, run:
+
+```sh
+npm run dev
+```
+
+Then, in a separate shell:
 
 ```sh
 npm run airtable:dump

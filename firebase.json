@@ -7,7 +7,7 @@
     "public": "out",
     "headers": [
       {
-        "source": "/api/*",
+        "source": "/static/api/**",
         "headers": [
           {
             "key": "Content-Type",
@@ -25,8 +25,18 @@
           {
             "key": "Expect-CT",
             "value": "report-uri=\"https://sentry.io/api/1733812/security/?sentry_key=3deb0f7b679840f28bb7931c8c33b206\""
+          },
+          {
+            "key": "Strict-Transport-Security",
+            "value": "max-age=63072000; includeSubDomains; preload"
           }
         ]
+      }
+    ],
+    "rewrites": [
+      {
+        "source": "/api/airtable/**",
+        "function": "airtableProxy"
       }
     ]
   },
