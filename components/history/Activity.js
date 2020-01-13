@@ -20,6 +20,11 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
+  fullDivider: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    margin: theme.spacing(-4),
+  },
   group: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
@@ -109,7 +114,7 @@ function Activity(props) {
           </Grid>
         </Grid>
         {(!!activityFeeling.length || !!whyIFeelThisWay.length) && (
-          <Divider className={classes.divider} />
+          <Divider className={classes.fullDivider} />
         )}
         {!!activityFeeling.length && (
           <div className={classes.group}>
