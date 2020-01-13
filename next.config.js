@@ -130,7 +130,7 @@ const appEnvironments = {
     },
     firebase: {
       apiKey: 'AIzaSyDx21FkVqjXshORafAbzPvv2kACmXhATok',
-      authDomain: 'auth.careers-preview.gardenstate.tech',
+      authDomain: 'preview.njcareers.org',
       databaseURL: 'https://nj-career-network-ppe.firebaseio.com',
       projectId: 'nj-career-network-ppe',
       storageBucket: '',
@@ -153,7 +153,7 @@ const appEnvironments = {
     },
     firebase: {
       apiKey: 'AIzaSyBW2hLAzSgdv72lKicKcW_j1c86enCi8uU',
-      authDomain: 'auth.careers.gardenstate.tech',
+      authDomain: 'njcareers.org',
       databaseURL: 'https://nj-career-network.firebaseio.com',
       projectId: 'nj-career-network',
       storageBucket: 'nj-career-network.appspot.com',
