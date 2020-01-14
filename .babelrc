@@ -5,7 +5,7 @@
       {
         "preset-env": {
           "debug": false,
-          "useBuiltIns": "usage",
+          "useBuiltIns": "entry",
           "corejs": 3
         }
       }
