@@ -1,18 +1,17 @@
-import React, { useEffect, useState, useLayoutEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
-import Hidden from '@material-ui/core/Hidden';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
-import Grid from '@material-ui/core/Grid';
+import CardHeader from '@material-ui/core/CardHeader';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { isDone, mostRecent } from '../../src/app-helper';
 import { useAuth } from '../Auth';
+import ActivityCategoryTable from './ActivityCategoryTable';
 import ActivityInputDialog from './ActivityInputDialog';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import FirebasePropTypes from '../Firebase/PropTypes';
@@ -21,10 +20,11 @@ import ScaffoldContainer from '../ScaffoldContainer';
 import SentimentTracker from './SentimentTracker';
 import TaskList from './TaskList';
 import TimeDistanceParser from '../../src/time-distance-parser';
-import ActivityCategoryTable from './ActivityCategoryTable';
 import UpcomingInterviewDialog from './UpcomingInterviewDialog/UpcomingInterviewDialog';
 
 const TASK_COUNT_LIMIT = 3;
+const ROW_GAP = 2;
+const COL_GAP = 2;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -32,10 +32,51 @@ const useStyles = makeStyles(theme => ({
   },
   subtitle: {
     display: 'inline-block',
-    marginTop: theme.spacing(3),
   },
-  siderail: {
-    marginTop: theme.spacing(2),
+  grid: {
+    display: 'grid',
+    marginTop: theme.spacing(4),
+    gridGap: theme.spacing(ROW_GAP, COL_GAP),
+    gridTemplateAreas: `
+      'H'
+      'C'
+      'L'
+      'R'
+    `,
+
+    [theme.breakpoints.up('md')]: {
+      gridTemplateColumns: '1fr 2fr 1fr',
+      gridTemplateAreas: `
+        '. H .'
+        'L C R'
+      `,
+    },
+
+    /* All Following CSS exists to support IE 11. Keep in sync with the grid CSS above.
+     * Helpful tool: https://autoprefixer.github.io/
+     */
+    '-ms-grid-rows': `
+      auto
+      ${theme.spacing(ROW_GAP)}px
+      auto
+      ${theme.spacing(ROW_GAP)}px
+      auto
+      ${theme.spacing(ROW_GAP)}px
+      auto`,
+  },
+  gridH: { '-ms-grid-row': 1, '-ms-grid-column': 1, 'grid-area': 'H' },
+  gridC: { '-ms-grid-row': 3, '-ms-grid-column': 1, 'grid-area': 'C' },
+  gridL: { '-ms-grid-row': 5, '-ms-grid-column': 1, 'grid-area': 'L' },
+  gridR: { '-ms-grid-row': 7, '-ms-grid-column': 1, 'grid-area': 'R' },
+  [theme.breakpoints.up('md')]: {
+    grid: {
+      '-ms-grid-columns': `1fr ${theme.spacing(COL_GAP)}px 2fr ${theme.spacing(COL_GAP)}px 1fr`,
+      '-ms-grid-rows': `auto ${theme.spacing(ROW_GAP)}px auto`,
+    },
+    gridH: { '-ms-grid-row': 1, '-ms-grid-column': 3 },
+    gridC: { '-ms-grid-row': 3, '-ms-grid-column': 3 },
+    gridL: { '-ms-grid-row': 3, '-ms-grid-column': 1 },
+    gridR: { '-ms-grid-row': 3, '-ms-grid-column': 5 },
   },
 }));
 
@@ -206,7 +247,6 @@ const DIALOGS = {
 export default function Dashboard(props) {
   const classes = useStyles();
   const { user } = useAuth();
-  const headerRef = useRef(null);
   const {
     allConditions,
     allPredicates,
@@ -225,15 +265,10 @@ export default function Dashboard(props) {
   const tasks = getTasks(props, TASK_COUNT_LIMIT);
   const doneTaskCount = allTaskDispositionEvents.length;
   const [activeDialog, setActiveDialog] = useState();
-  const [headerHeight, setHeaderHeight] = useState();
 
   useEffect(() => {
     window.Intercom('update', { 'tasks-completed': doneTaskCount });
   }, [doneTaskCount]);
-
-  useLayoutEffect(() => {
-    setHeaderHeight(headerRef.current.getBoundingClientRect().height);
-  }, []);
 
   return (
     <div className={classes.root}>
@@ -253,12 +288,38 @@ export default function Dashboard(props) {
           Here’s your personalized action plan. It will update as you make progress.
         </Typography>
         <SentimentTracker />
-        <Grid container spacing={3}>
-          <Grid item xs={12} md>
-            <Hidden only="xs">
-              <Box width={1} height={headerHeight} />
-            </Hidden>
-            <Card className={classes.siderail} variant="outlined">
+
+        <Box className={classes.grid}>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+            className={classes.gridH}
+          >
+            <Typography variant="h5" className={classes.subtitle} data-intercom="task-count">
+              Top {tasks.length} Goals
+            </Typography>
+            <Button
+              variant="contained"
+              size="large"
+              color="primary"
+              onClick={() => setActiveDialog(DIALOGS.ACTIVITY_INPUT)}
+              data-intercom="log-activity-button"
+            >
+              Log Activity
+            </Button>
+          </Box>
+          <Box className={classes.gridC}>
+            <TaskList
+              tasks={tasks}
+              allActions={allActions}
+              allActionDispositionEvents={allActionDispositionEvents}
+              allTaskDispositionEvents={allTaskDispositionEvents}
+              {...restProps}
+            />
+          </Box>
+          <Box className={classes.gridL}>
+            <Card variant="outlined">
               <CardHeader
                 title="Confidence Level"
                 titleTypographyProps={{ component: 'h2', variant: 'h6' }}
@@ -270,41 +331,9 @@ export default function Dashboard(props) {
                 label="Feeling Confident"
               />
             </Card>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Box
-              display="flex"
-              alignItems="baseline"
-              justifyContent="space-between"
-              width={1}
-              ref={headerRef}
-            >
-              <Typography variant="h5" className={classes.subtitle} data-intercom="task-count">
-                Top {tasks.length} Goals
-              </Typography>
-              <Button
-                variant="contained"
-                size="large"
-                color="primary"
-                onClick={() => setActiveDialog(DIALOGS.ACTIVITY_INPUT)}
-                data-intercom="log-activity-button"
-              >
-                Log Activity
-              </Button>
-            </Box>
-            <TaskList
-              tasks={tasks}
-              allActions={allActions}
-              allActionDispositionEvents={allActionDispositionEvents}
-              allTaskDispositionEvents={allTaskDispositionEvents}
-              {...restProps}
-            />
-          </Grid>
-          <Grid item xs={12} md>
-            <Hidden only="xs">
-              <Box width={1} height={headerHeight} />
-            </Hidden>
-            <Card className={classes.siderail} variant="outlined">
+          </Box>
+          <Box className={classes.gridR}>
+            <Card variant="outlined">
               <CardHeader
                 title={
                   <Typography component="h2" variant="h6" data-intercom="activity-title">
@@ -319,7 +348,7 @@ export default function Dashboard(props) {
                 limit={historyLimit}
               />
             </Card>
-            <Box my={3} data-intercom="log-interview">
+            <Box mt={3} data-intercom="log-interview">
               <Card variant="outlined">
                 <CardContent>
                   <Typography variant="h6" gutterBottom>
@@ -341,8 +370,8 @@ export default function Dashboard(props) {
                 </CardActions>
               </Card>
             </Box>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
       </ScaffoldContainer>
     </div>
   );
