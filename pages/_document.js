@@ -56,16 +56,21 @@ class MyDocument extends Document {
 
           <style>
             {`
+              html, body, #__next {
+                height: 100%;
+              }
               #__next {
                 display: flex;
                 flex-direction: column;
-                min-height: 100vh;
               }
               header, footer {
                 flex-shrink: 0;
               }
               main {
-                flex-grow: 1;
+                flex: 1 0 auto;
+              }
+              legend {
+                width: 100%;
               }
             `}
           </style>

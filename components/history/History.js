@@ -1,12 +1,13 @@
-import React, { useState, useLayoutEffect, useRef } from 'react';
-import { format, compareDesc, isSameMonth, isSameYear } from 'date-fns';
+import { format, compareDesc, getMonth, getYear } from 'date-fns';
 import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 import CalendarIcon from '@material-ui/icons/CalendarTodayRounded';
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
+import React, { useState, useLayoutEffect, useRef } from 'react';
 import Typography from '@material-ui/core/Typography';
+import uniqBy from 'lodash/fp/uniqBy';
 
 import { ACTIVITY_TYPES } from '../dashboard/ActivityInputDialog';
 import Activity from './Activity';
@@ -45,15 +46,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function History(props) {
-  const isInMonthYear = (date, monthYear) =>
-    isSameMonth(date, monthYear) && isSameYear(date, monthYear);
+  const isInPeriod = (date, { month, year }) => {
+    return getMonth(date) === month && getYear(date) === year;
+  };
   const classes = useStyles();
   const { activities, completedTasks } = props;
   const headerRef = useRef(null);
   const sectionHeaderRef = useRef(null);
   const [headerHeight, setHeaderHeight] = useState();
-  let activityMonths = [];
-  let cards = [];
 
   useLayoutEffect(() => {
     setHeaderHeight(
@@ -78,7 +78,6 @@ export default function History(props) {
       ...activity,
       categoryName: getActivityCategoryName(activityTypeValue),
       dateCompleted,
-      dateCmp: dateCompleted.toDate(),
       component: Activity,
       id: a.id,
     };
@@ -92,22 +91,26 @@ export default function History(props) {
       title: task.fields.Task,
       why: task.fields.Why,
       dateCompleted: timestamp,
-      dateCmp: timestamp.toDate(),
       timestamp,
       component: CompletedTask,
       id: taskEvent.id,
     };
   });
 
-  cards = [...activitiesTemp, ...tasksTemp].sort((a, b) =>
+  const cards = [...activitiesTemp, ...tasksTemp].sort((a, b) =>
     compareDesc(new Date(a.dateCmp), new Date(b.dateCmp))
   );
-  activityMonths = cards
-    .map(c => c.dateCmp)
-    .reduce((datesArr, current) => {
-      const date = format(current, 'MMMM y');
-      return !datesArr.includes(date) ? [...datesArr, date] : datesArr;
-    }, []);
+
+  const activityPeriods = uniqBy('formatted')(
+    cards.map(card => {
+      const date = card.dateCompleted.toDate();
+      return {
+        month: getMonth(date),
+        year: getYear(date),
+        formatted: format(date, 'MMMM y'),
+      };
+    })
+  );
 
   const onChange = name => event => {
     setActiveCategoryFilters({ ...activeCategoryFilters, [name]: event.target.checked });
@@ -155,11 +158,11 @@ export default function History(props) {
               </div>
             )}
             {!isEmpty() &&
-              activityMonths.map(dateString => (
-                <div key={dateString}>
+              activityPeriods.map(period => (
+                <div key={period.formatted}>
                   {cards.filter(
                     card =>
-                      isInMonthYear(card.dateCmp, new Date(dateString)) &&
+                      isInPeriod(card.dateCompleted.toDate(), period) &&
                       activeCategoryFilters[card.categoryName] === true
                   ).length > 0 && (
                     <Box display="flex" alignItems="baseline" width={1} ref={sectionHeaderRef}>
@@ -170,14 +173,14 @@ export default function History(props) {
                           display="inline"
                           style={{ textTransform: 'uppercase' }}
                         >
-                          {dateString}
+                          {period.formatted}
                         </Typography>
                       </div>
                     </Box>
                   )}
                   <Grid container direction="row" justify="center" alignItems="flex-start">
                     {cards
-                      .filter(card => isInMonthYear(card.dateCmp, new Date(dateString)))
+                      .filter(card => isInPeriod(card.dateCompleted.toDate(), period))
                       .filter(card => activeCategoryFilters[card.categoryName] === true)
                       .map(card => (
                         <Grid key={card.id} item xs={12} className={classes.listItem}>

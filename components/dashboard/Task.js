@@ -18,7 +18,6 @@ import FirebasePropTypes from '../Firebase/PropTypes';
 const HIGHLIGHT_COLOR = '#f9ad57';
 const useStyles = makeStyles(theme => ({
   card: {
-    marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
     padding: theme.spacing(3, 3, 2),
     position: 'relative',

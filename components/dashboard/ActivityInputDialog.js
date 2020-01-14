@@ -374,7 +374,7 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
               <InputLabel error={!!(formErrors && formErrors.difficultyLevel)} shrink>
                 Difficulty Level
               </InputLabel>
-              <Grid item xs={12} md={6} className={classes.toggleButton}>
+              <Grid item xs={12} className={classes.toggleButton}>
                 <ToggleButton
                   className={classes.toggleButton}
                   options={DIFFICULTY_LEVELS}
