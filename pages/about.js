@@ -19,10 +19,13 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.hint,
   },
   image: {
-    height: 140,
+    maxHeight: 140,
     maxWidth: 280,
   },
-  topImages: {
+  svgImage: {
+    width: 280,
+  },
+  images: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
@@ -45,8 +48,8 @@ function About() {
           direction="row"
           justify="space-around"
           alignItems="center"
-          spacing={6}
-          className={classes.topImages}
+          spacing={8}
+          className={classes.images}
         >
           <Grid item>
             <Picture
@@ -80,18 +83,25 @@ function About() {
             </Typography>
           </Grid>
         </Grid>
-        <Grid container direction="row" justify="space-evenly" alignItems="center" spacing={1}>
+        <Grid
+          container
+          direction="row"
+          justify="space-around"
+          alignItems="center"
+          spacing={8}
+          className={classes.images}
+        >
           <Grid item>
             <img
               src="/static/img/lumina_horiz_cmyk.svg"
-              className={classes.image}
+              className={classes.svgIimage}
               alt="The Lumina Foundation logo"
             />
           </Grid>
           <Grid item>
             <img
               src="/static/img/new-america-logo-black.svg"
-              className={classes.image}
+              className={classes.svgImage}
               alt="New America logo"
             />
           </Grid>

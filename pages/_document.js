@@ -67,6 +67,9 @@ class MyDocument extends Document {
               main {
                 flex-grow: 1;
               }
+              legend {
+                width: 100%;
+              }
             `}
           </style>
           <script
