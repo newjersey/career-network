@@ -197,4 +197,19 @@ module.exports = withBundleAnalyzer({
   env,
   exportTrailingSlash: true,
   liveAirtableApiBase,
+  webpack(config) {
+    return {
+      ...config,
+      entry() {
+        return config.entry().then(entry => {
+          return {
+            ...entry,
+            // https://babeljs.io/docs/en/babel-plugin-syntax-dynamic-import#working-with-webpack-and-babel-preset-env
+            'es.promise': 'core-js/modules/es.promise',
+            'es.array.iterator': 'core-js/modules/es.array.iterator',
+          };
+        });
+      },
+    };
+  },
 });

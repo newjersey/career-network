@@ -70,7 +70,8 @@ export default function AppManager(props) {
     };
   }, [userId, userIsAssessmentComplete, userIsCoach]);
 
-  const userCreationTimestampSeconds = user && user.creationTimestamp.seconds;
+  const userCreationTimestampSeconds =
+    user && user.creationTimestamp && user.creationTimestamp.seconds;
   const intercomUserHash = user && user.intercomUserHash;
   const userDisplayName = user && user.displayName;
   const userEmail = user && user.email;
