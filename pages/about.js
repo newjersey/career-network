@@ -52,9 +52,8 @@ function About() {
           className={classes.images}
         >
           <Grid item>
-            <Picture
-              path="nj-lwd.webp"
-              fallbackType="png"
+            <img
+              src="/static/img/NJDOL_logo_web_560x560.png"
               className={classes.image}
               alt="New Jersey Department of Labor and Workforce Development Logo"
               style={{ borderRadius: '50%' }}
