@@ -56,7 +56,6 @@ function About() {
               src="/static/img/NJDOL_logo_web_560x560.png"
               className={classes.image}
               alt="New Jersey Department of Labor and Workforce Development Logo"
-              style={{ borderRadius: '50%' }}
             />
             <Typography variant="caption" component="p" align="center">
               NJ Department of Labor
@@ -72,7 +71,7 @@ function About() {
           </Grid>
           <Grid item>
             <Picture
-              path="nj-seal.webp"
+              path="nj-seal-480x480.webp"
               fallbackType="png"
               className={classes.image}
               alt="New Jersey State Seal"
