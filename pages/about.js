@@ -94,15 +94,17 @@ function About() {
           <Grid item>
             <img
               src="/static/img/lumina_horiz_cmyk.svg"
-              className={classes.svgIimage}
               alt="The Lumina Foundation logo"
+              width={280}
+              heigh={86}
             />
           </Grid>
           <Grid item>
             <img
               src="/static/img/new-america-logo-black.svg"
-              className={classes.svgImage}
               alt="New America logo"
+              width={280}
+              height={69}
             />
           </Grid>
         </Grid>
