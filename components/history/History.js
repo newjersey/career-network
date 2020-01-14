@@ -1,9 +1,11 @@
-import React from 'react';
+import { format, compareDesc, getMonth, getYear } from 'date-fns';
 import { makeStyles } from '@material-ui/styles';
-import { format, compareDesc, isSameMonth, isSameYear } from 'date-fns';
-import Typography from '@material-ui/core/Typography';
 import CalendarIcon from '@material-ui/icons/CalendarTodayRounded';
 import Grid from '@material-ui/core/Grid';
+import React from 'react';
+import Typography from '@material-ui/core/Typography';
+import uniqBy from 'lodash/fp/uniqBy';
+
 import Activity from './Activity';
 import CompletedTask from './CompletedTask';
 import HistoryPropTypes from './PropTypes';
@@ -34,19 +36,17 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function History(props) {
-  const isInMonthYear = (date, monthYear) =>
-    isSameMonth(date, monthYear) && isSameYear(date, monthYear);
+  const isInPeriod = (date, { month, year }) => {
+    return getMonth(date) === month && getYear(date) === year;
+  };
   const classes = useStyles();
   const { activities, completedTasks } = props;
-  let activityMonths = [];
-  let cards = [];
 
   const activitiesTemp = activities.map(a => {
     const { dateCompleted, ...activity } = a.data();
     return {
       ...activity,
       dateCompleted,
-      dateCmp: dateCompleted.toDate(),
       component: Activity,
       id: a.id,
     };
@@ -60,22 +60,26 @@ export default function History(props) {
       title: task.fields.Task,
       why: task.fields.Why,
       dateCompleted: timestamp,
-      dateCmp: timestamp.toDate(),
       timestamp,
       component: CompletedTask,
       id: taskEvent.id,
     };
   });
 
-  cards = [...activitiesTemp, ...tasksTemp].sort((a, b) =>
+  const cards = [...activitiesTemp, ...tasksTemp].sort((a, b) =>
     compareDesc(new Date(a.dateCmp), new Date(b.dateCmp))
   );
-  activityMonths = cards
-    .map(c => c.dateCmp)
-    .reduce((datesArr, current) => {
-      const date = format(current, 'MMMM y');
-      return !datesArr.includes(date) ? [...datesArr, date] : datesArr;
-    }, []);
+
+  const activityPeriods = uniqBy('formatted')(
+    cards.map(card => {
+      const date = card.dateCompleted.toDate();
+      return {
+        month: getMonth(date),
+        year: getYear(date),
+        formatted: format(date, 'MMMM y'),
+      };
+    })
+  );
 
   return (
     <div className={classes.root}>
@@ -83,8 +87,8 @@ export default function History(props) {
         <Typography variant="h5" component="h5" className={classes.pageHeader}>
           All Progress
         </Typography>
-        {activityMonths.map(dateString => (
-          <div key={dateString}>
+        {activityPeriods.map(period => (
+          <div key={period.formatted}>
             <div className={classes.sectionHeader}>
               <CalendarIcon className={classes.calendarIcon} fontSize="small" />
               <Typography
@@ -92,12 +96,12 @@ export default function History(props) {
                 display="inline"
                 style={{ textTransform: 'uppercase' }}
               >
-                {dateString}
+                {period.formatted}
               </Typography>
             </div>
             <Grid container direction="row" justify="center" alignItems="flex-start">
               {cards
-                .filter(card => isInMonthYear(card.dateCmp, new Date(dateString)))
+                .filter(card => isInPeriod(card.dateCompleted.toDate(), period))
                 .map(card => (
                   <Grid key={card.id} item xs={12} className={classes.listItem}>
                     {/* eslint-disable-next-line react/jsx-props-no-spreading */}
