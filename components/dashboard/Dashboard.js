@@ -14,6 +14,7 @@ import { useAuth } from '../Auth';
 import ActivityCategoryTable from './ActivityCategoryTable';
 import ActivityInputDialog from './ActivityInputDialog';
 import AirtablePropTypes from '../Airtable/PropTypes';
+import BackgroundHeader from '../BackgroundHeader';
 import FirebasePropTypes from '../Firebase/PropTypes';
 import ProgressFeed from './ProgressFeed';
 import ScaffoldContainer from '../ScaffoldContainer';
@@ -28,7 +29,7 @@ const COL_GAP = 2;
 
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: theme.spacing(5, 0),
+    position: 'relative',
   },
   subtitle: {
     display: 'inline-block',
@@ -280,15 +281,19 @@ export default function Dashboard(props) {
         show={activeDialog === DIALOGS.UPCOMING_INTERVIEW}
         onClose={() => setActiveDialog()}
       />
-      <ScaffoldContainer>
-        <Typography component="h1" variant="h2" gutterBottom>
-          Welcome Back, {user && user.firstName}
-        </Typography>
-        <Typography variant="subtitle1" gutterBottom>
-          Here’s your personalized action plan. It will update as you make progress.
-        </Typography>
-        <SentimentTracker />
+      <BackgroundHeader>
+        <ScaffoldContainer>
+          <Typography component="h1" variant="h2" gutterBottom>
+            Welcome, {user && user.firstName}
+          </Typography>
+          <Typography variant="subtitle1" gutterBottom>
+            Here’s your personalized action plan. It will update as you make progress.
+          </Typography>
+        </ScaffoldContainer>
+      </BackgroundHeader>
 
+      <ScaffoldContainer marginTopValue="-40px">
+        <SentimentTracker />
         <Box className={classes.grid}>
           <Box
             display="flex"

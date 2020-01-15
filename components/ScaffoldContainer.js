@@ -16,11 +16,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function ScaffoldContainer(props) {
-  const { children, padding } = props;
+  const { children, padding, marginTopValue } = props;
   const classes = useStyles();
 
+  const marginTop = {
+    marginTop: marginTopValue,
+  };
+
   return (
-    <Grid container justify="center" alignItems="center">
+    <Grid container justify="center" alignItems="center" style={marginTop}>
       <Grid item xs={12} lg={10} className={clsx(padding && classes.padding)}>
         {children}
       </Grid>
@@ -31,10 +35,12 @@ function ScaffoldContainer(props) {
 ScaffoldContainer.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]).isRequired,
   padding: PropTypes.bool,
+  marginTopValue: PropTypes.string,
 };
 
 ScaffoldContainer.defaultProps = {
   padding: true,
+  marginTopValue: '0px',
 };
 
 export default ScaffoldContainer;
