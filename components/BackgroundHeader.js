@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
     right: 0,
     backgroundColor: theme.palette.background.header,
     paddingTop: '50px',
-    paddingBottom: '50px',
+    paddingBottom: '40px',
   },
 }));
 

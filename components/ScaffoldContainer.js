@@ -35,12 +35,12 @@ function ScaffoldContainer(props) {
 ScaffoldContainer.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]).isRequired,
   padding: PropTypes.bool,
-  marginTopValue: PropTypes.string,
+  marginTopValue: PropTypes.number,
 };
 
 ScaffoldContainer.defaultProps = {
   padding: true,
-  marginTopValue: '0px',
+  marginTopValue: 0,
 };
 
 export default ScaffoldContainer;
