@@ -111,7 +111,7 @@ function ExplorePage() {
                 <h2>Education Requirement</h2>
                 <RefinementList attribute="Education" />
                 <Configure hitsPerPage={16} />
-                <h2>Prospects</h2>
+                <h2>Favorability</h2>
                 <RatingMenu attribute="DescriptorRating" min={1} max={4} />
                 <h2>Average Pay</h2>
                 <NumericMenu
