@@ -83,6 +83,9 @@ const appEnvironments = {
     intercom: {
       appId: 'yuwothfx',
     },
+    sentry: {
+      dsn: sentryDsn,
+    },
   },
   dev4: {
     name: 'DEV4',

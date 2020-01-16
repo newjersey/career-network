@@ -34,6 +34,9 @@ const useStyles = makeStyles(theme => ({
   subtitle: {
     display: 'inline-block',
   },
+  container: {
+    marginTop: theme.spacing(-5),
+  },
   grid: {
     display: 'grid',
     marginTop: theme.spacing(4),
@@ -292,7 +295,7 @@ export default function Dashboard(props) {
         </ScaffoldContainer>
       </BackgroundHeader>
 
-      <ScaffoldContainer marginTopValue={-40}>
+      <ScaffoldContainer className={classes.container}>
         <Box minHeight={60}>
           <SentimentTracker />
         </Box>

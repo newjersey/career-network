@@ -4,22 +4,22 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 const useStyles = makeStyles(theme => ({
-  header: {
+  default: {
     top: 0,
     left: 0,
     right: 0,
     backgroundColor: theme.palette.background.header,
-    paddingTop: '50px',
-    paddingBottom: '40px',
+    paddingTop: theme.spacing(7),
+    paddingBottom: theme.spacing(5),
   },
 }));
 
 function BackgroundHeader(props) {
-  const { children } = props;
+  const { children, className } = props;
   const classes = useStyles();
 
   return (
-    <Box className={classes.header} display="flex" alignItems="flex-start">
+    <Box className={`${classes.default} ${className}`} display="flex" alignItems="flex-start">
       {children}
     </Box>
   );
@@ -27,10 +27,12 @@ function BackgroundHeader(props) {
 
 BackgroundHeader.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]),
+  className: PropTypes.string,
 };
 
 BackgroundHeader.defaultProps = {
   children: [],
+  className: undefined,
 };
 
 export default BackgroundHeader;
