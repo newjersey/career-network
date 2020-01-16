@@ -21,6 +21,12 @@ class MyDocument extends Document {
           <link rel="stylesheet" href="/static/css/nprogress.css" />
           <link
             rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.3.1/themes/algolia-min.css"
+            integrity="sha256-HB49n/BZjuqiCtQQf49OdZn63XuKFaxcIHWf0HNKte8="
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           />
           <link
