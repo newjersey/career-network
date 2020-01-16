@@ -15,7 +15,8 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: theme.spacing(1.5),
   },
   social: {
-    width: '24px',
+    height: 24,
+    width: 24,
     fill: '#FFF',
     '&:hover': {
       fill: '#CCC',

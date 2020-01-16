@@ -1,12 +1,13 @@
+import 'core-js/stable';
 import { ThemeProvider } from '@material-ui/styles';
+import * as Integrations from '@sentry/integrations';
+import * as Sentry from '@sentry/browser';
 import App from 'next/app';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Head from 'next/head';
 import NProgress from 'nprogress';
 import React from 'react';
 import Router from 'next/router';
-import * as Sentry from '@sentry/browser';
-import * as Integrations from '@sentry/integrations';
 
 import { siteName } from '../components/withTitle';
 import { SnackbarProvider } from '../components/Snackbar';
