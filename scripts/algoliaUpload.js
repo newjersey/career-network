@@ -5,6 +5,7 @@ const { parse, transform } = require('csv');
 const algoliasearch = require('algoliasearch');
 const { createReadStream } = require('fs');
 const { Writable } = require('stream');
+const { startCase, toLower } = require('lodash/fp');
 
 const CSV_PATH = 'data/Employment Prospects data from NJ.csv';
 const API_KEY = process.env.ALGOLIA_ADMIN_API_KEY;
@@ -87,6 +88,7 @@ class Uploader extends Writable {
 const readStream = createReadStream(CSV_PATH);
 const uploadStream = new Uploader();
 
+const titleCase = value => startCase(toLower(value));
 const makeNumber = value => {
   const number = 1 * value.replace(/[^\d-.]/g, '');
 
@@ -136,6 +138,8 @@ const parser = parse({
       case 'p75':
       case 'p75ann':
         return makeNumber(value);
+      case 'county':
+        return titleCase(value);
       default:
         return value;
     }
