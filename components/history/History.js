@@ -47,12 +47,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const getActivityCategoryName = activityTypeValue =>
+  ACTIVITY_TYPES.find(activityType => activityType.value === activityTypeValue).category.name;
+
+const isInPeriod = (date, { month, year }) => {
+  return getMonth(date) === month && getYear(date) === year;
+};
+
 const unrecognizedCategoryName = AirtablePropTypes.TASK_CATEGORIES.other.name;
 
 export default function History(props) {
-  const isInPeriod = (date, { month, year }) => {
-    return getMonth(date) === month && getYear(date) === year;
-  };
   const classes = useStyles();
   const { activities, completedTasks } = props;
 
@@ -62,9 +66,6 @@ export default function History(props) {
   const [activeCategoryFilters, setActiveCategoryFilters] = useState(
     Object.fromEntries(allCategoryNames.map(categoryName => [categoryName, true]))
   );
-
-  const getActivityCategoryName = activityTypeValue =>
-    ACTIVITY_TYPES.find(activityType => activityType.value === activityTypeValue).category.name;
 
   const activitiesTemp = activities.map(a => {
     const { activityTypeValue, dateCompleted, ...activity } = a.data();
