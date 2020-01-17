@@ -47,6 +47,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const unrecognizedCategoryName = AirtablePropTypes.TASK_CATEGORIES.other.name;
+
 export default function History(props) {
   const isInPeriod = (date, { month, year }) => {
     return getMonth(date) === month && getYear(date) === year;
@@ -68,7 +70,7 @@ export default function History(props) {
     const { activityTypeValue, dateCompleted, ...activity } = a.data();
     return {
       ...activity,
-      categoryName: getActivityCategoryName(activityTypeValue),
+      categoryName: getActivityCategoryName(activityTypeValue) || unrecognizedCategoryName,
       dateCompleted,
       component: Activity,
       id: a.id,
@@ -79,7 +81,7 @@ export default function History(props) {
     const { task, timestamp } = taskEvent.data();
     return {
       ...task,
-      categoryName: task.fields.Category,
+      categoryName: task.fields.Category || unrecognizedCategoryName,
       title: task.fields.Task,
       why: task.fields.Why,
       dateCompleted: timestamp,
