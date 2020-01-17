@@ -10,6 +10,7 @@ import AirtablePropTypes from '../../Airtable/PropTypes';
 const useStyles = makeStyles(theme => ({
   formHelperText: {
     margin: theme.spacing(0, 0, 2, 4),
+    ...theme.typography.helperText,
   },
 }));
 

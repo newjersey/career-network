@@ -46,6 +46,10 @@ const theme = createMuiTheme({
       letterSpacing: 'normal',
       fontSize: '0.6875rem',
     },
+    helperText: {
+      fontSize: '0.85rem',
+      lineHeight: '1.5em',
+    },
   },
   overrides: {
     MuiButton: {

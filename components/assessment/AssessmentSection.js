@@ -14,10 +14,13 @@ const useStyles = makeStyles(theme => ({
     maxWidth: 780,
     margin: '0 auto',
   },
+  title: {
+    marginBottom: theme.spacing(3),
+  },
   paper: {
-    padding: theme.spacing(5, 4, 3),
+    padding: theme.spacing(3, 4, 3),
     [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing(6, 5, 4),
+      padding: theme.spacing(3, 5, 3),
     },
   },
 }));
@@ -101,11 +104,10 @@ export default function AssessmentSection(props) {
 
   return (
     <div className={classes.root}>
+      <Typography className={classes.title} component="h2" variant="h5">
+        {assessmentSection.fields.Name}
+      </Typography>
       <Paper className={classes.paper} data-intercom="assessment-section">
-        <Typography component="h2" variant="h4" gutterBottom>
-          {assessmentSection.fields.Name}
-        </Typography>
-
         {assessmentSection.fields.Description && (
           <Typography variant="subtitle2">{assessmentSection.fields.Description}</Typography>
         )}
