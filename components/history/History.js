@@ -157,7 +157,7 @@ export default function History(props) {
                     </div>
                   )}
                   <Grid container direction="row" justify="center" alignItems="flex-start">
-                    {cards
+                    {filteredCards
                       .filter(card => isInPeriod(card.dateCompleted.toDate(), period))
                       .map(card => (
                         <Grid key={card.id} item xs={12} className={classes.listItem}>
