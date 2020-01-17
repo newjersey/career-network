@@ -105,7 +105,7 @@ export default function History(props) {
   );
 
   const onFilterChange = name => event => {
-    setActiveCategoryFilters({ ...activeCategoryFilters, [name]: event.target.checked });
+    setActiveCategoryFilters({ ...activeCategoryFilters, [name]: !!event.target.checked });
   };
 
   const isEmpty = () => {
