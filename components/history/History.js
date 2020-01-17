@@ -60,13 +60,6 @@ export default function History(props) {
   const classes = useStyles();
   const { activities, completedTasks } = props;
 
-  const allCategoryNames = Object.values(AirtablePropTypes.TASK_CATEGORIES).map(
-    category => category.name
-  );
-  const [activeCategoryFilters, setActiveCategoryFilters] = useState(
-    Object.fromEntries(allCategoryNames.map(categoryName => [categoryName, true]))
-  );
-
   const activitiesTemp = activities.map(a => {
     const { activityTypeValue, dateCompleted, ...activity } = a.data();
     return {
@@ -94,6 +87,14 @@ export default function History(props) {
 
   const cards = [...activitiesTemp, ...tasksTemp].sort((a, b) =>
     compareDesc(new Date(a.dateCmp), new Date(b.dateCmp))
+  );
+
+  const cardCategoryNames = cards
+    .map(card => card.categoryName)
+    .map(categoryName => AirtablePropTypes.findTaskCategory(categoryName).name);
+
+  const [activeCategoryFilters, setActiveCategoryFilters] = useState(
+    Object.fromEntries(cardCategoryNames.map(categoryName => [categoryName, true]))
   );
 
   const filteredCards = cards.filter(card => activeCategoryFilters[card.categoryName] === true);
