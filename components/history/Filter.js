@@ -7,34 +7,43 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const useStyles = makeStyles(theme => ({
-  root: {
+  formControlLabel: {
     marginBottom: theme.spacing(1),
   },
 }));
 
 export default function Filter(props) {
   const classes = useStyles();
-  const { filterOptions, onChange } = props;
+  const { catchAll, filterOptions, onChange } = props;
+
+  const sortFunc = (a, b) => {
+    if (a === catchAll) return 1;
+    if (b === catchAll) return -1;
+
+    return a < b ? -1 : 1;
+  };
 
   return (
     <FormControl>
       <FormGroup>
-        {Object.keys(filterOptions).map(option => (
-          <FormControlLabel
-            key={option}
-            classes={{
-              root: classes.root,
-            }}
-            control={
-              <Checkbox
-                onChange={onChange(option)}
-                value={option}
-                checked={filterOptions[option] === undefined ? true : filterOptions[option]}
-              />
-            }
-            label={option}
-          />
-        ))}
+        {Object.keys(filterOptions)
+          .sort(sortFunc)
+          .map(option => (
+            <FormControlLabel
+              key={option}
+              classes={{
+                root: classes.formControlLabel,
+              }}
+              control={
+                <Checkbox
+                  onChange={onChange(option)}
+                  value={option}
+                  checked={filterOptions[option] === undefined ? true : filterOptions[option]}
+                />
+              }
+              label={option}
+            />
+          ))}
       </FormGroup>
     </FormControl>
   );
@@ -43,6 +52,7 @@ export default function Filter(props) {
 Filter.propTypes = {
   filterOptions: PropTypes.objectOf(PropTypes.bool).isRequired,
   onChange: PropTypes.func.isRequired,
+  catchAll: PropTypes.string.isRequired,
 };
 
 Filter.defaultProps = {};
