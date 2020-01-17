@@ -131,7 +131,11 @@ export default function History(props) {
                 <Typography variant="subtitle2" gutterBottom>
                   ACTIVITY TYPE
                 </Typography>
-                <Filter filterOptions={activeCategoryFilters} onChange={onFilterChange} />
+                <Filter
+                  filterOptions={activeCategoryFilters}
+                  onChange={onFilterChange}
+                  catchAll={unrecognizedCategoryName}
+                />
               </Paper>
             </Box>
           </Grid>
