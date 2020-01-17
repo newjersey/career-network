@@ -93,6 +93,8 @@ export default function History(props) {
     compareDesc(new Date(a.dateCmp), new Date(b.dateCmp))
   );
 
+  const filteredCards = cards.filter(card => activeCategoryFilters[card.categoryName] === true);
+
   const activityPeriods = uniqBy('formatted')(
     cards.map(card => {
       const date = card.dateCompleted.toDate();
@@ -109,7 +111,7 @@ export default function History(props) {
   };
 
   const isEmpty = () => {
-    return cards.filter(card => activeCategoryFilters[card.categoryName] === true).length === 0;
+    return filteredCards.length === 0;
   };
 
   return (
@@ -141,11 +143,8 @@ export default function History(props) {
             {!isEmpty() &&
               activityPeriods.map(period => (
                 <div key={period.formatted}>
-                  {cards.filter(
-                    card =>
-                      isInPeriod(card.dateCompleted.toDate(), period) &&
-                      activeCategoryFilters[card.categoryName] === true
-                  ).length > 0 && (
+                  {filteredCards.filter(card => isInPeriod(card.dateCompleted.toDate(), period))
+                    .length > 0 && (
                     <div className={classes.sectionHeader}>
                       <CalendarIcon className={classes.calendarIcon} fontSize="small" />
                       <Typography
@@ -160,7 +159,6 @@ export default function History(props) {
                   <Grid container direction="row" justify="center" alignItems="flex-start">
                     {cards
                       .filter(card => isInPeriod(card.dateCompleted.toDate(), period))
-                      .filter(card => activeCategoryFilters[card.categoryName] === true)
                       .map(card => (
                         <Grid key={card.id} item xs={12} className={classes.listItem}>
                           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
