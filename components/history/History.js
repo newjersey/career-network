@@ -104,7 +104,7 @@ export default function History(props) {
     })
   );
 
-  const onChange = name => event => {
+  const onFilterChange = name => event => {
     setActiveCategoryFilters({ ...activeCategoryFilters, [name]: event.target.checked });
   };
 
@@ -125,7 +125,7 @@ export default function History(props) {
                 <Typography variant="subtitle2" gutterBottom>
                   ACTIVITY TYPE
                 </Typography>
-                <Filter filterOptions={activeCategoryFilters} onChange={onChange} />
+                <Filter filterOptions={activeCategoryFilters} onChange={onFilterChange} />
               </Paper>
             </Box>
           </Grid>
