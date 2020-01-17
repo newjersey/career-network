@@ -7,7 +7,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const useStyles = makeStyles(theme => ({
-  root: {
+  formControlLabel: {
     marginBottom: theme.spacing(1),
   },
 }));
@@ -23,7 +23,7 @@ export default function Filter(props) {
           <FormControlLabel
             key={option}
             classes={{
-              root: classes.root,
+              root: classes.formControlLabel,
             }}
             control={
               <Checkbox
