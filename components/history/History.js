@@ -54,11 +54,11 @@ export default function History(props) {
   const classes = useStyles();
   const { activities, completedTasks } = props;
 
-  const allCategoryFilters = Object.values(AirtablePropTypes.TASK_CATEGORIES).map(
+  const allCategoryNames = Object.values(AirtablePropTypes.TASK_CATEGORIES).map(
     category => category.name
   );
   const [activeCategoryFilters, setActiveCategoryFilters] = useState(
-    Object.fromEntries(allCategoryFilters.map(filterName => [filterName, true]))
+    Object.fromEntries(allCategoryNames.map(categoryName => [categoryName, true]))
   );
 
   const getActivityCategoryName = activityTypeValue =>
