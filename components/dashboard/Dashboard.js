@@ -286,7 +286,7 @@ export default function Dashboard(props) {
           <Typography component="h1" variant="h2" gutterBottom>
             Welcome, {user && user.firstName}
           </Typography>
-          <Typography variant="subtitle1" gutterBottom>
+          <Typography variant="subtitle1">
             Here’s your personalized action plan. It will update as you make progress.
           </Typography>
         </ScaffoldContainer>

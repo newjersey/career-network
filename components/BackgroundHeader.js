@@ -9,8 +9,8 @@ const useStyles = makeStyles(theme => ({
     left: 0,
     right: 0,
     backgroundColor: theme.palette.background.header,
-    paddingTop: '50px',
-    paddingBottom: '40px',
+    paddingTop: theme.spacing(6),
+    paddingBottom: theme.spacing(6),
   },
 }));
 
