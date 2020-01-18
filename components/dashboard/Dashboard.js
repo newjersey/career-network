@@ -1,3 +1,4 @@
+import { isToday } from 'date-fns';
 import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -249,7 +250,7 @@ const DIALOGS = {
 export default function Dashboard(props) {
   const classes = useStyles();
   const showMessage = useSnackbar();
-  const { user } = useAuth();
+  const { user, userDocRef } = useAuth();
   const {
     allConditions,
     allPredicates,
@@ -268,8 +269,10 @@ export default function Dashboard(props) {
   const tasks = getTasks(props, TASK_COUNT_LIMIT);
   const doneTaskCount = allTaskDispositionEvents.length;
   const [activeDialog, setActiveDialog] = useState();
-
+  const showSentiment =
+    !user.lastSentimentTimestamp || !isToday(user.lastSentimentTimestamp.toDate());
   const onRecordSentiment = () => {
+    userDocRef.set({ lastSentimentTimestamp: new Date() }, { merge: true });
     showMessage(`Thank you for sharing, ${user.firstName}`);
   };
 
@@ -298,9 +301,11 @@ export default function Dashboard(props) {
         </ScaffoldContainer>
       </BackgroundHeader>
 
-      <ScaffoldContainer marginTopValue={-40}>
-        <SentimentTracker onRecord={onRecordSentiment} />
-      </ScaffoldContainer>
+      {showSentiment && (
+        <ScaffoldContainer marginTopValue={-40}>
+          <SentimentTracker onRecord={onRecordSentiment} />
+        </ScaffoldContainer>
+      )}
 
       <ScaffoldContainer>
         <Box className={classes.grid}>

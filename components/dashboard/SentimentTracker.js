@@ -4,12 +4,11 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { useAuth } from '../Auth';
 import EmojiCircle from './EmojiCircle';
-import useIsSentimentSubmittedToday from '../Firebase/useIsSentimentSubmittedToday';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -56,13 +55,8 @@ EmojiButton.propTypes = {
 const SentimentTracker = props => {
   const { onRecord } = props;
   const { userDocRef } = useAuth();
-  const [hidden, setHidden] = useState(false);
-  const isAlreadySubmittedToday = useIsSentimentSubmittedToday();
 
   const classes = useStyles();
-  if (isAlreadySubmittedToday || hidden) {
-    return null;
-  }
 
   const submitSentiment = sentiment => {
     const data = {
@@ -80,8 +74,6 @@ const SentimentTracker = props => {
     if (onRecord) {
       onRecord(sentiment);
     }
-
-    setHidden(true);
   };
 
   const sentiments = [
