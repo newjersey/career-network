@@ -293,9 +293,7 @@ export default function Dashboard(props) {
       </BackgroundHeader>
 
       <ScaffoldContainer marginTopValue={-40}>
-        <Box minHeight={60}>
-          <SentimentTracker />
-        </Box>
+        <SentimentTracker />
         <Box className={classes.grid}>
           <Box
             display="flex"
