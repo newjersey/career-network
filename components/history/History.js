@@ -2,9 +2,10 @@ import { format, compareDesc, getMonth, getYear } from 'date-fns';
 import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 import CalendarIcon from '@material-ui/icons/CalendarTodayRounded';
+import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import React, { useState } from 'react';
+import Hidden from '@material-ui/core/Hidden';
+import React, { useState, useLayoutEffect, useRef } from 'react';
 import Typography from '@material-ui/core/Typography';
 import uniqBy from 'lodash/fp/uniqBy';
 
@@ -22,28 +23,25 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(5, 0),
   },
   pageHeader: {
-    marginTop: theme.spacing(5),
-    marginBottom: theme.spacing(5),
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(2),
     fontWeight: theme.typography.fontWeightMedium,
   },
   listItem: {
-    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
   sectionHeader: {
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
     marginTop: theme.spacing(4),
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(3),
   },
   calendarIcon: {
     marginRight: theme.spacing(1),
   },
-  paper: {
-    padding: theme.spacing(5, 4, 3),
-    [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing(6, 5, 4),
-    },
+  siderail: {
+    padding: theme.spacing(4),
   },
 }));
 
@@ -59,6 +57,16 @@ const unrecognizedCategoryName = AirtablePropTypes.TASK_CATEGORIES.other.name;
 export default function History(props) {
   const classes = useStyles();
   const { activities, completedTasks } = props;
+  const headerRef = useRef(null);
+  const sectionHeaderRef = useRef(null);
+  const [headerHeight, setHeaderHeight] = useState();
+
+  useLayoutEffect(() => {
+    setHeaderHeight(
+      headerRef.current.getBoundingClientRect().height +
+        sectionHeaderRef.current.getBoundingClientRect().height
+    );
+  }, []);
 
   const activitiesTemp = activities.map(a => {
     const { activityTypeValue, dateCompleted, ...activity } = a.data();
@@ -123,46 +131,59 @@ export default function History(props) {
       <ScaffoldContainer>
         <Grid container spacing={3}>
           <Grid item xs={12} md={3}>
-            <Box mt={20}>
-              <Paper className={classes.paper}>
-                <Typography variant="h5" gutterBottom>
+            <Hidden only="xs">
+              <Box width={1} height={headerHeight} />
+            </Hidden>
+            <Card className={classes.siderail} variant="outlined">
+              <Box mb={3}>
+                <Typography component="h2" variant="h6">
                   Filter List By...
                 </Typography>
-                <Typography variant="subtitle2" gutterBottom>
-                  ACTIVITY TYPE
-                </Typography>
-                <Filter
-                  filterOptions={activeCategoryFilters}
-                  onChange={onFilterChange}
-                  catchAll={unrecognizedCategoryName}
-                />
-              </Paper>
-            </Box>
+              </Box>
+              <Typography variant="h5" style={{ fontSize: 14, color: '#92929d' }} gutterBottom>
+                ACTIVITY TYPE
+              </Typography>
+              <Filter
+                filterOptions={activeCategoryFilters}
+                onChange={onFilterChange}
+                catchAll={unrecognizedCategoryName}
+              />
+            </Card>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Typography variant="h5" component="h5" className={classes.pageHeader}>
-              All Progress
-            </Typography>
+            <Box display="flex" alignItems="baseline" width={1} ref={headerRef}>
+              <Typography variant="h5" component="h5" className={classes.pageHeader}>
+                All Progress
+              </Typography>
+            </Box>
             {isEmpty() && (
-              <Box mt={11}>
+              <div>
+                <Hidden only="xs">
+                  <Box
+                    width={1}
+                    height={headerHeight - headerRef.current.getBoundingClientRect().height}
+                  />
+                </Hidden>
                 <EmptyState />
-              </Box>
+              </div>
             )}
             {!isEmpty() &&
               activityPeriods.map(period => (
                 <div key={period.formatted}>
                   {filteredCards.filter(card => isInPeriod(card.dateCompleted.toDate(), period))
                     .length > 0 && (
-                    <div className={classes.sectionHeader}>
-                      <CalendarIcon className={classes.calendarIcon} fontSize="small" />
-                      <Typography
-                        variant="subtitle2"
-                        display="inline"
-                        style={{ textTransform: 'uppercase' }}
-                      >
-                        {period.formatted}
-                      </Typography>
-                    </div>
+                    <Box display="flex" alignItems="baseline" width={1} ref={sectionHeaderRef}>
+                      <div className={classes.sectionHeader}>
+                        <CalendarIcon className={classes.calendarIcon} fontSize="small" />
+                        <Typography
+                          variant="subtitle2"
+                          display="inline"
+                          style={{ textTransform: 'uppercase' }}
+                        >
+                          {period.formatted}
+                        </Typography>
+                      </div>
+                    </Box>
                   )}
                   <Grid container direction="row" justify="center" alignItems="flex-start">
                     {filteredCards

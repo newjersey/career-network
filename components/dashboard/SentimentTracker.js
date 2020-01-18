@@ -1,38 +1,33 @@
 import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
-
 import { useAuth } from '../Auth';
 import { useSnackbar } from '../Snackbar';
 import useIsSentimentSubmittedToday from '../Firebase/useIsSentimentSubmittedToday';
+import EmojiCircle from './EmojiCircle';
 
 const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(2),
     padding: theme.spacing(5, 4, 3),
     [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing(6, 5, 4),
+      padding: theme.spacing(2, 2, 2),
     },
+    marginBottom: theme.spacing(8),
   },
   buttons: {
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
     maxWidth: '75%',
   },
-  emoji: {
-    fontSize: theme.spacing(10),
-    [theme.breakpoints.down('sm')]: {
-      fontSize: theme.spacing(7),
-    },
-  },
 }));
 
 const EmojiButton = ({ emoji, label, onClick }) => {
-  const classes = useStyles();
   const handleClick = () => {
     onClick({ emoji, label });
   };
@@ -40,13 +35,13 @@ const EmojiButton = ({ emoji, label, onClick }) => {
   return (
     <Grid item style={{ textAlign: 'center' }}>
       <Button onClick={handleClick} data-intercom={`sentiment-${label.toLowerCase()}`}>
-        <Typography align="center">
-          <span className={classes.emoji} role="img" aria-label={label}>
-            {emoji}
+        <Box m={1} align="center">
+          <span aria-label={label}>
+            <EmojiCircle emoji={emoji} />
           </span>
           <br />
           {label}
-        </Typography>
+        </Box>
       </Button>
     </Grid>
   );
@@ -95,12 +90,17 @@ const SentimentTracker = () => {
   ];
 
   return (
-    <Paper className={classes.paper} data-intercom="sentiment-container">
-      <Typography component="h4" variant="h4" align="center">
-        How are you feeling today?
-      </Typography>
-      <Grid container justify="center">
+    <Paper className={classes.paper} elevation={3} data-intercom="sentiment-container">
+      <Grid container direction="row" justify="space-evenly" alignItems="center">
+        <Grid item xs={12} sm={3} md={3}>
+          <Typography component="h4" variant="h6" align="center">
+            How are you feeling today?
+          </Typography>
+        </Grid>
         <Grid
+          xs={12}
+          sm={7}
+          md={7}
           container
           item
           className={classes.buttons}
