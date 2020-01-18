@@ -225,7 +225,7 @@ function Nav(props) {
         </div>
       </Drawer>
 
-      <ScaffoldContainer padding={false}>
+      <ScaffoldContainer>
         <Grid container justify="space-between" alignItems="center" className={classes.container}>
           <NextLink href="/">
             <Grid item>
