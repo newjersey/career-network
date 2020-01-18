@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 
 import { isDone, mostRecent } from '../../src/app-helper';
 import { useAuth } from '../Auth';
+import { useSnackbar } from '../Snackbar';
 import ActivityCategoryTable from './ActivityCategoryTable';
 import ActivityInputDialog from './ActivityInputDialog';
 import AirtablePropTypes from '../Airtable/PropTypes';
@@ -247,6 +248,7 @@ const DIALOGS = {
 // eslint-disable-next-line sonarjs/cognitive-complexity
 export default function Dashboard(props) {
   const classes = useStyles();
+  const showMessage = useSnackbar();
   const { user } = useAuth();
   const {
     allConditions,
@@ -266,6 +268,10 @@ export default function Dashboard(props) {
   const tasks = getTasks(props, TASK_COUNT_LIMIT);
   const doneTaskCount = allTaskDispositionEvents.length;
   const [activeDialog, setActiveDialog] = useState();
+
+  const onRecordSentiment = () => {
+    showMessage(`Thank you for sharing, ${user.firstName}`);
+  };
 
   useEffect(() => {
     window.Intercom('update', { 'tasks-completed': doneTaskCount });
@@ -293,7 +299,7 @@ export default function Dashboard(props) {
       </BackgroundHeader>
 
       <ScaffoldContainer marginTopValue={-40}>
-        <SentimentTracker />
+        <SentimentTracker onRecord={onRecordSentiment} />
       </ScaffoldContainer>
 
       <ScaffoldContainer>

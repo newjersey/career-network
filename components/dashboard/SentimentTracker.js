@@ -6,10 +6,10 @@ import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
+
 import { useAuth } from '../Auth';
-import { useSnackbar } from '../Snackbar';
-import useIsSentimentSubmittedToday from '../Firebase/useIsSentimentSubmittedToday';
 import EmojiCircle from './EmojiCircle';
+import useIsSentimentSubmittedToday from '../Firebase/useIsSentimentSubmittedToday';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -53,12 +53,11 @@ EmojiButton.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-const SentimentTracker = () => {
+const SentimentTracker = props => {
+  const { onRecord } = props;
   const { userDocRef } = useAuth();
   const [hidden, setHidden] = useState(false);
   const isAlreadySubmittedToday = useIsSentimentSubmittedToday();
-  const showMessage = useSnackbar();
-  const { user } = useAuth();
 
   const classes = useStyles();
   if (isAlreadySubmittedToday || hidden) {
@@ -77,7 +76,11 @@ const SentimentTracker = () => {
       'last-mood': sentiment.emoji,
       'last-sentiment': sentiment.label,
     });
-    showMessage(`Thank you for sharing, ${user.firstName}`);
+
+    if (onRecord) {
+      onRecord(sentiment);
+    }
+
     setHidden(true);
   };
 
@@ -114,6 +117,14 @@ const SentimentTracker = () => {
       </Grid>
     </Paper>
   );
+};
+
+SentimentTracker.propTypes = {
+  onRecord: PropTypes.func,
+};
+
+SentimentTracker.defaultProps = {
+  onRecord: null,
 };
 
 export default SentimentTracker;
