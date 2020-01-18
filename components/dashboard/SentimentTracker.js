@@ -82,11 +82,11 @@ const SentimentTracker = () => {
   };
 
   const sentiments = [
-    { emoji: '😎', label: 'Motivated' },
-    { emoji: '😃', label: 'Hopeful' },
-    { emoji: '🙂', label: 'Okay' },
-    { emoji: '😔', label: 'Discouraged' },
     { emoji: '😩', label: 'Worried' },
+    { emoji: '😔', label: 'Discouraged' },
+    { emoji: '🙂', label: 'Okay' },
+    { emoji: '😃', label: 'Hopeful' },
+    { emoji: '😎', label: 'Motivated' },
   ];
 
   return (
