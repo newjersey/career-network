@@ -126,7 +126,7 @@ export default function Task(props) {
       <CardHeader
         title={
           <Grid item xs={12} md={9}>
-            <Typography component="h1" variant="h5" display="block">
+            <Typography component="h1" variant="h5">
               {task.fields.Title}
             </Typography>
           </Grid>

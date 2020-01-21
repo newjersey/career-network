@@ -64,10 +64,10 @@ function CompleteTask(props) {
           )}
         </div>
 
-        <Typography component="h1" variant="h5" display="block" className={classes.group}>
+        <Typography component="h1" variant="h5" className={classes.group}>
           {title}
         </Typography>
-        <div data-intercom="task-why" className={classes.textBlock}>
+        <div>
           <Typography variant="subtitle2" component="h3" color="textSecondary" gutterBottom>
             Why?
           </Typography>

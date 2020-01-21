@@ -70,7 +70,7 @@ function Activity(props) {
           </Typography>
         </div>
 
-        <Typography component="h1" variant="h5" display="block" className={classes.group}>
+        <Typography component="h1" variant="h5" className={classes.group}>
           {briefDescription}
         </Typography>
         <Typography
@@ -133,7 +133,7 @@ function Activity(props) {
             <Typography variant="body2" className={classes.label} gutterBottom>
               I Felt Like This Because...
             </Typography>
-            <Typography variant="body2" component="p" color="#2c2f41">
+            <Typography variant="body2" component="p">
               {whyIFeelThisWay}
             </Typography>
           </div>
