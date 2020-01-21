@@ -19,12 +19,18 @@ const theme = createMuiTheme({
       secondary: '#44444f',
     },
     background: {
-      default: '#f3f3f3',
+      default: '#ffffff',
       info: '#f7f8fa',
+      header: '#f6faff',
     },
   },
   typography: {
     fontSize: 14,
+    h2: {
+      fontFamily: HeaderFont,
+      fontSize: '2rem',
+      fontWeight: 700,
+    },
     h5: {
       fontFamily: HeaderFont,
       fontWeight: 700,

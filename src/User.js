@@ -92,4 +92,8 @@ export default class User {
   get lastUpdateTimestamp() {
     return this.userData.lastUpdateTimestamp;
   }
+
+  get lastSentimentTimestamp() {
+    return this.userData.lastSentimentTimestamp;
+  }
 }

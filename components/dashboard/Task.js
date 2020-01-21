@@ -117,7 +117,11 @@ export default function Task(props) {
   }
 
   return (
-    <Card className={clsx(classes.card, highlightLabel && classes.highlight)} data-intercom="task">
+    <Card
+      className={clsx(classes.card, highlightLabel && classes.highlight)}
+      variant="outlined"
+      data-intercom="task"
+    >
       {!!highlightLabel && <div className={classes.highlightLabel}>{highlightLabel}</div>}
       <CardHeader
         title={

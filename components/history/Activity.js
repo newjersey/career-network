@@ -62,7 +62,7 @@ function Activity(props) {
   } = props;
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} variant="outlined">
       <CardContent>
         <div className={classes.header}>
           <Typography variant="body2" noWrap style={{ maxWidth: '75%' }}>
