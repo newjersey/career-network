@@ -11,6 +11,7 @@ import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
+import { useAnalytics } from '../Analytics';
 import { useAuth } from '../Auth';
 import AutocompleteDropdown from './AutocompleteDropdown';
 import CountyList from './CountyList';
@@ -45,6 +46,7 @@ const CustomHits = connectHits(Hits);
 
 function Search() {
   const formId = 'employment-outlook';
+  const analytics = useAnalytics();
   const { userDocRef } = useAuth();
   const [searching, setSearching] = useState(false);
 
@@ -67,7 +69,7 @@ function Search() {
     };
     userDocRef.set({ employmentOutlook }, { merge: true }).then(() => {
       window.Intercom('update', { 'last-employment-outlook-input': new Date() });
-      window.Intercom('trackEvent', 'employment-outlook-input', {
+      analytics.trackEvent('employment-outlook-input', {
         occupation: employmentOutlook.occupation,
         county: employmentOutlook.county,
       });

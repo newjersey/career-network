@@ -10,6 +10,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { getActionDispositionEvents } from '../../src/app-helper';
+import { useAnalytics } from '../Analytics';
 import { useAuth } from '../Auth';
 import ActionList from './ActionList';
 import AirtablePropTypes from '../Airtable/PropTypes';
@@ -79,6 +80,7 @@ export default function Task(props) {
   } = props;
   const { 'Highlight Label': highlightLabel } = task.fields;
   const { userDocRef } = useAuth();
+  const analytics = useAnalytics();
   const classes = useStyles();
 
   function disposition(type) {
@@ -99,7 +101,7 @@ export default function Task(props) {
     onDone(task);
     disposition('done');
     window.Intercom('update', { 'last-task-completed': new Date() });
-    window.Intercom('trackEvent', 'completed-task', {
+    analytics.trackEvent('completed-task', {
       title: task.fields.Title,
       category: task.fields.Category,
       time_estimate: task.fields['Time Estimate'],

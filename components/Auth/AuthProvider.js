@@ -26,12 +26,10 @@ export default function AuthProvider(props) {
 
   const showSignIn = useCallback(() => {
     setIsOpen(true);
-    window.Intercom('trackEvent', 'sign-in-form-opened');
   }, []);
 
   const hideSignIn = useCallback(() => {
     setIsOpen(false);
-    window.Intercom('trackEvent', 'sign-in-form-closed');
   }, []);
 
   const signOut = useCallback(() => auth().signOut(), [auth]);

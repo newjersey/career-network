@@ -17,6 +17,7 @@ import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/picker
 import startOfDay from 'date-fns/startOfDay';
 import upcomingInterviewFormValidation from './UpcomingInterviewValidationRules';
 import useFormValidation from '../../formValidationHook';
+import { useAnalytics } from '../../Analytics';
 import { useAuth } from '../../Auth';
 import SubmitSuccess from '../../activityInput/SubmitSuccess';
 import FullPageProgress from '../../FullPageProgress';
@@ -69,6 +70,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function UpcomingInterviewDialog(props) {
   const formId = 'upcoming-interview';
+  const analytics = useAnalytics();
   const classes = useStyles();
   const { show, onClose } = props;
   const { userDocRef } = useAuth();
@@ -98,7 +100,7 @@ export default function UpcomingInterviewDialog(props) {
         setSuccess(true);
         userDocRef.set({ stats }, { merge: true });
         window.Intercom('update', { 'last-interview-logged': new Date() });
-        window.Intercom('trackEvent', 'logged-interview', {
+        analytics.trackEvent('logged-interview', {
           type: data.type,
           interview_date: data.date,
           organization: data.organization,

@@ -12,6 +12,7 @@ import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { getFirstIncompleteAction, isDone, mostRecent } from '../../src/app-helper';
+import { useAnalytics } from '../Analytics';
 import { useAuth } from '../Auth';
 import ActivityInputDialog from '../activityInput/ActivityInputDialog';
 import AirtablePropTypes from '../Airtable/PropTypes';
@@ -255,6 +256,7 @@ const DIALOGS = {
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
 export default function Dashboard(props) {
+  const analytics = useAnalytics();
   const classes = useStyles();
   const { user, userDocRef } = useAuth();
   const {
@@ -296,7 +298,7 @@ export default function Dashboard(props) {
       ...sentiment,
     };
     userDocRef.collection('sentimentEvents').add(data);
-    window.Intercom('trackEvent', 'logged-sentiment', sentiment);
+    analytics.trackEvent('logged-sentiment', sentiment);
     window.Intercom('update', {
       'last-mood': sentiment.emoji,
       'last-sentiment': sentiment.label,

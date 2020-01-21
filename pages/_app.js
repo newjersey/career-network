@@ -1,6 +1,6 @@
 import 'core-js/stable';
-import { ThemeProvider } from '@material-ui/styles';
 import { FlagsProvider } from 'react-feature-flags';
+import { ThemeProvider } from '@material-ui/styles';
 import * as Integrations from '@sentry/integrations';
 import * as Sentry from '@sentry/browser';
 import App from 'next/app';
@@ -22,9 +22,12 @@ import theme from '../src/theme';
 
 NProgress.configure({ showSpinner: false });
 Router.events.on('routeChangeStart', () => NProgress.start());
-Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
+Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeComplete', () => window.Intercom('update'));
+// Router.events.on('routeChangeComplete', e =>
+//   firebase.analytics().logEvent('route_change_complete', { e })
+// );
 
 const featureFlags = [
   // Feature flag introduced with https://trello.com/c/FLzzfmsI/121, should be
@@ -36,27 +39,6 @@ Sentry.init({
   environment: process.env.name,
   dsn: process.env.sentry.dsn,
   integrations: [new Integrations.CaptureConsole()],
-  beforeSend(event, hint) {
-    // log errors in Intercom, just to track who might be having issues
-    if (event && event.level === 'error') {
-      try {
-        const error = hint.originalException || hint.syntheticException;
-
-        window.Intercom('update', { 'last-browser-error': new Date() });
-        window.Intercom('trackEvent', 'browser-error', {
-          code: error && error.code,
-          name: error && error.name,
-          message: error && error.message,
-          sentry_message: event && event.message,
-          sentry_event_id: event && event.event_id,
-        });
-      } catch {
-        // NOOP (prevent invinite loop if error in Intercom reporting)
-      }
-    }
-
-    return event;
-  },
 });
 
 class MyApp extends App {

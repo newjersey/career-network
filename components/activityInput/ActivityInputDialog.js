@@ -22,6 +22,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 
 import { DialogTitle, DialogContent, DialogActions } from '../DialogComponents';
+import { useAnalytics } from '../Analytics';
 import { useAuth } from '../Auth';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import SubmitSuccess from './SubmitSuccess';
@@ -175,6 +176,7 @@ export async function logActivity(userDocRef, activityDetails) {
 function ActivityInputDialog({ fullScreen, show, onClose }) {
   const classes = useActivityDialogStyles();
   const formId = 'activity-input';
+  const analytics = useAnalytics();
   const { userDocRef } = useAuth();
   const theme = useTheme();
   const isXs = useMediaQuery(theme.breakpoints.only('xs'));
@@ -239,7 +241,7 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
       };
       userDocRef.set({ stats }, { merge: true });
       window.Intercom('update', { 'last-activity-logged': new Date() });
-      window.Intercom('trackEvent', 'logged-activity', {
+      analytics.trackEvent('logged-activity', {
         type: formValues.activityTypeLabel,
         description: formValues.briefDescription,
         difficulty: formValues.difficultyLevel,
@@ -251,7 +253,7 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
     if (Object.keys(formErrors).length === 0 && attemptSubmitting) {
       submit();
     }
-  }, [attemptSubmitting, formErrors, formValues, userDocRef]);
+  }, [analytics, attemptSubmitting, formErrors, formValues, userDocRef]);
 
   return (
     <Dialog
