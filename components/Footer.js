@@ -28,6 +28,9 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down('md')]: {
       paddingRight: theme.spacing(9),
     },
+    [theme.breakpoints.between('lg', 1400)]: {
+      paddingRight: 'calc(840px - 60vw)',
+    },
   },
   link: {
     color,
