@@ -27,8 +27,7 @@ function AuthDialog(props) {
         <Divider style={{ marginTop: -8, marginBottom: 25 }} />
         <DialogContentText style={{ maxWidth: 460 }}>
           <Typography gutterBottom>
-            Before we get started, please sign in using Before we get started, please sign in using
-            one of your accounts below.
+            Before we get started, please sign in using one of your accounts below
           </Typography>
           <small>
             We require the use of a Google or Yahoo account to sign up for a NJCN account to ensure
