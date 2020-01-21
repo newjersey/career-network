@@ -53,9 +53,12 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(3),
   },
   type: {
-    position: 'relative',
-    top: -theme.spacing(2.5),
     marginBottom: theme.spacing(3.5),
+    [theme.breakpoints.up('sm')]: {
+      position: 'relative',
+      top: -theme.spacing(2.5),
+      marginBottom: theme.spacing(3.5),
+    },
   },
   summaryType: {
     position: 'absolute',
