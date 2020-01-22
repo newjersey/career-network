@@ -8,6 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import NextLink from 'next/link';
 import PropTypes from 'prop-types';
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import React, { useEffect, useState } from 'react';
 import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 import Typography from '@material-ui/core/Typography';
@@ -37,8 +38,15 @@ const useStyles = makeStyles(theme => ({
   subtitle: {
     display: 'inline-block',
   },
-  trackIcon: {
+  circleIcon: {
+    position: 'absolute',
     marginLeft: theme.spacing(2),
+    color: theme.palette.primary.light,
+    fontSize: theme.spacing(7),
+  },
+  trackIcon: {
+    marginLeft: theme.spacing(3.3),
+    marginTop: theme.spacing(1.3),
     color: theme.palette.primary.light,
   },
   card: {
@@ -287,6 +295,9 @@ export default function Dashboard(props) {
     userDocRef.set({ lastSentimentTimestamp: new Date() }, { merge: true });
     showMessage(`Thank you for sharing, ${user.firstName}`);
   };
+  const handleClick = () => {
+    window.Intercom('trackEvent', 'explore-button-clicked');
+  };
 
   useEffect(() => {
     window.Intercom('update', { 'tasks-completed': doneTaskCount });
@@ -350,6 +361,7 @@ export default function Dashboard(props) {
             />
           </Box>
           <Box className={classes.gridL} position="relative">
+            <RadioButtonUncheckedIcon className={classes.circleIcon} />
             <TrackChangesIcon className={classes.trackIcon} fontSize="large" />
             <Card className={classes.card} variant="outlined">
               <CardContent>
@@ -361,8 +373,8 @@ export default function Dashboard(props) {
                 </Typography>
               </CardContent>
               <CardActions>
-                <NextLink href="/progress">
-                  <Button className={classes.exploreButton} fullWidth>
+                <NextLink href="/employment-outlook">
+                  <Button className={classes.exploreButton} fullWidth onClick={handleClick}>
                     EXPLORE
                   </Button>
                 </NextLink>
