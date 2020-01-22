@@ -2,6 +2,9 @@
   "intercom": {
     "identity_verification_secret": "[TEST] IDENTITY VERIFICATION SECRET"
   },
+  "slack": {
+    "token": "BOT USER OAUTH ACCESS TOKEN WITH APPROPRIATE SCOPES (chat:write)"
+  },
   "airtable": {
     "api_key": "YOUR SECRET ACCOUNT API KEY"
   }

@@ -5,7 +5,31 @@ const crypto = require('crypto');
 const functions = require('firebase-functions');
 const https = require('https');
 
+const { WebClient: SlackWebClient } = require('@slack/web-api');
+
 admin.initializeApp();
+
+const postSlackMessage = async (conversationId, text, options = {}) => {
+  const config = functions.config().slack;
+  if (!config) {
+    console.log('No Slack config');
+    return null;
+  }
+
+  const { token } = config;
+  if (!config) {
+    console.log('No Slack token');
+    return null;
+  }
+
+  const web = new SlackWebClient(token);
+
+  return web.chat.postMessage({
+    channel: conversationId,
+    text,
+    ...options,
+  });
+};
 
 // Uses native https package with streams to keep things quick and light.
 exports.airtableProxy = functions.https.onRequest((req, res) => {
@@ -74,6 +98,52 @@ exports.firestoreBackup = functions.pubsub
       throw new Error('Export operation failed');
     }
   });
+
+exports.newUserSlackAlert = functions.auth.user().onCreate(user => {
+  const { uid } = user;
+  const firebaseUrl = `https://console.firebase.google.com/project/nj-career-network/database/firestore/data/users/${uid}`;
+  const getIntercomUrl = () => {
+    const query = `{"predicates":[{"comparison":"eq","value":"${uid}","attribute":"user_id","type":"string"},{"type":"role","attribute":"role","comparison":"eq","value":"user_role"}]}`;
+    const base64 = Buffer.from(query).toString('base64');
+    return `https://app.intercom.io/a/apps/sb5qwtf5/users/segments/all:${base64}`;
+  };
+
+  const text = 'New sign up!';
+  const blocks = JSON.stringify([
+    {
+      type: 'section',
+      text: {
+        type: 'mrkdwn',
+        text,
+      },
+    },
+    {
+      type: 'actions',
+      block_id: 'newUserSlackAlert',
+      elements: [
+        {
+          type: 'button',
+          text: {
+            type: 'plain_text',
+            text: 'View in Intercom',
+          },
+          style: 'primary',
+          url: getIntercomUrl(),
+        },
+        {
+          type: 'button',
+          text: {
+            type: 'plain_text',
+            text: 'View in Firebase',
+          },
+          url: firebaseUrl,
+        },
+      ],
+    },
+  ]);
+
+  return postSlackMessage('CQHGBC4N6', text, { blocks });
+});
 
 exports.intercomUserHash = functions.auth.user().onCreate(user => {
   const { identity_verification_secret: secret } = functions.config().intercom;
