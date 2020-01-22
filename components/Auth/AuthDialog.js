@@ -17,20 +17,21 @@ function AuthDialog(props) {
   return (
     <Dialog
       fullScreen={fullScreen}
+      maxWidth="sm"
       open={open}
       onClose={onCancel}
       aria-labelledby="sign-in-dialog-title"
     >
       <DialogTitle id="sign-in-dialog-title">Sign in</DialogTitle>
       <DialogContent>
-        <Divider style={{ marginTop: -8, marginBottom: 25 }} />
-        <DialogContentText style={{ maxWidth: 460 }}>
+        <Divider style={{ marginTop: -8, marginBottom: 24 }} />
+        <DialogContentText>
           Before we get started, please sign in using one of your accounts below.
           <br />
           <small>
             We require the use of a Google or Yahoo account to sign up for a NJCN account to ensure
-            a simple and secure sign in. With your account, your data is private and secure – we
-            only use this information to provide and improve our service.
+            a simple and secure sign in. Your account data is private and secure – we only use this
+            information to provide and improve our service.
           </small>
         </DialogContentText>
         <AuthForm onSignInSuccessWithAuthResult={onSignInSuccessWithAuthResult} />
