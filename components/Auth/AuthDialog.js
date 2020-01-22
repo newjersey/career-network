@@ -4,6 +4,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Divider from '@material-ui/core/Divider';
 import PropTypes from 'prop-types';
 import React from 'react';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
@@ -16,18 +17,21 @@ function AuthDialog(props) {
   return (
     <Dialog
       fullScreen={fullScreen}
+      maxWidth="sm"
       open={open}
       onClose={onCancel}
       aria-labelledby="sign-in-dialog-title"
     >
       <DialogTitle id="sign-in-dialog-title">Sign in</DialogTitle>
       <DialogContent>
-        <DialogContentText style={{ maxWidth: 460 }}>
-          Before we get started, please sign in using an account below.
+        <Divider style={{ marginTop: -8, marginBottom: 24 }} />
+        <DialogContentText>
+          Before we get started, please sign in using one of your accounts below.
           <br />
           <small>
-            Your data is private and secure – we only use this information to provide and improve
-            this service.
+            We require the use of a Google or Yahoo account to sign up for a NJCN account to ensure
+            a simple and secure sign in. Your account data is private and secure – we only use this
+            information to provide and improve our service.
           </small>
         </DialogContentText>
         <AuthForm onSignInSuccessWithAuthResult={onSignInSuccessWithAuthResult} />
