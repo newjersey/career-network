@@ -13,7 +13,6 @@ const sentryDsn = 'https://3deb0f7b679840f28bb7931c8c33b206@sentry.io/1733812';
 
 const commonFirebase = {
   userCollection: 'users',
-  sentimentEventsCollection: 'sentimentEvents',
   userPreauthorizationCollection: 'userPreauthorizations',
 };
 
@@ -175,7 +174,6 @@ const appEnvironments = {
     firebase: {
       projectId: 'nj-career-network-test',
       userCollection: 'users-test',
-      sentimentEventsCollection: 'sentimentEvents-test',
       userPreauthorizationCollection: 'userPreauthorizations-test',
     },
   },

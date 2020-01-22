@@ -45,14 +45,27 @@ export default function ActivityCategoryTable(props) {
   const subsetByCategories = Object.keys(totalCounts).map(key => {
     return { category: key, subset: subsetCounts[key] || 0, total: totalCounts[key] };
   });
+  const isEmpty = totalActivitiesCount === 0;
 
   return (
     <>
       <Box mb={4} mx={4}>
         <Gauge
           label={label}
-          percentage={totalActivitiesCount === 0 ? 0 : subsetActivitiesCount / totalActivitiesCount}
+          percentage={isEmpty ? 0 : subsetActivitiesCount / totalActivitiesCount}
+          disabled={isEmpty}
         />
+        {isEmpty && (
+          <Box mt={1}>
+            <Typography variant="h6" align="center" style={{ fontSize: '1.5em' }} gutterBottom>
+              No Activities Logged
+            </Typography>
+            <Typography variant="body2" align="center">
+              You have not logged any activities yet. Start logging your activities and we’ll help
+              you track your confidence level over time.
+            </Typography>
+          </Box>
+        )}
       </Box>
       <Divider />
       <Table>

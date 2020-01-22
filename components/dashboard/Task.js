@@ -53,9 +53,12 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(3),
   },
   type: {
-    position: 'relative',
-    top: -theme.spacing(2.5),
     marginBottom: theme.spacing(3.5),
+    [theme.breakpoints.up('sm')]: {
+      position: 'relative',
+      top: -theme.spacing(2.5),
+      marginBottom: theme.spacing(3.5),
+    },
   },
   summaryType: {
     position: 'absolute',
@@ -126,7 +129,7 @@ export default function Task(props) {
       <CardHeader
         title={
           <Grid item xs={12} md={9}>
-            <Typography component="h1" variant="h5" display="block">
+            <Typography component="h1" variant="h5">
               {task.fields.Title}
             </Typography>
           </Grid>

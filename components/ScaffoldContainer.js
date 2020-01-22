@@ -1,41 +1,23 @@
-import { makeStyles } from '@material-ui/styles';
-import clsx from 'clsx';
-import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const useStyles = makeStyles(theme => ({
-  padding: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-      paddingLeft: theme.spacing(3),
-      paddingRight: theme.spacing(3),
-    },
-  },
-}));
-
 function ScaffoldContainer(props) {
-  const { children, padding, className } = props;
-  const classes = useStyles();
+  const { children, className } = props;
 
   return (
-    <Grid container className={className} justify="center" alignItems="center">
-      <Grid item xs={12} lg={10} className={clsx(padding && classes.padding)}>
-        {children}
-      </Grid>
-    </Grid>
+    <Container maxWidth="lg" className={className}>
+      {children}
+    </Container>
   );
 }
 
 ScaffoldContainer.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]).isRequired,
-  padding: PropTypes.bool,
   className: PropTypes.string,
 };
 
 ScaffoldContainer.defaultProps = {
-  padding: true,
   className: undefined,
 };
 

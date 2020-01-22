@@ -12,7 +12,7 @@ export default function User(props) {
   const { onSignOut, user } = props;
 
   return (
-    <ScaffoldContainer padding={false}>
+    <ScaffoldContainer>
       <Grid container justify="space-between" alignItems="center">
         <Grid item />
         <Hidden xsDown implementation="css">

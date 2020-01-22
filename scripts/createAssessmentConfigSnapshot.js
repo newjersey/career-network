@@ -22,7 +22,6 @@ const firebaseConfig = {
   messagingSenderId: '114141088298',
   appId: '1:114141088298:web:ce96ec93a41e3d35',
   userCollection: 'users',
-  sentimentEventsCollection: 'sentimentEvents',
   userPreauthorizationCollection: 'userPreauthorizations',
 };
 

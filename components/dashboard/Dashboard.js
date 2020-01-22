@@ -1,3 +1,4 @@
+import { isToday } from 'date-fns';
 import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -11,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 
 import { isDone, mostRecent } from '../../src/app-helper';
 import { useAuth } from '../Auth';
+import { useSnackbar } from '../Snackbar';
 import ActivityCategoryTable from './ActivityCategoryTable';
 import ActivityInputDialog from './ActivityInputDialog';
 import AirtablePropTypes from '../Airtable/PropTypes';
@@ -250,7 +252,8 @@ const DIALOGS = {
 // eslint-disable-next-line sonarjs/cognitive-complexity
 export default function Dashboard(props) {
   const classes = useStyles();
-  const { user } = useAuth();
+  const showMessage = useSnackbar();
+  const { user, userDocRef } = useAuth();
   const {
     allConditions,
     allPredicates,
@@ -269,6 +272,12 @@ export default function Dashboard(props) {
   const tasks = getTasks(props, TASK_COUNT_LIMIT);
   const doneTaskCount = allTaskDispositionEvents.length;
   const [activeDialog, setActiveDialog] = useState();
+  const showSentiment =
+    !user.lastSentimentTimestamp || !isToday(user.lastSentimentTimestamp.toDate());
+  const onRecordSentiment = () => {
+    userDocRef.set({ lastSentimentTimestamp: new Date() }, { merge: true });
+    showMessage(`Thank you for sharing, ${user.firstName}`);
+  };
 
   useEffect(() => {
     window.Intercom('update', { 'tasks-completed': doneTaskCount });
@@ -289,16 +298,19 @@ export default function Dashboard(props) {
           <Typography component="h1" variant="h2" gutterBottom>
             Welcome, {user && user.firstName}
           </Typography>
-          <Typography variant="subtitle1" gutterBottom>
+          <Typography variant="subtitle1">
             Here’s your personalized action plan. It will update as you make progress.
           </Typography>
         </ScaffoldContainer>
       </BackgroundHeader>
 
-      <ScaffoldContainer className={classes.container}>
-        <Box minHeight={60}>
-          <SentimentTracker />
-        </Box>
+      {showSentiment && (
+        <ScaffoldContainer className={classes.container}>
+          <SentimentTracker onRecord={onRecordSentiment} />
+        </ScaffoldContainer>
+      )}
+
+      <ScaffoldContainer>
         <Box className={classes.grid}>
           <Box
             display="flex"
