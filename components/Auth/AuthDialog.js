@@ -7,7 +7,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
 import PropTypes from 'prop-types';
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 
 import AuthForm from './AuthForm';
@@ -26,9 +25,8 @@ function AuthDialog(props) {
       <DialogContent>
         <Divider style={{ marginTop: -8, marginBottom: 25 }} />
         <DialogContentText style={{ maxWidth: 460 }}>
-          <Typography gutterBottom>
-            Before we get started, please sign in using one of your accounts below.
-          </Typography>
+          Before we get started, please sign in using one of your accounts below.
+          <br />
           <small>
             We require the use of a Google or Yahoo account to sign up for a NJCN account to ensure
             a simple and secure sign in. With your account, your data is private and secure – we
