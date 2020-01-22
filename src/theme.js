@@ -1,6 +1,7 @@
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 
 const HeaderFont = '"Public Sans", "Helvetica", "Arial", sans-serif';
+const SecondaryMainColor = '#4D840A';
 
 // Create a theme instance.
 const theme = createMuiTheme({
@@ -12,7 +13,7 @@ const theme = createMuiTheme({
     },
     secondary: {
       light: '#54910B',
-      main: '#4D840A',
+      main: SecondaryMainColor,
       dark: '#45770A',
     },
     text: {
@@ -56,6 +57,14 @@ const theme = createMuiTheme({
       contained: {
         boxShadow: 'none',
       },
+    },
+    MuiStepIcon: {
+      root: {
+        '&$completed': {
+          color: SecondaryMainColor,
+        },
+      },
+      completed: {},
     },
   },
   props: {
