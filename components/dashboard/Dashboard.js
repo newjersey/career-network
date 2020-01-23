@@ -6,14 +6,16 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
+import NextLink from 'next/link';
 import PropTypes from 'prop-types';
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import React, { useEffect, useState } from 'react';
+import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 import Typography from '@material-ui/core/Typography';
 
 import { isDone, mostRecent } from '../../src/app-helper';
 import { useAuth } from '../Auth';
 import { useSnackbar } from '../Snackbar';
-import ActivityCategoryTable from './ActivityCategoryTable';
 import ActivityInputDialog from './ActivityInputDialog';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import BackgroundHeader from '../BackgroundHeader';
@@ -35,6 +37,24 @@ const useStyles = makeStyles(theme => ({
   },
   subtitle: {
     display: 'inline-block',
+  },
+  circleIcon: {
+    position: 'absolute',
+    marginLeft: theme.spacing(2),
+    color: theme.palette.primary.light,
+    fontSize: theme.spacing(7),
+  },
+  trackIcon: {
+    marginLeft: theme.spacing(3.3),
+    marginTop: theme.spacing(1.3),
+    color: theme.palette.primary.light,
+  },
+  card: {
+    marginTop: theme.spacing(-3),
+    padding: theme.spacing(1),
+  },
+  exploreButton: {
+    border: `1px solid ${theme.palette.primary.light}`,
   },
   grid: {
     display: 'grid',
@@ -275,6 +295,9 @@ export default function Dashboard(props) {
     userDocRef.set({ lastSentimentTimestamp: new Date() }, { merge: true });
     showMessage(`Thank you for sharing, ${user.firstName}`);
   };
+  const handleClick = () => {
+    window.Intercom('trackEvent', 'explore-button-clicked');
+  };
 
   useEffect(() => {
     window.Intercom('update', { 'tasks-completed': doneTaskCount });
@@ -337,18 +360,25 @@ export default function Dashboard(props) {
               {...restProps}
             />
           </Box>
-          <Box className={classes.gridL}>
-            <Card variant="outlined">
-              <CardHeader
-                title="Confidence Level"
-                titleTypographyProps={{ component: 'h2', variant: 'h6' }}
-              />
-
-              <ActivityCategoryTable
-                allActivityLogEntries={allActivityLogEntries}
-                subsetActivityLogEntries={confidentActivityLogEntries}
-                label="Feeling Confident"
-              />
+          <Box className={classes.gridL} position="relative">
+            <RadioButtonUncheckedIcon className={classes.circleIcon} />
+            <TrackChangesIcon className={classes.trackIcon} fontSize="large" />
+            <Card className={classes.card} variant="outlined">
+              <CardContent>
+                <Typography variant="h6" gutterBottom>
+                  Employment Outlook
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                  Learn about the outlook in your area for the occupation that you want.
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <NextLink href="/employment-outlook">
+                  <Button className={classes.exploreButton} fullWidth onClick={handleClick}>
+                    EXPLORE
+                  </Button>
+                </NextLink>
+              </CardActions>
             </Card>
           </Box>
           <Box className={classes.gridR}>
