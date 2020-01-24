@@ -16,12 +16,13 @@ import AirtablePropTypes from '../../../Airtable/PropTypes';
 const useStyles = makeStyles(theme => ({
   formControl: {
     marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
+    marginBottom: theme.spacing(3),
     width: '100%',
   },
-  horizontalLabel: {
-    fontWeight: 'bolder',
+  option: {
+    fontWeight: 500,
   },
+  helperText: theme.typography.helperText,
 }));
 
 export default function DropdownQuestion(props) {
@@ -55,10 +56,13 @@ export default function DropdownQuestion(props) {
     );
   };
 
-  const HelperText = () => <FormHelperText>{helperText}</FormHelperText>;
+  const HelperText = () => (
+    <FormHelperText className={classes.helperText}>{helperText}</FormHelperText>
+  );
 
   const Dropdown = () => (
     <Select
+      className={classes.option}
       disabled={question.fields.Disabled}
       fullWidth
       inputProps={{

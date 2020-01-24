@@ -9,12 +9,11 @@ import AirtablePropTypes from '../../Airtable/PropTypes';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(3),
   },
-  label: {
-    [theme.breakpoints.up('sm')]: {
-      fontWeight: 'bolder',
-    },
+  helperText: {
+    marginBottom: theme.spacing(1),
+    ...theme.typography.helperText,
   },
 }));
 
@@ -84,10 +83,8 @@ export default function SliderQuestion(props) {
 
   return (
     <div className={classes.root}>
-      <FormLabel className={classes.label} component="legend">
-        {question.fields.Label}
-      </FormLabel>
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
+      <FormLabel component="legend">{question.fields.Label}</FormLabel>
+      {helperText && <FormHelperText className={classes.helperText}>{helperText}</FormHelperText>}
 
       <StyledSlider
         aria-label={question.fields.Label}

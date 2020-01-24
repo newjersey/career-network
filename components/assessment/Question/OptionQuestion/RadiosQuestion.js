@@ -14,12 +14,13 @@ import AirtablePropTypes from '../../../Airtable/PropTypes';
 const useStyles = makeStyles(theme => ({
   formControl: {
     marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(1),
+    marginBottom: theme.spacing(2),
     width: '100%',
   },
   formControlLabel: {
     marginRight: theme.spacing(7),
   },
+  helperText: theme.typography.helperText,
 }));
 
 export default function RadiosQuestion(props) {
@@ -67,7 +68,7 @@ export default function RadiosQuestion(props) {
         ))}
       </RadioGroup>
 
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
+      {helperText && <FormHelperText className={classes.helperText}>{helperText}</FormHelperText>}
     </FormControl>
   );
 }
