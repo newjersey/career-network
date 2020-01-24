@@ -7,7 +7,7 @@ function EmploymentOutlookPage() {
     <div>
       <ScaffoldContainer>
         <Typography variant="h5" style={{ marginTop: '2em' }}>
-          Coming Soon..
+          Coming Soon...
         </Typography>
       </ScaffoldContainer>
     </div>
