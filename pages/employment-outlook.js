@@ -1,17 +1,15 @@
 import React from 'react';
-import { Typography } from '@material-ui/core';
-import ScaffoldContainer from '../components/ScaffoldContainer';
+
+import { fullyLoaded } from '../src/app-helper';
+import { useAuth, withAuthRequired } from '../components/Auth';
+import EmploymentOutlook from '../components/employmentOutlook/EmploymentOutlook';
+import FullPageProgress from '../components/FullPageProgress';
+import withTitle from '../components/withTitle';
 
 function EmploymentOutlookPage() {
-  return (
-    <div>
-      <ScaffoldContainer>
-        <Typography variant="h5" style={{ marginTop: '2em' }}>
-          Coming Soon..
-        </Typography>
-      </ScaffoldContainer>
-    </div>
-  );
+  const { user } = useAuth();
+
+  return fullyLoaded(user) ? <EmploymentOutlook /> : <FullPageProgress />;
 }
 
-export default EmploymentOutlookPage;
+export default withAuthRequired(withTitle(EmploymentOutlookPage), 'Employment Outlook');
