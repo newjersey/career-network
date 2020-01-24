@@ -1,5 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -19,7 +20,7 @@ function BackgroundHeader(props) {
   const classes = useStyles();
 
   return (
-    <Box className={`${classes.default} ${className}`} display="flex" alignItems="flex-start">
+    <Box className={clsx(classes.default, className)} display="flex" alignItems="flex-start">
       {children}
     </Box>
   );
