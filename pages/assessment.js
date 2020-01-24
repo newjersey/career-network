@@ -8,13 +8,20 @@ import { useAuth, withAuthRequired } from '../components/Auth';
 import { useRecords } from '../components/Airtable';
 import { useUserSubcollection } from '../components/Firebase';
 import AssessmentSectionList from '../components/assessment/AssessmentSectionList';
+import BackgroundHeader from '../components/BackgroundHeader';
 import FullPageProgress from '../components/FullPageProgress';
 import ScaffoldContainer from '../components/ScaffoldContainer';
 import withTitle from '../components/withTitle';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    paddingTop: theme.spacing(5),
+    position: 'relative',
+  },
+  backgroundHeader: {
+    paddingBottom: theme.spacing(12),
+  },
+  assessmentContainer: {
+    marginTop: theme.spacing(-11),
   },
 }));
 
@@ -78,22 +85,23 @@ function Assessment() {
 
   return (
     <div className={classes.root}>
-      <ScaffoldContainer>
+      <BackgroundHeader className={classes.backgroundHeader}>
+        <ScaffoldContainer>
+          <Typography ref={scrollToRef} component="h1" variant="h2" gutterBottom>
+            Hi, {user && user.firstName}
+          </Typography>
+        </ScaffoldContainer>
+      </BackgroundHeader>
+      <ScaffoldContainer className={classes.assessmentContainer}>
         {fullyLoaded(user, allPropsLoaded(assessmentConfiguration), allQuestionResponses) &&
         !isFinished ? (
-          <>
-            <Typography ref={scrollToRef} component="h1" variant="h2" gutterBottom>
-              Hi, {user && user.firstName}!
-            </Typography>
-
-            <AssessmentSectionList
-              scrollToY={scrollToY}
-              onComplete={handleComplete}
-              allQuestionResponses={allQuestionResponses}
-              {...assessmentConfiguration}
-              enforceValidity
-            />
-          </>
+          <AssessmentSectionList
+            scrollToY={scrollToY}
+            onComplete={handleComplete}
+            allQuestionResponses={allQuestionResponses}
+            {...assessmentConfiguration}
+            enforceValidity
+          />
         ) : (
           <FullPageProgress />
         )}

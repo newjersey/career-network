@@ -8,8 +8,10 @@ import AirtablePropTypes from '../../Airtable/PropTypes';
 // eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles(theme => ({
   textField: {
-    // paddingTop: theme.spacing(1),
+    marginBottom: theme.spacing(3),
+    fontWeight: 500,
   },
+  helperText: theme.typography.helperText,
 }));
 
 export default function TextQuestion(props) {
@@ -45,6 +47,7 @@ export default function TextQuestion(props) {
       helperText={question.fields['Helper Text']}
       fullWidth
       inputProps={inputProps}
+      FormHelperTextProps={{ classes: { root: classes.helperText } }}
       error={reflectError}
       value={value}
       {...restProps}

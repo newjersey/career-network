@@ -14,8 +14,12 @@ const useStyles = makeStyles(theme => ({
     // marginTop: theme.spacing(5),
   },
   formControl: {
-    margin: theme.spacing(5, 0, 0),
+    margin: theme.spacing(4, 0, 0),
     width: '100%',
+  },
+  label: {
+    fontWeight: 500,
+    marginBottom: theme.spacing(2),
   },
 }));
 
@@ -55,7 +59,7 @@ export default function QuestionGroup(props) {
   return (
     <div className={classes.root}>
       <FormControl component="fieldset" className={classes.formControl}>
-        <Typography component="legend" variant="h6" gutterBottom>
+        <Typography component="legend" variant="body1" className={classes.label}>
           {questionGroup.fields.Label}
         </Typography>
 
