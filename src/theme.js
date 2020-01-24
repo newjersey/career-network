@@ -64,7 +64,6 @@ const theme = createMuiTheme({
           color: SecondaryMainColor,
         },
       },
-      completed: {},
     },
   },
   props: {
