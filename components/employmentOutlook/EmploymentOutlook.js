@@ -7,9 +7,9 @@ import React from 'react';
 import NextLink from 'next/link';
 import Typography from '@material-ui/core/Typography';
 
+import AutocompleteDropdown from './AutocompleteDropdown';
 import BackgroundHeader from '../BackgroundHeader';
 import ScaffoldContainer from '../ScaffoldContainer';
-import AutocompleteDropdown from './AutocompleteDropdown';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,6 +26,9 @@ const useStyles = makeStyles(theme => ({
   container: {
     marginTop: theme.spacing(6),
     marginBottom: theme.spacing(10),
+  },
+  dropdown: {
+    height: 400,
   },
 }));
 
@@ -62,7 +65,7 @@ function EmploymentOutlook() {
               What job are you looking for? Select the job that most closely matches the one you are
               looking for.
             </Typography>
-            <Box height={400}>
+            <Box className={classes.dropdown}>
               <AutocompleteDropdown />
             </Box>
           </Grid>

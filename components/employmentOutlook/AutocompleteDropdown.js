@@ -12,7 +12,6 @@ const searchClient = algoliasearch('GVXRTXREAI', '327775f382e4df7687f8a578e64e23
 
 const useStyles = makeStyles(() => ({
   wrapIcon: {
-    verticalAlign: 'middle',
     display: 'inline-flex',
   },
 }));
@@ -20,7 +19,7 @@ const useStyles = makeStyles(() => ({
 function AutocompleteSearch({ hits, currentRefinement, refine }) {
   const classes = useStyles();
   const options = hits.map(option => ({
-    default: `Occupations (${hits.length} results)`,
+    default: `Occupations`,
     ...option,
   }));
 
@@ -45,15 +44,15 @@ function AutocompleteSearch({ hits, currentRefinement, refine }) {
         onInputChange={event => refine(event.currentTarget.value)}
         renderInput={params => (
           <TextField
+            variant="outlined"
             {...params}
-            icon={<SearchIcon />}
             value={currentRefinement}
             label={
-              <Typography className={classes.wrapIcon}>
-                <SearchIcon style={{ marginRight: '0.5rem' }} /> Search or Select an Occupation
-              </Typography>
+              <div className={classes.wrapIcon}>
+                <SearchIcon style={{ marginRight: '0.5rem', marginTop: '-0.2rem' }} /> Search or
+                Select an Occupation
+              </div>
             }
-            variant="outlined"
             fullWidth
           />
         )}
