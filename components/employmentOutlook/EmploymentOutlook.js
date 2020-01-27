@@ -1,5 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
@@ -8,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 
 import BackgroundHeader from '../BackgroundHeader';
 import ScaffoldContainer from '../ScaffoldContainer';
-import Search from './Search';
+import AutocompleteDropdown from './AutocompleteDropdown';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -61,7 +62,9 @@ function EmploymentOutlook() {
               What job are you looking for? Select the job that most closely matches the one you are
               looking for.
             </Typography>
-            <Search />
+            <Box height={400}>
+              <AutocompleteDropdown />
+            </Box>
           </Grid>
         </Grid>
       </ScaffoldContainer>
