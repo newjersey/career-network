@@ -31,6 +31,16 @@ function AutocompleteSearch({ hits, currentRefinement, refine }) {
         options={options}
         groupBy={option => option.default}
         getOptionLabel={option => option.Occupation}
+        noOptionsText={
+          <>
+            <Typography style={{ fontWeight: 'bold' }} gutterBottom>
+              Sorry, we couldn&apos;t find any occupations matching your search.{' '}
+            </Typography>
+            <Typography>
+              You may want to check spelling or try searching with other terms.
+            </Typography>
+          </>
+        }
         style={{ width: '100%' }}
         onInputChange={event => refine(event.currentTarget.value)}
         renderInput={params => (
