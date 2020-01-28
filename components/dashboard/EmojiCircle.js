@@ -5,26 +5,23 @@ function EmojiCircle(props) {
   const { emoji, diameter, fillColor, stroke, strokeWidth } = props;
   const coordinateForCircle = diameter / 2;
   const radius = (diameter - 2 * strokeWidth) / 2;
-  const emojiSize = diameter * 0.6;
-  const coordinateXForEmoji = coordinateForCircle - emojiSize / 2;
-  const coordinateYForEmoji = coordinateForCircle + emojiSize / 2 - strokeWidth * 4;
 
   return (
-    <svg height={diameter} width={diameter}>
-      <g>
-        <circle
-          cx={coordinateForCircle}
-          cy={coordinateForCircle}
-          r={radius}
-          stroke={stroke}
-          strokeWidth={strokeWidth}
-          fill={fillColor}
-        />
-        <text x={coordinateXForEmoji} y={coordinateYForEmoji} fontSize={emojiSize}>
-          {emoji}
-        </text>
-      </g>
-    </svg>
+    <>
+      <svg height={diameter} width={diameter}>
+        <g>
+          <circle
+            cx={coordinateForCircle}
+            cy={coordinateForCircle}
+            r={radius}
+            stroke={stroke}
+            strokeWidth={strokeWidth}
+            fill={fillColor}
+          />
+        </g>
+      </svg>
+      <div style={{ marginTop: '-63.5px', fontSize: '33px' }}>{emoji}</div>
+    </>
   );
 }
 
