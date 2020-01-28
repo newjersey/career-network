@@ -3,14 +3,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 function ScaffoldContainer(props) {
-  const { children, marginTopValue } = props;
-
-  const style = {
-    marginTop: marginTopValue,
-  };
+  const { children, className } = props;
 
   return (
-    <Container maxWidth="lg" style={style}>
+    <Container maxWidth="lg" className={className}>
       {children}
     </Container>
   );
@@ -18,11 +14,11 @@ function ScaffoldContainer(props) {
 
 ScaffoldContainer.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]).isRequired,
-  marginTopValue: PropTypes.number,
+  className: PropTypes.string,
 };
 
 ScaffoldContainer.defaultProps = {
-  marginTopValue: 0,
+  className: undefined,
 };
 
 export default ScaffoldContainer;
