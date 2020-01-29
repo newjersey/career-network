@@ -1,4 +1,4 @@
-import { InstantSearch, Hits, Configure } from 'react-instantsearch-dom';
+import { InstantSearch, Configure, connectHits } from 'react-instantsearch-dom';
 import algoliasearch from 'algoliasearch/lite';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
@@ -12,23 +12,33 @@ import FavorabilityDialog from './FavorabilityDialog';
 
 const searchClient = algoliasearch('GVXRTXREAI', '327775f382e4df7687f8a578e64e238b');
 
-const Hit = props => {
-  const { hit, onClose } = props;
-  return (
-    <FavorabilityDialog
-      favorabilityValue={hit.Descriptor}
-      occupation={hit.Occupation}
-      county={hit.county}
-      onClose={onClose}
-      show
-    />
-  );
-};
+function Hits(props) {
+  const { hits, show, onClose } = props;
+  if (hits.length > 0) {
+    const hit = hits[0];
+    return (
+      <FavorabilityDialog
+        favorabilityValue={hit.Descriptor}
+        occupation={hit.Occupation}
+        county={hit.county}
+        onClose={onClose}
+        show={show}
+      />
+    );
+  }
+  return null;
+}
+
+const CustomHits = connectHits(Hits);
 
 function Search() {
   const [occupation, setOccupation] = useState('');
   const [county, setCounty] = useState('');
   const [submitting, setSubmitting] = useState(false);
+
+  const handleClose = () => {
+    setSubmitting(false);
+  };
 
   return (
     <Box>
@@ -41,16 +51,16 @@ function Search() {
       {submitting && (
         <InstantSearch indexName="test_prod_EMPLOYMENT_PROSPECTS" searchClient={searchClient}>
           <Configure query={occupation} filters={`county:"${county}"`} hitsPerPage={1} />
-          <Hits hitComponent={Hit} onClose={setSubmitting} />
+          <CustomHits show onClose={handleClose} />
         </InstantSearch>
       )}
     </Box>
   );
 }
 
-Hit.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  hit: PropTypes.object.isRequired,
+Hits.propTypes = {
+  hits: PropTypes.arrayOf(PropTypes.object).isRequired,
+  show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
