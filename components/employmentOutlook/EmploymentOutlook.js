@@ -7,9 +7,9 @@ import React from 'react';
 import NextLink from 'next/link';
 import Typography from '@material-ui/core/Typography';
 
-import AutocompleteDropdown from './AutocompleteDropdown';
 import BackgroundHeader from '../BackgroundHeader';
 import ScaffoldContainer from '../ScaffoldContainer';
+import Search from './Search';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -66,7 +66,7 @@ function EmploymentOutlook() {
               looking for.
             </Typography>
             <Box className={classes.dropdown}>
-              <AutocompleteDropdown />
+              <Search />
             </Box>
           </Grid>
         </Grid>

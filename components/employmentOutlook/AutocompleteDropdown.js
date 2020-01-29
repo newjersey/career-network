@@ -16,11 +16,11 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function AutocompleteSearch({ hits, currentRefinement, refine }) {
+function AutocompleteSearch({ hits, currentRefinement, refine, onDropdownValueChange }) {
   const classes = useStyles();
   const options = hits.map(option => ({
     default: `Occupations`,
-    ...option,
+    Occupation: option.Occupation,
   }));
 
   return (
@@ -42,6 +42,7 @@ function AutocompleteSearch({ hits, currentRefinement, refine }) {
         }
         style={{ width: '100%' }}
         onInputChange={event => refine(event.currentTarget.value)}
+        onChange={(event, value) => onDropdownValueChange(value ? value.Occupation : '')}
         renderInput={params => (
           <TextField
             variant="outlined"
@@ -65,15 +66,23 @@ AutocompleteSearch.propTypes = {
   hits: PropTypes.arrayOf(PropTypes.object).isRequired,
   currentRefinement: PropTypes.string.isRequired,
   refine: PropTypes.func.isRequired,
+  onDropdownValueChange: PropTypes.func.isRequired,
 };
 
 const CustomAutocomplete = connectAutoComplete(AutocompleteSearch);
 
-const AutocompleteDropdown = () => (
-  <InstantSearch searchClient={searchClient} indexName="DISTINCT_OCCUPATION">
-    <Configure hitsPerPage={1000} />
-    <CustomAutocomplete />
-  </InstantSearch>
-);
+function AutocompleteDropdown(props) {
+  const { onChange } = props;
+  return (
+    <InstantSearch searchClient={searchClient} indexName="DISTINCT_OCCUPATION">
+      <Configure hitsPerPage={1000} />
+      <CustomAutocomplete onDropdownValueChange={onChange} />
+    </InstantSearch>
+  );
+}
+
+AutocompleteDropdown.propTypes = {
+  onChange: PropTypes.func.isRequired,
+};
 
 export default AutocompleteDropdown;
