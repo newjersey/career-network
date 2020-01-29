@@ -9,6 +9,22 @@ const COUNY_NAMES = [
   'Burlington County',
   'Camden County',
   'Cape May County',
+  'Cumberland County',
+  'Essex County',
+  'Glouchester County',
+  'Hudson County',
+  'Hunterdon County',
+  'Mercer County',
+  'Middlesex County',
+  'Monmouth County',
+  'Morris County',
+  'Ocean County',
+  'Passaic County',
+  'Salem County',
+  'Somerset County',
+  'Sussex County',
+  'Union County',
+  'Warren County',
 ];
 
 const useStyles = makeStyles(theme => ({
