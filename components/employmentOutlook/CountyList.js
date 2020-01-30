@@ -34,20 +34,20 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function CountyList(props) {
-  const { county, onChange } = props;
+  const { value, onChange } = props;
   const classes = useStyles();
 
   return (
     <ToggleButton
       className={classes.toggleButton}
       options={COUNY_NAMES}
-      value={county}
+      value={value}
       handleChange={e => onChange(e)}
     />
   );
 }
 
 CountyList.propTypes = {
-  county: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };

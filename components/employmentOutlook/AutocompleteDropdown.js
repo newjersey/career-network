@@ -16,20 +16,15 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function AutocompleteSearch({ hits, currentRefinement, refine, onDropdownValueChange }) {
+function AutocompleteSearch({ hits, currentRefinement, refine, onDropdownValueChange, value }) {
   const classes = useStyles();
-  const options = hits.map(option => ({
-    default: `Occupations`,
-    Occupation: option.Occupation,
-  }));
+  const options = hits.map(option => option.Occupation);
 
   return (
     <>
       <Autocomplete
         id="occupation-autocomplete-select"
         options={options}
-        groupBy={option => option.default}
-        getOptionLabel={option => option.Occupation}
         noOptionsText={
           <>
             <Typography style={{ fontWeight: 'bold' }} gutterBottom>
@@ -40,9 +35,9 @@ function AutocompleteSearch({ hits, currentRefinement, refine, onDropdownValueCh
             </Typography>
           </>
         }
-        style={{ width: '100%' }}
-        onInputChange={event => refine(event.currentTarget.value)}
-        onChange={(event, value) => onDropdownValueChange(value ? value.Occupation : '')}
+        value={value}
+        onInputChange={(event, val) => refine(val)}
+        onChange={(event, val) => onDropdownValueChange(val)}
         renderInput={params => (
           <TextField
             variant="outlined"
@@ -66,22 +61,24 @@ AutocompleteSearch.propTypes = {
   hits: PropTypes.arrayOf(PropTypes.object).isRequired,
   currentRefinement: PropTypes.string.isRequired,
   refine: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
   onDropdownValueChange: PropTypes.func.isRequired,
 };
 
 const CustomAutocomplete = connectAutoComplete(AutocompleteSearch);
 
 function AutocompleteDropdown(props) {
-  const { onChange } = props;
+  const { value, onChange } = props;
   return (
     <InstantSearch searchClient={searchClient} indexName="DISTINCT_OCCUPATION">
       <Configure hitsPerPage={1000} />
-      <CustomAutocomplete onDropdownValueChange={onChange} />
+      <CustomAutocomplete value={value} onDropdownValueChange={onChange} />
     </InstantSearch>
   );
 }
 
 AutocompleteDropdown.propTypes = {
+  value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 

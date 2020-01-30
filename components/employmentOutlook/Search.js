@@ -1,5 +1,7 @@
 import { InstantSearch, Configure, connectHits } from 'react-instantsearch-dom';
 import algoliasearch from 'algoliasearch/lite';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -10,6 +12,8 @@ import Button from '@material-ui/core/Button';
 import AutocompleteDropdown from './AutocompleteDropdown';
 import CountyList from './CountyList';
 import FavorabilityDialog from './FavorabilityDialog';
+import useFormValidation from '../formValidationHook';
+import employmentInputValidation from './EmploymentInputValidation';
 
 const searchClient = algoliasearch('GVXRTXREAI', '327775f382e4df7687f8a578e64e238b');
 
@@ -33,12 +37,26 @@ function Hits(props) {
 const CustomHits = connectHits(Hits);
 
 function Search() {
-  const [occupation, setOccupation] = useState('');
-  const [county, setCounty] = useState('');
-  const [submitting, setSubmitting] = useState(false);
+  const [searching, setSearching] = useState(false);
+
+  const initialState = {
+    occupation: '',
+    county: '',
+  };
+
+  const submit = () => {
+    setSearching(true);
+  };
+
+  const { handleSubmit, handleChangeCustom, values, errors, reset } = useFormValidation(
+    initialState,
+    employmentInputValidation,
+    submit
+  );
 
   const handleClose = () => {
-    setSubmitting(false);
+    reset();
+    setSearching(false);
   };
 
   return (
@@ -51,7 +69,13 @@ function Search() {
           What job are you looking for? Select the job that most closely matches the one you are
           looking for.
         </Typography>
-        <AutocompleteDropdown onChange={e => setOccupation(e)} />
+        <FormControl fullWidth error={!!errors.occupation}>
+          <AutocompleteDropdown
+            value={values.occupation}
+            onChange={o => handleChangeCustom('occupation', o)}
+          />
+          {!!errors.occupation && <FormHelperText>{errors.occupation}</FormHelperText>}
+        </FormControl>
       </Box>
       <Divider />
       <Box mt={8} mb={8}>
@@ -61,14 +85,21 @@ function Search() {
         <Typography variant="body2" style={{ marginBottom: '2em' }}>
           Where are you looking for work? You may only select one county at a time.
         </Typography>
-        <CountyList county={county} onChange={e => setCounty(e)} />
+        <FormControl fullWidth error={!!errors.county}>
+          <CountyList value={values.county} onChange={c => handleChangeCustom('county', c)} />
+          {!!errors.county && <FormHelperText>{errors.county}</FormHelperText>}
+        </FormControl>
       </Box>
-      <Button variant="contained" size="large" color="primary" onClick={() => setSubmitting(true)}>
+      <Button variant="contained" size="large" color="primary" onClick={handleSubmit}>
         Explore Favorability
       </Button>
-      {submitting && (
+      {searching && (
         <InstantSearch indexName="test_prod_EMPLOYMENT_PROSPECTS" searchClient={searchClient}>
-          <Configure query={occupation} filters={`county:"${county}"`} hitsPerPage={1} />
+          <Configure
+            query={values.occupation}
+            filters={`county:"${values.county}"`}
+            hitsPerPage={1}
+          />
           <CustomHits show onClose={handleClose} />
         </InstantSearch>
       )}
