@@ -4,25 +4,21 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import NextLink from 'next/link';
-import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import React from 'react';
 import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(theme => ({
-  circleIcon: {
+  iconContainer: {
     position: 'absolute',
-    marginLeft: theme.spacing(2),
-    color: theme.palette.primary.light,
-    fontSize: theme.spacing(7),
-    marginTop: theme.spacing(-3.3),
+    top: theme.spacing(-3),
+    left: theme.spacing(3.3),
     backgroundColor: theme.palette.background.default,
-  },
-  trackIcon: {
-    position: 'absolute',
-    marginLeft: theme.spacing(3.3),
-    marginTop: theme.spacing(-2),
     color: theme.palette.primary.light,
+    border: `3px solid ${theme.palette.primary.light}`,
+    borderRadius: '50%',
+    lineHeight: 0,
+    padding: theme.spacing(0.5),
   },
   card: {
     padding: theme.spacing(1),
@@ -41,8 +37,9 @@ function EmploymentOutlookLauchpad() {
 
   return (
     <>
-      <RadioButtonUncheckedIcon className={classes.circleIcon} />
-      <TrackChangesIcon className={classes.trackIcon} fontSize="large" />
+      <div className={classes.iconContainer}>
+        <TrackChangesIcon fontSize="large" />
+      </div>
       <Card className={classes.card} variant="outlined">
         <CardContent>
           <Typography variant="h6" gutterBottom>
