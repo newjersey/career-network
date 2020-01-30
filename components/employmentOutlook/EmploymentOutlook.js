@@ -1,10 +1,7 @@
 import { makeStyles } from '@material-ui/styles';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
-import NextLink from 'next/link';
 import Typography from '@material-ui/core/Typography';
 
 import AutocompleteDropdown from './AutocompleteDropdown';
@@ -37,12 +34,6 @@ function EmploymentOutlook() {
 
   return (
     <div className={classes.root}>
-      <NextLink href="/dashboard">
-        <Button className={classes.button}>
-          <ArrowBackIcon />
-          Return to Dashboard
-        </Button>
-      </NextLink>
       <BackgroundHeader>
         <ScaffoldContainer>
           <Typography component="h1" variant="h2" gutterBottom>
