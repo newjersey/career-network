@@ -40,6 +40,7 @@ export default function CountyList(props) {
   return (
     <ToggleButton
       buttonClassName={classes.countyButton}
+      buttonVariant="outlined"
       options={COUNY_NAMES}
       value={value}
       handleChange={e => onChange(e)}

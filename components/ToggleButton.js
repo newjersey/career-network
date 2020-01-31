@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function ToggleButton(props) {
-  const { options, value, handleChange, multiSelect, buttonClassName } = props;
+  const { options, value, handleChange, multiSelect, buttonClassName, buttonVariant } = props;
   const [selected, setSelected] = useState(value);
   const classes = useStyles();
 
@@ -34,33 +34,33 @@ function ToggleButton(props) {
   return (
     <Grid container>
       {options.map(opt => (
-        <Grid item>
-          <Button
-            key={opt}
-            className={clsx(classes.button, buttonClassName)}
-            variant="outlined"
-            onClick={() => handleUpdate(opt)}
-            color={isSelected(opt) ? 'primary' : 'default'}
-          >
-            {opt}
-          </Button>
-        </Grid>
+        <Button
+          key={opt}
+          className={clsx(classes.button, buttonClassName)}
+          variant={buttonVariant}
+          onClick={() => handleUpdate(opt)}
+          color={isSelected(opt) ? 'primary' : 'default'}
+        >
+          {opt}
+        </Button>
       ))}
     </Grid>
   );
 }
-
-ToggleButton.defaultProps = {
-  multiSelect: false,
-  buttonClassName: PropTypes.string,
-};
 
 ToggleButton.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   value: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string), PropTypes.string]).isRequired,
   handleChange: PropTypes.func.isRequired,
   multiSelect: PropTypes.bool,
+  buttonClassName: PropTypes.string,
+  buttonVariant: PropTypes.string,
+};
+
+ToggleButton.defaultProps = {
+  multiSelect: false,
   buttonClassName: undefined,
+  buttonVariant: 'contained',
 };
 
 export default ToggleButton;

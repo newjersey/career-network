@@ -1,5 +1,6 @@
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { makeStyles } from '@material-ui/styles';
+import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import Divider from '@material-ui/core/Divider';
 import NextLink from 'next/link';
@@ -27,6 +28,11 @@ const useStyles = makeStyles(theme => ({
   description: {
     marginTop: theme.spacing(4),
     marginBottom: theme.spacing(4),
+  },
+  button: {
+    border: 'none',
+    padding: 0,
+    textDecoration: 'underline',
   },
 }));
 
@@ -111,16 +117,20 @@ export default function FavorabilityDialog(props) {
           {favorability.description}
         </Typography>
       </DialogContent>
-      <DialogActions>
+      <DialogActions style={{ justifyContent: 'center' }}>
         {exploreMore ? (
           <Typography>
             Want to explore another county?{' '}
-            <NextLink href="/employment-outlook">Explore More</NextLink>
+            <Button className={classes.button} onClick={onClose} color="primary">
+              Explore More
+            </Button>
           </Typography>
         ) : (
           <Typography>
             Ready to explore some explorations?{' '}
-            <NextLink href="/dashboard">Return to Dashboard</NextLink>
+            <NextLink color="primary" href="/dashboard">
+              Return To Dashboard
+            </NextLink>
           </Typography>
         )}
       </DialogActions>

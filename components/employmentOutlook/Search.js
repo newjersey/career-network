@@ -83,7 +83,7 @@ function Search() {
         </FormControl>
       </Box>
       <Divider />
-      <Box mt={8} mb={8}>
+      <Box mt={8} mb={6}>
         <Typography variant="h6" gutterBottom>
           County
         </Typography>
@@ -95,9 +95,11 @@ function Search() {
           {!!errors.county && <FormHelperText>{errors.county}</FormHelperText>}
         </FormControl>
       </Box>
-      <Button variant="contained" size="large" color="primary" onClick={handleSubmit}>
-        Explore Favorability
-      </Button>
+      <Box display="flex" justifyContent="center">
+        <Button variant="contained" size="large" color="primary" onClick={handleSubmit}>
+          Explore Favorability
+        </Button>
+      </Box>
       {searching && (
         <InstantSearch indexName="test_prod_EMPLOYMENT_PROSPECTS" searchClient={searchClient}>
           <Configure
