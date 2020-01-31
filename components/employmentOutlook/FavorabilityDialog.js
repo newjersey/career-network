@@ -34,6 +34,10 @@ const useStyles = makeStyles(theme => ({
     padding: 0,
     textDecoration: 'underline',
   },
+  footer: {
+    justifyContent: 'center',
+    padding: theme.spacing(2, 0, 2, 0),
+  },
 }));
 
 const FAVORABILITY_TYPE = [
@@ -42,29 +46,30 @@ const FAVORABILITY_TYPE = [
     color: '#f96861',
     growth: 'Declining',
     size: 'Small',
-    description: `The outlook for this job isn't so good. You may need to expand your search to other counties or switch to another occupation." Right now we don't have any info on the platform about this, so we would need to add activities and figure out how to play this out.`,
+    description: `The outlook for this job isn't so good. You may need to expand your search to other counties or switch to another occupation. Right now we don't have any info on the platform about this, so we would need to add activities and figure out how to play this out.`,
   },
   {
     value: 'Unfavorable',
     color: '#fea830',
     growth: 'Slow',
     size: 'Medium',
-    description: `The future looks good for this job! The New Jersey Career Network can help you follow the steps you need to take to get employed. 
-    Start by using our employment log to keep track of your day-to-day job search activities. Tracking your search is one of the keys to success. It will also help us learn more about what you're doing so we can recommend the right actions.`,
+    description: `The outlook for this job isn't so good. You may need to expand your search to other counties or switch to another occupation. Right now we don't have any info on the platform about this, so we would need to add activities and figure out how to play this out.`,
   },
   {
     value: 'Favorable',
     color: '#244cd2',
     growth: 'Fast',
     size: 'Medium',
-    description: `The outlook for this job isn't so good. You may need to expand your search to other counties or switch to another occupation." Right now we don't have any info on the platform about this, so we would need to add activities and figure out how to play this out.`,
+    description: `The future looks good for this job! The New Jersey Career Network can help you follow the steps you need to take to get employed. 
+    Start by using our employment log to keep track of your day-to-day job search activities. Tracking your search is one of the keys to success. It will also help us learn more about what you're doing so we can recommend the right actions.`,
   },
   {
     value: 'Very Favorable',
     color: '#6bce7a',
     growth: 'Moderate',
     size: 'Large',
-    description: `The outlook for this job isn't so good. You may need to expand your search to other counties or switch to another occupation." Right now we don't have any info on the platform about this, so we would need to add activities and figure out how to play this out.`,
+    description: `The future looks good for this job! The New Jersey Career Network can help you follow the steps you need to take to get employed. 
+    Start by using our employment log to keep track of your day-to-day job search activities. Tracking your search is one of the keys to success. It will also help us learn more about what you're doing so we can recommend the right actions.`,
   },
 ];
 
@@ -117,7 +122,7 @@ export default function FavorabilityDialog(props) {
           {favorability.description}
         </Typography>
       </DialogContent>
-      <DialogActions style={{ justifyContent: 'center' }}>
+      <DialogActions className={classes.footer}>
         {exploreMore ? (
           <Typography>
             Want to explore another county?{' '}
@@ -127,9 +132,9 @@ export default function FavorabilityDialog(props) {
           </Typography>
         ) : (
           <Typography>
-            Ready to explore some explorations?{' '}
+            Ready to complete some activities?{' '}
             <NextLink color="primary" href="/dashboard">
-              Return To Dashboard
+              RETURN TO DASHBOARD
             </NextLink>
           </Typography>
         )}

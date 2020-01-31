@@ -96,7 +96,7 @@ function Search() {
         </FormControl>
       </Box>
       <Box display="flex" justifyContent="center">
-        <Button variant="contained" size="large" color="primary" onClick={handleSubmit}>
+        <Button variant="contained" color="primary" onClick={handleSubmit} fullWidth>
           Explore Favorability
         </Button>
       </Box>

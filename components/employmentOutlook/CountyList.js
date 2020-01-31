@@ -30,6 +30,8 @@ const COUNY_NAMES = [
 const useStyles = makeStyles(theme => ({
   countyButton: {
     width: theme.spacing(35),
+    height: theme.spacing(5),
+    margin: theme.spacing(1, 1, 1, 1),
   },
 }));
 
