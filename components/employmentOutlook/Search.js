@@ -2,6 +2,7 @@ import { InstantSearch, Configure, connectHits } from 'react-instantsearch-dom';
 import algoliasearch from 'algoliasearch/lite';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import Dialog from '@material-ui/core/Dialog';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -31,7 +32,11 @@ function Hits(props) {
       />
     );
   }
-  return null;
+  return (
+    <Dialog open onClose={onClose}>
+      <Typography variant="h2">No data found!</Typography>
+    </Dialog>
+  );
 }
 
 const CustomHits = connectHits(Hits);

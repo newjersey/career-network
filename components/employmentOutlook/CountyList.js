@@ -28,8 +28,8 @@ const COUNY_NAMES = [
 ];
 
 const useStyles = makeStyles(theme => ({
-  button: {
-    margin: theme.spacing(1, 2, 1, 0),
+  countyButton: {
+    width: theme.spacing(35),
   },
 }));
 
@@ -39,7 +39,7 @@ export default function CountyList(props) {
 
   return (
     <ToggleButton
-      className={classes.toggleButton}
+      buttonClassName={classes.countyButton}
       options={COUNY_NAMES}
       value={value}
       handleChange={e => onChange(e)}

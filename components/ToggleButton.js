@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
+import clsx from 'clsx';
 import Grid from '@material-ui/core/Grid';
+import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -10,7 +11,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function ToggleButton({ options, value, handleChange, multiSelect }) {
+function ToggleButton(props) {
+  const { options, value, handleChange, multiSelect, buttonClassName } = props;
   const [selected, setSelected] = useState(value);
   const classes = useStyles();
 
@@ -25,18 +27,24 @@ function ToggleButton({ options, value, handleChange, multiSelect }) {
     setSelected(newSelection);
   };
 
+  useEffect(() => {
+    setSelected(value);
+  }, [value]);
+
   return (
     <Grid container>
       {options.map(opt => (
-        <Button
-          key={opt}
-          className={classes.button}
-          variant="contained"
-          onClick={() => handleUpdate(opt)}
-          color={isSelected(opt) ? 'primary' : 'default'}
-        >
-          {opt}
-        </Button>
+        <Grid item>
+          <Button
+            key={opt}
+            className={clsx(classes.button, buttonClassName)}
+            variant="outlined"
+            onClick={() => handleUpdate(opt)}
+            color={isSelected(opt) ? 'primary' : 'default'}
+          >
+            {opt}
+          </Button>
+        </Grid>
       ))}
     </Grid>
   );
@@ -44,6 +52,7 @@ function ToggleButton({ options, value, handleChange, multiSelect }) {
 
 ToggleButton.defaultProps = {
   multiSelect: false,
+  buttonClassName: PropTypes.string,
 };
 
 ToggleButton.propTypes = {
@@ -51,6 +60,7 @@ ToggleButton.propTypes = {
   value: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string), PropTypes.string]).isRequired,
   handleChange: PropTypes.func.isRequired,
   multiSelect: PropTypes.bool,
+  buttonClassName: undefined,
 };
 
 export default ToggleButton;

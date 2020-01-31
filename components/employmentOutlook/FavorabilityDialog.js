@@ -1,10 +1,34 @@
-import Button from '@material-ui/core/Button';
+import { fade } from '@material-ui/core/styles/colorManipulator';
+import { makeStyles } from '@material-ui/styles';
 import Dialog from '@material-ui/core/Dialog';
+import Divider from '@material-ui/core/Divider';
+import NextLink from 'next/link';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { DialogContent, DialogTitle, DialogActions } from '../DialogComponents';
+
+const useStyles = makeStyles(theme => ({
+  title: {
+    textAlign: 'center',
+    verticalAlign: 'center',
+    paddingTop: theme.spacing(6),
+    paddingBottom: theme.spacing(4),
+  },
+  emphasis: {
+    fontWeight: 'bold',
+    textDecorationLine: 'underline',
+  },
+  summary: {
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(4),
+  },
+  description: {
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(4),
+  },
+}));
 
 const FAVORABILITY_TYPE = [
   {
@@ -44,40 +68,61 @@ const getFavorability = favorabilityTypeValue =>
 const MAX_WIDTH = 'sm';
 
 export default function FavorabilityDialog(props) {
+  const classes = useStyles();
   const { show, onClose, occupation, county, favorabilityValue } = props;
   const favorability = getFavorability(favorabilityValue);
+  const exploreMore =
+    favorabilityValue &&
+    (favorabilityValue === 'Very Unfavorable' || favorabilityValue === 'Unfavorable');
 
   return (
-    <Dialog fullWidth maxWidth={MAX_WIDTH} open={show} aria-labelledby="favorability-dialog">
+    <Dialog
+      fullWidth
+      maxWidth={MAX_WIDTH}
+      open={show}
+      aria-labelledby="favorability-dialog"
+      onExited={onClose}
+    >
       <DialogTitle
         id="favorability-dialog"
+        className={classes.title}
         onClose={onClose}
-        style={{
-          backgroundColor: favorability.color,
-          opacity: 0.08,
-          height: '130px',
-          justifyContent: 'center',
-        }}
+        style={{ backgroundColor: fade(favorability.color, 0.08) }}
       >
-        <Typography variant="body1">This Occupation is ...</Typography>
-        <Typography variant="h6">{favorability.value}</Typography>
+        <Typography variant="body1" gutterBottom>
+          This Occupation is ...
+        </Typography>
+        <Typography variant="h4" className={classes.emphasis} style={{ color: favorability.color }}>
+          {favorability.value}
+        </Typography>
       </DialogTitle>
       <DialogContent dividers>
-        <Typography variant="body1">
-          If you are looking at being a {occupation} in {county}
+        <Typography className={classes.summary} variant="body1">
+          If you are looking at being a <strong>{occupation}</strong> in <strong>{county}</strong>
+          <br />
           <br />
           The Department of Labor projects this occupation is projected to have a{' '}
-          {favorability.growth} growth rate with a {favorability.size} pool of job openings in your
+          <span className={classes.emphasis}>{favorability.growth}</span> growth rate with a{' '}
+          <span className={classes.emphasis}>{favorability.size}</span> pool of job openings in your
           county through 2026.
         </Typography>
-        <Typography variant="body1" color="textSecondary">
+        <Divider />
+        <Typography className={classes.description} variant="body1" color="textSecondary">
           {favorability.description}
         </Typography>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} color="primary">
-          Close
-        </Button>
+        {exploreMore ? (
+          <Typography>
+            Want to explore another county?{' '}
+            <NextLink href="/employment-outlook">Explore More</NextLink>
+          </Typography>
+        ) : (
+          <Typography>
+            Ready to explore some explorations?{' '}
+            <NextLink href="/dashboard">Return to Dashboard</NextLink>
+          </Typography>
+        )}
       </DialogActions>
     </Dialog>
   );
