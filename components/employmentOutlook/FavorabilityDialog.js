@@ -133,8 +133,8 @@ export default function FavorabilityDialog(props) {
         ) : (
           <Typography>
             Ready to complete some activities?{' '}
-            <NextLink color="primary" href="/dashboard">
-              RETURN TO DASHBOARD
+            <NextLink href="/dashboard">
+              <a href="/dashboard">RETURN TO DASHBOARD</a>
             </NextLink>
           </Typography>
         )}

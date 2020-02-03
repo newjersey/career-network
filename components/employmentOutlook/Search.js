@@ -1,5 +1,6 @@
 import { InstantSearch, Configure, connectHits } from 'react-instantsearch-dom';
 import algoliasearch from 'algoliasearch/lite';
+import firebase from 'firebase/app';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Dialog from '@material-ui/core/Dialog';
@@ -10,6 +11,7 @@ import Divider from '@material-ui/core/Divider';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 
+import { useAuth } from '../Auth';
 import AutocompleteDropdown from './AutocompleteDropdown';
 import CountyList from './CountyList';
 import FavorabilityDialog from './FavorabilityDialog';
@@ -42,6 +44,7 @@ function Hits(props) {
 const CustomHits = connectHits(Hits);
 
 function Search() {
+  const { userDocRef } = useAuth();
   const [searching, setSearching] = useState(false);
 
   const initialState = {
@@ -49,8 +52,16 @@ function Search() {
     county: '',
   };
 
-  const submit = () => {
+  const submit = values => {
     setSearching(true);
+
+    const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+    const employmentOutlook = {
+      occupation: values.occupation,
+      county: values.county,
+      timestamp,
+    };
+    userDocRef.set({ employmentOutlook }, { merge: true });
   };
 
   const { handleSubmit, handleChangeCustom, values, errors, reset } = useFormValidation(
