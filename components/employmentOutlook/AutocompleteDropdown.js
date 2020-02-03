@@ -9,7 +9,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
-const searchClient = algoliasearch('GVXRTXREAI', '327775f382e4df7687f8a578e64e238b');
+const searchClient = algoliasearch('3XON39SKZ0', '841e3368abde3ebfd860f89ddae4d60e');
 
 const useStyles = makeStyles(() => ({
   wrapIcon: {
@@ -22,41 +22,37 @@ function AutocompleteSearch({ hits, currentRefinement, refine, onDropdownValueCh
   const options = hits.map(option => option.Occupation);
 
   return (
-    <>
-      <Autocomplete
-        id="occupation-autocomplete-select"
-        options={options}
-        noOptionsText={
-          <>
-            <Typography style={{ fontWeight: 'bold' }} gutterBottom>
-              Sorry, we couldn&apos;t find any occupations matching your search.{' '}
-            </Typography>
-            <Typography>
-              You may want to check spelling or try searching with other terms.
-            </Typography>
-          </>
-        }
-        value={value}
-        onInputChange={(event, val) => refine(val)}
-        onChange={(event, val) =>
-          isEmpty(val) ? onDropdownValueChange('') : onDropdownValueChange(val)
-        }
-        renderInput={params => (
-          <TextField
-            variant="outlined"
-            {...params}
-            value={currentRefinement}
-            label={
-              <div className={classes.wrapIcon}>
-                <SearchIcon style={{ marginRight: '0.5rem', marginTop: '-0.2rem' }} /> Search or
-                Select an Occupation
-              </div>
-            }
-            fullWidth
-          />
-        )}
-      />
-    </>
+    <Autocomplete
+      id="occupation-autocomplete-select"
+      options={options}
+      noOptionsText={
+        <>
+          <Typography style={{ fontWeight: 'bold' }} gutterBottom>
+            Sorry, we couldn&apos;t find any occupations matching your search.{' '}
+          </Typography>
+          <Typography>You may want to check spelling or try searching with other terms.</Typography>
+        </>
+      }
+      value={value}
+      onInputChange={(event, val) => refine(val)}
+      onChange={(event, val) =>
+        isEmpty(val) ? onDropdownValueChange('') : onDropdownValueChange(val)
+      }
+      renderInput={params => (
+        <TextField
+          variant="outlined"
+          {...params}
+          value={currentRefinement}
+          label={
+            <div className={classes.wrapIcon}>
+              <SearchIcon style={{ marginRight: '0.5rem', marginTop: '-0.2rem' }} /> Search or
+              Select an Occupation
+            </div>
+          }
+          fullWidth
+        />
+      )}
+    />
   );
 }
 

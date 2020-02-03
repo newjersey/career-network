@@ -1,5 +1,6 @@
 import 'core-js/stable';
 import { ThemeProvider } from '@material-ui/styles';
+import { FlagsProvider } from 'react-feature-flags';
 import * as Integrations from '@sentry/integrations';
 import * as Sentry from '@sentry/browser';
 import App from 'next/app';
@@ -21,6 +22,15 @@ Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 Router.events.on('routeChangeComplete', () => window.Intercom('update'));
+
+const featureFlags = [
+  // Feature flag introduced with https://trello.com/c/FLzzfmsI/121, should be
+  // complete by end of "Release 7"
+  {
+    name: 'employmentOutlook',
+    isActive: false,
+  },
+];
 
 Sentry.init({
   environment: process.env.name,
@@ -106,10 +116,12 @@ class MyApp extends App {
           <SnackbarProvider>
             <FirebaseProvider>
               <AuthProvider>
-                <CssBaseline />
-                <AppManager>
-                  <Component {...pageProps} />
-                </AppManager>
+                <FlagsProvider value={featureFlags}>
+                  <CssBaseline />
+                  <AppManager>
+                    <Component {...pageProps} />
+                  </AppManager>
+                </FlagsProvider>
               </AuthProvider>
             </FirebaseProvider>
           </SnackbarProvider>
