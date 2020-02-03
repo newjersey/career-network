@@ -9,46 +9,63 @@ const { startCase, toLower } = require('lodash/fp');
 
 const CSV_PATH = 'data/Employment Prospects data from NJ.csv';
 const API_KEY = process.env.ALGOLIA_ADMIN_API_KEY;
-const APP_ID = '3XON39SKZ0';
-const INDEX_NAME = 'prod_EMPLOYMENT_PROSPECTS';
+const APP_ID = 'GVXRTXREAI';
+const INDEX_NAME = 'test_prod_EMPLOYMENT_PROSPECTS';
+const DISTINCT_OCCUPATION_INDEX_NAME = 'DISTINCT_OCCUPATION';
 const UPLOAD_BATCH_COUNT = 1000;
 
 const client = algoliasearch(APP_ID, API_KEY);
-const index = client.initIndex(INDEX_NAME);
+const indexMain = client.initIndex(INDEX_NAME);
+const indexDistinct = client.initIndex(DISTINCT_OCCUPATION_INDEX_NAME);
 
-const addObjects = async objects => {
+const addObjects = async (objects, index) => {
   const { objectIDs, taskID } = await index.addObjects(objects);
   console.log(`Added ${objectIDs.length} objects (taskID: ${taskID})`);
   return index.waitTask(taskID);
 };
 
-const clearIndex = async () => {
+const clearIndex = async index => {
   // clear old objects
   const { updatedAt, taskID } = await index.clearIndex();
   console.log(`Clearing index at ${updatedAt} (taskID: ${taskID})`);
   return index.waitTask(taskID);
 };
 
-const setSettings = async () => {
+const setSettings = async index => {
   // set settings
-  const { updatedAt, taskID } = await index.setSettings({
-    searchableAttributes: ['Occupation'],
-    attributesForFaceting: [
-      'county',
-      'GrowthRates',
-      'Total Openings',
-      'Education',
-      'Work Exp_',
-      'meanann',
-      'Descriptor',
-      'DescriptorRating',
-    ],
-    ignorePlurals: true,
-    queryLanguages: ['en'],
-    indexLanguages: ['en'],
-  });
-  console.log(`Setting index settings at ${updatedAt} (taskID: ${taskID})`);
-  return index.waitTask(taskID);
+  if (index.indexName === DISTINCT_OCCUPATION_INDEX_NAME) {
+    const { updatedAt, taskID } = await index.setSettings({
+      searchableAttributes: ['Occupation'],
+      attributeForDistinct: 'Occupation',
+      distinct: 1,
+      ignorePlurals: true,
+      queryLanguages: ['en'],
+      indexLanguages: ['en'],
+    });
+    console.log(`Setting indexDistinct settings at ${updatedAt} (taskID: ${taskID})`);
+    return index.waitTask(taskID);
+  }
+  if (index.indexName === INDEX_NAME) {
+    const { updatedAt, taskID } = await index.setSettings({
+      searchableAttributes: ['Occupation'],
+      attributesForFaceting: [
+        'county',
+        'GrowthRates',
+        'Total Openings',
+        'Education',
+        'Work Exp_',
+        'meanann',
+        'Descriptor',
+        'DescriptorRating',
+      ],
+      ignorePlurals: true,
+      queryLanguages: ['en'],
+      indexLanguages: ['en'],
+    });
+    console.log(`Setting indexMain settings at ${updatedAt} (taskID: ${taskID})`);
+    return index.waitTask(taskID);
+  }
+  return Promise.resolve();
 };
 
 class Uploader extends Writable {
@@ -64,7 +81,8 @@ class Uploader extends Writable {
   }
 
   flushBuffer() {
-    this.tasks.push(addObjects(this.buffer));
+    this.tasks.push(addObjects(this.buffer, indexMain));
+    this.tasks.push(addObjects(this.buffer, indexDistinct));
     this.objCount += this.buffer.length;
     this.buffer = [];
   }
@@ -190,8 +208,10 @@ const transformer = transform((record, callback) => {
 console.log(`Updating Algolia app ${APP_ID}, index ${INDEX_NAME}...`);
 
 (async () => {
-  await clearIndex();
-  await setSettings();
+  await clearIndex(indexMain);
+  await clearIndex(indexDistinct);
+  await setSettings(indexMain);
+  await setSettings(indexDistinct);
 
   readStream
     .pipe(parser)
