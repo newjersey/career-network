@@ -1,5 +1,6 @@
 import { isToday } from 'date-fns';
 import { makeStyles } from '@material-ui/styles';
+import { Flags } from 'react-feature-flags';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -17,6 +18,7 @@ import ActivityCategoryTable from './ActivityCategoryTable';
 import ActivityInputDialog from './ActivityInputDialog';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import BackgroundHeader from '../BackgroundHeader';
+import EmploymentOutlookLauchpad from './EmploymentOutlookLauchpad';
 import FirebasePropTypes from '../Firebase/PropTypes';
 import ProgressFeed from './ProgressFeed';
 import ScaffoldContainer from '../ScaffoldContainer';
@@ -340,20 +342,30 @@ export default function Dashboard(props) {
               {...restProps}
             />
           </Box>
-          <Box className={classes.gridL}>
-            <Card variant="outlined">
-              <CardHeader
-                title="Confidence Level"
-                titleTypographyProps={{ component: 'h2', variant: 'h6' }}
-              />
+          <Flags
+            authorizedFlags={['employmentOutlook']}
+            renderOn={() => (
+              <Box className={classes.gridL} position="relative">
+                <EmploymentOutlookLauchpad />
+              </Box>
+            )}
+            renderOff={() => (
+              <Box className={classes.gridL}>
+                <Card variant="outlined">
+                  <CardHeader
+                    title="Confidence Level"
+                    titleTypographyProps={{ component: 'h2', variant: 'h6' }}
+                  />
 
-              <ActivityCategoryTable
-                allActivityLogEntries={allActivityLogEntries}
-                subsetActivityLogEntries={confidentActivityLogEntries}
-                label="Feeling Confident"
-              />
-            </Card>
-          </Box>
+                  <ActivityCategoryTable
+                    allActivityLogEntries={allActivityLogEntries}
+                    subsetActivityLogEntries={confidentActivityLogEntries}
+                    label="Feeling Confident"
+                  />
+                </Card>
+              </Box>
+            )}
+          />
           <Box className={classes.gridR}>
             <Card variant="outlined">
               <CardHeader
