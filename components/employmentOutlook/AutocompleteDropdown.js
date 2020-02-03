@@ -2,6 +2,7 @@ import { InstantSearch, Configure, connectAutoComplete } from 'react-instantsear
 import { makeStyles } from '@material-ui/styles';
 import algoliasearch from 'algoliasearch/lite';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import React from 'react';
 import SearchIcon from '@material-ui/icons/Search';
@@ -37,7 +38,9 @@ function AutocompleteSearch({ hits, currentRefinement, refine, onDropdownValueCh
         }
         value={value}
         onInputChange={(event, val) => refine(val)}
-        onChange={(event, val) => onDropdownValueChange(val)}
+        onChange={(event, val) =>
+          isEmpty(val) ? onDropdownValueChange('') : onDropdownValueChange(val)
+        }
         renderInput={params => (
           <TextField
             variant="outlined"

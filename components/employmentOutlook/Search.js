@@ -102,7 +102,12 @@ function Search() {
           Where are you looking for work? You may only select one county at a time.
         </Typography>
         <FormControl fullWidth error={!!errors.county}>
-          <CountyList value={values.county} onChange={c => handleChangeCustom('county', c)} />
+          <CountyList
+            filter={values.occupation}
+            searchClient={searchClient}
+            value={values.county}
+            onChange={c => handleChangeCustom('county', c)}
+          />
           {!!errors.county && <FormHelperText>{errors.county}</FormHelperText>}
         </FormControl>
       </Box>

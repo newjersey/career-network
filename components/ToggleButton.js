@@ -12,10 +12,19 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function ToggleButton(props) {
-  const { options, value, handleChange, multiSelect, buttonClassName, buttonVariant } = props;
+  const {
+    options,
+    enabledOptions,
+    value,
+    handleChange,
+    multiSelect,
+    buttonClassName,
+    buttonVariant,
+  } = props;
   const [selected, setSelected] = useState(value);
   const classes = useStyles();
 
+  const isDisabled = v => !enabledOptions.includes(v);
   const isSelected = v => (multiSelect ? selected.includes(v) : selected === v);
   const addSelected = v => (multiSelect ? [...selected, v] : v);
   const removeSelected = v => (multiSelect ? selected.filter(el => el !== v) : undefined);
@@ -40,6 +49,7 @@ function ToggleButton(props) {
           variant={buttonVariant}
           onClick={() => handleUpdate(opt)}
           color={isSelected(opt) ? 'primary' : 'default'}
+          disabled={isDisabled(opt)}
         >
           {opt}
         </Button>
@@ -50,6 +60,7 @@ function ToggleButton(props) {
 
 ToggleButton.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  enabledOptions: PropTypes.arrayOf(PropTypes.string),
   value: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string), PropTypes.string]).isRequired,
   handleChange: PropTypes.func.isRequired,
   multiSelect: PropTypes.bool,
@@ -58,6 +69,7 @@ ToggleButton.propTypes = {
 };
 
 ToggleButton.defaultProps = {
+  enabledOptions: [],
   multiSelect: false,
   buttonClassName: undefined,
   buttonVariant: 'contained',
