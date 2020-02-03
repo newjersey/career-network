@@ -11,7 +11,7 @@ const COUNY_NAMES = [
   'Cape May County',
   'Cumberland County',
   'Essex County',
-  'Glouchester County',
+  'Gloucester County',
   'Hudson County',
   'Hunterdon County',
   'Mercer County',
