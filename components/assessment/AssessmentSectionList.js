@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   stepper: {
     backgroundColor: 'inherit',
     padding: 0,
-    marginBottom: theme.spacing(5),
+    marginBottom: theme.spacing(12),
   },
   stepLabel: {
     [theme.breakpoints.down('xs')]: {

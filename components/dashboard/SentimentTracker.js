@@ -35,11 +35,10 @@ const EmojiButton = ({ emoji, label, onClick }) => {
     <Grid item style={{ textAlign: 'center' }}>
       <Button onClick={handleClick} data-intercom={`sentiment-${label.toLowerCase()}`}>
         <Box m={1} align="center">
-          <span aria-label={label}>
+          <span aria-label={label} role="img">
             <EmojiCircle emoji={emoji} />
           </span>
-          <br />
-          {label}
+          <div style={{ marginTop: '0.5rem' }}>{label}</div>
         </Box>
       </Button>
     </Grid>
