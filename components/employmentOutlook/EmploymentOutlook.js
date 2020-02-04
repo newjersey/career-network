@@ -1,12 +1,11 @@
 import { makeStyles } from '@material-ui/styles';
-import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import AutocompleteDropdown from './AutocompleteDropdown';
 import BackgroundHeader from '../BackgroundHeader';
 import ScaffoldContainer from '../ScaffoldContainer';
+import Search from './Search';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -23,9 +22,6 @@ const useStyles = makeStyles(theme => ({
   container: {
     marginTop: theme.spacing(6),
     marginBottom: theme.spacing(10),
-  },
-  dropdown: {
-    height: 400,
   },
 }));
 
@@ -49,16 +45,7 @@ function EmploymentOutlook() {
       <ScaffoldContainer>
         <Grid className={classes.container} container justify="center">
           <Grid item xs={12} md={6}>
-            <Typography variant="h6" gutterBottom>
-              Occupation
-            </Typography>
-            <Typography variant="body2" style={{ marginBottom: '2em' }}>
-              What job are you looking for? Select the job that most closely matches the one you are
-              looking for.
-            </Typography>
-            <Box className={classes.dropdown}>
-              <AutocompleteDropdown />
-            </Box>
+            <Search />
           </Grid>
         </Grid>
       </ScaffoldContainer>

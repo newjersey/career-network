@@ -49,6 +49,7 @@ const setSettings = async index => {
     const { updatedAt, taskID } = await index.setSettings({
       searchableAttributes: ['Occupation'],
       attributesForFaceting: [
+        'Occupation',
         'county',
         'GrowthRates',
         'Total Openings',
