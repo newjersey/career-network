@@ -62,8 +62,12 @@ function ToggleButton(props) {
   };
 
   useEffect(() => {
-    setSelected(value);
-  }, [value]);
+    if (enabledOptions.includes(value)) {
+      setSelected(value);
+    } else {
+      setSelected('');
+    }
+  }, [value, enabledOptions]);
 
   useEffect(() => {
     setOpenPopover(Boolean(anchorEl));
