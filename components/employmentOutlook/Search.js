@@ -1,22 +1,21 @@
 import { InstantSearch, Configure, connectHits } from 'react-instantsearch-dom';
 import algoliasearch from 'algoliasearch/lite';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 import firebase from 'firebase/app';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import Dialog from '@material-ui/core/Dialog';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 
 import { useAuth } from '../Auth';
 import AutocompleteDropdown from './AutocompleteDropdown';
 import CountyList from './CountyList';
+import employmentInputValidation from './EmploymentInputValidation';
 import FavorabilityDialog from './FavorabilityDialog';
 import useFormValidation from '../formValidationHook';
-import employmentInputValidation from './EmploymentInputValidation';
 
 const searchClient = algoliasearch('GVXRTXREAI', '327775f382e4df7687f8a578e64e238b');
 
@@ -34,11 +33,7 @@ function Hits(props) {
       />
     );
   }
-  return (
-    <Dialog open onClose={onClose}>
-      <Typography variant="h2">No data found!</Typography>
-    </Dialog>
-  );
+  return null;
 }
 
 const CustomHits = connectHits(Hits);
