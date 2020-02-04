@@ -9,7 +9,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 
-import { ACTIVITY_TYPES } from './ActivityInputDialog';
+import { ACTIVITY_TYPES } from '../dashboard/ActivityInputDialog';
 import FirebasePropTypes from '../Firebase/PropTypes';
 import Gauge from '../Gauge';
 
