@@ -182,7 +182,7 @@ const getDescriptorRating = descriptor => {
 
 const transformer = transform((record, callback) => {
   // apply filters
-  if (record.Occupation === 'Total, All Occupations' || record.county === 'New Jersey Statewide') {
+  if (record.Occupation === 'Total, All Occupations') {
     return callback(null, null);
   }
 
