@@ -102,7 +102,7 @@ function ToggleButton(props) {
               open={openPopover}
               anchorEl={anchorEl}
               anchorOrigin={{
-                vertical: 'center',
+                vertical: 'top',
                 horizontal: 'right',
               }}
               onClose={handlePopoverClose}
