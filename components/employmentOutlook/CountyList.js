@@ -6,6 +6,7 @@ import React, { useState, useEffect } from 'react';
 import ToggleButton from '../ToggleButton';
 
 const COUNY_NAMES = [
+  'New Jersey Statewide',
   'Atlantic County',
   'Bergen County',
   'Burlington County',
