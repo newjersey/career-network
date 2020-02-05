@@ -31,10 +31,14 @@ const COUNY_NAMES = [
 ];
 
 const useStyles = makeStyles(theme => ({
+  county: {
+    justifyContent: 'center',
+  },
   countyButton: {
-    width: theme.spacing(35),
+    width: '47%',
     height: theme.spacing(5),
-    margin: theme.spacing(1, 1, 1, 1),
+    marginBottom: theme.spacing(2),
+    margin: 'auto',
   },
 }));
 
@@ -82,6 +86,7 @@ export default function CountyList(props) {
       <ToggleButton
         buttonClassName={classes.countyButton}
         buttonVariant="outlined"
+        containerClassName={classes.county}
         options={COUNY_NAMES}
         disabledOptions={disablesList}
         value={value}
