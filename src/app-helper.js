@@ -51,6 +51,24 @@ export function isDone(dispositionable, allDispositionEvents, idKey) {
 }
 
 /**
+ * Returns the response value to a question with a given slug.
+ *
+ * @param {QueryDocumentSnapshot[]} allQuestionResponses An array of QueryDocumentSnapshot objects.
+ * @param {string} slug The slug of the question to which we seek the response.
+ * @returns {*} The response value as entered by the user.
+ * @example getQuestionResponse(allQuestionResponses, 'most-recent-title')
+ */
+export function getQuestionResponse(allQuestionResponses, slug) {
+  const response = allQuestionResponses.find(qr => qr.data().question.fields.Slug === slug);
+
+  if (!response) {
+    throw new Error(`Could not find response to question with slug ${slug}`);
+  }
+
+  return response.data().value;
+}
+
+/**
  *
  * @param {*} array An array of any types that have string representations.
  * @returns A string joining the array items with commas and "and" before final item.

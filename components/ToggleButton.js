@@ -26,7 +26,7 @@ function ToggleButton(props) {
   const classes = useStyles();
   const {
     options,
-    enabledOptions,
+    disabledOptions,
     value,
     handleChange,
     multiSelect,
@@ -39,7 +39,7 @@ function ToggleButton(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [openPopover, setOpenPopover] = useState(false);
 
-  const isDisabled = v => !enabledOptions.includes(v);
+  const isDisabled = v => disabledOptions.includes(v);
   const isSelected = v => (multiSelect ? selected.includes(v) : selected === v);
   const addSelected = v => (multiSelect ? [...selected, v] : v);
   const removeSelected = v => (multiSelect ? selected.filter(el => el !== v) : undefined);
@@ -62,12 +62,12 @@ function ToggleButton(props) {
   };
 
   useEffect(() => {
-    if (enabledOptions.includes(value)) {
-      setSelected(value);
-    } else {
+    if (disabledOptions.includes(value)) {
       setSelected('');
+    } else {
+      setSelected(value);
     }
-  }, [value, enabledOptions]);
+  }, [disabledOptions, value]);
 
   useEffect(() => {
     setOpenPopover(Boolean(anchorEl));
@@ -102,7 +102,7 @@ function ToggleButton(props) {
               open={openPopover}
               anchorEl={anchorEl}
               anchorOrigin={{
-                vertical: 'center',
+                vertical: 'top',
                 horizontal: 'right',
               }}
               onClose={handlePopoverClose}
@@ -119,7 +119,7 @@ function ToggleButton(props) {
 
 ToggleButton.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
-  enabledOptions: PropTypes.arrayOf(PropTypes.string),
+  disabledOptions: PropTypes.arrayOf(PropTypes.string),
   value: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string), PropTypes.string]).isRequired,
   handleChange: PropTypes.func.isRequired,
   multiSelect: PropTypes.bool,
@@ -130,7 +130,7 @@ ToggleButton.propTypes = {
 };
 
 ToggleButton.defaultProps = {
-  enabledOptions: [],
+  disabledOptions: [],
   multiSelect: false,
   buttonClassName: undefined,
   buttonVariant: 'contained',

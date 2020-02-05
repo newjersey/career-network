@@ -42,7 +42,8 @@ function Hits(props) {
   const { hits, onChange } = props;
 
   if (hits.length > 0) {
-    const list = hits.map(option => option.county);
+    const result = hits.map(option => option.county);
+    const list = COUNY_NAMES.filter(c => !result.includes(c));
     onChange(list);
   }
   return null;
@@ -53,11 +54,11 @@ const CustomHits = connectHits(Hits);
 export default function CountyList(props) {
   const classes = useStyles();
   const { value, onChange, filter, searchClient } = props;
-  const [enabledList, setEnabledList] = useState(COUNY_NAMES);
+  const [disablesList, setDisablesList] = useState([]);
   const [updating, setUpdating] = useState(false);
 
   const handleChange = list => {
-    setEnabledList(list);
+    setDisablesList(list);
     setUpdating(false);
   };
 
@@ -65,7 +66,7 @@ export default function CountyList(props) {
     if (!isEmpty(filter)) {
       setUpdating(true);
     } else {
-      setEnabledList(COUNY_NAMES);
+      setDisablesList([]);
       setUpdating(false);
     }
   }, [filter]);
@@ -82,7 +83,7 @@ export default function CountyList(props) {
         buttonClassName={classes.countyButton}
         buttonVariant="outlined"
         options={COUNY_NAMES}
-        enabledOptions={enabledList}
+        disabledOptions={disablesList}
         value={value}
         handleChange={e => onChange(e)}
         showPopover
