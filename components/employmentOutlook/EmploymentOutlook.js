@@ -1,9 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
-import NextLink from 'next/link';
 import Typography from '@material-ui/core/Typography';
 
 import BackgroundHeader from '../BackgroundHeader';
@@ -26,6 +23,9 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(6),
     marginBottom: theme.spacing(10),
   },
+  dropdown: {
+    height: 400,
+  },
 }));
 
 function EmploymentOutlook() {
@@ -33,12 +33,6 @@ function EmploymentOutlook() {
 
   return (
     <div className={classes.root}>
-      <NextLink href="/dashboard">
-        <Button className={classes.button}>
-          <ArrowBackIcon />
-          Return to Dashboard
-        </Button>
-      </NextLink>
       <BackgroundHeader>
         <ScaffoldContainer>
           <Typography component="h1" variant="h2" gutterBottom>
