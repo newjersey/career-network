@@ -2,6 +2,7 @@ import { InstantSearch, Configure, connectAutoComplete } from 'react-instantsear
 import { makeStyles } from '@material-ui/styles';
 import algoliasearch from 'algoliasearch/lite';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import React from 'react';
 import SearchIcon from '@material-ui/icons/Search';
@@ -16,19 +17,14 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function AutocompleteSearch({ hits, currentRefinement, refine }) {
+function AutocompleteSearch({ hits, currentRefinement, refine, onDropdownValueChange, value }) {
   const classes = useStyles();
-  const options = hits.map(option => ({
-    default: `Occupations`,
-    ...option,
-  }));
+  const options = hits.map(option => option.Occupation);
 
   return (
     <Autocomplete
       id="occupation-autocomplete-select"
       options={options}
-      groupBy={option => option.default}
-      getOptionLabel={option => option.Occupation}
       noOptionsText={
         <>
           <Typography style={{ fontWeight: 'bold' }} gutterBottom>
@@ -37,7 +33,11 @@ function AutocompleteSearch({ hits, currentRefinement, refine }) {
           <Typography>You may want to check spelling or try searching with other terms.</Typography>
         </>
       }
-      onInputChange={event => refine(event.currentTarget.value)}
+      value={value}
+      onInputChange={(event, val) => refine(val)}
+      onChange={(event, val) =>
+        isEmpty(val) ? onDropdownValueChange('') : onDropdownValueChange(val)
+      }
       renderInput={params => (
         <TextField
           variant="outlined"
@@ -60,15 +60,25 @@ AutocompleteSearch.propTypes = {
   hits: PropTypes.arrayOf(PropTypes.object).isRequired,
   currentRefinement: PropTypes.string.isRequired,
   refine: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  onDropdownValueChange: PropTypes.func.isRequired,
 };
 
 const CustomAutocomplete = connectAutoComplete(AutocompleteSearch);
 
-const AutocompleteDropdown = () => (
-  <InstantSearch searchClient={searchClient} indexName="DISTINCT_OCCUPATION">
-    <Configure hitsPerPage={1000} />
-    <CustomAutocomplete />
-  </InstantSearch>
-);
+function AutocompleteDropdown(props) {
+  const { value, onChange } = props;
+  return (
+    <InstantSearch searchClient={searchClient} indexName="DISTINCT_OCCUPATION">
+      <Configure hitsPerPage={1000} />
+      <CustomAutocomplete value={value} onDropdownValueChange={onChange} />
+    </InstantSearch>
+  );
+}
+
+AutocompleteDropdown.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default AutocompleteDropdown;
