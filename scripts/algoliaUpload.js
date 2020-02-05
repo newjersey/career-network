@@ -10,7 +10,7 @@ const { startCase, toLower } = require('lodash/fp');
 const CSV_PATH = 'data/Employment Prospects data from NJ.csv';
 const API_KEY = process.env.ALGOLIA_ADMIN_API_KEY;
 const APP_ID = '3XON39SKZ0';
-const INDEX_NAME = 'test_prod_EMPLOYMENT_PROSPECTS';
+const INDEX_NAME = 'prod_EMPLOYMENT_PROSPECTS';
 const DISTINCT_OCCUPATION_INDEX_NAME = 'DISTINCT_OCCUPATION';
 const UPLOAD_BATCH_COUNT = 1000;
 
