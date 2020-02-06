@@ -36,6 +36,7 @@ const setSettings = async () => {
     attributeForDistinct: 'Occupation',
     distinct: 1,
     attributesForFaceting: [
+      'Occupation',
       'county',
       'GrowthRates',
       'Total Openings',
