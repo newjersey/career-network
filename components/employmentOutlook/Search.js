@@ -17,7 +17,7 @@ import employmentInputValidation from './EmploymentInputValidation';
 import FavorabilityDialog from './FavorabilityDialog';
 import useFormValidation from '../formValidationHook';
 
-const searchClient = algoliasearch('GVXRTXREAI', '327775f382e4df7687f8a578e64e238b');
+const searchClient = algoliasearch('3XON39SKZ0', '841e3368abde3ebfd860f89ddae4d60e');
 
 function Hits(props) {
   const { hits, show, onClose } = props;
@@ -84,6 +84,7 @@ function Search() {
           <AutocompleteDropdown
             value={values.occupation}
             onChange={o => handleChangeCustom('occupation', o)}
+            searchClient={searchClient}
           />
           {!!errors.occupation && <FormHelperText>{errors.occupation}</FormHelperText>}
         </FormControl>
@@ -112,10 +113,9 @@ function Search() {
         </Button>
       </Box>
       {searching && (
-        <InstantSearch indexName="test_prod_EMPLOYMENT_PROSPECTS" searchClient={searchClient}>
+        <InstantSearch indexName="prod_EMPLOYMENT_PROSPECTS" searchClient={searchClient}>
           <Configure
-            query={values.occupation}
-            filters={`county:"${values.county}"`}
+            filters={`occupation:"${values.occupation}" AND county:"${values.county}"`}
             hitsPerPage={1}
           />
           <CustomHits show onClose={handleClose} />
