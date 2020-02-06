@@ -1,22 +1,22 @@
 import { InstantSearch, Configure, connectHits } from 'react-instantsearch-dom';
 import algoliasearch from 'algoliasearch/lite';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import Divider from '@material-ui/core/Divider';
 import firebase from 'firebase/app';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import Dialog from '@material-ui/core/Dialog';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 
 import { useAuth } from '../Auth';
 import AutocompleteDropdown from './AutocompleteDropdown';
 import CountyList from './CountyList';
 import FavorabilityDialog from './FavorabilityDialog';
-import useFormValidation from '../formValidationHook';
 import employmentInputValidation from './EmploymentInputValidation';
+import useFormValidation from '../formValidationHook';
 
 const searchClient = algoliasearch('3XON39SKZ0', '841e3368abde3ebfd860f89ddae4d60e');
 
@@ -89,6 +89,7 @@ function Search() {
           <AutocompleteDropdown
             value={values.occupation}
             onChange={o => handleChangeCustom('occupation', o)}
+            searchClient={searchClient}
           />
           {!!errors.occupation && <FormHelperText>{errors.occupation}</FormHelperText>}
         </FormControl>
