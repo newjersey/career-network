@@ -69,7 +69,7 @@ const CustomAutocomplete = connectAutoComplete(AutocompleteSearch);
 function AutocompleteDropdown(props) {
   const { value, onChange } = props;
   return (
-    <InstantSearch searchClient={searchClient} indexName="DISTINCT_OCCUPATION">
+    <InstantSearch searchClient={searchClient} indexName="prod_EMPLOYMENT_PROSPECTS">
       <Configure hitsPerPage={1000} />
       <CustomAutocomplete value={value} onDropdownValueChange={onChange} />
     </InstantSearch>
