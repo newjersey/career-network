@@ -91,7 +91,7 @@ function Search() {
       <Divider />
       <Box mt={8} mb={6}>
         <Typography variant="h6" gutterBottom>
-          County
+          Location
         </Typography>
         <Typography variant="body2" style={{ marginBottom: '2em' }}>
           Where are you looking for work? You may only select one county at a time.
