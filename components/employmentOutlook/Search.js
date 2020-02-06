@@ -6,6 +6,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import Dialog from '@material-ui/core/Dialog';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Box from '@material-ui/core/Box';
@@ -15,6 +16,7 @@ import { useAuth } from '../Auth';
 import AutocompleteDropdown from './AutocompleteDropdown';
 import CountyList from './CountyList';
 import FavorabilityDialog from './FavorabilityDialog';
+import IndustryDropdown from './IndustryDropdown';
 import useFormValidation from '../formValidationHook';
 import employmentInputValidation from './EmploymentInputValidation';
 
@@ -44,31 +46,38 @@ function Hits(props) {
 const CustomHits = connectHits(Hits);
 
 function Search() {
+  const formId = 'employment-outlook';
   const { userDocRef } = useAuth();
   const [searching, setSearching] = useState(false);
 
   const initialState = {
     occupation: '',
     county: '',
+    title: '',
+    industry: '',
   };
 
   const submit = values => {
     setSearching(true);
-
     const timestamp = firebase.firestore.FieldValue.serverTimestamp();
     const employmentOutlook = {
       occupation: values.occupation,
       county: values.county,
+      title: values.title,
+      industry: values.industry,
       timestamp,
     };
     userDocRef.set({ employmentOutlook }, { merge: true });
   };
 
-  const { handleSubmit, handleChangeCustom, values, errors, reset } = useFormValidation(
-    initialState,
-    employmentInputValidation,
-    submit
-  );
+  const {
+    handleSubmit,
+    handleChange,
+    handleChangeCustom,
+    values,
+    errors,
+    reset,
+  } = useFormValidation(initialState, employmentInputValidation, submit);
 
   const handleClose = () => {
     reset();
@@ -105,6 +114,30 @@ function Search() {
           <CountyList value={values.county} onChange={c => handleChangeCustom('county', c)} />
           {!!errors.county && <FormHelperText>{errors.county}</FormHelperText>}
         </FormControl>
+      </Box>
+      <Divider />
+      <Box mt={8} mb={6}>
+        <Typography variant="h6" gutterBottom>
+          Additional Details
+        </Typography>
+        <Typography variant="body2" style={{ marginBottom: '2em' }}>
+          Tell us more about the work you&apos;re looking for so we can improve our results for you
+          in the future.
+        </Typography>
+        <FormControl fullWidth>
+          <span>Job Title</span>
+          <TextField
+            id={`${formId}-title`}
+            inputProps={{ name: 'title' }}
+            placeholder="What job title do you feel is more relevant for this job?"
+            onChange={handleChange}
+            fullWidth
+            variant="outlined"
+            value={values.title}
+            style={{ marginBottom: '2em' }}
+          />
+        </FormControl>
+        <IndustryDropdown value={values.industry} onChange={handleChange} />
       </Box>
       <Box display="flex" justifyContent="center">
         <Button variant="contained" color="primary" onClick={handleSubmit} fullWidth>
