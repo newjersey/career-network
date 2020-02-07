@@ -15,8 +15,27 @@ function HistoryPage() {
     { orderBy: ['timestamp', 'desc'] }
   );
 
-  return fullyLoaded(user, allUserActivities, completedTasks) ? (
-    <History activities={allUserActivities} completedTasks={completedTasks} />
+  const confidentActivityLogEntries = useUserSubcollection('activityLogEntries', {
+    where: ['activityFeeling', 'array-contains', 'Confident'],
+  });
+
+  const allActivityLogEntries = useUserSubcollection('activityLogEntries', {
+    orderBy: ['timestamp', 'desc'],
+  });
+
+  return fullyLoaded(
+    user,
+    allUserActivities,
+    completedTasks,
+    confidentActivityLogEntries,
+    allActivityLogEntries
+  ) ? (
+    <History
+      activities={allUserActivities}
+      completedTasks={completedTasks}
+      confidentActivityLogEntries={confidentActivityLogEntries}
+      allActivityLogEntries={allActivityLogEntries}
+    />
   ) : (
     <FullPageProgress />
   );

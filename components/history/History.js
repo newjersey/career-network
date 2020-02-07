@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 import CalendarIcon from '@material-ui/icons/CalendarTodayRounded';
 import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import React, { useState, useLayoutEffect, useRef } from 'react';
@@ -11,6 +12,7 @@ import uniqBy from 'lodash/fp/uniqBy';
 
 import { ACTIVITY_TYPES } from '../dashboard/ActivityInputDialog';
 import Activity from './Activity';
+import ActivityCategoryTable from './ActivityCategoryTable';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import CompletedTask from './CompletedTask';
 import EmptyState from './EmptyState';
@@ -56,7 +58,7 @@ const unrecognizedCategoryName = AirtablePropTypes.TASK_CATEGORIES.other.name;
 
 export default function History(props) {
   const classes = useStyles();
-  const { activities, completedTasks } = props;
+  const { activities, completedTasks, confidentActivityLogEntries, allActivityLogEntries } = props;
   const headerRef = useRef(null);
   const sectionHeaderRef = useRef(null);
   const [headerHeight, setHeaderHeight] = useState();
@@ -197,6 +199,23 @@ export default function History(props) {
                   </Grid>
                 </div>
               ))}
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <Hidden only="xs">
+              <Box width={1} height={headerHeight} />
+            </Hidden>
+            <Card variant="outlined">
+              <CardHeader
+                title="Confidence Level"
+                titleTypographyProps={{ component: 'h2', variant: 'h6' }}
+              />
+
+              <ActivityCategoryTable
+                allActivityLogEntries={allActivityLogEntries}
+                subsetActivityLogEntries={confidentActivityLogEntries}
+                label="Feeling Confident"
+              />
+            </Card>
           </Grid>
         </Grid>
       </ScaffoldContainer>
