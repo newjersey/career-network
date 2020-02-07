@@ -18,7 +18,7 @@ import startOfDay from 'date-fns/startOfDay';
 import upcomingInterviewFormValidation from './UpcomingInterviewValidationRules';
 import useFormValidation from './formValidationHook';
 import { useAuth } from '../../Auth';
-import SubmitSuccess from '../SubmitSuccess';
+import SubmitSuccess from '../../activityInput/SubmitSuccess';
 import FullPageProgress from '../../FullPageProgress';
 import { DialogContent, DialogTitle, DialogActions } from '../../DialogComponents';
 
