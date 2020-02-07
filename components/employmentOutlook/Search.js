@@ -95,7 +95,7 @@ function Search() {
           Location
         </Typography>
         <Typography variant="body2" style={{ marginBottom: '2em' }}>
-          Where are you looking for work? You may only select one county at a time.
+          Where are you looking for work? You may only select one location at a time.
         </Typography>
         <FormControl fullWidth error={!!errors.county}>
           <CountyList
