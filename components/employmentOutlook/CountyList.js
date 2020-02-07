@@ -79,7 +79,7 @@ export default function CountyList(props) {
     <>
       {updating && (
         <InstantSearch indexName="prod_EMPLOYMENT_PROSPECTS" searchClient={searchClient}>
-          <Configure filters={`Occupation:"${filter}"`} hitsPerPage={30} />
+          <Configure filters={`Occupation:"${filter}"`} hitsPerPage={30} distinct={false} />
           <CustomHits onChange={handleChange} />
         </InstantSearch>
       )}

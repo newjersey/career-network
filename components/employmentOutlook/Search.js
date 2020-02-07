@@ -115,7 +115,8 @@ function Search() {
       {searching && (
         <InstantSearch indexName="prod_EMPLOYMENT_PROSPECTS" searchClient={searchClient}>
           <Configure
-            filters={`occupation:"${values.occupation}" AND county:"${values.county}"`}
+            query={values.occupation}
+            filters={`county:"${values.county}"`}
             hitsPerPage={1}
           />
           <CustomHits show onClose={handleClose} />
