@@ -51,12 +51,12 @@ const FAVORABILITY_TYPES = {
   },
   Favorable: {
     color: '#244cd2',
-    description: `The future looks good for this job! The New Jersey Career Network can help you follow the steps you need to take to get employed. 
+    description: `The future looks good for this job! The New Jersey Career Network can help you follow the steps you need to take to get employed.
     Start by using our employment log to keep track of your day-to-day job search activities. Tracking your search is one of the keys to success. It will also help us learn more about what you're doing so we can recommend the right actions.`,
   },
   'Very Favorable': {
     color: '#6bce7a',
-    description: `The future looks good for this job! The New Jersey Career Network can help you follow the steps you need to take to get employed. 
+    description: `The future looks good for this job! The New Jersey Career Network can help you follow the steps you need to take to get employed.
     Start by using our employment log to keep track of your day-to-day job search activities. Tracking your search is one of the keys to success. It will also help us learn more about what you're doing so we can recommend the right actions.`,
   },
 };
@@ -65,10 +65,15 @@ const MAX_WIDTH = 'sm';
 
 export default function FavorabilityDialog(props) {
   const classes = useStyles();
-  const { show, onClose, occupation, county, favorabilityValue, growth, size } = props;
+  const { show, onClose, occupation, county, favorabilityValue } = props;
+  let { growth, size } = props;
   const favorability = FAVORABILITY_TYPES[favorabilityValue];
   const exploreMore =
     favorabilityValue === 'Very Unfavorable' || favorabilityValue === 'Unfavorable';
+
+  size = size.toLowerCase();
+  growth = growth.toLowerCase();
+  growth = growth === 'decline' ? 'declining' : growth;
 
   return (
     <Dialog
@@ -85,7 +90,7 @@ export default function FavorabilityDialog(props) {
         style={{ backgroundColor: fade(favorability.color, 0.08) }}
       >
         <Typography variant="body1" gutterBottom>
-          This Occupation is&hellip;
+          This Occupation is…
         </Typography>
         <Typography variant="h4" className={classes.emphasis} style={{ color: favorability.color }}>
           {favorabilityValue}
@@ -93,10 +98,10 @@ export default function FavorabilityDialog(props) {
       </DialogTitle>
       <DialogContent dividers>
         <Typography className={classes.summary} variant="body1">
-          If you are looking at being a <strong>{occupation}</strong> in <strong>{county}</strong>
+          If you are looking at being a <strong>{occupation}</strong> in <strong>{county}</strong>:
           <br />
           <br />
-          The Department of Labor projects this occupation is projected to have a{' '}
+          The Department of Labor projects this occupation to have a{' '}
           <span className={classes.emphasis}>{growth}</span> growth rate with a{' '}
           <span className={classes.emphasis}>{size}</span> pool of job openings in your county
           through 2026.
@@ -118,7 +123,9 @@ export default function FavorabilityDialog(props) {
           <Typography>
             Ready to complete some activities?{' '}
             <NextLink href="/dashboard">
-              <a href="/dashboard">RETURN TO DASHBOARD</a>
+              <Button className={classes.button} color="primary">
+                Return to Dashboard
+              </Button>
             </NextLink>
           </Typography>
         )}
