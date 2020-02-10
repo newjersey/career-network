@@ -14,7 +14,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function AutocompleteSearch({ hits, currentRefinement, refine, onDropdownValueChange, value }) {
+function AutocompleteSearch(props) {
+  const { hits, currentRefinement, refine, onDropdownValueChange, value } = props;
   const classes = useStyles();
   const options = hits.map(option => option.Occupation);
 
@@ -64,9 +65,9 @@ AutocompleteSearch.propTypes = {
 const CustomAutocomplete = connectAutoComplete(AutocompleteSearch);
 
 function AutocompleteDropdown(props) {
-  const { value, onChange, searchClient } = props;
+  const { value, onChange, searchClient, indexName } = props;
   return (
-    <InstantSearch searchClient={searchClient} indexName="prod_EMPLOYMENT_PROSPECTS">
+    <InstantSearch searchClient={searchClient} indexName={indexName}>
       <Configure hitsPerPage={1000} />
       <CustomAutocomplete value={value} onDropdownValueChange={onChange} />
     </InstantSearch>
@@ -78,6 +79,7 @@ AutocompleteDropdown.propTypes = {
   onChange: PropTypes.func.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   searchClient: PropTypes.object.isRequired,
+  indexName: PropTypes.string.isRequired,
 };
 
 export default AutocompleteDropdown;

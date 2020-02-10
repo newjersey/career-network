@@ -18,7 +18,8 @@ import FavorabilityDialog from './FavorabilityDialog';
 import employmentInputValidation from './EmploymentInputValidation';
 import useFormValidation from '../formValidationHook';
 
-const searchClient = algoliasearch('3XON39SKZ0', '841e3368abde3ebfd860f89ddae4d60e');
+const searchClient = algoliasearch(process.env.algolia.appId, process.env.algolia.apiKey);
+const searchIndex = process.env.algolia.indexName;
 
 function Hits(props) {
   const { hits, show, onClose } = props;
@@ -91,6 +92,7 @@ function Search() {
             value={values.occupation}
             onChange={o => handleChangeCustom('occupation', o)}
             searchClient={searchClient}
+            indexName={searchIndex}
           />
           {!!errors.occupation && <FormHelperText>{errors.occupation}</FormHelperText>}
         </FormControl>
@@ -114,7 +116,7 @@ function Search() {
         </Button>
       </Box>
       {searching && (
-        <InstantSearch indexName="prod_EMPLOYMENT_PROSPECTS" searchClient={searchClient}>
+        <InstantSearch indexName={searchIndex} searchClient={searchClient}>
           <Configure
             query={values.occupation}
             filters={`county:"${values.county}"`}

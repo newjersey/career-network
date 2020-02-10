@@ -47,6 +47,11 @@ const appEnvironments = {
     sentry: {
       dsn: sentryDsn,
     },
+    algolia: {
+      appId: '3XON39SKZ0',
+      apiKey: '841e3368abde3ebfd860f89ddae4d60e',
+      indexName: 'prod_EMPLOYMENT_PROSPECTS',
+    },
   },
   dev2: {
     name: 'DEV2',
@@ -65,6 +70,11 @@ const appEnvironments = {
     },
     sentry: {
       dsn: sentryDsn,
+    },
+    algolia: {
+      appId: '3XON39SKZ0',
+      apiKey: '841e3368abde3ebfd860f89ddae4d60e',
+      indexName: 'prod_EMPLOYMENT_PROSPECTS',
     },
   },
   dev3: {
@@ -85,6 +95,11 @@ const appEnvironments = {
     sentry: {
       dsn: sentryDsn,
     },
+    algolia: {
+      appId: '3XON39SKZ0',
+      apiKey: '841e3368abde3ebfd860f89ddae4d60e',
+      indexName: 'prod_EMPLOYMENT_PROSPECTS',
+    },
   },
   dev4: {
     name: 'DEV4',
@@ -104,6 +119,11 @@ const appEnvironments = {
     sentry: {
       dsn: sentryDsn,
     },
+    algolia: {
+      appId: '3XON39SKZ0',
+      apiKey: '841e3368abde3ebfd860f89ddae4d60e',
+      indexName: 'prod_EMPLOYMENT_PROSPECTS',
+    },
   },
   dev5: {
     name: 'DEV5',
@@ -122,6 +142,11 @@ const appEnvironments = {
     },
     sentry: {
       dsn: sentryDsn,
+    },
+    algolia: {
+      appId: '3XON39SKZ0',
+      apiKey: '841e3368abde3ebfd860f89ddae4d60e',
+      indexName: 'prod_EMPLOYMENT_PROSPECTS',
     },
   },
   ppe: {
@@ -146,6 +171,11 @@ const appEnvironments = {
     sentry: {
       dsn: sentryDsn,
     },
+    algolia: {
+      appId: '3XON39SKZ0',
+      apiKey: '841e3368abde3ebfd860f89ddae4d60e',
+      indexName: 'prod_EMPLOYMENT_PROSPECTS',
+    },
   },
   prod: {
     name: 'PRODUCTION',
@@ -168,6 +198,11 @@ const appEnvironments = {
     },
     sentry: {
       dsn: sentryDsn,
+    },
+    algolia: {
+      appId: '3XON39SKZ0',
+      apiKey: '841e3368abde3ebfd860f89ddae4d60e',
+      indexName: 'prod_EMPLOYMENT_PROSPECTS',
     },
   },
   test: {
