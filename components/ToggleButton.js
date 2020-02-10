@@ -42,7 +42,7 @@ function ToggleButton(props) {
   const isDisabled = v => disabledOptions.includes(v);
   const isSelected = v => (multiSelect ? selected.includes(v) : selected === v);
   const addSelected = v => (multiSelect ? [...selected, v] : v);
-  const removeSelected = v => (multiSelect ? selected.filter(el => el !== v) : undefined);
+  const removeSelected = v => (multiSelect ? selected.filter(el => el !== v) : '');
   const hasPopover = v => showPopover && isDisabled(v);
 
   const handleUpdate = v => {
