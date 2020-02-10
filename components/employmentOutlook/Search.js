@@ -27,6 +27,8 @@ function Hits(props) {
     return (
       <FavorabilityDialog
         favorabilityValue={hit.Descriptor}
+        growth={hit.GrowthRates}
+        size={hit['Total Openings']}
         occupation={hit.Occupation}
         county={hit.county}
         onClose={onClose}

@@ -40,48 +40,33 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const FAVORABILITY_TYPE = [
-  {
-    value: 'Very Unfavorable',
+const FAVORABILITY_TYPES = {
+  'Very Unfavorable': {
     color: '#f96861',
-    growth: 'Declining',
-    size: 'Small',
     description: `The outlook for this job isn't so good. You may need to expand your search to other counties or switch to another occupation. Right now we don't have any info on the platform about this, so we would need to add activities and figure out how to play this out.`,
   },
-  {
-    value: 'Unfavorable',
+  Unfavorable: {
     color: '#fea830',
-    growth: 'Slow',
-    size: 'Medium',
     description: `The outlook for this job isn't so good. You may need to expand your search to other counties or switch to another occupation. Right now we don't have any info on the platform about this, so we would need to add activities and figure out how to play this out.`,
   },
-  {
-    value: 'Favorable',
+  favorable: {
     color: '#244cd2',
-    growth: 'Fast',
-    size: 'Medium',
     description: `The future looks good for this job! The New Jersey Career Network can help you follow the steps you need to take to get employed. 
     Start by using our employment log to keep track of your day-to-day job search activities. Tracking your search is one of the keys to success. It will also help us learn more about what you're doing so we can recommend the right actions.`,
   },
-  {
-    value: 'Very Favorable',
+  'Very Favorable': {
     color: '#6bce7a',
-    growth: 'Moderate',
-    size: 'Large',
     description: `The future looks good for this job! The New Jersey Career Network can help you follow the steps you need to take to get employed. 
     Start by using our employment log to keep track of your day-to-day job search activities. Tracking your search is one of the keys to success. It will also help us learn more about what you're doing so we can recommend the right actions.`,
   },
-];
-
-const getFavorability = favorabilityTypeValue =>
-  FAVORABILITY_TYPE.find(favorabilityType => favorabilityType.value === favorabilityTypeValue);
+};
 
 const MAX_WIDTH = 'sm';
 
 export default function FavorabilityDialog(props) {
   const classes = useStyles();
-  const { show, onClose, occupation, county, favorabilityValue } = props;
-  const favorability = getFavorability(favorabilityValue);
+  const { show, onClose, occupation, county, favorabilityValue, growth, size } = props;
+  const favorability = FAVORABILITY_TYPES[favorabilityValue];
   const exploreMore =
     favorabilityValue &&
     (favorabilityValue === 'Very Unfavorable' || favorabilityValue === 'Unfavorable');
@@ -104,7 +89,7 @@ export default function FavorabilityDialog(props) {
           This Occupation is ...
         </Typography>
         <Typography variant="h4" className={classes.emphasis} style={{ color: favorability.color }}>
-          {favorability.value}
+          {favorabilityValue}
         </Typography>
       </DialogTitle>
       <DialogContent dividers>
@@ -113,9 +98,9 @@ export default function FavorabilityDialog(props) {
           <br />
           <br />
           The Department of Labor projects this occupation is projected to have a{' '}
-          <span className={classes.emphasis}>{favorability.growth}</span> growth rate with a{' '}
-          <span className={classes.emphasis}>{favorability.size}</span> pool of job openings in your
-          county through 2026.
+          <span className={classes.emphasis}>{growth}</span> growth rate with a{' '}
+          <span className={classes.emphasis}>{size}</span> pool of job openings in your county
+          through 2026.
         </Typography>
         <Divider />
         <Typography className={classes.description} variant="body1" color="textSecondary">
@@ -147,6 +132,8 @@ FavorabilityDialog.propTypes = {
   show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   occupation: PropTypes.string.isRequired,
+  growth: PropTypes.string.isRequired,
+  size: PropTypes.string.isRequired,
   county: PropTypes.string.isRequired,
   favorabilityValue: PropTypes.string.isRequired,
 };
