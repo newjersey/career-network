@@ -24,7 +24,6 @@ const INDUSTRY_OPTIONS = [
   'Transportation and Warehousing',
   'Utilities',
   'Wholesale Trade',
-  'Other',
 ];
 
 const useStyles = makeStyles(theme => ({
