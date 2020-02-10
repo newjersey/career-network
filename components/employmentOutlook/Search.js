@@ -66,14 +66,13 @@ function Search() {
     userDocRef.set({ employmentOutlook }, { merge: true });
   };
 
-  const { handleSubmit, handleChangeCustom, values, errors, reset } = useFormValidation(
+  const { handleSubmit, handleChangeCustom, values, errors } = useFormValidation(
     initialState,
     employmentInputValidation,
     submit
   );
 
   const handleClose = () => {
-    reset();
     setSearching(false);
   };
 

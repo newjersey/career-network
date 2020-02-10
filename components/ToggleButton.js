@@ -18,7 +18,7 @@ function ToggleButton(props) {
 
   const isSelected = v => (multiSelect ? selected.includes(v) : selected === v);
   const addSelected = v => (multiSelect ? [...selected, v] : v);
-  const removeSelected = v => (multiSelect ? selected.filter(el => el !== v) : undefined);
+  const removeSelected = v => (multiSelect ? selected.filter(el => el !== v) : '');
 
   const handleUpdate = v => {
     const newSelection = isSelected(v) ? removeSelected(v) : addSelected(v);
