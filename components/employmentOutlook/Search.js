@@ -64,7 +64,13 @@ function Search() {
       county: values.county,
       timestamp,
     };
-    userDocRef.set({ employmentOutlook }, { merge: true });
+    userDocRef.set({ employmentOutlook }, { merge: true }).then(() => {
+      window.Intercom('update', { 'last-employment-outlook-input': new Date() });
+      window.Intercom('trackEvent', 'employment-outlook-input', {
+        occupation: employmentOutlook.occupation,
+        county: employmentOutlook.county,
+      });
+    });
   };
 
   const { handleSubmit, handleChangeCustom, values, errors } = useFormValidation(
