@@ -86,7 +86,7 @@ export default function FavorabilityDialog(props) {
         style={{ backgroundColor: fade(favorability.color, 0.08) }}
       >
         <Typography variant="body1" gutterBottom>
-          This Occupation is ...
+          This Occupation is&hellip;
         </Typography>
         <Typography variant="h4" className={classes.emphasis} style={{ color: favorability.color }}>
           {favorabilityValue}

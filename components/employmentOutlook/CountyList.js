@@ -45,7 +45,7 @@ export default function CountyList(props) {
       buttonVariant="outlined"
       options={COUNY_NAMES}
       value={value}
-      handleChange={e => onChange(e)}
+      handleChange={onChange}
     />
   );
 }
