@@ -62,11 +62,11 @@ export default function CountyList(props) {
   };
 
   useEffect(() => {
-    if (!isEmpty(filter)) {
-      setUpdating(true);
-    } else {
+    if (isEmpty(filter)) {
       setDisablesList([]);
       setUpdating(false);
+    } else {
+      setUpdating(true);
     }
   }, [filter]);
 
