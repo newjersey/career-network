@@ -143,7 +143,7 @@ export default function History(props) {
       <ScaffoldContainer>
         <Grid container spacing={3}>
           <Grid item xs={12} md={3}>
-            <Hidden only="xs">
+            <Hidden only={['xs', 'sm']}>
               <Box width={1} height={headerHeight} />
             </Hidden>
             <Card className={classes.siderail} variant="outlined">
@@ -170,7 +170,7 @@ export default function History(props) {
             </Box>
             {isEmpty() && (
               <div>
-                <Hidden only="xs">
+                <Hidden only={['xs', 'sm']}>
                   <Box
                     width={1}
                     height={headerHeight - headerRef.current.getBoundingClientRect().height}
@@ -211,7 +211,7 @@ export default function History(props) {
               ))}
           </Grid>
           <Grid item xs={12} md={3}>
-            <Hidden only="xs">
+            <Hidden only={['xs', 'sm']}>
               <Box width={1} height={rightSpacerHeight} />
             </Hidden>
             <Box display="flex" justifyContent="flex-end" paddingBottom={2} ref={buttonRef}>
