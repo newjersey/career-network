@@ -8,7 +8,10 @@ import withTitle from '../components/withTitle';
 
 function HistoryPage() {
   const { user } = useAuth();
-  const allUserActivities = useUserSubcollection('activityLogEntries');
+  const allUserActivities = useUserSubcollection('activityLogEntries', {
+    orderBy: ['timestamp', 'desc'],
+  });
+
   const completedTasks = useUserSubcollection(
     'taskDispositionEvents',
     { where: ['type', '==', 'done'] },
@@ -19,22 +22,11 @@ function HistoryPage() {
     where: ['activityFeeling', 'array-contains', 'Confident'],
   });
 
-  const allActivityLogEntries = useUserSubcollection('activityLogEntries', {
-    orderBy: ['timestamp', 'desc'],
-  });
-
-  return fullyLoaded(
-    user,
-    allUserActivities,
-    completedTasks,
-    confidentActivityLogEntries,
-    allActivityLogEntries
-  ) ? (
+  return fullyLoaded(user, allUserActivities, completedTasks, confidentActivityLogEntries) ? (
     <History
       activities={allUserActivities}
       completedTasks={completedTasks}
       confidentActivityLogEntries={confidentActivityLogEntries}
-      allActivityLogEntries={allActivityLogEntries}
     />
   ) : (
     <FullPageProgress />
