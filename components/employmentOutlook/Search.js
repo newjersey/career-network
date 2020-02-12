@@ -2,7 +2,6 @@ import { InstantSearch, Configure, connectHits } from 'react-instantsearch-dom';
 import algoliasearch from 'algoliasearch/lite';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
 import Divider from '@material-ui/core/Divider';
 import firebase from 'firebase/app';
 import FormControl from '@material-ui/core/FormControl';
@@ -37,11 +36,7 @@ function Hits(props) {
       />
     );
   }
-  return (
-    <Dialog open onClose={onClose}>
-      <Typography variant="h2">No data found!</Typography>
-    </Dialog>
-  );
+  return null;
 }
 
 const CustomHits = connectHits(Hits);
@@ -112,7 +107,13 @@ function Search() {
           Where are you looking for work? You may only select one county at a time.
         </Typography>
         <FormControl fullWidth error={!!errors.county}>
-          <CountyList value={values.county} onChange={c => handleChangeCustom('county', c)} />
+          <CountyList
+            filter={values.occupation}
+            searchClient={searchClient}
+            indexName={searchIndex}
+            value={values.county}
+            onChange={c => handleChangeCustom('county', c)}
+          />
           {!!errors.county && <FormHelperText>{errors.county}</FormHelperText>}
         </FormControl>
       </Box>
