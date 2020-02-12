@@ -85,7 +85,6 @@ export default function CountyList(props) {
         disabledOptions={disablesList}
         value={value}
         handleChange={onChange}
-        showPopover
         disabledMessage="We're sorry. Data is not available for this job in this county."
       />
     </>
