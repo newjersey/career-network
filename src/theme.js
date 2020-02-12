@@ -57,6 +57,9 @@ const theme = createMuiTheme({
       contained: {
         boxShadow: 'none',
       },
+      outlinedPrimary: {
+        backgroundColor: 'RGBA(24,129,197,0.06)',
+      },
     },
     MuiStepIcon: {
       root: {

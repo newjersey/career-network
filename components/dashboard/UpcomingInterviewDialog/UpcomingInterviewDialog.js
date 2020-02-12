@@ -16,7 +16,7 @@ import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/picker
 
 import startOfDay from 'date-fns/startOfDay';
 import upcomingInterviewFormValidation from './UpcomingInterviewValidationRules';
-import useFormValidation from './formValidationHook';
+import useFormValidation from '../../formValidationHook';
 import { useAuth } from '../../Auth';
 import SubmitSuccess from '../../activityInput/SubmitSuccess';
 import FullPageProgress from '../../FullPageProgress';

@@ -10,7 +10,11 @@ const liveAirtableApiBase = '/api/airtable/v0/appoZOnpKML2dKjkQ/';
 const prodAirtableApiBase = '/static/api/';
 
 const sentryDsn = 'https://3deb0f7b679840f28bb7931c8c33b206@sentry.io/1733812';
-
+const algolia = {
+  appId: '3XON39SKZ0',
+  apiKey: '841e3368abde3ebfd860f89ddae4d60e',
+  indexName: 'prod_EMPLOYMENT_PROSPECTS',
+};
 const commonFirebase = {
   userCollection: 'users',
   userPreauthorizationCollection: 'userPreauthorizations',
@@ -47,6 +51,7 @@ const appEnvironments = {
     sentry: {
       dsn: sentryDsn,
     },
+    algolia,
   },
   dev2: {
     name: 'DEV2',
@@ -66,6 +71,7 @@ const appEnvironments = {
     sentry: {
       dsn: sentryDsn,
     },
+    algolia,
   },
   dev3: {
     name: 'DEV3',
@@ -85,6 +91,7 @@ const appEnvironments = {
     sentry: {
       dsn: sentryDsn,
     },
+    algolia,
   },
   dev4: {
     name: 'DEV4',
@@ -104,6 +111,7 @@ const appEnvironments = {
     sentry: {
       dsn: sentryDsn,
     },
+    algolia,
   },
   dev5: {
     name: 'DEV5',
@@ -123,6 +131,7 @@ const appEnvironments = {
     sentry: {
       dsn: sentryDsn,
     },
+    algolia,
   },
   ppe: {
     name: 'PREVIEW',
@@ -146,6 +155,7 @@ const appEnvironments = {
     sentry: {
       dsn: sentryDsn,
     },
+    algolia,
   },
   prod: {
     name: 'PRODUCTION',
@@ -169,6 +179,7 @@ const appEnvironments = {
     sentry: {
       dsn: sentryDsn,
     },
+    algolia,
   },
   test: {
     firebase: {

@@ -59,7 +59,7 @@ const unrecognizedCategoryName = AirtablePropTypes.TASK_CATEGORIES.other.name;
 
 export default function History(props) {
   const classes = useStyles();
-  const { activities, completedTasks, confidentActivityLogEntries, allActivityLogEntries } = props;
+  const { activities, completedTasks, confidentActivityLogEntries } = props;
   const headerRef = useRef(null);
   const sectionHeaderRef = useRef(null);
   const buttonRef = useRef(null);
@@ -232,7 +232,7 @@ export default function History(props) {
               />
 
               <ActivityCategoryTable
-                allActivityLogEntries={allActivityLogEntries}
+                allActivityLogEntries={activities}
                 subsetActivityLogEntries={confidentActivityLogEntries}
                 label="Feeling Confident"
               />
