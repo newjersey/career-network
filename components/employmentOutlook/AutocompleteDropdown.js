@@ -32,6 +32,7 @@ function AutocompleteSearch(props) {
         </>
       }
       value={value}
+      filterOptions={occupations => occupations}
       onInputChange={(event, val) => refine(val)}
       onChange={(event, val) =>
         isEmpty(val) ? onDropdownValueChange('') : onDropdownValueChange(val)
