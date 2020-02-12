@@ -2,15 +2,23 @@ import { InstantSearch, Configure, connectAutoComplete } from 'react-instantsear
 import { makeStyles } from '@material-ui/styles';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import isEmpty from 'lodash/isEmpty';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import PropTypes from 'prop-types';
 import React from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
   wrapIcon: {
     display: 'inline-flex',
+  },
+  listbox: {
+    paddingTop: 0,
+  },
+  listheader: {
+    backgroundColor: 'white',
+    color: theme.palette.text.light,
   },
 }));
 
@@ -19,9 +27,19 @@ function AutocompleteSearch(props) {
   const classes = useStyles();
   const options = hits.map(option => option.Occupation);
 
+  const renderGroup = params => [
+    <ListSubheader key={params.key} className={classes.listheader}>
+      {params.key} ({params.children.length} Results)
+    </ListSubheader>,
+    params.children,
+  ];
+
   return (
     <Autocomplete
       id="occupation-autocomplete-select"
+      classes={{
+        listbox: classes.listbox,
+      }}
       options={options}
       noOptionsText={
         <>
@@ -37,6 +55,8 @@ function AutocompleteSearch(props) {
       onChange={(event, val) =>
         isEmpty(val) ? onDropdownValueChange('') : onDropdownValueChange(val)
       }
+      groupBy={() => 'Occupations'}
+      renderGroup={renderGroup}
       renderInput={params => (
         <TextField
           variant="outlined"
