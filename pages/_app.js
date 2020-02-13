@@ -28,7 +28,7 @@ const featureFlags = [
   // complete by end of "Release 7"
   {
     name: 'employmentOutlook',
-    isActive: false,
+    isActive: true,
   },
 ];
 
