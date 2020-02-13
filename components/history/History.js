@@ -1,6 +1,7 @@
 import { format, compareDesc, getMonth, getYear } from 'date-fns';
 import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import CalendarIcon from '@material-ui/icons/CalendarTodayRounded';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -10,8 +11,8 @@ import React, { useState, useLayoutEffect, useRef } from 'react';
 import Typography from '@material-ui/core/Typography';
 import uniqBy from 'lodash/fp/uniqBy';
 
-import { ACTIVITY_TYPES } from '../dashboard/ActivityInputDialog';
 import Activity from './Activity';
+import ActivityInputDialog, { ACTIVITY_TYPES } from '../activityInput/ActivityInputDialog';
 import ActivityCategoryTable from './ActivityCategoryTable';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import CompletedTask from './CompletedTask';
@@ -61,12 +62,20 @@ export default function History(props) {
   const { activities, completedTasks, confidentActivityLogEntries } = props;
   const headerRef = useRef(null);
   const sectionHeaderRef = useRef(null);
+  const buttonRef = useRef(null);
   const [headerHeight, setHeaderHeight] = useState();
+  const [rightSpacerHeight, setRightSpacerHeight] = useState();
+  const [showDialog, setShowDialog] = useState(false);
 
   useLayoutEffect(() => {
     setHeaderHeight(
       headerRef.current.getBoundingClientRect().height +
         sectionHeaderRef.current.getBoundingClientRect().height
+    );
+    setRightSpacerHeight(
+      headerRef.current.getBoundingClientRect().height +
+        sectionHeaderRef.current.getBoundingClientRect().height -
+        buttonRef.current.getBoundingClientRect().height
     );
   }, []);
 
@@ -130,10 +139,11 @@ export default function History(props) {
 
   return (
     <div className={classes.root}>
+      <ActivityInputDialog show={showDialog} onClose={() => setShowDialog()} />
       <ScaffoldContainer>
         <Grid container spacing={3}>
           <Grid item xs={12} md={3}>
-            <Hidden only="xs">
+            <Hidden only={['xs', 'sm']}>
               <Box width={1} height={headerHeight} />
             </Hidden>
             <Card className={classes.siderail} variant="outlined">
@@ -160,7 +170,7 @@ export default function History(props) {
             </Box>
             {isEmpty() && (
               <div>
-                <Hidden only="xs">
+                <Hidden only={['xs', 'sm']}>
                   <Box
                     width={1}
                     height={headerHeight - headerRef.current.getBoundingClientRect().height}
@@ -201,9 +211,20 @@ export default function History(props) {
               ))}
           </Grid>
           <Grid item xs={12} md={3}>
-            <Hidden only="xs">
-              <Box width={1} height={headerHeight} />
+            <Hidden only={['xs', 'sm']}>
+              <Box width={1} height={rightSpacerHeight} />
             </Hidden>
+            <Box display="flex" justifyContent="flex-end" paddingBottom={2} ref={buttonRef}>
+              <Button
+                variant="contained"
+                size="large"
+                color="primary"
+                onClick={() => setShowDialog(true)}
+                data-intercom="log-activity-button"
+              >
+                +&nbsp;&nbsp;Log Activity
+              </Button>
+            </Box>
             <Card variant="outlined">
               <CardHeader
                 title="Confidence Level"
