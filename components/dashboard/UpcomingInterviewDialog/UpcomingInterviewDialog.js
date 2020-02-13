@@ -148,7 +148,7 @@ export default function UpcomingInterviewDialog(props) {
       </DialogTitle>
       <DialogContent dividers>
         <SubmitSuccess
-          message="Thank you for entering; we'll be providing some recommendations."
+          message="Thanks for letting us know! Interview preparation resources will be added to the top of your goals."
           show={success}
         />
         {!(success || isSubmitting) && (
