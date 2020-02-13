@@ -11,14 +11,6 @@ const useStyles = makeStyles(theme => ({
   root: {
     position: 'relative',
   },
-  button: {
-    marginTop: theme.spacing(-6),
-    color: 'white',
-    position: 'absolute',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(6),
-    },
-  },
   container: {
     marginTop: theme.spacing(6),
     marginBottom: theme.spacing(10),

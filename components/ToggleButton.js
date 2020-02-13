@@ -33,7 +33,6 @@ function ToggleButton(props) {
     buttonClassName,
     buttonVariant,
     containerClassName,
-    showPopover,
     disabledMessage,
   } = props;
   const [selected, setSelected] = useState(value);
@@ -43,8 +42,8 @@ function ToggleButton(props) {
   const isDisabled = v => disabledOptions.includes(v);
   const isSelected = v => (multiSelect ? selected.includes(v) : selected === v);
   const addSelected = v => (multiSelect ? [...selected, v] : v);
-  const removeSelected = v => (multiSelect ? selected.filter(el => el !== v) : undefined);
-  const hasPopover = v => showPopover && isDisabled(v);
+  const removeSelected = v => (multiSelect ? selected.filter(el => el !== v) : '');
+  const hasPopover = v => disabledMessage && isDisabled(v);
 
   const handleUpdate = v => {
     const newSelection = isSelected(v) ? removeSelected(v) : addSelected(v);
@@ -130,7 +129,6 @@ ToggleButton.propTypes = {
   buttonClassName: PropTypes.string,
   containerClassName: PropTypes.string,
   buttonVariant: PropTypes.string,
-  showPopover: PropTypes.bool,
   disabledMessage: PropTypes.string,
 };
 
@@ -140,7 +138,6 @@ ToggleButton.defaultProps = {
   buttonClassName: undefined,
   buttonVariant: 'contained',
   containerClassName: undefined,
-  showPopover: false,
   disabledMessage: '',
 };
 

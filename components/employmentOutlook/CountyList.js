@@ -57,7 +57,7 @@ const CustomHits = connectHits(Hits);
 
 export default function CountyList(props) {
   const classes = useStyles();
-  const { value, onChange, filter, searchClient } = props;
+  const { value, onChange, filter, searchClient, indexName } = props;
   const [disablesList, setDisablesList] = useState([]);
   const [updating, setUpdating] = useState(false);
 
@@ -67,18 +67,18 @@ export default function CountyList(props) {
   };
 
   useEffect(() => {
-    if (!isEmpty(filter)) {
-      setUpdating(true);
-    } else {
+    if (isEmpty(filter)) {
       setDisablesList([]);
       setUpdating(false);
+    } else {
+      setUpdating(true);
     }
   }, [filter]);
 
   return (
     <>
       {updating && (
-        <InstantSearch indexName="prod_EMPLOYMENT_PROSPECTS" searchClient={searchClient}>
+        <InstantSearch indexName={indexName} searchClient={searchClient}>
           <Configure filters={`Occupation:"${filter}"`} hitsPerPage={30} distinct={false} />
           <CustomHits onChange={handleChange} />
         </InstantSearch>
@@ -90,8 +90,7 @@ export default function CountyList(props) {
         options={COUNY_NAMES}
         disabledOptions={disablesList}
         value={value}
-        handleChange={e => onChange(e)}
-        showPopover
+        handleChange={onChange}
         disabledMessage="We're sorry. Data is not available for this job in this county."
       />
     </>
@@ -109,6 +108,7 @@ CountyList.propTypes = {
   filter: PropTypes.string,
   // eslint-disable-next-line react/forbid-prop-types
   searchClient: PropTypes.object.isRequired,
+  indexName: PropTypes.string.isRequired,
 };
 
 CountyList.defaultProps = {

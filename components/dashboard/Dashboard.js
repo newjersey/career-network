@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import { isDone, mostRecent } from '../../src/app-helper';
 import { useAuth } from '../Auth';
 import { useSnackbar } from '../Snackbar';
-import ActivityCategoryTable from './ActivityCategoryTable';
+import ActivityCategoryTable from '../history/ActivityCategoryTable';
 import ActivityInputDialog from './ActivityInputDialog';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import BackgroundHeader from '../BackgroundHeader';

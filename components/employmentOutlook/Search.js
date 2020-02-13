@@ -17,7 +17,8 @@ import employmentInputValidation from './EmploymentInputValidation';
 import FavorabilityDialog from './FavorabilityDialog';
 import useFormValidation from '../formValidationHook';
 
-const searchClient = algoliasearch('3XON39SKZ0', '841e3368abde3ebfd860f89ddae4d60e');
+const searchClient = algoliasearch(process.env.algolia.appId, process.env.algolia.apiKey);
+const searchIndex = process.env.algolia.indexName;
 
 function Hits(props) {
   const { hits, show, onClose } = props;
@@ -26,6 +27,8 @@ function Hits(props) {
     return (
       <FavorabilityDialog
         favorabilityValue={hit.Descriptor}
+        growth={hit.GrowthRates}
+        size={hit['Total Openings']}
         occupation={hit.Occupation}
         county={hit.county}
         onClose={onClose}
@@ -56,17 +59,22 @@ function Search() {
       county: values.county,
       timestamp,
     };
-    userDocRef.set({ employmentOutlook }, { merge: true });
+    userDocRef.set({ employmentOutlook }, { merge: true }).then(() => {
+      window.Intercom('update', { 'last-employment-outlook-input': new Date() });
+      window.Intercom('trackEvent', 'employment-outlook-input', {
+        occupation: employmentOutlook.occupation,
+        county: employmentOutlook.county,
+      });
+    });
   };
 
-  const { handleSubmit, handleChangeCustom, values, errors, reset } = useFormValidation(
+  const { handleSubmit, handleChangeCustom, values, errors } = useFormValidation(
     initialState,
     employmentInputValidation,
     submit
   );
 
   const handleClose = () => {
-    reset();
     setSearching(false);
   };
 
@@ -85,6 +93,7 @@ function Search() {
             value={values.occupation}
             onChange={o => handleChangeCustom('occupation', o)}
             searchClient={searchClient}
+            indexName={searchIndex}
           />
           {!!errors.occupation && <FormHelperText>{errors.occupation}</FormHelperText>}
         </FormControl>
@@ -101,6 +110,7 @@ function Search() {
           <CountyList
             filter={values.occupation}
             searchClient={searchClient}
+            indexName={searchIndex}
             value={values.county}
             onChange={c => handleChangeCustom('county', c)}
           />
@@ -113,7 +123,7 @@ function Search() {
         </Button>
       </Box>
       {searching && (
-        <InstantSearch indexName="prod_EMPLOYMENT_PROSPECTS" searchClient={searchClient}>
+        <InstantSearch indexName={searchIndex} searchClient={searchClient}>
           <Configure
             query={values.occupation}
             filters={`county:"${values.county}"`}
