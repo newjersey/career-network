@@ -98,12 +98,9 @@ export default function FavorabilityDialog(props) {
       </DialogTitle>
       <DialogContent dividers>
         <Typography className={classes.summary} variant="body1">
-          If you are looking at being a <strong>{occupation}</strong> in <strong>{county}</strong>:
-          <br />
-          <br />
-          The Department of Labor projects this occupation to have a{' '}
-          <span className={classes.emphasis}>{growth}</span> growth rate with a{' '}
-          <span className={classes.emphasis}>{size}</span> pool of job openings in your county
+          The Department of Labor projects <strong>{occupation}</strong> in{' '}
+          <strong>{county}</strong> to have a <span className={classes.emphasis}>{growth}</span>{' '}
+          growth rate with a <span className={classes.emphasis}>{size}</span> pool of job openings
           through 2026.
         </Typography>
         <Divider />

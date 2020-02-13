@@ -13,8 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import { useAuth } from '../Auth';
 import AutocompleteDropdown from './AutocompleteDropdown';
 import CountyList from './CountyList';
-import FavorabilityDialog from './FavorabilityDialog';
 import employmentInputValidation from './EmploymentInputValidation';
+import FavorabilityDialog from './FavorabilityDialog';
 import useFormValidation from '../formValidationHook';
 
 const searchClient = algoliasearch(process.env.algolia.appId, process.env.algolia.apiKey);
@@ -101,10 +101,10 @@ function Search() {
       <Divider />
       <Box mt={8} mb={6}>
         <Typography variant="h6" gutterBottom>
-          County
+          Location
         </Typography>
         <Typography variant="body2" style={{ marginBottom: '2em' }}>
-          Where are you looking for work? You may only select one county at a time.
+          Where are you looking for work? You may only select one location at a time.
         </Typography>
         <FormControl fullWidth error={!!errors.county}>
           <CountyList

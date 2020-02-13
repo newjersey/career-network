@@ -32,6 +32,7 @@ function ToggleButton(props) {
     multiSelect,
     buttonClassName,
     buttonVariant,
+    containerClassName,
     disabledMessage,
   } = props;
   const [selected, setSelected] = useState(value);
@@ -73,9 +74,11 @@ function ToggleButton(props) {
   }, [anchorEl]);
 
   return (
-    <Grid container>
+    <Grid container className={containerClassName}>
       {options.map(opt => (
-        <div
+        <Grid
+          item
+          className={clsx(classes.button, buttonClassName)}
           key={opt}
           aria-owns={hasPopover(opt) ? 'mouse-over-popover' : undefined}
           aria-haspopup={hasPopover(opt) ? 'true' : 'false'}
@@ -83,7 +86,8 @@ function ToggleButton(props) {
           onMouseLeave={handlePopoverClose}
         >
           <Button
-            className={clsx(classes.button, buttonClassName)}
+            style={{ height: '40px' }}
+            fullWidth
             variant={buttonVariant}
             onClick={() => handleUpdate(opt)}
             color={isSelected(opt) ? 'primary' : 'default'}
@@ -110,7 +114,7 @@ function ToggleButton(props) {
               <Typography variant="body2">{disabledMessage}</Typography>
             </Popover>
           )}
-        </div>
+        </Grid>
       ))}
     </Grid>
   );
@@ -123,6 +127,7 @@ ToggleButton.propTypes = {
   handleChange: PropTypes.func.isRequired,
   multiSelect: PropTypes.bool,
   buttonClassName: PropTypes.string,
+  containerClassName: PropTypes.string,
   buttonVariant: PropTypes.string,
   disabledMessage: PropTypes.string,
 };
@@ -132,6 +137,7 @@ ToggleButton.defaultProps = {
   multiSelect: false,
   buttonClassName: undefined,
   buttonVariant: 'contained',
+  containerClassName: undefined,
   disabledMessage: '',
 };
 
