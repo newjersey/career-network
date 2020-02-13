@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
   popover: {
     pointerEvents: 'none',
   },
-  paper: {
+  popoverPaper: {
     padding: theme.spacing(1),
     backgroundColor: 'black',
     color: 'white',
@@ -100,7 +100,7 @@ function ToggleButton(props) {
               id="mouse-over-popover"
               className={classes.popover}
               classes={{
-                paper: classes.paper,
+                paper: classes.popoverPaper,
               }}
               open={openPopover}
               anchorEl={anchorEl}
