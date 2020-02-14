@@ -34,24 +34,6 @@ resource "cloudflare_record" "A_4" {
   value   = "185.199.111.153"
 }
 
-resource "cloudflare_record" "CNAME_strong1__domainkey" {
-  domain  = "${var.cloudflare_zone}"
-  name    = "strong1._domainkey"
-  type    = "CNAME"
-  ttl     = "1"
-  proxied = "false"
-  value   = "strong1._domainkey.helpscout.net"
-}
-
-resource "cloudflare_record" "CNAME_strong2__domainkey" {
-  domain  = "${var.cloudflare_zone}"
-  name    = "strong2._domainkey"
-  type    = "CNAME"
-  ttl     = "1"
-  proxied = "false"
-  value   = "strong2._domainkey.helpscout.net"
-}
-
 resource "cloudflare_record" "CNAME_intercom__domainkey" {
   domain  = "${var.cloudflare_zone}"
   name    = "intercom._domainkey"
@@ -149,7 +131,7 @@ resource "cloudflare_record" "TXT_SPF" {
   type    = "TXT"
   ttl     = "1"
   proxied = "false"
-  value   = "v=spf1 include:_spf.google.com include:helpscoutemail.com ~all"
+  value   = "v=spf1 include:_spf.google.com ~all"
 }
 
 resource "cloudflare_record" "TXT_google__domainkey" {
