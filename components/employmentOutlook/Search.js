@@ -121,8 +121,8 @@ function Search() {
           Additional Details
         </Typography>
         <Typography variant="body2" style={{ marginBottom: '2em' }}>
-          Tell us more about the work you&apos;re looking for so we can improve our results for you
-          in the future.
+          Tell us, in your own words, about the occupation you selected above so we can improve our
+          results for you in the future.
         </Typography>
         <FormControl fullWidth>
           <span>Job Title</span>
