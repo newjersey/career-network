@@ -71,6 +71,15 @@ resource "google_dns_record_set" "txt" {
   ]
 }
 
+resource "google_dns_record_set" "txt_google__domainkey" {
+  name         = "google._domainkey.${google_dns_managed_zone.default.dns_name}"
+  managed_zone = google_dns_managed_zone.default.name
+  type         = "TXT"
+  ttl          = 3600
+
+  rrdatas = ["\"v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAh7jI6fq0bp0pB9kxk4svdduiOMS2mxr9kxAq68gPhvbjKAVHX01b3kL0piVhUIa8nDjOAzEyDu+vnr5YxIorNHzr54uQioa5Tqz3vSU7/jNBEy3k4HQmoSAk5/SwnXaUUu9dFOc3PECa5YAWAbYShd5ZLooOsnxxDiV/rG6hZDg\"\"GgW5pyZwdFfJTK4p0Xt61n54LxIz7VArK6Bfb/EPnJ54s6Rpg4hwpyClREZGTFampKQg9TdFdCNjZ7KC6XEr5iZh5e5MSVAyyK3GSvTnr1FgIbUiLlQzNfjg1f1Vz09DphbywNcFTPfSGyUn6FNeSz3ifolT6jpYYl2h9O8XKywIDAQAB\""]
+}
+
 resource "google_dns_record_set" "mx" {
   name         = google_dns_managed_zone.default.dns_name
   managed_zone = google_dns_managed_zone.default.name
