@@ -58,3 +58,12 @@ resource "google_dns_record_set" "a_rgo" {
     "52.72.49.79",
   ]
 }
+
+resource "google_dns_record_set" "txt_gsuite_domain_verification" {
+  name         = google_dns_managed_zone.default.dns_name
+  managed_zone = google_dns_managed_zone.default.name
+  type         = "TXT"
+  ttl          = 300
+
+  rrdatas = ["\"google-site-verification=HOyiY3puLWr3BvvAZ_CJIySdMjMe4kEWcPd2utuKnb4\""]
+}
