@@ -59,11 +59,29 @@ resource "google_dns_record_set" "a_rgo" {
   ]
 }
 
-resource "google_dns_record_set" "txt_gsuite_domain_verification" {
+resource "google_dns_record_set" "txt" {
   name         = google_dns_managed_zone.default.dns_name
   managed_zone = google_dns_managed_zone.default.name
   type         = "TXT"
   ttl          = 300
 
-  rrdatas = ["\"google-site-verification=HOyiY3puLWr3BvvAZ_CJIySdMjMe4kEWcPd2utuKnb4\""]
+  rrdatas = [
+    "\"v=spf1 include:_spf.google.com ~all\"",
+    "\"google-site-verification=HOyiY3puLWr3BvvAZ_CJIySdMjMe4kEWcPd2utuKnb4\"",
+  ]
+}
+
+resource "google_dns_record_set" "mx" {
+  name         = google_dns_managed_zone.default.dns_name
+  managed_zone = google_dns_managed_zone.default.name
+  type         = "MX"
+  ttl          = 3600
+
+  rrdatas = [
+    "1 ASPMX.L.GOOGLE.COM.",
+    "5 ALT1.ASPMX.L.GOOGLE.COM.",
+    "5 ALT2.ASPMX.L.GOOGLE.COM.",
+    "10 ASPMX2.GOOGLEMAIL.COM.",
+    "10 ASPMX3.GOOGLEMAIL.COM.",
+  ]
 }
