@@ -185,3 +185,7 @@ In order to deploy the function, you can run `npm run deploy` from the root proj
 building and preparing the code for deployment as well as setting up the scheduler and the necessary permissions in your
 account. You might want to view the function in the Firebase "Functions" UI, follow the link to
 "View in Cloud Scheduler," and manually run it a couple times to verify proper execution (logs in Firebase UI console).
+
+## Big Thanks
+
+Cross-browser Testing Platform and Open Source ❤️ provided by [Sauce Labs](https://saucelabs.com)

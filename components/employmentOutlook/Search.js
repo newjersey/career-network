@@ -1,26 +1,26 @@
 import { InstantSearch, Configure, connectHits } from 'react-instantsearch-dom';
 import algoliasearch from 'algoliasearch/lite';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 import firebase from 'firebase/app';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import Dialog from '@material-ui/core/Dialog';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 
 import { useAuth } from '../Auth';
 import AutocompleteDropdown from './AutocompleteDropdown';
 import CountyList from './CountyList';
+import employmentInputValidation from './EmploymentInputValidation';
 import FavorabilityDialog from './FavorabilityDialog';
 import IndustryDropdown from './IndustryDropdown';
 import useFormValidation from '../formValidationHook';
-import employmentInputValidation from './EmploymentInputValidation';
 
-const searchClient = algoliasearch('3XON39SKZ0', '841e3368abde3ebfd860f89ddae4d60e');
+const searchClient = algoliasearch(process.env.algolia.appId, process.env.algolia.apiKey);
+const searchIndex = process.env.algolia.indexName;
 
 function Hits(props) {
   const { hits, show, onClose } = props;
@@ -29,6 +29,8 @@ function Hits(props) {
     return (
       <FavorabilityDialog
         favorabilityValue={hit.Descriptor}
+        growth={hit.GrowthRates}
+        size={hit['Total Openings']}
         occupation={hit.Occupation}
         county={hit.county}
         onClose={onClose}
@@ -36,11 +38,7 @@ function Hits(props) {
       />
     );
   }
-  return (
-    <Dialog open onClose={onClose}>
-      <Typography variant="h2">No data found!</Typography>
-    </Dialog>
-  );
+  return null;
 }
 
 const CustomHits = connectHits(Hits);
@@ -67,25 +65,27 @@ function Search() {
       industry: values.industry,
       timestamp,
     };
-    userDocRef.set({ employmentOutlook }, { merge: true });
+    userDocRef.set({ employmentOutlook }, { merge: true }).then(() => {
+      window.Intercom('update', { 'last-employment-outlook-input': new Date() });
+      window.Intercom('trackEvent', 'employment-outlook-input', {
+        occupation: employmentOutlook.occupation,
+        county: employmentOutlook.county,
+      });
+    });
   };
 
-  const {
-    handleSubmit,
-    handleChange,
-    handleChangeCustom,
-    values,
-    errors,
-    reset,
-  } = useFormValidation(initialState, employmentInputValidation, submit);
+  const { handleSubmit, handleChange, handleChangeCustom, values, errors } = useFormValidation(
+    initialState,
+    employmentInputValidation,
+    submit
+  );
 
   const handleClose = () => {
-    reset();
     setSearching(false);
   };
 
   return (
-    <>
+    <form id={formId}>
       <Box mt={5} mb={10}>
         <Typography variant="h6" gutterBottom>
           Occupation
@@ -98,6 +98,8 @@ function Search() {
           <AutocompleteDropdown
             value={values.occupation}
             onChange={o => handleChangeCustom('occupation', o)}
+            searchClient={searchClient}
+            indexName={searchIndex}
           />
           {!!errors.occupation && <FormHelperText>{errors.occupation}</FormHelperText>}
         </FormControl>
@@ -105,13 +107,19 @@ function Search() {
       <Divider />
       <Box mt={8} mb={6}>
         <Typography variant="h6" gutterBottom>
-          County
+          Location
         </Typography>
         <Typography variant="body2" style={{ marginBottom: '2em' }}>
-          Where are you looking for work? You may only select one county at a time.
+          Where are you looking for work? You may only select one location at a time.
         </Typography>
         <FormControl fullWidth error={!!errors.county}>
-          <CountyList value={values.county} onChange={c => handleChangeCustom('county', c)} />
+          <CountyList
+            filter={values.occupation}
+            searchClient={searchClient}
+            indexName={searchIndex}
+            value={values.county}
+            onChange={c => handleChangeCustom('county', c)}
+          />
           {!!errors.county && <FormHelperText>{errors.county}</FormHelperText>}
         </FormControl>
       </Box>
@@ -127,7 +135,6 @@ function Search() {
         <FormControl fullWidth>
           <span>Job Title</span>
           <TextField
-            id={`${formId}-title`}
             inputProps={{ name: 'title' }}
             placeholder="What job title do you feel is more relevant for this job?"
             onChange={handleChange}
@@ -145,7 +152,7 @@ function Search() {
         </Button>
       </Box>
       {searching && (
-        <InstantSearch indexName="prod_EMPLOYMENT_PROSPECTS" searchClient={searchClient}>
+        <InstantSearch indexName={searchIndex} searchClient={searchClient}>
           <Configure
             query={values.occupation}
             filters={`county:"${values.county}"`}
@@ -154,7 +161,7 @@ function Search() {
           <CustomHits show onClose={handleClose} />
         </InstantSearch>
       )}
-    </>
+    </form>
   );
 }
 

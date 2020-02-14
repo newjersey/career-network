@@ -8,7 +8,6 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { useAuth } from '../Auth';
-import EmojiCircle from './EmojiCircle';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -24,9 +23,16 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: theme.spacing(2),
     maxWidth: '75%',
   },
+  emoji: {
+    fontSize: theme.spacing(7),
+    [theme.breakpoints.down('sm')]: {
+      fontSize: theme.spacing(6),
+    },
+  },
 }));
 
 const EmojiButton = ({ emoji, label, onClick }) => {
+  const classes = useStyles();
   const handleClick = () => {
     onClick({ emoji, label });
   };
@@ -35,10 +41,11 @@ const EmojiButton = ({ emoji, label, onClick }) => {
     <Grid item style={{ textAlign: 'center' }}>
       <Button onClick={handleClick} data-intercom={`sentiment-${label.toLowerCase()}`}>
         <Box m={1} align="center">
-          <span aria-label={label} role="img">
-            <EmojiCircle emoji={emoji} />
+          <span className={classes.emoji} role="img" aria-label={label}>
+            {emoji}
           </span>
-          <div style={{ marginTop: '0.5rem' }}>{label}</div>
+          <br />
+          {label}
         </Box>
       </Button>
     </Grid>

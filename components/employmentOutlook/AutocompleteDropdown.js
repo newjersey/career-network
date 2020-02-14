@@ -1,6 +1,5 @@
 import { InstantSearch, Configure, connectAutoComplete } from 'react-instantsearch-dom';
 import { makeStyles } from '@material-ui/styles';
-import algoliasearch from 'algoliasearch/lite';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
@@ -9,15 +8,14 @@ import SearchIcon from '@material-ui/icons/Search';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
-const searchClient = algoliasearch('3XON39SKZ0', '841e3368abde3ebfd860f89ddae4d60e');
-
 const useStyles = makeStyles(() => ({
   wrapIcon: {
     display: 'inline-flex',
   },
 }));
 
-function AutocompleteSearch({ hits, currentRefinement, refine, onDropdownValueChange, value }) {
+function AutocompleteSearch(props) {
+  const { hits, currentRefinement, refine, onDropdownValueChange, value } = props;
   const classes = useStyles();
   const options = hits.map(option => option.Occupation);
 
@@ -67,9 +65,9 @@ AutocompleteSearch.propTypes = {
 const CustomAutocomplete = connectAutoComplete(AutocompleteSearch);
 
 function AutocompleteDropdown(props) {
-  const { value, onChange } = props;
+  const { value, onChange, searchClient, indexName } = props;
   return (
-    <InstantSearch searchClient={searchClient} indexName="DISTINCT_OCCUPATION">
+    <InstantSearch searchClient={searchClient} indexName={indexName}>
       <Configure hitsPerPage={1000} />
       <CustomAutocomplete value={value} onDropdownValueChange={onChange} />
     </InstantSearch>
@@ -79,6 +77,9 @@ function AutocompleteDropdown(props) {
 AutocompleteDropdown.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  searchClient: PropTypes.object.isRequired,
+  indexName: PropTypes.string.isRequired,
 };
 
 export default AutocompleteDropdown;
