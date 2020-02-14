@@ -96,4 +96,8 @@ export default class User {
   get lastSentimentTimestamp() {
     return this.userData.lastSentimentTimestamp;
   }
+
+  get lastSentimentCloseTimestamp() {
+    return this.userData.lastSentimentCloseTimestamp;
+  }
 }

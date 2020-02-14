@@ -7,6 +7,9 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(theme => ({
+  title: {
+    margin: theme.spacing(8, 0, 8, 4),
+  },
   closeButton: {
     position: 'absolute',
     right: theme.spacing(1),
@@ -21,7 +24,7 @@ export default function SentimentComplete(props) {
 
   return (
     <Box position="relative">
-      <Typography component="h4" variant="h6" align="center">
+      <Typography className={classes.title} component="h4" variant="h6">
         Thank you for sharing, {user}
       </Typography>
       <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>

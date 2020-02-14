@@ -272,14 +272,20 @@ export default function Dashboard(props) {
   const tasks = getTasks(props, TASK_COUNT_LIMIT);
   const doneTaskCount = allTaskDispositionEvents.length;
   const [activeDialog, setActiveDialog] = useState();
-  const [sentimentClose, setSentimentClose] = useState(false);
   const isSentimentLoggedToday =
     user.lastSentimentTimestamp && isToday(user.lastSentimentTimestamp.toDate());
+  const isSentimentClosedToday =
+    user.lastSentimentCloseTimestamp && isToday(user.lastSentimentCloseTimestamp.toDate());
 
-  const showSentiment = !isSentimentLoggedToday || (isSentimentLoggedToday && !sentimentClose);
+  const showSentiment =
+    !isSentimentLoggedToday || (isSentimentLoggedToday && !isSentimentClosedToday);
 
   const onRecordSentiment = () => {
     userDocRef.set({ lastSentimentTimestamp: new Date() }, { merge: true });
+  };
+
+  const onSentimentClose = () => {
+    userDocRef.set({ lastSentimentCloseTimestamp: new Date() }, { merge: true });
   };
 
   useEffect(() => {
@@ -311,8 +317,9 @@ export default function Dashboard(props) {
         <ScaffoldContainer className={classes.container}>
           <SentimentTracker
             onRecord={onRecordSentiment}
-            onClose={() => setSentimentClose(true)}
+            onClose={onSentimentClose}
             user={user.firstName}
+            isComplete={isSentimentLoggedToday}
           />
         </ScaffoldContainer>
       )}

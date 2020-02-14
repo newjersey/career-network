@@ -60,14 +60,15 @@ EmojiButton.propTypes = {
 };
 
 const SentimentTracker = props => {
-  const { onRecord, onClose, user } = props;
+  const { onRecord, onClose, user, isComplete } = props;
   const { userDocRef } = useAuth();
-  const [complete, setComplete] = useState(false);
+  const [complete, setComplete] = useState(isComplete);
 
   const classes = useStyles();
 
   const submitSentiment = sentiment => {
     setComplete(true);
+
     const data = {
       timestamp: new Date(),
       ...sentiment,
@@ -127,10 +128,12 @@ SentimentTracker.propTypes = {
   onRecord: PropTypes.func,
   onClose: PropTypes.func.isRequired,
   user: PropTypes.string.isRequired,
+  isComplete: PropTypes.bool,
 };
 
 SentimentTracker.defaultProps = {
   onRecord: null,
+  isComplete: false,
 };
 
 export default SentimentTracker;
