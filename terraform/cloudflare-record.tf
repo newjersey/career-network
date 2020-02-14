@@ -34,24 +34,6 @@ resource "cloudflare_record" "A_4" {
   value   = "185.199.111.153"
 }
 
-resource "cloudflare_record" "CNAME_firebase1__domainkey" {
-  domain  = "${var.cloudflare_zone}"
-  name    = "firebase1._domainkey"
-  type    = "CNAME"
-  ttl     = "1"
-  proxied = "false"
-  value   = "mail-gardenstate-tech.dkim1._domainkey.firebasemail.com"
-}
-
-resource "cloudflare_record" "CNAME_firebase2__domainkey" {
-  domain  = "${var.cloudflare_zone}"
-  name    = "firebase2._domainkey"
-  type    = "CNAME"
-  ttl     = "1"
-  proxied = "false"
-  value   = "mail-gardenstate-tech.dkim2._domainkey.firebasemail.com"
-}
-
 resource "cloudflare_record" "CNAME_strong1__domainkey" {
   domain  = "${var.cloudflare_zone}"
   name    = "strong1._domainkey"
@@ -143,15 +125,6 @@ resource "cloudflare_record" "TXT__dmarc" {
   value   = "v=DMARC1; p=none; rua=mailto:dmarc@gardenstate.tech"
 }
 
-resource "cloudflare_record" "TXT_firebase" {
-  domain  = "${var.cloudflare_zone}"
-  name    = "${var.cloudflare_zone}"
-  type    = "TXT"
-  ttl     = "1"
-  proxied = "false"
-  value   = "firebase=nj-career-network"
-}
-
 resource "cloudflare_record" "TXT_google-site-verification_1" {
   domain  = "${var.cloudflare_zone}"
   name    = "${var.cloudflare_zone}"
@@ -176,7 +149,7 @@ resource "cloudflare_record" "TXT_SPF" {
   type    = "TXT"
   ttl     = "1"
   proxied = "false"
-  value   = "v=spf1 include:_spf.google.com include:_spf.firebasemail.com include:helpscoutemail.com ~all"
+  value   = "v=spf1 include:_spf.google.com include:helpscoutemail.com ~all"
 }
 
 resource "cloudflare_record" "TXT_google__domainkey" {
