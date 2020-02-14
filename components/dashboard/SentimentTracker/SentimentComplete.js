@@ -12,8 +12,8 @@ const useStyles = makeStyles(theme => ({
   },
   closeButton: {
     position: 'absolute',
-    right: theme.spacing(1),
-    top: theme.spacing(1),
+    right: 0,
+    top: theme.spacing(-8),
     color: theme.palette.grey[500],
   },
 }));
@@ -24,7 +24,7 @@ export default function SentimentComplete(props) {
 
   return (
     <Box position="relative">
-      <Typography className={classes.title} component="h4" variant="h6">
+      <Typography className={classes.title} variant="h6">
         Thank you for sharing, {user}
       </Typography>
       <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
