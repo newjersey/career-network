@@ -16,42 +16,6 @@ resource "cloudflare_record" "A_careers_2" {
   value   = "151.101.65.195"
 }
 
-resource "cloudflare_record" "A_careers-preview_1" {
-  domain  = "${var.cloudflare_zone}"
-  name    = "careers-preview"
-  type    = "A"
-  ttl     = "1"
-  proxied = "false"
-  value   = "151.101.1.195"
-}
-
-resource "cloudflare_record" "A_careers-preview_2" {
-  domain  = "${var.cloudflare_zone}"
-  name    = "careers-preview"
-  type    = "A"
-  ttl     = "1"
-  proxied = "false"
-  value   = "151.101.65.195"
-}
-
-resource "cloudflare_record" "A_resources_1" {
-  domain  = "${var.cloudflare_zone}"
-  name    = "resources"
-  type    = "A"
-  ttl     = "1"
-  proxied = "false"
-  value   = "151.101.1.195"
-}
-
-resource "cloudflare_record" "A_resources_2" {
-  domain  = "${var.cloudflare_zone}"
-  name    = "resources"
-  type    = "A"
-  ttl     = "1"
-  proxied = "false"
-  value   = "151.101.65.195"
-}
-
 resource "cloudflare_record" "A_1" {
   domain  = "${var.cloudflare_zone}"
   name    = "${var.cloudflare_zone}"
@@ -88,24 +52,6 @@ resource "cloudflare_record" "A_4" {
   value   = "185.199.111.153"
 }
 
-resource "cloudflare_record" "A_signup_1" {
-  domain  = "${var.cloudflare_zone}"
-  name    = "signup"
-  type    = "A"
-  ttl     = "1"
-  proxied = "false"
-  value   = "151.101.1.195"
-}
-
-resource "cloudflare_record" "A_signup_2" {
-  domain  = "${var.cloudflare_zone}"
-  name    = "signup"
-  type    = "A"
-  ttl     = "1"
-  proxied = "false"
-  value   = "151.101.65.195"
-}
-
 resource "cloudflare_record" "CNAME_auth_careers" {
   domain  = "${var.cloudflare_zone}"
   name    = "auth.careers"
@@ -113,15 +59,6 @@ resource "cloudflare_record" "CNAME_auth_careers" {
   ttl     = "1"
   proxied = "false"
   value   = "nj-career-network.firebaseapp.com"
-}
-
-resource "cloudflare_record" "CNAME_auth_careers-preview" {
-  domain  = "${var.cloudflare_zone}"
-  name    = "auth.careers-preview"
-  type    = "CNAME"
-  ttl     = "1"
-  proxied = "false"
-  value   = "nj-career-network-ppe.firebaseapp.com"
 }
 
 resource "cloudflare_record" "CNAME_firebase1__domainkey" {
@@ -240,15 +177,6 @@ resource "cloudflare_record" "TXT__acme-challenge_careers" {
   ttl     = "1"
   proxied = "false"
   value   = "04V85Ksw7qJfFYb71IGgGa77HRDjXnMC5gp2XKe5rSs"
-}
-
-resource "cloudflare_record" "TXT__acme-challenge_careers-preview" {
-  domain  = "${var.cloudflare_zone}"
-  name    = "_acme-challenge.careers-preview"
-  type    = "TXT"
-  ttl     = "1"
-  proxied = "false"
-  value   = "U7RkkGeHY4UaeODdP-zjAq9pZIruewrkg5LUzOw1HKE"
 }
 
 resource "cloudflare_record" "TXT_careers_google-site-verification" {
