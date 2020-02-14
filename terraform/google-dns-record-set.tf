@@ -88,6 +88,15 @@ resource "google_dns_record_set" "txt" {
   ]
 }
 
+resource "google_dns_record_set" "txt__dmarc" {
+  name         = "_dmarc.${google_dns_managed_zone.default.dns_name}"
+  managed_zone = google_dns_managed_zone.default.name
+  type         = "TXT"
+  ttl          = 3600
+
+  rrdatas = ["\"v=DMARC1; p=none; rua=mailto:njcn-eng@innovatenj.org\""]
+}
+
 resource "google_dns_record_set" "txt_google__domainkey" {
   name         = "google._domainkey.${google_dns_managed_zone.default.dns_name}"
   managed_zone = google_dns_managed_zone.default.name
