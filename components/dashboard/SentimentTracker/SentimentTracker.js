@@ -4,10 +4,11 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import { useAuth } from '../Auth';
+import { useAuth } from '../../Auth';
+import SentimentComplete from './SentimentComplete';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -59,12 +60,14 @@ EmojiButton.propTypes = {
 };
 
 const SentimentTracker = props => {
-  const { onRecord } = props;
+  const { onRecord, onClose, user } = props;
   const { userDocRef } = useAuth();
+  const [complete, setComplete] = useState(false);
 
   const classes = useStyles();
 
   const submitSentiment = sentiment => {
+    setComplete(true);
     const data = {
       timestamp: new Date(),
       ...sentiment,
@@ -92,33 +95,38 @@ const SentimentTracker = props => {
 
   return (
     <Paper className={classes.paper} elevation={3} data-intercom="sentiment-container">
-      <Grid container direction="row" justify="space-evenly" alignItems="center">
-        <Grid item xs={12} sm={3} md={3}>
-          <Typography component="h4" variant="h6" align="center">
-            How are you feeling today?
-          </Typography>
+      {!complete && (
+        <Grid container direction="row" justify="space-evenly" alignItems="center">
+          <Grid item xs={12} sm={3} md={3}>
+            <Typography component="h4" variant="h6" align="center">
+              How are you feeling today?
+            </Typography>
+          </Grid>
+          <Grid
+            xs={12}
+            sm={7}
+            md={7}
+            container
+            item
+            className={classes.buttons}
+            justify="space-between"
+            alignItems="center"
+          >
+            {sentiments.map(sentiment => (
+              <EmojiButton {...sentiment} key={sentiment.label} onClick={submitSentiment} />
+            ))}
+          </Grid>
         </Grid>
-        <Grid
-          xs={12}
-          sm={7}
-          md={7}
-          container
-          item
-          className={classes.buttons}
-          justify="space-between"
-          alignItems="center"
-        >
-          {sentiments.map(sentiment => (
-            <EmojiButton {...sentiment} key={sentiment.label} onClick={submitSentiment} />
-          ))}
-        </Grid>
-      </Grid>
+      )}
+      {complete && <SentimentComplete onClose={onClose} user={user} />}
     </Paper>
   );
 };
 
 SentimentTracker.propTypes = {
   onRecord: PropTypes.func,
+  onClose: PropTypes.func.isRequired,
+  user: PropTypes.string.isRequired,
 };
 
 SentimentTracker.defaultProps = {
