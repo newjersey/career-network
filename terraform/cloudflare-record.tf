@@ -159,15 +159,6 @@ resource "cloudflare_record" "A_signup_2" {
   value   = "151.101.65.195"
 }
 
-resource "cloudflare_record" "A_link" {
-  domain  = "${var.cloudflare_zone}"
-  name    = "link"
-  type    = "A"
-  ttl     = "1"
-  proxied = "false"
-  value   = "52.72.49.79"
-}
-
 resource "cloudflare_record" "CNAME_auth_careers" {
   domain  = "${var.cloudflare_zone}"
   name    = "auth.careers"
