@@ -1,21 +1,3 @@
-resource "cloudflare_record" "A_careers_1" {
-  domain  = "${var.cloudflare_zone}"
-  name    = "careers"
-  type    = "A"
-  ttl     = "1"
-  proxied = "true"
-  value   = "151.101.1.195"
-}
-
-resource "cloudflare_record" "A_careers_2" {
-  domain  = "${var.cloudflare_zone}"
-  name    = "careers"
-  type    = "A"
-  ttl     = "1"
-  proxied = "true"
-  value   = "151.101.65.195"
-}
-
 resource "cloudflare_record" "A_1" {
   domain  = "${var.cloudflare_zone}"
   name    = "${var.cloudflare_zone}"
@@ -50,15 +32,6 @@ resource "cloudflare_record" "A_4" {
   ttl     = "1"
   proxied = "true"
   value   = "185.199.111.153"
-}
-
-resource "cloudflare_record" "CNAME_auth_careers" {
-  domain  = "${var.cloudflare_zone}"
-  name    = "auth.careers"
-  type    = "CNAME"
-  ttl     = "1"
-  proxied = "false"
-  value   = "nj-career-network.firebaseapp.com"
 }
 
 resource "cloudflare_record" "CNAME_firebase1__domainkey" {
@@ -104,15 +77,6 @@ resource "cloudflare_record" "CNAME_intercom__domainkey" {
   ttl     = "1"
   proxied = "false"
   value   = "c1f45e04-1683-4859-b3de-3ae472eb267d.dkim.intercom.io"
-}
-
-resource "cloudflare_record" "CNAME_www" {
-  domain  = "${var.cloudflare_zone}"
-  name    = "www"
-  type    = "CNAME"
-  ttl     = "1"
-  proxied = "false"
-  value   = "${var.cloudflare_zone}"
 }
 
 resource "cloudflare_record" "MX_alt1" {
@@ -168,24 +132,6 @@ resource "cloudflare_record" "MX" {
 
   priority = "1"
   value    = "aspmx.l.google.com"
-}
-
-resource "cloudflare_record" "TXT__acme-challenge_careers" {
-  domain  = "${var.cloudflare_zone}"
-  name    = "_acme-challenge.careers"
-  type    = "TXT"
-  ttl     = "1"
-  proxied = "false"
-  value   = "04V85Ksw7qJfFYb71IGgGa77HRDjXnMC5gp2XKe5rSs"
-}
-
-resource "cloudflare_record" "TXT_careers_google-site-verification" {
-  domain  = "${var.cloudflare_zone}"
-  name    = "careers"
-  type    = "TXT"
-  ttl     = "1"
-  proxied = "false"
-  value   = "google-site-verification=iiPkdrdPyOW-kZOGsQmKwv7cY2tcRqb2RKvnmhrvEZo"
 }
 
 resource "cloudflare_record" "TXT__dmarc" {

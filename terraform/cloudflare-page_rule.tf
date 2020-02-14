@@ -6,7 +6,7 @@ resource "cloudflare_page_rule" "naked_redirect" {
   actions {
     forwarding_url {
       status_code = 302
-      url         = "https://signup.${var.cloudflare_zone}/"
+      url         = "https://njcareers.org/"
     }
   }
 }
