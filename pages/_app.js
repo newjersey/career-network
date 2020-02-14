@@ -30,6 +30,10 @@ const featureFlags = [
     name: 'employmentOutlook',
     isActive: true,
   },
+  {
+    name: 'completeSentiment',
+    isActive: true,
+  },
 ];
 
 Sentry.init({

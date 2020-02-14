@@ -312,17 +312,36 @@ export default function Dashboard(props) {
           </Typography>
         </ScaffoldContainer>
       </BackgroundHeader>
-
-      {showSentiment && (
-        <ScaffoldContainer className={classes.container}>
-          <SentimentTracker
-            onRecord={onRecordSentiment}
-            onClose={onSentimentClose}
-            user={user.firstName}
-            isComplete={isSentimentLoggedToday}
-          />
-        </ScaffoldContainer>
-      )}
+      <Flags
+        authorizedFlags={['completeSentiment']}
+        renderOn={() => (
+          <>
+            {showSentiment && (
+              <ScaffoldContainer className={classes.container}>
+                <SentimentTracker
+                  onRecord={onRecordSentiment}
+                  onClose={onSentimentClose}
+                  user={user.firstName}
+                  isComplete={isSentimentLoggedToday}
+                />
+              </ScaffoldContainer>
+            )}
+          </>
+        )}
+        renderOff={() => (
+          <>
+            {!isSentimentLoggedToday && (
+              <ScaffoldContainer className={classes.container}>
+                <SentimentTracker
+                  onRecord={onRecordSentiment}
+                  onClose={onSentimentClose}
+                  user={user.firstName}
+                />
+              </ScaffoldContainer>
+            )}
+          </>
+        )}
+      />
 
       <ScaffoldContainer>
         <Box className={classes.grid}>
