@@ -75,6 +75,14 @@ resource "google_dns_record_set" "cname_firebase2__domainkey" {
   rrdatas      = ["mail-njcareers-org.dkim2._domainkey.firebasemail.com."]
 }
 
+resource "google_dns_record_set" "cname_intercom__domainkey" {
+  name         = "intercom._domainkey.${google_dns_managed_zone.default.dns_name}"
+  managed_zone = google_dns_managed_zone.default.name
+  type         = "CNAME"
+  ttl          = 3600
+  rrdatas      = ["ec1452d4-d4b5-4bbe-bca6-6f5f7e882f95.dkim.intercom.io."]
+}
+
 resource "google_dns_record_set" "txt" {
   name         = google_dns_managed_zone.default.dns_name
   managed_zone = google_dns_managed_zone.default.name
