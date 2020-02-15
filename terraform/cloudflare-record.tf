@@ -34,15 +34,6 @@ resource "cloudflare_record" "A_4" {
   value   = "185.199.111.153"
 }
 
-resource "cloudflare_record" "CNAME_intercom__domainkey" {
-  domain  = "${var.cloudflare_zone}"
-  name    = "intercom._domainkey"
-  type    = "CNAME"
-  ttl     = "1"
-  proxied = "false"
-  value   = "c1f45e04-1683-4859-b3de-3ae472eb267d.dkim.intercom.io"
-}
-
 resource "cloudflare_record" "MX_alt1" {
   domain  = "${var.cloudflare_zone}"
   name    = "${var.cloudflare_zone}"
