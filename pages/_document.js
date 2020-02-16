@@ -80,6 +80,9 @@ class MyDocument extends Document {
               }
             `}
           </style>
+          <link rel="preconnect" href="https://widget.intercom.io" />
+          <link rel="preconnect" href="https://js.intercomcdn.com" />
+          <link rel="preconnect" href="https://api-iam.intercom.io" />
           <script
             /* eslint-disable-next-line react/no-danger */
             dangerouslySetInnerHTML={{
