@@ -17,6 +17,7 @@ import algoliasearch from 'algoliasearch/lite';
 import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
 import Grid from '@material-ui/core/Grid';
+import Head from 'next/head';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -99,6 +100,14 @@ const Hit = props => {
 function ExplorePage() {
   return (
     <ScaffoldContainer>
+      <Head>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.3.1/themes/algolia-min.css"
+          integrity="sha256-HB49n/BZjuqiCtQQf49OdZn63XuKFaxcIHWf0HNKte8="
+          crossOrigin="anonymous"
+        />
+      </Head>
       <div className="ais-InstantSearch">
         <h1>Career Explorer</h1>
         <InstantSearch indexName="prod_EMPLOYMENT_PROSPECTS" searchClient={searchClient}>
