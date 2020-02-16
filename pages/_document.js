@@ -18,15 +18,6 @@ class MyDocument extends Document {
           />
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
-          <link rel="stylesheet" href="/static/css/nprogress.css" />
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-          />
-          <link
-            href="https://fonts.googleapis.com/css?family=Public+Sans:600,700&display=swap"
-            rel="stylesheet"
-          />
           <link
             rel="apple-touch-icon"
             sizes="180x180"
@@ -87,6 +78,15 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          <link rel="stylesheet" href="/static/css/nprogress.css" />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          />
+          <link
+            href="https://fonts.googleapis.com/css?family=Public+Sans:600,700&display=swap"
+            rel="stylesheet"
+          />
         </body>
       </html>
     );
