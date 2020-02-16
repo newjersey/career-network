@@ -6,6 +6,7 @@
 
 import { useBeforeunload } from 'react-beforeunload';
 import * as Sentry from '@sentry/browser';
+import FacebookPixel from 'react-facebook-pixel';
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useRef } from 'react';
 import Router from 'next/router';
@@ -76,6 +77,7 @@ export default function AppManager(props) {
   const userDisplayName = user && user.displayName;
   const userEmail = user && user.email;
   const userPhotoURL = user && user.photoURL;
+
   useEffect(() => {
     // start with a clean slate (prevent data leaks)
     if (!intercomUserHash) {
@@ -113,6 +115,19 @@ export default function AppManager(props) {
     userId,
     userPhotoURL,
   ]);
+
+  useEffect(() => {
+    const advancedMatching = {
+      em: userEmail,
+      external_id: userId,
+    };
+    const options = {
+      autoConfig: true,
+      debug: false,
+    };
+    FacebookPixel.init(process.env.facebook.pixelId, advancedMatching, options);
+    FacebookPixel.pageView();
+  }, [userEmail, userId]);
 
   // end with a clean slate (prevent data leaks)
   useBeforeunload(event => {
