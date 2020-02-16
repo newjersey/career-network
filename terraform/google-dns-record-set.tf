@@ -93,6 +93,7 @@ resource "google_dns_record_set" "txt" {
     "\"firebase=nj-career-network\"",
     "\"v=spf1 include:_spf.google.com include:_spf.firebasemail.com ~all\"",
     "\"google-site-verification=HOyiY3puLWr3BvvAZ_CJIySdMjMe4kEWcPd2utuKnb4\"",
+    "\"facebook-domain-verification=ry82kl73hzimzzvs5vbaavcrpbkzxs\"",
   ]
 }
 
