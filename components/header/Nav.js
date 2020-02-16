@@ -260,18 +260,20 @@ function Nav(props) {
               <nav>
                 <ul className={classes.list}>
                   {!user && (
-                    <Typography>
-                      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                      <Link
-                        className={classes.link}
-                        onClick={handleSignInClick}
-                        component="button"
-                        underline="none"
-                        variant="body1"
-                      >
-                        Get Started Today
-                      </Link>
-                    </Typography>
+                    <li className={classes.listItem} data-intercom={`nav-button-get-started}`}>
+                      <Typography>
+                        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                        <Link
+                          className={classes.link}
+                          onClick={handleSignInClick}
+                          component="button"
+                          underline="none"
+                          variant="body1"
+                        >
+                          Get Started Today
+                        </Link>
+                      </Typography>
+                    </li>
                   )}
                   {pages
                     .filter(page => page.show)
