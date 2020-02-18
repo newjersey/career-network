@@ -52,7 +52,7 @@ export default function IndustryDropdown(props) {
         renderValue={option =>
           option || (
             <Typography variant="body1" className={classes.placeholder}>
-              What industry do you feel is most relevant for this job?
+              Which industry would you select for the job you selected above?
             </Typography>
           )
         }
