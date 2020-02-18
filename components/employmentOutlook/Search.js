@@ -136,7 +136,7 @@ function Search() {
           <span>Job Title</span>
           <TextField
             inputProps={{ name: 'title' }}
-            placeholder="If the job title you desire differs from your selected job title, what job title would you use?"
+            placeholder="If the job title you desire differs from the job title you selected above, what would you use?"
             onChange={handleChange}
             fullWidth
             variant="outlined"
