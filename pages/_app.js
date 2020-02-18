@@ -32,7 +32,7 @@ const featureFlags = [
   },
   {
     name: 'completeSentiment',
-    isActive: true,
+    isActive: false,
   },
 ];
 
