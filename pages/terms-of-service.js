@@ -53,7 +53,7 @@ function TOS() {
           During the pilot, usage of the Website is restricted to residents of the United States. By
           proceeding, you certify that you are currently located in and reside in the United States.
           If this status changes during the pilot period, please contact us{' '}
-          <Link href="mailto:careers@gardenstate.tech">careers@gardenstate.tech</Link>.
+          <Link href="mailto:team@njcareers.org">team@njcareers.org</Link>.
         </Typography>
         <Typography variant="h4" component="h2" className={classes.h2}>
           Section A. Information Disclaimer
@@ -61,7 +61,7 @@ function TOS() {
         <Typography className={classes.body1}>
           We make great effort to provide secure, accurate and complete information on this Website.
           Any errors or omissions should be reported to us at{' '}
-          <Link href="mailto:careers@gardenstate.tech">careers@gardenstate.tech</Link> for review.
+          <Link href="mailto:team@njcareers.org">team@njcareers.org</Link> for review.
         </Typography>
         <Typography className={classes.body1}>
           We shall not be liable for damages or losses of any kind arising out of or in connection
