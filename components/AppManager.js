@@ -19,7 +19,7 @@ import Header from './Header';
 
 export default function AppManager(props) {
   const { children } = props;
-  const { user, signOut, wasSignedIn } = useAuth();
+  const { user, signOut, wasSignedIn, isAuthKnown } = useAuth();
   const cleanupRef = useRef();
   const showMessage = useSnackbar();
   const userExists = !!user;
@@ -117,7 +117,11 @@ export default function AppManager(props) {
   ]);
 
   useEffect(() => {
-    const advancedMatching = {
+    if (!isAuthKnown) {
+      return;
+    }
+
+    const advancedMatching = userId && {
       em: userEmail,
       external_id: userId,
     };
@@ -127,7 +131,7 @@ export default function AppManager(props) {
     };
     FacebookPixel.init(process.env.facebook.pixelId, advancedMatching, options);
     FacebookPixel.pageView();
-  }, [userEmail, userId]);
+  }, [isAuthKnown, userEmail, userId]);
 
   // end with a clean slate (prevent data leaks)
   useBeforeunload(event => {
