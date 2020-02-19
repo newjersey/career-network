@@ -18,6 +18,7 @@ import Error from './_error';
 import FirebaseProvider from '../components/Firebase';
 import theme from '../src/theme';
 
+NProgress.configure({ showSpinner: false });
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
