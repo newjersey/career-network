@@ -280,12 +280,20 @@ export default function Dashboard(props) {
   const showSentiment =
     !isSentimentLoggedToday || (isSentimentLoggedToday && !isSentimentClosedToday);
 
-  const onRecordSentiment = () => {
-    userDocRef.set({ lastSentimentTimestamp: new Date() }, { merge: true });
+  const onRecordSentiment = sentiment => {
+    const lastSentiment = {
+      label: sentiment.label,
+      timestamp: new Date(),
+      closeTimestamp: null,
+    };
+    userDocRef.set({ lastSentiment }, { merge: true });
   };
 
   const onSentimentClose = () => {
-    userDocRef.set({ lastSentimentCloseTimestamp: new Date() }, { merge: true });
+    const lastSentiment = {
+      closeTimestamp: new Date(),
+    };
+    userDocRef.set({ lastSentiment }, { merge: true });
   };
 
   useEffect(() => {
@@ -321,7 +329,7 @@ export default function Dashboard(props) {
                 <SentimentTracker
                   onRecord={onRecordSentiment}
                   onClose={onSentimentClose}
-                  user={user.firstName}
+                  record={user.lastSentimentLabel ? user.lastSentimentLabel : ''}
                   isComplete={isSentimentLoggedToday}
                 />
               </ScaffoldContainer>
