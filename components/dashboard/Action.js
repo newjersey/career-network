@@ -27,6 +27,7 @@ function Action(props) {
     isDone,
     onDone,
     fullScreen,
+    taskTitle,
     triggered,
     onActionClose,
   } = props;
@@ -142,7 +143,10 @@ function Action(props) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{action.fields.Title}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">
+          <Typography variant="body2">{taskTitle}</Typography>
+          {action.fields.Title}
+        </DialogTitle>
         <DialogContent>
           <Typography>
             <Linkify
@@ -221,6 +225,7 @@ Action.propTypes = {
   disabled: PropTypes.bool.isRequired,
   isDone: PropTypes.bool.isRequired,
   onDone: PropTypes.func.isRequired,
+  taskTitle: PropTypes.string.isRequired,
   triggered: PropTypes.bool,
   onActionClose: PropTypes.func,
 };

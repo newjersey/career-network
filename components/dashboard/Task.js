@@ -180,6 +180,7 @@ export default function Task(props) {
             actionDispositionEvents={getActionDispositionEvents()}
             onAllDone={onAllActionsDone}
             actionTriggered={actionTriggered}
+            taskTitle={task.fields.Title}
             {...restProps}
           />
         </div>
