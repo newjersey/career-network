@@ -75,7 +75,6 @@ export default function Task(props) {
     allTaskDispositionEvents,
     task,
     onDone,
-    actionTriggered,
     ...restProps
   } = props;
   const { 'Highlight Label': highlightLabel } = task.fields;
@@ -179,7 +178,6 @@ export default function Task(props) {
           <ActionList
             actionDispositionEvents={getActionDispositionEvents()}
             onAllDone={onAllActionsDone}
-            actionTriggered={actionTriggered}
             taskTitle={task.fields.Title}
             {...restProps}
           />

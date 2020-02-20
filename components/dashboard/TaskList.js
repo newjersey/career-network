@@ -36,9 +36,9 @@ function getActions(task, allActions) {
 }
 
 function getNextAction(task, allActions, allActionDispositionEvents) {
-  return allActions
-    .filter(action => task.fields.Actions.includes(action.id))
-    .find(action => !isDone(action, allActionDispositionEvents, 'actionId'));
+  return getActions(task, allActions).find(
+    action => !isDone(action, allActionDispositionEvents, 'actionId')
+  );
 }
 
 export default function TaskList(props) {
@@ -56,10 +56,6 @@ export default function TaskList(props) {
       });
     }, 1000);
   }, []);
-
-  if (showNextAction && tasks.length > 0) {
-    getNextAction(tasks[0], allActions, allActionDispositionEvents);
-  }
 
   return (
     <>

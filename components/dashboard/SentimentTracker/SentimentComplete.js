@@ -35,9 +35,9 @@ const useStyles = makeStyles(theme => ({
   },
   container: {
     position: 'relative',
-    padding: theme.spacing(4, 4, 4),
+    padding: theme.spacing(4),
     [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing(6, 2, 6, 4),
+      padding: theme.spacing(6, 4, 6, 4),
     },
   },
   title: {

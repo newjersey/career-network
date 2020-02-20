@@ -297,7 +297,7 @@ export default function Dashboard(props) {
     userDocRef.set({ lastSentiment }, { merge: true });
   };
 
-  const onSentimentComplete = () => {
+  const onPromptAction = () => {
     setShowNextAction(true);
   };
 
@@ -336,7 +336,7 @@ export default function Dashboard(props) {
                   onClose={onSentimentClose}
                   record={user.lastSentimentLabel ? user.lastSentimentLabel : ''}
                   isComplete={isSentimentLoggedToday}
-                  onClick={onSentimentComplete}
+                  onClick={onPromptAction}
                 />
               </ScaffoldContainer>
             )}
