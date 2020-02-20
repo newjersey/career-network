@@ -62,7 +62,8 @@ export default function SentimentComplete(props) {
           {SENTIMENT_TYPES[value].message}
         </Typography>
         <Typography variant="body1">
-          Let’s dive right into getting your first daily recommendation started.
+          Here is one place to get started. Take action on your first recommended activity.
+          Let&apos;s dive in together!
         </Typography>
         <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
           <CloseIcon />
