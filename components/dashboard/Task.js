@@ -75,6 +75,7 @@ export default function Task(props) {
     allTaskDispositionEvents,
     task,
     onDone,
+    actionTriggered,
     ...restProps
   } = props;
   const { 'Highlight Label': highlightLabel } = task.fields;
@@ -178,6 +179,7 @@ export default function Task(props) {
           <ActionList
             actionDispositionEvents={getActionDispositionEvents()}
             onAllDone={onAllActionsDone}
+            actionTriggered={actionTriggered}
             {...restProps}
           />
         </div>
@@ -193,4 +195,11 @@ Task.propTypes = {
   allTaskDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
   allActionDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
   allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
+  actionTriggered: PropTypes.string,
+  onActionClose: PropTypes.func,
+};
+
+Task.defaultProps = {
+  actionTriggered: null,
+  onActionClose: null,
 };

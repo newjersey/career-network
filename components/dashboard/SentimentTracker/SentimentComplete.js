@@ -1,5 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Paper from '@material-ui/core/Paper';
@@ -30,9 +31,10 @@ const SENTIMENT_TYPES = {
 const useStyles = makeStyles(theme => ({
   container: {
     padding: theme.spacing(6, 0, 6, 4),
+    display: 'flex',
+    justifyContent: 'space-between',
   },
   title: {
-    maxWidth: '75%',
     fontSize: '1.1rem',
   },
   closeButton: {
@@ -53,20 +55,25 @@ const useStyles = makeStyles(theme => ({
 
 export default function SentimentComplete(props) {
   const classes = useStyles();
-  const { onClose, value } = props;
+  const { onClose, value, onClick } = props;
 
   return (
     <Paper className={classes.paper} elevation={3}>
       <Box position="relative" className={classes.container}>
-        <Typography variant="h6" className={classes.title} gutterBottom>
-          {SENTIMENT_TYPES[value].message}
-        </Typography>
-        <Typography variant="body1">
-          Let’s dive right into getting your first daily recommendation started.
-        </Typography>
+        <div>
+          <Typography variant="h6" className={classes.title} gutterBottom>
+            {SENTIMENT_TYPES[value].message}
+          </Typography>
+          <Typography variant="body1">
+            Let’s dive right into getting your first daily recommendation started.
+          </Typography>
+        </div>
         <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
           <CloseIcon />
         </IconButton>
+        <Button variant="contained" onClick={onClick} color="primary">
+          Start recommendation
+        </Button>
       </Box>
     </Paper>
   );
@@ -75,4 +82,5 @@ export default function SentimentComplete(props) {
 SentimentComplete.propTypes = {
   onClose: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };

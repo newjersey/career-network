@@ -1,10 +1,12 @@
 import { confetti } from 'dom-confetti';
 import { makeStyles } from '@material-ui/styles';
+import PropTypes from 'prop-types';
 import React, { useCallback, useRef } from 'react';
 
 import AirtablePropTypes from '../Airtable/PropTypes';
 import FirebasePropTypes from '../Firebase/PropTypes';
 import Task from './Task';
+import { isDone } from '../../src/app-helper';
 
 const useStyles = makeStyles(() => ({
   confetti: {
@@ -33,8 +35,14 @@ function getActions(task, allActions) {
   return allActions.filter(action => task.fields.Actions.includes(action.id));
 }
 
+function getNextAction(task, allActions, allActionDispositionEvents) {
+  return allActions
+    .filter(action => task.fields.Actions.includes(action.id))
+    .find(action => !isDone(action, allActionDispositionEvents, 'actionId'));
+}
+
 export default function TaskList(props) {
-  const { allActions, tasks, ...restProps } = props;
+  const { allActions, allActionDispositionEvents, tasks, showNextAction, ...restProps } = props;
   const classes = useStyles();
   const confettiRef = useRef();
 
@@ -49,6 +57,10 @@ export default function TaskList(props) {
     }, 1000);
   }, []);
 
+  if (showNextAction && tasks.length > 0) {
+    getNextAction(tasks[0], allActions, allActionDispositionEvents);
+  }
+
   return (
     <>
       <div className={classes.confetti} ref={confettiRef} />
@@ -59,6 +71,12 @@ export default function TaskList(props) {
             task={task}
             onDone={onTaskComplete}
             actions={getActions(task, allActions)}
+            actionTriggered={
+              showNextAction && tasks.length > 0 && task.id === tasks[0].id
+                ? getNextAction(tasks[0], allActions, allActionDispositionEvents).id
+                : null
+            }
+            allActionDispositionEvents={allActionDispositionEvents}
             {...restProps}
           />
         ))}
@@ -72,4 +90,11 @@ TaskList.propTypes = {
   allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
   allActionDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
   tasks: AirtablePropTypes.tasks.isRequired,
+  showNextAction: PropTypes.bool,
+  onActionClose: PropTypes.func,
+};
+
+TaskList.defaultProps = {
+  showNextAction: false,
+  onActionClose: null,
 };
