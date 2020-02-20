@@ -28,8 +28,15 @@ const SENTIMENT_TYPES = {
 };
 
 const useStyles = makeStyles(theme => ({
+  paper: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(8),
+  },
   container: {
-    padding: theme.spacing(6, 0, 6, 4),
+    padding: theme.spacing(6, 4, 6, 5),
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing(6, 2, 6, 4),
+    },
   },
   title: {
     maxWidth: '75%',
@@ -40,14 +47,6 @@ const useStyles = makeStyles(theme => ({
     right: 0,
     top: 0,
     color: theme.palette.grey[500],
-  },
-  paper: {
-    marginTop: theme.spacing(2),
-    padding: theme.spacing(5, 4, 3),
-    [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing(2, 2, 2),
-    },
-    marginBottom: theme.spacing(8),
   },
 }));
 

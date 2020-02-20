@@ -21,8 +21,8 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(8),
   },
   buttons: {
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
     maxWidth: '75%',
   },
   emoji: {
@@ -42,7 +42,7 @@ const EmojiButton = ({ emoji, label, onClick }) => {
   return (
     <Grid item style={{ textAlign: 'center' }}>
       <Button onClick={handleClick} data-intercom={`sentiment-${label.toLowerCase()}`}>
-        <Box m={1} align="center">
+        <Box align="center">
           <span className={classes.emoji} role="img" aria-label={label}>
             {emoji}
           </span>
