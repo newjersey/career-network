@@ -1,8 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -29,10 +29,16 @@ const SENTIMENT_TYPES = {
 };
 
 const useStyles = makeStyles(theme => ({
+  paper: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(8),
+  },
   container: {
-    padding: theme.spacing(6, 0, 6, 4),
-    display: 'flex',
-    justifyContent: 'space-between',
+    position: 'relative',
+    padding: theme.spacing(4, 4, 4),
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing(6, 2, 6, 4),
+    },
   },
   title: {
     fontSize: '1.1rem',
@@ -43,14 +49,6 @@ const useStyles = makeStyles(theme => ({
     top: 0,
     color: theme.palette.grey[500],
   },
-  paper: {
-    marginTop: theme.spacing(2),
-    padding: theme.spacing(5, 4, 3),
-    [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing(2, 2, 2),
-    },
-    marginBottom: theme.spacing(8),
-  },
 }));
 
 export default function SentimentComplete(props) {
@@ -59,22 +57,31 @@ export default function SentimentComplete(props) {
 
   return (
     <Paper className={classes.paper} elevation={3}>
-      <Box position="relative" className={classes.container}>
-        <div>
+      <Grid
+        container
+        className={classes.container}
+        alignItems="center"
+        direction="row"
+        justify="space-between"
+        spacing={2}
+      >
+        <Grid item sm={12} md>
           <Typography variant="h6" className={classes.title} gutterBottom>
             {SENTIMENT_TYPES[value].message}
           </Typography>
           <Typography variant="body1">
             Let’s dive right into getting your first daily recommendation started.
           </Typography>
-        </div>
+        </Grid>
         <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
           <CloseIcon />
         </IconButton>
-        <Button variant="contained" onClick={onClick} color="primary">
-          Start recommendation
-        </Button>
-      </Box>
+        <Grid item xs={12} sm={12} md={3} style={{ display: 'flex', justifyContent: 'center' }}>
+          <Button size="large" variant="contained" onClick={onClick} color="primary">
+            Start recommendation
+          </Button>
+        </Grid>
+      </Grid>
     </Paper>
   );
 }
