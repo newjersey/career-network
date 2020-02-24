@@ -13,7 +13,6 @@ import Typography from '@material-ui/core/Typography';
 
 import { isDone, mostRecent } from '../../src/app-helper';
 import { useAuth } from '../Auth';
-import { useSnackbar } from '../Snackbar';
 import ActivityCategoryTable from '../history/ActivityCategoryTable';
 import ActivityInputDialog from '../activityInput/ActivityInputDialog';
 import AirtablePropTypes from '../Airtable/PropTypes';
@@ -22,7 +21,7 @@ import EmploymentOutlookLauchpad from './EmploymentOutlookLauchpad';
 import FirebasePropTypes from '../Firebase/PropTypes';
 import ProgressFeed from './ProgressFeed';
 import ScaffoldContainer from '../ScaffoldContainer';
-import SentimentTracker from './SentimentTracker';
+import SentimentTracker from './SentimentTracker/SentimentTracker';
 import TaskList from './TaskList';
 import TimeDistanceParser from '../../src/time-distance-parser';
 import UpcomingInterviewDialog from './UpcomingInterviewDialog/UpcomingInterviewDialog';
@@ -254,7 +253,6 @@ const DIALOGS = {
 // eslint-disable-next-line sonarjs/cognitive-complexity
 export default function Dashboard(props) {
   const classes = useStyles();
-  const showMessage = useSnackbar();
   const { user, userDocRef } = useAuth();
   const {
     allConditions,
@@ -274,11 +272,19 @@ export default function Dashboard(props) {
   const tasks = getTasks(props, TASK_COUNT_LIMIT);
   const doneTaskCount = allTaskDispositionEvents.length;
   const [activeDialog, setActiveDialog] = useState();
-  const showSentiment =
-    !user.lastSentimentTimestamp || !isToday(user.lastSentimentTimestamp.toDate());
+  const isSentimentLoggedToday =
+    user.lastSentimentTimestamp && isToday(user.lastSentimentTimestamp.toDate());
+  const isSentimentClosedToday =
+    user.lastSentimentCloseTimestamp && isToday(user.lastSentimentCloseTimestamp.toDate());
+
+  const showSentiment = !isSentimentLoggedToday || !isSentimentClosedToday;
+
   const onRecordSentiment = () => {
     userDocRef.set({ lastSentimentTimestamp: new Date() }, { merge: true });
-    showMessage(`Thank you for sharing, ${user.firstName}`);
+  };
+
+  const onSentimentClose = () => {
+    userDocRef.set({ lastSentimentCloseTimestamp: new Date() }, { merge: true });
   };
 
   useEffect(() => {
@@ -305,12 +311,36 @@ export default function Dashboard(props) {
           </Typography>
         </ScaffoldContainer>
       </BackgroundHeader>
-
-      {showSentiment && (
-        <ScaffoldContainer className={classes.container}>
-          <SentimentTracker onRecord={onRecordSentiment} />
-        </ScaffoldContainer>
-      )}
+      <Flags
+        authorizedFlags={['completeSentiment']}
+        renderOn={() => (
+          <>
+            {showSentiment && (
+              <ScaffoldContainer className={classes.container}>
+                <SentimentTracker
+                  onRecord={onRecordSentiment}
+                  onClose={onSentimentClose}
+                  user={user.firstName}
+                  isComplete={isSentimentLoggedToday}
+                />
+              </ScaffoldContainer>
+            )}
+          </>
+        )}
+        renderOff={() => (
+          <>
+            {!isSentimentLoggedToday && (
+              <ScaffoldContainer className={classes.container}>
+                <SentimentTracker
+                  onRecord={onRecordSentiment}
+                  onClose={onSentimentClose}
+                  user={user.firstName}
+                />
+              </ScaffoldContainer>
+            )}
+          </>
+        )}
+      />
 
       <ScaffoldContainer>
         <Box className={classes.grid}>
