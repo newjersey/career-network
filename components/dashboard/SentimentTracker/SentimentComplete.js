@@ -70,7 +70,7 @@ export default function SentimentComplete(props) {
             {SENTIMENT_TYPES[value].message}
           </Typography>
           <Typography variant="body1">
-            Let’s dive right into getting your first daily recommendation started.
+            Let’s dive right into getting your first daily goal started.
           </Typography>
         </Grid>
         <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
@@ -78,7 +78,7 @@ export default function SentimentComplete(props) {
         </IconButton>
         <Grid item xs={12} sm={12} md={3} style={{ display: 'flex', justifyContent: 'center' }}>
           <Button size="large" variant="contained" onClick={onClick} color="primary">
-            Start recommendation
+            Start Goal
           </Button>
         </Grid>
       </Grid>
