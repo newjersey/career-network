@@ -19,6 +19,7 @@ import AuthProvider from '../components/Auth';
 import BrowserSupportAlert from '../components/BrowserSupportAlert';
 import Error from './_error';
 import FirebaseProvider from '../components/Firebase';
+import Popup from './popup';
 import theme from '../src/theme';
 
 NProgress.configure({ showSpinner: false });
@@ -40,7 +41,7 @@ Sentry.init({
 class MyApp extends App {
   constructor(args) {
     super(args);
-    this.state = { hasError: false, isIE: false };
+    this.state = { hasError: false, isIE: false, isAuthPopup: false };
   }
 
   static async getInitialProps({ Component, ctx }) {
@@ -85,6 +86,10 @@ class MyApp extends App {
 
     const isIE = !!document.documentMode;
     this.setState({ isIE });
+
+    this.setState({
+      isAuthPopup: window.location.pathname === '/popup' || window.location.pathname === '/popup/',
+    });
   }
 
   static normalComponent(Component, pageProps) {
@@ -115,8 +120,10 @@ class MyApp extends App {
 
   render() {
     const { Component, pageProps } = this.props;
+
     return (
       (this.state.isIE && <BrowserSupportAlert />) ||
+      (this.state.isAuthPopup && <Popup />) ||
       (this.state.hasError ? (
         <Error eventId={this.state.eventId} showHeader />
       ) : (

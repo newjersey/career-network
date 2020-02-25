@@ -24,6 +24,8 @@ Enter your Intercom test identity verification secret into `functions/.runtimeco
 
 See for identity verification secret info: https://www.intercom.com/help/en/articles/183-enable-identity-verification-for-web-and-mobile
 
+Download the service account private key (Firebase console --> Settings --> Service accounts), and put it under root directory of /functions with name 'service-account.json'
+
 ## Testing
 
 Tests reside in the `__tests__` folder and use [`Jest`](https://jestjs.io/) as the main testing framework, as well as
