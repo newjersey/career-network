@@ -15,7 +15,7 @@ describe('<Nav />', () => {
 
     await wait(() => {
       getByText('Please email us with any questions or feedback:');
-      getByText('careers@gardenstate.tech');
+      getByText('team@njcareers.org');
     });
   });
 });

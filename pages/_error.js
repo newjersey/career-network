@@ -94,10 +94,7 @@ class Error extends React.Component {
             <Typography variant="body1">
               Our team has already been notified and will try to fix this issue as soon as possible.
               If the problem persists, please{' '}
-              <Link href="mailto:careers@gardenstate.tech?subject=Website Feedback">
-                contact us
-              </Link>
-              .
+              <Link href="mailto:team@njcareers.org?subject=Website Feedback">contact us</Link>.
             </Typography>
             {statusCode && (
               <Typography variant="body2" className={classes.statusCode}>

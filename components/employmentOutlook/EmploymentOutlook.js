@@ -36,7 +36,7 @@ function EmploymentOutlook() {
       </BackgroundHeader>
       <ScaffoldContainer>
         <Grid className={classes.container} container justify="center">
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={7}>
             <Search />
           </Grid>
         </Grid>
