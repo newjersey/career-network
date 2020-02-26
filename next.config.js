@@ -15,6 +15,12 @@ const algolia = {
   apiKey: '841e3368abde3ebfd860f89ddae4d60e',
   indexName: 'prod_EMPLOYMENT_PROSPECTS',
 };
+const facebook = {
+  pixelId: '641624119998429',
+};
+const facebookDev = {
+  pixelId: '197879381588032',
+};
 const commonFirebase = {
   userCollection: 'users',
   userPreauthorizationCollection: 'userPreauthorizations',
@@ -52,6 +58,7 @@ const appEnvironments = {
       dsn: sentryDsn,
     },
     algolia,
+    facebook: facebookDev,
   },
   dev2: {
     name: 'DEV2',
@@ -72,6 +79,7 @@ const appEnvironments = {
       dsn: sentryDsn,
     },
     algolia,
+    facebook: facebookDev,
   },
   dev3: {
     name: 'DEV3',
@@ -92,6 +100,7 @@ const appEnvironments = {
       dsn: sentryDsn,
     },
     algolia,
+    facebook: facebookDev,
   },
   dev4: {
     name: 'DEV4',
@@ -112,6 +121,7 @@ const appEnvironments = {
       dsn: sentryDsn,
     },
     algolia,
+    facebook: facebookDev,
   },
   dev5: {
     name: 'DEV5',
@@ -132,6 +142,7 @@ const appEnvironments = {
       dsn: sentryDsn,
     },
     algolia,
+    facebook: facebookDev,
   },
   ppe: {
     name: 'PREVIEW',
@@ -156,6 +167,7 @@ const appEnvironments = {
       dsn: sentryDsn,
     },
     algolia,
+    facebook,
   },
   prod: {
     name: 'PRODUCTION',
@@ -180,6 +192,7 @@ const appEnvironments = {
       dsn: sentryDsn,
     },
     algolia,
+    facebook,
   },
   test: {
     firebase: {

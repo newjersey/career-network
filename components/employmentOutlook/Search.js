@@ -8,6 +8,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
 import { useAuth } from '../Auth';
@@ -15,6 +16,7 @@ import AutocompleteDropdown from './AutocompleteDropdown';
 import CountyList from './CountyList';
 import employmentInputValidation from './EmploymentInputValidation';
 import FavorabilityDialog from './FavorabilityDialog';
+import IndustryDropdown from './IndustryDropdown';
 import useFormValidation from '../formValidationHook';
 
 const searchClient = algoliasearch(process.env.algolia.appId, process.env.algolia.apiKey);
@@ -42,21 +44,25 @@ function Hits(props) {
 const CustomHits = connectHits(Hits);
 
 function Search() {
+  const formId = 'employment-outlook';
   const { userDocRef } = useAuth();
   const [searching, setSearching] = useState(false);
 
   const initialState = {
     occupation: '',
     county: '',
+    title: '',
+    industry: '',
   };
 
   const submit = values => {
     setSearching(true);
-
     const timestamp = firebase.firestore.FieldValue.serverTimestamp();
     const employmentOutlook = {
       occupation: values.occupation,
       county: values.county,
+      title: values.title,
+      industry: values.industry,
       timestamp,
     };
     userDocRef.set({ employmentOutlook }, { merge: true }).then(() => {
@@ -68,7 +74,7 @@ function Search() {
     });
   };
 
-  const { handleSubmit, handleChangeCustom, values, errors } = useFormValidation(
+  const { handleSubmit, handleChange, handleChangeCustom, values, errors } = useFormValidation(
     initialState,
     employmentInputValidation,
     submit
@@ -79,7 +85,7 @@ function Search() {
   };
 
   return (
-    <>
+    <form id={formId}>
       <Box mt={5} mb={10}>
         <Typography variant="h6" gutterBottom>
           Occupation
@@ -117,6 +123,29 @@ function Search() {
           {!!errors.county && <FormHelperText>{errors.county}</FormHelperText>}
         </FormControl>
       </Box>
+      <Divider />
+      <Box mt={8} mb={6}>
+        <Typography variant="h6" gutterBottom>
+          Additional Details
+        </Typography>
+        <Typography variant="body2" style={{ marginBottom: '2em' }}>
+          Tell us, in your own words, about the occupation you selected above so we can improve our
+          results for you in the future.
+        </Typography>
+        <FormControl fullWidth>
+          <span>Job Title</span>
+          <TextField
+            inputProps={{ name: 'title' }}
+            placeholder="If the job title you desire differs from the job title you selected above, what would you use?"
+            onChange={handleChange}
+            fullWidth
+            variant="outlined"
+            value={values.title}
+            style={{ marginBottom: '2em' }}
+          />
+        </FormControl>
+        <IndustryDropdown value={values.industry} onChange={handleChange} />
+      </Box>
       <Box display="flex" justifyContent="center">
         <Button variant="contained" color="primary" onClick={handleSubmit} fullWidth>
           Explore Favorability
@@ -132,7 +161,7 @@ function Search() {
           <CustomHits show onClose={handleClose} />
         </InstantSearch>
       )}
-    </>
+    </form>
   );
 }
 
