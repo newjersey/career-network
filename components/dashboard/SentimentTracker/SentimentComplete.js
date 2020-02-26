@@ -92,8 +92,8 @@ export default function SentimentComplete(props) {
           {shuffledMessages[0]}
         </Typography>
         <Typography variant="body1">
-          Here is one place to get started. Take action on your first recommended activity.
-          Let&apos;s dive in together!
+          Here is one place to get started. Take action on your first goal. Let&apos;s dive in
+          together!
         </Typography>
         <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
           <CloseIcon />

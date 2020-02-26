@@ -117,7 +117,13 @@ export default function AppManager(props) {
   ]);
 
   useEffect(() => {
+    // wait until login state is determined
     if (!isAuthKnown) {
+      return;
+    }
+
+    // don't re-init after logging out
+    if (wasSignedIn && !userId) {
       return;
     }
 
@@ -131,7 +137,7 @@ export default function AppManager(props) {
     };
     FacebookPixel.init(process.env.facebook.pixelId, advancedMatching, options);
     FacebookPixel.pageView();
-  }, [isAuthKnown, userEmail, userId]);
+  }, [isAuthKnown, userEmail, userId, wasSignedIn]);
 
   // end with a clean slate (prevent data leaks)
   useBeforeunload(event => {
