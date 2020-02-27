@@ -31,10 +31,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const handleClick = () => {
-  window.Intercom('trackEvent', 'explore-button-clicked');
-};
-
 function EmploymentOutlookLauchpad() {
   const classes = useStyles();
 
@@ -54,7 +50,7 @@ function EmploymentOutlookLauchpad() {
         </CardContent>
         <CardActions>
           <NextLink href="/employment-outlook">
-            <Button className={classes.button} fullWidth onClick={handleClick}>
+            <Button className={classes.button} fullWidth>
               EXPLORE
             </Button>
           </NextLink>
