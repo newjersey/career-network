@@ -8,7 +8,7 @@ const { fetchRecords, tableNames } = require('../src/airtable');
 
 const { log } = console;
 const apiBaseUrl = `http://localhost:5000${liveAirtableApiBase}`;
-const outDir = './static/api/';
+const outDir = './public/static/api/';
 
 async function saveRecords(apiPath) {
   const filename = `${apiPath.split('?')[0]}`;
