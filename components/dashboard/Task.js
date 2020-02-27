@@ -196,9 +196,11 @@ Task.propTypes = {
   allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
   actionTriggered: PropTypes.string,
   onActionClose: PropTypes.func,
+  onActionComplete: PropTypes.func,
 };
 
 Task.defaultProps = {
   actionTriggered: null,
   onActionClose: null,
+  onActionComplete: null,
 };
