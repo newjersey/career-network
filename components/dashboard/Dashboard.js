@@ -272,19 +272,33 @@ export default function Dashboard(props) {
   const tasks = getTasks(props, TASK_COUNT_LIMIT);
   const doneTaskCount = allTaskDispositionEvents.length;
   const [activeDialog, setActiveDialog] = useState();
+  const [showNextAction, setShowNextAction] = useState(false);
   const isSentimentLoggedToday =
     user.lastSentimentTimestamp && isToday(user.lastSentimentTimestamp.toDate());
   const isSentimentClosedToday =
     user.lastSentimentCloseTimestamp && isToday(user.lastSentimentCloseTimestamp.toDate());
 
-  const showSentiment = !isSentimentLoggedToday || !isSentimentClosedToday;
+  const showSentiment =
+    !isSentimentLoggedToday || (isSentimentLoggedToday && !isSentimentClosedToday);
 
-  const onRecordSentiment = () => {
-    userDocRef.set({ lastSentimentTimestamp: new Date() }, { merge: true });
+  const onRecordSentiment = sentiment => {
+    const lastSentiment = {
+      label: sentiment.label,
+      timestamp: new Date(),
+      closeTimestamp: null,
+    };
+    userDocRef.set({ lastSentiment }, { merge: true });
   };
 
   const onSentimentClose = () => {
-    userDocRef.set({ lastSentimentCloseTimestamp: new Date() }, { merge: true });
+    const lastSentiment = {
+      closeTimestamp: new Date(),
+    };
+    userDocRef.set({ lastSentiment }, { merge: true });
+  };
+
+  const onPromptAction = () => {
+    setShowNextAction(true);
   };
 
   useEffect(() => {
@@ -320,8 +334,9 @@ export default function Dashboard(props) {
                 <SentimentTracker
                   onRecord={onRecordSentiment}
                   onClose={onSentimentClose}
-                  user={user.firstName}
+                  record={user.lastSentimentLabel ? user.lastSentimentLabel : ''}
                   isComplete={isSentimentLoggedToday}
+                  onClick={onPromptAction}
                 />
               </ScaffoldContainer>
             )}
@@ -369,6 +384,8 @@ export default function Dashboard(props) {
               allActions={allActions}
               allActionDispositionEvents={allActionDispositionEvents}
               allTaskDispositionEvents={allTaskDispositionEvents}
+              showNextAction={showNextAction}
+              onActionClose={() => setShowNextAction(false)}
               {...restProps}
             />
           </Box>

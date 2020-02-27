@@ -61,13 +61,15 @@ EmojiButton.propTypes = {
 };
 
 const SentimentTracker = props => {
-  const { onRecord, onClose, user, isComplete } = props;
+  const { onRecord, onClose, record, isComplete, onClick } = props;
   const { userDocRef } = useAuth();
   const [complete, setComplete] = useState(isComplete);
+  const [value, setValue] = useState(record);
 
   const classes = useStyles();
 
   const submitSentiment = sentiment => {
+    setValue(sentiment.label);
     setComplete(true);
 
     const data = {
@@ -125,7 +127,7 @@ const SentimentTracker = props => {
               </Grid>
             </Paper>
           )}
-          {complete && <SentimentComplete onClose={onClose} user={user} />}
+          {complete && <SentimentComplete onClose={onClose} value={value} onClick={onClick} />}
         </>
       )}
       renderOff={() => (
@@ -160,8 +162,9 @@ const SentimentTracker = props => {
 SentimentTracker.propTypes = {
   onRecord: PropTypes.func,
   onClose: PropTypes.func.isRequired,
-  user: PropTypes.string.isRequired,
+  record: PropTypes.string.isRequired,
   isComplete: PropTypes.bool,
+  onClick: PropTypes.func.isRequired,
 };
 
 SentimentTracker.defaultProps = {

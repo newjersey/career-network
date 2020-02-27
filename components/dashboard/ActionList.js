@@ -8,7 +8,7 @@ import AirtablePropTypes from '../Airtable/PropTypes';
 import FirebasePropTypes from '../Firebase/PropTypes';
 
 export default function ActionList(props) {
-  const { actions, actionDispositionEvents, onAllDone, ...restProps } = props;
+  const { actions, actionDispositionEvents, onAllDone, actionTriggered, ...restProps } = props;
   const onDone = (action, i) => {
     // last action in the task
     if (i === actions.length - 1) {
@@ -26,6 +26,7 @@ export default function ActionList(props) {
             disabled={i > 0 && !isDone(actions[i - 1], actionDispositionEvents, 'actionId')}
             isDone={isDone(action, actionDispositionEvents, 'actionId')}
             onDone={() => onDone(action, i)}
+            triggered={actionTriggered && action.id === actionTriggered}
             {...restProps}
           />
         ))}
@@ -39,4 +40,12 @@ ActionList.propTypes = {
   actionDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
   allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
   onAllDone: PropTypes.func.isRequired,
+  taskTitle: PropTypes.string.isRequired,
+  actionTriggered: PropTypes.string,
+  onActionClose: PropTypes.func,
+};
+
+ActionList.defaultProps = {
+  actionTriggered: null,
+  onActionClose: null,
 };
