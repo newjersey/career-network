@@ -12,6 +12,7 @@ import Router from 'next/router';
 
 import { siteName } from '../components/withTitle';
 import { SnackbarProvider } from '../components/Snackbar';
+import AnalyticsProvider from '../components/Analytics';
 import AppManager from '../components/AppManager';
 import AuthProvider from '../components/Auth';
 import BrowserSupportAlert from '../components/BrowserSupportAlert';
@@ -119,10 +120,12 @@ class MyApp extends App {
             <FirebaseProvider>
               <AuthProvider>
                 <FlagsProvider value={featureFlags}>
-                  <CssBaseline />
-                  <AppManager>
-                    <Component {...pageProps} />
-                  </AppManager>
+                  <AnalyticsProvider>
+                    <CssBaseline />
+                    <AppManager>
+                      <Component {...pageProps} />
+                    </AppManager>
+                  </AnalyticsProvider>
                 </FlagsProvider>
               </AuthProvider>
             </FirebaseProvider>
