@@ -127,6 +127,11 @@ export default function AppManager(props) {
       return;
     }
 
+    // in fact, don't re-init ever (prevent duplicate pixel warning)
+    if (window.fbq && window.fbq.loaded) {
+      return;
+    }
+
     const advancedMatching = userId && {
       em: userEmail,
       external_id: userId,
