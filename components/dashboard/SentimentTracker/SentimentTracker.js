@@ -5,10 +5,9 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import { useAuth } from '../../Auth';
 import SentimentComplete from './SentimentComplete';
 
 const useStyles = makeStyles(theme => ({
@@ -62,26 +61,9 @@ EmojiButton.propTypes = {
 
 const SentimentTracker = props => {
   const { onRecord, onClose, lastRecordedValue, isComplete } = props;
-  const { userDocRef } = useAuth();
-  const [complete, setComplete] = useState(isComplete);
-
   const classes = useStyles();
 
   const submitSentiment = sentiment => {
-    setComplete(true);
-
-    const data = {
-      timestamp: new Date(),
-      ...sentiment,
-    };
-
-    userDocRef.collection('sentimentEvents').add(data);
-    window.Intercom('trackEvent', 'logged-sentiment', sentiment);
-    window.Intercom('update', {
-      'last-mood': sentiment.emoji,
-      'last-sentiment': sentiment.label,
-    });
-
     if (onRecord) {
       onRecord(sentiment);
     }
@@ -117,14 +99,12 @@ const SentimentTracker = props => {
     },
   ];
 
-  const { message } = sentiments.find(sentiment => sentiment.label === lastRecordedValue);
-
   return (
     <Flags
       authorizedFlags={['completeSentiment']}
       renderOn={() => (
         <>
-          {!complete && (
+          {!isComplete && (
             <Paper className={classes.paper} elevation={3} data-intercom="sentiment-container">
               <Grid container direction="row" justify="space-evenly" alignItems="center">
                 <Grid item xs={12} sm={3} md={3}>
@@ -149,8 +129,14 @@ const SentimentTracker = props => {
               </Grid>
             </Paper>
           )}
-          {complete && (
-            <SentimentComplete message={message} onClose={onClose} value={lastRecordedValue} />
+          {isComplete && (
+            <SentimentComplete
+              message={
+                lastRecordedValue &&
+                sentiments.find(sentiment => sentiment.label === lastRecordedValue).message
+              }
+              onClose={onClose}
+            />
           )}
         </>
       )}

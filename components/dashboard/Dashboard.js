@@ -286,6 +286,17 @@ export default function Dashboard(props) {
       closeTimestamp: null,
     };
     userDocRef.set({ lastSentiment }, { merge: true });
+
+    const data = {
+      timestamp: new Date(),
+      ...sentiment,
+    };
+    userDocRef.collection('sentimentEvents').add(data);
+    window.Intercom('trackEvent', 'logged-sentiment', sentiment);
+    window.Intercom('update', {
+      'last-mood': sentiment.emoji,
+      'last-sentiment': sentiment.label,
+    });
   };
 
   const onCloseSentiment = () => {
