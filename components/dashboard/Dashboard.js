@@ -288,7 +288,7 @@ export default function Dashboard(props) {
     userDocRef.set({ lastSentiment }, { merge: true });
   };
 
-  const onSentimentClose = () => {
+  const onCloseSentiment = () => {
     const lastSentiment = {
       closeTimestamp: new Date(),
     };
@@ -327,8 +327,8 @@ export default function Dashboard(props) {
               <ScaffoldContainer className={classes.container}>
                 <SentimentTracker
                   onRecord={onRecordSentiment}
-                  onClose={onSentimentClose}
-                  record={user.lastSentimentLabel ? user.lastSentimentLabel : ''}
+                  onClose={onCloseSentiment}
+                  lastRecordedValue={user.lastSentimentLabel ? user.lastSentimentLabel : ''}
                   isComplete={isSentimentLoggedToday}
                 />
               </ScaffoldContainer>
@@ -341,7 +341,7 @@ export default function Dashboard(props) {
               <ScaffoldContainer className={classes.container}>
                 <SentimentTracker
                   onRecord={onRecordSentiment}
-                  onClose={onSentimentClose}
+                  onClose={onCloseSentiment}
                   user={user.firstName}
                 />
               </ScaffoldContainer>
