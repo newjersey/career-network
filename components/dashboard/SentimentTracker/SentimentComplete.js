@@ -7,26 +7,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-const SENTIMENT_TYPES = {
-  Motivated: {
-    message: 'Fantastic! What have you been putting off doing that you could do today?',
-  },
-  Hopeful: {
-    message: 'Great! What’s something new that you could learn today?',
-  },
-  Okay: {
-    message: 'We hear you! Consider what you could do to give your day a boost.',
-  },
-  Discouraged: {
-    message:
-      'It’s normal to feel discouraged during your search. What can you do to lift your mood today? Throughout your day proactively address your mood by doing things, such as changing your scenery, calling a loved one, or going for a walk, in order to bring a new perspective to your day.',
-  },
-  Worried: {
-    message:
-      'Sometimes your worries about the future can sap your motivation. Consider how you can minimize your worries so that you can make strides in your job search today.',
-  },
-};
-
 const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(2),
@@ -52,13 +32,13 @@ const useStyles = makeStyles(theme => ({
 
 export default function SentimentComplete(props) {
   const classes = useStyles();
-  const { onClose, value } = props;
+  const { onClose, message } = props;
 
   return (
     <Paper className={classes.paper} elevation={3}>
       <Box position="relative" className={classes.container}>
         <Typography variant="h6" className={classes.title} gutterBottom>
-          {SENTIMENT_TYPES[value].message}
+          {message}
         </Typography>
         <Typography variant="body1">
           Here is one place to get started. Take action on your first recommended activity.
@@ -74,5 +54,5 @@ export default function SentimentComplete(props) {
 
 SentimentComplete.propTypes = {
   onClose: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
 };

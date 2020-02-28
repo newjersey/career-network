@@ -88,12 +88,36 @@ const SentimentTracker = props => {
   };
 
   const sentiments = [
-    { emoji: '😩', label: 'Worried' },
-    { emoji: '😔', label: 'Discouraged' },
-    { emoji: '🙂', label: 'Okay' },
-    { emoji: '😃', label: 'Hopeful' },
-    { emoji: '😎', label: 'Motivated' },
+    {
+      emoji: '😩',
+      label: 'Worried',
+      message:
+        'Sometimes your worries about the future can sap your motivation. Consider how you can minimize your worries so that you can make strides in your job search today.',
+    },
+    {
+      emoji: '😔',
+      label: 'Discouraged',
+      message:
+        'It’s normal to feel discouraged during your search. What can you do to lift your mood today? Throughout your day proactively address your mood by doing things, such as changing your scenery, calling a loved one, or going for a walk, in order to bring a new perspective to your day.',
+    },
+    {
+      emoji: '🙂',
+      label: 'Okay',
+      message: 'We hear you! Consider what you could do to give your day a boost.',
+    },
+    {
+      emoji: '😃',
+      label: 'Hopeful',
+      message: 'Great! What’s something new that you could learn today?',
+    },
+    {
+      emoji: '😎',
+      label: 'Motivated',
+      message: 'Fantastic! What have you been putting off doing that you could do today?',
+    },
   ];
+
+  const { message } = sentiments.find(sentiment => sentiment.label === lastRecordedValue);
 
   return (
     <Flags
@@ -125,7 +149,9 @@ const SentimentTracker = props => {
               </Grid>
             </Paper>
           )}
-          {complete && <SentimentComplete onClose={onClose} value={lastRecordedValue} />}
+          {complete && (
+            <SentimentComplete message={message} onClose={onClose} value={lastRecordedValue} />
+          )}
         </>
       )}
       renderOff={() => (
