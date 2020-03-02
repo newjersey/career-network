@@ -30,6 +30,7 @@ function Action(props) {
     taskTitle,
     triggered,
     onActionClose,
+    onActionComplete,
   } = props;
   const [open, setOpen] = React.useState(triggered || false);
   const qualityChecks = allQualityChecks.filter(
@@ -69,6 +70,7 @@ function Action(props) {
 
   function handleDone() {
     handleClose();
+    onActionComplete();
     disposition('done');
     onDone();
   }
@@ -228,11 +230,13 @@ Action.propTypes = {
   taskTitle: PropTypes.string.isRequired,
   triggered: PropTypes.bool,
   onActionClose: PropTypes.func,
+  onActionComplete: PropTypes.func,
 };
 
 Action.defaultProps = {
   triggered: false,
   onActionClose: null,
+  onActionComplete: null,
 };
 
 export default withMobileDialog()(Action);

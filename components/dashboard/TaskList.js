@@ -88,9 +88,11 @@ TaskList.propTypes = {
   tasks: AirtablePropTypes.tasks.isRequired,
   showNextAction: PropTypes.bool,
   onActionClose: PropTypes.func,
+  onActionComplete: PropTypes.func,
 };
 
 TaskList.defaultProps = {
   showNextAction: false,
   onActionClose: null,
+  onActionComplete: null,
 };

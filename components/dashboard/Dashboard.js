@@ -312,6 +312,11 @@ export default function Dashboard(props) {
     setShowNextAction(true);
   };
 
+  const handleActionComplete = () => {
+    setShowNextAction(false);
+    onCloseSentiment();
+  };
+
   useEffect(() => {
     window.Intercom('update', { 'tasks-completed': doneTaskCount });
   }, [doneTaskCount]);
@@ -378,6 +383,7 @@ export default function Dashboard(props) {
               allTaskDispositionEvents={allTaskDispositionEvents}
               showNextAction={showNextAction}
               onActionClose={() => setShowNextAction(false)}
+              onActionComplete={handleActionComplete}
               {...restProps}
             />
           </Box>

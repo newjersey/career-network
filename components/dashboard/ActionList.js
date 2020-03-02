@@ -43,9 +43,11 @@ ActionList.propTypes = {
   taskTitle: PropTypes.string.isRequired,
   actionTriggered: PropTypes.string,
   onActionClose: PropTypes.func,
+  onActionComplete: PropTypes.func,
 };
 
 ActionList.defaultProps = {
   actionTriggered: null,
   onActionClose: null,
+  onActionComplete: null,
 };
