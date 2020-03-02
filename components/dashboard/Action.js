@@ -9,7 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Linkify from 'linkifyjs/react';
 import PropTypes from 'prop-types';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 
@@ -20,8 +20,18 @@ import AirtablePropTypes from '../Airtable/PropTypes';
 // eslint-disable-next-line sonarjs/cognitive-complexity
 function Action(props) {
   const { userDocRef } = useAuth();
-  const [open, setOpen] = React.useState(false);
-  const { action, allQualityChecks, disabled, isDone, onDone, fullScreen } = props;
+  const {
+    action,
+    allQualityChecks,
+    disabled,
+    isDone,
+    onDone,
+    fullScreen,
+    taskTitle,
+    triggered,
+    onActionClose,
+  } = props;
+  const [open, setOpen] = React.useState(triggered || false);
   const qualityChecks = allQualityChecks.filter(
     qc => action.fields['Action ID'] === qc.fields['Action ID'][0]
   );
@@ -54,6 +64,7 @@ function Action(props) {
 
   function handleClose() {
     setOpen(false);
+    onActionClose();
   }
 
   function handleDone() {
@@ -71,6 +82,10 @@ function Action(props) {
     newVerifications[i] = event.target.checked;
     setVerifications(newVerifications);
   }
+
+  useEffect(() => {
+    setOpen(triggered || false);
+  }, [triggered]);
 
   return (
     <>
@@ -128,7 +143,10 @@ function Action(props) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{action.fields.Title}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">
+          <Typography variant="body2">{taskTitle}</Typography>
+          {action.fields.Title}
+        </DialogTitle>
         <DialogContent>
           <Typography>
             <Linkify
@@ -207,6 +225,14 @@ Action.propTypes = {
   disabled: PropTypes.bool.isRequired,
   isDone: PropTypes.bool.isRequired,
   onDone: PropTypes.func.isRequired,
+  taskTitle: PropTypes.string.isRequired,
+  triggered: PropTypes.bool,
+  onActionClose: PropTypes.func,
+};
+
+Action.defaultProps = {
+  triggered: false,
+  onActionClose: null,
 };
 
 export default withMobileDialog()(Action);

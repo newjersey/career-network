@@ -1,7 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
-import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -13,13 +14,13 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(8),
   },
   container: {
-    padding: theme.spacing(6, 4, 6, 5),
+    position: 'relative',
+    padding: theme.spacing(4),
     [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing(6, 2, 6, 4),
+      padding: theme.spacing(6, 4, 6, 4),
     },
   },
   title: {
-    maxWidth: '75%',
     fontSize: '1.1rem',
   },
   closeButton: {
@@ -32,22 +33,35 @@ const useStyles = makeStyles(theme => ({
 
 export default function SentimentComplete(props) {
   const classes = useStyles();
-  const { onClose, message } = props;
+  const { onClose, message, onClick } = props;
 
   return (
     <Paper className={classes.paper} elevation={3}>
-      <Box position="relative" className={classes.container}>
-        <Typography variant="h6" className={classes.title} gutterBottom>
-          {message}
-        </Typography>
-        <Typography variant="body1">
-          Here is one place to get started. Take action on your first recommended activity.
-          Let&apos;s dive in together!
-        </Typography>
+      <Grid
+        container
+        className={classes.container}
+        alignItems="center"
+        direction="row"
+        justify="space-between"
+        spacing={2}
+      >
+        <Grid item sm={12} md>
+          <Typography variant="h6" className={classes.title} gutterBottom>
+            {message}
+          </Typography>
+          <Typography variant="body1">
+            Let’s dive right into getting your first daily goal started.
+          </Typography>
+        </Grid>
         <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
           <CloseIcon />
         </IconButton>
-      </Box>
+        <Grid item xs={12} sm={12} md={3} style={{ display: 'flex', justifyContent: 'center' }}>
+          <Button size="large" variant="contained" onClick={onClick} color="primary">
+            Start Goal
+          </Button>
+        </Grid>
+      </Grid>
     </Paper>
   );
 }
@@ -55,4 +69,5 @@ export default function SentimentComplete(props) {
 SentimentComplete.propTypes = {
   onClose: PropTypes.func.isRequired,
   message: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };

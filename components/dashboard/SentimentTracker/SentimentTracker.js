@@ -59,7 +59,7 @@ EmojiButton.propTypes = {
 };
 
 const SentimentTracker = props => {
-  const { onRecord, onClose, lastRecordedValue, isComplete } = props;
+  const { onRecord, onClose, lastRecordedValue, isComplete, onClick } = props;
   const classes = useStyles();
 
   const submitSentiment = sentiment => {
@@ -132,6 +132,7 @@ const SentimentTracker = props => {
             sentiments.find(sentiment => sentiment.label === lastRecordedValue).message
           }
           onClose={onClose}
+          onClick={onClick}
         />
       )}
     </>
@@ -143,6 +144,7 @@ SentimentTracker.propTypes = {
   onClose: PropTypes.func.isRequired,
   lastRecordedValue: PropTypes.string.isRequired,
   isComplete: PropTypes.bool,
+  onClick: PropTypes.func.isRequired,
 };
 
 SentimentTracker.defaultProps = {
