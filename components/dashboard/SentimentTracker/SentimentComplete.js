@@ -5,7 +5,8 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
+import shuffle from 'lodash/fp/shuffle';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(theme => ({
@@ -33,7 +34,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function SentimentComplete(props) {
   const classes = useStyles();
-  const { onClose, message, onClick } = props;
+  const { onClose, messages, onClick } = props;
+  const [shuffledMessages] = useState(shuffle(messages));
 
   return (
     <Paper className={classes.paper} elevation={3}>
@@ -47,7 +49,7 @@ export default function SentimentComplete(props) {
       >
         <Grid item sm={12} md>
           <Typography variant="h6" className={classes.title} gutterBottom>
-            {message}
+            {shuffledMessages[0]}
           </Typography>
           <Typography variant="body1">
             Let’s dive right into getting your first daily goal started.
@@ -68,6 +70,6 @@ export default function SentimentComplete(props) {
 
 SentimentComplete.propTypes = {
   onClose: PropTypes.func.isRequired,
-  message: PropTypes.string.isRequired,
+  messages: PropTypes.arrayOf(PropTypes.string).isRequired,
   onClick: PropTypes.func.isRequired,
 };
