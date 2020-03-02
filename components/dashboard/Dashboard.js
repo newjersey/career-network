@@ -279,12 +279,31 @@ export default function Dashboard(props) {
 
   const showSentiment = !isSentimentLoggedToday || !isSentimentClosedToday;
 
-  const onRecordSentiment = () => {
-    userDocRef.set({ lastSentimentTimestamp: new Date() }, { merge: true });
+  const onRecordSentiment = sentiment => {
+    const lastSentiment = {
+      label: sentiment.label,
+      timestamp: new Date(),
+      closeTimestamp: null,
+    };
+    userDocRef.set({ lastSentiment }, { merge: true });
+
+    const data = {
+      timestamp: new Date(),
+      ...sentiment,
+    };
+    userDocRef.collection('sentimentEvents').add(data);
+    window.Intercom('trackEvent', 'logged-sentiment', sentiment);
+    window.Intercom('update', {
+      'last-mood': sentiment.emoji,
+      'last-sentiment': sentiment.label,
+    });
   };
 
-  const onSentimentClose = () => {
-    userDocRef.set({ lastSentimentCloseTimestamp: new Date() }, { merge: true });
+  const onCloseSentiment = () => {
+    const lastSentiment = {
+      closeTimestamp: new Date(),
+    };
+    userDocRef.set({ lastSentiment }, { merge: true });
   };
 
   useEffect(() => {
@@ -311,36 +330,17 @@ export default function Dashboard(props) {
           </Typography>
         </ScaffoldContainer>
       </BackgroundHeader>
-      <Flags
-        authorizedFlags={['completeSentiment']}
-        renderOn={() => (
-          <>
-            {showSentiment && (
-              <ScaffoldContainer className={classes.container}>
-                <SentimentTracker
-                  onRecord={onRecordSentiment}
-                  onClose={onSentimentClose}
-                  user={user.firstName}
-                  isComplete={isSentimentLoggedToday}
-                />
-              </ScaffoldContainer>
-            )}
-          </>
-        )}
-        renderOff={() => (
-          <>
-            {!isSentimentLoggedToday && (
-              <ScaffoldContainer className={classes.container}>
-                <SentimentTracker
-                  onRecord={onRecordSentiment}
-                  onClose={onSentimentClose}
-                  user={user.firstName}
-                />
-              </ScaffoldContainer>
-            )}
-          </>
-        )}
-      />
+
+      {showSentiment && (
+        <ScaffoldContainer className={classes.container}>
+          <SentimentTracker
+            onRecord={onRecordSentiment}
+            onClose={onCloseSentiment}
+            lastRecordedValue={user.lastSentimentLabel ? user.lastSentimentLabel : ''}
+            isComplete={isSentimentLoggedToday}
+          />
+        </ScaffoldContainer>
+      )}
 
       <ScaffoldContainer>
         <Box className={classes.grid}>
