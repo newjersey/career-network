@@ -1,4 +1,3 @@
-import { Flags } from 'react-feature-flags';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -100,47 +99,8 @@ const SentimentTracker = props => {
   ];
 
   return (
-    <Flags
-      authorizedFlags={['completeSentiment']}
-      renderOn={() => (
-        <>
-          {!isComplete && (
-            <Paper className={classes.paper} elevation={3} data-intercom="sentiment-container">
-              <Grid container direction="row" justify="space-evenly" alignItems="center">
-                <Grid item xs={12} sm={3} md={3}>
-                  <Typography component="h4" variant="h6" align="center">
-                    How are you feeling today?
-                  </Typography>
-                </Grid>
-                <Grid
-                  xs={12}
-                  sm={7}
-                  md={7}
-                  container
-                  item
-                  className={classes.buttons}
-                  justify="space-between"
-                  alignItems="center"
-                >
-                  {sentiments.map(sentiment => (
-                    <EmojiButton {...sentiment} key={sentiment.label} onClick={submitSentiment} />
-                  ))}
-                </Grid>
-              </Grid>
-            </Paper>
-          )}
-          {isComplete && (
-            <SentimentComplete
-              message={
-                lastRecordedValue &&
-                sentiments.find(sentiment => sentiment.label === lastRecordedValue).message
-              }
-              onClose={onClose}
-            />
-          )}
-        </>
-      )}
-      renderOff={() => (
+    <>
+      {!isComplete && (
         <Paper className={classes.paper} elevation={3} data-intercom="sentiment-container">
           <Grid container direction="row" justify="space-evenly" alignItems="center">
             <Grid item xs={12} sm={3} md={3}>
@@ -165,7 +125,16 @@ const SentimentTracker = props => {
           </Grid>
         </Paper>
       )}
-    />
+      {isComplete && (
+        <SentimentComplete
+          message={
+            lastRecordedValue &&
+            sentiments.find(sentiment => sentiment.label === lastRecordedValue).message
+          }
+          onClose={onClose}
+        />
+      )}
+    </>
   );
 };
 
