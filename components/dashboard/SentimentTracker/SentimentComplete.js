@@ -26,8 +26,8 @@ const useStyles = makeStyles(theme => ({
   },
   closeButton: {
     position: 'absolute',
-    right: 0,
-    top: 0,
+    right: theme.spacing(2),
+    top: theme.spacing(1),
     color: theme.palette.grey[500],
   },
 }));
