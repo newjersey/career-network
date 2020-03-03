@@ -264,7 +264,7 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
       onExited={resetComponent}
     >
       <DialogTitle id="customized-dialog-title" onClose={onClose}>
-        <Typography variant="h5">Add Activity</Typography>
+        <Typography variant="h5">Log an Activity</Typography>
       </DialogTitle>
 
       <DialogContent dividers>
