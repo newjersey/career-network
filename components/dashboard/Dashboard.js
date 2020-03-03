@@ -7,6 +7,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
+import firebase from 'firebase/app';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -14,8 +15,9 @@ import Typography from '@material-ui/core/Typography';
 import { isDone, mostRecent } from '../../src/app-helper';
 import { useAuth } from '../Auth';
 import ActivityCategoryTable from '../history/ActivityCategoryTable';
-import ActivityInputDialog from '../activityInput/ActivityInputDialog';
+import ActivityInputDialog, { ACTIVITY_TYPES } from '../activityInput/ActivityInputDialog';
 import AirtablePropTypes from '../Airtable/PropTypes';
+import AssessmentCompleteDialog from './AssessmentCompleteDialog';
 import BackgroundHeader from '../BackgroundHeader';
 import EmploymentOutlookLauchpad from './EmploymentOutlookLauchpad';
 import FirebasePropTypes from '../Firebase/PropTypes';
@@ -248,6 +250,7 @@ function getTasks(_props, limit) {
 const DIALOGS = {
   ACTIVITY_INPUT: 'ActivityInputDialog',
   UPCOMING_INTERVIEW: 'UpcomingInterviewDialog',
+  ASSESSMENT_COMPLETE: 'AssessmentCompleteDialog',
 };
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
@@ -272,6 +275,9 @@ export default function Dashboard(props) {
   const tasks = getTasks(props, TASK_COUNT_LIMIT);
   const doneTaskCount = allTaskDispositionEvents.length;
   const [activeDialog, setActiveDialog] = useState();
+
+  const showAssessmentComplete = user.isAssessmentComplete && !user.isAssessmentActivityCreated;
+
   const isSentimentLoggedToday =
     user.lastSentimentTimestamp && isToday(user.lastSentimentTimestamp.toDate());
   const isSentimentClosedToday =
@@ -291,6 +297,45 @@ export default function Dashboard(props) {
     window.Intercom('update', { 'tasks-completed': doneTaskCount });
   }, [doneTaskCount]);
 
+  useEffect(() => {
+    if (showAssessmentComplete) {
+      setActiveDialog(DIALOGS.ASSESSMENT_COMPLETE);
+      const increment = firebase.firestore.FieldValue.increment(1);
+      const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+      const data = {
+        config: {
+          activityTypes: ACTIVITY_TYPES,
+        },
+        timestamp,
+        activityTypeValue: 'assessment-complete',
+        activityTypeLabel: 'Completed assessment',
+        briefDescription: 'Completed assessment',
+        dateCompleted: new Date(),
+      };
+      const stats = {
+        activityLogEntriesCount: increment,
+        activityLogEntriesLatestTimestamp: timestamp,
+      };
+
+      userDocRef.set({ isAssessmentActivityCreated: true }, { merge: true });
+
+      userDocRef
+        .collection('activityLogEntries')
+        .add(data)
+        .then(() => {
+          userDocRef.set({ stats }, { merge: true });
+          window.Intercom('update', { 'last-activity-logged': new Date() });
+          window.Intercom('trackEvent', 'logged-activity', {
+            type: data.activityTypeLabel,
+            description: data.briefDescription,
+          });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  }, [userDocRef, showAssessmentComplete]);
+
   return (
     <div className={classes.root}>
       <ActivityInputDialog
@@ -299,6 +344,10 @@ export default function Dashboard(props) {
       />
       <UpcomingInterviewDialog
         show={activeDialog === DIALOGS.UPCOMING_INTERVIEW}
+        onClose={() => setActiveDialog()}
+      />
+      <AssessmentCompleteDialog
+        show={activeDialog === DIALOGS.ASSESSMENT_COMPLETE}
         onClose={() => setActiveDialog()}
       />
       <BackgroundHeader>

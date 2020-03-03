@@ -107,6 +107,11 @@ const ACTIVITY_TYPES = [
     label: 'Other',
     category: AirtablePropTypes.TASK_CATEGORIES.other,
   },
+  {
+    value: 'assessment-complete',
+    label: 'Completed assessment',
+    category: AirtablePropTypes.TASK_CATEGORIES.other,
+  },
 ];
 
 const TIME_SPENT_OPTIONS = [
@@ -169,6 +174,10 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState({});
   const [shuffledFeelings, setShuffledFeelings] = useState(shuffle(FEELINGS));
+
+  const activitiesForInput = ACTIVITY_TYPES.filter(
+    activity => activity.value !== 'assessment-complete'
+  );
 
   const datePickerTheme = createMuiTheme({
     overrides: {
@@ -282,7 +291,7 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
                   })
                 }
               >
-                {ACTIVITY_TYPES.map(activity => (
+                {activitiesForInput.map(activity => (
                   <MenuItem
                     key={activity.value}
                     value={activity.value}
