@@ -272,19 +272,49 @@ export default function Dashboard(props) {
   const tasks = getTasks(props, TASK_COUNT_LIMIT);
   const doneTaskCount = allTaskDispositionEvents.length;
   const [activeDialog, setActiveDialog] = useState();
+  const [showNextAction, setShowNextAction] = useState(false);
   const isSentimentLoggedToday =
     user.lastSentimentTimestamp && isToday(user.lastSentimentTimestamp.toDate());
   const isSentimentClosedToday =
     user.lastSentimentCloseTimestamp && isToday(user.lastSentimentCloseTimestamp.toDate());
 
-  const showSentiment = !isSentimentLoggedToday || !isSentimentClosedToday;
+  const showSentiment =
+    !isSentimentLoggedToday || (isSentimentLoggedToday && !isSentimentClosedToday);
 
-  const onRecordSentiment = () => {
-    userDocRef.set({ lastSentimentTimestamp: new Date() }, { merge: true });
+  const onRecordSentiment = sentiment => {
+    const lastSentiment = {
+      label: sentiment.label,
+      timestamp: new Date(),
+      closeTimestamp: null,
+    };
+    userDocRef.set({ lastSentiment }, { merge: true });
+
+    const data = {
+      timestamp: new Date(),
+      ...sentiment,
+    };
+    userDocRef.collection('sentimentEvents').add(data);
+    window.Intercom('trackEvent', 'logged-sentiment', sentiment);
+    window.Intercom('update', {
+      'last-mood': sentiment.emoji,
+      'last-sentiment': sentiment.label,
+    });
   };
 
-  const onSentimentClose = () => {
-    userDocRef.set({ lastSentimentCloseTimestamp: new Date() }, { merge: true });
+  const onCloseSentiment = () => {
+    const lastSentiment = {
+      closeTimestamp: new Date(),
+    };
+    userDocRef.set({ lastSentiment }, { merge: true });
+  };
+
+  const onPromptAction = () => {
+    setShowNextAction(true);
+  };
+
+  const handleActionComplete = () => {
+    setShowNextAction(false);
+    onCloseSentiment();
   };
 
   useEffect(() => {
@@ -311,36 +341,18 @@ export default function Dashboard(props) {
           </Typography>
         </ScaffoldContainer>
       </BackgroundHeader>
-      <Flags
-        authorizedFlags={['completeSentiment']}
-        renderOn={() => (
-          <>
-            {showSentiment && (
-              <ScaffoldContainer className={classes.container}>
-                <SentimentTracker
-                  onRecord={onRecordSentiment}
-                  onClose={onSentimentClose}
-                  user={user.firstName}
-                  isComplete={isSentimentLoggedToday}
-                />
-              </ScaffoldContainer>
-            )}
-          </>
-        )}
-        renderOff={() => (
-          <>
-            {!isSentimentLoggedToday && (
-              <ScaffoldContainer className={classes.container}>
-                <SentimentTracker
-                  onRecord={onRecordSentiment}
-                  onClose={onSentimentClose}
-                  user={user.firstName}
-                />
-              </ScaffoldContainer>
-            )}
-          </>
-        )}
-      />
+
+      {showSentiment && (
+        <ScaffoldContainer className={classes.container}>
+          <SentimentTracker
+            onRecord={onRecordSentiment}
+            onClose={onCloseSentiment}
+            lastRecordedValue={user.lastSentimentLabel ? user.lastSentimentLabel : ''}
+            isComplete={isSentimentLoggedToday}
+            onClick={onPromptAction}
+          />
+        </ScaffoldContainer>
+      )}
 
       <ScaffoldContainer>
         <Box className={classes.grid}>
@@ -369,6 +381,9 @@ export default function Dashboard(props) {
               allActions={allActions}
               allActionDispositionEvents={allActionDispositionEvents}
               allTaskDispositionEvents={allTaskDispositionEvents}
+              showNextAction={showNextAction}
+              onActionClose={() => setShowNextAction(false)}
+              onActionComplete={handleActionComplete}
               {...restProps}
             />
           </Box>

@@ -178,6 +178,7 @@ export default function Task(props) {
           <ActionList
             actionDispositionEvents={getActionDispositionEvents()}
             onAllDone={onAllActionsDone}
+            taskTitle={task.fields.Title}
             {...restProps}
           />
         </div>
@@ -193,4 +194,13 @@ Task.propTypes = {
   allTaskDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
   allActionDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
   allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
+  actionTriggered: PropTypes.string,
+  onActionClose: PropTypes.func,
+  onActionComplete: PropTypes.func,
+};
+
+Task.defaultProps = {
+  actionTriggered: null,
+  onActionClose: null,
+  onActionComplete: null,
 };
