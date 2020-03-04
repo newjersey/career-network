@@ -329,9 +329,6 @@ export default function Dashboard(props) {
             type: data.activityTypeLabel,
             description: data.briefDescription,
           });
-        })
-        .catch(err => {
-          console.log(err);
         });
     }
   }, [userDocRef, showAssessmentComplete]);
@@ -349,6 +346,7 @@ export default function Dashboard(props) {
       <AssessmentCompleteDialog
         show={activeDialog === DIALOGS.ASSESSMENT_COMPLETE}
         onClose={() => setActiveDialog()}
+        onClick={() => setActiveDialog(DIALOGS.ACTIVITY_INPUT)}
       />
       <BackgroundHeader>
         <ScaffoldContainer>

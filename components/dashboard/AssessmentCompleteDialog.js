@@ -1,33 +1,37 @@
 import { makeStyles } from '@material-ui/styles';
+import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 
-import { DialogTitle, DialogContent } from '../DialogComponents';
+import { DialogTitle, DialogContent, DialogActions } from '../DialogComponents';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   dialog: {
-    backgroundImage: 'url(/static/img/celebrate-diaglog-background.svg)',
+    backgroundImage: 'url(/static/img/celebrate.svg)',
     backgroundSize: 'cover',
+    padding: theme.spacing(2, 6, 2, 6),
+    width: '520px',
   },
-});
+  button: {
+    margin: theme.spacing(1, 2, 5, 2),
+  },
+}));
 
-const MAX_WIDTH = 'xs';
+const MAX_WIDTH = 'sm';
 
-function AssessmentCompleteDialog({ show, onClose }) {
+function AssessmentCompleteDialog({ show, onClose, onClick }) {
   const classes = useStyles();
 
   return (
     <Dialog
       classes={{ paper: classes.dialog }}
       maxWidth={MAX_WIDTH}
-      fullWidth
       onClose={onClose}
       aria-labelledby="assessment-dialog"
       open={show}
-      onExited={onClose}
     >
       <DialogTitle id="assessment-dialog-title" onClose={onClose}>
         <Typography variant="body1" align="center" style={{ marginTop: '3em' }}>
@@ -38,7 +42,7 @@ function AssessmentCompleteDialog({ show, onClose }) {
         </Typography>
       </DialogTitle>
       <DialogContent>
-        <Typography variant="body2" align="center" style={{ marginBottom: '3em' }}>
+        <Typography variant="body2" align="center">
           Thank you for joining the New Jersey Career Network! This is a massive step on your career
           journey.
           <br />
@@ -51,6 +55,17 @@ function AssessmentCompleteDialog({ show, onClose }) {
           past week to your Activity Log!
         </Typography>
       </DialogContent>
+      <DialogActions>
+        <Button
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          onClick={onClick}
+          fullWidth
+        >
+          Log an Activity
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 }
@@ -58,6 +73,7 @@ function AssessmentCompleteDialog({ show, onClose }) {
 AssessmentCompleteDialog.propTypes = {
   show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default withMobileDialog()(AssessmentCompleteDialog);
