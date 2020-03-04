@@ -92,25 +92,33 @@ function Activity(props) {
             </DateCompleted>
           </Grid>
           <Grid item xs={4}>
-            <Typography variant="body2" className={classes.label}>
-              Difficulty Level
-            </Typography>
-            <Typography variant="body1" style={{ fontWeight: 500 }}>
-              {difficultyLevel}
-            </Typography>
+            {difficultyLevel && (
+              <>
+                <Typography variant="body2" className={classes.label}>
+                  Difficulty Level
+                </Typography>
+                <Typography variant="body1" style={{ fontWeight: 500 }}>
+                  {difficultyLevel}
+                </Typography>
+              </>
+            )}
           </Grid>
           <Grid item xs={4}>
-            <Typography variant="body2" className={classes.label}>
-              Time Spent
-            </Typography>
-            <Typography
-              variant="body1"
-              component="span"
-              display="block"
-              style={{ fontWeight: 500 }}
-            >
-              {timeSpentInMinutes} Minutes
-            </Typography>
+            {timeSpentInMinutes && (
+              <>
+                <Typography variant="body2" className={classes.label}>
+                  Time Spent
+                </Typography>
+                <Typography
+                  variant="body1"
+                  component="span"
+                  display="block"
+                  style={{ fontWeight: 500 }}
+                >
+                  {timeSpentInMinutes} Minutes
+                </Typography>
+              </>
+            )}
           </Grid>
         </Grid>
         {(!!activityFeeling.length || !!whyIFeelThisWay.length) && (
