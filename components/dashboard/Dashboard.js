@@ -404,7 +404,8 @@ export default function Dashboard(props) {
               variant="contained"
               size="large"
               color="primary"
-              onClick={() => setActiveDialog(DIALOGS.ACTIVITY_INPUT)}
+              // onClick={() => setActiveDialog(DIALOGS.ASSESSMENT_COMPLETE)}
+              onClick={() => window.Intercom('startTour', 74684)}
               data-intercom="log-activity-button"
             >
               Log Activity

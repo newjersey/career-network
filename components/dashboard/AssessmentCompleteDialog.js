@@ -1,6 +1,8 @@
 import { makeStyles } from '@material-ui/styles';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
+import Link from '@material-ui/core/Link';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -12,11 +14,14 @@ const useStyles = makeStyles(theme => ({
   dialog: {
     backgroundImage: 'url(/static/img/celebrate.svg)',
     backgroundSize: 'cover',
-    padding: theme.spacing(2, 6, 2, 6),
+    padding: theme.spacing(2, 6, 4, 6),
     width: '520px',
   },
   button: {
-    margin: theme.spacing(1, 2, 5, 2),
+    margin: theme.spacing(2, 0, 2, 0),
+  },
+  link: {
+    textDecoration: 'underline',
   },
 }));
 
@@ -55,16 +60,29 @@ function AssessmentCompleteDialog({ show, onClose, onClick }) {
           past week to your Activity Log!
         </Typography>
       </DialogContent>
-      <DialogActions>
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          onClick={onClick}
-          fullWidth
-        >
-          Log an Activity
-        </Button>
+      <DialogActions style={{ justifyContent: 'center' }}>
+        <Box>
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+            onClick={onClick}
+            fullWidth
+          >
+            Log an Activity
+          </Button>
+          <div>
+            Want to learn more about NJCN? {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+            <Link
+              className={classes.link}
+              component="button"
+              variant="caption"
+              onClick={() => window.Intercom('startTour', 74684)}
+            >
+              Take The Product Tour
+            </Link>
+          </div>
+        </Box>
       </DialogActions>
     </Dialog>
   );
