@@ -112,6 +112,7 @@ const question = recordShape({
 const questionGroup = recordShape({
   Name: PropTypes.string.isRequired,
   Label: PropTypes.string.isRequired,
+  'Footer Text': PropTypes.string,
   Questions: PropTypes.arrayOf(PropTypes.string).isRequired,
   Slug: PropTypes.string,
 });
