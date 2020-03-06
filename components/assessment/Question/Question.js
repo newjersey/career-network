@@ -15,8 +15,8 @@ function getDefaultValue(question, user) {
   switch (question.fields.Slug) {
     case 'email':
       return user.email;
-    case 'preferredFirstName':
-      return user.firstName;
+    case 'preferred-name':
+      return user.displayName;
     default:
   }
 

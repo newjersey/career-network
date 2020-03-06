@@ -1,11 +1,10 @@
 import { makeStyles } from '@material-ui/styles';
-import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useRef } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import AirtablePropTypes from '../Airtable/PropTypes';
-import AssessmentEntry from './AssessmentEntry';
+import AssessmentSubsection from './AssessmentSubsection';
 import FirebasePropTypes from '../Firebase/PropTypes';
 
 const useStyles = makeStyles(theme => ({
@@ -14,70 +13,22 @@ const useStyles = makeStyles(theme => ({
     maxWidth: 780,
     margin: '0 auto',
   },
-  title: {
-    marginBottom: theme.spacing(3),
-  },
-  paper: {
-    padding: theme.spacing(3, 4, 3),
-    [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing(3, 5, 3),
-    },
+  description: {
+    marginTop: theme.spacing(2),
   },
 }));
 
 export default function AssessmentSection(props) {
   const classes = useStyles();
-  const {
-    assessmentSection,
-    allAssessmentEntries,
-    allQuestionResponses,
-    onValidationChange,
-    ...restProps
-  } = props;
-  const assessmentEntries = allAssessmentEntries.filter(entry =>
-    assessmentSection.fields['Assessment Entries'].includes(entry.id)
+  const { assessmentSection, allAssessmentSubsections, onValidationChange, ...restProps } = props;
+  const assessmentSubsections = allAssessmentSubsections.filter(subsection =>
+    assessmentSection.fields['Assessment Subsections'].includes(subsection.id)
   );
 
-  // bool: is the response to the given Question any of the given Question Response Options
-  const isQuestionResponse = (questionId, questionResponseOptionIds) => {
-    const questionResponse = allQuestionResponses.find(doc => doc.id === questionId);
-
-    // unanswered questions
-    if (questionResponse === undefined) {
-      return false;
-    }
-
-    return questionResponseOptionIds.includes(questionResponse.data().value);
-  };
-
-  // bool: should the given Assessment Entry be shown
-  const shouldShow = assessmentEntry => {
-    const showIfQuestions = assessmentEntry.fields['Show If Question'] || [];
-    const showIfQuestionResponseOptions =
-      assessmentEntry.fields['Show If Question Response Options'] || [];
-
-    switch (showIfQuestions.length) {
-      case 0:
-        return true;
-      case 1:
-        if (!showIfQuestionResponseOptions.length) {
-          throw new Error(
-            `Missing "Show If Question Response Options" in AssessmentEntry ${assessmentEntry.id}`
-          );
-        }
-        return isQuestionResponse(showIfQuestions[0], showIfQuestionResponseOptions);
-      default:
-        throw new Error(
-          `Unexpected multiple "Show If Question" in AssessmentEntry ${assessmentEntry.id}`
-        );
-    }
-  };
-
-  const assessmentEntriesToShow = assessmentEntries.filter(ae => shouldShow(ae));
-  const validationStates = useRef(Array.from(Array(assessmentEntriesToShow.length)));
+  const validationStates = useRef(Array.from(Array(assessmentSubsections.length)));
   const wasValid = useRef(null);
 
-  // keep track of each AssessmentEntry validation status (in a way that doesn't trigger a rerender)
+  // keep track of each AssessmentSubsection validation status (in a way that doesn't trigger a rerender)
   const handleValidationChange = useCallback(
     index => isValid => {
       validationStates.current[index] = isValid;
@@ -85,11 +36,8 @@ export default function AssessmentSection(props) {
     []
   );
 
-  // this will fire once after handleValidationChange() fires for each AssessmentEntry
+  // this will fire once after handleValidationChange() fires for each AssessmentSubsection
   useEffect(() => {
-    // remove any array entries beyond how many we expect (use case: dynamically hide a question)
-    validationStates.current.splice(assessmentEntriesToShow.length);
-
     // determine if the AssessmentSection as a whole is valid
     const isValid = validationStates.current.map(a => !!a).reduce((a, b) => a && b, true);
 
@@ -104,30 +52,31 @@ export default function AssessmentSection(props) {
 
   return (
     <div className={classes.root}>
-      <Typography className={classes.title} component="h2" variant="h5">
+      <Typography component="h2" variant="h5">
         {assessmentSection.fields.Name}
       </Typography>
-      <Paper className={classes.paper} data-intercom="assessment-section">
-        {assessmentSection.fields.Description && (
-          <Typography variant="subtitle2">{assessmentSection.fields.Description}</Typography>
-        )}
-
-        {assessmentEntriesToShow.map((assessmentEntry, index) => (
-          <AssessmentEntry
-            key={assessmentEntry.id}
-            assessmentEntry={assessmentEntry}
-            allQuestionResponses={allQuestionResponses}
+      {assessmentSection.fields.Description && (
+        <Typography variant="body1" className={classes.description}>
+          {assessmentSection.fields.Description}
+        </Typography>
+      )}
+      <div data-intercom="assessment-section">
+        {assessmentSubsections.map((assessmentSubsection, index) => (
+          <AssessmentSubsection
+            key={assessmentSubsection.id}
+            assessmentSubsection={assessmentSubsection}
             onValidationChange={handleValidationChange(index)}
             {...restProps}
           />
         ))}
-      </Paper>
+      </div>
     </div>
   );
 }
 
 AssessmentSection.propTypes = {
   assessmentSection: AirtablePropTypes.assessmentSection.isRequired,
+  allAssessmentSubsections: AirtablePropTypes.assessmentSubsections.isRequired,
   allAssessmentEntries: AirtablePropTypes.assessmentEntries.isRequired,
   allQuestions: AirtablePropTypes.questions.isRequired,
   allQuestionGroups: AirtablePropTypes.questionGroups.isRequired,
