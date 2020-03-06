@@ -14,10 +14,11 @@ const useStyles = makeStyles(theme => ({
     maxWidth: 780,
     margin: '0 auto',
   },
-  title: {
-    marginBottom: theme.spacing(3),
+  description: {
+    marginTop: theme.spacing(2),
   },
   paper: {
+    marginTop: theme.spacing(5),
     padding: theme.spacing(3, 4, 3),
     [theme.breakpoints.up('sm')]: {
       padding: theme.spacing(3, 5, 3),
@@ -104,14 +105,15 @@ export default function AssessmentSection(props) {
 
   return (
     <div className={classes.root}>
-      <Typography className={classes.title} component="h2" variant="h5">
+      <Typography component="h2" variant="h5">
         {assessmentSection.fields.Name}
       </Typography>
+      {assessmentSection.fields.Description && (
+        <Typography variant="body1" className={classes.description}>
+          {assessmentSection.fields.Description}
+        </Typography>
+      )}
       <Paper className={classes.paper} data-intercom="assessment-section">
-        {assessmentSection.fields.Description && (
-          <Typography variant="subtitle2">{assessmentSection.fields.Description}</Typography>
-        )}
-
         {assessmentEntriesToShow.map((assessmentEntry, index) => (
           <AssessmentEntry
             key={assessmentEntry.id}

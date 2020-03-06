@@ -75,6 +75,7 @@ const questionResponseOptionsControl = PropTypes.oneOf(['Dropdown', 'Radios']);
 const assessmentSection = recordShape({
   Name: PropTypes.string.isRequired,
   'Short Name': PropTypes.string.isRequired,
+  Description: PropTypes.string,
   Order: PropTypes.number.isRequired,
   'Assessment Entries': PropTypes.arrayOf(PropTypes.string).isRequired,
 });
