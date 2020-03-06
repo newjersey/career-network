@@ -65,8 +65,8 @@ export default class User {
     return !!this.userData.isAssessmentComplete;
   }
 
-  get isAssessmentActivityCreated() {
-    return !!this.userData.isAssessmentActivityCreated;
+  get shouldSeeAssesssmentCompletionCelebration() {
+    return !!this.userData.shouldSeeAssesssmentCompletionCelebration;
   }
 
   get isAdmin() {

@@ -73,6 +73,7 @@ function Assessment() {
     // set flag on user: initial assessment is complete
     // (will need refactor when introducing multiple assessments)
     userDocRef.set({ isAssessmentComplete: true }, { merge: true });
+    userDocRef.set({ shouldSeeAssesssmentCompletionCelebration: true }, { merge: true });
     window.Intercom('update', buildPostAssessmentIntercomAttributes());
     Router.push('/dashboard');
   };

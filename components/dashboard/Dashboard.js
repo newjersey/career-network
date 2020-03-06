@@ -276,8 +276,6 @@ export default function Dashboard(props) {
   const doneTaskCount = allTaskDispositionEvents.length;
   const [activeDialog, setActiveDialog] = useState();
 
-  const showAssessmentComplete = user.isAssessmentComplete && !user.isAssessmentActivityCreated;
-
   const isSentimentLoggedToday =
     user.lastSentimentTimestamp && isToday(user.lastSentimentTimestamp.toDate());
   const isSentimentClosedToday =
@@ -298,7 +296,7 @@ export default function Dashboard(props) {
   }, [doneTaskCount]);
 
   useEffect(() => {
-    if (showAssessmentComplete) {
+    if (user.shouldSeeAssesssmentCompletionCelebration) {
       setActiveDialog(DIALOGS.ASSESSMENT_COMPLETE);
       const increment = firebase.firestore.FieldValue.increment(1);
       const timestamp = firebase.firestore.FieldValue.serverTimestamp();
@@ -317,7 +315,7 @@ export default function Dashboard(props) {
         activityLogEntriesLatestTimestamp: timestamp,
       };
 
-      userDocRef.set({ isAssessmentActivityCreated: true }, { merge: true });
+      userDocRef.set({ shouldSeeAssesssmentCompletionCelebration: false }, { merge: true });
 
       userDocRef
         .collection('activityLogEntries')
@@ -331,7 +329,7 @@ export default function Dashboard(props) {
           });
         });
     }
-  }, [userDocRef, showAssessmentComplete]);
+  }, [userDocRef, user.shouldSeeAssesssmentCompletionCelebration]);
 
   return (
     <div className={classes.root}>
