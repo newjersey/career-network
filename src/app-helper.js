@@ -34,6 +34,25 @@ export function mostRecent(snapshot) {
 }
 
 /**
+ * Given a task, return any disposition events against its actions.
+ * Returns action disposition events that ocurred after the last time this task was completed;
+ * kind of ugly, but supports the ability to complete the same task multiple times.
+ */
+export function getActionDispositionEvents(
+  task,
+  allTaskDispositionEvents,
+  allActionDispositionEvents
+) {
+  const lastCompleted = mostRecent(
+    allTaskDispositionEvents.filter(
+      event => event.data().taskId === task.id && event.data().type === 'done'
+    )
+  );
+
+  return allActionDispositionEvents.filter(event => timestampSeconds(event) > lastCompleted);
+}
+
+/**
  * Returns whether or not the current disposition of a given
  * dispositionable object is 'done' given an array of disposition events
  * and an ID key with which to match the dispositionable to these events.

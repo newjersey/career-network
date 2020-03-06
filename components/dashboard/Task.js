@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import { mostRecent, timestampSeconds } from '../../src/app-helper';
+import { getActionDispositionEvents } from '../../src/app-helper';
 import { useAuth } from '../Auth';
 import ActionList from './ActionList';
 import AirtablePropTypes from '../Airtable/PropTypes';
@@ -107,17 +107,11 @@ export default function Task(props) {
     });
   }
 
-  // Returns action disposition events that ocurred after the last time this task was completed.
-  // Kind of ugly, but supports the ability to complete the same task multiple times.
-  function getActionDispositionEvents() {
-    const lastCompleted = mostRecent(
-      allTaskDispositionEvents.filter(
-        event => event.data().taskId === task.id && event.data().type === 'done'
-      )
-    );
-
-    return allActionDispositionEvents.filter(event => timestampSeconds(event) > lastCompleted);
-  }
+  const actionDispositionEvents = getActionDispositionEvents(
+    task,
+    allTaskDispositionEvents,
+    allActionDispositionEvents
+  );
 
   return (
     <Card
@@ -176,7 +170,7 @@ export default function Task(props) {
             How?
           </Typography>
           <ActionList
-            actionDispositionEvents={getActionDispositionEvents()}
+            actionDispositionEvents={actionDispositionEvents}
             onAllDone={onAllActionsDone}
             taskTitle={task.fields.Title}
             {...restProps}
