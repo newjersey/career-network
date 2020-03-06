@@ -21,6 +21,9 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 500,
     marginBottom: theme.spacing(2),
   },
+  footerText: {
+    marginTop: theme.spacing(2),
+  },
 }));
 
 export default function QuestionGroup(props) {
@@ -74,6 +77,12 @@ export default function QuestionGroup(props) {
             />
           ))}
         </FormGroup>
+
+        {questionGroup.fields['Footer Text'] && (
+          <Typography variant="body2" className={classes.footerText}>
+            {questionGroup.fields['Footer Text']}
+          </Typography>
+        )}
       </FormControl>
     </div>
   );
