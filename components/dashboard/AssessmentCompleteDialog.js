@@ -22,6 +22,8 @@ const useStyles = makeStyles(theme => ({
   },
   link: {
     textDecoration: 'underline',
+    fontWeight: 'bold',
+    fontSize: '1em',
   },
 }));
 
@@ -29,6 +31,12 @@ const MAX_WIDTH = 'sm';
 
 function AssessmentCompleteDialog({ show, onClose, onClick }) {
   const classes = useStyles();
+
+  const handleClickOpen = () => {
+    onClose();
+    // TODO: set the correct tourId
+    // window.Intercom('startTour', tourId);
+  };
 
   return (
     <Dialog
@@ -77,7 +85,7 @@ function AssessmentCompleteDialog({ show, onClose, onClick }) {
               className={classes.link}
               component="button"
               variant="caption"
-              onClick={() => window.Intercom('startTour', 74684)}
+              onClick={handleClickOpen}
             >
               Take The Product Tour
             </Link>
