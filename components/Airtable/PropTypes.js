@@ -117,6 +117,8 @@ const question = recordShape({
   'Response Options Control': questionResponseOptionsControl,
   Group: PropTypes.arrayOf(PropTypes.string),
   'Order Within Group': PropTypes.number,
+  Icon: PropTypes.string,
+  'Icon Color': PropTypes.string,
 });
 
 const questionGroup = recordShape({
