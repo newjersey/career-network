@@ -6,7 +6,7 @@ import React, { useCallback, useRef } from 'react';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import FirebasePropTypes from '../Firebase/PropTypes';
 import Task from './Task';
-import { isDone } from '../../src/app-helper';
+import { getActions, isDone } from '../../src/app-helper';
 
 const useStyles = makeStyles(() => ({
   confetti: {
@@ -30,10 +30,6 @@ const confettiConfig = {
   height: '16px',
   colors: ['#a864fd', '#29cdff', '#78ff44', '#ff718d', '#fdff6a'],
 };
-
-function getActions(task, allActions) {
-  return allActions.filter(action => task.fields.Actions.includes(action.id));
-}
 
 function getNextAction(task, allActions, allActionDispositionEvents) {
   return getActions(task, allActions).find(

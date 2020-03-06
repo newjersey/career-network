@@ -53,6 +53,13 @@ export function getActionDispositionEvents(
 }
 
 /**
+ * Given a task, return its actions.
+ */
+export function getActions(task, allActions) {
+  return allActions.filter(action => task.fields.Actions.includes(action.id));
+}
+
+/**
  * Returns whether or not the current disposition of a given
  * dispositionable object is 'done' given an array of disposition events
  * and an ID key with which to match the dispositionable to these events.
