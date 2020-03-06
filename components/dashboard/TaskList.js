@@ -6,7 +6,7 @@ import React, { useCallback, useRef } from 'react';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import FirebasePropTypes from '../Firebase/PropTypes';
 import Task from './Task';
-import { getActions, isDone } from '../../src/app-helper';
+import { getFirstIncompleteAction, getActions } from '../../src/app-helper';
 
 const useStyles = makeStyles(() => ({
   confetti: {
@@ -31,14 +31,15 @@ const confettiConfig = {
   colors: ['#a864fd', '#29cdff', '#78ff44', '#ff718d', '#fdff6a'],
 };
 
-function getNextAction(task, allActions, allActionDispositionEvents) {
-  return getActions(task, allActions).find(
-    action => !isDone(action, allActionDispositionEvents, 'actionId')
-  );
-}
-
 export default function TaskList(props) {
-  const { allActions, allActionDispositionEvents, tasks, showNextAction, ...restProps } = props;
+  const {
+    allActions,
+    allActionDispositionEvents,
+    tasks,
+    allTaskDispositionEvents,
+    showNextAction,
+    ...restProps
+  } = props;
   const classes = useStyles();
   const confettiRef = useRef();
 
@@ -63,9 +64,15 @@ export default function TaskList(props) {
             task={task}
             onDone={onTaskComplete}
             actions={getActions(task, allActions)}
+            allTaskDispositionEvents={allTaskDispositionEvents}
             actionTriggered={
               showNextAction && tasks.length > 0 && task.id === tasks[0].id
-                ? getNextAction(tasks[0], allActions, allActionDispositionEvents).id
+                ? getFirstIncompleteAction(
+                    tasks[0],
+                    allTaskDispositionEvents,
+                    allActions,
+                    allActionDispositionEvents
+                  ).id
                 : null
             }
             allActionDispositionEvents={allActionDispositionEvents}
@@ -82,6 +89,7 @@ TaskList.propTypes = {
   allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
   allActionDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
   tasks: AirtablePropTypes.tasks.isRequired,
+  allTaskDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
   showNextAction: PropTypes.bool,
   onActionClose: PropTypes.func,
   onActionComplete: PropTypes.func,

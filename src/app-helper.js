@@ -53,13 +53,6 @@ export function getActionDispositionEvents(
 }
 
 /**
- * Given a task, return its actions.
- */
-export function getActions(task, allActions) {
-  return allActions.filter(action => task.fields.Actions.includes(action.id));
-}
-
-/**
  * Returns whether or not the current disposition of a given
  * dispositionable object is 'done' given an array of disposition events
  * and an ID key with which to match the dispositionable to these events.
@@ -74,6 +67,35 @@ export function isDone(dispositionable, allDispositionEvents, idKey) {
     .sort((a, b) => timestampSeconds(b) - timestampSeconds(a))[0];
 
   return !!currentDispositionEvent && currentDispositionEvent.data().type === 'done';
+}
+
+/**
+ * Given a task, return its actions.
+ */
+export function getActions(task, allActions) {
+  return allActions.filter(action => task.fields.Actions.includes(action.id));
+}
+
+/**
+ * Given a task, returns its first action that has not been completed
+ * (the next action that the user should engage).
+ * NOTE: this does account for tasks that might be completable more than once,
+ * thanks to the logic in getActionDispositionEvents().
+ */
+export function getFirstIncompleteAction(
+  task,
+  allTaskDispositionEvents,
+  allActions,
+  allActionDispositionEvents
+) {
+  const actions = getActions(task, allActions);
+  const actionDispositionEvents = getActionDispositionEvents(
+    task,
+    allTaskDispositionEvents,
+    allActionDispositionEvents
+  );
+
+  return actions.find(action => !isDone(action, actionDispositionEvents, 'actionId'));
 }
 
 /**
