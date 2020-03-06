@@ -33,6 +33,7 @@ function Assessment() {
   const { user, userDocRef } = useAuth();
   const assessmentConfiguration = {
     assessmentSections: useRecords('Assessment Sections'),
+    allAssessmentSubsections: useRecords('Assessment Subsections'),
     allAssessmentEntries: useRecords('Assessment Entries'),
     allQuestions: useRecords('Questions'),
     allQuestionGroups: useRecords('Question Groups'),

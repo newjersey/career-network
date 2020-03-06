@@ -77,13 +77,23 @@ const assessmentSection = recordShape({
   'Short Name': PropTypes.string.isRequired,
   Description: PropTypes.string,
   Order: PropTypes.number.isRequired,
+  'Assessment Subsections': PropTypes.arrayOf(PropTypes.string).isRequired,
+});
+
+const assessmentSubsection = recordShape({
+  'Assessment Section': PropTypes.arrayOf(PropTypes.string).isRequired,
+  Order: PropTypes.number.isRequired,
+  Title: PropTypes.string,
+  Description: PropTypes.string,
+  Icon: PropTypes.string,
+  'Icon Color': PropTypes.string,
   'Assessment Entries': PropTypes.arrayOf(PropTypes.string).isRequired,
 });
 
 const assessmentEntry = recordShape({
   Name: PropTypes.string.isRequired,
-  'Assessment Section': PropTypes.arrayOf(PropTypes.string).isRequired,
-  'Order Within Section': PropTypes.number.isRequired,
+  'Assessment Subsection': PropTypes.arrayOf(PropTypes.string).isRequired,
+  Order: PropTypes.number.isRequired, // CHANGED
   Question: PropTypes.arrayOf(PropTypes.string),
   'Question Group': PropTypes.arrayOf(PropTypes.string),
   'Show If Question': PropTypes.arrayOf(PropTypes.string),
@@ -186,6 +196,8 @@ export default {
   assessmentEntries: PropTypes.arrayOf(assessmentEntry),
   assessmentSection,
   assessmentSections: PropTypes.arrayOf(assessmentSection),
+  assessmentSubsection,
+  assessmentSubsections: PropTypes.arrayOf(assessmentSubsection),
   condition,
   conditions: PropTypes.arrayOf(condition),
   predicate,
