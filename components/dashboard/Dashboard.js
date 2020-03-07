@@ -278,8 +278,7 @@ export default function Dashboard(props) {
   const isSentimentClosedToday =
     user.lastSentimentCloseTimestamp && isToday(user.lastSentimentCloseTimestamp.toDate());
 
-  const showSentiment =
-    !isSentimentLoggedToday || (isSentimentLoggedToday && !isSentimentClosedToday);
+  const showSentiment = !isSentimentLoggedToday || !isSentimentClosedToday;
 
   const onRecordSentiment = sentiment => {
     const lastSentiment = {
