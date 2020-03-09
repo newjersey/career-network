@@ -13,7 +13,6 @@ import Typography from '@material-ui/core/Typography';
 
 import { isDone, mostRecent } from '../../src/app-helper';
 import { useAuth } from '../Auth';
-import ActivityCategoryTable from '../history/ActivityCategoryTable';
 import ActivityInputDialog from '../activityInput/ActivityInputDialog';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import BackgroundHeader from '../BackgroundHeader';
@@ -372,30 +371,9 @@ export default function Dashboard(props) {
               {...restProps}
             />
           </Box>
-          <Flags
-            authorizedFlags={['employmentOutlook']}
-            renderOn={() => (
-              <Box className={classes.gridL} position="relative">
-                <EmploymentOutlookLauchpad />
-              </Box>
-            )}
-            renderOff={() => (
-              <Box className={classes.gridL}>
-                <Card variant="outlined">
-                  <CardHeader
-                    title="Confidence Level"
-                    titleTypographyProps={{ component: 'h2', variant: 'h6' }}
-                  />
-
-                  <ActivityCategoryTable
-                    allActivityLogEntries={allActivityLogEntries}
-                    subsetActivityLogEntries={confidentActivityLogEntries}
-                    label="Feeling Confident"
-                  />
-                </Card>
-              </Box>
-            )}
-          />
+          <Box className={classes.gridL} position="relative">
+            <EmploymentOutlookLauchpad />
+          </Box>
           <Box className={classes.gridR}>
             <Card variant="outlined">
               <CardHeader
