@@ -33,10 +33,10 @@ const FORM_ELEMENT_MARGINS = [1, 0];
 const useActivityDialogStyles = makeStyles(theme => ({
   formControl: {
     width: '100%',
-    margin: theme.spacing(...FORM_ELEMENT_MARGINS),
+    margin: theme.spacing(1, 0, 0, 0),
   },
   textField: {
-    margin: theme.spacing(...FORM_ELEMENT_MARGINS),
+    margin: theme.spacing(1, 0, 0, 0),
   },
   toggleButton: {
     marginTop: theme.spacing(2),
