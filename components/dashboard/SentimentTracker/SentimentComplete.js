@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function SentimentComplete(props) {
   const classes = useStyles();
-  const { onClose, messages, onClick } = props;
+  const { messages, onClose, onPostSubmissionButtonClicked } = props;
   const [shuffledMessages] = useState(shuffle(messages));
 
   return (
@@ -59,7 +59,12 @@ export default function SentimentComplete(props) {
           <CloseIcon />
         </IconButton>
         <Grid item xs={12} sm={12} md={3} style={{ display: 'flex', justifyContent: 'center' }}>
-          <Button size="large" variant="contained" onClick={onClick} color="primary">
+          <Button
+            size="large"
+            variant="contained"
+            onClick={onPostSubmissionButtonClicked}
+            color="primary"
+          >
             Start Goal
           </Button>
         </Grid>
@@ -70,6 +75,6 @@ export default function SentimentComplete(props) {
 
 SentimentComplete.propTypes = {
   onClose: PropTypes.func.isRequired,
+  onPostSubmissionButtonClicked: PropTypes.func.isRequired,
   messages: PropTypes.arrayOf(PropTypes.string).isRequired,
-  onClick: PropTypes.func.isRequired,
 };

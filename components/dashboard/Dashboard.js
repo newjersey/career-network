@@ -1,6 +1,6 @@
+import { Flags } from 'react-feature-flags';
 import { isToday } from 'date-fns';
 import { makeStyles } from '@material-ui/styles';
-import { Flags } from 'react-feature-flags';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -8,10 +8,11 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import PropTypes from 'prop-types';
+import PubSub from 'pubsub-js';
 import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import { isDone, mostRecent } from '../../src/app-helper';
+import { getFirstIncompleteAction, isDone, mostRecent } from '../../src/app-helper';
 import { useAuth } from '../Auth';
 import ActivityCategoryTable from '../history/ActivityCategoryTable';
 import ActivityInputDialog from '../activityInput/ActivityInputDialog';
@@ -272,7 +273,6 @@ export default function Dashboard(props) {
   const tasks = getTasks(props, TASK_COUNT_LIMIT);
   const doneTaskCount = allTaskDispositionEvents.length;
   const [activeDialog, setActiveDialog] = useState();
-  const [showNextAction, setShowNextAction] = useState(false);
   const isSentimentLoggedToday =
     user.lastSentimentTimestamp && isToday(user.lastSentimentTimestamp.toDate());
   const isSentimentClosedToday =
@@ -307,12 +307,22 @@ export default function Dashboard(props) {
     userDocRef.set({ lastSentiment }, { merge: true });
   };
 
-  const onPromptAction = () => {
-    setShowNextAction(true);
+  const handleSentimentPostSubmissionButtonClicked = () => {
+    const firstIncompleteAction = getFirstIncompleteAction(
+      tasks[0],
+      allTaskDispositionEvents,
+      allActions,
+      allActionDispositionEvents
+    );
+
+    if (!firstIncompleteAction) {
+      throw new Error(`Unable to get first incomplete action for task ${tasks[0].id}`);
+    }
+
+    PubSub.publish('SHOW_ACTION_BY_ID', firstIncompleteAction.id);
   };
 
   const handleActionComplete = () => {
-    setShowNextAction(false);
     onCloseSentiment();
   };
 
@@ -346,9 +356,9 @@ export default function Dashboard(props) {
           <SentimentTracker
             onRecord={onRecordSentiment}
             onClose={onCloseSentiment}
+            onPostSubmissionButtonClicked={handleSentimentPostSubmissionButtonClicked}
             lastRecordedValue={user.lastSentimentLabel ? user.lastSentimentLabel : ''}
             isComplete={isSentimentLoggedToday}
-            onClick={onPromptAction}
           />
         </ScaffoldContainer>
       )}
@@ -380,8 +390,6 @@ export default function Dashboard(props) {
               allActions={allActions}
               allActionDispositionEvents={allActionDispositionEvents}
               allTaskDispositionEvents={allTaskDispositionEvents}
-              showNextAction={showNextAction}
-              onActionClose={() => setShowNextAction(false)}
               onActionComplete={handleActionComplete}
               {...restProps}
             />

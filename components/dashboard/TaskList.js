@@ -6,7 +6,7 @@ import React, { useCallback, useRef } from 'react';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import FirebasePropTypes from '../Firebase/PropTypes';
 import Task from './Task';
-import { getFirstIncompleteAction, getActions } from '../../src/app-helper';
+import { getActions } from '../../src/app-helper';
 
 const useStyles = makeStyles(() => ({
   confetti: {
@@ -32,14 +32,7 @@ const confettiConfig = {
 };
 
 export default function TaskList(props) {
-  const {
-    allActions,
-    allActionDispositionEvents,
-    tasks,
-    allTaskDispositionEvents,
-    showNextAction,
-    ...restProps
-  } = props;
+  const { allActions, tasks, ...restProps } = props;
   const classes = useStyles();
   const confettiRef = useRef();
 
@@ -64,18 +57,6 @@ export default function TaskList(props) {
             task={task}
             onDone={onTaskComplete}
             actions={getActions(task, allActions)}
-            allTaskDispositionEvents={allTaskDispositionEvents}
-            actionTriggered={
-              showNextAction && tasks.length > 0 && task.id === tasks[0].id
-                ? getFirstIncompleteAction(
-                    tasks[0],
-                    allTaskDispositionEvents,
-                    allActions,
-                    allActionDispositionEvents
-                  ).id
-                : null
-            }
-            allActionDispositionEvents={allActionDispositionEvents}
             {...restProps}
           />
         ))}
@@ -90,13 +71,9 @@ TaskList.propTypes = {
   allActionDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
   tasks: AirtablePropTypes.tasks.isRequired,
   allTaskDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
-  showNextAction: PropTypes.bool,
-  onActionClose: PropTypes.func,
   onActionComplete: PropTypes.func,
 };
 
 TaskList.defaultProps = {
-  showNextAction: false,
-  onActionClose: null,
   onActionComplete: null,
 };

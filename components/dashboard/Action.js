@@ -1,13 +1,14 @@
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import Box from '@material-ui/core/Box';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Linkify from 'linkifyjs/react';
 import PropTypes from 'prop-types';
+import PubSub from 'pubsub-js';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import React, { useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -28,11 +29,9 @@ function Action(props) {
     onDone,
     fullScreen,
     taskTitle,
-    triggered,
-    onActionClose,
     onActionComplete,
   } = props;
-  const [open, setOpen] = React.useState(triggered || false);
+  const [open, setOpen] = React.useState(false);
   const qualityChecks = allQualityChecks.filter(
     qc => action.fields['Action ID'] === qc.fields['Action ID'][0]
   );
@@ -43,6 +42,16 @@ function Action(props) {
 
   const [claimedComplete, setClaimedComplete] = React.useState(false);
   const useIndicative = claimedComplete || isDone;
+
+  useEffect(() => {
+    const token = PubSub.subscribe('SHOW_ACTION_BY_ID', (msg, actionId) => {
+      if (actionId === action.id) {
+        setOpen(true);
+      }
+    });
+
+    return () => PubSub.unsubscribe(token);
+  }, [action.id]);
 
   function disposition(type) {
     const data = {
@@ -65,7 +74,6 @@ function Action(props) {
 
   function handleClose() {
     setOpen(false);
-    onActionClose();
   }
 
   function handleDone() {
@@ -84,10 +92,6 @@ function Action(props) {
     newVerifications[i] = event.target.checked;
     setVerifications(newVerifications);
   }
-
-  useEffect(() => {
-    setOpen(triggered || false);
-  }, [triggered]);
 
   return (
     <>
@@ -228,14 +232,10 @@ Action.propTypes = {
   isDone: PropTypes.bool.isRequired,
   onDone: PropTypes.func.isRequired,
   taskTitle: PropTypes.string.isRequired,
-  triggered: PropTypes.bool,
-  onActionClose: PropTypes.func,
   onActionComplete: PropTypes.func,
 };
 
 Action.defaultProps = {
-  triggered: false,
-  onActionClose: null,
   onActionComplete: null,
 };
 
