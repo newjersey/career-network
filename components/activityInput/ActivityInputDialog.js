@@ -376,7 +376,6 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
               </InputLabel>
               <Grid item xs={12} className={classes.toggleButton}>
                 <ToggleButton
-                  className={classes.toggleButton}
                   options={DIFFICULTY_LEVELS}
                   value={String(formValues.difficultyLevel)}
                   handleChange={e => setFormValues({ ...formValues, difficultyLevel: e })}
@@ -389,15 +388,7 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
 
             <FormControl className={classes.formControl}>
               <InputLabel shrink>This activity made me feel… (select all that apply)</InputLabel>
-              <Grid
-                className={classes.toggleButton}
-                container
-                xs={12}
-                item
-                justify="space-evenly"
-                alignItems="center"
-                direction="row"
-              >
+              <Grid item xs={12} className={classes.toggleButton}>
                 <ToggleButton
                   options={shuffledFeelings}
                   multiSelect
