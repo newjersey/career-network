@@ -91,7 +91,7 @@ resource "google_dns_record_set" "txt" {
 
   rrdatas = [
     "\"firebase=nj-career-network\"",
-    "\"v=spf1 include:_spf.google.com include:_spf.firebasemail.com ~all\"",
+    "\"v=spf1 include:_spf.firebasemail.com ~all\"",
     "\"google-site-verification=HOyiY3puLWr3BvvAZ_CJIySdMjMe4kEWcPd2utuKnb4\"",
     "\"facebook-domain-verification=ry82kl73hzimzzvs5vbaavcrpbkzxs\"",
   ]
@@ -103,7 +103,7 @@ resource "google_dns_record_set" "txt__dmarc" {
   type         = "TXT"
   ttl          = 3600
 
-  rrdatas = ["\"v=DMARC1; p=none; rua=mailto:njcn-eng@innovatenj.org\""]
+  rrdatas = ["\"v=DMARC1; p=none; rua=mailto:dmarc@njcareers.org\""]
 }
 
 resource "google_dns_record_set" "txt_google__domainkey" {
