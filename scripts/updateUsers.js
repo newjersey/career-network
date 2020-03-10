@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const admin = require('firebase-admin');
 
 const firebaseConfig = {
