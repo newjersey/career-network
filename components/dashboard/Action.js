@@ -1,15 +1,16 @@
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import Box from '@material-ui/core/Box';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Linkify from 'linkifyjs/react';
 import PropTypes from 'prop-types';
+import PubSub from 'pubsub-js';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 
@@ -20,8 +21,17 @@ import AirtablePropTypes from '../Airtable/PropTypes';
 // eslint-disable-next-line sonarjs/cognitive-complexity
 function Action(props) {
   const { userDocRef } = useAuth();
+  const {
+    action,
+    allQualityChecks,
+    disabled,
+    isDone,
+    onDone,
+    fullScreen,
+    taskTitle,
+    onActionComplete,
+  } = props;
   const [open, setOpen] = React.useState(false);
-  const { action, allQualityChecks, disabled, isDone, onDone, fullScreen } = props;
   const qualityChecks = allQualityChecks.filter(
     qc => action.fields['Action ID'] === qc.fields['Action ID'][0]
   );
@@ -32,6 +42,16 @@ function Action(props) {
 
   const [claimedComplete, setClaimedComplete] = React.useState(false);
   const useIndicative = claimedComplete || isDone;
+
+  useEffect(() => {
+    const token = PubSub.subscribe('SHOW_ACTION_BY_ID', (msg, actionId) => {
+      if (actionId === action.id) {
+        setOpen(true);
+      }
+    });
+
+    return () => PubSub.unsubscribe(token);
+  }, [action.id]);
 
   function disposition(type) {
     const data = {
@@ -58,6 +78,7 @@ function Action(props) {
 
   function handleDone() {
     handleClose();
+    onActionComplete();
     disposition('done');
     onDone();
   }
@@ -128,7 +149,10 @@ function Action(props) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{action.fields.Title}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">
+          <Typography variant="body2">{taskTitle}</Typography>
+          {action.fields.Title}
+        </DialogTitle>
         <DialogContent>
           <Typography>
             <Linkify
@@ -207,6 +231,12 @@ Action.propTypes = {
   disabled: PropTypes.bool.isRequired,
   isDone: PropTypes.bool.isRequired,
   onDone: PropTypes.func.isRequired,
+  taskTitle: PropTypes.string.isRequired,
+  onActionComplete: PropTypes.func,
+};
+
+Action.defaultProps = {
+  onActionComplete: null,
 };
 
 export default withMobileDialog()(Action);
