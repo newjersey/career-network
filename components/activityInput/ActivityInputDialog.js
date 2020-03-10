@@ -28,8 +28,6 @@ import SubmitSuccess from './SubmitSuccess';
 import ToggleButton from '../ToggleButton';
 import validate from './ActivityInputValidationRules';
 
-const FORM_ELEMENT_MARGINS = [1, 0];
-
 const useActivityDialogStyles = makeStyles(theme => ({
   formControl: {
     width: '100%',
@@ -174,10 +172,10 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
     overrides: {
       MuiFormControl: {
         marginNormal: {
-          marginTop: theme.spacing(FORM_ELEMENT_MARGINS[0]),
-          marginRight: theme.spacing(FORM_ELEMENT_MARGINS[1]),
-          marginBottom: theme.spacing(FORM_ELEMENT_MARGINS[0]),
-          marginLeft: theme.spacing(FORM_ELEMENT_MARGINS[1]),
+          marginTop: theme.spacing(1),
+          marginRight: theme.spacing(0),
+          marginBottom: theme.spacing(1),
+          marginLeft: theme.spacing(0),
         },
       },
     },
