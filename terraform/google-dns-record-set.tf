@@ -103,7 +103,7 @@ resource "google_dns_record_set" "txt__dmarc" {
   type         = "TXT"
   ttl          = 3600
 
-  rrdatas = ["\"v=DMARC1; p=none; rua=mailto:dmarc@njcareers.org\""]
+  rrdatas = ["\"v=DMARC1; p=none; rua=mailto:dmarc@njcareers.org; ruf=mailto:ta5xh1sm@fr.dmarcian.com;\""]
 }
 
 resource "google_dns_record_set" "txt_google__domainkey" {
