@@ -1,10 +1,12 @@
 import { confetti } from 'dom-confetti';
 import { makeStyles } from '@material-ui/styles';
+import PropTypes from 'prop-types';
 import React, { useCallback, useRef } from 'react';
 
 import AirtablePropTypes from '../Airtable/PropTypes';
 import FirebasePropTypes from '../Firebase/PropTypes';
 import Task from './Task';
+import { getActions } from '../../src/app-helper';
 
 const useStyles = makeStyles(() => ({
   confetti: {
@@ -28,10 +30,6 @@ const confettiConfig = {
   height: '16px',
   colors: ['#a864fd', '#29cdff', '#78ff44', '#ff718d', '#fdff6a'],
 };
-
-function getActions(task, allActions) {
-  return allActions.filter(action => task.fields.Actions.includes(action.id));
-}
 
 export default function TaskList(props) {
   const { allActions, tasks, ...restProps } = props;
@@ -72,4 +70,10 @@ TaskList.propTypes = {
   allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
   allActionDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
   tasks: AirtablePropTypes.tasks.isRequired,
+  allTaskDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
+  onActionComplete: PropTypes.func,
+};
+
+TaskList.defaultProps = {
+  onActionComplete: null,
 };

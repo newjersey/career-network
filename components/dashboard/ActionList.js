@@ -39,4 +39,10 @@ ActionList.propTypes = {
   actionDispositionEvents: FirebasePropTypes.querySnapshot.isRequired,
   allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
   onAllDone: PropTypes.func.isRequired,
+  taskTitle: PropTypes.string.isRequired,
+  onActionComplete: PropTypes.func,
+};
+
+ActionList.defaultProps = {
+  onActionComplete: null,
 };
