@@ -131,6 +131,7 @@ export default function AssessmentSectionList(props) {
 
 AssessmentSectionList.propTypes = {
   assessmentSections: AirtablePropTypes.assessmentSections.isRequired,
+  allAssessmentSubsections: AirtablePropTypes.assessmentSubsections.isRequired,
   allAssessmentEntries: AirtablePropTypes.assessmentEntries.isRequired,
   allQuestions: AirtablePropTypes.questions.isRequired,
   allQuestionGroups: AirtablePropTypes.questionGroups.isRequired,

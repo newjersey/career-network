@@ -1,6 +1,5 @@
 import { isToday } from 'date-fns';
 import { makeStyles } from '@material-ui/styles';
-import { Flags } from 'react-feature-flags';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -9,12 +8,12 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import firebase from 'firebase/app';
 import PropTypes from 'prop-types';
+import PubSub from 'pubsub-js';
 import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import { isDone, mostRecent } from '../../src/app-helper';
+import { getFirstIncompleteAction, isDone, mostRecent } from '../../src/app-helper';
 import { useAuth } from '../Auth';
-import ActivityCategoryTable from '../history/ActivityCategoryTable';
 import ActivityInputDialog, { ACTIVITY_TYPES } from '../activityInput/ActivityInputDialog';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import AssessmentCompleteDialog from './AssessmentCompleteDialog';
@@ -283,12 +282,50 @@ export default function Dashboard(props) {
 
   const showSentiment = !isSentimentLoggedToday || !isSentimentClosedToday;
 
-  const onRecordSentiment = () => {
-    userDocRef.set({ lastSentimentTimestamp: new Date() }, { merge: true });
+  const onRecordSentiment = sentiment => {
+    const lastSentiment = {
+      label: sentiment.label,
+      timestamp: new Date(),
+      closeTimestamp: null,
+    };
+    userDocRef.set({ lastSentiment }, { merge: true });
+
+    const data = {
+      timestamp: new Date(),
+      ...sentiment,
+    };
+    userDocRef.collection('sentimentEvents').add(data);
+    window.Intercom('trackEvent', 'logged-sentiment', sentiment);
+    window.Intercom('update', {
+      'last-mood': sentiment.emoji,
+      'last-sentiment': sentiment.label,
+    });
   };
 
-  const onSentimentClose = () => {
-    userDocRef.set({ lastSentimentCloseTimestamp: new Date() }, { merge: true });
+  const onCloseSentiment = () => {
+    const lastSentiment = {
+      closeTimestamp: new Date(),
+    };
+    userDocRef.set({ lastSentiment }, { merge: true });
+  };
+
+  const handleSentimentPostSubmissionButtonClicked = () => {
+    const firstIncompleteAction = getFirstIncompleteAction(
+      tasks[0],
+      allTaskDispositionEvents,
+      allActions,
+      allActionDispositionEvents
+    );
+
+    if (!firstIncompleteAction) {
+      throw new Error(`Unable to get first incomplete action for task ${tasks[0].id}`);
+    }
+
+    PubSub.publish('SHOW_ACTION_BY_ID', firstIncompleteAction.id);
+  };
+
+  const handleActionComplete = () => {
+    onCloseSentiment();
   };
 
   useEffect(() => {
@@ -356,36 +393,18 @@ export default function Dashboard(props) {
           </Typography>
         </ScaffoldContainer>
       </BackgroundHeader>
-      <Flags
-        authorizedFlags={['completeSentiment']}
-        renderOn={() => (
-          <>
-            {showSentiment && (
-              <ScaffoldContainer className={classes.container}>
-                <SentimentTracker
-                  onRecord={onRecordSentiment}
-                  onClose={onSentimentClose}
-                  user={user.firstName}
-                  isComplete={isSentimentLoggedToday}
-                />
-              </ScaffoldContainer>
-            )}
-          </>
-        )}
-        renderOff={() => (
-          <>
-            {!isSentimentLoggedToday && (
-              <ScaffoldContainer className={classes.container}>
-                <SentimentTracker
-                  onRecord={onRecordSentiment}
-                  onClose={onSentimentClose}
-                  user={user.firstName}
-                />
-              </ScaffoldContainer>
-            )}
-          </>
-        )}
-      />
+
+      {showSentiment && (
+        <ScaffoldContainer className={classes.container}>
+          <SentimentTracker
+            onRecord={onRecordSentiment}
+            onClose={onCloseSentiment}
+            onPostSubmissionButtonClicked={handleSentimentPostSubmissionButtonClicked}
+            lastRecordedValue={user.lastSentimentLabel ? user.lastSentimentLabel : ''}
+            isComplete={isSentimentLoggedToday}
+          />
+        </ScaffoldContainer>
+      )}
 
       <ScaffoldContainer>
         <Box className={classes.grid}>
@@ -402,8 +421,7 @@ export default function Dashboard(props) {
               variant="contained"
               size="large"
               color="primary"
-              // onClick={() => setActiveDialog(DIALOGS.ASSESSMENT_COMPLETE)}
-              onClick={() => window.Intercom('startTour', 74684)}
+              onClick={() => setActiveDialog(DIALOGS.ACTIVITY_INPUT)}
               data-intercom="log-activity-button"
             >
               Log Activity
@@ -415,33 +433,13 @@ export default function Dashboard(props) {
               allActions={allActions}
               allActionDispositionEvents={allActionDispositionEvents}
               allTaskDispositionEvents={allTaskDispositionEvents}
+              onActionComplete={handleActionComplete}
               {...restProps}
             />
           </Box>
-          <Flags
-            authorizedFlags={['employmentOutlook']}
-            renderOn={() => (
-              <Box className={classes.gridL} position="relative">
-                <EmploymentOutlookLauchpad />
-              </Box>
-            )}
-            renderOff={() => (
-              <Box className={classes.gridL}>
-                <Card variant="outlined">
-                  <CardHeader
-                    title="Confidence Level"
-                    titleTypographyProps={{ component: 'h2', variant: 'h6' }}
-                  />
-
-                  <ActivityCategoryTable
-                    allActivityLogEntries={allActivityLogEntries}
-                    subsetActivityLogEntries={confidentActivityLogEntries}
-                    label="Feeling Confident"
-                  />
-                </Card>
-              </Box>
-            )}
-          />
+          <Box className={classes.gridL} position="relative">
+            <EmploymentOutlookLauchpad />
+          </Box>
           <Box className={classes.gridR}>
             <Card variant="outlined">
               <CardHeader
