@@ -28,10 +28,6 @@ const featureFlags = [
   // Feature flag introduced with https://trello.com/c/FLzzfmsI/121, should be
   // complete by end of "Release 7"
   {
-    name: 'employmentOutlook',
-    isActive: true,
-  },
-  {
     name: 'completeSentiment',
     isActive: false,
   },
