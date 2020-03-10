@@ -7,6 +7,7 @@ const defaultView = 'API';
 const tableNames = [
   'Actions',
   'Assessment Entries',
+  'Assessment Subsections',
   'Assessment Sections',
   'Conditions',
   'Predicates',

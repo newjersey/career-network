@@ -75,14 +75,25 @@ const questionResponseOptionsControl = PropTypes.oneOf(['Dropdown', 'Radios']);
 const assessmentSection = recordShape({
   Name: PropTypes.string.isRequired,
   'Short Name': PropTypes.string.isRequired,
+  Description: PropTypes.string,
   Order: PropTypes.number.isRequired,
+  'Assessment Subsections': PropTypes.arrayOf(PropTypes.string).isRequired,
+});
+
+const assessmentSubsection = recordShape({
+  'Assessment Section': PropTypes.arrayOf(PropTypes.string).isRequired,
+  Order: PropTypes.number.isRequired,
+  Title: PropTypes.string,
+  Description: PropTypes.string,
+  Icon: PropTypes.string,
+  'Icon Color': PropTypes.string,
   'Assessment Entries': PropTypes.arrayOf(PropTypes.string).isRequired,
 });
 
 const assessmentEntry = recordShape({
   Name: PropTypes.string.isRequired,
-  'Assessment Section': PropTypes.arrayOf(PropTypes.string).isRequired,
-  'Order Within Section': PropTypes.number.isRequired,
+  'Assessment Subsection': PropTypes.arrayOf(PropTypes.string).isRequired,
+  Order: PropTypes.number.isRequired, // CHANGED
   Question: PropTypes.arrayOf(PropTypes.string),
   'Question Group': PropTypes.arrayOf(PropTypes.string),
   'Show If Question': PropTypes.arrayOf(PropTypes.string),
@@ -106,11 +117,14 @@ const question = recordShape({
   'Response Options Control': questionResponseOptionsControl,
   Group: PropTypes.arrayOf(PropTypes.string),
   'Order Within Group': PropTypes.number,
+  Icon: PropTypes.string,
+  'Icon Color': PropTypes.string,
 });
 
 const questionGroup = recordShape({
   Name: PropTypes.string.isRequired,
   Label: PropTypes.string.isRequired,
+  'Footer Text': PropTypes.string,
   Questions: PropTypes.arrayOf(PropTypes.string).isRequired,
   Slug: PropTypes.string,
 });
@@ -184,6 +198,8 @@ export default {
   assessmentEntries: PropTypes.arrayOf(assessmentEntry),
   assessmentSection,
   assessmentSections: PropTypes.arrayOf(assessmentSection),
+  assessmentSubsection,
+  assessmentSubsections: PropTypes.arrayOf(assessmentSubsection),
   condition,
   conditions: PropTypes.arrayOf(condition),
   predicate,
