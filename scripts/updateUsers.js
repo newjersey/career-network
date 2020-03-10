@@ -16,6 +16,21 @@ const firebaseConfig = {
   ),
 };
 
+// const firebaseConfig = {
+//   apiKey: 'AIzaSyDx21FkVqjXshORafAbzPvv2kACmXhATok',
+//   authDomain: 'preview.njcareers.org',
+//   databaseURL: 'https://nj-career-network-ppe.firebaseio.com',
+//   projectId: 'nj-career-network-ppe',
+//   storageBucket: '',
+//   messagingSenderId: '641946008142',
+//   appId: '1:641946008142:web:c6d623bc79bc899e',
+//   credential: admin.credential.cert(
+//     // Generate from Firebase console --> Settings --> Service accounts
+//     // eslint-disable-next-line global-require
+//     require('../.auth/nj-career-network-ppe-firebase-adminsdk-7erlw-3d51015d3e.json')
+//   ),
+// };
+
 // const projectId = 'nj-career-network-dev1';
 // const firebaseConfig = {
 //   authDomain: `${projectId}.firebaseapp.com`,
