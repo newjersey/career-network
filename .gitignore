@@ -5,6 +5,7 @@
 
 # misc
 .DS_Store
+.auth
 .appenv
 .env.local
 .env.development.local
