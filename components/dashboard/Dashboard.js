@@ -6,6 +6,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
+import firebase from 'firebase/app';
 import PropTypes from 'prop-types';
 import PubSub from 'pubsub-js';
 import React, { useEffect, useState } from 'react';
@@ -13,8 +14,9 @@ import Typography from '@material-ui/core/Typography';
 
 import { getFirstIncompleteAction, isDone, mostRecent } from '../../src/app-helper';
 import { useAuth } from '../Auth';
-import ActivityInputDialog from '../activityInput/ActivityInputDialog';
+import ActivityInputDialog, { ACTIVITY_TYPES } from '../activityInput/ActivityInputDialog';
 import AirtablePropTypes from '../Airtable/PropTypes';
+import AssessmentCompleteDialog from './AssessmentCompleteDialog';
 import BackgroundHeader from '../BackgroundHeader';
 import EmploymentOutlookLauchpad from './EmploymentOutlookLauchpad';
 import FirebasePropTypes from '../Firebase/PropTypes';
@@ -247,6 +249,7 @@ function getTasks(_props, limit) {
 const DIALOGS = {
   ACTIVITY_INPUT: 'ActivityInputDialog',
   UPCOMING_INTERVIEW: 'UpcomingInterviewDialog',
+  ASSESSMENT_COMPLETE: 'AssessmentCompleteDialog',
 };
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
@@ -271,6 +274,7 @@ export default function Dashboard(props) {
   const tasks = getTasks(props, TASK_COUNT_LIMIT);
   const doneTaskCount = allTaskDispositionEvents.length;
   const [activeDialog, setActiveDialog] = useState();
+
   const isSentimentLoggedToday =
     user.lastSentimentTimestamp && isToday(user.lastSentimentTimestamp.toDate());
   const isSentimentClosedToday =
@@ -328,6 +332,42 @@ export default function Dashboard(props) {
     window.Intercom('update', { 'tasks-completed': doneTaskCount });
   }, [doneTaskCount]);
 
+  useEffect(() => {
+    if (user.shouldSeeAssesssmentCompletionCelebration) {
+      setActiveDialog(DIALOGS.ASSESSMENT_COMPLETE);
+      const increment = firebase.firestore.FieldValue.increment(1);
+      const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+      const data = {
+        config: {
+          activityTypes: ACTIVITY_TYPES,
+        },
+        timestamp,
+        activityTypeValue: 'assessment-complete',
+        activityTypeLabel: 'Completed assessment',
+        briefDescription: 'Completed assessment',
+        dateCompleted: new Date(),
+      };
+      const stats = {
+        activityLogEntriesCount: increment,
+        activityLogEntriesLatestTimestamp: timestamp,
+      };
+
+      userDocRef.set({ shouldSeeAssesssmentCompletionCelebration: false }, { merge: true });
+
+      userDocRef
+        .collection('activityLogEntries')
+        .add(data)
+        .then(() => {
+          userDocRef.set({ stats }, { merge: true });
+          window.Intercom('update', { 'last-activity-logged': new Date() });
+          window.Intercom('trackEvent', 'logged-activity', {
+            type: data.activityTypeLabel,
+            description: data.briefDescription,
+          });
+        });
+    }
+  }, [userDocRef, user.shouldSeeAssesssmentCompletionCelebration]);
+
   return (
     <div className={classes.root}>
       <ActivityInputDialog
@@ -337,6 +377,11 @@ export default function Dashboard(props) {
       <UpcomingInterviewDialog
         show={activeDialog === DIALOGS.UPCOMING_INTERVIEW}
         onClose={() => setActiveDialog()}
+      />
+      <AssessmentCompleteDialog
+        show={activeDialog === DIALOGS.ASSESSMENT_COMPLETE}
+        onClose={() => setActiveDialog()}
+        onLogActivityButtonClick={() => setActiveDialog(DIALOGS.ACTIVITY_INPUT)}
       />
       <BackgroundHeader>
         <ScaffoldContainer>
@@ -400,7 +445,7 @@ export default function Dashboard(props) {
               <CardHeader
                 title={
                   <Typography component="h2" variant="h6" data-intercom="activity-title">
-                    Recent Progress
+                    Activity Log
                   </Typography>
                 }
                 disableTypography
