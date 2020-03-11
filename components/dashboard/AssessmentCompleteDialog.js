@@ -2,7 +2,6 @@ import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import Link from '@material-ui/core/Link';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -20,10 +19,10 @@ const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(2, 0, 2, 0),
   },
-  link: {
+  textButton: {
     textDecoration: 'underline',
+    textTransform: 'none',
     fontWeight: 'bold',
-    fontSize: '1em',
   },
 }));
 
@@ -80,15 +79,10 @@ function AssessmentCompleteDialog({ show, onClose, onLogActivityButtonClick }) {
             Log an Activity
           </Button>
           <div>
-            Want to learn more about NJCN? {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <Link
-              className={classes.link}
-              component="button"
-              variant="caption"
-              onClick={handleClickOpen}
-            >
+            Want to learn more about NJCN?{' '}
+            <Button className={classes.textButton} onClick={handleClickOpen} color="primary">
               Take The Product Tour
-            </Link>
+            </Button>
           </div>
         </Box>
       </DialogActions>
