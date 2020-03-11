@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 
 const MAX_WIDTH = 'sm';
 
-function AssessmentCompleteDialog({ show, onClose, onClick }) {
+function AssessmentCompleteDialog({ show, onClose, onLogActivityButtonClick }) {
   const classes = useStyles();
 
   const handleClickOpen = () => {
@@ -74,7 +74,7 @@ function AssessmentCompleteDialog({ show, onClose, onClick }) {
             className={classes.button}
             variant="contained"
             color="primary"
-            onClick={onClick}
+            onClick={onLogActivityButtonClick}
             fullWidth
           >
             Log an Activity
@@ -99,7 +99,7 @@ function AssessmentCompleteDialog({ show, onClose, onClick }) {
 AssessmentCompleteDialog.propTypes = {
   show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onLogActivityButtonClick: PropTypes.func.isRequired,
 };
 
 export default withMobileDialog()(AssessmentCompleteDialog);
