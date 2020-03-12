@@ -6,7 +6,6 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import firebase from 'firebase/app';
 import PropTypes from 'prop-types';
 import PubSub from 'pubsub-js';
 import React, { useEffect, useState } from 'react';
@@ -14,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 
 import { getFirstIncompleteAction, isDone, mostRecent } from '../../src/app-helper';
 import { useAuth } from '../Auth';
-import ActivityInputDialog, { ACTIVITY_TYPES } from '../activityInput/ActivityInputDialog';
+import ActivityInputDialog from '../activityInput/ActivityInputDialog';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import AssessmentCompleteDialog from './AssessmentCompleteDialog';
 import BackgroundHeader from '../BackgroundHeader';
@@ -334,39 +333,10 @@ export default function Dashboard(props) {
 
   useEffect(() => {
     if (user.shouldSeeAssesssmentCompletionCelebration) {
-      setActiveDialog(DIALOGS.ASSESSMENT_COMPLETE);
-      const increment = firebase.firestore.FieldValue.increment(1);
-      const timestamp = firebase.firestore.FieldValue.serverTimestamp();
-      const data = {
-        config: {
-          activityTypes: ACTIVITY_TYPES,
-        },
-        timestamp,
-        activityTypeValue: 'assessment-complete',
-        activityTypeLabel: 'Completed assessment',
-        briefDescription: 'Completed assessment',
-        dateCompleted: new Date(),
-      };
-      const stats = {
-        activityLogEntriesCount: increment,
-        activityLogEntriesLatestTimestamp: timestamp,
-      };
-
       userDocRef.set({ shouldSeeAssesssmentCompletionCelebration: false }, { merge: true });
-
-      userDocRef
-        .collection('activityLogEntries')
-        .add(data)
-        .then(() => {
-          userDocRef.set({ stats }, { merge: true });
-          window.Intercom('update', { 'last-activity-logged': new Date() });
-          window.Intercom('trackEvent', 'logged-activity', {
-            type: data.activityTypeLabel,
-            description: data.briefDescription,
-          });
-        });
+      setActiveDialog(DIALOGS.ASSESSMENT_COMPLETE);
     }
-  }, [userDocRef, user.shouldSeeAssesssmentCompletionCelebration]);
+  }, [user.shouldSeeAssesssmentCompletionCelebration, userDocRef]);
 
   return (
     <div className={classes.root}>

@@ -4,6 +4,7 @@ import Router from 'next/router';
 import Typography from '@material-ui/core/Typography';
 
 import { allPropsLoaded, englishList, fullyLoaded } from '../src/app-helper';
+import { logActivity } from '../components/activityInput/ActivityInputDialog';
 import { useAuth, withAuthRequired } from '../components/Auth';
 import { useRecords } from '../components/Airtable';
 import { useUserSubcollection } from '../components/Firebase';
@@ -63,6 +64,13 @@ function Assessment() {
 
   const handleComplete = () => {
     setIsFinished(true);
+
+    logActivity(userDocRef, {
+      activityTypeValue: 'assessment-complete',
+      activityTypeLabel: 'Completed assessment',
+      briefDescription: 'Completed assessment',
+      dateCompleted: new Date(),
+    });
 
     // save a complete copy of the exact configassessment configuration answered
     // (for a paper trail, and for using to display a read-only view of answers)

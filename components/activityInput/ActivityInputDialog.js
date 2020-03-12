@@ -160,6 +160,19 @@ const initialFormValues = {
   whyIFeelThisWay: '',
 };
 
+export async function logActivity(userDocRef, activityDetails) {
+  const data = {
+    config: {
+      activityTypes: ACTIVITY_TYPES,
+      feelings: FEELINGS,
+    },
+    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    ...activityDetails,
+  };
+
+  return userDocRef.collection('activityLogEntries').add(data);
+}
+
 // eslint-disable-next-line sonarjs/cognitive-complexity
 function ActivityInputDialog({ fullScreen, show, onClose }) {
   const classes = useActivityDialogStyles();
@@ -209,44 +222,32 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
   };
 
   useEffect(() => {
-    const submit = () => {
+    const submit = async () => {
       setAttemptSubmitting(false);
       setSubmitting(true);
-      const increment = firebase.firestore.FieldValue.increment(1);
-      const timestamp = firebase.firestore.FieldValue.serverTimestamp();
-      const data = {
-        config: {
-          activityTypes: ACTIVITY_TYPES,
-          feelings: FEELINGS,
-        },
-        timestamp,
-        ...formValues,
-      };
-      const stats = {
-        activityLogEntriesCount: increment,
-        activityLogEntriesLatestTimestamp: timestamp,
-      };
 
-      userDocRef
-        .collection('activityLogEntries')
-        .add(data)
-        .then(() => {
-          setSubmitting(false);
-          setSuccess(true);
-          userDocRef.set({ stats }, { merge: true });
-          window.Intercom('update', { 'last-activity-logged': new Date() });
-          window.Intercom('trackEvent', 'logged-activity', {
-            type: data.activityTypeLabel,
-            description: data.briefDescription,
-            difficulty: data.difficultyLevel,
-            feelings: data.activityFeeling.join(', '),
-            why_i_feel_this_way: data.whyIFeelThisWay,
-          });
-        })
-        .catch(err => {
-          setSubmitting(false);
-          setError(err.message);
-        });
+      try {
+        await logActivity(userDocRef, formValues);
+        setSuccess(true);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setSubmitting(false);
+      }
+
+      const stats = {
+        activityLogEntriesCount: firebase.firestore.FieldValue.increment(1),
+        activityLogEntriesLatestTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      };
+      userDocRef.set({ stats }, { merge: true });
+      window.Intercom('update', { 'last-activity-logged': new Date() });
+      window.Intercom('trackEvent', 'logged-activity', {
+        type: formValues.activityTypeLabel,
+        description: formValues.briefDescription,
+        difficulty: formValues.difficultyLevel,
+        feelings: formValues.activityFeeling.join(', '),
+        why_i_feel_this_way: formValues.whyIFeelThisWay,
+      });
     };
 
     if (Object.keys(formErrors).length === 0 && attemptSubmitting) {
