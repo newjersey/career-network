@@ -1,3 +1,4 @@
+import '@firebase/analytics';
 import 'core-js/stable';
 import { FlagsProvider } from 'react-feature-flags';
 import { ThemeProvider } from '@material-ui/styles';
@@ -5,6 +6,7 @@ import * as Integrations from '@sentry/integrations';
 import * as Sentry from '@sentry/browser';
 import App from 'next/app';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import firebase from 'firebase/app';
 import Head from 'next/head';
 import NProgress from 'nprogress';
 import React from 'react';
@@ -23,11 +25,11 @@ import theme from '../src/theme';
 NProgress.configure({ showSpinner: false });
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeError', () => NProgress.done());
-Router.events.on('routeChangeComplete', () => NProgress.done());
-Router.events.on('routeChangeComplete', () => window.Intercom('update'));
-// Router.events.on('routeChangeComplete', e =>
-//   firebase.analytics().logEvent('route_change_complete', { e })
-// );
+Router.events.on('routeChangeComplete', path => {
+  NProgress.done();
+  window.Intercom('update');
+  // firebase.analytics().logEvent('page_view', { page_location: path });
+});
 
 const featureFlags = [{}];
 
