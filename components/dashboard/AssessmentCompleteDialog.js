@@ -27,14 +27,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const MAX_WIDTH = 'sm';
+const INTERCOM_PRODUCT_TOUR_ID = '107212';
 
 function AssessmentCompleteDialog({ show, onClose, onLogActivityButtonClick }) {
   const classes = useStyles();
 
   const handleClickOpen = () => {
     onClose();
-    // TODO: set the correct tourId
-    // window.Intercom('startTour', tourId);
+    window.Intercom('startTour', INTERCOM_PRODUCT_TOUR_ID);
   };
 
   return (
