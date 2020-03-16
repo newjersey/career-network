@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const MAX_WIDTH = 'sm';
-const INTERCOM_PRODUCT_TOUR_ID = '107212';
+const INTERCOM_PRODUCT_TOUR_ID = 107212;
 
 function AssessmentCompleteDialog({ show, onClose, onLogActivityButtonClick }) {
   const classes = useStyles();
