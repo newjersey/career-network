@@ -100,7 +100,6 @@ export default function Task(props) {
   function onAllActionsDone() {
     onDone(task);
     disposition('done');
-    window.Intercom('update', { 'last-task-completed': new Date() });
     analytics.trackEvent('completed-task', {
       title: task.fields.Title,
       category: task.fields.Category,

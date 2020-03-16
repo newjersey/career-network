@@ -68,7 +68,6 @@ function Search() {
       timestamp,
     };
     userDocRef.set({ employmentOutlook }, { merge: true }).then(() => {
-      window.Intercom('update', { 'last-employment-outlook-input': new Date() });
       analytics.trackEvent('employment-outlook-input', {
         occupation: employmentOutlook.occupation,
         county: employmentOutlook.county,

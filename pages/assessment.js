@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 
 import { allPropsLoaded, englishList, fullyLoaded } from '../src/app-helper';
 import { logActivity } from '../components/activityInput/ActivityInputDialog';
+import { useAnalytics } from '../components/Analytics';
 import { useAuth, withAuthRequired } from '../components/Auth';
 import { useRecords } from '../components/Airtable';
 import { useUserSubcollection } from '../components/Firebase';
@@ -32,6 +33,7 @@ function Assessment() {
   const [scrollToY, setScrollToY] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
   const { user, userDocRef } = useAuth();
+  const analytics = useAnalytics();
   const assessmentConfiguration = {
     assessmentSections: useRecords('Assessment Sections'),
     allAssessmentSubsections: useRecords('Assessment Subsections'),
@@ -41,10 +43,8 @@ function Assessment() {
     allQuestionResponseOptions: useRecords('Question Response Options'),
   };
 
-  const buildPostAssessmentIntercomAttributes = () => {
-    const attributes = { 'initial-assessment-completed': new Date() };
-
-    // kind of a hacky one-off
+  // kind of a hacky one-off
+  const sendOtherServicesDescriptionToIntercom = () => {
     const { allQuestionGroups } = assessmentConfiguration;
     const resourcesQuestionGroup = allQuestionGroups.find(qg => qg.fields.Slug === 'basic-needs');
     const resourceQuestionIds = resourcesQuestionGroup.fields.Questions;
@@ -55,11 +55,10 @@ function Assessment() {
     const englishListOfResourcesRequested = englishList(
       positiveResourceQuestionResponses.map(doc => doc.data().question.fields.Label)
     ).toLowerCase();
-    if (englishListOfResourcesRequested) {
-      attributes['basic-resources-requested'] = englishListOfResourcesRequested;
-    }
 
-    return attributes;
+    if (englishListOfResourcesRequested) {
+      window.Intercom('update', { 'basic-resources-requested': englishListOfResourcesRequested });
+    }
   };
 
   const handleComplete = () => {
@@ -85,7 +84,10 @@ function Assessment() {
       { isAssessmentComplete: true, shouldSeeAssesssmentCompletionCelebration: true },
       { merge: true }
     );
-    window.Intercom('update', buildPostAssessmentIntercomAttributes());
+
+    sendOtherServicesDescriptionToIntercom();
+    analytics.updateProperties({ 'initial-assessment-complete': true });
+
     Router.push('/dashboard');
   };
 

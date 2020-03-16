@@ -275,7 +275,6 @@ export default function Dashboard(props) {
   } = props;
 
   const tasks = getTasks(props, TASK_COUNT_LIMIT);
-  const doneTaskCount = allTaskDispositionEvents.length;
   const [activeDialog, setActiveDialog] = useState();
 
   const isSentimentLoggedToday =
@@ -299,10 +298,6 @@ export default function Dashboard(props) {
     };
     userDocRef.collection('sentimentEvents').add(data);
     analytics.trackEvent('logged-sentiment', sentiment);
-    window.Intercom('update', {
-      'last-mood': sentiment.emoji,
-      'last-sentiment': sentiment.label,
-    });
   };
 
   const onCloseSentiment = () => {
@@ -330,10 +325,6 @@ export default function Dashboard(props) {
   const handleActionComplete = () => {
     onCloseSentiment();
   };
-
-  useEffect(() => {
-    window.Intercom('update', { 'tasks-completed': doneTaskCount });
-  }, [doneTaskCount]);
 
   useEffect(() => {
     if (user.shouldSeeAssesssmentCompletionCelebration) {

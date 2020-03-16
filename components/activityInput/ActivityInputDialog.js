@@ -240,7 +240,6 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
         activityLogEntriesLatestTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
       };
       userDocRef.set({ stats }, { merge: true });
-      window.Intercom('update', { 'last-activity-logged': new Date() });
       analytics.trackEvent('logged-activity', {
         type: formValues.activityTypeLabel,
         description: formValues.briefDescription,
