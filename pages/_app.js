@@ -14,6 +14,7 @@ import { siteName } from '../components/withTitle';
 import { SnackbarProvider } from '../components/Snackbar';
 import AppManager from '../components/AppManager';
 import AuthProvider from '../components/Auth';
+import BrowserSupportAlert from '../components/BrowserSupportAlert';
 import Error from './_error';
 import FirebaseProvider from '../components/Firebase';
 import theme from '../src/theme';
@@ -60,7 +61,7 @@ Sentry.init({
 class MyApp extends App {
   constructor(args) {
     super(args);
-    this.state = { hasError: false };
+    this.state = { hasError: false, isIE: false };
   }
 
   static async getInitialProps({ Component, ctx }) {
@@ -102,6 +103,10 @@ class MyApp extends App {
     if (jssStyles && jssStyles.parentNode) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
+
+    const isIE = !!document.documentMode;
+    // const isIE = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+    this.setState({ isIE });
   }
 
   static normalComponent(Component, pageProps) {
@@ -130,11 +135,13 @@ class MyApp extends App {
 
   render() {
     const { Component, pageProps } = this.props;
-
-    return this.state.hasError ? (
-      <Error eventId={this.state.eventId} showHeader />
-    ) : (
-      MyApp.normalComponent(Component, pageProps)
+    return (
+      (this.state.isIE && <BrowserSupportAlert />) ||
+      (this.state.hasError ? (
+        <Error eventId={this.state.eventId} showHeader />
+      ) : (
+        MyApp.normalComponent(Component, pageProps)
+      ))
     );
   }
 }
