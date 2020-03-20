@@ -6,8 +6,8 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Link from '@material-ui/core/Link';
 import React from 'react';
-import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Typography from '@material-ui/core/Typography';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 
 const useStyles = makeStyles({
   link: {

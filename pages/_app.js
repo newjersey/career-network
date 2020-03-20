@@ -105,7 +105,6 @@ class MyApp extends App {
     }
 
     const isIE = !!document.documentMode;
-    // const isIE = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
     this.setState({ isIE });
   }
 
