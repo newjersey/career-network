@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/styles';
-import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import PropTypes from 'prop-types';
@@ -27,15 +26,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const MAX_WIDTH = 'sm';
-const INTERCOM_PRODUCT_TOUR_ID = 107212;
 
 function AssessmentCompleteDialog({ show, onClose, onLogActivityButtonClick }) {
   const classes = useStyles();
-
-  const handleClickOpen = () => {
-    onClose();
-    window.Intercom('startTour', INTERCOM_PRODUCT_TOUR_ID);
-  };
 
   return (
     <Dialog
@@ -67,24 +60,16 @@ function AssessmentCompleteDialog({ show, onClose, onLogActivityButtonClick }) {
           past week to your Activity Log!
         </Typography>
       </DialogContent>
-      <DialogActions style={{ justifyContent: 'center' }}>
-        <Box>
-          <Button
-            className={classes.button}
-            variant="contained"
-            color="primary"
-            onClick={onLogActivityButtonClick}
-            fullWidth
-          >
-            Log an Activity
-          </Button>
-          <div>
-            Want to learn more about NJCN?{' '}
-            <Button className={classes.textButton} onClick={handleClickOpen} color="primary">
-              Take The Product Tour
-            </Button>
-          </div>
-        </Box>
+      <DialogActions>
+        <Button
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          onClick={onLogActivityButtonClick}
+          fullWidth
+        >
+          Log an Activity
+        </Button>
       </DialogActions>
     </Dialog>
   );
