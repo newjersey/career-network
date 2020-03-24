@@ -23,10 +23,10 @@ const useStyles = makeStyles(theme => ({
   backgroundHeader: {
     paddingTop: theme.spacing(10),
     paddingBottom: theme.spacing(14),
-    backgroundColor: theme.palette.background.secondaryHeader,
+    background: `linear-gradient(to right bottom, #ffffff, ${theme.palette.background.secondaryHeader} 100%)`,
   },
   title: {
-    maxWidth: '70%',
+    maxWidth: '60%',
     fontSize: '20px',
     color: theme.palette.background.dark,
   },
