@@ -17,16 +17,28 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     position: 'relative',
-    marginTop: theme.spacing(-2),
+    marginTop: theme.spacing(-6),
     padding: theme.spacing(5, 4, 0, 4),
   },
   backgroundHeader: {
     paddingTop: theme.spacing(10),
-    paddingBottom: theme.spacing(12),
+    paddingBottom: theme.spacing(14),
+    backgroundColor: theme.palette.background.secondaryHeader,
+  },
+  title: {
+    maxWidth: '70%',
+    fontSize: '20px',
+    color: theme.palette.background.dark,
   },
   button: {
     marginTop: theme.spacing(6),
     marginBottom: theme.spacing(4),
+    padding: theme.spacing(1.5, 6, 1.5, 6),
+    [theme.breakpoints.down('xs')]: {
+      padding: theme.spacing(1.5, 3, 1.5, 3),
+    },
+    color: 'white',
+    backgroundColor: theme.palette.background.dark,
   },
 }));
 
@@ -53,15 +65,15 @@ function Welcome() {
         <Grid container justify="center">
           <Grid item xs={12} sm={12} md={7}>
             <Paper className={classes.paper} elevation={3}>
-              <Typography variant="h5" style={{ maxWidth: '70%' }} gutterBottom>
+              <Typography variant="h5" className={classes.title} gutterBottom>
                 Answer a few questions to set up your NJCN profile
               </Typography>
-              <Typography variant="body2" style={{ maxWidth: '70%' }}>
+              <Typography variant="body2" style={{ maxWidth: '60%' }}>
                 The more we get to know you, the more we will be able to provide you with custom
                 assistance.
               </Typography>
               <NextLink href="/assessment">
-                <Button className={classes.button} variant="contained" size="large" color="primary">
+                <Button className={classes.button} variant="contained" color="primary">
                   Let’s Start
                 </Button>
               </NextLink>
