@@ -2,9 +2,6 @@ import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Stepper from '@material-ui/core/Stepper';
 import Typography from '@material-ui/core/Typography';
 
 import AirtablePropTypes from '../Airtable/PropTypes';
@@ -12,30 +9,23 @@ import AssessmentSection from './AssessmentSection';
 import FirebasePropTypes from '../Firebase/PropTypes';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    paddingTop: theme.spacing(2),
-  },
-  stepper: {
-    backgroundColor: 'inherit',
-    padding: 0,
-    marginBottom: theme.spacing(12),
-  },
-  stepLabel: {
-    [theme.breakpoints.down('xs')]: {
-      display: 'none',
-    },
-  },
   buttons: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    margin: theme.spacing(3, 0, 5),
+    margin: theme.spacing(3, 0, 8),
     marginLeft: 'auto',
     marginRight: 'auto', // TODO fix this grossness
     maxWidth: 780,
+    position: 'relative',
   },
   button: {
-    marginLeft: theme.spacing(1),
+    color: 'white',
+    backgroundColor: theme.palette.background.dark,
+    padding: theme.spacing(1, 8, 1, 8),
+    position: 'absolute',
+    right: 0,
+    top: 1,
   },
 }));
 
@@ -80,51 +70,41 @@ export default function AssessmentSectionList(props) {
   }, [activeStep, assessmentSections, onComplete]);
 
   return (
-    <div className={classes.root}>
-      <Stepper activeStep={activeStep} className={classes.stepper}>
-        {assessmentSections.map(section => (
-          <Step key={section.id}>
-            <StepLabel>
-              <span className={classes.stepLabel}>{section.fields['Short Name']}</span>
-            </StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-
-      <div>
-        {activeStep !== assessmentSections.length && (
-          <div>
-            <AssessmentSection
-              assessmentSection={assessmentSections[activeStep]}
-              onValidationChange={handleValidationChange}
-              reflectValidity={reflectValidity}
-              {...restProps}
-            />
-            <div className={classes.buttons}>
-              {reflectValidity && !isActiveSectionValid && (
-                <Typography variant="subtitle2" color="error" className={classes.error}>
-                  Please complete all questions.
-                </Typography>
-              )}
-              {!!activeStep && (
-                <Button onClick={handleBack} className={classes.button}>
-                  Back
-                </Button>
-              )}
-              {(onComplete || activeStep < assessmentSections.length - 1) && (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleNext}
-                  className={classes.button}
-                >
-                  {activeStep === assessmentSections.length - 1 ? 'Finish' : 'Next'}
-                </Button>
-              )}
-            </div>
+    <div>
+      {activeStep !== assessmentSections.length && (
+        <div>
+          <AssessmentSection
+            assessmentSection={assessmentSections[activeStep]}
+            currentStep={activeStep + 1}
+            totalSteps={assessmentSections.length}
+            onValidationChange={handleValidationChange}
+            reflectValidity={reflectValidity}
+            {...restProps}
+          />
+          <div className={classes.buttons}>
+            {reflectValidity && !isActiveSectionValid && (
+              <Typography variant="subtitle2" color="error" className={classes.error}>
+                Please complete all questions.
+              </Typography>
+            )}
+            {!!activeStep && (
+              <Button onClick={handleBack} style={{ textDecoration: 'underline' }}>
+                Back
+              </Button>
+            )}
+            {(onComplete || activeStep < assessmentSections.length - 1) && (
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleNext}
+                className={classes.button}
+              >
+                {activeStep === assessmentSections.length - 1 ? 'Finish' : 'Next'}
+              </Button>
+            )}
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
