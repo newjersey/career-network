@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import NextLink from 'next/link';
 import Paper from '@material-ui/core/Paper';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -59,9 +60,11 @@ function Welcome() {
                 The more we get to know you, the more we will be able to provide you with custom
                 assistance.
               </Typography>
-              <Button className={classes.button} variant="contained" size="large" color="primary">
-                Let’s Start
-              </Button>
+              <NextLink href="/assessment">
+                <Button className={classes.button} variant="contained" size="large" color="primary">
+                  Let’s Start
+                </Button>
+              </NextLink>
               <img
                 style={{ position: 'absolute', right: 0, bottom: 0 }}
                 src="/static/img/upfront-assessment-welcome.png"
