@@ -48,8 +48,8 @@ function CovidResourcesAccess() {
             COVID-19 Resources
           </Typography>
           <Typography variant="body1" gutterBottom>
-            If you have urgent questions here are some resources that New Jersey has made available
-            for residents.
+            Have you lost your job or have your hours reduced as a result of COVID-19? Visit the
+            COVID-19 Jobs Portal.
           </Typography>
         </CardContent>
         <CardActions>
