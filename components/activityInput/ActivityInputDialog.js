@@ -28,15 +28,13 @@ import SubmitSuccess from './SubmitSuccess';
 import ToggleButton from '../ToggleButton';
 import validate from './ActivityInputValidationRules';
 
-const FORM_ELEMENT_MARGINS = [1, 0];
-
 const useActivityDialogStyles = makeStyles(theme => ({
   formControl: {
     width: '100%',
-    margin: theme.spacing(...FORM_ELEMENT_MARGINS),
+    margin: theme.spacing(1, 0, 0, 0),
   },
   textField: {
-    margin: theme.spacing(...FORM_ELEMENT_MARGINS),
+    margin: theme.spacing(1, 0, 0, 0),
   },
   toggleButton: {
     marginTop: theme.spacing(2),
@@ -196,10 +194,10 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
     overrides: {
       MuiFormControl: {
         marginNormal: {
-          marginTop: theme.spacing(FORM_ELEMENT_MARGINS[0]),
-          marginRight: theme.spacing(FORM_ELEMENT_MARGINS[1]),
-          marginBottom: theme.spacing(FORM_ELEMENT_MARGINS[0]),
-          marginLeft: theme.spacing(FORM_ELEMENT_MARGINS[1]),
+          marginTop: theme.spacing(1),
+          marginRight: theme.spacing(0),
+          marginBottom: theme.spacing(1),
+          marginLeft: theme.spacing(0),
         },
       },
     },
@@ -386,7 +384,6 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
               </InputLabel>
               <Grid item xs={12} className={classes.toggleButton}>
                 <ToggleButton
-                  className={classes.toggleButton}
                   options={DIFFICULTY_LEVELS}
                   value={String(formValues.difficultyLevel)}
                   handleChange={e => setFormValues({ ...formValues, difficultyLevel: e })}
@@ -399,15 +396,7 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
 
             <FormControl className={classes.formControl}>
               <InputLabel shrink>This activity made me feel… (select all that apply)</InputLabel>
-              <Grid
-                className={classes.toggleButton}
-                container
-                xs={12}
-                item
-                justify="space-evenly"
-                alignItems="center"
-                direction="row"
-              >
+              <Grid item xs={12} className={classes.toggleButton}>
                 <ToggleButton
                   options={shuffledFeelings}
                   multiSelect
