@@ -13,6 +13,7 @@ import Router from 'next/router';
 
 import { useAuth } from './Auth';
 import { useSnackbar } from './Snackbar';
+import Banner from './Banner';
 import EnvName from './EnvName';
 import Footer from './Footer';
 import Header from './Header';
@@ -157,6 +158,7 @@ export default function AppManager(props) {
     <>
       {process.env.showName && <EnvName />}
       <Header onSignOut={handleSignOut} user={user} />
+      <Banner />
       <main>{children}</main>
       <Footer />
     </>
