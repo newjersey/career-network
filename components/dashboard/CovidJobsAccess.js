@@ -34,7 +34,7 @@ const handleClick = () => {
   window.Intercom('trackEvent', 'covid-access-button-clicked');
 };
 
-function CovidResourcesAccess() {
+function CovidJobsAccess() {
   const classes = useStyles();
 
   return (
@@ -45,7 +45,7 @@ function CovidResourcesAccess() {
       <Card className={classes.card} variant="outlined">
         <CardContent className={classes.cardContent}>
           <Typography variant="h6" gutterBottom>
-            COVID-19 Resources
+            COVID-19 Job Portal
           </Typography>
           <Typography variant="body1" gutterBottom>
             Have you lost your job or have your hours reduced as a result of COVID-19? Visit the
@@ -68,4 +68,4 @@ function CovidResourcesAccess() {
   );
 }
 
-export default CovidResourcesAccess;
+export default CovidJobsAccess;

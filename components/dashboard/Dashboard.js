@@ -17,7 +17,7 @@ import ActivityInputDialog from '../activityInput/ActivityInputDialog';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import AssessmentCompleteDialog from './AssessmentCompleteDialog';
 import BackgroundHeader from '../BackgroundHeader';
-import CovidResourcesAccess from './CovidResourcesAccess';
+import CovidJobsAccess from './CovidJobsAccess';
 import EmploymentOutlookLauchpad from './EmploymentOutlookLauchpad';
 import FirebasePropTypes from '../Firebase/PropTypes';
 import ProgressFeed from './ProgressFeed';
@@ -409,7 +409,7 @@ export default function Dashboard(props) {
             />
           </Box>
           <Box className={classes.gridL} position="relative">
-            <CovidResourcesAccess />
+            <CovidJobsAccess />
             <Box mt={8} style={{ position: 'relative' }}>
               <EmploymentOutlookLauchpad />
             </Box>
