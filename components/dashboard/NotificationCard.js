@@ -35,7 +35,7 @@ export default function NotificationCard() {
       <Card className={classes.card} variant="outlined">
         <CardContent>
           <Typography variant="h6" gutterBottom>
-            COVID-19 Unemployment Webinar Questions and Concerns
+            COVID-19 Unemployment Questions and Concerns
           </Typography>
           <Typography variant="body2" gutterBottom>
             We are working with the NJ Department of Labor to gather any questions or concerns you
