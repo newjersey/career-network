@@ -35,8 +35,7 @@ function Banner() {
             </Grid>
             <Grid item>
               <Typography>
-                If you have urgent questions here are some resources that New Jersey has made
-                available for residents.
+                Have general questions about COVID-19? Visit the NJ COVID-19 Information Hub.
               </Typography>
             </Grid>
             <Grid item>
