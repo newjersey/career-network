@@ -18,7 +18,6 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
   },
   label: {
-    fontWeight: 500,
     marginBottom: theme.spacing(2),
   },
   footerText: {
@@ -62,10 +61,6 @@ export default function QuestionGroup(props) {
   return (
     <div className={classes.root}>
       <FormControl component="fieldset" className={classes.formControl}>
-        <Typography component="legend" variant="body1" className={classes.label}>
-          {questionGroup.fields.Label}
-        </Typography>
-
         <FormGroup>
           {questions.map((question, index) => (
             <Question
@@ -74,6 +69,7 @@ export default function QuestionGroup(props) {
               onValidationChange={handleValidationChange(index)}
               {...restProps}
               isInGroup
+              isLastInGroup={index === questions.length - 1}
             />
           ))}
         </FormGroup>

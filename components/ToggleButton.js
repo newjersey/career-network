@@ -30,8 +30,10 @@ function ToggleButton(props) {
     value,
     handleChange,
     multiSelect,
+    disableDeselect,
     buttonClassName,
     buttonVariant,
+    selectedButtonVariant,
     containerClassName,
     disabledMessage,
   } = props;
@@ -46,7 +48,11 @@ function ToggleButton(props) {
   const hasPopover = v => disabledMessage && isDisabled(v);
 
   const handleUpdate = v => {
-    const newSelection = isSelected(v) ? removeSelected(v) : addSelected(v);
+    let newSelection = isSelected(v) ? removeSelected(v) : addSelected(v);
+    if (disableDeselect) {
+      // Only for Exclusive Selection, Multiple Selection not allowed
+      newSelection = v;
+    }
 
     handleChange(newSelection);
     setSelected(newSelection);
@@ -86,9 +92,11 @@ function ToggleButton(props) {
           onMouseLeave={handlePopoverClose}
         >
           <Button
-            style={{ height: '40px' }}
+            style={{ height: '44px' }}
             fullWidth
-            variant={buttonVariant}
+            variant={
+              selectedButtonVariant && isSelected(opt) ? selectedButtonVariant : buttonVariant
+            }
             onClick={() => handleUpdate(opt)}
             color={isSelected(opt) ? 'primary' : 'default'}
             disabled={isDisabled(opt)}
@@ -126,17 +134,21 @@ ToggleButton.propTypes = {
   value: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string), PropTypes.string]).isRequired,
   handleChange: PropTypes.func.isRequired,
   multiSelect: PropTypes.bool,
+  disableDeselect: PropTypes.bool,
   buttonClassName: PropTypes.string,
   containerClassName: PropTypes.string,
   buttonVariant: PropTypes.string,
+  selectedButtonVariant: PropTypes.string,
   disabledMessage: PropTypes.string,
 };
 
 ToggleButton.defaultProps = {
   disabledOptions: [],
   multiSelect: false,
+  disableDeselect: false,
   buttonClassName: undefined,
   buttonVariant: 'contained',
+  selectedButtonVariant: undefined,
   containerClassName: undefined,
   disabledMessage: '',
 };

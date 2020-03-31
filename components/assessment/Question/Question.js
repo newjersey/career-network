@@ -46,6 +46,7 @@ function Question(props) {
     allQuestionResponseOptions,
     allQuestionResponses,
     isInGroup,
+    isLastInGroup,
     onValidationChange,
     optional,
     readOnly,
@@ -177,6 +178,7 @@ function Question(props) {
     onChange: _localValue => setLocalValue(_localValue),
     onChangeCommitted: _value => setValue(_value),
     value: localValue ? parseFloat(localValue) : undefined,
+    isLastInGroup,
   };
 
   switch (responseType) {
@@ -204,11 +206,14 @@ function Question(props) {
       return <BinaryQuestion {...discreteQuestionProps} />;
     case 'Option':
       return (
-        <OptionQuestion
-          {...discreteQuestionProps}
-          responseOptions={responseOptions}
-          responseOptionsControl={responseOptionsControl}
-        />
+        <>
+          <OptionQuestion
+            {...discreteQuestionProps}
+            responseOptions={responseOptions}
+            responseOptionsControl={responseOptionsControl}
+            isLastInGroup={isLastInGroup}
+          />
+        </>
       );
     case 'Link':
       return null; // TODO: implement a LinkQuestion component
@@ -239,6 +244,7 @@ Question.propTypes = {
   allQuestionResponseOptions: AirtablePropTypes.questionResponseOptions.isRequired,
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
   isInGroup: PropTypes.bool,
+  isLastInGroup: PropTypes.bool,
   onValidationChange: PropTypes.func.isRequired,
   optional: PropTypes.bool.isRequired,
   readOnly: PropTypes.bool.isRequired,
@@ -247,4 +253,5 @@ Question.propTypes = {
 
 Question.defaultProps = {
   isInGroup: false,
+  isLastInGroup: false,
 };
