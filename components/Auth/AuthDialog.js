@@ -29,8 +29,9 @@ function AuthDialog(props) {
           Before we get started, please sign in using one of your accounts below.
           <br />
           <small>
-            We require the use of a Google or Yahoo account to sign up for a NJCN account to ensure
-            a simple and secure sign in. Your account data is private and secure – we only use this
+            We currently offer the below methods of sign up for a NJCN account to ensure a simple
+            and secure sign in. We will not pull data or have access to any of your other profiles
+            or accounts. With your NJCN account, your data is private and secure -- we only use this
             information to provide and improve our service.
           </small>
         </DialogContentText>
