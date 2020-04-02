@@ -2,7 +2,7 @@
 //  - show "signed in" on sign in
 //  - show "signed out" on sign out
 //  - redirect to '/' upon sign out (and not show a 403)
-//  - redirect to '/assessment' or '/dashboard' upon sign in
+//  - redirect to '/welcome' or '/dashboard' upon sign in
 
 import { useBeforeunload } from 'react-beforeunload';
 import * as Sentry from '@sentry/browser';
@@ -57,7 +57,7 @@ export default function AppManager(props) {
       } else if (userIsAssessmentComplete) {
         url = '/dashboard';
       } else {
-        url = '/assessment';
+        url = '/welcome';
       }
 
       (async () => {
