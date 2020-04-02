@@ -18,7 +18,6 @@ import AirtablePropTypes from '../Airtable/PropTypes';
 import AssessmentCompleteDialog from './AssessmentCompleteDialog';
 import BackgroundHeader from '../BackgroundHeader';
 import CovidJobsAccess from './CovidJobsAccess';
-import EmploymentOutlookLauchpad from './EmploymentOutlookLauchpad';
 import FirebasePropTypes from '../Firebase/PropTypes';
 import ProgressFeed from './ProgressFeed';
 import ScaffoldContainer from '../ScaffoldContainer';
@@ -410,9 +409,12 @@ export default function Dashboard(props) {
           </Box>
           <Box className={classes.gridL} position="relative">
             <CovidJobsAccess />
-            <Box mt={8} style={{ position: 'relative' }}>
-              <EmploymentOutlookLauchpad />
-            </Box>
+            {
+              // Hide this feature since the data has become out of sync with the current climate
+              /* <Box mt={8} style={{ position: 'relative' }}>
+                      <EmploymentOutlookLauchpad />
+                </Box> */
+            }
           </Box>
           <Box className={classes.gridR}>
             <Card variant="outlined">
