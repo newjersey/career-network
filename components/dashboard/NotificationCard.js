@@ -24,10 +24,10 @@ const useStyles = makeStyles(theme => ({
 export default function NotificationCard() {
   const classes = useStyles();
   const { user, userDocRef } = useAuth();
-  const showSurvey = user.isCovidSurveyShown == null || !user.isCovidSurveyShown;
+  const showSurvey = !user.hasCovidSurveyBeenShown;
 
   const onClose = () => {
-    userDocRef.set({ isCovidSurveyShown: true }, { merge: true });
+    userDocRef.set({ hasCovidSurveyBeenShown: true }, { merge: true });
   };
 
   return (

@@ -109,7 +109,7 @@ export default class User {
     return this.userData.lastSentiment && this.userData.lastSentiment.closeTimestamp;
   }
 
-  get isCovidSurveyShown() {
-    return !!this.userData.isCovidSurveyShown;
+  get hasCovidSurveyBeenShown() {
+    return !!this.userData.hasCovidSurveyBeenShown;
   }
 }
