@@ -12,7 +12,6 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import Router from 'next/router';
 
 import { useAuth } from './Auth';
-import { useSnackbar } from './Snackbar';
 import Banner from './Banner';
 import EnvName from './EnvName';
 import Footer from './Footer';
@@ -22,23 +21,12 @@ export default function AppManager(props) {
   const { children } = props;
   const { user, signOut, wasSignedIn, isAuthKnown } = useAuth();
   const cleanupRef = useRef();
-  const showMessage = useSnackbar();
-  const userExists = !!user;
   const userId = user && user.uid;
 
   const handleSignOut = useCallback(async () => {
     await Router.push('/');
     signOut();
   }, [signOut]);
-
-  useEffect(() => {
-    if (userExists) {
-      showMessage('Signed in');
-    } else if (wasSignedIn) {
-      // Check wasSignedIn, else block will fire upon initial page load.
-      showMessage('Signed out');
-    }
-  }, [showMessage, userExists, wasSignedIn]);
 
   useEffect(() => {
     Sentry.configureScope(scope => {

@@ -20,6 +20,7 @@ import BackgroundHeader from '../BackgroundHeader';
 import CovidJobsAccess from './CovidJobsAccess';
 import EmploymentOutlookLauchpad from './EmploymentOutlookLauchpad';
 import FirebasePropTypes from '../Firebase/PropTypes';
+import NotificationCard from './NotificationCard';
 import ProgressFeed from './ProgressFeed';
 import ScaffoldContainer from '../ScaffoldContainer';
 import SentimentTracker from './SentimentTracker/SentimentTracker';
@@ -376,7 +377,6 @@ export default function Dashboard(props) {
           />
         </ScaffoldContainer>
       )}
-
       <ScaffoldContainer>
         <Box className={classes.grid}>
           <Box
@@ -455,6 +455,7 @@ export default function Dashboard(props) {
           </Box>
         </Box>
       </ScaffoldContainer>
+      <NotificationCard />
     </div>
   );
 }
