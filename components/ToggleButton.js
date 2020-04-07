@@ -32,6 +32,7 @@ function ToggleButton(props) {
     multiSelect,
     buttonClassName,
     buttonVariant,
+    selectedButtonVariant,
     containerClassName,
     disabledMessage,
   } = props;
@@ -86,9 +87,11 @@ function ToggleButton(props) {
           onMouseLeave={handlePopoverClose}
         >
           <Button
-            style={{ height: '40px' }}
+            style={{ height: '44px' }}
             fullWidth
-            variant={buttonVariant}
+            variant={
+              selectedButtonVariant && isSelected(opt) ? selectedButtonVariant : buttonVariant
+            }
             onClick={() => handleUpdate(opt)}
             color={isSelected(opt) ? 'primary' : 'default'}
             disabled={isDisabled(opt)}
@@ -129,6 +132,7 @@ ToggleButton.propTypes = {
   buttonClassName: PropTypes.string,
   containerClassName: PropTypes.string,
   buttonVariant: PropTypes.string,
+  selectedButtonVariant: PropTypes.string,
   disabledMessage: PropTypes.string,
 };
 
@@ -137,6 +141,7 @@ ToggleButton.defaultProps = {
   multiSelect: false,
   buttonClassName: undefined,
   buttonVariant: 'contained',
+  selectedButtonVariant: undefined,
   containerClassName: undefined,
   disabledMessage: '',
 };

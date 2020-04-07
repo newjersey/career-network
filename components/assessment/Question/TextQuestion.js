@@ -1,4 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
+import Box from '@material-ui/core/Box';
+import InfoIcon from '@material-ui/icons/Info';
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
@@ -8,10 +10,17 @@ import AirtablePropTypes from '../../Airtable/PropTypes';
 // eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles(theme => ({
   textField: {
+    marginTop: theme.spacing(1),
     marginBottom: theme.spacing(3),
     fontWeight: 500,
   },
-  helperText: theme.typography.helperText,
+  helperText: {
+    fontSize: '0.75rem',
+    lineHeight: '1rem',
+    backgroundColor: theme.palette.background.header,
+    margin: theme.spacing(0.5, 0),
+    padding: theme.spacing(1),
+  },
 }));
 
 export default function TextQuestion(props) {
@@ -30,28 +39,38 @@ export default function TextQuestion(props) {
   } = props;
   const isValid = optional || !!value;
   const reflectError = reflectValidity && !isValid;
+  const helperText = question.fields['Helper Text'];
 
   useEffect(() => {
     onValidationChange(isValid);
   }, [isValid, onValidationChange]);
 
   return (
-    <TextField
-      id={question.id}
-      disabled={question.fields.Disabled}
-      label={question.fields.Label}
-      className={classes.textField}
-      onBlur={e => onBlur(e.target.value)}
-      onChange={e => onChange(e.target.value)}
-      margin="normal"
-      helperText={question.fields['Helper Text']}
-      fullWidth
-      inputProps={inputProps}
-      FormHelperTextProps={{ classes: { root: classes.helperText } }}
-      error={reflectError}
-      value={value}
-      {...restProps}
-    />
+    <>
+      <span>{question.fields.Label}</span>
+      <TextField
+        id={question.id}
+        disabled={question.fields.Disabled}
+        className={classes.textField}
+        onBlur={e => onBlur(e.target.value)}
+        onChange={e => onChange(e.target.value)}
+        variant="outlined"
+        helperText={
+          helperText && (
+            <Box display="flex">
+              <InfoIcon color="primary" style={{ fontSize: '1.2rem', marginRight: '0.5rem' }} />
+              <span>{helperText}</span>
+            </Box>
+          )
+        }
+        fullWidth
+        inputProps={inputProps}
+        FormHelperTextProps={{ classes: { root: classes.helperText } }}
+        error={reflectError}
+        value={value}
+        {...restProps}
+      />
+    </>
   );
 }
 
