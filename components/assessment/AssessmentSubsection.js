@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
+import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
@@ -108,9 +109,25 @@ export default function AssessmentSubsection(props) {
   return (
     <Paper className={classes.root} data-intercom="assessment-section">
       {assessmentSubsection.fields.Title && (
-        <Typography component="h3" variant="h6" className={classes.title}>
-          {assessmentSubsection.fields.Title}
-        </Typography>
+        <Box display="flex" alignItems="center">
+          {!wasValid.current && (
+            <img
+              src="/static/img/icons/01_About_You.png"
+              alt="Subsection Title Icon"
+              style={{ marginLeft: '-3.2rem', marginRight: '0.7rem' }}
+            />
+          )}
+          {wasValid.current && (
+            <img
+              src="/static/img/icons/00_Completed.png"
+              alt="Subsection Title Icon"
+              style={{ marginLeft: '-3.2rem', marginRight: '0.7rem' }}
+            />
+          )}
+          <Typography component="h3" variant="h6" className={classes.title}>
+            {assessmentSubsection.fields.Title}
+          </Typography>
+        </Box>
       )}
       {assessmentSubsection.fields.Description && (
         <Typography variant="body2" className={classes.description}>
