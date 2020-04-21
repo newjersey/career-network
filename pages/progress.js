@@ -18,16 +18,8 @@ function HistoryPage() {
     { orderBy: ['timestamp', 'desc'] }
   );
 
-  const confidentActivityLogEntries = useUserSubcollection('activityLogEntries', {
-    where: ['activityFeeling', 'array-contains', 'Confident'],
-  });
-
-  return fullyLoaded(user, allUserActivities, completedTasks, confidentActivityLogEntries) ? (
-    <History
-      activities={allUserActivities}
-      completedTasks={completedTasks}
-      confidentActivityLogEntries={confidentActivityLogEntries}
-    />
+  return fullyLoaded(user, allUserActivities, completedTasks) ? (
+    <History activities={allUserActivities} completedTasks={completedTasks} />
   ) : (
     <FullPageProgress />
   );

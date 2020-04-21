@@ -4,7 +4,6 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import CalendarIcon from '@material-ui/icons/CalendarTodayRounded';
 import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import React, { useState, useLayoutEffect, useRef } from 'react';
@@ -13,7 +12,6 @@ import uniqBy from 'lodash/fp/uniqBy';
 
 import Activity from './Activity';
 import ActivityInputDialog, { ACTIVITY_TYPES } from '../activityInput/ActivityInputDialog';
-import ActivityCategoryTable from './ActivityCategoryTable';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import CompletedTask from './CompletedTask';
 import EmptyState from './EmptyState';
@@ -35,6 +33,7 @@ const useStyles = makeStyles(theme => ({
   },
   sectionHeader: {
     display: 'flex',
+    flexGrow: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
     marginTop: theme.spacing(4),
@@ -59,23 +58,16 @@ const unrecognizedCategoryName = AirtablePropTypes.TASK_CATEGORIES.other.name;
 
 export default function History(props) {
   const classes = useStyles();
-  const { activities, completedTasks, confidentActivityLogEntries } = props;
+  const { activities, completedTasks } = props;
   const headerRef = useRef(null);
   const sectionHeaderRef = useRef(null);
-  const buttonRef = useRef(null);
   const [headerHeight, setHeaderHeight] = useState();
-  const [rightSpacerHeight, setRightSpacerHeight] = useState();
   const [showDialog, setShowDialog] = useState(false);
 
   useLayoutEffect(() => {
     setHeaderHeight(
       headerRef.current.getBoundingClientRect().height +
         sectionHeaderRef.current.getBoundingClientRect().height
-    );
-    setRightSpacerHeight(
-      headerRef.current.getBoundingClientRect().height +
-        sectionHeaderRef.current.getBoundingClientRect().height -
-        buttonRef.current.getBoundingClientRect().height
     );
   }, []);
 
@@ -162,7 +154,7 @@ export default function History(props) {
               />
             </Card>
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={9}>
             <Box display="flex" alignItems="baseline" width={1} ref={headerRef}>
               <Typography variant="h5" component="h5" className={classes.pageHeader}>
                 All Progress
@@ -195,6 +187,16 @@ export default function History(props) {
                           {period.formatted}
                         </Typography>
                       </div>
+
+                      <Button
+                        variant="contained"
+                        size="large"
+                        color="primary"
+                        onClick={() => setShowDialog(true)}
+                        data-intercom="log-activity-button"
+                      >
+                        +&nbsp;&nbsp;Log Activity
+                      </Button>
                     </Box>
                   )}
                   <Grid container direction="row" justify="center" alignItems="flex-start">
@@ -209,34 +211,6 @@ export default function History(props) {
                   </Grid>
                 </div>
               ))}
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Hidden only={['xs', 'sm']}>
-              <Box width={1} height={rightSpacerHeight} />
-            </Hidden>
-            <Box display="flex" justifyContent="flex-end" paddingBottom={2} ref={buttonRef}>
-              <Button
-                variant="contained"
-                size="large"
-                color="primary"
-                onClick={() => setShowDialog(true)}
-                data-intercom="log-activity-button"
-              >
-                +&nbsp;&nbsp;Log Activity
-              </Button>
-            </Box>
-            <Card variant="outlined">
-              <CardHeader
-                title="Confidence Level"
-                titleTypographyProps={{ component: 'h2', variant: 'h6' }}
-              />
-
-              <ActivityCategoryTable
-                allActivityLogEntries={activities}
-                subsetActivityLogEntries={confidentActivityLogEntries}
-                label="Feeling Confident"
-              />
-            </Card>
           </Grid>
         </Grid>
       </ScaffoldContainer>

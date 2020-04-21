@@ -267,7 +267,6 @@ export default function Dashboard(props) {
     allActionDispositionEvents,
     allTaskDispositionEvents,
     completedTasks,
-    confidentActivityLogEntries,
     historyLimit,
     allActivityLogEntries,
     ...restProps
@@ -465,7 +464,6 @@ Dashboard.propTypes = {
   allActionDispositionEvents: FirebasePropTypes.querySnapshot,
   allTaskDispositionEvents: FirebasePropTypes.querySnapshot,
   completedTasks: FirebasePropTypes.querySnapshot,
-  confidentActivityLogEntries: FirebasePropTypes.querySnapshot,
   historyLimit: PropTypes.number.isRequired,
   allActivityLogEntries: FirebasePropTypes.querySnapshot,
   interviewLogEntries: FirebasePropTypes.querySnapshot,
@@ -475,7 +473,6 @@ Dashboard.defaultProps = {
   allActionDispositionEvents: [],
   allTaskDispositionEvents: [],
   completedTasks: [],
-  confidentActivityLogEntries: [],
   allActivityLogEntries: [],
   interviewLogEntries: [],
 };
