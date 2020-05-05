@@ -1,7 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 import React, { useCallback, useState } from 'react';
 import Router from 'next/router';
-import Typography from '@material-ui/core/Typography';
 
 import { allPropsLoaded, englishList, fullyLoaded } from '../src/app-helper';
 import { logActivity } from '../components/activityInput/ActivityInputDialog';
@@ -10,20 +9,15 @@ import { useAuth, withAuthRequired } from '../components/Auth';
 import { useRecords } from '../components/Airtable';
 import { useUserSubcollection } from '../components/Firebase';
 import AssessmentSectionList from '../components/assessment/AssessmentSectionList';
-import BackgroundHeader from '../components/BackgroundHeader';
 import FullPageProgress from '../components/FullPageProgress';
-import ScaffoldContainer from '../components/ScaffoldContainer';
 import withTitle from '../components/withTitle';
 
 const useStyles = makeStyles(theme => ({
   root: {
     position: 'relative',
   },
-  backgroundHeader: {
-    paddingBottom: theme.spacing(12),
-  },
   assessmentContainer: {
-    marginTop: theme.spacing(-11),
+    marginTop: theme.spacing(-24),
   },
 }));
 
@@ -98,15 +92,8 @@ function Assessment() {
   }, []);
 
   return (
-    <div className={classes.root}>
-      <BackgroundHeader className={classes.backgroundHeader}>
-        <ScaffoldContainer>
-          <Typography ref={scrollToRef} component="h1" variant="h2" gutterBottom>
-            Hi, {user && user.firstName}
-          </Typography>
-        </ScaffoldContainer>
-      </BackgroundHeader>
-      <ScaffoldContainer className={classes.assessmentContainer}>
+    <div ref={scrollToRef} className={classes.root}>
+      <div>
         {fullyLoaded(user, allPropsLoaded(assessmentConfiguration), allQuestionResponses) &&
         !isFinished ? (
           <AssessmentSectionList
@@ -119,7 +106,7 @@ function Assessment() {
         ) : (
           <FullPageProgress />
         )}
-      </ScaffoldContainer>
+      </div>
     </div>
   );
 }
