@@ -1,18 +1,17 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import DropdownQuestion from './DropdownQuestion';
-import RadiosQuestion from './RadiosQuestion';
+import ToggleButtonQuestion from './ToggleButtonQuestion';
 
 import AirtablePropTypes from '../../../Airtable/PropTypes';
 
 export default function OptionQuestion(props) {
-  const { isInGroup, responseOptionsControl, ...restProps } = props;
+  const { isInGroup, isLastInGroup, responseOptionsControl, ...restProps } = props;
 
   switch (responseOptionsControl) {
     case 'Dropdown':
-      return <DropdownQuestion {...restProps} horizontalOnDesktop={isInGroup} />;
+      return <ToggleButtonQuestion {...restProps} isLastInGroup={isLastInGroup} />;
     case 'Radios':
-      return <RadiosQuestion {...restProps} />;
+      return <ToggleButtonQuestion useFullWidthButton {...restProps} />;
     default:
       return null;
   }
@@ -20,6 +19,7 @@ export default function OptionQuestion(props) {
 
 OptionQuestion.propTypes = {
   isInGroup: PropTypes.bool,
+  isLastInGroup: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   onValidationChange: PropTypes.func.isRequired,
   question: AirtablePropTypes.question.isRequired,
@@ -31,6 +31,7 @@ OptionQuestion.propTypes = {
 
 OptionQuestion.defaultProps = {
   isInGroup: false,
+  isLastInGroup: false,
   reflectValidity: false,
   value: null,
 };

@@ -12,9 +12,9 @@ import FirebasePropTypes from '../Firebase/PropTypes';
 const useStyles = makeStyles(theme => ({
   root: {
     marginTop: theme.spacing(5),
-    padding: theme.spacing(3, 4, 3),
+    padding: theme.spacing(3, 5, 3),
     [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing(3, 5, 3),
+      padding: theme.spacing(3, 10, 3),
     },
   },
   title: {

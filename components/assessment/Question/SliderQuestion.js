@@ -1,19 +1,24 @@
 import { makeStyles, withStyles } from '@material-ui/styles';
+import Divider from '@material-ui/core/Divider';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormLabel from '@material-ui/core/FormLabel';
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import Slider from '@material-ui/core/Slider';
+import Typography from '@material-ui/core/Typography';
 
 import AirtablePropTypes from '../../Airtable/PropTypes';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    marginBottom: theme.spacing(3),
+    marginBottom: theme.spacing(6),
   },
   helperText: {
-    marginBottom: theme.spacing(1),
     ...theme.typography.helperText,
+    marginBottom: theme.spacing(3),
+  },
+  divider: {
+    margin: theme.spacing(6, 0, 2),
   },
 }));
 
@@ -63,13 +68,14 @@ export default function SliderQuestion(props) {
     max,
     step,
     value,
+    isLastInGroup,
   } = props;
 
   const helperText = question.fields['Helper Text'];
 
   const marks = [];
   for (let n = min; n <= max; n += step) {
-    const label = n === min || n === max ? n : null;
+    const label = n === min || n === max ? `${n} Hours` : null;
     marks.push({ value: n, label });
   }
 
@@ -83,9 +89,12 @@ export default function SliderQuestion(props) {
 
   return (
     <div className={classes.root}>
-      <FormLabel component="legend">{question.fields.Label}</FormLabel>
+      <FormLabel component="legend">
+        <Typography variant="h6" style={{ color: '#0c4163' }}>
+          {question.fields.Label}
+        </Typography>
+      </FormLabel>
       {helperText && <FormHelperText className={classes.helperText}>{helperText}</FormHelperText>}
-
       <StyledSlider
         aria-label={question.fields.Label}
         aria-valuetext={`${value}`}
@@ -99,6 +108,7 @@ export default function SliderQuestion(props) {
         value={value}
         valueLabelDisplay="auto"
       />
+      {!isLastInGroup && <Divider className={classes.divider} />}
     </div>
   );
 }
@@ -112,8 +122,10 @@ SliderQuestion.propTypes = {
   step: PropTypes.number.isRequired,
   value: PropTypes.number,
   onValidationChange: PropTypes.func.isRequired,
+  isLastInGroup: PropTypes.bool,
 };
 
 SliderQuestion.defaultProps = {
   value: 0,
+  isLastInGroup: false,
 };
