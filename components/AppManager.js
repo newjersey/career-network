@@ -8,10 +8,12 @@ import { useBeforeunload } from 'react-beforeunload';
 import * as Sentry from '@sentry/browser';
 import FacebookPixel from 'react-facebook-pixel';
 import PropTypes from 'prop-types';
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Router from 'next/router';
+import Cookies from 'universal-cookie';
 
 import { useAuth } from './Auth';
+import AcknowledgementDialog from './AcknowledgementDialog';
 import Banner from './Banner';
 import EnvName from './EnvName';
 import Footer from './Footer';
@@ -22,6 +24,14 @@ export default function AppManager(props) {
   const { user, signOut, wasSignedIn, isAuthKnown } = useAuth();
   const cleanupRef = useRef();
   const userId = user && user.uid;
+
+  const cookies = new Cookies();
+  const [closed, setClosed] = useState(!!cookies.get('isAcknowledgementClosed'));
+
+  const handleAcknowledgementClosed = () => {
+    setClosed(true);
+    cookies.set('isAcknowledgementClosed', 'true', { path: '/', maxAge: 2592000 });
+  };
 
   const handleSignOut = useCallback(async () => {
     await Router.push('/');
@@ -144,6 +154,7 @@ export default function AppManager(props) {
 
   return (
     <>
+      {!closed && <AcknowledgementDialog onClose={handleAcknowledgementClosed} />}
       {process.env.showName && <EnvName />}
       <Header onSignOut={handleSignOut} user={user} />
       <Banner />

@@ -47,7 +47,8 @@
     "react-feature-flags": "^1.0.0",
     "react-firebaseui": "^4.1.0",
     "react-instantsearch-dom": "^6.3.0",
-    "styled-jsx": "^3.2.5"
+    "styled-jsx": "^3.2.5",
+    "universal-cookie": "^4.0.3"
   },
   "scripts": {
     "analyze": "ANALYZE=true next build",
