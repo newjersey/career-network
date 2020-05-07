@@ -8,6 +8,9 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(theme => ({
+  wrapper: {
+    position: 'relative',
+  },
   iconContainer: {
     position: 'absolute',
     top: theme.spacing(-3),
@@ -38,7 +41,7 @@ function CovidJobsAccess() {
   const classes = useStyles();
 
   return (
-    <>
+    <div className={classes.wrapper}>
       <div className={classes.iconContainer}>
         <FlagIcon fontSize="large" />
       </div>
@@ -64,7 +67,7 @@ function CovidJobsAccess() {
           </Button>
         </CardActions>
       </Card>
-    </>
+    </div>
   );
 }
 
