@@ -30,7 +30,12 @@ Router.events.on('routeChangeComplete', () => {
   window.Intercom('update');
 });
 
-const featureFlags = [{}];
+const featureFlags = [
+  {
+    name: 'userProfile',
+    isActive: false,
+  },
+];
 
 Sentry.init({
   environment: process.env.name,

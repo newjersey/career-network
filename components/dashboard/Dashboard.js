@@ -1,5 +1,6 @@
 import { isToday } from 'date-fns';
 import { makeStyles } from '@material-ui/styles';
+import { Flags } from 'react-feature-flags';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -27,6 +28,7 @@ import SentimentTracker from './SentimentTracker/SentimentTracker';
 import TaskList from './TaskList';
 import TimeDistanceParser from '../../src/time-distance-parser';
 import UpcomingInterviewDialog from './UpcomingInterviewDialog/UpcomingInterviewDialog';
+import UserProfileCard from './UserProfileCard';
 
 const TASK_COUNT_LIMIT = 3;
 const ROW_GAP = 2;
@@ -400,6 +402,11 @@ export default function Dashboard(props) {
             />
           </Box>
           <Box className={classes.gridL} position="relative">
+            <Flags authorizedFlags={['userProfile']}>
+              <Box mb={5}>
+                <UserProfileCard user={user} />
+              </Box>
+            </Flags>
             <CovidJobsAccess />
             {
               // Hide this feature since the data has become out of sync with the current climate
