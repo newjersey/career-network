@@ -7,5 +7,9 @@
   },
   "airtable": {
     "api_key": "YOUR SECRET ACCOUNT API KEY"
+  },
+  "linkedin": {
+    "client_id": "CLIENT_ID",
+    "client_secret": "CLIENT_SECRET"
   }
 }

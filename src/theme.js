@@ -26,6 +26,7 @@ const theme = createMuiTheme({
       dark: '#0c4163',
       header: '#f6faff',
       secondaryHeader: '#fdf8ef',
+      linkedIn: '#2867b2',
     },
   },
   typography: {
