@@ -40,6 +40,7 @@ export default function TextQuestion(props) {
   const isValid = optional || !!value;
   const reflectError = reflectValidity && !isValid;
   const helperText = question.fields['Helper Text'];
+  const placeholderText = question.fields['Hint Text'];
 
   useEffect(() => {
     onValidationChange(isValid);
@@ -55,6 +56,7 @@ export default function TextQuestion(props) {
         onBlur={e => onBlur(e.target.value)}
         onChange={e => onChange(e.target.value)}
         variant="outlined"
+        placeholder={placeholderText}
         helperText={
           helperText && (
             <>
