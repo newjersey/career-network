@@ -6,18 +6,20 @@ const functions = require('firebase-functions');
 const https = require('https');
 
 const { WebClient: SlackWebClient } = require('@slack/web-api');
-const { linkedinRedirect, linkedinAuthorize } = require('./linkedinAuth');
+// const { linkedinRedirect, linkedinAuthorize } = require('./linkedinAuth');
+
+admin.initializeApp();
 
 // TODO: Swith to using service account ID (with right permission)
 // instead of the JSON private key
-admin.initializeApp({
-  credential: admin.credential.cert(
-    // Generate from Firebase console --> Settings --> Service accounts
-    // eslint-disable-next-line global-require, import/no-unresolved, import/no-extraneous-dependencies
-    require('./service-account.json')
-  ),
-  databaseURL: `https://${process.env.GCLOUD_PROJECT}.firebaseio.com`,
-});
+// admin.initializeApp({
+//   credential: admin.credential.cert(
+//     // Generate from Firebase console --> Settings --> Service accounts
+//     // eslint-disable-next-line global-require, import/no-unresolved, import/no-extraneous-dependencies
+//     require('./service-account.json')
+//   ),
+//   databaseURL: `https://${process.env.GCLOUD_PROJECT}.firebaseio.com`,
+// });
 
 const postSlackMessage = async (conversationId, text, options = {}) => {
   const config = functions.config().slack;
@@ -172,5 +174,5 @@ exports.intercomUserHash = functions.auth.user().onCreate(user => {
     .set({ intercomUserHash: hash }, { merge: true });
 });
 
-exports.linkedinRedirect = linkedinRedirect;
-exports.linkedinAuthorize = linkedinAuthorize;
+// exports.linkedinRedirect = linkedinRedirect;
+// exports.linkedinAuthorize = linkedinAuthorize;

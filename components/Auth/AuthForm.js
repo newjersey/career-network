@@ -1,10 +1,10 @@
 import { makeStyles } from '@material-ui/styles';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+// import Box from '@material-ui/core/Box';
+// import Button from '@material-ui/core/Button';
+// import LinkedInIcon from '@material-ui/icons/LinkedIn';
 
 import { useFirebase } from '../Firebase';
 import FullPageProgress from '../FullPageProgress';
@@ -35,7 +35,7 @@ export default function AuthForm(props) {
   const { auth } = useFirebase();
   const classes = useStyles();
   const [uiShown, setUiShown] = useState(false);
-  const linkedinUrl = `https://us-central1-${process.env.firebase.projectId}.cloudfunctions.net/linkedinRedirect`;
+  // const linkedinUrl = `https://us-central1-${process.env.firebase.projectId}.cloudfunctions.net/linkedinRedirect`;
   const uiConfig = {
     callbacks: {
       signInSuccessWithAuthResult(authResult, redirectUrl) {
@@ -82,20 +82,20 @@ export default function AuthForm(props) {
     privacyPolicyUrl: '/privacy-policy',
   };
 
-  const handleClick = () => {
-    window.open(linkedinUrl, '', 'width=500, height=700, left=600');
-  };
+  // const handleClick = () => {
+  //   window.open(linkedinUrl, '', 'width=500, height=700, left=600');
+  // };
 
   return (
     <div className={classes.root}>
-      <Box display="flex" justifyContent="center">
+      {/* <Box display="flex" justifyContent="center">
         <Box boxShadow={2}>
           <Button className={classes.button} size="large" onClick={handleClick}>
             <LinkedInIcon style={{ marginRight: '0.5em', marginLeft: '-0.7em' }} />
             Sign in with LinkedIn
           </Button>
         </Box>
-      </Box>
+      </Box> */}
       <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth()} />
       {!uiShown && (
         <div className={classes.progressContainer}>
