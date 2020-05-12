@@ -184,6 +184,8 @@ function Question(props) {
   switch (responseType) {
     case 'Text':
       return <TextQuestion {...textQuestionProps} />;
+    case 'Textarea':
+      return <TextQuestion {...textQuestionProps} multiline rows={7} />;
     case 'Number':
       switch (responseNumberControl) {
         case 'Input':
