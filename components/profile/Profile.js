@@ -2,11 +2,11 @@ import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { useAuth } from '../Auth';
-import FirebasePropTypes from '../Firebase/PropTypes';
 import ProfileItemCard from './ProfileItemCard';
 import UserProfileCard from './UserProfileCard';
 import ScaffoldContainer from '../ScaffoldContainer';
@@ -85,8 +85,8 @@ const PROFILE_ITEMS = [
   },
 ];
 
-const PHONE_QUESTION_ID = 'recDkvWeqvMxahFT2';
 const profile = {
+  phone: '6462481633',
   goal: `I will land a job as an Analyst with a financial institution by the end of this
   year. To accomplish this goal, I will improve my skills with Microsoft Excel. I will
   connect with other Analysts in my network to learn about their career paths.`,
@@ -120,15 +120,15 @@ const profile = {
   ],
 };
 
-function Profile({ allQuestionResponses }) {
+function Profile({ profileData }) {
   const classes = useStyles();
   const { user } = useAuth();
-  const questionResponse = allQuestionResponses.find(doc => doc.id === PHONE_QUESTION_ID);
-  const phoneNumber = questionResponse && questionResponse.data().value;
+  const phoneNumber = profile.phone;
 
   return (
     <div className={classes.root}>
       <Goal goal={profile.goal} />
+      <div>{JSON.stringify(profileData)}</div>
       <ScaffoldContainer>
         <Box className={classes.grid} mb={10}>
           <Box className={classes.gridC}>
@@ -159,6 +159,37 @@ function Profile({ allQuestionResponses }) {
     </div>
   );
 }
-Profile.propTypes = { allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired };
+
+Profile.propTypes = {
+  profileData: PropTypes.shapeOf({
+    goal: PropTypes.string,
+    phone: PropTypes.string,
+    educationItems: PropTypes.arrayOf(
+      PropTypes.shapeOf({
+        school: PropTypes.string,
+        'study-field': PropTypes.string,
+        'education-start-year': PropTypes.number,
+        'education-end-year': PropTypes.number,
+      })
+    ),
+    employmentItems: PropTypes.arrayOf(
+      PropTypes.shapeOf({
+        title: PropTypes.string,
+        org: PropTypes.string,
+        'start-month': PropTypes.string,
+        'start-year': PropTypes.number,
+        'end-month': PropTypes.string,
+        'end-year': PropTypes.number,
+      })
+    ),
+  }),
+};
+
+Profile.defaultProps = {
+  profileData: {
+    educationItems: [],
+    employmentItems: [],
+  },
+};
 
 export default Profile;
