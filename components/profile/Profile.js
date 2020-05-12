@@ -10,6 +10,7 @@ import FirebasePropTypes from '../Firebase/PropTypes';
 import ProfileItemCard from './ProfileItemCard';
 import UserProfileCard from './UserProfileCard';
 import ScaffoldContainer from '../ScaffoldContainer';
+import Goal from './Goal';
 
 const ROW_GAP = 2;
 const COL_GAP = 2;
@@ -73,20 +74,51 @@ const useStyles = makeStyles(theme => ({
 
 const PROFILE_ITEMS = [
   {
-    title: 'My Goal',
-    description: 'Edit Your Profile to add your Goal',
-  },
-  {
-    title: 'Education History',
+    title: 'Education Experience',
+    value: 'educationItems',
     description: 'Edit Your Profile to add Education History',
   },
   {
     title: 'Employment Experience',
+    value: 'employmentItems',
     description: 'Edit Your Profile to add Employment Experience',
   },
 ];
 
 const PHONE_QUESTION_ID = 'recDkvWeqvMxahFT2';
+const profile = {
+  goal: `I will land a job as an Analyst with a financial institution by the end of this
+  year. To accomplish this goal, I will improve my skills with Microsoft Excel. I will
+  connect with other Analysts in my network to learn about their career paths.`,
+  educationItems: [
+    {
+      school: 'Trenton Central Highschool',
+      field: 'General Education',
+      startYear: 2011,
+      startMonth: 'January',
+      endYear: 2015,
+      endMonth: 'March',
+    },
+  ],
+  employmentItems: [
+    {
+      org: 'Nordstrom',
+      title: 'Retail Asscociate',
+      startYear: 2017,
+      startMonth: 'January',
+      endYear: 2020,
+      endMonth: 'March',
+    },
+    {
+      org: "Trader Joe's",
+      title: 'Retail Asscociate',
+      startYear: 2015,
+      startMonth: 'October',
+      endYear: 2017,
+      endMonth: 'August',
+    },
+  ],
+};
 
 function Profile({ allQuestionResponses }) {
   const classes = useStyles();
@@ -96,12 +128,13 @@ function Profile({ allQuestionResponses }) {
 
   return (
     <div className={classes.root}>
+      <Goal goal={profile.goal} />
       <ScaffoldContainer>
         <Box className={classes.grid} mb={10}>
           <Box className={classes.gridC}>
             {PROFILE_ITEMS.map(item => (
               <Box mb={3}>
-                <ProfileItemCard title={item.title} description={item.description} />
+                <ProfileItemCard title={item.title} items={profile[item.value]} type={item.value} />
               </Box>
             ))}
           </Box>
