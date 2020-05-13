@@ -85,61 +85,28 @@ const PROFILE_ITEMS = [
   },
 ];
 
-const profile = {
-  phone: '6462481633',
-  goal: `I will land a job as an Analyst with a financial institution by the end of this
-  year. To accomplish this goal, I will improve my skills with Microsoft Excel. I will
-  connect with other Analysts in my network to learn about their career paths.`,
-  educationItems: [
-    {
-      school: 'Trenton Central Highschool',
-      field: 'General Education',
-      startYear: 2011,
-      startMonth: 'January',
-      endYear: 2015,
-      endMonth: 'March',
-    },
-  ],
-  employmentItems: [
-    {
-      org: 'Nordstrom',
-      title: 'Retail Asscociate',
-      startYear: 2017,
-      startMonth: 'January',
-      endYear: 2020,
-      endMonth: 'March',
-    },
-    {
-      org: "Trader Joe's",
-      title: 'Retail Asscociate',
-      startYear: 2015,
-      startMonth: 'October',
-      endYear: 2017,
-      endMonth: 'August',
-    },
-  ],
-};
-
 function Profile({ profileData }) {
   const classes = useStyles();
   const { user } = useAuth();
-  const phoneNumber = profile.phone;
 
   return (
     <div className={classes.root}>
-      <Goal goal={profile.goal} />
-      <div>{JSON.stringify(profileData)}</div>
+      <Goal goal={profileData.goal} />
       <ScaffoldContainer>
         <Box className={classes.grid} mb={10}>
           <Box className={classes.gridC}>
             {PROFILE_ITEMS.map(item => (
               <Box mb={3}>
-                <ProfileItemCard title={item.title} items={profile[item.value]} type={item.value} />
+                <ProfileItemCard
+                  title={item.title}
+                  items={profileData[item.value]}
+                  type={item.value}
+                />
               </Box>
             ))}
           </Box>
           <Box className={classes.gridL} position="relative">
-            <UserProfileCard user={user} phoneNumber={phoneNumber} />
+            <UserProfileCard user={user} phoneNumber={profileData.phone} />
           </Box>
           <Box className={classes.gridR}>
             <Card variant="outlined">

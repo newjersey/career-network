@@ -19,11 +19,18 @@ const useStyles = makeStyles(theme => ({
 
 function ProfileItemCard({ title, items, type }) {
   const classes = useStyles();
-  const experienceItem = item => {
+  const experience = item => {
     if (type === 'educationItems') {
-      return `${item.field} at ${item.school}`;
+      return `${item['study-field']} at ${item.school}`;
     }
     return `${item.title} at ${item.org}`;
+  };
+
+  const dates = item => {
+    if (type === 'educationItems') {
+      return `${item['education-start-year']} - ${item['education-end-year']}`;
+    }
+    return `${item['start-month']} ${item['start-year']} - ${item['end-month']} ${item['end-year']}`;
   };
 
   return (
@@ -37,10 +44,10 @@ function ProfileItemCard({ title, items, type }) {
           {items.map(item => (
             <Box mt={2}>
               <Typography variant="body1" gutterBottom>
-                {experienceItem(item)}
+                {experience(item)}
               </Typography>
               <Typography variant="body2" gutterBottom>
-                {item.startMonth} {item.startYear} - {item.endMonth} {item.endYear}
+                {dates(item)}
               </Typography>
             </Box>
           ))}
