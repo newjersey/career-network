@@ -11,6 +11,9 @@ import AirtablePropTypes from '../../../Airtable/PropTypes';
 import ToggleButton from '../../../ToggleButton';
 
 const useStyles = makeStyles(theme => ({
+  toggleButton: {
+    textTransform: 'capitalize',
+  },
   formControl: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(4),
@@ -83,6 +86,7 @@ export default function ToggleButtonQuestion(props) {
         </FormLabel>
         {helperText && <HelperText />}
         <ToggleButton
+          classNameOverrides={{ label: classes.toggleButton }}
           options={options}
           value={value}
           handleChange={onChange}
