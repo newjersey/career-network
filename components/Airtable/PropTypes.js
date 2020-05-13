@@ -67,6 +67,7 @@ const questionResponseType = PropTypes.oneOf([
   'Email',
   'Binary',
   'Date',
+  'Textarea',
 ]);
 
 const questionResponseNumberControl = PropTypes.oneOf(['Input', 'Slider']);
