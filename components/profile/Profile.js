@@ -3,10 +3,10 @@ import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import React from 'react';
+import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 
 import { useAuth } from '../Auth';
-import FirebasePropTypes from '../Firebase/PropTypes';
 import ProfileItemCard from './ProfileItemCard';
 import UserProfileCard from './UserProfileCard';
 import ScaffoldContainer from '../ScaffoldContainer';
@@ -86,13 +86,10 @@ const PROFILE_ITEMS = [
   },
 ];
 
-const PHONE_QUESTION_ID = 'recDkvWeqvMxahFT2';
-
-function Profile({ allQuestionResponses }) {
+function Profile({ profileData }) {
   const classes = useStyles();
   const { user } = useAuth();
-  const questionResponse = allQuestionResponses.find(doc => doc.id === PHONE_QUESTION_ID);
-  const phoneNumber = questionResponse && questionResponse.data().value;
+  const { phone } = profileData;
 
   return (
     <div className={classes.root}>
@@ -106,7 +103,7 @@ function Profile({ allQuestionResponses }) {
             ))}
           </Box>
           <Box className={classes.gridL} position="relative">
-            <UserProfileCard user={user} phoneNumber={phoneNumber} />
+            <UserProfileCard user={user} phoneNumber={phone} />
           </Box>
           <Box className={classes.gridR}>
             <Card variant="outlined">
@@ -126,6 +123,37 @@ function Profile({ allQuestionResponses }) {
     </div>
   );
 }
-Profile.propTypes = { allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired };
+
+Profile.propTypes = {
+  profileData: PropTypes.shape({
+    goal: PropTypes.string,
+    phone: PropTypes.string,
+    educationItems: PropTypes.arrayOf(
+      PropTypes.shape({
+        school: PropTypes.string,
+        'study-field': PropTypes.string,
+        'education-start-year': PropTypes.string,
+        'education-end-year': PropTypes.string,
+      })
+    ),
+    employmentItems: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string,
+        org: PropTypes.string,
+        'start-month': PropTypes.string,
+        'start-year': PropTypes.string,
+        'end-month': PropTypes.string,
+        'end-year': PropTypes.string,
+      })
+    ),
+  }),
+};
+
+Profile.defaultProps = {
+  profileData: {
+    educationItems: [],
+    employmentItems: [],
+  },
+};
 
 export default Profile;

@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/styles';
-import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useRef } from 'react';
@@ -18,13 +17,14 @@ const useStyles = makeStyles(theme => ({
     },
   },
   title: {
+    marginTop: theme.spacing(2),
     color: '#0c4163',
   },
   description: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(1),
   },
-  hr: {
-    margin: theme.spacing(4, 0, 3),
+  divider: {
+    height: theme.spacing(5),
   },
 }));
 
@@ -117,7 +117,7 @@ export default function AssessmentSubsection(props) {
           {assessmentSubsection.fields.Description}
         </Typography>
       )}
-      {assessmentSubsection.fields.Title && <Divider className={classes.hr} />}
+      {assessmentSubsection.fields.Title && <div className={classes.divider} />}
       {assessmentEntriesToShow.map((assessmentEntry, index) => (
         <AssessmentEntry
           key={assessmentEntry.id}

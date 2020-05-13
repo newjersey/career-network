@@ -36,6 +36,7 @@ function ToggleButton(props) {
     selectedButtonVariant,
     containerClassName,
     disabledMessage,
+    classNameOverrides,
   } = props;
   const [selected, setSelected] = useState(value);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -93,6 +94,7 @@ function ToggleButton(props) {
         >
           <Button
             style={{ height: '44px' }}
+            classes={classNameOverrides}
             fullWidth
             variant={
               selectedButtonVariant && isSelected(opt) ? selectedButtonVariant : buttonVariant
@@ -140,6 +142,7 @@ ToggleButton.propTypes = {
   buttonVariant: PropTypes.string,
   selectedButtonVariant: PropTypes.string,
   disabledMessage: PropTypes.string,
+  classNameOverrides: PropTypes.objectOf(PropTypes.string),
 };
 
 ToggleButton.defaultProps = {
@@ -151,6 +154,7 @@ ToggleButton.defaultProps = {
   selectedButtonVariant: undefined,
   containerClassName: undefined,
   disabledMessage: '',
+  classNameOverrides: {},
 };
 
 export default ToggleButton;

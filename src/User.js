@@ -112,4 +112,8 @@ export default class User {
   get hasCovidSurveyBeenShown() {
     return !!this.userData.hasCovidSurveyBeenShown;
   }
+
+  get hasInitializedProfile() {
+    return !!this.userProfile && !!this.userProfile.creationTimestamp;
+  }
 }
