@@ -86,39 +86,6 @@ const PROFILE_ITEMS = [
   },
 ];
 
-const profile = {
-  phone: '68293739823',
-  goal: `I will land a job as an Analyst with a financial institution by the end of this
-  year. To accomplish this goal, I will improve my skills with Microsoft Excel. I will
-  connect with other Analysts in my network to learn about their career paths.`,
-  educationItems: [
-    {
-      school: 'Trenton Central Highschool',
-      'study-field': 'General Education',
-      'education-start-year': 2011,
-      'education-end-year': 2015,
-    },
-  ],
-  employmentItems: [
-    {
-      org: 'Nordstrom',
-      title: 'Retail Asscociate',
-      'start-year': 2017,
-      'start-month': 'January',
-      'end-year': 2020,
-      'end-month': 'March',
-    },
-    {
-      org: "Trader Joe's",
-      title: 'Retail Asscociate',
-      'start-year': 2015,
-      'start-month': 'October',
-      'end-year': 2017,
-      'end-month': 'August',
-    },
-  ],
-};
-
 function Profile({ profileData }) {
   const classes = useStyles();
   const { user } = useAuth();
@@ -127,21 +94,20 @@ function Profile({ profileData }) {
 
   return (
     <div className={classes.root}>
-      {!editMode && <Goal goal={profile.goal} />}
+      {!editMode && <Goal goal={profileData.goal} />}
       <ScaffoldContainer>
-        {console.log(profileData)}
         <Box className={classes.grid} mb={10}>
           <Box className={classes.gridC}>
             {editMode && (
               <Box mb={3}>
-                <GoalEditCard value={profile.goal} />
+                <GoalEditCard value={profileData.goal} />
               </Box>
             )}
             {PROFILE_ITEMS.map(item => (
               <Box mb={3}>
                 <ProfileItemCard
                   title={item.title}
-                  items={profile[item.value]}
+                  items={profileData[item.value]}
                   type={item.value}
                   editMode={editMode}
                 />
