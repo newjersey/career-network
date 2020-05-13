@@ -60,7 +60,7 @@ function ProfilePage() {
   }, [initialized]);
 
   return fullyLoaded(user, allQuestionResponses) && initialized ? (
-    <Profile initialize={handleInitialize} profileData={user.userData.userProfile} />
+    <Profile profileData={user.userData.userProfile} />
   ) : (
     <FullPageProgress />
   );
