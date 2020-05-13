@@ -9,6 +9,7 @@ import FirebasePropTypes from '../../Firebase/PropTypes';
 import OptionQuestion from './OptionQuestion';
 import SliderQuestion from './SliderQuestion';
 import TextQuestion from './TextQuestion';
+import DateQuestion from './DateQuestion';
 
 function getDefaultValue(question, user) {
   // special cases
@@ -62,6 +63,7 @@ function Question(props) {
     'Response Number Min': responseNumberMin,
     'Response Number Max': responseNumberMax,
     'Response Number Step': responseNumberStep,
+    'Date Input Options': dateInputOptions,
   } = question.fields;
 
   // get response persisted in database
@@ -160,6 +162,13 @@ function Question(props) {
     value: localValue,
   };
 
+  const dateQuestionProps = {
+    ...commonQuestionProps,
+    views: dateInputOptions,
+    onChange: _value => setValue(_value),
+    value,
+  };
+
   const discreteQuestionProps = {
     ...commonQuestionProps,
     onChange: _value => setValue(_value),
@@ -203,7 +212,15 @@ function Question(props) {
       // currently assumes USA-only numbers
       return <TextQuestion {...textQuestionProps} type="tel" autoComplete="tel-national" />;
     case 'Date':
-      return <TextQuestion {...textQuestionProps} type="date" InputLabelProps={{ shrink: true }} />;
+      return dateInputOptions && dateInputOptions.length > 0 ? (
+        <DateQuestion
+          {...dateQuestionProps}
+          views={dateInputOptions.map(option => option.toLowerCase())}
+          InputLabelProps={{ shrink: true }}
+        />
+      ) : (
+        <TextQuestion {...textQuestionProps} type="date" InputLabelProps={{ shrink: true }} />
+      );
     case 'Binary':
       return <BinaryQuestion {...discreteQuestionProps} />;
     case 'Option':

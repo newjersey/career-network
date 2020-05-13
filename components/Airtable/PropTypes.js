@@ -72,6 +72,7 @@ const questionResponseType = PropTypes.oneOf([
 
 const questionResponseNumberControl = PropTypes.oneOf(['Input', 'Slider']);
 const questionResponseOptionsControl = PropTypes.oneOf(['Dropdown', 'Radios']);
+const questionResponseDateControl = PropTypes.oneOf(['Year', 'Month', 'Day', 'Time']);
 
 const assessmentSection = recordShape({
   Name: PropTypes.string.isRequired,
@@ -108,6 +109,7 @@ const question = recordShape({
   Disabled: PropTypes.bool,
   Hidden: PropTypes.bool,
   Slug: PropTypes.string,
+  'Date Input Options': PropTypes.arrayOf(questionResponseDateControl),
   'Helper Text': PropTypes.string,
   'Response Type': questionResponseType.isRequired,
   'Response Number Min': PropTypes.number,
