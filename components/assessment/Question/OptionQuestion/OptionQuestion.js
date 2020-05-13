@@ -11,7 +11,7 @@ export default function OptionQuestion(props) {
     case 'Dropdown':
       return <DropdownQuestion {...restProps} />;
     case 'Radios':
-      return <ToggleButtonQuestion useFullWidthButton {...restProps} />;
+      return <ToggleButtonQuestion {...restProps} isLastInGroup={isLastInGroup} />;
     default:
       return null;
   }
