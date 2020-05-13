@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ToggleButtonQuestion from './ToggleButtonQuestion';
-
+import DropdownQuestion from './DropdownQuestion';
 import AirtablePropTypes from '../../../Airtable/PropTypes';
 
 export default function OptionQuestion(props) {
@@ -9,9 +9,9 @@ export default function OptionQuestion(props) {
 
   switch (responseOptionsControl) {
     case 'Dropdown':
-      return <ToggleButtonQuestion {...restProps} isLastInGroup={isLastInGroup} />;
+      return <DropdownQuestion {...restProps} />;
     case 'Radios':
-      return <ToggleButtonQuestion useFullWidthButton {...restProps} />;
+      return <ToggleButtonQuestion {...restProps} isLastInGroup={isLastInGroup} />;
     default:
       return null;
   }

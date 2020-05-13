@@ -131,7 +131,7 @@ const appEnvironments = {
     name: 'DEV5',
     showName: true,
     airtable: {
-      apiBase: prodAirtableApiBase,
+      apiBase: liveAirtableApiBase,
     },
     firebase: {
       apiKey: 'AIzaSyCNdMzlu9heNVkRVD48DovbvnEMOkjLo7s',

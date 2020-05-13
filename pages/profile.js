@@ -23,14 +23,7 @@ function ProfilePage() {
       ),
     ],
     employmentItems: [
-      [
-        'most-recent-title',
-        'most-recent-org',
-        'most-recent-start-month',
-        'most-recent-start-year',
-        'most-recent-end-month',
-        'most-recent-end-year',
-      ].reduce(
+      ['most-recent-title', 'most-recent-org', 'most-recent-start', 'most-recent-end'].reduce(
         (current, slug) => ({
           ...current,
           [slug.replace('most-recent-', '')]: getQuestionResponse(allQuestionResponses, slug),
@@ -54,13 +47,13 @@ function ProfilePage() {
   useEffect(() => {
     if (user.hasInitializedProfile) {
       setInitialized(true);
-    } else {
+    } else if (fullyLoaded(allQuestionResponses)) {
       handleInitialize();
     }
-  }, [initialized]);
+  }, [allQuestionResponses]);
 
   return fullyLoaded(user, allQuestionResponses) && initialized ? (
-    <Profile initialize={handleInitialize} profileData={user.userData.userProfile} />
+    <Profile profileData={user.userData.userProfile} />
   ) : (
     <FullPageProgress />
   );

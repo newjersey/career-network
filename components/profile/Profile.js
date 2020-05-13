@@ -88,6 +88,7 @@ const PROFILE_ITEMS = [
 function Profile({ profileData }) {
   const classes = useStyles();
   const { user } = useAuth();
+  const { phone } = profileData;
 
   return (
     <div className={classes.root}>
@@ -106,7 +107,7 @@ function Profile({ profileData }) {
             ))}
           </Box>
           <Box className={classes.gridL} position="relative">
-            <UserProfileCard user={user} phoneNumber={profileData.phone} />
+            <UserProfileCard user={user} phoneNumber={phone} />
           </Box>
           <Box className={classes.gridR}>
             <Card variant="outlined">
@@ -128,25 +129,25 @@ function Profile({ profileData }) {
 }
 
 Profile.propTypes = {
-  profileData: PropTypes.shapeOf({
+  profileData: PropTypes.shape({
     goal: PropTypes.string,
     phone: PropTypes.string,
     educationItems: PropTypes.arrayOf(
-      PropTypes.shapeOf({
+      PropTypes.shape({
         school: PropTypes.string,
         'study-field': PropTypes.string,
-        'education-start-year': PropTypes.number,
-        'education-end-year': PropTypes.number,
+        'education-start-year': PropTypes.string,
+        'education-end-year': PropTypes.string,
       })
     ),
     employmentItems: PropTypes.arrayOf(
-      PropTypes.shapeOf({
+      PropTypes.shape({
         title: PropTypes.string,
         org: PropTypes.string,
         'start-month': PropTypes.string,
-        'start-year': PropTypes.number,
+        'start-year': PropTypes.string,
         'end-month': PropTypes.string,
-        'end-year': PropTypes.number,
+        'end-year': PropTypes.string,
       })
     ),
   }),
