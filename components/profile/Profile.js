@@ -2,14 +2,15 @@ import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { useAuth } from '../Auth';
 import ProfileItemCard from './ProfileItemCard';
 import UserProfileCard from './UserProfileCard';
 import ScaffoldContainer from '../ScaffoldContainer';
+import Goal from './Goal';
 
 const ROW_GAP = 2;
 const COL_GAP = 2;
@@ -73,15 +74,13 @@ const useStyles = makeStyles(theme => ({
 
 const PROFILE_ITEMS = [
   {
-    title: 'My Goal',
-    description: 'Edit Your Profile to add your Goal',
-  },
-  {
-    title: 'Education History',
+    title: 'Education Experience',
+    value: 'educationItems',
     description: 'Edit Your Profile to add Education History',
   },
   {
     title: 'Employment Experience',
+    value: 'employmentItems',
     description: 'Edit Your Profile to add Employment Experience',
   },
 ];
@@ -93,12 +92,17 @@ function Profile({ profileData }) {
 
   return (
     <div className={classes.root}>
+      <Goal goal={profileData.goal} />
       <ScaffoldContainer>
         <Box className={classes.grid} mb={10}>
           <Box className={classes.gridC}>
             {PROFILE_ITEMS.map(item => (
               <Box mb={3}>
-                <ProfileItemCard title={item.title} description={item.description} />
+                <ProfileItemCard
+                  title={item.title}
+                  items={profileData[item.value]}
+                  type={item.value}
+                />
               </Box>
             ))}
           </Box>
