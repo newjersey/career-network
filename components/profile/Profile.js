@@ -3,7 +3,7 @@ import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { useAuth } from '../Auth';
@@ -11,6 +11,7 @@ import ProfileItemCard from './ProfileItemCard';
 import UserProfileCard from './UserProfileCard';
 import ScaffoldContainer from '../ScaffoldContainer';
 import Goal from './Goal';
+import GoalEditCard from './GoalEditCard';
 
 const ROW_GAP = 2;
 const COL_GAP = 2;
@@ -85,29 +86,75 @@ const PROFILE_ITEMS = [
   },
 ];
 
+const profile = {
+  phone: '68293739823',
+  goal: `I will land a job as an Analyst with a financial institution by the end of this
+  year. To accomplish this goal, I will improve my skills with Microsoft Excel. I will
+  connect with other Analysts in my network to learn about their career paths.`,
+  educationItems: [
+    {
+      school: 'Trenton Central Highschool',
+      'study-field': 'General Education',
+      'education-start-year': 2011,
+      'education-end-year': 2015,
+    },
+  ],
+  employmentItems: [
+    {
+      org: 'Nordstrom',
+      title: 'Retail Asscociate',
+      'start-year': 2017,
+      'start-month': 'January',
+      'end-year': 2020,
+      'end-month': 'March',
+    },
+    {
+      org: "Trader Joe's",
+      title: 'Retail Asscociate',
+      'start-year': 2015,
+      'start-month': 'October',
+      'end-year': 2017,
+      'end-month': 'August',
+    },
+  ],
+};
+
 function Profile({ profileData }) {
   const classes = useStyles();
   const { user } = useAuth();
   const { phone } = profileData;
+  const [editMode, setEditMode] = useState(false);
 
   return (
     <div className={classes.root}>
-      <Goal goal={profileData.goal} />
+      {!editMode && <Goal goal={profile.goal} />}
       <ScaffoldContainer>
+        {console.log(profileData)}
         <Box className={classes.grid} mb={10}>
           <Box className={classes.gridC}>
+            {editMode && (
+              <Box mb={3}>
+                <GoalEditCard value={profile.goal} />
+              </Box>
+            )}
             {PROFILE_ITEMS.map(item => (
               <Box mb={3}>
                 <ProfileItemCard
                   title={item.title}
-                  items={profileData[item.value]}
+                  items={profile[item.value]}
                   type={item.value}
+                  editMode={editMode}
                 />
               </Box>
             ))}
           </Box>
           <Box className={classes.gridL} position="relative">
-            <UserProfileCard user={user} phoneNumber={phone} />
+            <UserProfileCard
+              user={user}
+              phoneNumber={phone}
+              editMode={editMode}
+              onButtonClick={() => (editMode ? setEditMode(false) : setEditMode(true))}
+            />
           </Box>
           <Box className={classes.gridR}>
             <Card variant="outlined">
