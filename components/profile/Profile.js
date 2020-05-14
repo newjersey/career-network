@@ -4,7 +4,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import firebase from 'firebase/app';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { useAuth } from '../Auth';
@@ -91,16 +91,20 @@ function Profile({ profileData }) {
   const classes = useStyles();
   const { user, userDocRef } = useAuth();
   const [editMode, setEditMode] = useState(false);
-  const [values, setValues] = useState(profileData);
+  const [values, setValues] = useState({});
 
   const handleSave = () => {
     setEditMode(false);
     const data = {
-      ...values,
+      goal: values.goal,
       lastUpdateTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
     };
     userDocRef.set({ userProfile: data }, { merge: true });
   };
+
+  useEffect(() => {
+    setValues({ goal: profileData.goal });
+  }, [profileData]);
 
   return (
     <div className={classes.root}>
