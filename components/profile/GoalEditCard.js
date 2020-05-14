@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function GoalEditCard({ value }) {
+function GoalEditCard({ value, onChange }) {
   const classes = useStyles();
 
   return (
@@ -36,11 +36,11 @@ function GoalEditCard({ value }) {
           <TextField
             variant="outlined"
             value={value}
+            onChange={onChange}
             multiline
             rows={6}
             fullWidth
             className={classes.textField}
-            inputProps={{ maxLength: 80 }}
           />
         </CardContent>
       </Card>
@@ -50,6 +50,7 @@ function GoalEditCard({ value }) {
 
 GoalEditCard.propTypes = {
   value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default GoalEditCard;
