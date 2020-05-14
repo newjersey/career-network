@@ -30,7 +30,7 @@ function ProfileItemCard({ title, items, type }) {
     if (type === 'educationItems') {
       return `${item['education-start-year']} - ${item['education-end-year']}`;
     }
-    return `${item['start-month']} ${item['start-year']} - ${item['end-month']} ${item['end-year']}`;
+    return `${item.start} - ${item.end}`;
   };
 
   return (

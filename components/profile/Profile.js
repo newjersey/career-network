@@ -144,10 +144,8 @@ Profile.propTypes = {
       PropTypes.shape({
         title: PropTypes.string,
         org: PropTypes.string,
-        'start-month': PropTypes.string,
-        'start-year': PropTypes.string,
-        'end-month': PropTypes.string,
-        'end-year': PropTypes.string,
+        start: PropTypes.string,
+        end: PropTypes.string,
       })
     ),
   }),
