@@ -89,7 +89,17 @@ function EmploymentDialog({ show, onClose, mode, items, itemIndex }) {
   useEffect(() => {
     if (show && Object.keys(values) < 1) {
       if (mode === UPDATE) {
-        setValues(vals => ({ ...vals, ...items[itemIndex] }));
+        const { start, end, ...rest } = items[itemIndex];
+        const [startMonth, startYear] = start.split(' ');
+        const [endMonth, endYear] = end.split(' ');
+        setValues(vals => ({
+          ...vals,
+          ...rest,
+          startYear,
+          startMonth,
+          endYear,
+          endMonth,
+        }));
       } else {
         setValues(vals => ({ ...vals, ...initialState }));
       }
@@ -100,21 +110,23 @@ function EmploymentDialog({ show, onClose, mode, items, itemIndex }) {
   }, [show]);
 
   const handleSubmit = async () => {
+    const { startMonth, startYear, endMonth, endYear, ...rest } = values;
+    const start = ` ${startMonth} ${startYear}`;
+    const end = ` ${startMonth} ${startYear}`;
+
     const updatedItems =
       mode === ADD
-        ? [...items, values]
-        : [...items.slice(0, itemIndex), values, ...items.slice(itemIndex)];
-
-    const updateData = {
-      lastUpdateTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      educationItems: updatedItems,
-    };
+        ? [...items, { start, end, ...rest }]
+        : [...items.slice(0, itemIndex), { start, end, ...rest }, ...items.slice(itemIndex)];
 
     setError();
     setSuccess();
     setLoading(true);
     try {
-      await userDocRef.set({ userProfile: updateData }, { merge: true });
+      await userDocRef.update({
+        lastUpdateTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        'userProfile.employmentItems': updatedItems,
+      });
       setSuccess(true);
     } catch (err) {
       setError(err.message);
@@ -123,7 +135,7 @@ function EmploymentDialog({ show, onClose, mode, items, itemIndex }) {
     }
   };
 
-  const handleExited = () => {
+  const handleClose = () => {
     reset();
     onClose();
   };
@@ -134,7 +146,7 @@ function EmploymentDialog({ show, onClose, mode, items, itemIndex }) {
         maxWidth="sm"
         open={show}
         aria-labelledby="edit-employment-dialog"
-        onExited={handleExited}
+        onExited={handleClose}
       >
         <DialogTitle id="edit-profile-dialog" onClose={onClose}>
           <Typography variant="h6">Update Employment Experience</Typography>
@@ -219,9 +231,9 @@ function EmploymentDialog({ show, onClose, mode, items, itemIndex }) {
                     variant="outlined"
                     className={classes.textField}
                     InputLabelProps={{ shrink: true }}
-                    inputProps={{ name: 'startMonth', placeholder: 'Month' }}
-                    id={`${formId}-start-month`}
-                    value={values.startMonth}
+                    inputProps={{ name: 'endMonth', placeholder: 'Month' }}
+                    id={`${formId}-end-month`}
+                    value={values.endMonth}
                     onChange={handleChange}
                     displayEmpty
                   >
@@ -238,14 +250,14 @@ function EmploymentDialog({ show, onClose, mode, items, itemIndex }) {
                     fullWidth
                     variant="outlined"
                     className={classes.textField}
-                    id={`${formId}-start-year`}
+                    id={`${formId}-end-year`}
                     InputLabelProps={{ shrink: true }}
-                    inputProps={{ name: 'startYear' }}
+                    inputProps={{ name: 'endYear' }}
                     margin="normal"
                     type="number"
                     onChange={handleChange}
                     placeholder="Year"
-                    value={values.startYear}
+                    value={values.endYear}
                   />
                 </Grid>
               </Grid>
@@ -258,9 +270,28 @@ function EmploymentDialog({ show, onClose, mode, items, itemIndex }) {
           )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleSubmit} color="primary" fullWidth size="large" variant="contained">
-            Save
-          </Button>
+          {!success && (
+            <Button
+              onClick={handleSubmit}
+              color="primary"
+              fullWidth
+              size="large"
+              variant="contained"
+            >
+              Save
+            </Button>
+          )}
+          {success && (
+            <Button
+              onClick={handleClose}
+              color="primary"
+              fullWidth
+              size="large"
+              variant="contained"
+            >
+              Close
+            </Button>
+          )}
         </DialogActions>
       </Dialog>
     </>
@@ -274,10 +305,10 @@ EmploymentDialog.propTypes = {
   itemIndex: PropTypes.number,
   items: PropTypes.arrayOf(
     PropTypes.shape({
-      school: PropTypes.string,
-      'study-field': PropTypes.string,
-      'education-start-year': PropTypes.string,
-      'education-end-year': PropTypes.string,
+      start: PropTypes.string,
+      end: PropTypes.string,
+      title: PropTypes.string,
+      org: PropTypes.string,
     })
   ),
 };

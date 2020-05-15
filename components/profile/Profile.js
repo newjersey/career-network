@@ -133,6 +133,7 @@ function Profile({ profileData }) {
           itemIndex: null,
         }));
       default:
+        return null;
     }
   };
 
@@ -149,9 +150,11 @@ function Profile({ profileData }) {
         return setDialogConfig({
           name: DIALOGS.EDIT_EMPLOYMENT,
           mode: UPDATE,
+          items: profileData.employmentItems,
           itemIndex,
         });
       default:
+        return null;
     }
   };
 

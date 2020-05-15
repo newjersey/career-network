@@ -80,16 +80,14 @@ function UpdateEducationDialog({ show, onClose, mode, items, itemIndex }) {
         ? [...items, values]
         : [...items.slice(0, itemIndex), values, ...items.slice(itemIndex)];
 
-    const updateData = {
-      lastUpdateTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      educationItems: updatedItems,
-    };
-
     setError();
     setSuccess();
     setLoading(true);
     try {
-      await userDocRef.set({ userProfile: updateData }, { merge: true });
+      await userDocRef.update({
+        'userProfile.educationItems': updatedItems,
+        lastUpdateTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      });
       setSuccess(true);
     } catch (err) {
       setError(err.message);
@@ -98,7 +96,7 @@ function UpdateEducationDialog({ show, onClose, mode, items, itemIndex }) {
     }
   };
 
-  const handleExited = () => {
+  const handleClose = () => {
     reset();
     onClose();
   };
@@ -109,7 +107,7 @@ function UpdateEducationDialog({ show, onClose, mode, items, itemIndex }) {
         maxWidth="sm"
         open={show}
         aria-labelledby="edit-profile-dialog"
-        onExited={handleExited}
+        onExited={handleClose}
       >
         <DialogTitle id="edit-profile-dialog" onClose={onClose}>
           <Typography variant="h6">Update Education Experience</Typography>
@@ -191,9 +189,28 @@ function UpdateEducationDialog({ show, onClose, mode, items, itemIndex }) {
           )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleSubmit} color="primary" fullWidth size="large" variant="contained">
-            Save
-          </Button>
+          {!success && (
+            <Button
+              onClick={handleSubmit}
+              color="primary"
+              fullWidth
+              size="large"
+              variant="contained"
+            >
+              Save
+            </Button>
+          )}
+          {success && (
+            <Button
+              onClick={handleClose}
+              color="primary"
+              fullWidth
+              size="large"
+              variant="contained"
+            >
+              Close
+            </Button>
+          )}
         </DialogActions>
       </Dialog>
     </>
