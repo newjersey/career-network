@@ -33,7 +33,7 @@ Router.events.on('routeChangeComplete', () => {
 const featureFlags = [
   {
     name: 'userProfile',
-    isActive: false,
+    isActive: true,
   },
 ];
 
