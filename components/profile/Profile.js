@@ -2,15 +2,19 @@ import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import firebase from 'firebase/app';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import { useAuth } from '../Auth';
-import ProfileItemCard from './ProfileItemCard';
-import UserProfileCard from './UserProfileCard';
-import ScaffoldContainer from '../ScaffoldContainer';
 import Goal from './Goal';
+import GoalEditCard from './GoalEditCard';
+import ProfileItemCard from './ProfileItemCard';
+import ScaffoldContainer from '../ScaffoldContainer';
+import EditProfileDialog, { ADD, UPDATE } from './EditProfileDialog';
+import EmploymentDialog from './EmploymentDialog';
+import UserProfileCard from './UserProfileCard';
 
 const ROW_GAP = 2;
 const COL_GAP = 2;
@@ -85,29 +89,120 @@ const PROFILE_ITEMS = [
   },
 ];
 
+const DIALOGS = {
+  EDIT_EDUCATION: 'EditEducationDialog',
+  EDIT_EMPLOYMENT: 'EditEmploymentDialog',
+};
+
+const INITIAL_DIALOG_STATE = { mode: ADD, name: null };
 function Profile({ profileData }) {
   const classes = useStyles();
-  const { user } = useAuth();
-  const { phone } = profileData;
+  const { user, userDocRef } = useAuth();
+  const [editMode, setEditMode] = useState(false);
+  const [values, setValues] = useState({});
+  const [dialogConfig, setDialogConfig] = useState(INITIAL_DIALOG_STATE);
+
+  const handleSave = () => {
+    setEditMode(false);
+    const data = {
+      goal: values.goal,
+      lastUpdateTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    };
+    userDocRef.set({ userProfile: data }, { merge: true });
+  };
+
+  useEffect(() => {
+    setValues({ goal: profileData.goal });
+  }, [profileData]);
+
+  const handleOpenAddDialog = itemType => {
+    switch (itemType) {
+      case 'educationItems':
+        return setDialogConfig(config => ({
+          ...config,
+          name: DIALOGS.EDIT_EDUCATION,
+          mode: ADD,
+          items: profileData.educationItems,
+          itemIndex: null,
+        }));
+      case 'employmentItems':
+        return setDialogConfig(config => ({
+          ...config,
+          name: DIALOGS.EDIT_EMPLOYMENT,
+          mode: ADD,
+          itemIndex: null,
+        }));
+      default:
+    }
+  };
+
+  const handleOpenEditDialog = (itemIndex, itemType) => {
+    switch (itemType) {
+      case 'educationItems':
+        return setDialogConfig({
+          name: DIALOGS.EDIT_EDUCATION,
+          mode: UPDATE,
+          items: profileData.educationItems,
+          itemIndex,
+        });
+      case 'employmentItems':
+        return setDialogConfig({
+          name: DIALOGS.EDIT_EMPLOYMENT,
+          mode: UPDATE,
+          itemIndex,
+        });
+      default:
+    }
+  };
+
+  const closeDialog = () => setDialogConfig(INITIAL_DIALOG_STATE);
 
   return (
     <div className={classes.root}>
-      <Goal goal={profileData.goal} />
+      <EditProfileDialog
+        {...dialogConfig}
+        show={dialogConfig.name === DIALOGS.EDIT_EDUCATION}
+        onClose={closeDialog}
+        onExited={closeDialog}
+      />
+      <EmploymentDialog
+        {...dialogConfig}
+        show={dialogConfig.name === DIALOGS.EDIT_EMPLOYMENT}
+        onClose={closeDialog}
+        onExited={closeDialog}
+      />
+      {!editMode && <Goal goal={values.goal} />}
       <ScaffoldContainer>
         <Box className={classes.grid} mb={10}>
           <Box className={classes.gridC}>
+            {editMode && (
+              <Box mb={3}>
+                <GoalEditCard
+                  value={values.goal}
+                  onChange={e => setValues({ ...values, goal: e.target.value })}
+                />
+              </Box>
+            )}
             {PROFILE_ITEMS.map(item => (
               <Box mb={3}>
                 <ProfileItemCard
                   title={item.title}
                   items={profileData[item.value]}
                   type={item.value}
+                  editMode={editMode}
+                  handleEdit={index => handleOpenEditDialog(index, item.value)}
+                  handleAdd={() => handleOpenAddDialog(item.value)}
                 />
               </Box>
             ))}
           </Box>
           <Box className={classes.gridL} position="relative">
-            <UserProfileCard user={user} phoneNumber={phone} />
+            <UserProfileCard
+              user={user}
+              phoneNumber={profileData.phone}
+              editMode={editMode}
+              onButtonClick={() => (editMode ? handleSave() : setEditMode(true))}
+            />
           </Box>
           <Box className={classes.gridR}>
             <Card variant="outlined">
