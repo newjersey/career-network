@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Divider from '@material-ui/core/Divider';
 import EmailIcon from '@material-ui/icons/Email';
@@ -31,9 +33,15 @@ const useStyles = makeStyles(theme => ({
   info: {
     marginLeft: theme.spacing(1),
   },
+  lightButtonRoot: {
+    backgroundColor: 'RGBA(24,129,197,0.06)',
+  },
+  lightButtonLabel: {
+    color: '#1881C5',
+  },
 }));
 
-function UserProfileCard({ user, phoneNumber }) {
+function UserProfileCard({ user, phoneNumber, onButtonClick, editMode }) {
   const classes = useStyles();
   const { photoURL, displayName, email } = user;
 
@@ -69,6 +77,17 @@ function UserProfileCard({ user, phoneNumber }) {
             </Box>
           )}
         </CardContent>
+        <CardActions disableSpacing>
+          <Button
+            fullWidth
+            variant="contained"
+            size="large"
+            classes={{ root: classes.lightButtonRoot, label: classes.lightButtonLabel }}
+            onClick={onButtonClick}
+          >
+            {editMode ? 'SAVE PROFILE UPDATES' : 'EDIT MY PROFILE'}
+          </Button>
+        </CardActions>
       </Card>
     </>
   );
@@ -77,6 +96,8 @@ function UserProfileCard({ user, phoneNumber }) {
 UserProfileCard.propTypes = {
   user: PropTypes.instanceOf(UserClass).isRequired,
   phoneNumber: PropTypes.string,
+  onButtonClick: PropTypes.func.isRequired,
+  editMode: PropTypes.bool.isRequired,
 };
 
 UserProfileCard.defaultProps = {
