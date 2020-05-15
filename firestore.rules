@@ -27,11 +27,6 @@ service cloud.firestore {
         allow read: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isCoach == true &&
             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.assignments.hasAny([uid]);
       }
-      
-      // any user can read, create, and update anything directly on their profile
-      match /profileResponses/{document=**} {
-        allow read, create, update: if request.auth.uid == uid;
-      }
  
       // action disposition events are immutable: no updating allowed
       match /actionDispositionEvents/{document} {

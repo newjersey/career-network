@@ -105,6 +105,7 @@ ProfileItemCard.propTypes = {
   type: PropTypes.string.isRequired,
   editMode: PropTypes.bool.isRequired,
   handleEdit: PropTypes.func.isRequired,
+  handleAdd: PropTypes.func.isRequired,
 };
 
 export default ProfileItemCard;
