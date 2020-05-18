@@ -251,8 +251,6 @@ Profile.propTypes = {
 
 Profile.defaultProps = {
   profileData: {
-    goal: '',
-    phone: '',
     educationItems: [],
     employmentItems: [],
     supportServices: [],

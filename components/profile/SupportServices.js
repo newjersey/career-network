@@ -64,6 +64,7 @@ function SupportServices({ show, onClose, items }) {
       <DialogContent>
         {values.map(item => (
           <BinaryQuestion
+            key={item.slug}
             value={item.value}
             label={item.label}
             slug={item.slug}

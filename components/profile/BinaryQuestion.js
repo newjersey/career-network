@@ -30,11 +30,6 @@ export default function BinaryQuestion(props) {
   const classes = useStyles();
   const [checked, setChecked] = useState(value);
 
-  // useEffect(() => {
-  //   // hack: persist check box values when they're first rendered,
-  //   // otherwise we don't get "false" recorded on checkboxes never touched.
-  //   onChange(checkbox.current.checked);
-  // }, [onChange]);
   const handleChange = val => {
     setChecked(val);
     onChange(val, slug);
