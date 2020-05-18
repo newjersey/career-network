@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function EducationDialog({ handleChange, handleSubmit, values }) {
+function EducationItemForm({ handleChange, handleSubmit, values }) {
   const formId = 'educationItems';
   const classes = useStyles();
 
@@ -93,7 +93,7 @@ function EducationDialog({ handleChange, handleSubmit, values }) {
   );
 }
 
-EducationDialog.propTypes = {
+EducationItemForm.propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   values: PropTypes.shape({
@@ -104,7 +104,7 @@ EducationDialog.propTypes = {
   }),
 };
 
-EducationDialog.defaultProps = {
+EducationItemForm.defaultProps = {
   values: {
     'study-field': undefined,
     school: undefined,
@@ -113,4 +113,4 @@ EducationDialog.defaultProps = {
   },
 };
 
-export default EducationDialog;
+export default EducationItemForm;

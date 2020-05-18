@@ -13,7 +13,7 @@ import GoalEditCard from './GoalEditCard';
 import ProfileItemCard from './ProfileItemCard';
 import ScaffoldContainer from '../ScaffoldContainer';
 import UserProfileCard from './UserProfileCard';
-import EditDialog, { ADD, UPDATE } from './EditDialog';
+import EditDialog, { ADD, UPDATE } from './EditDialog/EditDialog';
 
 const ROW_GAP = 2;
 const COL_GAP = 2;

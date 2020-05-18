@@ -6,11 +6,11 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import FullPageProgress from '../FullPageProgress';
-import { useAuth } from '../Auth';
-import { DialogContent, DialogTitle, DialogActions } from '../DialogComponents';
-import EmploymentDialog from './EmploymentDialog';
-import EducationDialog from './EducationDialog';
+import FullPageProgress from '../../FullPageProgress';
+import { useAuth } from '../../Auth';
+import { DialogContent, DialogTitle, DialogActions } from '../../DialogComponents';
+import EmploymentItemForm from './EmploymentItemForm';
+import EducationItemForm from './EducationItemForm';
 
 export const ADD = 'ADD';
 export const UPDATE = 'UPDATE';
@@ -105,12 +105,20 @@ function EditDialog({ show, onClose, mode, name, items, itemIndex }) {
     if (!show) return null;
     if (name === DIALOGS.EDIT_EDUCATION) {
       return (
-        <EducationDialog handleChange={handleChange} handleSubmit={handleSubmit} values={values} />
+        <EducationItemForm
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          values={values}
+        />
       );
     }
     if (name === DIALOGS.EDIT_EMPLOYMENT) {
       return (
-        <EmploymentDialog handleChange={handleChange} handleSubmit={handleSubmit} values={values} />
+        <EmploymentItemForm
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          values={values}
+        />
       );
     }
     return null;

@@ -45,8 +45,9 @@ const MONTHS = [
   'December',
 ];
 
-const monthYearIsValid = (month, year) => month && year && year.length === 4;
-function EmploymentDialog({ handleChange, handleSubmit, values }) {
+const monthYearIsValid = (month, year) => month && year && `${year}`.match(/^[0-9]{1,2}.[0-9]{2}$/);
+
+function EmploymentItemForm({ handleChange, handleSubmit, values }) {
   const formId = 'employmentItems';
   const classes = useStyles();
 
@@ -120,10 +121,11 @@ function EmploymentDialog({ handleChange, handleSubmit, values }) {
               id={`${formId}-start-year`}
               inputProps={{
                 name: 'startYear',
-                maxlength: '4',
-                type: 'text',
-                pattern: '^[0-9]{1,2}.[0-9]{2}$',
               }}
+              type="number"
+              step={1}
+              min={1900}
+              max={2099}
               onChange={event => handleChange('startYear', event.target.value)}
               placeholder="Year"
               value={values.startYear}
@@ -160,10 +162,11 @@ function EmploymentDialog({ handleChange, handleSubmit, values }) {
               InputLabelProps={{ shrink: true }}
               inputProps={{
                 name: 'endYear',
-                maxlength: '4',
-                type: 'text',
-                pattern: '^[0-9]{1,2}.[0-9]{2}$',
               }}
+              type="number"
+              step={1}
+              min={1900}
+              max={2099}
               onChange={event => handleChange('endYear', event.target.value)}
               placeholder="Year"
               value={values.endYear}
@@ -175,7 +178,7 @@ function EmploymentDialog({ handleChange, handleSubmit, values }) {
   );
 }
 
-EmploymentDialog.propTypes = {
+EmploymentItemForm.propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   values: PropTypes.shape({
@@ -188,7 +191,7 @@ EmploymentDialog.propTypes = {
   }),
 };
 
-EmploymentDialog.defaultProps = {
+EmploymentItemForm.defaultProps = {
   values: {
     title: undefined,
     org: undefined,
@@ -199,4 +202,4 @@ EmploymentDialog.defaultProps = {
   },
 };
 
-export default EmploymentDialog;
+export default EmploymentItemForm;
