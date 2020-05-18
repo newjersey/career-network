@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useUserSubcollection } from '../components/Firebase';
-import { fullyLoaded, getQuestionResponse } from '../src/app-helper';
+import { fullyLoaded, getQuestionResponse, getQuestionResponseDetails } from '../src/app-helper';
 import { useAuth, withAuthRequired } from '../components/Auth';
 import Profile from '../components/profile/Profile';
 import FullPageProgress from '../components/FullPageProgress';
@@ -32,24 +32,16 @@ function ProfilePage() {
         {}
       ),
     ],
-    supportServics: [
-      [
-        'unemployment-insurance',
-        'health-insurance',
-        'housing-assistance',
-        'food-assistance',
-        'energy-assistance',
-        'transportation',
-        'child-care',
-        'budgeting',
-      ].reduce(
-        (current, slug) => ({
-          ...current,
-          [slug]: getQuestionResponse(allQuestionResponses, slug),
-        }),
-        {}
-      ),
-    ],
+    supportServices: [
+      'unemployment-insurance',
+      'health-insurance',
+      'housing-assistance',
+      'food-assistance',
+      'energy-assistance',
+      'transportation',
+      'child-care',
+      'budgeting',
+    ].map(slug => getQuestionResponseDetails(allQuestionResponses, slug)),
   });
 
   useEffect(() => {

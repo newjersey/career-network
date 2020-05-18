@@ -1,6 +1,8 @@
 import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import firebase from 'firebase/app';
 import PropTypes from 'prop-types';
@@ -12,6 +14,7 @@ import Goal from './Goal';
 import GoalEditCard from './GoalEditCard';
 import ProfileItemCard from './ProfileItemCard';
 import ScaffoldContainer from '../ScaffoldContainer';
+import SupportServices from './SupportServices';
 import UserProfileCard from './UserProfileCard';
 import EditDialog, { ADD, UPDATE } from './EditDialog/EditDialog';
 
@@ -27,6 +30,9 @@ const useStyles = makeStyles(theme => ({
   },
   container: {
     marginTop: theme.spacing(-5),
+  },
+  card: {
+    padding: theme.spacing(1),
   },
   grid: {
     display: 'grid',
@@ -96,6 +102,7 @@ function Profile({ profileData }) {
   const [showDialog, setShowDialog] = useState(false);
   const [values, setValues] = useState({ goal: profileData.goal });
   const [dialogConfig, setDialogConfig] = useState(INITIAL_DIALOG_STATE);
+  const [showSupportServices, setShowSupportServices] = useState(false);
 
   const handleSave = () => {
     setEditMode(false);
@@ -144,6 +151,11 @@ function Profile({ profileData }) {
         onClose={closeDialog}
         onExited={closeDialog}
       />
+      <SupportServices
+        items={profileData.supportServices}
+        show={showSupportServices}
+        onClose={() => setShowSupportServices(false)}
+      />
       {!editMode && <Goal goal={values.goal} />}
       <ScaffoldContainer>
         <Box className={classes.grid} mb={10}>
@@ -178,7 +190,7 @@ function Profile({ profileData }) {
             />
           </Box>
           <Box className={classes.gridR}>
-            <Card variant="outlined">
+            <Card variant="outlined" className={classes.card}>
               <CardContent>
                 <Typography variant="h6" gutterBottom>
                   Support Services
@@ -188,6 +200,16 @@ function Profile({ profileData }) {
                   Services you are interested in getting more information about.
                 </Typography>
               </CardContent>
+              <CardActions disableSpacing>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  size="large"
+                  onClick={() => setShowSupportServices(true)}
+                >
+                  Learn More
+                </Button>
+              </CardActions>
             </Card>
           </Box>
         </Box>
@@ -218,14 +240,10 @@ Profile.propTypes = {
     ),
     supportServices: PropTypes.arrayOf(
       PropTypes.shape({
-        'unemployment-insurance': PropTypes.string,
-        'health-insurance': PropTypes.string,
-        'housing-assistance': PropTypes.string,
-        'food-assistance': PropTypes.string,
-        'energy-assistance': PropTypes.string,
-        transportation: PropTypes.string,
-        'child-care': PropTypes.string,
-        budgeting: PropTypes.string,
+        slug: PropTypes.string,
+        value: PropTypes.bool,
+        label: PropTypes.string,
+        helperText: PropTypes.string,
       })
     ),
   }),
