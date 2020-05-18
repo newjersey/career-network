@@ -165,7 +165,8 @@ function Question(props) {
   const dateQuestionProps = {
     ...commonQuestionProps,
     views: dateInputOptions,
-    onChange: _value => setValue(_value),
+    onChange: _value => setLocalValue(_value),
+    onChangeCommitted: _value => setValue(_value),
     value,
   };
 
@@ -213,11 +214,7 @@ function Question(props) {
       return <TextQuestion {...textQuestionProps} type="tel" autoComplete="tel-national" />;
     case 'Date':
       return dateInputOptions && dateInputOptions.length > 0 ? (
-        <DateQuestion
-          {...dateQuestionProps}
-          views={dateInputOptions.map(option => option.toLowerCase())}
-          InputLabelProps={{ shrink: true }}
-        />
+        <DateQuestion {...dateQuestionProps} InputLabelProps={{ shrink: true }} />
       ) : (
         <TextQuestion {...textQuestionProps} type="date" InputLabelProps={{ shrink: true }} />
       );
