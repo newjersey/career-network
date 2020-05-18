@@ -1,11 +1,11 @@
 import { makeStyles } from '@material-ui/styles';
-import InfoIcon from '@material-ui/icons/Info';
 import PropTypes from 'prop-types';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
 import React, { useEffect, useState } from 'react';
-import clsx from 'clsx';
 import AirtablePropTypes from '../../Airtable/PropTypes';
 
 // eslint-disable-next-line no-unused-vars
@@ -14,10 +14,10 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(3),
     fontWeight: 500,
-    maxWidth: 180,
   },
   helperText: {
     display: 'flex',
+    width: '100%',
     fontSize: '0.75rem',
     lineHeight: '1rem',
     backgroundColor: theme.palette.background.header,
@@ -25,6 +25,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1),
   },
   year: {
+    maxWidth: 180,
     marginLeft: theme.spacing(1),
   },
   monthSelect: {
@@ -34,8 +35,12 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 400,
     color: theme.palette.text.hint,
   },
-  root: {
+  label: {
+    width: '100%',
+  },
+  group: {
     display: 'flex',
+    flexWrap: 'wrap',
   },
 }));
 
@@ -111,53 +116,50 @@ export default function DateQuestion(props) {
   }, [selectedDate]);
 
   return (
-    <>
-      <span>{question.fields.Label}</span>
-      <div className={classes.root}>
-        <Select
-          error={reflectError}
-          displayEmpty
-          disabled={question.fields.Disabled}
-          value={selectedDate && selectedDate.month !== undefined ? selectedDate.month : ''}
-          variant="outlined"
-          FormHelperTextProps={{ classes: { root: classes.helperText } }}
-          helperText={
-            helperText && (
-              <>
-                <InfoIcon color="primary" style={{ fontSize: '1.2rem', marginRight: '0.5rem' }} />
-                <span>{helperText}</span>
-              </>
-            )
-          }
-          className={clsx(classes.textField, classes.monthSelect)}
-          onChange={event => handleMonthChange(event.target.value)}
-        >
-          <MenuItem value="">
-            <span className={classes.disabled}>Month</span>
-          </MenuItem>
-          {MONTHS.map(m => (
-            <MenuItem value={m}>{m}</MenuItem>
-          ))}
-        </Select>
-        <TextField
-          disabled={question.fields.Disabled}
-          error={reflectError}
-          type="number"
-          min={1900}
-          max={2099}
-          FormHelperTextProps={{ classes: { root: classes.helperText } }}
-          step={1}
-          className={clsx(classes.textField, classes.year)}
-          variant="outlined"
-          placeholder="Year"
-          fullWidth
-          inputProps={{ maxlength: '4', type: 'text', pattern: 'd*' }}
-          value={selectedYear}
-          onBlur={e => handleYearCommit(e.target.value)}
-          onChange={e => handleYearChange(e.target.value)}
-        />
-      </div>
-    </>
+    <div className={classes.group}>
+      <span className={classes.label}>{question.fields.Label}</span>
+
+      <FormControl className={classes.textField}>
+        <div className={classes.group}>
+          <Select
+            disabled={question.fields.Disabled}
+            displayEmpty
+            className={classes.monthSelect}
+            error={reflectError}
+            onChange={event => handleMonthChange(event.target.value)}
+            value={selectedDate && selectedDate.month !== undefined ? selectedDate.month : ''}
+            variant="outlined"
+          >
+            <MenuItem value="">
+              <span className={classes.disabled}>Month</span>
+            </MenuItem>
+            {MONTHS.map(month => (
+              <MenuItem key={month} value={month}>
+                {month}
+              </MenuItem>
+            ))}
+          </Select>
+          <TextField
+            className={classes.year}
+            disabled={question.fields.Disabled}
+            error={reflectError}
+            FormHelperTextProps={{ classes: { root: classes.helperText } }}
+            fullWidth
+            inputProps={{ maxlength: '4', type: 'text', pattern: 'd*' }}
+            max={2099}
+            min={1900}
+            onBlur={e => handleYearCommit(e.target.value)}
+            onChange={e => handleYearChange(e.target.value)}
+            placeholder="Year"
+            step={1}
+            type="number"
+            value={selectedYear}
+            variant="outlined"
+          />
+        </div>
+        {helperText && <FormHelperText className={classes.helperText}>{helperText}</FormHelperText>}
+      </FormControl>
+    </div>
   );
 }
 
