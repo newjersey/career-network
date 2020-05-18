@@ -110,7 +110,7 @@ export function getQuestionResponse(allQuestionResponses, slug) {
   const response = allQuestionResponses.find(qr => qr.data().question.fields.Slug === slug);
 
   if (!response) {
-    throw new Error(`Could not find response to question with slug ${slug}`);
+    return null;
   }
 
   return response.data().value;

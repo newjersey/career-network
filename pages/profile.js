@@ -13,6 +13,7 @@ function ProfilePage() {
 
   const copyInitialProfileValues = () => ({
     goal: getQuestionResponse(allQuestionResponses, 'goal'),
+    phone: getQuestionResponse(allQuestionResponses, 'phone'),
     educationItems: [
       ['school', 'study-field', 'education-start-year', 'education-end-year'].reduce(
         (current, slug) => ({

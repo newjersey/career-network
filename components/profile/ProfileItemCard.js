@@ -32,17 +32,21 @@ const useStyles = makeStyles(theme => ({
 function ProfileItemCard({ title, items, type, editMode, handleEdit, handleAdd }) {
   const classes = useStyles();
   const experience = item => {
-    if (type === 'educationItems') {
-      return `${item['study-field']} at ${item.school}`;
+    const role = type === 'educationItems' ? item['study-field'] : item.title;
+    const place = type === 'educationItems' ? item.school : item.org;
+    if (role && place) {
+      return `${role} at ${place}`;
     }
-    return `${item.title} at ${item.org}`;
+    return null;
   };
 
   const dates = item => {
-    if (type === 'educationItems') {
-      return `${item['education-start-year']} - ${item['education-end-year']}`;
+    const start = type === 'educationItems' ? item['education-start-year'] : item.start;
+    const end = type === 'educationItems' ? item['education-end-year'] : item.end;
+    if (start) {
+      return end ? `${start} - ${end}` : `${start} - current`;
     }
-    return `${item.start} - ${item.end}`;
+    return null;
   };
 
   return (
