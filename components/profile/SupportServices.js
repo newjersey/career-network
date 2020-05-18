@@ -1,6 +1,8 @@
 import { makeStyles } from '@material-ui/styles';
+import Button from '@material-ui/core/Button';
 import firebase from 'firebase/app';
 import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -70,6 +72,17 @@ function SupportServices({ show, onClose, items }) {
           />
         ))}
       </DialogContent>
+      <DialogActions>
+        <Button
+          variant="contained"
+          onClick={handleClose}
+          fullWidth
+          color="primary"
+          style={{ marginTop: '1rem' }}
+        >
+          Update
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 }
