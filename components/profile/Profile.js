@@ -251,10 +251,11 @@ Profile.propTypes = {
 
 Profile.defaultProps = {
   profileData: {
-    educationItems: [],
-    employmentItems: [],
     goal: '',
     phone: '',
+    educationItems: [],
+    employmentItems: [],
+    supportServices: [],
   },
 };
 

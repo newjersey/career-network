@@ -25,7 +25,7 @@ const MAX_WIDTH = 'md';
 function SupportServices({ show, onClose, items }) {
   const classes = useStyles();
   const { userDocRef } = useAuth();
-  const [values, setValues] = useState(items.slice());
+  const [values, setValues] = useState(items);
 
   const onChange = (val, slug) => {
     values.find(option => option.slug === slug).value = val;
