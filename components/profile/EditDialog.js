@@ -1,0 +1,196 @@
+/* eslint-disable sonarjs/cognitive-complexity */
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import firebase from 'firebase/app';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Dialog from '@material-ui/core/Dialog';
+import Typography from '@material-ui/core/Typography';
+import SubmitSuccess from '../activityInput/SubmitSuccess';
+import { useAuth } from '../Auth';
+import { DialogContent, DialogTitle, DialogActions } from '../DialogComponents';
+import EmploymentDialog from './EmploymentDialog';
+import EducationDialog from './EducationDialog';
+
+export const ADD = 'ADD';
+export const UPDATE = 'UPDATE';
+
+export const DIALOGS = {
+  EDIT_EDUCATION: 'educationItems',
+  EDIT_EMPLOYMENT: 'employmentItems',
+};
+
+function EditDialog({ show, onClose, mode, name, items, itemIndex }) {
+  const { userDocRef } = useAuth();
+  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState();
+  const [values, setValues] = useState();
+  const dialogTitle = name === DIALOGS.EDIT_EDUCATION ? 'Education' : 'Employment';
+
+  const handleChange = (fieldName, value) => {
+    setValues(prevValues => ({
+      ...prevValues,
+      [fieldName]: value,
+    }));
+  };
+
+  const reset = () => {
+    setValues();
+    setError();
+    setLoading(false);
+    setSuccess(false);
+  };
+
+  useEffect(() => {
+    // If dialog is open and values have not been initialized
+    if (show && !values && mode === UPDATE) {
+      if (name === DIALOGS.EDIT_EMPLOYMENT) {
+        const { start, end, title, org } = items[itemIndex];
+        const [startMonth, startYear] = start.split(' ');
+        const [endMonth, endYear] = end.split(' ');
+        setValues({
+          title,
+          org,
+          startYear,
+          startMonth,
+          endYear,
+          endMonth,
+        });
+      } else {
+        setValues(items[itemIndex]);
+      }
+    } else if (!show) {
+      reset();
+    }
+  }, [show, name]);
+
+  const handleClose = () => {
+    reset();
+    onClose();
+  };
+
+  const handleSubmit = async updatedItem => {
+    setError();
+    setSuccess();
+    setLoading(true);
+
+    const updatedItems =
+      mode === ADD
+        ? [...items, updatedItem]
+        : [...items.slice(0, itemIndex), updatedItem, ...items.slice(itemIndex + 1)];
+
+    try {
+      await userDocRef.update({
+        [`userProfile.${name}`]: updatedItems,
+        lastUpdateTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+      setSuccess(true);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const renderForm = () => {
+    if (!show) return null;
+    if (name === DIALOGS.EDIT_EDUCATION) {
+      return (
+        <EducationDialog handleChange={handleChange} handleSubmit={handleSubmit} values={values} />
+      );
+    }
+    if (name === DIALOGS.EDIT_EMPLOYMENT) {
+      return (
+        <EmploymentDialog handleChange={handleChange} handleSubmit={handleSubmit} values={values} />
+      );
+    }
+    return null;
+  };
+
+  return (
+    <>
+      <Dialog
+        maxWidth="sm"
+        open={show}
+        aria-labelledby="edit-profile-dialog"
+        onExited={handleClose}
+      >
+        <DialogTitle id="edit-profile-dialog" onClose={onClose}>
+          <Typography variant="h6">Update {dialogTitle} Experience</Typography>
+          <Typography variant="body1" color="textSecondary">
+            Lorem ipsum
+          </Typography>
+        </DialogTitle>
+        <DialogContent>
+          {loading && <CircularProgress />}
+          <SubmitSuccess message={`${dialogTitle} updated`} show={success} />
+
+          {!(loading || success) && renderForm()}
+          {error && (
+            <Typography color="error" variant="h4">
+              Error: {error}
+            </Typography>
+          )}
+        </DialogContent>
+        <DialogActions>
+          {!success && (
+            <Button
+              onClick={handleSubmit}
+              color="primary"
+              fullWidth
+              type="submit"
+              form={name}
+              size="large"
+              variant="contained"
+            >
+              Save
+            </Button>
+          )}
+          {success && (
+            <Button
+              onClick={handleClose}
+              color="primary"
+              fullWidth
+              size="large"
+              variant="contained"
+            >
+              Close
+            </Button>
+          )}
+        </DialogActions>
+      </Dialog>
+    </>
+  );
+}
+
+EditDialog.propTypes = {
+  show: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  mode: PropTypes.oneOf([ADD, UPDATE]).isRequired,
+  name: PropTypes.oneOf([DIALOGS.EDIT_EDUCATION, DIALOGS.EDIT_EMPLOYMENT]),
+  items: PropTypes.arrayOf(
+    PropTypes.oneOf([
+      PropTypes.shape({
+        start: PropTypes.string,
+        end: PropTypes.string,
+        title: PropTypes.string,
+        org: PropTypes.string,
+      }),
+      PropTypes.shape({
+        school: PropTypes.string,
+        'study-field': PropTypes.string,
+        'education-start-year': PropTypes.string,
+        'education-end-year': PropTypes.string,
+      }),
+    ])
+  ),
+  itemIndex: PropTypes.number,
+};
+
+EditDialog.defaultProps = {
+  itemIndex: null,
+  items: [],
+  name: null,
+};
+export default EditDialog;

@@ -12,9 +12,8 @@ import Goal from './Goal';
 import GoalEditCard from './GoalEditCard';
 import ProfileItemCard from './ProfileItemCard';
 import ScaffoldContainer from '../ScaffoldContainer';
-import EditProfileDialog, { ADD, UPDATE } from './EditProfileDialog';
-import EmploymentDialog from './EmploymentDialog';
 import UserProfileCard from './UserProfileCard';
+import EditDialog, { ADD, UPDATE } from './EditDialog';
 
 const ROW_GAP = 2;
 const COL_GAP = 2;
@@ -89,16 +88,12 @@ const PROFILE_ITEMS = [
   },
 ];
 
-const DIALOGS = {
-  EDIT_EDUCATION: 'EditEducationDialog',
-  EDIT_EMPLOYMENT: 'EditEmploymentDialog',
-};
-
 const INITIAL_DIALOG_STATE = { mode: ADD, name: null };
 function Profile({ profileData }) {
   const classes = useStyles();
   const { user, userDocRef } = useAuth();
   const [editMode, setEditMode] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
   const [values, setValues] = useState({});
   const [dialogConfig, setDialogConfig] = useState(INITIAL_DIALOG_STATE);
 
@@ -116,61 +111,36 @@ function Profile({ profileData }) {
   }, [profileData]);
 
   const handleOpenAddDialog = itemType => {
-    switch (itemType) {
-      case 'educationItems':
-        return setDialogConfig(config => ({
-          ...config,
-          name: DIALOGS.EDIT_EDUCATION,
-          mode: ADD,
-          items: profileData.educationItems,
-          itemIndex: null,
-        }));
-      case 'employmentItems':
-        return setDialogConfig(config => ({
-          ...config,
-          name: DIALOGS.EDIT_EMPLOYMENT,
-          mode: ADD,
-          itemIndex: null,
-        }));
-      default:
-        return null;
-    }
+    setDialogConfig(config => ({
+      ...config,
+      name: itemType,
+      mode: ADD,
+      items: profileData[itemType],
+      itemIndex: null,
+    }));
+    setShowDialog(true);
   };
 
   const handleOpenEditDialog = (itemIndex, itemType) => {
-    switch (itemType) {
-      case 'educationItems':
-        return setDialogConfig({
-          name: DIALOGS.EDIT_EDUCATION,
-          mode: UPDATE,
-          items: profileData.educationItems,
-          itemIndex,
-        });
-      case 'employmentItems':
-        return setDialogConfig({
-          name: DIALOGS.EDIT_EMPLOYMENT,
-          mode: UPDATE,
-          items: profileData.employmentItems,
-          itemIndex,
-        });
-      default:
-        return null;
-    }
+    setDialogConfig({
+      name: itemType,
+      mode: UPDATE,
+      items: profileData[itemType],
+      itemIndex,
+    });
+    setShowDialog(true);
   };
 
-  const closeDialog = () => setDialogConfig(INITIAL_DIALOG_STATE);
+  const closeDialog = () => {
+    setShowDialog(false);
+    setDialogConfig(INITIAL_DIALOG_STATE);
+  };
 
   return (
     <div className={classes.root}>
-      <EditProfileDialog
+      <EditDialog
         {...dialogConfig}
-        show={dialogConfig.name === DIALOGS.EDIT_EDUCATION}
-        onClose={closeDialog}
-        onExited={closeDialog}
-      />
-      <EmploymentDialog
-        {...dialogConfig}
-        show={dialogConfig.name === DIALOGS.EDIT_EMPLOYMENT}
+        show={showDialog}
         onClose={closeDialog}
         onExited={closeDialog}
       />
