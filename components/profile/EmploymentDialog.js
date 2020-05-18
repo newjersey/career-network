@@ -109,15 +109,24 @@ function EmploymentDialog({ show, onClose, mode, items, itemIndex }) {
     }
   }, [show]);
 
+  const handleClose = () => {
+    reset();
+    onClose();
+  };
+
   const handleSubmit = async () => {
-    const { startMonth, startYear, endMonth, endYear, ...rest } = values;
-    const start = ` ${startMonth} ${startYear}`;
-    const end = ` ${startMonth} ${startYear}`;
+    const { startMonth, startYear, endMonth, endYear, org, title } = values;
+    const updatedItem = {
+      start: `${startMonth} ${startYear}`,
+      end: `${endMonth} ${endYear}`,
+      org,
+      title,
+    };
 
     const updatedItems =
       mode === ADD
-        ? [...items, { start, end, ...rest }]
-        : [...items.slice(0, itemIndex), { start, end, ...rest }, ...items.slice(itemIndex)];
+        ? [...items, updatedItem]
+        : [...items.slice(0, itemIndex), updatedItem, ...items.slice(itemIndex + 1)];
 
     setError();
     setSuccess();
@@ -133,11 +142,6 @@ function EmploymentDialog({ show, onClose, mode, items, itemIndex }) {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleClose = () => {
-    reset();
-    onClose();
   };
 
   return (

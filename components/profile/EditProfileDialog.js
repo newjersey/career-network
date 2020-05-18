@@ -74,6 +74,11 @@ function UpdateEducationDialog({ show, onClose, mode, items, itemIndex }) {
     }
   }, [show]);
 
+  const handleClose = () => {
+    reset();
+    onClose();
+  };
+
   const handleSubmit = async () => {
     const updatedItems =
       mode === ADD
@@ -89,16 +94,12 @@ function UpdateEducationDialog({ show, onClose, mode, items, itemIndex }) {
         lastUpdateTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
       });
       setSuccess(true);
+      handleClose();
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleClose = () => {
-    reset();
-    onClose();
   };
 
   return (
