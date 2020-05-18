@@ -47,11 +47,11 @@ function UpdateEducationDialog({ show, onClose, mode, items, itemIndex }) {
   const [error, setError] = useState();
   const [values, setValues] = useState({});
 
-  const handleChange = event => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value,
-    });
+  const handleChange = (name, value) => {
+    setValues(prevValues => ({
+      ...prevValues,
+      [name]: value,
+    }));
   };
 
   const reset = () => {
@@ -83,7 +83,7 @@ function UpdateEducationDialog({ show, onClose, mode, items, itemIndex }) {
     const updatedItems =
       mode === ADD
         ? [...items, values]
-        : [...items.slice(0, itemIndex), values, ...items.slice(itemIndex)];
+        : [...items.slice(0, itemIndex), values, ...items.slice(itemIndex + 1)];
 
     setError();
     setSuccess();
@@ -127,9 +127,8 @@ function UpdateEducationDialog({ show, onClose, mode, items, itemIndex }) {
                 fullWidth
                 id={`${formId}-study-field`}
                 InputLabelProps={{ shrink: true }}
-                inputProps={{ name: 'study-field' }}
                 margin="normal"
-                onChange={handleChange}
+                onChange={event => handleChange('study-field', event.target.value)}
                 placeholder="Enter the Major / Field of Study"
                 value={values['study-field']}
                 variant="outlined"
@@ -140,9 +139,8 @@ function UpdateEducationDialog({ show, onClose, mode, items, itemIndex }) {
                 fullWidth
                 id={`${formId}-school`}
                 InputLabelProps={{ shrink: true }}
-                inputProps={{ name: 'school' }}
                 margin="normal"
-                onChange={handleChange}
+                onChange={event => handleChange('school', event.target.value)}
                 placeholder="Enter the School Name"
                 value={values.school}
                 variant="outlined"
@@ -156,10 +154,9 @@ function UpdateEducationDialog({ show, onClose, mode, items, itemIndex }) {
                     className={classes.textField}
                     id={`${formId}-education-start-year`}
                     InputLabelProps={{ shrink: true }}
-                    inputProps={{ name: 'education-start-year' }}
                     margin="normal"
                     type="number"
-                    onChange={handleChange}
+                    onChange={event => handleChange('education-start-year', event.target.value)}
                     placeholder="Select Start Year"
                     value={values['education-start-year']}
                   />
@@ -171,9 +168,8 @@ function UpdateEducationDialog({ show, onClose, mode, items, itemIndex }) {
                     fullWidth
                     id={`${formId}-education-end-year`}
                     InputLabelProps={{ shrink: true }}
-                    inputProps={{ name: 'education-end-year' }}
                     margin="normal"
-                    onChange={handleChange}
+                    onChange={event => handleChange('education-end-year', event.target.value)}
                     placeholder="Select End Year"
                     type="number"
                     value={values['education-end-year']}

@@ -208,7 +208,9 @@ function EmploymentDialog({ show, onClose, mode, items, itemIndex }) {
                       <span className={classes.placeholderText}>Month</span>
                     </MenuItem>
                     {MONTHS.map(month => (
-                      <MenuItem value={month}>{month}</MenuItem>
+                      <MenuItem key={month} value={month}>
+                        {month}
+                      </MenuItem>
                     ))}
                   </Select>
                 </Grid>
@@ -245,7 +247,9 @@ function EmploymentDialog({ show, onClose, mode, items, itemIndex }) {
                       <span className={classes.placeholderText}>Month</span>
                     </MenuItem>
                     {MONTHS.map(month => (
-                      <MenuItem value={month}>{month}</MenuItem>
+                      <MenuItem key={month} value={month}>
+                        {month}
+                      </MenuItem>
                     ))}
                   </Select>
                 </Grid>
