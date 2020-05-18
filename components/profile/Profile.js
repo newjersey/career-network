@@ -157,7 +157,7 @@ function Profile({ profileData }) {
               </Box>
             )}
             {PROFILE_ITEMS.map(item => (
-              <Box mb={3}>
+              <Box mb={3} key={item.value}>
                 <ProfileItemCard
                   title={item.title}
                   items={profileData[item.value]}

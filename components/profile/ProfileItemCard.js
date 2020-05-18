@@ -49,6 +49,11 @@ function ProfileItemCard({ title, items, type, editMode, handleEdit, handleAdd }
     return null;
   };
 
+  const itemsWithIds = items.map((item, index) => ({
+    ...item,
+    id: `${Object.keys(item)[0]}-${index}`,
+  }));
+
   return (
     <>
       <Card className={classes.card} variant="outlined">
@@ -57,8 +62,8 @@ function ProfileItemCard({ title, items, type, editMode, handleEdit, handleAdd }
             {title}
           </Typography>
           {!editMode && <Divider variant="fullWidth" />}
-          {items.map((item, index) => (
-            <React.Fragment key={Object.keys(item)[0]}>
+          {itemsWithIds.map((item, index) => (
+            <React.Fragment key={item.id}>
               {!editMode && (
                 <Box mt={2}>
                   <Typography variant="body1" gutterBottom>

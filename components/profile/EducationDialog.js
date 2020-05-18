@@ -32,18 +32,6 @@ function EducationDialog({ handleChange, handleSubmit, values }) {
   return (
     <>
       <form id={formId} onSubmit={onSubmit}>
-        <span>Major / Field of Study</span>
-        <TextField
-          className={classes.textField}
-          fullWidth
-          id={`${formId}-study-field`}
-          InputLabelProps={{ shrink: true }}
-          margin="normal"
-          onChange={event => handleChange('study-field', event.target.value)}
-          placeholder="Enter the Major / Field of Study"
-          value={values['study-field']}
-          variant="outlined"
-        />
         <span>School</span>
         <TextField
           className={classes.textField}
@@ -54,6 +42,18 @@ function EducationDialog({ handleChange, handleSubmit, values }) {
           onChange={event => handleChange('school', event.target.value)}
           placeholder="Enter the School Name"
           value={values.school}
+          variant="outlined"
+        />
+        <span>Major / Field of Study</span>
+        <TextField
+          className={classes.textField}
+          fullWidth
+          id={`${formId}-study-field`}
+          InputLabelProps={{ shrink: true }}
+          margin="normal"
+          onChange={event => handleChange('study-field', event.target.value)}
+          placeholder="Enter the Major / Field of Study"
+          value={values['study-field']}
           variant="outlined"
         />
         <span>Years Attended</span>
@@ -68,7 +68,7 @@ function EducationDialog({ handleChange, handleSubmit, values }) {
               margin="normal"
               type="number"
               onChange={event => handleChange('education-start-year', event.target.value)}
-              placeholder="Select Start Year"
+              placeholder="Enter Start Year"
               value={values['education-start-year']}
             />
           </Grid>
@@ -81,7 +81,7 @@ function EducationDialog({ handleChange, handleSubmit, values }) {
               InputLabelProps={{ shrink: true }}
               margin="normal"
               onChange={event => handleChange('education-end-year', event.target.value)}
-              placeholder="Select End Year"
+              placeholder="Enter End Year"
               type="number"
               value={values['education-end-year']}
               variant="outlined"

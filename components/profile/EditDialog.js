@@ -3,10 +3,10 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import firebase from 'firebase/app';
 import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Dialog from '@material-ui/core/Dialog';
 import Typography from '@material-ui/core/Typography';
-import SubmitSuccess from '../activityInput/SubmitSuccess';
+import { makeStyles } from '@material-ui/core/styles';
+import FullPageProgress from '../FullPageProgress';
 import { useAuth } from '../Auth';
 import { DialogContent, DialogTitle, DialogActions } from '../DialogComponents';
 import EmploymentDialog from './EmploymentDialog';
@@ -20,7 +20,14 @@ export const DIALOGS = {
   EDIT_EMPLOYMENT: 'employmentItems',
 };
 
+const useStyles = makeStyles(() => ({
+  content: {
+    minHeight: 400,
+  },
+}));
+
 function EditDialog({ show, onClose, mode, name, items, itemIndex }) {
+  const classes = useStyles();
   const { userDocRef } = useAuth();
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -86,6 +93,7 @@ function EditDialog({ show, onClose, mode, name, items, itemIndex }) {
         lastUpdateTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
       });
       setSuccess(true);
+      handleClose();
     } catch (err) {
       setError(err.message);
     } finally {
@@ -112,20 +120,16 @@ function EditDialog({ show, onClose, mode, name, items, itemIndex }) {
     <>
       <Dialog
         maxWidth="sm"
+        fullWidth
         open={show}
         aria-labelledby="edit-profile-dialog"
         onExited={handleClose}
       >
         <DialogTitle id="edit-profile-dialog" onClose={onClose}>
           <Typography variant="h6">Update {dialogTitle} Experience</Typography>
-          <Typography variant="body1" color="textSecondary">
-            Lorem ipsum
-          </Typography>
         </DialogTitle>
-        <DialogContent>
-          {loading && <CircularProgress />}
-          <SubmitSuccess message={`${dialogTitle} updated`} show={success} />
-
+        <DialogContent className={classes.content}>
+          {loading && <FullPageProgress />}
           {!(loading || success) && renderForm()}
           {error && (
             <Typography color="error" variant="h4">
@@ -136,7 +140,6 @@ function EditDialog({ show, onClose, mode, name, items, itemIndex }) {
         <DialogActions>
           {!success && (
             <Button
-              onClick={handleSubmit}
               color="primary"
               fullWidth
               type="submit"
@@ -145,17 +148,6 @@ function EditDialog({ show, onClose, mode, name, items, itemIndex }) {
               variant="contained"
             >
               Save
-            </Button>
-          )}
-          {success && (
-            <Button
-              onClick={handleClose}
-              color="primary"
-              fullWidth
-              size="large"
-              variant="contained"
-            >
-              Close
             </Button>
           )}
         </DialogActions>
