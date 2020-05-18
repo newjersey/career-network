@@ -10,7 +10,7 @@ import AirtablePropTypes from '../../Airtable/PropTypes';
 
 // eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles(theme => ({
-  textField: {
+  formControl: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(3),
     fontWeight: 500,
@@ -73,13 +73,11 @@ export default function DateQuestion(props) {
   const isValid = optional || !!value;
   const reflectError = reflectValidity && !isValid;
   const helperText = question.fields['Helper Text'];
+  const initialValue = value && value.length > 0 ? value.split(' ') : undefined;
 
   useEffect(() => {
     onValidationChange(isValid);
   }, [isValid, onValidationChange]);
-
-  // BEGIN
-  const initialValue = value && value.length > 0 ? value.split(' ') : undefined;
 
   // if value is null, then don't set initial for inputs
   const [selectedDate, setSelectedDate] = useState(
@@ -90,7 +88,6 @@ export default function DateQuestion(props) {
         }
       : {}
   );
-
   const [selectedYear, setSelectedYear] = useState(selectedDate.year);
 
   const handleYearChange = newYear => {
@@ -103,12 +100,14 @@ export default function DateQuestion(props) {
   };
 
   const handleYearCommit = newYear => {
+    // If incomplete year is entered, don't persist year or month
     if (newYear.length < 4) {
       onChangeCommitted(``);
     }
   };
 
   useEffect(() => {
+    // Only persist date if both are filled in
     if (selectedDate.month && selectedDate.year && selectedDate.year.length === 4) {
       onChangeCommitted(`${selectedDate.month} ${selectedDate.year}`);
     }
@@ -118,8 +117,7 @@ export default function DateQuestion(props) {
   return (
     <div className={classes.group}>
       <span className={classes.label}>{question.fields.Label}</span>
-
-      <FormControl className={classes.textField}>
+      <FormControl className={classes.formControl}>
         <div className={classes.group}>
           <Select
             disabled={question.fields.Disabled}
