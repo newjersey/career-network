@@ -85,29 +85,29 @@ export default function DateQuestion(props) {
         }
       : {}
   );
-  const [selectedYear, setSelectedYear] = useState(selectedDate[1]);
+
+  const [selectedYear, setSelectedYear] = useState(selectedDate.year);
 
   const handleYearChange = newYear => {
     setSelectedYear(newYear);
     setSelectedDate(prevValues => ({ ...prevValues, year: newYear }));
   };
 
-  const handleYearCommit = newYear => {
-    // If the year field is left incomplete or blank, set the month & year value to empty
-    if (!newYear || newYear.length < 1) {
-      onChangeCommitted('');
-    }
-  };
-
   const handleMonthChange = newMonth => {
     setSelectedDate(prevValues => ({ ...prevValues, month: newMonth }));
   };
 
+  const handleYearCommit = newYear => {
+    if (newYear.length < 4) {
+      onChangeCommitted(``);
+    }
+  };
+
   useEffect(() => {
-    onChange(selectedDate);
-    if (selectedDate.month && selectedYear && selectedYear.length === 4) {
+    if (selectedDate.month && selectedDate.year && selectedDate.year.length === 4) {
       onChangeCommitted(`${selectedDate.month} ${selectedDate.year}`);
     }
+    onChange(selectedDate);
   }, [selectedDate]);
 
   return (
