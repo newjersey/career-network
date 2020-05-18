@@ -165,7 +165,11 @@ function Question(props) {
   const dateQuestionProps = {
     ...commonQuestionProps,
     views: dateInputOptions,
-    onChange: _value => setValue(_value),
+    onChange: _value => setLocalValue(_value),
+    onChangeCommitted: _value => {
+      console.log('onChangeCommitted', _value);
+      setValue(_value);
+    },
     value,
   };
 
