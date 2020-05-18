@@ -58,7 +58,7 @@ function ProfileItemCard({ title, items, type, editMode, handleEdit, handleAdd }
           </Typography>
           {!editMode && <Divider variant="fullWidth" />}
           {items.map((item, index) => (
-            <>
+            <React.Fragment key={Object.keys(item)[0]}>
               {!editMode && (
                 <Box mt={2}>
                   <Typography variant="body1" gutterBottom>
@@ -88,7 +88,7 @@ function ProfileItemCard({ title, items, type, editMode, handleEdit, handleAdd }
                   </Grid>
                 </Card>
               )}
-            </>
+            </React.Fragment>
           ))}
         </CardContent>
         <CardActions disableSpacing>
