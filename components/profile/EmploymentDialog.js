@@ -45,15 +45,17 @@ const MONTHS = [
   'December',
 ];
 
+const monthYearIsValid = (month, year) => month && year && year.length === 4;
 function EmploymentDialog({ handleChange, handleSubmit, values }) {
   const formId = 'employmentItems';
   const classes = useStyles();
 
   const onSubmit = () => {
     const { startMonth, startYear, endMonth, endYear, org, title } = values;
+
     const updatedItem = {
-      start: `${startMonth} ${startYear}`,
-      end: `${endMonth} ${endYear}`,
+      start: monthYearIsValid(startMonth, startYear) ? `${startMonth} ${startYear}` : '',
+      end: monthYearIsValid(endMonth, endYear) ? `${endMonth} ${endYear}` : '',
       org,
       title,
     };
@@ -116,8 +118,12 @@ function EmploymentDialog({ handleChange, handleSubmit, values }) {
               variant="outlined"
               className={classes.textField}
               id={`${formId}-start-year`}
-              inputProps={{ name: 'startYear' }}
-              type="number"
+              inputProps={{
+                name: 'startYear',
+                maxlength: '4',
+                type: 'text',
+                pattern: '^[0-9]{1,2}.[0-9]{2}$',
+              }}
               onChange={event => handleChange('startYear', event.target.value)}
               placeholder="Year"
               value={values.startYear}
@@ -152,8 +158,12 @@ function EmploymentDialog({ handleChange, handleSubmit, values }) {
               className={classes.textField}
               id={`${formId}-end-year`}
               InputLabelProps={{ shrink: true }}
-              inputProps={{ name: 'endYear' }}
-              type="number"
+              inputProps={{
+                name: 'endYear',
+                maxlength: '4',
+                type: 'text',
+                pattern: '^[0-9]{1,2}.[0-9]{2}$',
+              }}
               onChange={event => handleChange('endYear', event.target.value)}
               placeholder="Year"
               value={values.endYear}

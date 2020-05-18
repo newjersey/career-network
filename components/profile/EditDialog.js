@@ -81,7 +81,7 @@ function EditDialog({ show, onClose, mode, name, items, itemIndex }) {
     setError();
     setSuccess();
     setLoading(true);
-
+    console.log(updatedItem);
     const updatedItems =
       mode === ADD
         ? [...items, updatedItem]
