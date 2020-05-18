@@ -32,17 +32,21 @@ const useStyles = makeStyles(theme => ({
 function ProfileItemCard({ title, items, type, editMode }) {
   const classes = useStyles();
   const experience = item => {
-    if (type === 'educationItems') {
-      return `${item['study-field']} at ${item.school}`;
+    const role = type === 'educationItems' ? item['study-field'] : item.title;
+    const place = type === 'educationItems' ? item.school : item.org;
+    if (role && place) {
+      return `${role} at ${place}`;
     }
-    return `${item.title} at ${item.org}`;
+    return null;
   };
 
   const dates = item => {
-    if (type === 'educationItems') {
-      return `${item['education-start-year']} - ${item['education-end-year']}`;
+    const start = type === 'educationItems' ? item['education-start-year'] : item.start;
+    const end = type === 'educationItems' ? item['education-end-year'] : item.end;
+    if (start) {
+      return end ? `${start} - ${end}` : `${start} - current`;
     }
-    return `${item.start} - ${item.end}`;
+    return null;
   };
 
   return (
@@ -53,37 +57,39 @@ function ProfileItemCard({ title, items, type, editMode }) {
             {title}
           </Typography>
           {!editMode && <Divider variant="fullWidth" />}
-          {items.map(item => (
-            <>
-              {!editMode && (
-                <Box mt={2}>
-                  <Typography variant="body1" gutterBottom>
-                    {experience(item)}
-                  </Typography>
-                  <Typography variant="body2" gutterBottom>
-                    {dates(item)}
-                  </Typography>
-                </Box>
-              )}
-              {editMode && (
-                <Card className={classes.itemCard} variant="outlined">
-                  <Grid container alignItems="center" direction="row" justify="space-between">
-                    <Grid item>
-                      <Typography variant="body1" gutterBottom>
-                        {experience(item)}
-                      </Typography>
-                      <Typography variant="body2" gutterBottom>
-                        {dates(item)}
-                      </Typography>
+          {items
+            .map(item => ({ expr: experience(item), period: dates(item) }))
+            .map(displayItem => (
+              <>
+                {!editMode && displayItem.expr && (
+                  <Box mt={2}>
+                    <Typography variant="body1" gutterBottom>
+                      {displayItem.expr}
+                    </Typography>
+                    <Typography variant="body2" gutterBottom>
+                      {displayItem.period}
+                    </Typography>
+                  </Box>
+                )}
+                {editMode && displayItem.expr && (
+                  <Card className={classes.itemCard} variant="outlined">
+                    <Grid container alignItems="center" direction="row" justify="space-between">
+                      <Grid item>
+                        <Typography variant="body1" gutterBottom>
+                          {displayItem.expr}
+                        </Typography>
+                        <Typography variant="body2" gutterBottom>
+                          {displayItem.period}
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <Button variant="contained">EDIT</Button>
+                      </Grid>
                     </Grid>
-                    <Grid item>
-                      <Button variant="contained">EDIT</Button>
-                    </Grid>
-                  </Grid>
-                </Card>
-              )}
-            </>
-          ))}
+                  </Card>
+                )}
+              </>
+            ))}
         </CardContent>
         <CardActions disableSpacing>
           {editMode && (
