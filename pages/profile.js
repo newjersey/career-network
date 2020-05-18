@@ -32,6 +32,24 @@ function ProfilePage() {
         {}
       ),
     ],
+    supportServics: [
+      [
+        'unemployment-insurance',
+        'health-insurance',
+        'housing-assistance',
+        'food-assistance',
+        'energy-assistance',
+        'transportation',
+        'child-care',
+        'budgeting',
+      ].reduce(
+        (current, slug) => ({
+          ...current,
+          [slug]: getQuestionResponse(allQuestionResponses, slug),
+        }),
+        {}
+      ),
+    ],
   });
 
   useEffect(() => {

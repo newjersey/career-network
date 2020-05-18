@@ -216,6 +216,18 @@ Profile.propTypes = {
         end: PropTypes.string,
       })
     ),
+    supportServices: PropTypes.arrayOf(
+      PropTypes.shape({
+        'unemployment-insurance': PropTypes.string,
+        'health-insurance': PropTypes.string,
+        'housing-assistance': PropTypes.string,
+        'food-assistance': PropTypes.string,
+        'energy-assistance': PropTypes.string,
+        transportation: PropTypes.string,
+        'child-care': PropTypes.string,
+        budgeting: PropTypes.string,
+      })
+    ),
   }),
 };
 
