@@ -5,7 +5,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import React, { useEffect, useState } from 'react';
-import * as dateFns from 'date-fns';
 import clsx from 'clsx';
 import AirtablePropTypes from '../../Airtable/PropTypes';
 
@@ -55,8 +54,6 @@ const MONTHS = [
   'December',
 ];
 
-const isValidYear = _data => _data.length === 4 || _data.match(/\d{4}/);
-
 export default function DateQuestion(props) {
   const classes = useStyles();
   const {
@@ -77,40 +74,39 @@ export default function DateQuestion(props) {
   }, [isValid, onValidationChange]);
 
   // BEGIN
-  const initialValue = value ? dateFns.parseISO(value) : undefined;
-  console.log('value', value, initialValue);
+  const initialValue = value && value.length > 0 ? value.split(' ') : undefined;
+
   // if value is null, then don't set initial for inputs
   const [selectedDate, setSelectedDate] = useState(
-    value
+    initialValue
       ? {
-          month: initialValue.getMonth(),
-          year: `${initialValue.getFullYear()}`,
+          month: initialValue[0],
+          year: initialValue[1],
         }
-      : undefined
+      : {}
   );
-  console.log(selectedDate);
-  const [selectedYear, setSelectedYear] = useState(
-    value ? `${initialValue.getFullYear()}` : undefined
-  );
+  const [selectedYear, setSelectedYear] = useState(selectedDate[1]);
 
-  const handleYearChange = year => {
-    setSelectedYear(year);
-    if (year && isValidYear(year)) {
-      setSelectedDate(prevValues => ({ ...prevValues, year }));
-    } else {
-      setSelectedDate(prevValues => ({ ...prevValues, year: undefined }));
+  const handleYearChange = newYear => {
+    setSelectedYear(newYear);
+    setSelectedDate(prevValues => ({ ...prevValues, year: newYear }));
+  };
+
+  const handleYearCommit = newYear => {
+    // If the year field is left incomplete or blank, set the month & year value to empty
+    if (!newYear || newYear.length < 1) {
+      onChangeCommitted('');
     }
   };
 
-  const handleMonthChange = month => {
-    setSelectedDate(prevValues => ({ ...prevValues, month }));
+  const handleMonthChange = newMonth => {
+    setSelectedDate(prevValues => ({ ...prevValues, month: newMonth }));
   };
 
   useEffect(() => {
     onChange(selectedDate);
-    // TODO: validate that all the views have values and that it is valid date
-    if (selectedDate.month && selectedYear && selectedYear === 4) {
-      onChangeCommitted(`${selectedYear}-${(selectedDate.month + 1).toString().padStart(2, '0')}`);
+    if (selectedDate.month && selectedYear && selectedYear.length === 4) {
+      onChangeCommitted(`${selectedDate.month} ${selectedDate.year}`);
     }
   }, [selectedDate]);
 
@@ -139,8 +135,8 @@ export default function DateQuestion(props) {
           <MenuItem value="">
             <span className={classes.disabled}>Month</span>
           </MenuItem>
-          {MONTHS.map((month, index) => (
-            <MenuItem value={index}>{month}</MenuItem>
+          {MONTHS.map(m => (
+            <MenuItem value={m}>{m}</MenuItem>
           ))}
         </Select>
         <TextField
@@ -157,6 +153,7 @@ export default function DateQuestion(props) {
           fullWidth
           inputProps={{ maxlength: '4', type: 'text', pattern: 'd*' }}
           value={selectedYear}
+          onBlur={e => handleYearCommit(e.target.value)}
           onChange={e => handleYearChange(e.target.value)}
         />
       </div>
@@ -166,6 +163,7 @@ export default function DateQuestion(props) {
 
 DateQuestion.propTypes = {
   onChange: PropTypes.func.isRequired,
+  onChangeCommitted: PropTypes.func.isRequired,
   onValidationChange: PropTypes.func.isRequired,
   optional: PropTypes.bool.isRequired,
   question: AirtablePropTypes.question.isRequired,
