@@ -71,9 +71,10 @@ function EmploymentItemForm({ handleChange, handleSubmit, values }) {
         <TextField
           className={classes.textField}
           fullWidth
+          inputProps={{ name: 'title' }}
           id={`${formId}-title`}
           InputLabelProps={{ shrink: true }}
-          onChange={event => handleChange('title', event.target.value)}
+          onChange={handleChange}
           placeholder="Enter the Job Title"
           value={values.title}
           variant="outlined"
@@ -85,7 +86,7 @@ function EmploymentItemForm({ handleChange, handleSubmit, values }) {
           id={`${formId}-org`}
           InputLabelProps={{ shrink: true }}
           inputProps={{ name: 'org' }}
-          onChange={event => handleChange('org', event.target.value)}
+          onChange={handleChange}
           placeholder="Enter the Company / Organization Name"
           value={values.org}
           variant="outlined"
@@ -94,14 +95,14 @@ function EmploymentItemForm({ handleChange, handleSubmit, values }) {
         <Grid container wrap="nowrap" spacing={1}>
           <Grid item md={3}>
             <Select
-              fullWidth
-              variant="outlined"
               className={classes.textField}
-              inputProps={{ name: 'startMonth', placeholder: 'Month' }}
-              id={`${formId}-start-month`}
-              value={values.startMonth || ''}
-              onChange={event => handleChange('startMonth', event.target.value)}
               displayEmpty
+              fullWidth
+              id={`${formId}-start-month`}
+              inputProps={{ name: 'startMonth', placeholder: 'Month' }}
+              onChange={handleChange}
+              value={values.startMonth}
+              variant="outlined"
             >
               <MenuItem value="" disabled>
                 <span className={classes.placeholderText}>Month</span>
@@ -126,7 +127,7 @@ function EmploymentItemForm({ handleChange, handleSubmit, values }) {
               step={1}
               min={1900}
               max={2099}
-              onChange={event => handleChange('startYear', event.target.value)}
+              onChange={handleChange}
               placeholder="Year"
               value={values.startYear}
             />
@@ -139,8 +140,8 @@ function EmploymentItemForm({ handleChange, handleSubmit, values }) {
               className={classes.textField}
               inputProps={{ name: 'endMonth', placeholder: 'Month' }}
               id={`${formId}-end-month`}
-              value={values.endMonth || ''}
-              onChange={event => handleChange('endMonth', event.target.value)}
+              value={values.endMonth}
+              onChange={handleChange}
               displayEmpty
             >
               <MenuItem value="" disabled>
@@ -167,7 +168,7 @@ function EmploymentItemForm({ handleChange, handleSubmit, values }) {
               step={1}
               min={1900}
               max={2099}
-              onChange={event => handleChange('endYear', event.target.value)}
+              onChange={handleChange}
               placeholder="Year"
               value={values.endYear}
             />
@@ -193,12 +194,12 @@ EmploymentItemForm.propTypes = {
 
 EmploymentItemForm.defaultProps = {
   values: {
-    title: undefined,
-    org: undefined,
+    title: '',
+    org: '',
     startMonth: '',
     endMonth: '',
-    startYear: undefined,
-    endYear: undefined,
+    startYear: '',
+    endYear: '',
   },
 };
 

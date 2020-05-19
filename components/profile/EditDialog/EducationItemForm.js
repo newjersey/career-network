@@ -37,9 +37,11 @@ function EducationItemForm({ handleChange, handleSubmit, values }) {
           className={classes.textField}
           fullWidth
           id={`${formId}-school`}
+          inputProps={{
+            name: 'school',
+          }}
           InputLabelProps={{ shrink: true }}
-          margin="normal"
-          onChange={event => handleChange('school', event.target.value)}
+          onChange={handleChange}
           placeholder="Enter the School Name"
           value={values.school}
           variant="outlined"
@@ -50,8 +52,10 @@ function EducationItemForm({ handleChange, handleSubmit, values }) {
           fullWidth
           id={`${formId}-study-field`}
           InputLabelProps={{ shrink: true }}
-          margin="normal"
-          onChange={event => handleChange('study-field', event.target.value)}
+          inputProps={{
+            name: 'study-field',
+          }}
+          onChange={handleChange}
           placeholder="Enter the Major / Field of Study"
           value={values['study-field']}
           variant="outlined"
@@ -65,9 +69,11 @@ function EducationItemForm({ handleChange, handleSubmit, values }) {
               className={classes.textField}
               id={`${formId}-education-start-year`}
               InputLabelProps={{ shrink: true }}
-              margin="normal"
+              inputProps={{
+                name: 'education-start-year',
+              }}
               type="number"
-              onChange={event => handleChange('education-start-year', event.target.value)}
+              onChange={handleChange}
               placeholder="Enter Start Year"
               value={values['education-start-year']}
             />
@@ -79,8 +85,10 @@ function EducationItemForm({ handleChange, handleSubmit, values }) {
               fullWidth
               id={`${formId}-education-end-year`}
               InputLabelProps={{ shrink: true }}
-              margin="normal"
-              onChange={event => handleChange('education-end-year', event.target.value)}
+              inputProps={{
+                name: 'education-end-year',
+              }}
+              onChange={handleChange}
               placeholder="Enter End Year"
               type="number"
               value={values['education-end-year']}
@@ -106,10 +114,10 @@ EducationItemForm.propTypes = {
 
 EducationItemForm.defaultProps = {
   values: {
-    'study-field': undefined,
-    school: undefined,
-    'education-start-year': undefined,
-    'education-end-year': undefined,
+    'study-field': '',
+    school: '',
+    'education-start-year': '',
+    'education-end-year': '',
   },
 };
 

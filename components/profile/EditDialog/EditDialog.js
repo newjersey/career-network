@@ -34,10 +34,12 @@ function EditDialog({ show, onClose, mode, name, items, itemIndex }) {
   const [error, setError] = useState();
   const [values, setValues] = useState();
 
-  const handleChange = (fieldName, value) => {
+  const handleChange = event => {
+    event.persist();
+
     setValues(prevValues => ({
       ...prevValues,
-      [fieldName]: value,
+      [event.target.name]: event.target.value,
     }));
   };
 
