@@ -1,7 +1,7 @@
 const featureFlags = [
   {
     name: 'userProfile',
-    isActive: false,
+    isActive: true,
   },
   {
     name: 'applicationTracker',
