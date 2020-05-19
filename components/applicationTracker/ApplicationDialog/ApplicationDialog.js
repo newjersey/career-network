@@ -8,9 +8,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { DialogTitle, DialogContent, DialogActions } from '../../DialogComponents';
 
 const APPLICATION_INITIAL_STATE = {
-  'job-title': '',
-  org: '',
-  'date-applied': '',
+  jobTitle: '',
+  company: '',
+  dateApplied: '',
   notes: '',
 };
 
@@ -53,11 +53,11 @@ function ApplicationDialog({ open, applicationData, handleClose }) {
               fullWidth
               id={`${formId}-job-title`}
               InputLabelProps={{ shrink: true }}
-              inputProps={{ name: 'job-title' }}
+              inputProps={{ name: 'jobTitle' }}
               onChange={handleChange}
               placeholder="Enter the Job Title you applied for"
               type="text"
-              value={values['job-title']}
+              value={values.jobTitle}
               variant="outlined"
             />
             <span>Company / Organization Name</span>
@@ -67,11 +67,11 @@ function ApplicationDialog({ open, applicationData, handleClose }) {
               fullWidth
               id={`${formId}-org`}
               InputLabelProps={{ shrink: true }}
-              inputProps={{ name: 'org' }}
+              inputProps={{ name: 'company' }}
               onChange={handleChange}
               placeholder="Enter the Company / Organization Name"
               type="text"
-              value={values.org}
+              value={values.company}
               variant="outlined"
             />
             <span>Date Applied</span>
@@ -81,11 +81,11 @@ function ApplicationDialog({ open, applicationData, handleClose }) {
               fullWidth
               id={`${formId}-date-applied`}
               InputLabelProps={{ shrink: true }}
-              inputProps={{ name: 'date-applied' }}
+              inputProps={{ name: 'dateApplied' }}
               onChange={handleChange}
               placeholder="Select the Date Applied"
               type="date"
-              value={values['date-applied']}
+              value={values.dateApplied}
               variant="outlined"
             />
             <span>Note</span>
@@ -125,9 +125,9 @@ function ApplicationDialog({ open, applicationData, handleClose }) {
 
 ApplicationDialog.propTypes = {
   applicationData: PropTypes.shape({
-    'job-title': PropTypes.string,
-    org: PropTypes.string,
-    'date-applied': PropTypes.instanceOf(Date),
+    jobTitle: PropTypes.string,
+    company: PropTypes.string,
+    dateApplied: PropTypes.instanceOf(Date),
     notes: PropTypes.string,
   }),
   handleClose: PropTypes.func.isRequired,
