@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 
 function ApplicationTrackerCard() {
   const classes = useStyles();
-  const activeApplicationsCount = 12;
+  const activeApplicationsCount = 0;
 
   return (
     <>
