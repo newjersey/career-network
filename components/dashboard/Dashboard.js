@@ -29,6 +29,7 @@ import TaskList from './TaskList';
 import TimeDistanceParser from '../../src/time-distance-parser';
 import UpcomingInterviewDialog from './UpcomingInterviewDialog/UpcomingInterviewDialog';
 import UserProfileCard from './UserProfileCard';
+import ApplicationTrackerCard from './ApplicationTrackerCard';
 
 const TASK_COUNT_LIMIT = 3;
 const ROW_GAP = 2;
@@ -276,7 +277,6 @@ export default function Dashboard(props) {
 
   const tasks = getTasks(props, TASK_COUNT_LIMIT);
   const [activeDialog, setActiveDialog] = useState();
-  const activeApplicationsCount = 0;
   const isSentimentLoggedToday =
     user.lastSentimentTimestamp && isToday(user.lastSentimentTimestamp.toDate());
   const isSentimentClosedToday =
@@ -454,22 +454,7 @@ export default function Dashboard(props) {
               </Card>
             </Box>
             <Box mt={3}>
-              <Card variant="outlined">
-                <CardContent>
-                  <Typography variant="h6" gutterBottom>
-                    Application Tracker
-                  </Typography>
-                  <Typography variant="body1" gutterBottom>
-                    You are currently tracking {activeApplicationsCount} Active Applications. Keep
-                    tracking here.
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button fullWidth variant="outlined" onClick={() => console.log('GO TTOO APPS')}>
-                    View My Applications
-                  </Button>
-                </CardActions>
-              </Card>
+              <ApplicationTrackerCard />
             </Box>
           </Box>
         </Box>
