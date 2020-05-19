@@ -117,6 +117,29 @@ export function getQuestionResponse(allQuestionResponses, slug) {
 }
 
 /**
+ * Returns the response value, lable and helperText to a question with a given slug.
+ *
+ * @param {QueryDocumentSnapshot[]} allQuestionResponses An array of QueryDocumentSnapshot objects.
+ * @param {string} slug The slug of the question to which we seek the response.
+ * @returns {*} The response value as entered by the user.
+ * @example getQuestionResponse(allQuestionResponses, 'most-recent-title')
+ */
+export function getQuestionResponseDetails(allQuestionResponses, slug) {
+  const response = allQuestionResponses.find(qr => qr.data().question.fields.Slug === slug);
+
+  if (!response) {
+    return null;
+  }
+
+  return {
+    slug,
+    label: response.data().question.fields.Label,
+    value: response.data().value,
+    helperText: response.data().question.fields['Helper Text'],
+  };
+}
+
+/**
  *
  * @param {*} array An array of any types that have string representations.
  * @returns A string joining the array items with commas and "and" before final item.
