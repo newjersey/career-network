@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function ProfileItemCard({ title, items, type, editMode }) {
+function ProfileItemCard({ title, items, type, editMode, handleEdit, handleAdd }) {
   const classes = useStyles();
   const experience = item => {
     const role = type === 'educationItems' ? item['study-field'] : item.title;
@@ -49,6 +49,11 @@ function ProfileItemCard({ title, items, type, editMode }) {
     return null;
   };
 
+  const itemsWithIds = items.map((item, index) => ({
+    ...item,
+    id: `${Object.keys(item)[0]}-${index}`,
+  }));
+
   return (
     <>
       <Card className={classes.card} variant="outlined">
@@ -57,43 +62,43 @@ function ProfileItemCard({ title, items, type, editMode }) {
             {title}
           </Typography>
           {!editMode && <Divider variant="fullWidth" />}
-          {items
-            .map(item => ({ expr: experience(item), period: dates(item) }))
-            .map(displayItem => (
-              <>
-                {!editMode && displayItem.expr && (
-                  <Box mt={2}>
-                    <Typography variant="body1" gutterBottom>
-                      {displayItem.expr}
-                    </Typography>
-                    <Typography variant="body2" gutterBottom>
-                      {displayItem.period}
-                    </Typography>
-                  </Box>
-                )}
-                {editMode && displayItem.expr && (
-                  <Card className={classes.itemCard} variant="outlined">
-                    <Grid container alignItems="center" direction="row" justify="space-between">
-                      <Grid item>
-                        <Typography variant="body1" gutterBottom>
-                          {displayItem.expr}
-                        </Typography>
-                        <Typography variant="body2" gutterBottom>
-                          {displayItem.period}
-                        </Typography>
-                      </Grid>
-                      <Grid item>
-                        <Button variant="contained">EDIT</Button>
-                      </Grid>
+          {itemsWithIds.map((item, index) => (
+            <React.Fragment key={item.id}>
+              {!editMode && (
+                <Box mt={2}>
+                  <Typography variant="body1" gutterBottom>
+                    {experience(item)}
+                  </Typography>
+                  <Typography variant="body2" gutterBottom>
+                    {dates(item)}
+                  </Typography>
+                </Box>
+              )}
+              {editMode && (
+                <Card className={classes.itemCard} variant="outlined">
+                  <Grid container alignItems="center" direction="row" justify="space-between">
+                    <Grid item>
+                      <Typography variant="body1" gutterBottom>
+                        {experience(item)}
+                      </Typography>
+                      <Typography variant="body2" gutterBottom>
+                        {dates(item)}
+                      </Typography>
                     </Grid>
-                  </Card>
-                )}
-              </>
-            ))}
+                    <Grid item>
+                      <Button variant="contained" onClick={() => handleEdit(index)}>
+                        EDIT
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Card>
+              )}
+            </React.Fragment>
+          ))}
         </CardContent>
         <CardActions disableSpacing>
           {editMode && (
-            <Button className={classes.button} variant="contained" fullWidth>
+            <Button className={classes.button} variant="contained" fullWidth onClick={handleAdd}>
               Add {title}
             </Button>
           )}
@@ -108,6 +113,8 @@ ProfileItemCard.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   type: PropTypes.string.isRequired,
   editMode: PropTypes.bool.isRequired,
+  handleEdit: PropTypes.func.isRequired,
+  handleAdd: PropTypes.func.isRequired,
 };
 
 export default ProfileItemCard;

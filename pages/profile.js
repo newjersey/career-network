@@ -34,18 +34,18 @@ function ProfilePage() {
     ],
   });
 
-  const handleInitialize = () => {
-    const profileQuestionResponsesFromAssessment = copyInitialProfileValues();
-    userDocRef.set(
-      {
-        userProfile: { ...profileQuestionResponsesFromAssessment, creationTimestamp: new Date() },
-      },
-      { merge: true }
-    );
-    setInitialized(true);
-  };
-
   useEffect(() => {
+    const handleInitialize = async () => {
+      const profileQuestionResponsesFromAssessment = copyInitialProfileValues();
+      await userDocRef.set(
+        {
+          userProfile: { ...profileQuestionResponsesFromAssessment, creationTimestamp: new Date() },
+        },
+        { merge: true }
+      );
+      setInitialized(true);
+    };
+
     if (user.hasInitializedProfile) {
       setInitialized(true);
     } else if (fullyLoaded(allQuestionResponses)) {

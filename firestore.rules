@@ -27,7 +27,7 @@ service cloud.firestore {
         allow read: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isCoach == true &&
             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.assignments.hasAny([uid]);
       }
-
+ 
       // action disposition events are immutable: no updating allowed
       match /actionDispositionEvents/{document} {
         allow read, create: if request.auth.uid == uid;

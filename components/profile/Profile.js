@@ -13,6 +13,7 @@ import GoalEditCard from './GoalEditCard';
 import ProfileItemCard from './ProfileItemCard';
 import ScaffoldContainer from '../ScaffoldContainer';
 import UserProfileCard from './UserProfileCard';
+import EditDialog, { ADD, UPDATE } from './EditDialog/EditDialog';
 
 const ROW_GAP = 2;
 const COL_GAP = 2;
@@ -87,11 +88,14 @@ const PROFILE_ITEMS = [
   },
 ];
 
+const INITIAL_DIALOG_STATE = { mode: ADD, name: null };
 function Profile({ profileData }) {
   const classes = useStyles();
   const { user, userDocRef } = useAuth();
   const [editMode, setEditMode] = useState(false);
-  const [values, setValues] = useState({});
+  const [showDialog, setShowDialog] = useState(false);
+  const [values, setValues] = useState({ goal: profileData.goal });
+  const [dialogConfig, setDialogConfig] = useState(INITIAL_DIALOG_STATE);
 
   const handleSave = () => {
     setEditMode(false);
@@ -104,10 +108,42 @@ function Profile({ profileData }) {
 
   useEffect(() => {
     setValues({ goal: profileData.goal });
-  }, [profileData]);
+  }, [profileData, profileData.goal]);
+
+  const handleOpenAddDialog = itemType => {
+    setDialogConfig(config => ({
+      ...config,
+      name: itemType,
+      mode: ADD,
+      items: profileData[itemType],
+      itemIndex: null,
+    }));
+    setShowDialog(true);
+  };
+
+  const handleOpenEditDialog = (itemIndex, itemType) => {
+    setDialogConfig({
+      name: itemType,
+      mode: UPDATE,
+      items: profileData[itemType],
+      itemIndex,
+    });
+    setShowDialog(true);
+  };
+
+  const closeDialog = () => {
+    setShowDialog(false);
+    setDialogConfig(INITIAL_DIALOG_STATE);
+  };
 
   return (
     <div className={classes.root}>
+      <EditDialog
+        {...dialogConfig}
+        show={showDialog}
+        onClose={closeDialog}
+        onExited={closeDialog}
+      />
       {!editMode && <Goal goal={values.goal} />}
       <ScaffoldContainer>
         <Box className={classes.grid} mb={10}>
@@ -116,17 +152,19 @@ function Profile({ profileData }) {
               <Box mb={3}>
                 <GoalEditCard
                   value={values.goal}
-                  onChange={e => setValues({ ...values, goal: e.target.value })}
+                  onChange={value => setValues(prevValues => ({ ...prevValues, goal: value }))}
                 />
               </Box>
             )}
             {PROFILE_ITEMS.map(item => (
-              <Box mb={3}>
+              <Box mb={3} key={item.value}>
                 <ProfileItemCard
                   title={item.title}
                   items={profileData[item.value]}
                   type={item.value}
                   editMode={editMode}
+                  handleEdit={index => handleOpenEditDialog(index, item.value)}
+                  handleAdd={() => handleOpenAddDialog(item.value)}
                 />
               </Box>
             ))}
@@ -185,6 +223,8 @@ Profile.defaultProps = {
   profileData: {
     educationItems: [],
     employmentItems: [],
+    goal: '',
+    phone: '',
   },
 };
 
