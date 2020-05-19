@@ -21,6 +21,7 @@ import Error from './_error';
 import FirebaseProvider from '../components/Firebase';
 import Popup from './popup';
 import theme from '../src/theme';
+import featureFlags from '../src/feature-flags';
 
 NProgress.configure({ showSpinner: false });
 Router.events.on('routeChangeStart', () => NProgress.start());
@@ -29,17 +30,6 @@ Router.events.on('routeChangeComplete', () => {
   NProgress.done();
   window.Intercom('update');
 });
-
-const featureFlags = [
-  {
-    name: 'userProfile',
-    isActive: false,
-  },
-  {
-    name: 'applicationTracker',
-    isActive: true,
-  },
-];
 
 Sentry.init({
   environment: process.env.name,

@@ -453,9 +453,11 @@ export default function Dashboard(props) {
                 </CardActions>
               </Card>
             </Box>
-            <Box mt={3}>
-              <ApplicationTrackerCard />
-            </Box>
+            <Flags authorizedFlags={['applicationTracker']}>
+              <Box mt={3}>
+                <ApplicationTrackerCard />
+              </Box>
+            </Flags>
           </Box>
         </Box>
       </ScaffoldContainer>

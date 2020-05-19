@@ -22,11 +22,12 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Router from 'next/router';
 import Typography from '@material-ui/core/Typography';
-
+import { Flags } from 'react-feature-flags';
 import { useAuth } from '../Auth';
 import Picture from '../Picture';
 import ScaffoldContainer from '../ScaffoldContainer';
 import UserClass from '../../src/User';
+import featureFlags from '../../src/feature-flags';
 
 const logoRatio = 1;
 const logoWidths = {
@@ -97,6 +98,10 @@ function Nav(props) {
     Router.push('/assessment');
   };
 
+  const showApplicationTracker = !!featureFlags.find(
+    flag => flag.name === 'applicationTracker' && flag.isActive
+  );
+
   const pages = [
     {
       href: '/assessment',
@@ -107,6 +112,11 @@ function Nav(props) {
       href: '/dashboard',
       name: 'My Dashboard',
       show: user && !user.isCoach && user.isAssessmentComplete,
+    },
+    {
+      href: '/application-tracker',
+      name: 'Application Tracker',
+      show: user && showApplicationTracker,
     },
     {
       href: '/toolkit',
@@ -185,6 +195,16 @@ function Nav(props) {
                         </ListItem>
                       </NextLink>
                     )}
+                    <Flags authorizedFlags={['applicationTracker']}>
+                      <NextLink href="/application-tracker">
+                        <ListItem button>
+                          <ListItemIcon>
+                            <AssignmentIcon />
+                          </ListItemIcon>
+                          <ListItemText primary="Application Tracker" />
+                        </ListItem>
+                      </NextLink>
+                    </Flags>
                     <ListItem button onClick={onEditAssessment}>
                       <ListItemIcon>
                         <EditIcon />
