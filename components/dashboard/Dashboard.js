@@ -29,6 +29,7 @@ import TaskList from './TaskList';
 import TimeDistanceParser from '../../src/time-distance-parser';
 import UpcomingInterviewDialog from './UpcomingInterviewDialog/UpcomingInterviewDialog';
 import UserProfileCard from './UserProfileCard';
+import ApplicationTrackerCard from './ApplicationTrackerCard';
 
 const TASK_COUNT_LIMIT = 3;
 const ROW_GAP = 2;
@@ -276,7 +277,6 @@ export default function Dashboard(props) {
 
   const tasks = getTasks(props, TASK_COUNT_LIMIT);
   const [activeDialog, setActiveDialog] = useState();
-
   const isSentimentLoggedToday =
     user.lastSentimentTimestamp && isToday(user.lastSentimentTimestamp.toDate());
   const isSentimentClosedToday =
@@ -431,6 +431,11 @@ export default function Dashboard(props) {
                 limit={historyLimit}
               />
             </Card>
+            <Flags authorizedFlags={['applicationTracker']}>
+              <Box mt={3}>
+                <ApplicationTrackerCard />
+              </Box>
+            </Flags>
             <Box mt={3} data-intercom="log-interview">
               <Card variant="outlined">
                 <CardContent>
