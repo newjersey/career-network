@@ -20,6 +20,9 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(3),
     fontWeight: 500,
   },
+  footer: {
+    padding: theme.spacing(2, 3),
+  },
 }));
 
 function ApplicationDialog({ open, applicationData, handleClose }) {
@@ -106,7 +109,7 @@ function ApplicationDialog({ open, applicationData, handleClose }) {
             />
           </form>
         </DialogContent>
-        <DialogActions>
+        <DialogActions className={classes.footer}>
           <Button
             color="primary"
             fullWidth
