@@ -173,20 +173,16 @@ EditDialog.propTypes = {
   mode: PropTypes.oneOf([ADD, UPDATE]).isRequired,
   name: PropTypes.oneOf([DIALOGS.EDIT_EDUCATION, DIALOGS.EDIT_EMPLOYMENT]),
   items: PropTypes.arrayOf(
-    PropTypes.oneOf([
-      PropTypes.shape({
-        start: PropTypes.string,
-        end: PropTypes.string,
-        title: PropTypes.string,
-        org: PropTypes.string,
-      }),
-      PropTypes.shape({
-        school: PropTypes.string,
-        'study-field': PropTypes.string,
-        'education-start-year': PropTypes.string,
-        'education-end-year': PropTypes.string,
-      }),
-    ])
+    PropTypes.shape({
+      start: PropTypes.string,
+      end: PropTypes.string,
+      title: PropTypes.string,
+      org: PropTypes.string,
+      school: PropTypes.string,
+      'study-field': PropTypes.string,
+      'education-start-year': PropTypes.string,
+      'education-end-year': PropTypes.string,
+    })
   ),
   itemIndex: PropTypes.number,
 };
