@@ -94,7 +94,7 @@ function Profile({ profileData }) {
   const { user, userDocRef } = useAuth();
   const [editMode, setEditMode] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
-  const [values, setValues] = useState({});
+  const [values, setValues] = useState({ goal: profileData.goal });
   const [dialogConfig, setDialogConfig] = useState(INITIAL_DIALOG_STATE);
 
   const handleSave = () => {
@@ -108,7 +108,7 @@ function Profile({ profileData }) {
 
   useEffect(() => {
     setValues({ goal: profileData.goal });
-  }, [profileData]);
+  }, [profileData, profileData.goal]);
 
   const handleOpenAddDialog = itemType => {
     setDialogConfig(config => ({
@@ -152,7 +152,7 @@ function Profile({ profileData }) {
               <Box mb={3}>
                 <GoalEditCard
                   value={values.goal}
-                  onChange={e => setValues({ ...values, goal: e.target.value })}
+                  onChange={value => setValues(prevValues => ({ ...prevValues, goal: value }))}
                 />
               </Box>
             )}
@@ -223,6 +223,8 @@ Profile.defaultProps = {
   profileData: {
     educationItems: [],
     employmentItems: [],
+    goal: '',
+    phone: '',
   },
 };
 

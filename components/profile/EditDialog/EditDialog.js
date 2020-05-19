@@ -33,7 +33,6 @@ function EditDialog({ show, onClose, mode, name, items, itemIndex }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
   const [values, setValues] = useState();
-  const dialogTitle = name === DIALOGS.EDIT_EDUCATION ? 'Education' : 'Employment';
 
   const handleChange = (fieldName, value) => {
     setValues(prevValues => ({
@@ -81,7 +80,7 @@ function EditDialog({ show, onClose, mode, name, items, itemIndex }) {
     setError();
     setSuccess();
     setLoading(true);
-    console.log(updatedItem);
+
     const updatedItems =
       mode === ADD
         ? [...items, updatedItem]
@@ -134,7 +133,9 @@ function EditDialog({ show, onClose, mode, name, items, itemIndex }) {
         onExited={handleClose}
       >
         <DialogTitle id="edit-profile-dialog" onClose={onClose}>
-          <Typography variant="h6">Update {dialogTitle} Experience</Typography>
+          <Typography variant="h6">
+            Update {name === DIALOGS.EDIT_EDUCATION ? 'Education' : 'Employment'} Experience
+          </Typography>
         </DialogTitle>
         <DialogContent className={classes.content}>
           {loading && <FullPageProgress />}

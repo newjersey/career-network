@@ -36,7 +36,7 @@ function GoalEditCard({ value, onChange }) {
           <TextField
             variant="outlined"
             value={value}
-            onChange={onChange}
+            onChange={event => onChange(event.target.value)}
             multiline
             rows={6}
             fullWidth
