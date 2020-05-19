@@ -130,7 +130,7 @@ ApplicationDialog.propTypes = {
   applicationData: PropTypes.shape({
     jobTitle: PropTypes.string,
     company: PropTypes.string,
-    dateApplied: PropTypes.instanceOf(Date),
+    dateApplied: PropTypes.string,
     notes: PropTypes.string,
   }),
   handleClose: PropTypes.func.isRequired,
