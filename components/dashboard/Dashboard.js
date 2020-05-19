@@ -431,6 +431,11 @@ export default function Dashboard(props) {
                 limit={historyLimit}
               />
             </Card>
+            <Flags authorizedFlags={['applicationTracker']}>
+              <Box mt={3}>
+                <ApplicationTrackerCard />
+              </Box>
+            </Flags>
             <Box mt={3} data-intercom="log-interview">
               <Card variant="outlined">
                 <CardContent>
@@ -453,11 +458,6 @@ export default function Dashboard(props) {
                 </CardActions>
               </Card>
             </Box>
-            <Flags authorizedFlags={['applicationTracker']}>
-              <Box mt={3}>
-                <ApplicationTrackerCard />
-              </Box>
-            </Flags>
           </Box>
         </Box>
       </ScaffoldContainer>
