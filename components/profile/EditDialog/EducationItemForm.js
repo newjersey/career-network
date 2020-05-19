@@ -25,7 +25,8 @@ function EducationItemForm({ handleChange, handleSubmit, values }) {
   const formId = 'educationItems';
   const classes = useStyles();
 
-  const onSubmit = () => {
+  const onSubmit = event => {
+    event.preventDefault();
     handleSubmit(values);
   };
 

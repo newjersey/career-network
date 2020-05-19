@@ -51,7 +51,8 @@ function EmploymentItemForm({ handleChange, handleSubmit, values }) {
   const formId = 'employmentItems';
   const classes = useStyles();
 
-  const onSubmit = () => {
+  const onSubmit = event => {
+    event.preventDefault();
     const { startMonth, startYear, endMonth, endYear, org, title } = values;
 
     const updatedItem = {
@@ -81,6 +82,7 @@ function EmploymentItemForm({ handleChange, handleSubmit, values }) {
         />
         <span>Company / Organization</span>
         <TextField
+          margin="normal"
           className={classes.textField}
           fullWidth
           id={`${formId}-org`}

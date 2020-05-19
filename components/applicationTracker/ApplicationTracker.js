@@ -1,9 +1,10 @@
 import { makeStyles } from '@material-ui/styles';
-import React from 'react';
+import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ScaffoldContainer from '../ScaffoldContainer';
 import BackgroundHeader from '../BackgroundHeader';
+import ApplicationDialog from './ApplicationDialog/ApplicationDialog';
 
 const useStyles = makeStyles(theme => ({
   backgroundHeader: {
@@ -21,19 +22,39 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const DIALOG_INITIAL_CONFIG = {
+  applicationData: undefined,
+  open: false,
+};
+
 export default function ApplicationTracker() {
   const classes = useStyles();
+  const [dialogConfig, setDialogConfig] = useState(DIALOG_INITIAL_CONFIG);
+
+  const handleAddApplication = () => {
+    setDialogConfig(prevConfig => ({ ...prevConfig, open: true }));
+  };
+
+  const handleCloseDialog = () => {
+    setDialogConfig(DIALOG_INITIAL_CONFIG);
+  };
 
   return (
     <div className={classes.root}>
       <BackgroundHeader className={classes.backgroundHeader}>
         <ScaffoldContainer className={classes.header}>
           <Typography variant="h5">Application Tracker</Typography>
-          <Button className={classes.button} variant="contained" size="large">
+          <Button
+            className={classes.button}
+            variant="contained"
+            size="large"
+            onClick={handleAddApplication}
+          >
             + Add Application
           </Button>
         </ScaffoldContainer>
       </BackgroundHeader>
+      <ApplicationDialog {...dialogConfig} handleClose={handleCloseDialog} />
     </div>
   );
 }
