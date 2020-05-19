@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useUserSubcollection } from '../components/Firebase';
-import { fullyLoaded, getQuestionResponse } from '../src/app-helper';
+import { fullyLoaded, getQuestionResponse, getQuestionResponseDetails } from '../src/app-helper';
 import { useAuth, withAuthRequired } from '../components/Auth';
 import Profile from '../components/profile/Profile';
 import FullPageProgress from '../components/FullPageProgress';
@@ -32,20 +32,30 @@ function ProfilePage() {
         {}
       ),
     ],
+    supportServices: [
+      'unemployment-insurance',
+      'health-insurance',
+      'housing-assistance',
+      'food-assistance',
+      'energy-assistance',
+      'transportation',
+      'child-care',
+      'budgeting',
+    ].map(slug => getQuestionResponseDetails(allQuestionResponses, slug)),
   });
 
-  const handleInitialize = () => {
-    const profileQuestionResponsesFromAssessment = copyInitialProfileValues();
-    userDocRef.set(
-      {
-        userProfile: { ...profileQuestionResponsesFromAssessment, creationTimestamp: new Date() },
-      },
-      { merge: true }
-    );
-    setInitialized(true);
-  };
-
   useEffect(() => {
+    const handleInitialize = async () => {
+      const profileQuestionResponsesFromAssessment = copyInitialProfileValues();
+      await userDocRef.set(
+        {
+          userProfile: { ...profileQuestionResponsesFromAssessment, creationTimestamp: new Date() },
+        },
+        { merge: true }
+      );
+      setInitialized(true);
+    };
+
     if (user.hasInitializedProfile) {
       setInitialized(true);
     } else if (fullyLoaded(allQuestionResponses)) {
@@ -53,7 +63,7 @@ function ProfilePage() {
     }
   }, [allQuestionResponses]);
 
-  return fullyLoaded(user, allQuestionResponses) && initialized ? (
+  return fullyLoaded(user, allQuestionResponses, user.userData.userProfile) && initialized ? (
     <Profile profileData={user.userData.userProfile} />
   ) : (
     <FullPageProgress />
