@@ -7,6 +7,7 @@ import firebase from 'firebase/app';
 import { useAuth } from '../Auth';
 import ScaffoldContainer from '../ScaffoldContainer';
 import BackgroundHeader from '../BackgroundHeader';
+import FirebasePropTypes from '../Firebase/PropTypes';
 
 const useStyles = makeStyles(theme => ({
   backgroundHeader: {
@@ -67,26 +68,27 @@ export async function logApplication(userDocRef, applicationDetails) {
   return userDocRef.collection('applicationLogEntries').add(data);
 }
 
-export default function ApplicationTracker() {
+export default function ApplicationTracker({ allApplicationLogEntries }) {
   const classes = useStyles();
   const { userDocRef } = useAuth();
+  const applications = allApplicationLogEntries.map(item => item.data());
 
   const handleSave = async () => {
-    const entry = {
+    const statusEntry = {
       id: 1,
       notes: 'i liked the recruiter, jody',
       status: 'application_submitted',
     };
-    const data = {
+    const application = {
       jobTitle: 'software engineer',
       company: 'two bulls',
       dateApplied: new Date(), // should be user input
-      entries: [entry],
-      currentEntryId: 1,
+      statusEntries: [statusEntry],
+      currentStatusEntryId: 1,
     };
 
     try {
-      await logApplication(userDocRef, data);
+      await logApplication(userDocRef, application);
       console.log('success');
     } catch (err) {
       console.log(err.message);
@@ -103,8 +105,15 @@ export default function ApplicationTracker() {
           </Button>
         </ScaffoldContainer>
       </BackgroundHeader>
+      {JSON.stringify(applications)}
     </div>
   );
 }
 
-ApplicationTracker.propTypes = {};
+ApplicationTracker.propTypes = {
+  allApplicationLogEntries: FirebasePropTypes.querySnapshot,
+};
+
+ApplicationTracker.defaultProps = {
+  allApplicationLogEntries: [],
+};
