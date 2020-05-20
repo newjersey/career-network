@@ -66,7 +66,7 @@ function ProfileItemCard({ title, items, type, editMode, handleEdit, handleAdd }
               {!editMode && (
                 <>
                   <Divider variant="fullWidth" />
-                  <Box mt={2}>
+                  <Box my={2}>
                     <Typography variant="body1" gutterBottom>
                       {experience(item)}
                     </Typography>
@@ -98,13 +98,13 @@ function ProfileItemCard({ title, items, type, editMode, handleEdit, handleAdd }
             </React.Fragment>
           ))}
         </CardContent>
-        <CardActions disableSpacing>
-          {editMode && (
+        {editMode && (
+          <CardActions disableSpacing>
             <Button className={classes.button} variant="contained" fullWidth onClick={handleAdd}>
               Add {title}
             </Button>
-          )}
-        </CardActions>
+          </CardActions>
+        )}
       </Card>
     </>
   );
