@@ -37,7 +37,7 @@ function ProfileItemCard({ title, items, type, editMode, handleEdit, handleAdd }
     if (role && place) {
       return `${role} at ${place}`;
     }
-    return null;
+    return role || place;
   };
 
   const dates = item => {
@@ -61,18 +61,20 @@ function ProfileItemCard({ title, items, type, editMode, handleEdit, handleAdd }
           <Typography className={classes.title} component="h2" variant="h6">
             {title}
           </Typography>
-          {!editMode && <Divider variant="fullWidth" />}
           {itemsWithIds.map((item, index) => (
             <React.Fragment key={item.id}>
               {!editMode && (
-                <Box mt={2}>
-                  <Typography variant="body1" gutterBottom>
-                    {experience(item)}
-                  </Typography>
-                  <Typography variant="body2" gutterBottom>
-                    {dates(item)}
-                  </Typography>
-                </Box>
+                <>
+                  <Divider variant="fullWidth" />
+                  <Box mt={2}>
+                    <Typography variant="body1" gutterBottom>
+                      {experience(item)}
+                    </Typography>
+                    <Typography variant="body2" gutterBottom>
+                      {dates(item)}
+                    </Typography>
+                  </Box>
+                </>
               )}
               {editMode && (
                 <Card className={classes.itemCard} variant="outlined">
