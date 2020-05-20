@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -25,8 +26,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function ApplicationDialog({ open, applicationData, handleClose }) {
+function ApplicationDialog({ open, applicationData, handleClose, handleSave }) {
   const classes = useStyles();
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState();
   const [values, setValues] = useState(applicationData);
   const formId = 'application-form';
 
@@ -35,10 +38,18 @@ function ApplicationDialog({ open, applicationData, handleClose }) {
     setValues(prevValues => ({ ...prevValues, [event.target.name]: event.target.value }));
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
-    console.log('Submitting: ', values);
-    handleClose();
+    setError();
+    setSubmitting(true);
+    try {
+      await handleSave(values);
+      handleClose();
+    } catch (err) {
+      setError(err);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -48,6 +59,7 @@ function ApplicationDialog({ open, applicationData, handleClose }) {
           <Typography variant="h6">Add Application</Typography>
         </DialogTitle>
         <DialogContent>
+          {submitting && <CircularProgress />}
           <form id={formId} onSubmit={handleSubmit}>
             <span>Job Title</span>
             <TextField
@@ -108,6 +120,7 @@ function ApplicationDialog({ open, applicationData, handleClose }) {
               variant="outlined"
             />
           </form>
+          {error && <Typography color="error">{error}</Typography>}
         </DialogContent>
         <DialogActions className={classes.footer}>
           <Button
@@ -135,6 +148,7 @@ ApplicationDialog.propTypes = {
   }),
   handleClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
+  handleSave: PropTypes.func.isRequired,
 };
 
 ApplicationDialog.defaultProps = {

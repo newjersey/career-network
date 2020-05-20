@@ -32,6 +32,7 @@ const DIALOG_INITIAL_CONFIG = {
   applicationData: undefined,
   open: false,
 };
+
 const APPLICATION_STATUS_TYPES = [
   {
     value: 'submitted',
@@ -77,43 +78,41 @@ export async function logApplication(userDocRef, applicationDetails) {
 
 export default function ApplicationTracker({ allApplicationLogEntries }) {
   const classes = useStyles();
+  const { userDocRef } = useAuth();
+  const applications = allApplicationLogEntries.map(item => ({
+    id: item.id,
+    document: item.data(),
+  }));
   const [dialogConfig, setDialogConfig] = useState(DIALOG_INITIAL_CONFIG);
 
-  const handleAddApplication = () => {
+  const handleOpenApplicationDialog = () => {
     setDialogConfig(prevConfig => ({ ...prevConfig, open: true }));
   };
 
   const handleCloseDialog = () => {
     setDialogConfig(DIALOG_INITIAL_CONFIG);
   };
-  const { userDocRef } = useAuth();
-  const applications = allApplicationLogEntries.map(item => ({
-    id: item.id,
-    document: item.data(),
-  }));
 
-  // const handleSave = async () => {
-  //  const statusEntry = {
-  //    id: 1, // starting with index 1 when new application added
-  //    notes: 'i liked the recruiter, jody',
-  //    status: 'application_submitted',
-  //    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-  //  };
-  //  const application = {
-  //    jobTitle: 'software engineer',
-  //    company: 'two bulls',
-  //    dateApplied: new Date(), // should be user input
-  //    statusEntries: [statusEntry],
-  //    currentStatusEntryId: 1,
-  //  };
+  const handleAddApplication = async applicationData => {
+    const { jobTitle, company, dateApplied, notes } = applicationData;
 
-  //  try {
-  //    await logApplication(userDocRef, application);
-  //    console.log('success');
-  //  } catch (err) {
-  //    console.log(err.message);
-  //  }
-  // };
+    const statusEntry = {
+      id: 1,
+      notes,
+      status: APPLICATION_STATUS_TYPES[0].value,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    };
+
+    const applicationEntry = {
+      jobTitle,
+      company,
+      dateApplied,
+      statusEntries: [statusEntry],
+      currentStatusEntryId: 1,
+    };
+
+    return logApplication(userDocRef, applicationEntry);
+  };
 
   const handleUpdate = (documentId, document) => {
     const currentIndex = document.currentStatusEntryId;
@@ -146,13 +145,17 @@ export default function ApplicationTracker({ allApplicationLogEntries }) {
             className={classes.button}
             variant="contained"
             size="large"
-            onClick={handleAddApplication}
+            onClick={handleOpenApplicationDialog}
           >
             + Add Application
           </Button>
         </ScaffoldContainer>
       </BackgroundHeader>
-      <ApplicationDialog {...dialogConfig} handleClose={handleCloseDialog} />
+      <ApplicationDialog
+        {...dialogConfig}
+        handleClose={handleCloseDialog}
+        handleSave={handleAddApplication}
+      />
       {applications.map(item => (
         <>
           <Box m={5}>
