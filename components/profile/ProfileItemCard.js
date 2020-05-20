@@ -27,6 +27,11 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
+  cardContent: {
+    '&:last-child': {
+      paddingBottom: theme.spacing(1),
+    },
+  },
 }));
 
 function ProfileItemCard({ title, items, type, editMode, handleEdit, handleAdd }) {
@@ -37,7 +42,7 @@ function ProfileItemCard({ title, items, type, editMode, handleEdit, handleAdd }
     if (role && place) {
       return `${role} at ${place}`;
     }
-    return null;
+    return role || place;
   };
 
   const dates = item => {
@@ -57,22 +62,24 @@ function ProfileItemCard({ title, items, type, editMode, handleEdit, handleAdd }
   return (
     <>
       <Card className={classes.card} variant="outlined">
-        <CardContent>
+        <CardContent className={classes.cardContent}>
           <Typography className={classes.title} component="h2" variant="h6">
             {title}
           </Typography>
-          {!editMode && <Divider variant="fullWidth" />}
           {itemsWithIds.map((item, index) => (
             <React.Fragment key={item.id}>
               {!editMode && (
-                <Box mt={2}>
-                  <Typography variant="body1" gutterBottom>
-                    {experience(item)}
-                  </Typography>
-                  <Typography variant="body2" gutterBottom>
-                    {dates(item)}
-                  </Typography>
-                </Box>
+                <>
+                  <Divider variant="fullWidth" />
+                  <Box my={2}>
+                    <Typography variant="body1" gutterBottom>
+                      {experience(item)}
+                    </Typography>
+                    <Typography variant="body2" gutterBottom>
+                      {dates(item)}
+                    </Typography>
+                  </Box>
+                </>
               )}
               {editMode && (
                 <Card className={classes.itemCard} variant="outlined">
@@ -96,13 +103,13 @@ function ProfileItemCard({ title, items, type, editMode, handleEdit, handleAdd }
             </React.Fragment>
           ))}
         </CardContent>
-        <CardActions disableSpacing>
-          {editMode && (
+        {editMode && (
+          <CardActions disableSpacing className={classes.footer}>
             <Button className={classes.button} variant="contained" fullWidth onClick={handleAdd}>
               Add {title}
             </Button>
-          )}
-        </CardActions>
+          </CardActions>
+        )}
       </Card>
     </>
   );
