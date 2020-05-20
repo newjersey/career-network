@@ -124,15 +124,18 @@ export function getQuestionResponse(allQuestionResponses, slug) {
  * @returns {*} The response value as entered by the user.
  * @example getQuestionResponse(allQuestionResponses, 'most-recent-title')
  */
-export function getQuestionResponseDetails(allQuestionResponses, slug) {
-  const response = allQuestionResponses.find(qr => qr.data().question.fields.Slug === slug);
+export function getQuestionResponseDetails(allQuestionResponses, item) {
+  const response = allQuestionResponses.find(
+    qr =>
+      qr.data().question.fields.Slug === item.slug || qr.data().question.fields.Label === item.label
+  );
 
   if (!response) {
     return null;
   }
 
   return {
-    slug,
+    slug: item.slug,
     label: response.data().question.fields.Label,
     value: response.data().value,
     helperText: response.data().question.fields['Helper Text'],

@@ -46,15 +46,17 @@ function ProfilePage() {
       educationItems: isEmpty(educationItemsValue) ? [] : [educationItemsValue],
       employmentItems: isEmpty(employmentItemsValue) ? [] : [employmentItemsValue],
       supportServices: [
-        'unemployment-insurance',
-        'health-insurance',
-        'housing-assistance',
-        'food-assistance',
-        'energy-assistance',
-        'transportation',
-        'child-care',
-        'budgeting',
-      ].map(slug => getQuestionResponseDetails(allQuestionResponses, slug)),
+        { slug: 'unemployment-insurance', label: 'Unemployment Insurance' },
+        { slug: 'health-insurance', label: 'Health Insurance' },
+        { slug: 'housing-assistance', label: 'Housing Assistance' },
+        { slug: 'food-assistance', label: 'Food Assistance' },
+        { slug: 'energy-assistance', label: 'Energy Assistance' },
+        { slug: 'transportation', label: 'Transportation' },
+        { slug: 'child-care', label: 'Child & Family Care' },
+        { slug: 'budgeting', label: 'Budgeting' },
+      ]
+        .map(item => getQuestionResponseDetails(allQuestionResponses, item))
+        .filter(item => item !== null),
     };
   };
 
