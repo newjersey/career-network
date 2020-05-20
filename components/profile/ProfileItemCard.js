@@ -27,6 +27,11 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
+  cardContent: {
+    '&:last-child': {
+      paddingBottom: theme.spacing(1),
+    },
+  },
 }));
 
 function ProfileItemCard({ title, items, type, editMode, handleEdit, handleAdd }) {
@@ -57,7 +62,7 @@ function ProfileItemCard({ title, items, type, editMode, handleEdit, handleAdd }
   return (
     <>
       <Card className={classes.card} variant="outlined">
-        <CardContent>
+        <CardContent className={classes.cardContent}>
           <Typography className={classes.title} component="h2" variant="h6">
             {title}
           </Typography>
@@ -99,7 +104,7 @@ function ProfileItemCard({ title, items, type, editMode, handleEdit, handleAdd }
           ))}
         </CardContent>
         {editMode && (
-          <CardActions disableSpacing>
+          <CardActions disableSpacing className={classes.footer}>
             <Button className={classes.button} variant="contained" fullWidth onClick={handleAdd}>
               Add {title}
             </Button>
