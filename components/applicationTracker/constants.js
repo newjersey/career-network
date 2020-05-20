@@ -35,3 +35,5 @@ export const APPLICATION_STATUS_TYPES = [
     color: '#f96861',
   },
 ];
+
+export default { APPLICATION_STATUS_TYPES };

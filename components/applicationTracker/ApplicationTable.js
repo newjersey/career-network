@@ -46,18 +46,21 @@ const getStatusEntryField = (statusEntries, entryId, fieldName) => {
 function ApplicationTable({ applications, handleUpdate }) {
   const classes = useStyles();
 
-  const rows = applications.map(({ document, id }) => ({
-    jobTitle: document.jobTitle,
-    company: document.company,
-    lastUpdate: getStatusEntryField(
-      document.statusEntries,
-      document.currentStatusEntryId,
-      'timestamp'
-    ),
-    status: getStatusEntryField(document.statusEntries, document.currentStatusEntryId, 'status'),
-    document,
-    id,
-  }));
+  const rows = applications
+    .map(({ document, id }) => ({
+      jobTitle: document.jobTitle,
+      company: document.company,
+      lastUpdate: getStatusEntryField(
+        document.statusEntries,
+        document.currentStatusEntryId,
+        'timestamp'
+      ),
+      status: getStatusEntryField(document.statusEntries, document.currentStatusEntryId, 'status'),
+      document,
+      id,
+    }))
+    .slice()
+    .sort((appA, appB) => appB.lastUpdate.toDate() - appA.lastUpdate.toDate());
 
   const formatLastUpdate = timestamp => formatDate(timestamp.toDate(), 'MMM eo');
 
