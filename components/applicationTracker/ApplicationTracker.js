@@ -12,6 +12,7 @@ import BackgroundHeader from '../BackgroundHeader';
 import ApplicationDialog from './ApplicationDialog/ApplicationDialog';
 import ApplicationTable from './ApplicationTable';
 import FirebasePropTypes from '../Firebase/PropTypes';
+import { APPLICATION_STATUS_TYPES } from './constants';
 
 const useStyles = makeStyles(theme => ({
   backgroundHeader: {
@@ -34,37 +35,6 @@ const DIALOG_INITIAL_CONFIG = {
   open: false,
 };
 
-const APPLICATION_STATUS_TYPES = [
-  {
-    value: 'submitted',
-    label: 'Application Submitted',
-  },
-  {
-    value: 'phone-screen',
-    label: 'Phone Screen',
-  },
-  {
-    value: 'interview',
-    label: 'Interviews',
-  },
-  {
-    value: 'offer-received',
-    label: 'Offer Received',
-  },
-  {
-    value: 'in-negation',
-    label: 'In Negation',
-  },
-  {
-    value: 'offer-accepted',
-    label: 'Offer Accepted',
-  },
-  {
-    value: 'offer-rejected',
-    label: 'Offer Rejected',
-  },
-];
-
 export async function logApplication(userDocRef, applicationDetails) {
   const data = {
     config: {
@@ -76,7 +46,6 @@ export async function logApplication(userDocRef, applicationDetails) {
 
   return userDocRef.collection('applicationLogEntries').add(data);
 }
-
 export default function ApplicationTracker({ allApplicationLogEntries }) {
   const classes = useStyles();
   const { userDocRef } = useAuth();

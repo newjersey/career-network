@@ -7,10 +7,10 @@ import TableBody from '@material-ui/core/TableBody';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import Typography from '@material-ui/core/Typography';
-import Chip from '@material-ui/core/Chip';
-// import formatDate from 'date-fns/format';
-import CircleIcon from '@material-ui/icons/FiberManualRecord';
+import formatDate from 'date-fns/format';
 import ScaffoldContainer from '../ScaffoldContainer';
+import StatusChip from './ApplicationStatusChip';
+import { APPLICATION_STATUS_TYPES } from './constants';
 
 const useStyles = makeStyles(theme => ({
   textField: {
@@ -27,14 +27,8 @@ const getStatusEntryField = (statusEntries, entryId, fieldName) => {
   const entry = statusEntries.find(item => item.id === entryId);
   return entry ? entry[fieldName] : null;
 };
-
-const StatusChip = ({ status }) => {
-  return <Chip avatar={<CircleIcon fill="" />} label={status} />;
-};
 function ApplicationTable({ applications }) {
   const classes = useStyles();
-
-  console.log(applications);
 
   const rows = applications.map(({ document, id }) => ({
     jobTitle: document.jobTitle,
@@ -47,6 +41,9 @@ function ApplicationTable({ applications }) {
     status: getStatusEntryField(document.statusEntries, document.currentStatusEntryId, 'status'),
     id,
   }));
+
+  const formatLastUpdate = timestamp => formatDate(timestamp.toDate(), 'MMM eo');
+
   return (
     <div className={classes.root}>
       <ScaffoldContainer>
@@ -54,9 +51,9 @@ function ApplicationTable({ applications }) {
           <TableHead>
             <TableRow>
               <TableCell>Details</TableCell>
-              <TableCell align="right">Last Update</TableCell>
-              <TableCell align="right">Status</TableCell>
-              <TableCell align="right" />
+              <TableCell align="left">Last Update</TableCell>
+              <TableCell align="left">Status</TableCell>
+              <TableCell align="left" />
             </TableRow>
           </TableHead>
           <TableBody>
@@ -66,9 +63,11 @@ function ApplicationTable({ applications }) {
                   <Typography variant="body1">{jobTitle}</Typography>
                   <Typography variant="body2">at {company}</Typography>
                 </TableCell>
-                <TableCell align="right">{lastUpdate && 'Hello'}</TableCell>
-                <TableCell align="right">{status}</TableCell>
-                <TableCell align="right">Edit</TableCell>
+                <TableCell align="left">{lastUpdate && formatLastUpdate(lastUpdate)}</TableCell>
+                <TableCell align="left">
+                  <StatusChip status={status} />
+                </TableCell>
+                <TableCell align="left">Edit</TableCell>
               </TableRow>
             ))}
           </TableBody>
