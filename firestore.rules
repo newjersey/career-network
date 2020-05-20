@@ -64,7 +64,7 @@ service cloud.firestore {
       match /interviewLogEntries/{document} {
        allow read, create: if request.auth.uid == uid;
       }
-      
+
       match /applicationLogEntries/{document} {
        allow read, create, update: if request.auth.uid == uid;
       }
