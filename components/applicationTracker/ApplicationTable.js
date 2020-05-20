@@ -43,7 +43,7 @@ const getStatusEntryField = (statusEntries, entryId, fieldName) => {
   const entry = statusEntries.find(item => item.id === entryId);
   return entry ? entry[fieldName] : null;
 };
-function ApplicationTable({ applications }) {
+function ApplicationTable({ applications, handleUpdate }) {
   const classes = useStyles();
 
   const rows = applications.map(({ document, id }) => ({
@@ -55,6 +55,7 @@ function ApplicationTable({ applications }) {
       'timestamp'
     ),
     status: getStatusEntryField(document.statusEntries, document.currentStatusEntryId, 'status'),
+    document,
     id,
   }));
 
@@ -79,7 +80,7 @@ function ApplicationTable({ applications }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map(({ jobTitle, company, lastUpdate, status, id }) => (
+            {rows.map(({ jobTitle, company, lastUpdate, status, id, document }) => (
               <TableRow key={id}>
                 <TableCell component="th" scope="row">
                   <Typography variant="body1">{jobTitle}</Typography>
@@ -89,8 +90,15 @@ function ApplicationTable({ applications }) {
                 <TableCell align="left">
                   <StatusChip status={status} />
                 </TableCell>
-                <TableCell align="left">
-                  <Button>Edit</Button>
+                <TableCell align="right">
+                  <Button
+                    className={classes.button}
+                    onClick={() => handleUpdate(id, document)}
+                    variant="contained"
+                    size="large"
+                  >
+                    Update
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}
@@ -102,6 +110,7 @@ function ApplicationTable({ applications }) {
 }
 
 ApplicationTable.propTypes = {
+  handleUpdate: PropTypes.func.isRequired,
   applications: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,

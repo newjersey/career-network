@@ -1,9 +1,7 @@
 import { makeStyles } from '@material-ui/styles';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
 import Paper from '@material-ui/core/Paper';
 import firebase from 'firebase/app';
 
@@ -137,35 +135,9 @@ export default function ApplicationTracker({ allApplicationLogEntries }) {
           <Typography variant="h6" gutterBottom color="textPrimary">
             Active Applications ({activeApplicationCount})
           </Typography>
-          <ApplicationTable applications={applications} />
+          <ApplicationTable applications={applications} handleUpdate={handleUpdate} />
         </Paper>
       </ScaffoldContainer>
-
-      {applications.map(item => (
-        <>
-          <Box m={5}>
-            <Card variant="outlined">
-              <Box display="flex" justifyContent="space-between">
-                <div>
-                  {item.document.jobTitle} at {item.document.company}
-                </div>
-                <Button
-                  className={classes.button}
-                  onClick={() => handleUpdate(item.id, item.document)}
-                  variant="contained"
-                  size="large"
-                >
-                  Update
-                </Button>
-              </Box>
-            </Card>
-          </Box>
-          <Box m={5}>
-            HISTORY
-            <Card variant="outlined">{JSON.stringify(item.document.statusEntries)}</Card>
-          </Box>
-        </>
-      ))}
     </div>
   );
 }
