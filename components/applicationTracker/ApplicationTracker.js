@@ -10,6 +10,7 @@ import { useAuth } from '../Auth';
 import ScaffoldContainer from '../ScaffoldContainer';
 import BackgroundHeader from '../BackgroundHeader';
 import ApplicationDialog from './ApplicationDialog/ApplicationDialog';
+import ApplicationTable from './ApplicationTable';
 import FirebasePropTypes from '../Firebase/PropTypes';
 
 const useStyles = makeStyles(theme => ({
@@ -156,6 +157,7 @@ export default function ApplicationTracker({ allApplicationLogEntries }) {
         handleClose={handleCloseDialog}
         handleSave={handleAddApplication}
       />
+      <ApplicationTable applications={applications} />
       {applications.map(item => (
         <>
           <Box m={5}>
