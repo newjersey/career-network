@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
+import Paper from '@material-ui/core/Paper';
 import firebase from 'firebase/app';
 
 import { useAuth } from '../Auth';
@@ -27,6 +28,10 @@ const useStyles = makeStyles(theme => ({
   button: {
     color: 'white',
     backgroundColor: theme.palette.background.dark,
+  },
+  tableCard: {
+    marginTop: theme.spacing(5),
+    padding: theme.spacing(3),
   },
 }));
 
@@ -53,6 +58,7 @@ export default function ApplicationTracker({ allApplicationLogEntries }) {
     id: item.id,
     document: item.data(),
   }));
+  const activeApplicationCount = applications.length;
   const [dialogConfig, setDialogConfig] = useState(DIALOG_INITIAL_CONFIG);
 
   const handleOpenApplicationDialog = () => {
@@ -126,7 +132,15 @@ export default function ApplicationTracker({ allApplicationLogEntries }) {
         handleClose={handleCloseDialog}
         handleSave={handleAddApplication}
       />
-      <ApplicationTable applications={applications} />
+      <ScaffoldContainer>
+        <Paper className={classes.tableCard}>
+          <Typography variant="h6" gutterBottom color="textPrimary">
+            Active Applications ({activeApplicationCount})
+          </Typography>
+          <ApplicationTable applications={applications} />
+        </Paper>
+      </ScaffoldContainer>
+
       {applications.map(item => (
         <>
           <Box m={5}>

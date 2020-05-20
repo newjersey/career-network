@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import TableBody from '@material-ui/core/TableBody';
@@ -10,7 +11,6 @@ import Typography from '@material-ui/core/Typography';
 import formatDate from 'date-fns/format';
 import ScaffoldContainer from '../ScaffoldContainer';
 import StatusChip from './ApplicationStatusChip';
-import { APPLICATION_STATUS_TYPES } from './constants';
 
 const useStyles = makeStyles(theme => ({
   textField: {
@@ -20,6 +20,22 @@ const useStyles = makeStyles(theme => ({
   },
   footer: {
     padding: theme.spacing(2, 3),
+  },
+  table: {
+    '> th': {
+      paddingBottom: 0,
+    },
+  },
+  head: {
+    paddingBottom: 0,
+    color: theme.palette.grey['600'],
+    fontWeight: 400,
+  },
+  detailsCol: {
+    width: '50%',
+  },
+  headerRow: {
+    borderWidth: 2,
   },
 }));
 
@@ -49,11 +65,17 @@ function ApplicationTable({ applications }) {
       <ScaffoldContainer>
         <Table className={classes.table} aria-label="application-table">
           <TableHead>
-            <TableRow>
-              <TableCell>Details</TableCell>
-              <TableCell align="left">Last Update</TableCell>
-              <TableCell align="left">Status</TableCell>
-              <TableCell align="left" />
+            <TableRow className={classes.headerRow}>
+              <TableCell classes={{ head: classes.head }} className={classes.detailsCol}>
+                Details
+              </TableCell>
+              <TableCell classes={{ head: classes.head }} align="left">
+                Last Update
+              </TableCell>
+              <TableCell classes={{ head: classes.head }} align="left">
+                Status
+              </TableCell>
+              <TableCell classes={{ head: classes.head }} align="left" />
             </TableRow>
           </TableHead>
           <TableBody>
@@ -67,7 +89,9 @@ function ApplicationTable({ applications }) {
                 <TableCell align="left">
                   <StatusChip status={status} />
                 </TableCell>
-                <TableCell align="left">Edit</TableCell>
+                <TableCell align="left">
+                  <Button>Edit</Button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
