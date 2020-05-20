@@ -63,7 +63,7 @@ export async function logApplication(userDocRef, applicationDetails) {
     config: {
       applicationStatusTypes: APPLICATION_STATUS_TYPES,
     },
-    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    lastUpdatedTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
     ...applicationDetails,
   };
 
@@ -91,6 +91,7 @@ export default function ApplicationTracker({ allApplicationLogEntries }) {
       dateApplied: new Date(), // should be user input
       statusEntries: [statusEntry],
       currentStatusEntryId: 1,
+      isClosed: false,
     };
 
     try {
