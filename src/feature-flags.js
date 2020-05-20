@@ -1,11 +1,11 @@
 const featureFlags = [
   {
     name: 'userProfile',
-    isActive: true,
+    isActive: false,
   },
   {
     name: 'applicationTracker',
-    isActive: true,
+    isActive: false,
   },
 ];
 
