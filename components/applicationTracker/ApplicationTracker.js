@@ -1,7 +1,9 @@
 import { makeStyles } from '@material-ui/styles';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
 import firebase from 'firebase/app';
 
 import { useAuth } from '../Auth';
@@ -71,13 +73,17 @@ export async function logApplication(userDocRef, applicationDetails) {
 export default function ApplicationTracker({ allApplicationLogEntries }) {
   const classes = useStyles();
   const { userDocRef } = useAuth();
-  const applications = allApplicationLogEntries.map(item => item.data());
+  const applications = allApplicationLogEntries.map(item => ({
+    id: item.id,
+    document: item.data(),
+  }));
 
   const handleSave = async () => {
     const statusEntry = {
-      id: 1,
+      id: 1, // starting with index 1 when new application added
       notes: 'i liked the recruiter, jody',
       status: 'application_submitted',
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     };
     const application = {
       jobTitle: 'software engineer',
@@ -95,6 +101,28 @@ export default function ApplicationTracker({ allApplicationLogEntries }) {
     }
   };
 
+  const handleUpdate = (documentId, document) => {
+    const currentIndex = document.currentStatusEntryId;
+
+    const statusEntry = {
+      id: currentIndex + 1,
+      status: 'the number I have to phone is 555 123 4567',
+      notes: 'Phone_Screen',
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    };
+    const statusEntries = [...document.statusEntries, statusEntry];
+    const updates = {
+      statusEntries,
+      currentStatusEntryId: currentIndex + 1,
+    };
+
+    userDocRef
+      .collection('applicationLogEntries')
+      .doc(documentId)
+      .update(updates);
+    console.log('updated!');
+  };
+
   return (
     <div className={classes.root}>
       <BackgroundHeader className={classes.backgroundHeader}>
@@ -105,7 +133,31 @@ export default function ApplicationTracker({ allApplicationLogEntries }) {
           </Button>
         </ScaffoldContainer>
       </BackgroundHeader>
-      {JSON.stringify(applications)}
+      {applications.map(item => (
+        <>
+          <Box m={5}>
+            <Card variant="outlined">
+              <Box display="flex" justifyContent="space-between">
+                <div>
+                  {item.document.jobTitle} at {item.document.company}
+                </div>
+                <Button
+                  className={classes.button}
+                  onClick={() => handleUpdate(item.id, item.document)}
+                  variant="contained"
+                  size="large"
+                >
+                  Update
+                </Button>
+              </Box>
+            </Card>
+          </Box>
+          <Box m={5}>
+            HISTORY
+            <Card variant="outlined">{JSON.stringify(item.document.statusEntries)}</Card>
+          </Box>
+        </>
+      ))}
     </div>
   );
 }
