@@ -100,7 +100,7 @@ export default function ApplicationTracker({ allApplicationLogEntries }) {
       id: 1,
       notes,
       status: APPLICATION_STATUS_TYPES[0].value,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      timestamp: new Date(),
     };
 
     const applicationEntry = {

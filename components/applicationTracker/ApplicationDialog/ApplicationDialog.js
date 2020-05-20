@@ -46,7 +46,7 @@ function ApplicationDialog({ open, applicationData, handleClose, handleSave }) {
       await handleSave(values);
       handleClose();
     } catch (err) {
-      setError(err);
+      setError(err.message);
     } finally {
       setSubmitting(false);
     }
