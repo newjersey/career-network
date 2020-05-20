@@ -54,7 +54,7 @@ function EditDialog({ show, onClose, mode, name, items, itemIndex }) {
     // If dialog is open and values have not been initialized
     if (show && !values && mode === UPDATE) {
       if (name === DIALOGS.EDIT_EMPLOYMENT) {
-        const { start, end, title, org } = items[itemIndex];
+        const { start = '', end = '', title = '', org = '' } = items[itemIndex];
         const [startMonth, startYear] = start.split(' ');
         const [endMonth, endYear] = end.split(' ');
         setValues({
