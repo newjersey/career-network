@@ -65,7 +65,6 @@ service cloud.firestore {
        allow read, create: if request.auth.uid == uid;
       }
 
-      // application log entries are immutable: no updating allowed
       match /applicationLogEntries/{document} {
        allow read, create, update: if request.auth.uid == uid;
       }
