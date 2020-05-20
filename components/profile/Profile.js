@@ -174,6 +174,7 @@ function Profile({ profileData }) {
                   title={item.title}
                   items={profileData[item.value]}
                   type={item.value}
+                  description={item.description}
                   editMode={editMode}
                   handleEdit={index => handleOpenEditDialog(index, item.value)}
                   handleAdd={() => handleOpenAddDialog(item.value)}

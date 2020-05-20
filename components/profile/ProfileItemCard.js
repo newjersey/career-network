@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function ProfileItemCard({ title, items, type, editMode, handleEdit, handleAdd }) {
+function ProfileItemCard({ title, items, type, editMode, handleEdit, handleAdd, description }) {
   const classes = useStyles();
   const experience = item => {
     const role = type === 'educationItems' ? item['study-field'] : item.title;
@@ -102,6 +102,11 @@ function ProfileItemCard({ title, items, type, editMode, handleEdit, handleAdd }
               )}
             </React.Fragment>
           ))}
+          {!editMode && itemsWithIds.length < 1 && (
+            <Typography variant="body2" style={{ color: '#696974' }}>
+              {description}
+            </Typography>
+          )}
         </CardContent>
         {editMode && (
           <CardActions disableSpacing className={classes.footer}>
@@ -117,6 +122,7 @@ function ProfileItemCard({ title, items, type, editMode, handleEdit, handleAdd }
 
 ProfileItemCard.propTypes = {
   title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   type: PropTypes.string.isRequired,
   editMode: PropTypes.bool.isRequired,
