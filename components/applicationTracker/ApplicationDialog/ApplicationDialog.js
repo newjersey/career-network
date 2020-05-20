@@ -11,7 +11,7 @@ import { DialogTitle, DialogContent, DialogActions } from '../../DialogComponent
 const APPLICATION_INITIAL_STATE = {
   jobTitle: '',
   company: '',
-  dateApplied: '',
+  dateApplied: undefined,
   notes: '',
 };
 
@@ -38,13 +38,20 @@ function ApplicationDialog({ open, applicationData, handleClose, handleSave }) {
     setValues(prevValues => ({ ...prevValues, [event.target.name]: event.target.value }));
   };
 
+  const onClose = () => {
+    setError();
+    setSubmitting(false);
+    setValues(APPLICATION_INITIAL_STATE);
+    handleClose();
+  };
+
   const handleSubmit = async event => {
     event.preventDefault();
     setError();
     setSubmitting(true);
     try {
       await handleSave(values);
-      handleClose();
+      onClose();
     } catch (err) {
       setError(err.message);
     } finally {
@@ -52,10 +59,20 @@ function ApplicationDialog({ open, applicationData, handleClose, handleSave }) {
     }
   };
 
+  const getTodaysDate = () => {
+    const todaysDate = new Date();
+    return `${todaysDate.getFullYear()}-${(todaysDate.getMonth() + 1)
+      .toString()
+      .padStart(2, 0)}-${todaysDate
+      .getDate()
+      .toString()
+      .padStart(2, 0)}`;
+  };
+
   return (
     <div>
       <Dialog open={open} aria-labelledby="application-dialog">
-        <DialogTitle id="application-dialog" onClose={handleClose}>
+        <DialogTitle id="application-dialog" onClose={onClose}>
           <Typography variant="h6">Add Application</Typography>
         </DialogTitle>
         <DialogContent>
@@ -100,7 +117,7 @@ function ApplicationDialog({ open, applicationData, handleClose, handleSave }) {
               onChange={handleChange}
               placeholder="Select the Date Applied"
               type="date"
-              value={values.dateApplied}
+              value={values.dateApplied || getTodaysDate()}
               variant="outlined"
             />
             <span>Note</span>

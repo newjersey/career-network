@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   },
   tableCard: {
     marginTop: theme.spacing(5),
-    padding: theme.spacing(3),
+    padding: theme.spacing(3, 4),
   },
 }));
 

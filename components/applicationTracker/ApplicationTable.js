@@ -9,7 +9,6 @@ import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import Typography from '@material-ui/core/Typography';
 import formatDate from 'date-fns/format';
-import ScaffoldContainer from '../ScaffoldContainer';
 import StatusChip from './ApplicationStatusChip';
 
 const useStyles = makeStyles(theme => ({
@@ -21,10 +20,8 @@ const useStyles = makeStyles(theme => ({
   footer: {
     padding: theme.spacing(2, 3),
   },
-  table: {
-    '> th': {
-      paddingBottom: 0,
-    },
+  root: {
+    paddingLeft: 0,
   },
   head: {
     paddingBottom: 0,
@@ -33,6 +30,10 @@ const useStyles = makeStyles(theme => ({
   },
   detailsCol: {
     width: '50%',
+    paddingLeft: 0,
+  },
+  firstCol: {
+    paddingLeft: 0,
   },
   headerRow: {
     borderWidth: 2,
@@ -66,48 +67,46 @@ function ApplicationTable({ applications, handleUpdate }) {
 
   return (
     <div className={classes.root}>
-      <ScaffoldContainer>
-        <Table className={classes.table} aria-label="application-table">
-          <TableHead>
-            <TableRow className={classes.headerRow}>
-              <TableCell classes={{ head: classes.head }} className={classes.detailsCol}>
-                Details
+      <Table aria-label="application-table">
+        <TableHead>
+          <TableRow className={classes.headerRow}>
+            <TableCell classes={{ head: classes.head }} className={classes.detailsCol}>
+              Details
+            </TableCell>
+            <TableCell classes={{ head: classes.head }} align="left">
+              Last Update
+            </TableCell>
+            <TableCell classes={{ head: classes.head }} align="left">
+              Status
+            </TableCell>
+            <TableCell classes={{ head: classes.head }} align="left" />
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map(({ jobTitle, company, lastUpdate, status, id, document }) => (
+            <TableRow key={id}>
+              <TableCell component="th" scope="row" className={classes.firstCol}>
+                <Typography variant="body1">{jobTitle}</Typography>
+                <Typography variant="body2">at {company}</Typography>
               </TableCell>
-              <TableCell classes={{ head: classes.head }} align="left">
-                Last Update
+              <TableCell align="left">{lastUpdate && formatLastUpdate(lastUpdate)}</TableCell>
+              <TableCell align="left">
+                <StatusChip status={status} />
               </TableCell>
-              <TableCell classes={{ head: classes.head }} align="left">
-                Status
+              <TableCell align="right">
+                <Button
+                  className={classes.button}
+                  onClick={() => handleUpdate(id, document)}
+                  variant="contained"
+                  size="large"
+                >
+                  Update
+                </Button>
               </TableCell>
-              <TableCell classes={{ head: classes.head }} align="left" />
             </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map(({ jobTitle, company, lastUpdate, status, id, document }) => (
-              <TableRow key={id}>
-                <TableCell component="th" scope="row">
-                  <Typography variant="body1">{jobTitle}</Typography>
-                  <Typography variant="body2">at {company}</Typography>
-                </TableCell>
-                <TableCell align="left">{lastUpdate && formatLastUpdate(lastUpdate)}</TableCell>
-                <TableCell align="left">
-                  <StatusChip status={status} />
-                </TableCell>
-                <TableCell align="right">
-                  <Button
-                    className={classes.button}
-                    onClick={() => handleUpdate(id, document)}
-                    variant="contained"
-                    size="large"
-                  >
-                    Update
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </ScaffoldContainer>
+          ))}
+        </TableBody>
+      </Table>
     </div>
   );
 }
