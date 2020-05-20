@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import isEmpty from 'lodash/isEmpty';
 import { useUserSubcollection } from '../components/Firebase';
 import { fullyLoaded, getQuestionResponse, getQuestionResponseDetails } from '../src/app-helper';
 import { useAuth, withAuthRequired } from '../components/Auth';
@@ -10,39 +11,52 @@ function ProfilePage() {
   const [initialized, setInitialized] = useState(false);
   const { user, userDocRef } = useAuth();
   const allQuestionResponses = useUserSubcollection('questionResponses');
+  const copyInitialProfileValues = () => {
+    // create education and employment objects -- if no fields were answered
+    // they will be empty {}
+    const educationItemsValue = [
+      'school',
+      'study-field',
+      'education-start-year',
+      'education-end-year',
+    ].reduce((current, slug) => {
+      const slugValue = getQuestionResponse(allQuestionResponses, slug);
+      return {
+        ...current,
+        ...(slugValue && { [slug]: slugValue }),
+      };
+    }, {});
 
-  const copyInitialProfileValues = () => ({
-    goal: getQuestionResponse(allQuestionResponses, 'goal'),
-    phone: getQuestionResponse(allQuestionResponses, 'phone'),
-    educationItems: [
-      ['school', 'study-field', 'education-start-year', 'education-end-year'].reduce(
-        (current, slug) => ({
-          ...current,
-          [slug]: getQuestionResponse(allQuestionResponses, slug),
-        }),
-        {}
-      ),
-    ],
-    employmentItems: [
-      ['most-recent-title', 'most-recent-org', 'most-recent-start', 'most-recent-end'].reduce(
-        (current, slug) => ({
-          ...current,
-          [slug.replace('most-recent-', '')]: getQuestionResponse(allQuestionResponses, slug),
-        }),
-        {}
-      ),
-    ],
-    supportServices: [
-      'unemployment-insurance',
-      'health-insurance',
-      'housing-assistance',
-      'food-assistance',
-      'energy-assistance',
-      'transportation',
-      'child-care',
-      'budgeting',
-    ].map(slug => getQuestionResponseDetails(allQuestionResponses, slug)),
-  });
+    const employmentItemsValue = [
+      'most-recent-title',
+      'most-recent-org',
+      'most-recent-start',
+      'most-recent-end',
+    ].reduce((current, slug) => {
+      const slugValue = getQuestionResponse(allQuestionResponses, slug);
+      return {
+        ...current,
+        ...(slugValue && { [slug.replace('most-recent-', '')]: slugValue }),
+      };
+    }, {});
+
+    return {
+      goal: getQuestionResponse(allQuestionResponses, 'goal') || '',
+      phone: getQuestionResponse(allQuestionResponses, 'phone') || '',
+      educationItems: isEmpty(educationItemsValue) ? [] : [educationItemsValue],
+      employmentItems: isEmpty(employmentItemsValue) ? [] : [employmentItemsValue],
+      supportServices: [
+        'unemployment-insurance',
+        'health-insurance',
+        'housing-assistance',
+        'food-assistance',
+        'energy-assistance',
+        'transportation',
+        'child-care',
+        'budgeting',
+      ].map(slug => getQuestionResponseDetails(allQuestionResponses, slug)),
+    };
+  };
 
   useEffect(() => {
     const handleInitialize = async () => {
