@@ -102,7 +102,11 @@ function ProfileItemCard({ title, items, type, editMode, handleEdit, handleAdd, 
               )}
             </React.Fragment>
           ))}
-          {!editMode && itemsWithIds.length < 1 && <Typography>{description}</Typography>}
+          {!editMode && itemsWithIds.length < 1 && (
+            <Typography variant="body2" style={{ color: '#696974' }}>
+              {description}
+            </Typography>
+          )}
         </CardContent>
         {editMode && (
           <CardActions disableSpacing className={classes.footer}>
