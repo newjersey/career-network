@@ -63,7 +63,7 @@ function ApplicationTable({ applications, handleUpdate }) {
     .slice()
     .sort((appA, appB) => appB.lastUpdate.toDate() - appA.lastUpdate.toDate());
 
-  const formatLastUpdate = timestamp => formatDate(timestamp.toDate(), 'MMM eo');
+  const formatLastUpdate = timestamp => formatDate(timestamp.toDate(), 'MMM do');
 
   return (
     <div className={classes.root}>
@@ -87,7 +87,7 @@ function ApplicationTable({ applications, handleUpdate }) {
             <TableRow key={id}>
               <TableCell component="th" scope="row" className={classes.firstCol}>
                 <Typography variant="body1">{jobTitle}</Typography>
-                <Typography variant="body2">at {company}</Typography>
+                {company && <Typography variant="body2">at {company}</Typography>}
               </TableCell>
               <TableCell align="left">{lastUpdate && formatLastUpdate(lastUpdate)}</TableCell>
               <TableCell align="left">
