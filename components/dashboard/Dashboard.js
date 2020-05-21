@@ -16,7 +16,9 @@ import { getFirstIncompleteAction, isDone, mostRecent } from '../../src/app-help
 import { useAnalytics } from '../Analytics';
 import { useAuth } from '../Auth';
 import ActivityInputDialog from '../activityInput/ActivityInputDialog';
+import ActionPlanBar from './ActionPlan/ActionPlanBar';
 import AirtablePropTypes from '../Airtable/PropTypes';
+import ApplicationTrackerCard from './ApplicationTrackerCard';
 import AssessmentCompleteDialog from './AssessmentCompleteDialog';
 import BackgroundHeader from '../BackgroundHeader';
 import CovidJobsAccess from './CovidJobsAccess';
@@ -29,7 +31,6 @@ import TaskList from './TaskList';
 import TimeDistanceParser from '../../src/time-distance-parser';
 import UpcomingInterviewDialog from './UpcomingInterviewDialog/UpcomingInterviewDialog';
 import UserProfileCard from './UserProfileCard';
-import ApplicationTrackerCard from './ApplicationTrackerCard';
 
 const TASK_COUNT_LIMIT = 3;
 const ROW_GAP = 2;
@@ -359,6 +360,9 @@ export default function Dashboard(props) {
         </ScaffoldContainer>
       </BackgroundHeader>
 
+      <ScaffoldContainer className={classes.container}>
+        <ActionPlanBar />
+      </ScaffoldContainer>
       {showSentiment && (
         <ScaffoldContainer className={classes.container}>
           <SentimentTracker
