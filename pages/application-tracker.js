@@ -11,7 +11,7 @@ import withTitle from '../components/withTitle';
 function ApplicationTrackerPage() {
   const { user } = useAuth();
   const allApplicationLogEntries = useUserSubcollection('applicationLogEntries', {
-    orderBy: ['timestamp', 'desc'],
+    orderBy: ['lastUpdateTimestamp', 'desc'],
   });
 
   const props = {

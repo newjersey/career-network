@@ -56,14 +56,14 @@ function ApplicationTable({ applications, handleUpdate }) {
         document.currentStatusEntryId,
         'timestamp'
       ),
-      status: getStatusEntryField(document.statusEntries, document.currentStatusEntryId, 'status'),
+      status: document.currentStatus,
       document,
       id,
     }))
     .slice()
     .sort((appA, appB) => appB.lastUpdate.toDate() - appA.lastUpdate.toDate());
 
-  const formatLastUpdate = timestamp => formatDate(timestamp.toDate(), 'MMM eo');
+  const formatLastUpdate = timestamp => formatDate(timestamp.toDate(), 'MMM do');
 
   return (
     <div className={classes.root}>

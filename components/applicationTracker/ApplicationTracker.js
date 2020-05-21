@@ -1,9 +1,7 @@
 import { makeStyles } from '@material-ui/styles';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
 import Paper from '@material-ui/core/Paper';
 import firebase from 'firebase/app';
 
@@ -32,6 +30,7 @@ const useStyles = makeStyles(theme => ({
   },
   tableCard: {
     marginTop: theme.spacing(5),
+    marginBottom: theme.spacing(5),
     padding: theme.spacing(3, 4),
   },
 }));
@@ -43,7 +42,7 @@ const DIALOG_INITIAL_CONFIG = {
 
 const UPDATE_DIALOG_INITIAL_CONFIG = {
   applicationData: undefined,
-  open: false,
+  documentId: undefined,
 };
 
 export async function logApplication(userDocRef, applicationDetails) {
@@ -51,7 +50,7 @@ export async function logApplication(userDocRef, applicationDetails) {
     config: {
       applicationStatusTypes: APPLICATION_STATUS_TYPES,
     },
-    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    lastUpdateTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
     ...applicationDetails,
   };
 
@@ -60,13 +59,17 @@ export async function logApplication(userDocRef, applicationDetails) {
 export default function ApplicationTracker({ allApplicationLogEntries }) {
   const classes = useStyles();
   const { userDocRef } = useAuth();
+  const [dialogConfig, setDialogConfig] = useState(DIALOG_INITIAL_CONFIG);
+  const [updateDialogConfig, setUpdateDialogConfig] = useState(UPDATE_DIALOG_INITIAL_CONFIG);
+  const [showUpdateDialog, setShowUpdateDialog] = useState(false);
   const applications = allApplicationLogEntries.map(item => ({
     id: item.id,
     document: item.data(),
   }));
-  const activeApplicationCount = applications.length;
-  const [dialogConfig, setDialogConfig] = useState(DIALOG_INITIAL_CONFIG);
-  const [updateDialogConfig, setUpdateDialogConfig] = useState(UPDATE_DIALOG_INITIAL_CONFIG);
+  const activeApplications = applications.filter(item => item.document.isActive);
+  const closedApplications = applications.filter(item => !item.document.isActive);
+  const activeApplicationCount = activeApplications.length;
+  const closedApplicationCount = closedApplications.length;
 
   const handleOpenApplicationDialog = () => {
     setDialogConfig(prevConfig => ({ ...prevConfig, open: true }));
@@ -93,43 +96,31 @@ export default function ApplicationTracker({ allApplicationLogEntries }) {
       statusEntries: [statusEntry],
       currentStatusEntryId: 1,
       currentStatus: APPLICATION_STATUS_TYPES[0].value,
+      isActive: true,
     };
 
     return logApplication(userDocRef, applicationEntry);
   };
 
-  const handleOpenUpdateDialog = application => {
+  const handleOpenUpdateDialog = (id, document) => {
     setUpdateDialogConfig(prevConfig => ({
       ...prevConfig,
-      applicationData: application.document,
-      open: true,
+      applicationData: {
+        jobTitle: document.jobTitle,
+        company: document.company,
+        currentStatusEntryId: document.currentStatusEntryId,
+        statusEntries: document.statusEntries,
+        currentStatus: document.currentStatus,
+        isActive: document.isActive,
+      },
+      documentId: id,
     }));
+    setShowUpdateDialog(true);
   };
 
   const handleCloseUpdateDialog = () => {
-    setDialogConfig(UPDATE_DIALOG_INITIAL_CONFIG);
-  };
-
-  const handleUpdate = (documentId, document) => {
-    const currentIndex = document.currentStatusEntryId;
-
-    const statusEntry = {
-      id: currentIndex + 1,
-      status: 'the number I have to phone is 555 123 4567',
-      notes: 'Phone_Screen',
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    };
-    const statusEntries = [...document.statusEntries, statusEntry];
-    const updates = {
-      statusEntries,
-      currentStatusEntryId: currentIndex + 1,
-    };
-
-    userDocRef
-      .collection('applicationLogEntries')
-      .doc(documentId)
-      .update(updates);
-    console.log('updated!');
+    setUpdateDialogConfig(UPDATE_DIALOG_INITIAL_CONFIG);
+    setShowUpdateDialog(false);
   };
 
   return (
@@ -157,39 +148,26 @@ export default function ApplicationTracker({ allApplicationLogEntries }) {
           <Typography variant="h6" gutterBottom color="textPrimary">
             Active Applications ({activeApplicationCount})
           </Typography>
-          <ApplicationTable applications={applications} handleUpdate={handleUpdate} />
+          <ApplicationTable
+            applications={activeApplications}
+            handleUpdate={handleOpenUpdateDialog}
+          />
+        </Paper>
+        <Paper className={classes.tableCard}>
+          <Typography variant="h6" gutterBottom color="textPrimary">
+            Closed Applications ({closedApplicationCount})
+          </Typography>
+          <ApplicationTable
+            applications={closedApplications}
+            handleUpdate={handleOpenUpdateDialog}
+          />
         </Paper>
       </ScaffoldContainer>
       <ApplicationUpdateDialog
         {...updateDialogConfig}
+        open={showUpdateDialog}
         handleClose={handleCloseUpdateDialog}
-        handleSave={() => {}}
       />
-      {applications.map(item => (
-        <>
-          <Box m={5}>
-            <Card variant="outlined">
-              <Box display="flex" justifyContent="space-between">
-                <div>
-                  {item.document.jobTitle} at {item.document.company}
-                </div>
-                <Button
-                  className={classes.button}
-                  onClick={() => handleOpenUpdateDialog(item)}
-                  variant="contained"
-                  size="large"
-                >
-                  Update
-                </Button>
-              </Box>
-            </Card>
-          </Box>
-          <Box m={5}>
-            HISTORY
-            <Card variant="outlined">{JSON.stringify(item.document.statusEntries)}</Card>
-          </Box>
-        </>
-      ))}
     </div>
   );
 }
