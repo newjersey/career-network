@@ -12,6 +12,10 @@ const envConfigs = {
       name: 'profileSupportServices',
       isActive: false,
     },
+    {
+      name: 'sentimentTracker',
+      isActive: false,
+    },
   ],
   PREVIEW: [
     {
@@ -24,6 +28,10 @@ const envConfigs = {
     },
     {
       name: 'profileSupportServices',
+      isActive: false,
+    },
+    {
+      name: 'sentimentTracker',
       isActive: false,
     },
   ],
