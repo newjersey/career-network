@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import firebase from 'firebase/app';
 
+import { Box } from '@material-ui/core';
 import { useAuth } from '../Auth';
 import ScaffoldContainer from '../ScaffoldContainer';
 import BackgroundHeader from '../BackgroundHeader';
@@ -152,6 +153,22 @@ export default function ApplicationTracker({ allApplicationLogEntries }) {
             applications={activeApplications}
             handleUpdate={handleOpenUpdateDialog}
           />
+          {activeApplicationCount < 1 && (
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="center"
+              m={5}
+            >
+              <Typography variant="body1" color="textSecondary" gutterBottom>
+                No Active Applications.
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                Add an Application to start and keep your job search organized.
+              </Typography>
+            </Box>
+          )}
         </Paper>
         <Paper className={classes.tableCard}>
           <Typography variant="h6" gutterBottom color="textPrimary">
@@ -161,6 +178,22 @@ export default function ApplicationTracker({ allApplicationLogEntries }) {
             applications={closedApplications}
             handleUpdate={handleOpenUpdateDialog}
           />
+          {closedApplicationCount < 1 && (
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="center"
+              m={5}
+            >
+              <Typography variant="body1" color="textSecondary" gutterBottom>
+                No Closed Applications.
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                Update an Active Applications and keep your job search organized.
+              </Typography>
+            </Box>
+          )}
         </Paper>
       </ScaffoldContainer>
       <ApplicationUpdateDialog

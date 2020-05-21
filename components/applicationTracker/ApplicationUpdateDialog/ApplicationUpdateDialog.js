@@ -152,7 +152,6 @@ function ApplicationUpdateDialog({ open, applicationData, handleClose, documentI
                 />
               }
             />
-            {JSON.stringify(values)}
           </form>
           {error && <Typography color="error">{error}</Typography>}
         </DialogContent>
