@@ -87,7 +87,7 @@ function ApplicationTable({ applications, handleUpdate }) {
             <TableRow key={id}>
               <TableCell component="th" scope="row" className={classes.firstCol}>
                 <Typography variant="body1">{jobTitle}</Typography>
-                <Typography variant="body2">at {company}</Typography>
+                {company && <Typography variant="body2">at {company}</Typography>}
               </TableCell>
               <TableCell align="left">{lastUpdate && formatLastUpdate(lastUpdate)}</TableCell>
               <TableCell align="left">
