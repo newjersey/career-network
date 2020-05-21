@@ -7,6 +7,10 @@ const featureFlags = [
     name: 'applicationTracker',
     isActive: false,
   },
+  {
+    name: 'profileSupportServices',
+    isActive: false,
+  },
 ];
 
 export default featureFlags;
