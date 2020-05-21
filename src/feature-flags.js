@@ -16,6 +16,10 @@ const envConfigs = {
       name: 'sentimentTracker',
       isActive: false,
     },
+    {
+      name: 'activityLog',
+      isActive: false,
+    },
   ],
   PREVIEW: [
     {
@@ -32,6 +36,10 @@ const envConfigs = {
     },
     {
       name: 'sentimentTracker',
+      isActive: false,
+    },
+    {
+      name: 'activityLog',
       isActive: false,
     },
   ],

@@ -422,25 +422,25 @@ export default function Dashboard(props) {
             }
           </Box>
           <Box className={classes.gridR}>
-            <Card variant="outlined">
-              <CardHeader
-                title={
-                  <Typography component="h2" variant="h6" data-intercom="activity-title">
-                    Activity Log
-                  </Typography>
-                }
-                disableTypography
-              />
-              <ProgressFeed
-                activities={allActivityLogEntries}
-                completedTasks={completedTasks}
-                limit={historyLimit}
-              />
-            </Card>
+            <Flags authorizedFlags={['activityLog']}>
+              <Card variant="outlined">
+                <CardHeader
+                  title={
+                    <Typography component="h2" variant="h6" data-intercom="activity-title">
+                      Activity Log
+                    </Typography>
+                  }
+                  disableTypography
+                />
+                <ProgressFeed
+                  activities={allActivityLogEntries}
+                  completedTasks={completedTasks}
+                  limit={historyLimit}
+                />
+              </Card>
+            </Flags>
             <Flags authorizedFlags={['applicationTracker']}>
-              <Box mt={3}>
-                <ApplicationTrackerCard applications={allApplicationLogEntries} />
-              </Box>
+              <ApplicationTrackerCard applications={allApplicationLogEntries} />
             </Flags>
             <Box mt={3} data-intercom="log-interview">
               <Card variant="outlined">
