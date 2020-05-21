@@ -27,6 +27,10 @@ function DashboardPage() {
     orderBy: ['timestamp', 'desc'],
   });
 
+  const allApplicationLogEntries = useUserSubcollection('applicationLogEntries', {
+    orderBy: ['lastUpdateTimestamp', 'desc'],
+  });
+
   const recordProps = {
     allPredicates: useRecords('Predicates'),
     allConditions: useRecords('Conditions'),
@@ -41,6 +45,7 @@ function DashboardPage() {
     allQuestionResponses,
     allActionDispositionEvents,
     allActivityLogEntries,
+    allApplicationLogEntries,
     completedTasks
   ) ? (
     <Dashboard
@@ -48,6 +53,7 @@ function DashboardPage() {
       allActionDispositionEvents={allActionDispositionEvents}
       allTaskDispositionEvents={allTaskDispositionEvents}
       allActivityLogEntries={allActivityLogEntries}
+      allApplicationLogEntries={allApplicationLogEntries}
       completedTasks={completedTasks}
       historyLimit={HISTORY_LIMIT}
       interviewLogEntries={interviewLogEntries}

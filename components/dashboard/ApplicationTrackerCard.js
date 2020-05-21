@@ -7,6 +7,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import NextLink from 'next/link';
 
+import FirebasePropTypes from '../Firebase/PropTypes';
+
 const useStyles = makeStyles(theme => ({
   card: {
     padding: theme.spacing(2),
@@ -25,9 +27,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function ApplicationTrackerCard() {
+function ApplicationTrackerCard({ applications }) {
   const classes = useStyles();
-  const activeApplicationsCount = 0;
+  const activeApplications = applications.filter(item => item && item.data().isActive);
+  const activeApplicationsCount = activeApplications.length;
 
   return (
     <>
@@ -58,6 +61,8 @@ function ApplicationTrackerCard() {
   );
 }
 
-ApplicationTrackerCard.propTypes = {};
+ApplicationTrackerCard.propTypes = {
+  applications: FirebasePropTypes.querySnapshot.isRequired,
+};
 
 export default ApplicationTrackerCard;

@@ -272,6 +272,7 @@ export default function Dashboard(props) {
     completedTasks,
     historyLimit,
     allActivityLogEntries,
+    allApplicationLogEntries,
     ...restProps
   } = props;
 
@@ -281,7 +282,6 @@ export default function Dashboard(props) {
     user.lastSentimentTimestamp && isToday(user.lastSentimentTimestamp.toDate());
   const isSentimentClosedToday =
     user.lastSentimentCloseTimestamp && isToday(user.lastSentimentCloseTimestamp.toDate());
-
   const showSentiment = !isSentimentLoggedToday || !isSentimentClosedToday;
 
   const onRecordSentiment = sentiment => {
@@ -433,7 +433,7 @@ export default function Dashboard(props) {
             </Card>
             <Flags authorizedFlags={['applicationTracker']}>
               <Box mt={3}>
-                <ApplicationTrackerCard />
+                <ApplicationTrackerCard applications={allApplicationLogEntries} />
               </Box>
             </Flags>
             <Box mt={3} data-intercom="log-interview">
@@ -478,6 +478,7 @@ Dashboard.propTypes = {
   completedTasks: FirebasePropTypes.querySnapshot,
   historyLimit: PropTypes.number.isRequired,
   allActivityLogEntries: FirebasePropTypes.querySnapshot,
+  allApplicationLogEntries: FirebasePropTypes.querySnapshot,
   interviewLogEntries: FirebasePropTypes.querySnapshot,
 };
 
@@ -486,5 +487,6 @@ Dashboard.defaultProps = {
   allTaskDispositionEvents: [],
   completedTasks: [],
   allActivityLogEntries: [],
+  allApplicationLogEntries: [],
   interviewLogEntries: [],
 };
