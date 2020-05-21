@@ -63,7 +63,7 @@ function ApplicationTable({ applications, handleUpdate }) {
     .slice()
     .sort((appA, appB) => appB.lastUpdate.toDate() - appA.lastUpdate.toDate());
 
-  const formatLastUpdate = timestamp => formatDate(timestamp.toDate(), 'MMM eo');
+  const formatLastUpdate = timestamp => formatDate(timestamp.toDate(), 'MMM do');
 
   return (
     <div className={classes.root}>
