@@ -1,5 +1,5 @@
-const featureFlags = {
-  preview: [
+const envConfigs = {
+  PRODUCTION: [
     {
       name: 'userProfile',
       isActive: true,
@@ -13,7 +13,7 @@ const featureFlags = {
       isActive: false,
     },
   ],
-  prod: [
+  PREVIEW: [
     {
       name: 'userProfile',
       isActive: true,
@@ -28,5 +28,8 @@ const featureFlags = {
     },
   ],
 };
+
+const featureFlags =
+  process.env.name === 'PRODUCTION' ? envConfigs[process.env.name] : envConfigs.PREVIEW;
 
 export default featureFlags;

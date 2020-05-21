@@ -98,9 +98,7 @@ function Nav(props) {
     Router.push('/assessment');
   };
 
-  const featureFlagsByEnv =
-    process.env.name === 'PRODUCTION' ? featureFlags.prod : featureFlags.preview;
-  const showApplicationTracker = !!featureFlagsByEnv.find(
+  const showApplicationTracker = !!featureFlags.find(
     flag => flag.name === 'applicationTracker' && flag.isActive
   );
 

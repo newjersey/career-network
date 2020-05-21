@@ -101,11 +101,7 @@ class MyApp extends App {
           <SnackbarProvider>
             <FirebaseProvider>
               <AuthProvider>
-                <FlagsProvider
-                  value={
-                    process.env.name === 'PRODUCTION' ? featureFlags.prod : featureFlags.preview
-                  }
-                >
+                <FlagsProvider value={featureFlags}>
                   <AnalyticsProvider>
                     <CssBaseline />
                     <AppManager>
