@@ -11,7 +11,7 @@ import { DialogTitle, DialogContent, DialogActions } from '../../DialogComponent
 const APPLICATION_INITIAL_STATE = {
   jobTitle: '',
   company: '',
-  dateApplied: undefined,
+  dateApplied: '',
   notes: '',
 };
 
@@ -117,7 +117,7 @@ function ApplicationDialog({ open, applicationData, handleClose, handleSave }) {
               onChange={handleChange}
               placeholder="Select the Date Applied"
               type="date"
-              value={values.dateApplied || getTodaysDate()}
+              value={values.dateApplied === '' ? getTodaysDate() : values.dateApplied}
               variant="outlined"
             />
             <span>Note</span>
