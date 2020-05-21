@@ -56,7 +56,7 @@ function ApplicationTable({ applications, handleUpdate }) {
         document.currentStatusEntryId,
         'timestamp'
       ),
-      status: getStatusEntryField(document.statusEntries, document.currentStatusEntryId, 'status'),
+      status: document.currentStatus,
       document,
       id,
     }))

@@ -5,11 +5,13 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import firebase from 'firebase/app';
 
+import { Box } from '@material-ui/core';
 import { useAuth } from '../Auth';
 import ScaffoldContainer from '../ScaffoldContainer';
 import BackgroundHeader from '../BackgroundHeader';
 import ApplicationDialog from './ApplicationDialog/ApplicationDialog';
 import ApplicationTable from './ApplicationTable';
+import ApplicationUpdateDialog from './ApplicationUpdateDialog/ApplicationUpdateDialog';
 import FirebasePropTypes from '../Firebase/PropTypes';
 import { APPLICATION_STATUS_TYPES } from './constants';
 
@@ -29,6 +31,7 @@ const useStyles = makeStyles(theme => ({
   },
   tableCard: {
     marginTop: theme.spacing(5),
+    marginBottom: theme.spacing(5),
     padding: theme.spacing(3, 4),
   },
 }));
@@ -38,12 +41,17 @@ const DIALOG_INITIAL_CONFIG = {
   open: false,
 };
 
+const UPDATE_DIALOG_INITIAL_CONFIG = {
+  applicationData: undefined,
+  documentId: undefined,
+};
+
 export async function logApplication(userDocRef, applicationDetails) {
   const data = {
     config: {
       applicationStatusTypes: APPLICATION_STATUS_TYPES,
     },
-    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    lastUpdateTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
     ...applicationDetails,
   };
 
@@ -52,12 +60,17 @@ export async function logApplication(userDocRef, applicationDetails) {
 export default function ApplicationTracker({ allApplicationLogEntries }) {
   const classes = useStyles();
   const { userDocRef } = useAuth();
+  const [dialogConfig, setDialogConfig] = useState(DIALOG_INITIAL_CONFIG);
+  const [updateDialogConfig, setUpdateDialogConfig] = useState(UPDATE_DIALOG_INITIAL_CONFIG);
+  const [showUpdateDialog, setShowUpdateDialog] = useState(false);
   const applications = allApplicationLogEntries.map(item => ({
     id: item.id,
     document: item.data(),
   }));
-  const activeApplicationCount = applications.length;
-  const [dialogConfig, setDialogConfig] = useState(DIALOG_INITIAL_CONFIG);
+  const activeApplications = applications.filter(item => item.document.isActive);
+  const closedApplications = applications.filter(item => !item.document.isActive);
+  const activeApplicationCount = activeApplications.length;
+  const closedApplicationCount = closedApplications.length;
 
   const handleOpenApplicationDialog = () => {
     setDialogConfig(prevConfig => ({ ...prevConfig, open: true }));
@@ -83,31 +96,32 @@ export default function ApplicationTracker({ allApplicationLogEntries }) {
       dateApplied,
       statusEntries: [statusEntry],
       currentStatusEntryId: 1,
+      currentStatus: APPLICATION_STATUS_TYPES[0].value,
+      isActive: true,
     };
 
     return logApplication(userDocRef, applicationEntry);
   };
 
-  const handleUpdate = (documentId, document) => {
-    const currentIndex = document.currentStatusEntryId;
+  const handleOpenUpdateDialog = (id, document) => {
+    setUpdateDialogConfig(prevConfig => ({
+      ...prevConfig,
+      applicationData: {
+        jobTitle: document.jobTitle,
+        company: document.company,
+        currentStatusEntryId: document.currentStatusEntryId,
+        statusEntries: document.statusEntries,
+        currentStatus: document.currentStatus,
+        isActive: document.isActive,
+      },
+      documentId: id,
+    }));
+    setShowUpdateDialog(true);
+  };
 
-    const statusEntry = {
-      id: currentIndex + 1,
-      status: 'the number I have to phone is 555 123 4567',
-      notes: 'Phone_Screen',
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    };
-    const statusEntries = [...document.statusEntries, statusEntry];
-    const updates = {
-      statusEntries,
-      currentStatusEntryId: currentIndex + 1,
-    };
-
-    userDocRef
-      .collection('applicationLogEntries')
-      .doc(documentId)
-      .update(updates);
-    console.log('updated!');
+  const handleCloseUpdateDialog = () => {
+    setUpdateDialogConfig(UPDATE_DIALOG_INITIAL_CONFIG);
+    setShowUpdateDialog(false);
   };
 
   return (
@@ -135,9 +149,58 @@ export default function ApplicationTracker({ allApplicationLogEntries }) {
           <Typography variant="h6" gutterBottom color="textPrimary">
             Active Applications ({activeApplicationCount})
           </Typography>
-          <ApplicationTable applications={applications} handleUpdate={handleUpdate} />
+          <ApplicationTable
+            applications={activeApplications}
+            handleUpdate={handleOpenUpdateDialog}
+          />
+          {activeApplicationCount < 1 && (
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="center"
+              m={5}
+            >
+              <Typography variant="body1" color="textSecondary" gutterBottom>
+                No Active Applications.
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                Add an Application to start and keep your job search organized.
+              </Typography>
+            </Box>
+          )}
+        </Paper>
+        <Paper className={classes.tableCard}>
+          <Typography variant="h6" gutterBottom color="textPrimary">
+            Closed Applications ({closedApplicationCount})
+          </Typography>
+          <ApplicationTable
+            applications={closedApplications}
+            handleUpdate={handleOpenUpdateDialog}
+          />
+          {closedApplicationCount < 1 && (
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="center"
+              m={5}
+            >
+              <Typography variant="body1" color="textSecondary" gutterBottom>
+                No Closed Applications.
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                Update an Active Applications and keep your job search organized.
+              </Typography>
+            </Box>
+          )}
         </Paper>
       </ScaffoldContainer>
+      <ApplicationUpdateDialog
+        {...updateDialogConfig}
+        open={showUpdateDialog}
+        handleClose={handleCloseUpdateDialog}
+      />
     </div>
   );
 }
