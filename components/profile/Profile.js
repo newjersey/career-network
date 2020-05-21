@@ -8,6 +8,7 @@ import firebase from 'firebase/app';
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
+import { Flags } from 'react-feature-flags';
 
 import { useAuth } from '../Auth';
 import Goal from './Goal';
@@ -191,27 +192,29 @@ function Profile({ profileData }) {
             />
           </Box>
           <Box className={classes.gridR}>
-            <Card variant="outlined" className={classes.card}>
-              <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  Support Services
-                </Typography>
-                <Typography variant="body2" gutterBottom>
-                  NJ residents may be eligible for a variety of support services. Select the Support
-                  Services you are interested in getting more information about.
-                </Typography>
-              </CardContent>
-              <CardActions disableSpacing>
-                <Button
-                  fullWidth
-                  variant="contained"
-                  size="large"
-                  onClick={() => setShowSupportServices(true)}
-                >
-                  Learn More
-                </Button>
-              </CardActions>
-            </Card>
+            <Flags authorizedFlags={['profileSupportServices']}>
+              <Card variant="outlined" className={classes.card}>
+                <CardContent>
+                  <Typography variant="h6" gutterBottom>
+                    Support Services
+                  </Typography>
+                  <Typography variant="body2" gutterBottom>
+                    NJ residents may be eligible for a variety of support services. Select the
+                    Support Services you are interested in getting more information about.
+                  </Typography>
+                </CardContent>
+                <CardActions disableSpacing>
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    size="large"
+                    onClick={() => setShowSupportServices(true)}
+                  >
+                    Learn More
+                  </Button>
+                </CardActions>
+              </Card>
+            </Flags>
           </Box>
         </Box>
       </ScaffoldContainer>
