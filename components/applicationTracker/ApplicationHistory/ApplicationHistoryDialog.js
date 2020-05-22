@@ -27,9 +27,7 @@ const useStyles = makeStyles(theme => ({
 function ApplicationHistoryDialog({ open, application, handleClose }) {
   const classes = useStyles();
 
-  const onClose = () => {
-    handleClose();
-  };
+  const onClose = () => handleClose();
 
   return (
     <Dialog open={open} aria-labelledby="application-history-dialog" maxWidth="sm" fullWidth>
@@ -38,8 +36,8 @@ function ApplicationHistoryDialog({ open, application, handleClose }) {
         onClose={onClose}
         className={classes.dialogTitle}
       >
-        <StatusChip status="submitted" />
-        <Box my={2} color={application.isActive ? 'text.primary' : 'text.disabled'}>
+        <StatusChip status={application.currentStatus} />
+        <Box my={2} color={application.isActive ? 'text.primary' : 'text.light'}>
           <Typography variant="h4" className={classes.title} color="inherit">
             {application.jobTitle}
           </Typography>

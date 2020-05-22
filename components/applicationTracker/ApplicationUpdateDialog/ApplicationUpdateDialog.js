@@ -78,12 +78,30 @@ function ApplicationUpdateDialog({ open, applicationData, handleClose, documentI
       .update(updates);
   };
 
+  const handleUpdateActiveState = async () =>
+    userDocRef
+      .collection('applicationLogEntries')
+      .doc(documentId)
+      .update({
+        isActive: values.isActive,
+        lastUpdateTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+
   const handleSubmit = async event => {
     event.preventDefault();
+    const hasUpdatedNotesOrStatus =
+      applicationData.currentStatus !== values.status || (values.notes && values.notes !== '');
+    if (!hasUpdatedNotesOrStatus && values.isActive === applicationData.isActive) {
+      return;
+    }
     setError();
     setSubmitting(true);
     try {
-      await handleUpdate();
+      if (hasUpdatedNotesOrStatus) {
+        await handleUpdate();
+      } else {
+        await handleUpdateActiveState();
+      }
       handleClose();
     } catch (err) {
       setError(err.message);
