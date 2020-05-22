@@ -44,7 +44,7 @@ const getStatusEntryField = (statusEntries, entryId, fieldName) => {
   const entry = statusEntries.find(item => item.id === entryId);
   return entry ? entry[fieldName] : null;
 };
-function ApplicationTable({ applications, handleUpdate }) {
+function ApplicationTable({ applications, handleUpdate, openApplicationHistory }) {
   const classes = useStyles();
 
   const rows = applications
@@ -56,7 +56,7 @@ function ApplicationTable({ applications, handleUpdate }) {
         document.currentStatusEntryId,
         'timestamp'
       ),
-      status: document.currentStatus,
+      status: getStatusEntryField(document.statusEntries, document.currentStatusEntryId, 'status'),
       document,
       id,
     }))
@@ -64,6 +64,14 @@ function ApplicationTable({ applications, handleUpdate }) {
     .sort((appA, appB) => appB.lastUpdate.toDate() - appA.lastUpdate.toDate());
 
   const formatLastUpdate = timestamp => formatDate(timestamp.toDate(), 'MMM do');
+
+  const handleClick = (event, applicationId, document) =>
+    openApplicationHistory(applicationId, document);
+
+  const handleUpdateApplication = (event, id, document) => {
+    event.stopPropagation();
+    handleUpdate(id, document);
+  };
 
   return (
     <div className={classes.root}>
@@ -84,7 +92,7 @@ function ApplicationTable({ applications, handleUpdate }) {
         </TableHead>
         <TableBody>
           {rows.map(({ jobTitle, company, lastUpdate, status, id, document }) => (
-            <TableRow key={id}>
+            <TableRow key={id} hover onClick={event => handleClick(event, id, document)}>
               <TableCell component="th" scope="row" className={classes.firstCol}>
                 <Typography variant="body1">{jobTitle}</Typography>
                 {company && <Typography variant="body2">at {company}</Typography>}
@@ -96,7 +104,7 @@ function ApplicationTable({ applications, handleUpdate }) {
               <TableCell align="right">
                 <Button
                   className={classes.button}
-                  onClick={() => handleUpdate(id, document)}
+                  onClick={event => handleUpdateApplication(event, id, document)}
                   variant="contained"
                   size="large"
                 >
@@ -113,6 +121,7 @@ function ApplicationTable({ applications, handleUpdate }) {
 
 ApplicationTable.propTypes = {
   handleUpdate: PropTypes.func.isRequired,
+  openApplicationHistory: PropTypes.func.isRequired,
   applications: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,

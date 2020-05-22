@@ -12,7 +12,7 @@ import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
-import { APPLICATION_STATUS_TYPES } from '../constants';
+import { APPLICATION_STATUS_TYPES, STATUS_LABEL } from '../constants';
 import { DialogTitle, DialogContent, DialogActions } from '../../DialogComponents';
 import { useAuth } from '../../Auth';
 
@@ -117,9 +117,9 @@ function ApplicationUpdateDialog({ open, applicationData, handleClose, documentI
               value={values.status}
               variant="outlined"
             >
-              {APPLICATION_STATUS_TYPES.map(type => (
-                <MenuItem value={type.value} key={type.value}>
-                  <Typography variant="body1">{type.label}</Typography>
+              {APPLICATION_STATUS_TYPES.map(value => (
+                <MenuItem value={value} key={value}>
+                  <Typography variant="body1">{STATUS_LABEL[value]}</Typography>
                 </MenuItem>
               ))}
             </Select>

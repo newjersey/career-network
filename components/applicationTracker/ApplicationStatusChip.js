@@ -3,26 +3,28 @@ import PropTypes from 'prop-types';
 import Chip from '@material-ui/core/Chip';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import CircleIcon from '@material-ui/icons/FiberManualRecord';
-import { APPLICATION_STATUS_TYPES } from './constants';
+import { STATUS_COLOR, STATUS_LABEL, APPLICATION_STATUS_TYPES } from './constants';
 
 const StatusChip = ({ status }) => {
-  const statusObj = APPLICATION_STATUS_TYPES.find(s => s.value === status);
+  const color = STATUS_COLOR[status];
+  const label = STATUS_LABEL[status];
+
   return (
     <Chip
       style={{
-        backgroundColor: fade(statusObj.color, 0.04),
-        borderColor: statusObj.color,
+        backgroundColor: fade(color, 0.04),
+        borderColor: color,
         borderWidth: 0.5,
         borderStyle: 'solid',
       }}
-      avatar={<CircleIcon style={{ height: 8, width: 8, fill: statusObj.color }} />}
-      label={statusObj.label}
+      avatar={<CircleIcon style={{ height: 8, width: 8, fill: color }} />}
+      label={label}
     />
   );
 };
 
 StatusChip.propTypes = {
-  status: PropTypes.string.isRequired,
+  status: PropTypes.oneOf(APPLICATION_STATUS_TYPES).isRequired,
 };
 
 export default StatusChip;
