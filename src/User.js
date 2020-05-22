@@ -120,4 +120,8 @@ export default class User {
   get stats() {
     return this.userData.stats;
   }
+
+  get actionPlan() {
+    return this.userData.actionPlan;
+  }
 }

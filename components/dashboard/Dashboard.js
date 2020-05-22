@@ -361,7 +361,7 @@ export default function Dashboard(props) {
       </BackgroundHeader>
 
       <ScaffoldContainer className={classes.container}>
-        <ActionPlanBar userStats={user.stats} />
+        <ActionPlanBar userStats={user.stats} actionPlan={user.actionPlan} />
       </ScaffoldContainer>
       <Flags authorizedFlags={['sentimentTracker']}>
         {showSentiment && (
