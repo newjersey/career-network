@@ -25,6 +25,7 @@ import NotificationCard from './NotificationCard';
 import ProgressFeed from './ProgressFeed';
 import ScaffoldContainer from '../ScaffoldContainer';
 import SentimentTracker from './SentimentTracker/SentimentTracker';
+import ActionPlan from '../actionplan/ActionPlan';
 import TaskList from './TaskList';
 import TimeDistanceParser from '../../src/time-distance-parser';
 import UpcomingInterviewDialog from './UpcomingInterviewDialog/UpcomingInterviewDialog';
@@ -370,6 +371,7 @@ export default function Dashboard(props) {
           />
         </ScaffoldContainer>
       )}
+      <ActionPlan />
       <ScaffoldContainer>
         <Box className={classes.grid}>
           <Box
