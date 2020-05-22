@@ -238,6 +238,8 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
       const stats = {
         activityLogEntriesCount: firebase.firestore.FieldValue.increment(1),
         activityLogEntriesLatestTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        weeklyActivitiesCount: firebase.firestore.FieldValue.increment(1),
+        weeklyActivitiesLatestTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
       };
       userDocRef.set({ stats }, { merge: true });
       analytics.trackEvent('logged-activity', {

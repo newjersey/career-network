@@ -361,7 +361,7 @@ export default function Dashboard(props) {
       </BackgroundHeader>
 
       <ScaffoldContainer className={classes.container}>
-        <ActionPlanBar />
+        <ActionPlanBar userStats={user.stats} />
       </ScaffoldContainer>
       <Flags authorizedFlags={['sentimentTracker']}>
         {showSentiment && (
@@ -423,26 +423,30 @@ export default function Dashboard(props) {
           </Box>
           <Box className={classes.gridR}>
             <Flags authorizedFlags={['activityLog']}>
-              <Card variant="outlined">
-                <CardHeader
-                  title={
-                    <Typography component="h2" variant="h6" data-intercom="activity-title">
-                      Activity Log
-                    </Typography>
-                  }
-                  disableTypography
-                />
-                <ProgressFeed
-                  activities={allActivityLogEntries}
-                  completedTasks={completedTasks}
-                  limit={historyLimit}
-                />
-              </Card>
+              <Box mb={3}>
+                <Card variant="outlined">
+                  <CardHeader
+                    title={
+                      <Typography component="h2" variant="h6" data-intercom="activity-title">
+                        Activity Log
+                      </Typography>
+                    }
+                    disableTypography
+                  />
+                  <ProgressFeed
+                    activities={allActivityLogEntries}
+                    completedTasks={completedTasks}
+                    limit={historyLimit}
+                  />
+                </Card>
+              </Box>
             </Flags>
             <Flags authorizedFlags={['applicationTracker']}>
-              <ApplicationTrackerCard applications={allApplicationLogEntries} />
+              <Box mb={3} data-intercom="application-tracker">
+                <ApplicationTrackerCard applications={allApplicationLogEntries} />
+              </Box>
             </Flags>
-            <Box mt={3} data-intercom="log-interview">
+            <Box mb={3} data-intercom="log-interview">
               <Card variant="outlined">
                 <CardContent>
                   <Typography variant="h6" gutterBottom>

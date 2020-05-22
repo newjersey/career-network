@@ -54,8 +54,13 @@ export async function logApplication(userDocRef, applicationDetails) {
     lastUpdateTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
     ...applicationDetails,
   };
+  userDocRef.collection('applicationLogEntries').add(data);
 
-  return userDocRef.collection('applicationLogEntries').add(data);
+  const stats = {
+    weeklyApplicationsCount: firebase.firestore.FieldValue.increment(1),
+    weeklyApplicationsLatestTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
+  };
+  userDocRef.set({ stats }, { merge: true });
 }
 export default function ApplicationTracker({ allApplicationLogEntries }) {
   const classes = useStyles();

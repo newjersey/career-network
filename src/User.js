@@ -116,4 +116,8 @@ export default class User {
   get hasInitializedProfile() {
     return !!this.userProfile && !!this.userProfile.creationTimestamp;
   }
+
+  get stats() {
+    return this.userData.stats;
+  }
 }
