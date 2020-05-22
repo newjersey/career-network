@@ -12,8 +12,9 @@ import BackgroundHeader from '../BackgroundHeader';
 import ApplicationDialog from './ApplicationDialog/ApplicationDialog';
 import ApplicationTable from './ApplicationTable';
 import ApplicationUpdateDialog from './ApplicationUpdateDialog/ApplicationUpdateDialog';
+import ApplicationHistoryDialog from './ApplicationHistory/ApplicationHistoryDialog';
 import FirebasePropTypes from '../Firebase/PropTypes';
-import { APPLICATION_STATUS_TYPES } from './constants';
+import { APPLICATION_STATUS_TYPES, SUBMITTED, STATUS_LABEL } from './constants';
 
 const useStyles = makeStyles(theme => ({
   backgroundHeader: {
@@ -44,12 +45,24 @@ const DIALOG_INITIAL_CONFIG = {
 const UPDATE_DIALOG_INITIAL_CONFIG = {
   applicationData: undefined,
   documentId: undefined,
+  open: false,
 };
+
+const DIALOGS = {
+  ADD_APPLICATION: 'ADD_APPLICATION',
+  UPDATE_APPLICATION: 'UPDATE_APPLICATION',
+  APPLICATION_HISTORY: 'APPLICATION_HISTORY',
+};
+
+const applicationStatusConfig = APPLICATION_STATUS_TYPES.map(statusValue => ({
+  label: STATUS_LABEL[statusValue],
+  value: statusValue,
+}));
 
 export async function logApplication(userDocRef, applicationDetails) {
   const data = {
     config: {
-      applicationStatusTypes: APPLICATION_STATUS_TYPES,
+      applicationStatusTypes: applicationStatusConfig,
     },
     lastUpdateTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
     ...applicationDetails,
@@ -57,12 +70,13 @@ export async function logApplication(userDocRef, applicationDetails) {
 
   return userDocRef.collection('applicationLogEntries').add(data);
 }
+
 export default function ApplicationTracker({ allApplicationLogEntries }) {
   const classes = useStyles();
   const { userDocRef } = useAuth();
+  const [activeDialog, setActiveDialog] = useState();
   const [dialogConfig, setDialogConfig] = useState(DIALOG_INITIAL_CONFIG);
   const [updateDialogConfig, setUpdateDialogConfig] = useState(UPDATE_DIALOG_INITIAL_CONFIG);
-  const [showUpdateDialog, setShowUpdateDialog] = useState(false);
   const applications = allApplicationLogEntries.map(item => ({
     id: item.id,
     document: item.data(),
@@ -73,11 +87,19 @@ export default function ApplicationTracker({ allApplicationLogEntries }) {
   const closedApplicationCount = closedApplications.length;
 
   const handleOpenApplicationDialog = () => {
-    setDialogConfig(prevConfig => ({ ...prevConfig, open: true }));
+    setDialogConfig(prevConfig => ({ ...prevConfig }));
+    setActiveDialog(DIALOGS.ADD_APPLICATION);
   };
 
   const handleCloseDialog = () => {
+    setActiveDialog();
     setDialogConfig(DIALOG_INITIAL_CONFIG);
+    setUpdateDialogConfig(UPDATE_DIALOG_INITIAL_CONFIG);
+  };
+
+  const handleOpenApplicationHistoryDialog = (applicationId, document) => {
+    setDialogConfig({ application: document });
+    setActiveDialog(DIALOGS.APPLICATION_HISTORY);
   };
 
   const handleAddApplication = async applicationData => {
@@ -86,7 +108,7 @@ export default function ApplicationTracker({ allApplicationLogEntries }) {
     const statusEntry = {
       id: 1,
       notes,
-      status: APPLICATION_STATUS_TYPES[0].value,
+      status: SUBMITTED,
       timestamp: new Date(),
     };
 
@@ -96,7 +118,7 @@ export default function ApplicationTracker({ allApplicationLogEntries }) {
       dateApplied,
       statusEntries: [statusEntry],
       currentStatusEntryId: 1,
-      currentStatus: APPLICATION_STATUS_TYPES[0].value,
+      currentStatus: SUBMITTED,
       isActive: true,
     };
 
@@ -116,12 +138,7 @@ export default function ApplicationTracker({ allApplicationLogEntries }) {
       },
       documentId: id,
     }));
-    setShowUpdateDialog(true);
-  };
-
-  const handleCloseUpdateDialog = () => {
-    setUpdateDialogConfig(UPDATE_DIALOG_INITIAL_CONFIG);
-    setShowUpdateDialog(false);
+    setActiveDialog(DIALOGS.UPDATE_APPLICATION);
   };
 
   return (
@@ -141,6 +158,7 @@ export default function ApplicationTracker({ allApplicationLogEntries }) {
       </BackgroundHeader>
       <ApplicationDialog
         {...dialogConfig}
+        open={activeDialog === DIALOGS.ADD_APPLICATION}
         handleClose={handleCloseDialog}
         handleSave={handleAddApplication}
       />
@@ -151,6 +169,7 @@ export default function ApplicationTracker({ allApplicationLogEntries }) {
           </Typography>
           <ApplicationTable
             applications={activeApplications}
+            openApplicationHistory={handleOpenApplicationHistoryDialog}
             handleUpdate={handleOpenUpdateDialog}
           />
           {activeApplicationCount < 1 && (
@@ -176,6 +195,7 @@ export default function ApplicationTracker({ allApplicationLogEntries }) {
           </Typography>
           <ApplicationTable
             applications={closedApplications}
+            openApplicationHistory={handleOpenApplicationHistoryDialog}
             handleUpdate={handleOpenUpdateDialog}
           />
           {closedApplicationCount < 1 && (
@@ -198,8 +218,13 @@ export default function ApplicationTracker({ allApplicationLogEntries }) {
       </ScaffoldContainer>
       <ApplicationUpdateDialog
         {...updateDialogConfig}
-        open={showUpdateDialog}
-        handleClose={handleCloseUpdateDialog}
+        handleClose={handleCloseDialog}
+        open={activeDialog === DIALOGS.UPDATE_APPLICATION}
+      />
+      <ApplicationHistoryDialog
+        {...dialogConfig}
+        handleClose={handleCloseDialog}
+        open={activeDialog === DIALOGS.APPLICATION_HISTORY}
       />
     </div>
   );
