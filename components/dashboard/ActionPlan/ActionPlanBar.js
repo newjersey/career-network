@@ -7,6 +7,7 @@ import NextLink from 'next/link';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import React from 'react';
+import startOfWeek from 'date-fns/startOfWeek';
 import Typography from '@material-ui/core/Typography';
 
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
@@ -57,17 +58,10 @@ function ActionPlanBar({ userStats, actionPlan }) {
   const classes = useStyles();
   const { userDocRef } = useAuth();
 
-  function startOfWeek() {
-    const dt = new Date();
-    const diff = dt.getDate() - dt.getDay() + (dt.getDay() === 0 ? -6 : 1);
-    dt.setDate(diff);
-    dt.setHours(0, 0, 0);
-    return dt;
-  }
-
   // reset actionPlan and weekly stats on Monday
-  const sow = startOfWeek().getTime() / 1000;
-  const currentTime = new Date().getTime() / 1000;
+  const todaysDate = new Date();
+  const sow = startOfWeek(todaysDate, { weekStartsOn: 1 }).getTime() / 1000;
+  const currentTime = todaysDate.getTime() / 1000;
   if (
     !actionPlan ||
     !actionPlan.lastUpdatedTimestamp ||
