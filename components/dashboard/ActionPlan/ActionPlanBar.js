@@ -53,13 +53,21 @@ function ActionPlanBar({ userStats, actionPlan }) {
   const classes = useStyles();
   const { userDocRef } = useAuth();
 
+  function startOfWeek() {
+    const dt = new Date();
+    const diff = dt.getDate() - dt.getDay() + (dt.getDay() === 0 ? -6 : 1);
+    dt.setDate(diff);
+    dt.setHours(0, 0, 0);
+    return dt;
+  }
+
   // reset actionPlan and weekly stats on Monday
-  const todaysDate = new Date();
+  const sow = startOfWeek().getTime() / 1000;
+  const currentTime = new Date().getTime() / 1000;
   if (
     !actionPlan ||
     !actionPlan.lastUpdatedTimestamp ||
-    (todaysDate.getDay() === 1 &&
-      actionPlan.lastUpdatedTimestamp.toDate().toDateString() !== todaysDate.toDateString())
+    (actionPlan.lastUpdatedTimestamp.seconds < sow && sow < currentTime)
   ) {
     const initialPlan = {
       ...ACTION_PLAN_DEFAULT,
