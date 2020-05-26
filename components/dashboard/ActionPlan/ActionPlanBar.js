@@ -22,9 +22,9 @@ const PLAN_COLORS = {
 };
 
 const ACTION_PLAN_DEFAULT = {
-  goals: 5,
-  activities: 6,
-  applications: 2,
+  goals: 3,
+  activities: 3,
+  applications: 3,
 };
 
 const useStyles = makeStyles(theme => ({
@@ -32,14 +32,11 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2),
     padding: theme.spacing(2, 2, 2),
     [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing(0.5, 2, 0.8),
+      padding: theme.spacing(2, 2, 2),
     },
     marginBottom: theme.spacing(8),
   },
   iconContainer: {
-    position: 'absolute',
-    top: theme.spacing(1.5),
-    left: theme.spacing(3.3),
     border: `3px solid`,
     borderRadius: '50%',
     lineHeight: 0,
@@ -48,7 +45,7 @@ const useStyles = makeStyles(theme => ({
   text: {
     textTransform: 'none',
     textAlign: 'left',
-    marginLeft: '1rem',
+    marginLeft: theme.spacing(1),
   },
 }));
 
@@ -83,27 +80,27 @@ function ActionPlanBar({ userStats, actionPlan }) {
 
   return (
     <Paper className={classes.paper} elevation={3} data-intercom="sentiment-container">
-      <Grid
-        container
-        direction="row"
-        justify="space-evenly"
-        alignItems="center"
-        spacing={1}
-        style={{ paddingTop: '0.3rem', paddingBottom: '0.3rem' }}
-      >
+      <Grid container direction="row" justify="space-evenly" alignItems="center" spacing={1}>
         <Grid item xs={12} sm={4} md={4}>
           <NextLink href="/progress">
-            <Button fullWidth style={{ backgroundColor: fade(PLAN_COLORS.goal, 0.08) }}>
-              <Box>
+            <Button
+              fullWidth
+              style={{ backgroundColor: fade(PLAN_COLORS.goal, 0.08) }}
+              startIcon={
                 <div
                   className={classes.iconContainer}
                   style={{ color: PLAN_COLORS.goal, borderColor: PLAN_COLORS.goal }}
                 >
                   <VpnKeyIcon />
                 </div>
+              }
+            >
+              <Box>
                 <Typography className={classes.text} variant="h6">
-                  <span style={{ color: PLAN_COLORS.goal }}>{userStats.weeklyTasksCount || 0}</span>{' '}
-                  of {actionPlan.goals || 0}
+                  <span style={{ color: PLAN_COLORS.goal }}>
+                    <b>{userStats.weeklyTasksCount || 0}</b>
+                  </span>
+                  <span style={{ fontWeight: 400 }}> of {actionPlan.goals || 0}</span>
                 </Typography>
                 <Typography className={classes.text} variant="body2">
                   Goals Completed this Week
@@ -114,19 +111,24 @@ function ActionPlanBar({ userStats, actionPlan }) {
         </Grid>
         <Grid item xs={12} sm={4} md={4}>
           <NextLink href="/progress">
-            <Button fullWidth style={{ backgroundColor: fade(PLAN_COLORS.activity, 0.08) }}>
-              <Box>
+            <Button
+              fullWidth
+              style={{ backgroundColor: fade(PLAN_COLORS.activity, 0.08) }}
+              startIcon={
                 <div
                   className={classes.iconContainer}
                   style={{ borderColor: PLAN_COLORS.activity, color: PLAN_COLORS.activity }}
                 >
                   <AssignmentTurnedInIcon />
                 </div>
+              }
+            >
+              <Box>
                 <Typography className={classes.text} variant="h6">
                   <span style={{ color: PLAN_COLORS.activity }}>
-                    {userStats.weeklyActivitiesCount || 0}
-                  </span>{' '}
-                  of {actionPlan.activities || 0}
+                    <b>{userStats.weeklyActivitiesCount || 0}</b>
+                  </span>
+                  <span style={{ fontWeight: 400 }}> of {actionPlan.activities || 0}</span>
                 </Typography>
                 <Typography className={classes.text} variant="body2">
                   Activities Logged this Week
@@ -137,19 +139,24 @@ function ActionPlanBar({ userStats, actionPlan }) {
         </Grid>
         <Grid item xs={12} sm={4} md={4}>
           <NextLink href="/application-tracker">
-            <Button fullWidth style={{ backgroundColor: fade(PLAN_COLORS.application, 0.08) }}>
-              <Box>
+            <Button
+              fullWidth
+              style={{ backgroundColor: fade(PLAN_COLORS.application, 0.08) }}
+              startIcon={
                 <div
                   className={classes.iconContainer}
                   style={{ borderColor: PLAN_COLORS.application, color: PLAN_COLORS.application }}
                 >
                   <NextWeekIcon />
                 </div>
+              }
+            >
+              <Box>
                 <Typography className={classes.text} variant="h6">
                   <span style={{ color: PLAN_COLORS.application }}>
-                    {userStats.weeklyApplicationsCount || 0}
-                  </span>{' '}
-                  of {actionPlan.applications || 0}
+                    <b>{userStats.weeklyApplicationsCount || 0}</b>
+                  </span>
+                  <span style={{ fontWeight: 400 }}> of {actionPlan.applications || 0}</span>
                 </Typography>
                 <Typography className={classes.text} variant="body2">
                   Applications Added this Week
