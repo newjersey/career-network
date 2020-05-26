@@ -49,6 +49,9 @@ const useStyles = makeStyles(theme => ({
   card: {
     padding: theme.spacing(2),
   },
+  cardContent: {
+    padding: theme.spacing(1),
+  },
   grid: {
     display: 'grid',
     marginTop: theme.spacing(4),
@@ -457,7 +460,7 @@ export default function Dashboard(props) {
             </Flags>
             <Box mb={3} data-intercom="log-interview">
               <Card variant="outlined" className={classes.card}>
-                <CardContent>
+                <CardContent className={classes.cardContent}>
                   <Typography variant="h6" gutterBottom>
                     Upcoming interview?
                   </Typography>
@@ -470,6 +473,7 @@ export default function Dashboard(props) {
                   <Button
                     fullWidth
                     variant="contained"
+                    size="large"
                     onClick={() => setActiveDialog(DIALOGS.UPCOMING_INTERVIEW)}
                   >
                     Let Us Know

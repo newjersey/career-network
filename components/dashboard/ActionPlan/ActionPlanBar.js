@@ -42,6 +42,10 @@ const useStyles = makeStyles(theme => ({
     lineHeight: 0,
     padding: theme.spacing(1),
   },
+  buttonLabel: {
+    justifyContent: 'left',
+    margin: theme.spacing(0.5, 3, 0.5),
+  },
   text: {
     textTransform: 'none',
     textAlign: 'left',
@@ -92,6 +96,7 @@ function ActionPlanBar({ userStats, actionPlan }) {
         <Grid item xs={12} sm={4} md={4}>
           <NextLink href="/progress">
             <Button
+              classes={{ label: classes.buttonLabel }}
               fullWidth
               style={{ backgroundColor: fade(PLAN_COLORS.goal, 0.08) }}
               startIcon={
@@ -120,6 +125,7 @@ function ActionPlanBar({ userStats, actionPlan }) {
         <Grid item xs={12} sm={4} md={4}>
           <NextLink href="/progress">
             <Button
+              classes={{ label: classes.buttonLabel }}
               fullWidth
               style={{ backgroundColor: fade(PLAN_COLORS.activity, 0.08) }}
               startIcon={
@@ -148,6 +154,7 @@ function ActionPlanBar({ userStats, actionPlan }) {
         <Grid item xs={12} sm={4} md={4}>
           <NextLink href="/application-tracker">
             <Button
+              classes={{ label: classes.buttonLabel }}
               fullWidth
               style={{ backgroundColor: fade(PLAN_COLORS.application, 0.08) }}
               startIcon={
