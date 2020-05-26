@@ -16,7 +16,9 @@ import { getFirstIncompleteAction, isDone, mostRecent } from '../../src/app-help
 import { useAnalytics } from '../Analytics';
 import { useAuth } from '../Auth';
 import ActivityInputDialog from '../activityInput/ActivityInputDialog';
+import ActionPlanBar from './ActionPlan/ActionPlanBar';
 import AirtablePropTypes from '../Airtable/PropTypes';
+import ApplicationTrackerCard from './ApplicationTrackerCard';
 import AssessmentCompleteDialog from './AssessmentCompleteDialog';
 import BackgroundHeader from '../BackgroundHeader';
 import CovidJobsAccess from './CovidJobsAccess';
@@ -29,7 +31,6 @@ import TaskList from './TaskList';
 import TimeDistanceParser from '../../src/time-distance-parser';
 import UpcomingInterviewDialog from './UpcomingInterviewDialog/UpcomingInterviewDialog';
 import UserProfileCard from './UserProfileCard';
-import ApplicationTrackerCard from './ApplicationTrackerCard';
 
 const TASK_COUNT_LIMIT = 3;
 const ROW_GAP = 2;
@@ -44,6 +45,12 @@ const useStyles = makeStyles(theme => ({
   },
   container: {
     marginTop: theme.spacing(-5),
+  },
+  card: {
+    padding: theme.spacing(2),
+  },
+  cardContent: {
+    padding: theme.spacing(1),
   },
   grid: {
     display: 'grid',
@@ -359,17 +366,28 @@ export default function Dashboard(props) {
         </ScaffoldContainer>
       </BackgroundHeader>
 
-      {showSentiment && (
-        <ScaffoldContainer className={classes.container}>
-          <SentimentTracker
-            onRecord={onRecordSentiment}
-            onClose={onCloseSentiment}
-            onPostSubmissionButtonClicked={handleSentimentPostSubmissionButtonClicked}
-            lastRecordedValue={user.lastSentimentLabel ? user.lastSentimentLabel : ''}
-            isComplete={isSentimentLoggedToday}
-          />
-        </ScaffoldContainer>
-      )}
+      <ScaffoldContainer className={classes.container}>
+        <Flags
+          authorizedFlags={['actionPlan']}
+          renderOn={() => <ActionPlanBar userStats={user.stats} actionPlan={user.actionPlan} />}
+          renderOff={() => (
+            <>
+              {showSentiment && (
+                <ScaffoldContainer className={classes.container}>
+                  <SentimentTracker
+                    onRecord={onRecordSentiment}
+                    onClose={onCloseSentiment}
+                    onPostSubmissionButtonClicked={handleSentimentPostSubmissionButtonClicked}
+                    lastRecordedValue={user.lastSentimentLabel ? user.lastSentimentLabel : ''}
+                    isComplete={isSentimentLoggedToday}
+                  />
+                </ScaffoldContainer>
+              )}
+            </>
+          )}
+        />
+      </ScaffoldContainer>
+
       <ScaffoldContainer>
         <Box className={classes.grid}>
           <Box
@@ -416,29 +434,33 @@ export default function Dashboard(props) {
             }
           </Box>
           <Box className={classes.gridR}>
-            <Card variant="outlined">
-              <CardHeader
-                title={
-                  <Typography component="h2" variant="h6" data-intercom="activity-title">
-                    Activity Log
-                  </Typography>
-                }
-                disableTypography
-              />
-              <ProgressFeed
-                activities={allActivityLogEntries}
-                completedTasks={completedTasks}
-                limit={historyLimit}
-              />
-            </Card>
+            <Flags authorizedFlags={['activityLog']}>
+              <Box mb={3}>
+                <Card variant="outlined">
+                  <CardHeader
+                    title={
+                      <Typography component="h2" variant="h6" data-intercom="activity-title">
+                        Activity Log
+                      </Typography>
+                    }
+                    disableTypography
+                  />
+                  <ProgressFeed
+                    activities={allActivityLogEntries}
+                    completedTasks={completedTasks}
+                    limit={historyLimit}
+                  />
+                </Card>
+              </Box>
+            </Flags>
             <Flags authorizedFlags={['applicationTracker']}>
-              <Box mt={3}>
+              <Box mb={3} data-intercom="application-tracker">
                 <ApplicationTrackerCard applications={allApplicationLogEntries} />
               </Box>
             </Flags>
-            <Box mt={3} data-intercom="log-interview">
-              <Card variant="outlined">
-                <CardContent>
+            <Box mb={3} data-intercom="log-interview">
+              <Card variant="outlined" className={classes.card}>
+                <CardContent className={classes.cardContent}>
                   <Typography variant="h6" gutterBottom>
                     Upcoming interview?
                   </Typography>
@@ -450,7 +472,8 @@ export default function Dashboard(props) {
                 <CardActions>
                   <Button
                     fullWidth
-                    variant="outlined"
+                    variant="contained"
+                    size="large"
                     onClick={() => setActiveDialog(DIALOGS.UPCOMING_INTERVIEW)}
                   >
                     Let Us Know

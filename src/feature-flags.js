@@ -12,6 +12,14 @@ const envConfigs = {
       name: 'profileSupportServices',
       isActive: false,
     },
+    {
+      name: 'actionPlan',
+      isActive: false,
+    },
+    {
+      name: 'activityLog',
+      isActive: false,
+    },
   ],
   PREVIEW: [
     {
@@ -24,6 +32,14 @@ const envConfigs = {
     },
     {
       name: 'profileSupportServices',
+      isActive: false,
+    },
+    {
+      name: 'actionPlan',
+      isActive: true,
+    },
+    {
+      name: 'activityLog',
       isActive: false,
     },
   ],

@@ -40,8 +40,8 @@ function ApplicationTrackerCard({ applications }) {
             Application Tracker
           </Typography>
           <Typography variant="body1" gutterBottom>
-            You are currently tracking {activeApplicationsCount} Active Applications. Keep tracking
-            here.
+            You are currently tracking {activeApplicationsCount} Active Application(s). Keep
+            tracking here.
           </Typography>
         </CardContent>
         <CardActions>
