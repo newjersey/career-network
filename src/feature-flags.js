@@ -6,7 +6,7 @@ const envConfigs = {
     },
     {
       name: 'applicationTracker',
-      isActive: false,
+      isActive: true,
     },
     {
       name: 'profileSupportServices',
@@ -20,7 +20,7 @@ const envConfigs = {
     },
     {
       name: 'applicationTracker',
-      isActive: false,
+      isActive: true,
     },
     {
       name: 'profileSupportServices',
