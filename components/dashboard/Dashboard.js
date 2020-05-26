@@ -351,7 +351,7 @@ export default function Dashboard(props) {
       user.weeklyStats.showCelebration &&
       every(statKeys, key => user.weeklyStats[key] >= user.actionPlan[key])
     ) {
-      userDocRef.set({ 'weeklyStats.showCelebration': false }, { merge: true });
+      userDocRef.set({ weeklyStats: { showCelebration: false } }, { merge: true });
       setActiveDialog(DIALOGS.CELEBRATION);
     }
   }, [user.weeklyStats]);

@@ -23,9 +23,9 @@ const PLAN_COLORS = {
 };
 
 const ACTION_PLAN_DEFAULT = {
-  goals: 1,
-  activities: 1,
-  applications: 1,
+  goals: 3,
+  activities: 3,
+  applications: 3,
 };
 
 const useStyles = makeStyles(theme => ({
@@ -71,6 +71,7 @@ function ActionPlanBar({ userStats, actionPlan }) {
       ...ACTION_PLAN_DEFAULT,
       lastUpdatedTimestamp: new Date(),
     };
+
     userDocRef.set({ actionPlan: initialPlan }, { merge: true });
 
     const weeklyStats = {
