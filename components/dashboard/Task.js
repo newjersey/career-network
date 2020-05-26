@@ -5,6 +5,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Chip from '@material-ui/core/Chip';
 import Grid from '@material-ui/core/Grid';
 import clsx from 'clsx';
+import firebase from 'firebase/app';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -95,6 +96,12 @@ export default function Task(props) {
     };
 
     userDocRef.collection('taskDispositionEvents').add(data);
+
+    const stats = {
+      weeklyTasksCount: firebase.firestore.FieldValue.increment(1),
+      weeklyTasksTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    };
+    userDocRef.set({ stats }, { merge: true });
   }
 
   function onAllActionsDone() {

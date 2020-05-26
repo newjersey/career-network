@@ -6,10 +6,18 @@ const envConfigs = {
     },
     {
       name: 'applicationTracker',
-      isActive: false,
+      isActive: true,
     },
     {
       name: 'profileSupportServices',
+      isActive: false,
+    },
+    {
+      name: 'actionPlan',
+      isActive: false,
+    },
+    {
+      name: 'activityLog',
       isActive: false,
     },
   ],
@@ -20,10 +28,18 @@ const envConfigs = {
     },
     {
       name: 'applicationTracker',
-      isActive: false,
+      isActive: true,
     },
     {
       name: 'profileSupportServices',
+      isActive: false,
+    },
+    {
+      name: 'actionPlan',
+      isActive: true,
+    },
+    {
+      name: 'activityLog',
       isActive: false,
     },
   ],
