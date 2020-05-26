@@ -13,7 +13,7 @@ const envConfigs = {
       isActive: false,
     },
     {
-      name: 'sentimentTracker',
+      name: 'actionPlan',
       isActive: false,
     },
     {
@@ -28,15 +28,15 @@ const envConfigs = {
     },
     {
       name: 'applicationTracker',
-      isActive: false,
+      isActive: true,
     },
     {
       name: 'profileSupportServices',
       isActive: false,
     },
     {
-      name: 'sentimentTracker',
-      isActive: false,
+      name: 'actionPlan',
+      isActive: true,
     },
     {
       name: 'activityLog',

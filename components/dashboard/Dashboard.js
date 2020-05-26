@@ -361,21 +361,27 @@ export default function Dashboard(props) {
       </BackgroundHeader>
 
       <ScaffoldContainer className={classes.container}>
-        <ActionPlanBar userStats={user.stats} actionPlan={user.actionPlan} />
+        <Flags
+          authorizedFlags={['actionPlan']}
+          renderOn={() => <ActionPlanBar userStats={user.stats} actionPlan={user.actionPlan} />}
+          renderOff={() => (
+            <>
+              {showSentiment && (
+                <ScaffoldContainer className={classes.container}>
+                  <SentimentTracker
+                    onRecord={onRecordSentiment}
+                    onClose={onCloseSentiment}
+                    onPostSubmissionButtonClicked={handleSentimentPostSubmissionButtonClicked}
+                    lastRecordedValue={user.lastSentimentLabel ? user.lastSentimentLabel : ''}
+                    isComplete={isSentimentLoggedToday}
+                  />
+                </ScaffoldContainer>
+              )}
+            </>
+          )}
+        />
       </ScaffoldContainer>
-      <Flags authorizedFlags={['sentimentTracker']}>
-        {showSentiment && (
-          <ScaffoldContainer className={classes.container}>
-            <SentimentTracker
-              onRecord={onRecordSentiment}
-              onClose={onCloseSentiment}
-              onPostSubmissionButtonClicked={handleSentimentPostSubmissionButtonClicked}
-              lastRecordedValue={user.lastSentimentLabel ? user.lastSentimentLabel : ''}
-              isComplete={isSentimentLoggedToday}
-            />
-          </ScaffoldContainer>
-        )}
-      </Flags>
+
       <ScaffoldContainer>
         <Box className={classes.grid}>
           <Box
