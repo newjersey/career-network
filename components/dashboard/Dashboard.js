@@ -30,6 +30,7 @@ import TimeDistanceParser from '../../src/time-distance-parser';
 import UpcomingInterviewDialog from './UpcomingInterviewDialog/UpcomingInterviewDialog';
 import UserProfileCard from './UserProfileCard';
 import ApplicationTrackerCard from './ApplicationTrackerCard';
+import CelebrationDialog from '../CelebrationDialog';
 
 const TASK_COUNT_LIMIT = 3;
 const ROW_GAP = 2;
@@ -254,6 +255,7 @@ const DIALOGS = {
   ACTIVITY_INPUT: 'ActivityInputDialog',
   UPCOMING_INTERVIEW: 'UpcomingInterviewDialog',
   ASSESSMENT_COMPLETE: 'AssessmentCompleteDialog',
+  CELEBRATION: 'CelebrationDialog',
 };
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
@@ -347,6 +349,10 @@ export default function Dashboard(props) {
         show={activeDialog === DIALOGS.ASSESSMENT_COMPLETE}
         onClose={() => setActiveDialog()}
         onLogActivityButtonClick={() => setActiveDialog(DIALOGS.ACTIVITY_INPUT)}
+      />
+      <CelebrationDialog
+        show={activeDialog === DIALOGS.CELEBRATION}
+        onClose={() => setActiveDialog()}
       />
       <BackgroundHeader>
         <ScaffoldContainer>
