@@ -152,7 +152,7 @@ export default function ApplicationTracker({ allApplicationLogEntries }) {
       <ScaffoldContainer>
         <Paper className={classes.tableCard}>
           <Typography variant="h6" gutterBottom color="textPrimary">
-            Active applications ({activeApplicationCount})
+            Active Applications ({activeApplicationCount})
           </Typography>
           <ApplicationTable
             applications={activeApplications}
