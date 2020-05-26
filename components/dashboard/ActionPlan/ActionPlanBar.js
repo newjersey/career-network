@@ -23,9 +23,9 @@ const PLAN_COLORS = {
 };
 
 const ACTION_PLAN_DEFAULT = {
-  goals: 3,
-  activities: 3,
-  applications: 3,
+  goals: 1,
+  activities: 1,
+  applications: 1,
 };
 
 const useStyles = makeStyles(theme => ({
@@ -73,15 +73,17 @@ function ActionPlanBar({ userStats, actionPlan }) {
     };
     userDocRef.set({ actionPlan: initialPlan }, { merge: true });
 
-    const stats = {
-      weeklyActivitiesCount: 0,
-      weeklyTasksCount: 0,
-      weeklyApplicationsCount: 0,
-      weeklyActivitiesLatestTimestamp: new Date(),
-      weeklyTasksLatestTimestamp: new Date(),
-      weeklyApplicationsLatestTimestamp: new Date(),
+    const weeklyStats = {
+      activities: 0,
+      goals: 0,
+      applications: 0,
+      activitiesLatestTimestamp: new Date(),
+      tasksLatestTimestamp: new Date(),
+      applicationsLatestTimestamp: new Date(),
+      showCelebration: true,
     };
-    userDocRef.set({ stats }, { merge: true });
+
+    userDocRef.set({ weeklyStats }, { merge: true });
   }
 
   return (
@@ -105,7 +107,7 @@ function ActionPlanBar({ userStats, actionPlan }) {
               <Box>
                 <Typography className={classes.text} variant="h6">
                   <span style={{ color: PLAN_COLORS.goal }}>
-                    <b>{userStats.weeklyTasksCount || 0}</b>
+                    <b>{userStats.goals || 0}</b>
                   </span>
                   <span style={{ fontWeight: 400 }}> of {actionPlan.goals || 0}</span>
                 </Typography>
@@ -134,7 +136,7 @@ function ActionPlanBar({ userStats, actionPlan }) {
               <Box>
                 <Typography className={classes.text} variant="h6">
                   <span style={{ color: PLAN_COLORS.activity }}>
-                    <b>{userStats.weeklyActivitiesCount || 0}</b>
+                    <b>{userStats.activities || 0}</b>
                   </span>
                   <span style={{ fontWeight: 400 }}> of {actionPlan.activities || 0}</span>
                 </Typography>
@@ -163,7 +165,7 @@ function ActionPlanBar({ userStats, actionPlan }) {
               <Box>
                 <Typography className={classes.text} variant="h6">
                   <span style={{ color: PLAN_COLORS.application }}>
-                    <b>{userStats.weeklyApplicationsCount || 0}</b>
+                    <b>{userStats.applications || 0}</b>
                   </span>
                   <span style={{ fontWeight: 400 }}> of {actionPlan.applications || 0}</span>
                 </Typography>
@@ -181,10 +183,9 @@ function ActionPlanBar({ userStats, actionPlan }) {
 
 ActionPlanBar.propTypes = {
   userStats: PropTypes.shape({
-    activityLogEntriesCount: PropTypes.number,
-    weeklyActivitiesCount: PropTypes.number,
-    weeklyTasksCount: PropTypes.number,
-    weeklyApplicationsCount: PropTypes.number,
+    activities: PropTypes.number,
+    goals: PropTypes.number,
+    applications: PropTypes.number,
   }),
   actionPlan: PropTypes.shape({
     goals: PropTypes.number,
@@ -196,10 +197,9 @@ ActionPlanBar.propTypes = {
 
 ActionPlanBar.defaultProps = {
   userStats: {
-    activityLogEntriesCount: 0,
-    weeklyActivitiesCount: 0,
-    weeklyTasksCount: 0,
-    weeklyApplicationsCount: 0,
+    activities: 0,
+    goals: 0,
+    applications: 0,
   },
   actionPlan: {
     goals: 0,

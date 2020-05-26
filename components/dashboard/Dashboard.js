@@ -12,6 +12,7 @@ import PubSub from 'pubsub-js';
 import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
+import every from 'lodash/every';
 import { getFirstIncompleteAction, isDone, mostRecent } from '../../src/app-helper';
 import { useAnalytics } from '../Analytics';
 import { useAuth } from '../Auth';
@@ -342,6 +343,19 @@ export default function Dashboard(props) {
     }
   }, [user.shouldSeeAssesssmentCompletionCelebration, userDocRef]);
 
+  useEffect(() => {
+    const statKeys = ['goals', 'applications', 'activities'];
+
+    if (
+      user.weeklyStats &&
+      user.weeklyStats.showCelebration &&
+      every(statKeys, key => user.weeklyStats[key] >= user.actionPlan[key])
+    ) {
+      userDocRef.set({ 'weeklyStats.showCelebration': false }, { merge: true });
+      setActiveDialog(DIALOGS.CELEBRATION);
+    }
+  }, [user.weeklyStats]);
+
   return (
     <div className={classes.root}>
       <ActivityInputDialog
@@ -375,7 +389,9 @@ export default function Dashboard(props) {
       <ScaffoldContainer className={classes.container}>
         <Flags
           authorizedFlags={['actionPlan']}
-          renderOn={() => <ActionPlanBar userStats={user.stats} actionPlan={user.actionPlan} />}
+          renderOn={() => (
+            <ActionPlanBar userStats={user.weeklyStats} actionPlan={user.actionPlan} />
+          )}
           renderOff={() => (
             <>
               {showSentiment && (
