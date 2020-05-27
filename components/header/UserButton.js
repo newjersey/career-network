@@ -80,7 +80,7 @@ export default function UserButton(props) {
             <ListItemIcon>
               <DashboardIcon />
             </ListItemIcon>
-            <ListItemText primary="My dashboard" />
+            <ListItemText primary="My Dashboard" />
           </MenuItem>
         ) : (
           <MenuItem onClick={() => Router.push('/assessment')}>
@@ -102,7 +102,7 @@ export default function UserButton(props) {
           <ListItemIcon>
             <PowerSettingsNewIcon />
           </ListItemIcon>
-          <ListItemText primary="Sign out" />
+          <ListItemText primary="Sign Out" />
         </MenuItem>
       </Menu>
     </>

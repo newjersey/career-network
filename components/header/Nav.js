@@ -73,7 +73,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'flex-end',
     height: '100%',
-    padding: theme.spacing(0, 2.5),
+    padding: theme.spacing(0, 1),
   },
   link: {
     padding: theme.spacing(0, 1),
@@ -85,6 +85,7 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     height: '60%',
     display: 'inline-block',
+    fontSize: '1rem',
   },
   activePageLink: {
     borderBottomColor: theme.palette.primary.dark,
@@ -276,7 +277,7 @@ function Nav(props) {
           className={classes.container}
         >
           <Grid container item xs>
-            <NextLink href="/">
+            <NextLink href={user ? '/dashboard' : '/'}>
               <Grid item>
                 <Grid container alignItems="center">
                   <Hidden xsDown implementation="css">
