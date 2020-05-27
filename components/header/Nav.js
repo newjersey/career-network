@@ -4,7 +4,6 @@ import Avatar from '@material-ui/core/Avatar';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
-import EditIcon from '@material-ui/icons/Edit';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
@@ -20,14 +19,16 @@ import PersonIcon from '@material-ui/icons/Person';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import Router from 'next/router';
 import Typography from '@material-ui/core/Typography';
 import { Flags } from 'react-feature-flags';
 import { useAuth } from '../Auth';
 import Picture from '../Picture';
 import ScaffoldContainer from '../ScaffoldContainer';
+import UserButton from './UserButton';
+import SignInButton from './SignInButton';
 import UserClass from '../../src/User';
 import featureFlags from '../../src/feature-flags';
+import NavLink from './NavLink';
 
 const logoRatio = 1;
 const logoWidths = {
@@ -37,9 +38,7 @@ const logoWidths = {
 
 const useStyles = makeStyles(theme => ({
   container: {
-    [theme.breakpoints.up('md')]: {
-      alignItems: 'flex-end',
-    },
+    position: 'relative',
   },
   logo: {
     position: 'relative',
@@ -65,38 +64,56 @@ const useStyles = makeStyles(theme => ({
   },
   list: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
     listStyle: 'none',
+    paddingLeft: 0,
+    margin: 0,
+  },
+  listItem: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    height: '100%',
+    padding: theme.spacing(0, 1),
   },
   link: {
-    padding: theme.spacing(1, 3.5),
+    padding: theme.spacing(0, 1),
+    borderBottomWidth: 3,
+    borderBottomColor: 'transparent',
+    borderBottomStyle: 'solid',
     color: '#000',
     cursor: 'pointer',
     width: '100%',
+    height: '60%',
     display: 'inline-block',
-    '&:hover': {
-      backgroundColor: '#e4e4e4',
-    },
+    fontSize: '1rem',
+  },
+  activePageLink: {
+    borderBottomColor: theme.palette.primary.dark,
+    color: theme.palette.primary.dark,
+    fontWeight: 600,
   },
   drawerList: {
     width: 250,
+  },
+  navContent: {
+    display: 'flex',
+    height: '100%',
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
   },
 }));
 
 function Nav(props) {
   const { onSignOut, user } = props;
   const classes = useStyles();
-  const { showSignIn, userDocRef } = useAuth();
+  const { showSignIn } = useAuth();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const openDrawer = () => setIsDrawerOpen(true);
   const closeDrawer = () => setIsDrawerOpen(false);
   const handleSignInClick = () => showSignIn();
   const handleHelpClick = () => window.Intercom('show');
-  const onEditAssessment = () => {
-    userDocRef.set({ isAssessmentComplete: false }, { merge: true });
-    Router.push('/assessment');
-  };
 
   const showApplicationTracker = !!featureFlags.find(
     flag => flag.name === 'applicationTracker' && flag.isActive
@@ -162,9 +179,9 @@ function Nav(props) {
       <Drawer anchor="right" open={isDrawerOpen} onClose={closeDrawer}>
         <div tabIndex={0} role="button" onClick={closeDrawer} onKeyDown={closeDrawer}>
           <div className={classes.drawerList}>
-            <Hidden smUp implementation="js">
+            <Hidden mdUp implementation="js">
               <List>
-                {user ? (
+                {user && (
                   <>
                     <NextLink href="/dashboard">
                       <ListItem button>
@@ -182,7 +199,7 @@ function Nav(props) {
                           <ListItemIcon>
                             <DashboardIcon />
                           </ListItemIcon>
-                          <ListItemText primary="My dashboard" />
+                          <ListItemText primary="My Dashboard" />
                         </ListItem>
                       </NextLink>
                     ) : (
@@ -205,19 +222,38 @@ function Nav(props) {
                         </ListItem>
                       </NextLink>
                     </Flags>
-                    <ListItem button onClick={onEditAssessment}>
-                      <ListItemIcon>
-                        <EditIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="Edit assessment" />
-                    </ListItem>
-                    <ListItem button onClick={onSignOut}>
-                      <ListItemIcon>
-                        <PowerSettingsNewIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="Sign out" />
-                    </ListItem>
+                    <Flags authorizedFlags={['userProfile']}>
+                      <NextLink href="/profile">
+                        <ListItem button>
+                          <ListItemIcon>
+                            <PersonIcon />
+                          </ListItemIcon>
+                          <ListItemText primary="My Profile" />
+                        </ListItem>
+                      </NextLink>
+                    </Flags>
                   </>
+                )}
+              </List>
+              <Divider />
+              <List>
+                {pages
+                  .filter(page => page.show && page.shortName)
+                  .map(page => (
+                    <NextLink href={page.href} key={page.shortName}>
+                      <ListItem button>
+                        <ListItemText primary={page.shortName} onClick={page.onClick} />
+                      </ListItem>
+                    </NextLink>
+                  ))}
+                <Divider />
+                {user ? (
+                  <ListItem button onClick={onSignOut}>
+                    <ListItemIcon>
+                      <PowerSettingsNewIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Sign out" />
+                  </ListItem>
                 ) : (
                   <ListItem button onClick={handleSignInClick}>
                     <ListItemIcon>
@@ -227,96 +263,89 @@ function Nav(props) {
                   </ListItem>
                 )}
               </List>
-              <Divider />
             </Hidden>
-
-            <List>
-              {pages
-                .filter(page => page.show && page.shortName)
-                .map(page => (
-                  <NextLink href={page.href} key={page.shortName}>
-                    <ListItem button>
-                      <ListItemText primary={page.shortName} onClick={page.onClick} />
-                    </ListItem>
-                  </NextLink>
-                ))}
-            </List>
           </div>
         </div>
       </Drawer>
 
       <ScaffoldContainer>
-        <Grid container justify="space-between" alignItems="center" className={classes.container}>
-          <NextLink href="/">
-            <Grid item>
-              <Grid container alignItems="center">
-                <Hidden xsDown implementation="css">
-                  <Grid item>
-                    <Picture
-                      path="nj.webp"
-                      fallbackType="png"
-                      alt="New Jersey Career Network"
-                      className={classes.logo}
-                    />
+        <Grid
+          container
+          wrap="nowrap"
+          justify="flex-start"
+          alignItems="center"
+          className={classes.container}
+        >
+          <Grid container item xs>
+            <NextLink href={user ? '/dashboard' : '/'}>
+              <Grid item>
+                <Grid container alignItems="center">
+                  <Hidden xsDown implementation="css">
+                    <Grid item>
+                      <Picture
+                        path="nj.webp"
+                        fallbackType="png"
+                        alt="New Jersey Career Network"
+                        className={classes.logo}
+                      />
+                    </Grid>
+                  </Hidden>
+                  <Grid item className={classes.titleContainer}>
+                    <Typography variant="h1" color="primary" className={classes.title}>
+                      Career Network
+                    </Typography>
                   </Grid>
-                </Hidden>
-                <Grid item className={classes.titleContainer}>
-                  <Typography variant="h1" color="primary" className={classes.title}>
-                    Career Network
-                  </Typography>
                 </Grid>
               </Grid>
-            </Grid>
-          </NextLink>
-          <Grid item style={{ flex: 1 }}>
-            <Hidden mdUp implementation="css">
-              <div style={{ textAlign: 'right' }}>
-                <IconButton onClick={openDrawer} aria-label="Menu">
-                  <MenuIcon />
-                </IconButton>
-              </div>
-            </Hidden>
+            </NextLink>
             <Hidden smDown implementation="css">
-              <nav>
-                <ul className={classes.list}>
-                  {!user && (
-                    <li className={classes.listItem} data-intercom={`nav-button-get-started}`}>
-                      <Typography>
-                        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                        <Link
-                          className={classes.link}
-                          onClick={handleSignInClick}
-                          component="button"
-                          underline="none"
-                          variant="body1"
+              <Grid item>
+                <nav className={classes.navContent}>
+                  <ul className={classes.list}>
+                    {pages
+                      .filter(page => page.show)
+                      .map(page => (
+                        <li
+                          key={page.href}
+                          className={classes.listItem}
+                          data-intercom={`nav-button-${page.name.replace(/\W/, '-').toLowerCase()}`}
                         >
-                          Get Started Today
-                        </Link>
-                      </Typography>
-                    </li>
-                  )}
-                  {pages
-                    .filter(page => page.show)
-                    .map(page => (
-                      <li
-                        key={page.href}
-                        className={classes.listItem}
-                        data-intercom={`nav-button-${page.name.replace(/\W/, '-').toLowerCase()}`}
-                      >
-                        <Typography>
-                          <NextLink href={page.href}>
+                          <NavLink activeClassName={classes.activePageLink} href={page.href}>
                             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                             <Link className={classes.link} underline="none" onClick={page.onClick}>
                               {page.name}
                             </Link>
-                          </NextLink>
-                        </Typography>
-                      </li>
-                    ))}
-                </ul>
-              </nav>
+                          </NavLink>
+                        </li>
+                      ))}
+                  </ul>
+                </nav>
+              </Grid>
             </Hidden>
           </Grid>
+
+          <Hidden mdDown implementation="css">
+            <Grid container item xs>
+              {user ? (
+                <UserButton
+                  displayName={user.displayName}
+                  email={user.email}
+                  onSignOut={onSignOut}
+                  photoURL={user.photoURL}
+                  isAssessmentComplete={user.isAssessmentComplete}
+                />
+              ) : (
+                <SignInButton />
+              )}
+            </Grid>
+          </Hidden>
+          <Hidden mdUp implementation="css">
+            <div style={{ textAlign: 'right' }}>
+              <IconButton onClick={openDrawer} aria-label="Menu">
+                <MenuIcon />
+              </IconButton>
+            </div>
+          </Hidden>
         </Grid>
       </ScaffoldContainer>
     </>

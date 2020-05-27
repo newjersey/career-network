@@ -13,13 +13,15 @@ import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
+import { Flags } from 'react-feature-flags';
 
 // eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles(theme => ({
   name: {
-    color: 'inherit',
+    color: '#000',
     cursor: 'pointer',
     marginRight: '1em',
+    whiteSpace: 'nowrap',
   },
   avatar: {
     cursor: 'pointer',
@@ -47,7 +49,7 @@ export default function UserButton(props) {
 
   return (
     <>
-      <Grid container alignItems="center">
+      <Grid container alignItems="center" wrap="nowrap">
         <Grid item>
           <Typography
             className={classes.name}
@@ -78,7 +80,7 @@ export default function UserButton(props) {
             <ListItemIcon>
               <DashboardIcon />
             </ListItemIcon>
-            <ListItemText primary="My dashboard" />
+            <ListItemText primary="My Dashboard" />
           </MenuItem>
         ) : (
           <MenuItem onClick={() => Router.push('/assessment')}>
@@ -88,11 +90,19 @@ export default function UserButton(props) {
             <ListItemText primary="Questionnaire" />
           </MenuItem>
         )}
+        <Flags authorizedFlags={['userProfile']}>
+          <MenuItem onClick={() => Router.push('/profile')}>
+            <ListItemIcon>
+              <PersonIcon />
+            </ListItemIcon>
+            <ListItemText primary="My Profile" />
+          </MenuItem>
+        </Flags>
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <PowerSettingsNewIcon />
           </ListItemIcon>
-          <ListItemText primary="Sign out" />
+          <ListItemText primary="Sign Out" />
         </MenuItem>
       </Menu>
     </>

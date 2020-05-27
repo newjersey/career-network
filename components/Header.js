@@ -6,7 +6,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 
 import Nav from './header/Nav';
 import StatusBar from './StatusBar';
-import User from './header/User';
 import UserClass from '../src/User';
 
 const useStyles = makeStyles(theme => ({
@@ -27,9 +26,6 @@ export default function Header(props) {
       <AppBar position="static" color="primary">
         <Toolbar className={classes.navBar}>
           <Nav {...props} />
-        </Toolbar>
-        <Toolbar className={classes.userBar}>
-          <User {...props} />
         </Toolbar>
       </AppBar>
     </header>
