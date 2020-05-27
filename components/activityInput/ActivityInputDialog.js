@@ -238,10 +238,14 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
       const stats = {
         activityLogEntriesCount: firebase.firestore.FieldValue.increment(1),
         activityLogEntriesLatestTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        weeklyActivitiesCount: firebase.firestore.FieldValue.increment(1),
-        weeklyActivitiesLatestTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
       };
-      userDocRef.set({ stats }, { merge: true });
+
+      const weeklyStats = {
+        activities: firebase.firestore.FieldValue.increment(1),
+        activitiesLatestTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      };
+
+      userDocRef.set({ stats, weeklyStats }, { merge: true });
       analytics.trackEvent('logged-activity', {
         type: formValues.activityTypeLabel,
         description: formValues.briefDescription,

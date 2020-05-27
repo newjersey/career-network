@@ -97,11 +97,11 @@ export default function Task(props) {
 
     userDocRef.collection('taskDispositionEvents').add(data);
 
-    const stats = {
-      weeklyTasksCount: firebase.firestore.FieldValue.increment(1),
-      weeklyTasksTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    const weeklyStats = {
+      goals: firebase.firestore.FieldValue.increment(1),
+      tasksTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
     };
-    userDocRef.set({ stats }, { merge: true });
+    userDocRef.set({ weeklyStats }, { merge: true });
   }
 
   function onAllActionsDone() {

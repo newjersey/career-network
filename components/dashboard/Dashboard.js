@@ -12,6 +12,7 @@ import PubSub from 'pubsub-js';
 import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
+import every from 'lodash/every';
 import { getFirstIncompleteAction, isDone, mostRecent } from '../../src/app-helper';
 import { useAnalytics } from '../Analytics';
 import { useAuth } from '../Auth';
@@ -31,6 +32,7 @@ import TaskList from './TaskList';
 import TimeDistanceParser from '../../src/time-distance-parser';
 import UpcomingInterviewDialog from './UpcomingInterviewDialog/UpcomingInterviewDialog';
 import UserProfileCard from './UserProfileCard';
+import CelebrationDialog from '../CelebrationDialog';
 
 const TASK_COUNT_LIMIT = 3;
 const ROW_GAP = 2;
@@ -261,6 +263,7 @@ const DIALOGS = {
   ACTIVITY_INPUT: 'ActivityInputDialog',
   UPCOMING_INTERVIEW: 'UpcomingInterviewDialog',
   ASSESSMENT_COMPLETE: 'AssessmentCompleteDialog',
+  CELEBRATION: 'CelebrationDialog',
 };
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
@@ -340,6 +343,19 @@ export default function Dashboard(props) {
     }
   }, [user.shouldSeeAssesssmentCompletionCelebration, userDocRef]);
 
+  useEffect(() => {
+    const statKeys = ['goals', 'applications', 'activities'];
+
+    if (
+      user.weeklyStats &&
+      user.weeklyStats.showCelebration &&
+      every(statKeys, key => user.weeklyStats[key] >= user.actionPlan[key])
+    ) {
+      userDocRef.set({ weeklyStats: { showCelebration: false } }, { merge: true });
+      setActiveDialog(DIALOGS.CELEBRATION);
+    }
+  }, [user.weeklyStats]);
+
   return (
     <div className={classes.root}>
       <ActivityInputDialog
@@ -355,6 +371,10 @@ export default function Dashboard(props) {
         onClose={() => setActiveDialog()}
         onLogActivityButtonClick={() => setActiveDialog(DIALOGS.ACTIVITY_INPUT)}
       />
+      <CelebrationDialog
+        show={activeDialog === DIALOGS.CELEBRATION}
+        onClose={() => setActiveDialog()}
+      />
       <BackgroundHeader>
         <ScaffoldContainer>
           <Typography component="h1" variant="h2" gutterBottom>
@@ -369,7 +389,9 @@ export default function Dashboard(props) {
       <ScaffoldContainer className={classes.container}>
         <Flags
           authorizedFlags={['actionPlan']}
-          renderOn={() => <ActionPlanBar userStats={user.stats} actionPlan={user.actionPlan} />}
+          renderOn={() => (
+            <ActionPlanBar userStats={user.weeklyStats} actionPlan={user.actionPlan} />
+          )}
           renderOff={() => (
             <>
               {showSentiment && (
