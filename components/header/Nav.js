@@ -28,6 +28,7 @@ import Picture from '../Picture';
 import ScaffoldContainer from '../ScaffoldContainer';
 import UserClass from '../../src/User';
 import featureFlags from '../../src/feature-flags';
+import NavLink from './NavLink';
 
 const logoRatio = 1;
 const logoWidths = {
@@ -37,6 +38,7 @@ const logoWidths = {
 
 const useStyles = makeStyles(theme => ({
   container: {
+    position: 'relative',
     [theme.breakpoints.up('md')]: {
       alignItems: 'flex-end',
     },
@@ -65,21 +67,42 @@ const useStyles = makeStyles(theme => ({
   },
   list: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
     listStyle: 'none',
+    paddingLeft: 0,
+    margin: 0,
+  },
+  listItem: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    height: '100%',
+    padding: theme.spacing(0, 2.5),
   },
   link: {
-    padding: theme.spacing(1, 3.5),
+    padding: theme.spacing(0, 1),
+    borderBottomWidth: 3,
+    borderBottomColor: 'transparent',
+    borderBottomStyle: 'solid',
     color: '#000',
     cursor: 'pointer',
     width: '100%',
+    height: '60%',
     display: 'inline-block',
-    '&:hover': {
-      backgroundColor: '#e4e4e4',
-    },
+  },
+  activePageLink: {
+    borderBottomColor: theme.palette.primary.dark,
+    color: theme.palette.primary.dark,
+    fontWeight: 600,
   },
   drawerList: {
     width: 250,
+  },
+  nav: {
+    display: 'flex',
+    height: '100%',
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
   },
 }));
 
@@ -247,28 +270,28 @@ function Nav(props) {
 
       <ScaffoldContainer>
         <Grid container justify="space-between" alignItems="center" className={classes.container}>
-          <NextLink href="/">
-            <Grid item>
-              <Grid container alignItems="center">
-                <Hidden xsDown implementation="css">
-                  <Grid item>
-                    <Picture
-                      path="nj.webp"
-                      fallbackType="png"
-                      alt="New Jersey Career Network"
-                      className={classes.logo}
-                    />
+          <Grid container item alignItems="center">
+            <NextLink href="/">
+              <Grid item>
+                <Grid container alignItems="center">
+                  <Hidden xsDown implementation="css">
+                    <Grid item>
+                      <Picture
+                        path="nj.webp"
+                        fallbackType="png"
+                        alt="New Jersey Career Network"
+                        className={classes.logo}
+                      />
+                    </Grid>
+                  </Hidden>
+                  <Grid item className={classes.titleContainer}>
+                    <Typography variant="h1" color="primary" className={classes.title}>
+                      Career Network
+                    </Typography>
                   </Grid>
-                </Hidden>
-                <Grid item className={classes.titleContainer}>
-                  <Typography variant="h1" color="primary" className={classes.title}>
-                    Career Network
-                  </Typography>
                 </Grid>
               </Grid>
-            </Grid>
-          </NextLink>
-          <Grid item style={{ flex: 1 }}>
+            </NextLink>
             <Hidden mdUp implementation="css">
               <div style={{ textAlign: 'right' }}>
                 <IconButton onClick={openDrawer} aria-label="Menu">
@@ -277,7 +300,7 @@ function Nav(props) {
               </div>
             </Hidden>
             <Hidden smDown implementation="css">
-              <nav>
+              <nav className={classes.nav}>
                 <ul className={classes.list}>
                   {!user && (
                     <li className={classes.listItem} data-intercom={`nav-button-get-started}`}>
@@ -303,14 +326,12 @@ function Nav(props) {
                         className={classes.listItem}
                         data-intercom={`nav-button-${page.name.replace(/\W/, '-').toLowerCase()}`}
                       >
-                        <Typography>
-                          <NextLink href={page.href}>
-                            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                            <Link className={classes.link} underline="none" onClick={page.onClick}>
-                              {page.name}
-                            </Link>
-                          </NextLink>
-                        </Typography>
+                        <NavLink activeClassName={classes.activePageLink} href={page.href}>
+                          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                          <Link className={classes.link} underline="none" onClick={page.onClick}>
+                            {page.name}
+                          </Link>
+                        </NavLink>
                       </li>
                     ))}
                 </ul>
