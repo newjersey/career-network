@@ -41,9 +41,6 @@ const logoWidths = {
 const useStyles = makeStyles(theme => ({
   container: {
     position: 'relative',
-    [theme.breakpoints.up('md')]: {
-      alignItems: 'flex-end',
-    },
   },
   logo: {
     position: 'relative',
@@ -274,11 +271,11 @@ function Nav(props) {
         <Grid
           container
           wrap="nowrap"
-          justify="space-between"
+          justify="flex-start"
           alignItems="center"
           className={classes.container}
         >
-          <Grid container item alignItems="center">
+          <Grid container item xs>
             <NextLink href="/">
               <Grid item>
                 <Grid container alignItems="center">
@@ -300,39 +297,34 @@ function Nav(props) {
                 </Grid>
               </Grid>
             </NextLink>
-            <Hidden mdUp implementation="css">
-              <div style={{ textAlign: 'right' }}>
-                <IconButton onClick={openDrawer} aria-label="Menu">
-                  <MenuIcon />
-                </IconButton>
-              </div>
-            </Hidden>
             <Hidden smDown implementation="css">
-              <nav className={classes.navContent}>
-                <ul className={classes.list}>
-                  {pages
-                    .filter(page => page.show)
-                    .map(page => (
-                      <li
-                        key={page.href}
-                        className={classes.listItem}
-                        data-intercom={`nav-button-${page.name.replace(/\W/, '-').toLowerCase()}`}
-                      >
-                        <NavLink activeClassName={classes.activePageLink} href={page.href}>
-                          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                          <Link className={classes.link} underline="none" onClick={page.onClick}>
-                            {page.name}
-                          </Link>
-                        </NavLink>
-                      </li>
-                    ))}
-                </ul>
-              </nav>
+              <Grid item>
+                <nav className={classes.navContent}>
+                  <ul className={classes.list}>
+                    {pages
+                      .filter(page => page.show)
+                      .map(page => (
+                        <li
+                          key={page.href}
+                          className={classes.listItem}
+                          data-intercom={`nav-button-${page.name.replace(/\W/, '-').toLowerCase()}`}
+                        >
+                          <NavLink activeClassName={classes.activePageLink} href={page.href}>
+                            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                            <Link className={classes.link} underline="none" onClick={page.onClick}>
+                              {page.name}
+                            </Link>
+                          </NavLink>
+                        </li>
+                      ))}
+                  </ul>
+                </nav>
+              </Grid>
             </Hidden>
           </Grid>
 
           <Hidden xsDown implementation="css">
-            <Grid item container alignItems="center" className={classes.navContent}>
+            <Grid container item xs>
               {user ? (
                 <UserButton
                   displayName={user.displayName}
@@ -345,6 +337,13 @@ function Nav(props) {
                 <SignInButton />
               )}
             </Grid>
+          </Hidden>
+          <Hidden mdUp implementation="css">
+            <div style={{ textAlign: 'right' }}>
+              <IconButton onClick={openDrawer} aria-label="Menu">
+                <MenuIcon />
+              </IconButton>
+            </div>
           </Hidden>
         </Grid>
       </ScaffoldContainer>
