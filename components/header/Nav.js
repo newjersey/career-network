@@ -4,7 +4,6 @@ import Avatar from '@material-ui/core/Avatar';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
-import EditIcon from '@material-ui/icons/Edit';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
@@ -20,7 +19,6 @@ import PersonIcon from '@material-ui/icons/Person';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import Router from 'next/router';
 import Typography from '@material-ui/core/Typography';
 import { Flags } from 'react-feature-flags';
 import { useAuth } from '../Auth';
@@ -108,17 +106,13 @@ const useStyles = makeStyles(theme => ({
 function Nav(props) {
   const { onSignOut, user } = props;
   const classes = useStyles();
-  const { showSignIn, userDocRef } = useAuth();
+  const { showSignIn } = useAuth();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const openDrawer = () => setIsDrawerOpen(true);
   const closeDrawer = () => setIsDrawerOpen(false);
   const handleSignInClick = () => showSignIn();
   const handleHelpClick = () => window.Intercom('show');
-  const onEditAssessment = () => {
-    userDocRef.set({ isAssessmentComplete: false }, { merge: true });
-    Router.push('/assessment');
-  };
 
   const showApplicationTracker = !!featureFlags.find(
     flag => flag.name === 'applicationTracker' && flag.isActive
@@ -184,9 +178,9 @@ function Nav(props) {
       <Drawer anchor="right" open={isDrawerOpen} onClose={closeDrawer}>
         <div tabIndex={0} role="button" onClick={closeDrawer} onKeyDown={closeDrawer}>
           <div className={classes.drawerList}>
-            <Hidden smUp implementation="js">
+            <Hidden mdUp implementation="js">
               <List>
-                {user ? (
+                {user && (
                   <>
                     <NextLink href="/dashboard">
                       <ListItem button>
@@ -227,19 +221,38 @@ function Nav(props) {
                         </ListItem>
                       </NextLink>
                     </Flags>
-                    <ListItem button onClick={onEditAssessment}>
-                      <ListItemIcon>
-                        <EditIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="Edit assessment" />
-                    </ListItem>
-                    <ListItem button onClick={onSignOut}>
-                      <ListItemIcon>
-                        <PowerSettingsNewIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="Sign out" />
-                    </ListItem>
+                    <Flags authorizedFlags={['applicationTracker']}>
+                      <NextLink href="/profile">
+                        <ListItem button>
+                          <ListItemIcon>
+                            <PersonIcon />
+                          </ListItemIcon>
+                          <ListItemText primary="My Profile" />
+                        </ListItem>
+                      </NextLink>
+                    </Flags>
                   </>
+                )}
+              </List>
+              <Divider />
+              <List>
+                {pages
+                  .filter(page => page.show && page.shortName)
+                  .map(page => (
+                    <NextLink href={page.href} key={page.shortName}>
+                      <ListItem button>
+                        <ListItemText primary={page.shortName} onClick={page.onClick} />
+                      </ListItem>
+                    </NextLink>
+                  ))}
+                <Divider />
+                {user ? (
+                  <ListItem button onClick={onSignOut}>
+                    <ListItemIcon>
+                      <PowerSettingsNewIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Sign out" />
+                  </ListItem>
                 ) : (
                   <ListItem button onClick={handleSignInClick}>
                     <ListItemIcon>
@@ -249,20 +262,7 @@ function Nav(props) {
                   </ListItem>
                 )}
               </List>
-              <Divider />
             </Hidden>
-
-            <List>
-              {pages
-                .filter(page => page.show && page.shortName)
-                .map(page => (
-                  <NextLink href={page.href} key={page.shortName}>
-                    <ListItem button>
-                      <ListItemText primary={page.shortName} onClick={page.onClick} />
-                    </ListItem>
-                  </NextLink>
-                ))}
-            </List>
           </div>
         </div>
       </Drawer>
@@ -323,7 +323,7 @@ function Nav(props) {
             </Hidden>
           </Grid>
 
-          <Hidden xsDown implementation="css">
+          <Hidden mdDown implementation="css">
             <Grid container item xs>
               {user ? (
                 <UserButton

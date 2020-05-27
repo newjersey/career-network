@@ -13,6 +13,7 @@ import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
+import { Flags } from 'react-feature-flags';
 
 // eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles(theme => ({
@@ -89,6 +90,14 @@ export default function UserButton(props) {
             <ListItemText primary="Questionnaire" />
           </MenuItem>
         )}
+        <Flags authorizedFlags={['userProfile']}>
+          <MenuItem onClick={() => Router.push('/profile')}>
+            <ListItemIcon>
+              <PersonIcon />
+            </ListItemIcon>
+            <ListItemText primary="My Profile" />
+          </MenuItem>
+        </Flags>
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <PowerSettingsNewIcon />
