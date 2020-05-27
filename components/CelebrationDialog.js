@@ -61,13 +61,16 @@ function CelebrationDialog({ show, onClose }) {
           Weekly Action Plan Completed
         </Typography>
         <Typography variant="h2" align="center">
-          <span role="img" aria-label="clap-emoji">
-            {' '}
+          <span
+            role="img"
+            aria-label="clap-emoji"
+            display="inline-block"
+            style={{ marginRight: 8 }}
+          >
             👏👏
           </span>
           Great Work
-          <span role="img" aria-label="clap-emoji">
-            {' '}
+          <span role="img" aria-label="clap-emoji" display="inline-block" style={{ marginLeft: 8 }}>
             👏👏
           </span>
         </Typography>
@@ -75,7 +78,8 @@ function CelebrationDialog({ show, onClose }) {
       <DialogContent>
         <Typography variant="body2" align="center">
           Job searching is hard and we are here to help you achieve your goals. Taking these steps
-          forward every day will add up while you are on the journey.
+          forward every day will add up
+          <br /> while you are on the journey.
           <br />
           Make sure to treat yourself and do something special and keep your positive momentum
           going.
