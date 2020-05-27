@@ -395,17 +395,19 @@ export default function Dashboard(props) {
       <BackgroundHeader>
         <ScaffoldContainer>
           <Box position="relative">
-            <Button
-              classes={{ root: classes.planSetting }}
-              onClick={() => setActiveDialog(DIALOGS.ACTION_PLAN_UPDATE)}
-            >
-              <span className={classes.iconContainer}>
-                <SettingsIcon />
-              </span>
-              <span style={{ marginLeft: 5 }}>
-                <b>UPDATE ACTION PLAN</b>
-              </span>
-            </Button>
+            <Flags authorizedFlags={['actionPlan']}>
+              <Button
+                classes={{ root: classes.planSetting }}
+                onClick={() => setActiveDialog(DIALOGS.ACTION_PLAN_UPDATE)}
+              >
+                <span className={classes.iconContainer}>
+                  <SettingsIcon />
+                </span>
+                <span style={{ marginLeft: 5 }}>
+                  <b>UPDATE ACTION PLAN</b>
+                </span>
+              </Button>
+            </Flags>
             <Typography component="h1" variant="h2" gutterBottom>
               Welcome, {user && user.firstName}
             </Typography>
