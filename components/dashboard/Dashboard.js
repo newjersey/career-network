@@ -13,6 +13,7 @@ import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import SettingsIcon from '@material-ui/icons/Settings';
+import every from 'lodash/every';
 import { getFirstIncompleteAction, isDone, mostRecent } from '../../src/app-helper';
 import { useAnalytics } from '../Analytics';
 import { useAuth } from '../Auth';
@@ -33,6 +34,7 @@ import TaskList from './TaskList';
 import TimeDistanceParser from '../../src/time-distance-parser';
 import UpcomingInterviewDialog from './UpcomingInterviewDialog/UpcomingInterviewDialog';
 import UserProfileCard from './UserProfileCard';
+import CelebrationDialog from '../CelebrationDialog';
 
 const TASK_COUNT_LIMIT = 3;
 const ROW_GAP = 2;
@@ -273,6 +275,7 @@ const DIALOGS = {
   UPCOMING_INTERVIEW: 'UpcomingInterviewDialog',
   ASSESSMENT_COMPLETE: 'AssessmentCompleteDialog',
   ACTION_PLAN_UPDATE: 'ActionPlanUpdateDialog',
+  CELEBRATION: 'CelebrationDialog',
 };
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
@@ -352,6 +355,19 @@ export default function Dashboard(props) {
     }
   }, [user.shouldSeeAssesssmentCompletionCelebration, userDocRef]);
 
+  useEffect(() => {
+    const statKeys = ['goals', 'applications', 'activities'];
+
+    if (
+      user.weeklyStats &&
+      user.weeklyStats.showCelebration &&
+      every(statKeys, key => user.weeklyStats[key] >= user.actionPlan[key])
+    ) {
+      userDocRef.set({ weeklyStats: { showCelebration: false } }, { merge: true });
+      setActiveDialog(DIALOGS.CELEBRATION);
+    }
+  }, [user.weeklyStats]);
+
   return (
     <div className={classes.root}>
       <ActivityInputDialog
@@ -371,6 +387,10 @@ export default function Dashboard(props) {
         show={activeDialog === DIALOGS.ACTION_PLAN_UPDATE}
         handleClose={() => setActiveDialog()}
         actionPlan={user.actionPlan}
+      />
+      <CelebrationDialog
+        show={activeDialog === DIALOGS.CELEBRATION}
+        onClose={() => setActiveDialog()}
       />
       <BackgroundHeader>
         <ScaffoldContainer>
@@ -399,7 +419,9 @@ export default function Dashboard(props) {
       <ScaffoldContainer className={classes.container}>
         <Flags
           authorizedFlags={['actionPlan']}
-          renderOn={() => <ActionPlanBar userStats={user.stats} actionPlan={user.actionPlan} />}
+          renderOn={() => (
+            <ActionPlanBar userStats={user.weeklyStats} actionPlan={user.actionPlan} />
+          )}
           renderOff={() => (
             <>
               {showSentiment && (

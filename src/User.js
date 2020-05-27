@@ -121,6 +121,10 @@ export default class User {
     return this.userData.stats;
   }
 
+  get weeklyStats() {
+    return this.userData.weeklyStats;
+  }
+
   get actionPlan() {
     return this.userData.actionPlan;
   }
