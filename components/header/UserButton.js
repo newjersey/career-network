@@ -17,9 +17,10 @@ import Typography from '@material-ui/core/Typography';
 // eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles(theme => ({
   name: {
-    color: 'inherit',
+    color: '#000',
     cursor: 'pointer',
     marginRight: '1em',
+    whiteSpace: 'nowrap',
   },
   avatar: {
     cursor: 'pointer',
@@ -47,7 +48,7 @@ export default function UserButton(props) {
 
   return (
     <>
-      <Grid container alignItems="center">
+      <Grid container alignItems="center" wrap="nowrap">
         <Grid item>
           <Typography
             className={classes.name}

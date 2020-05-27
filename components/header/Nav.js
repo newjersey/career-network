@@ -26,6 +26,8 @@ import { Flags } from 'react-feature-flags';
 import { useAuth } from '../Auth';
 import Picture from '../Picture';
 import ScaffoldContainer from '../ScaffoldContainer';
+import UserButton from './UserButton';
+import SignInButton from './SignInButton';
 import UserClass from '../../src/User';
 import featureFlags from '../../src/feature-flags';
 import NavLink from './NavLink';
@@ -97,7 +99,7 @@ const useStyles = makeStyles(theme => ({
   drawerList: {
     width: 250,
   },
-  nav: {
+  navContent: {
     display: 'flex',
     height: '100%',
     position: 'absolute',
@@ -269,7 +271,13 @@ function Nav(props) {
       </Drawer>
 
       <ScaffoldContainer>
-        <Grid container justify="space-between" alignItems="center" className={classes.container}>
+        <Grid
+          container
+          wrap="nowrap"
+          justify="space-between"
+          alignItems="center"
+          className={classes.container}
+        >
           <Grid container item alignItems="center">
             <NextLink href="/">
               <Grid item>
@@ -300,24 +308,8 @@ function Nav(props) {
               </div>
             </Hidden>
             <Hidden smDown implementation="css">
-              <nav className={classes.nav}>
+              <nav className={classes.navContent}>
                 <ul className={classes.list}>
-                  {!user && (
-                    <li className={classes.listItem} data-intercom={`nav-button-get-started}`}>
-                      <Typography>
-                        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                        <Link
-                          className={classes.link}
-                          onClick={handleSignInClick}
-                          component="button"
-                          underline="none"
-                          variant="body1"
-                        >
-                          Get Started Today
-                        </Link>
-                      </Typography>
-                    </li>
-                  )}
                   {pages
                     .filter(page => page.show)
                     .map(page => (
@@ -338,6 +330,22 @@ function Nav(props) {
               </nav>
             </Hidden>
           </Grid>
+
+          <Hidden xsDown implementation="css">
+            <Grid item container alignItems="center" className={classes.navContent}>
+              {user ? (
+                <UserButton
+                  displayName={user.displayName}
+                  email={user.email}
+                  onSignOut={onSignOut}
+                  photoURL={user.photoURL}
+                  isAssessmentComplete={user.isAssessmentComplete}
+                />
+              ) : (
+                <SignInButton />
+              )}
+            </Grid>
+          </Hidden>
         </Grid>
       </ScaffoldContainer>
     </>
