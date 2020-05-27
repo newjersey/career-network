@@ -18,8 +18,8 @@ import VpnKeyIcon from '@material-ui/icons/VpnKey';
 
 import { useAuth } from '../../Auth';
 import { ACTION_COLORS } from './constants';
-import FirebasePropTypes from '../../Firebase/PropTypes';
 import { DialogTitle, DialogContent, DialogActions } from '../../DialogComponents';
+import FirebasePropTypes from '../../Firebase/PropTypes';
 
 const useStyles = makeStyles(theme => ({
   dialog: {
@@ -119,9 +119,9 @@ function ActionPlanUpdateDialog(props) {
               <div>How many goals do you plan to log in a week?</div>
             </div>
             <TextField
+              autoFocus
               className={classes.input}
               id={`${formId}-goals`}
-              autoFocus
               inputProps={{ name: 'goals' }}
               value={values.goals}
               onChange={handleChange}
@@ -142,9 +142,9 @@ function ActionPlanUpdateDialog(props) {
               <div>How many activities do you plan to log in a week?</div>
             </div>
             <TextField
+              autoFocus
               className={classes.input}
               id={`${formId}-activities`}
-              autoFocus
               inputProps={{ name: 'activities' }}
               value={values.activities}
               min={0}
@@ -166,9 +166,9 @@ function ActionPlanUpdateDialog(props) {
               <div>How many applications do you plan to complete in a week?</div>
             </div>
             <TextField
+              autoFocus
               className={classes.input}
               id={`${formId}-applications`}
-              autoFocus
               inputProps={{ name: 'applications' }}
               value={values.applications}
               min={0}

@@ -80,6 +80,7 @@ function ApplicationDialog({ open, applicationData, handleClose, handleSave }) {
           <form id={formId} onSubmit={handleSubmit}>
             <span>Job Title</span>
             <TextField
+              autoFocus
               className={classes.textField}
               fullWidth
               id={`${formId}-job-title`}
@@ -93,6 +94,7 @@ function ApplicationDialog({ open, applicationData, handleClose, handleSave }) {
             />
             <span>Company / Organization Name</span>
             <TextField
+              autoFocus
               className={classes.textField}
               fullWidth
               id={`${formId}-org`}
@@ -106,6 +108,7 @@ function ApplicationDialog({ open, applicationData, handleClose, handleSave }) {
             />
             <span>Date Applied</span>
             <TextField
+              autoFocus
               className={classes.textField}
               fullWidth
               id={`${formId}-date-applied`}
@@ -119,6 +122,7 @@ function ApplicationDialog({ open, applicationData, handleClose, handleSave }) {
             />
             <span>Note</span>
             <TextField
+              autoFocus
               className={classes.textField}
               fullWidth
               id={`${formId}-notes`}
