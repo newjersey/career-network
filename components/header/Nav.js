@@ -199,7 +199,7 @@ function Nav(props) {
                           <ListItemIcon>
                             <DashboardIcon />
                           </ListItemIcon>
-                          <ListItemText primary="My dashboard" />
+                          <ListItemText primary="My Dashboard" />
                         </ListItem>
                       </NextLink>
                     ) : (
@@ -222,7 +222,7 @@ function Nav(props) {
                         </ListItem>
                       </NextLink>
                     </Flags>
-                    <Flags authorizedFlags={['applicationTracker']}>
+                    <Flags authorizedFlags={['userProfile']}>
                       <NextLink href="/profile">
                         <ListItem button>
                           <ListItemIcon>
