@@ -23,7 +23,6 @@ import ApplicationTrackerCard from './ApplicationTrackerCard';
 import AssessmentCompleteDialog from './AssessmentCompleteDialog';
 import BackgroundHeader from '../BackgroundHeader';
 import FirebasePropTypes from '../Firebase/PropTypes';
-import NotificationCard from './NotificationCard';
 import ProgressFeed from './ProgressFeed';
 import ScaffoldContainer from '../ScaffoldContainer';
 import SentimentTracker from './SentimentTracker/SentimentTracker';
@@ -504,7 +503,6 @@ export default function Dashboard(props) {
           </Box>
         </Box>
       </ScaffoldContainer>
-      <NotificationCard />
     </div>
   );
 }
