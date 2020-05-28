@@ -324,7 +324,7 @@ function Nav(props) {
             </Hidden>
           </Grid>
 
-          <Hidden mdDown implementation="css">
+          <Hidden smDown implementation="css">
             <Grid container item xs>
               {user ? (
                 <UserButton
