@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -23,24 +24,25 @@ const useStyles = makeStyles(theme => ({
     border: `3px solid ${theme.palette.primary.light}`,
     borderRadius: '50%',
     lineHeight: 0,
-    padding: theme.spacing(0.6),
+    padding: theme.spacing(0.8),
+    fontSize: '30px',
   },
   card: {
-    padding: theme.spacing(4, 2, 2),
-    height: theme.spacing(35),
-    display: 'flex',
-    alignItems: 'center',
+    padding: theme.spacing(4, 2),
+    height: theme.spacing(37),
   },
   cardContent: {
     padding: theme.spacing(1),
   },
   button: {
     border: `1px solid ${theme.palette.primary.light}`,
-    marginTop: theme.spacing(3),
+    position: 'absolute',
+    bottom: theme.spacing(3),
+    width: '85%',
   },
 }));
 
-function ResourceCard({ value, title, description, link }) {
+function ResourceCard({ value, name, title, description, link }) {
   const classes = useStyles();
 
   const handleClick = () => {
@@ -49,12 +51,12 @@ function ResourceCard({ value, title, description, link }) {
 
   const getIcon = () => {
     if (value === 'information-hub') {
-      return <FlagIcon fontSize="large" />;
+      return <FlagIcon fontSize="inherit" />;
     }
     if (value === 'work-nj') {
-      return <HighlightIcon fontSize="large" />;
+      return <HighlightIcon fontSize="inherit" />;
     }
-    return <WorkIcon fontSize="large" />;
+    return <WorkIcon fontSize="inherit" />;
   };
 
   return (
@@ -75,16 +77,28 @@ function ResourceCard({ value, title, description, link }) {
             fullWidth
             onClick={handleClick}
           >
-            Learn More
+            visit {name}
           </Button>
         </CardContent>
       </Card>
+      {/* <CardActions>
+        <Button
+          className={classes.button}
+          href={link}
+          target="_blank"
+          fullWidth
+          onClick={handleClick}
+        >
+          visit {name}
+        </Button>
+      </CardActions> */}
     </div>
   );
 }
 
 ResourceCard.propTypes = {
   value: PropTypes.string,
+  name: PropTypes.string,
   title: PropTypes.string,
   description: PropTypes.string,
   link: PropTypes.string,
@@ -92,6 +106,7 @@ ResourceCard.propTypes = {
 
 ResourceCard.defaultProps = {
   value: '',
+  name: '',
   title: '',
   description: '',
   link: '',

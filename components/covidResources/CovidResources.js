@@ -24,6 +24,7 @@ const useStyles = makeStyles(theme => ({
 const resources = [
   {
     value: 'information-hub',
+    name: 'Information Hub',
     title: 'COVID-19 Information Hub',
     description: `Do you have any questions about COVID-19 and the current services available to NJ residents? Visit 
         the NJ COVID-19 Information Hub for 
@@ -32,12 +33,14 @@ const resources = [
   },
   {
     value: 'work-nj',
+    name: 'Work NJ',
     title: 'Work NJ - Helpful Resources',
     description: `The Work NJ Hub will help connect to benefits and resources you need while you are trying to safely get back to work, as well as some tips for coping with the stress of losing a job.`,
     link: 'https://covid19.nj.gov/work',
   },
   {
     value: 'job-portal',
+    name: 'Job Portal',
     title: 'COVID-19 Job Portal',
     description: `Have you lost your job or have your hours reduced as a result of COVID-19? Visit the
         COVID-19 Jobs Portal.`,
