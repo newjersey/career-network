@@ -10,12 +10,11 @@ import ResourceCard from './ResourceCard';
 
 const useStyles = makeStyles(theme => ({
   backgroundHeader: {
-    background: '#f1f8e7',
-    boxShadow: `0 1px 0 0 rgba(226, 226, 234, 0.5)`,
+    background: `linear-gradient(to right, #ffffff, #60b1e9 100%)`,
   },
   section: {
     paddingTop: theme.spacing(6),
-    paddingBottom: theme.spacing(6),
+    paddingBottom: theme.spacing(3),
   },
   divider: {
     marginTop: theme.spacing(4),
@@ -52,7 +51,11 @@ export default function CovidResources() {
     <div className={classes.root}>
       <BackgroundHeader className={classes.backgroundHeader}>
         <ScaffoldContainer className={classes.header}>
-          <Typography variant="h5">COVID-19 Resources and Services</Typography>
+          <Grid container justify="center">
+            <Grid item xs={12} sm={7}>
+              <Typography variant="h5">COVID-19 Resources and Services</Typography>
+            </Grid>
+          </Grid>
         </ScaffoldContainer>
       </BackgroundHeader>
 
@@ -84,7 +87,7 @@ export default function CovidResources() {
             sm={7}
           >
             {resources.map(resource => (
-              <Grid item xs={12} sm={6} key={resource.value}>
+              <Grid item xs={12} sm={12} md={6} key={resource.value}>
                 <ResourceCard {...resource} />
               </Grid>
             ))}

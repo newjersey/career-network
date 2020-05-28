@@ -1,7 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -13,6 +12,7 @@ import PropTypes from '../Firebase/PropTypes';
 const useStyles = makeStyles(theme => ({
   wrapper: {
     position: 'relative',
+    marginTop: theme.spacing(3),
   },
   iconContainer: {
     position: 'absolute',
@@ -26,14 +26,17 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(0.6),
   },
   card: {
-    padding: theme.spacing(3, 2, 2),
-    height: theme.spacing(40),
+    padding: theme.spacing(4, 2, 2),
+    height: theme.spacing(35),
+    display: 'flex',
+    alignItems: 'center',
   },
   cardContent: {
     padding: theme.spacing(1),
   },
   button: {
     border: `1px solid ${theme.palette.primary.light}`,
+    marginTop: theme.spacing(3),
   },
 }));
 
@@ -62,11 +65,9 @@ function ResourceCard({ value, title, description, link }) {
           <Typography variant="h6" gutterBottom>
             {title}
           </Typography>
-          <Typography variant="body1" gutterBottom>
+          <Typography variant="body2" gutterBottom>
             {description}
           </Typography>
-        </CardContent>
-        <CardActions>
           <Button
             className={classes.button}
             href={link}
@@ -76,7 +77,7 @@ function ResourceCard({ value, title, description, link }) {
           >
             Learn More
           </Button>
-        </CardActions>
+        </CardContent>
       </Card>
     </div>
   );

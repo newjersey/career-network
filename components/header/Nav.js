@@ -172,6 +172,11 @@ function Nav(props) {
       show: true,
       onClick: handleHelpClick,
     },
+    {
+      href: '/covid-resources',
+      name: 'Covid Resources',
+      show: true,
+    },
   ];
 
   return (
