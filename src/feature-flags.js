@@ -14,7 +14,7 @@ const envConfigs = {
     },
     {
       name: 'actionPlan',
-      isActive: false,
+      isActive: true,
     },
     {
       name: 'activityLog',
