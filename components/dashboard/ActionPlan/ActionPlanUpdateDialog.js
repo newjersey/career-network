@@ -118,7 +118,7 @@ function ActionPlanUpdateDialog(props) {
               autoFocus
               className={classes.input}
               id={`${formId}-goals`}
-              inputProps={{ name: 'goals' }}
+              inputProps={{ name: 'goals', min: 0 }}
               value={values.goals}
               onChange={handleChange}
               variant="outlined"
@@ -141,9 +141,8 @@ function ActionPlanUpdateDialog(props) {
               autoFocus
               className={classes.input}
               id={`${formId}-activities`}
-              inputProps={{ name: 'activities' }}
+              inputProps={{ name: 'activities', min: 0 }}
               value={values.activities}
-              min={0}
               onChange={handleChange}
               variant="outlined"
               type="number"
@@ -165,7 +164,7 @@ function ActionPlanUpdateDialog(props) {
               autoFocus
               className={classes.input}
               id={`${formId}-applications`}
-              inputProps={{ name: 'applications' }}
+              inputProps={{ name: 'applications', min: 0 }}
               value={values.applications}
               min={0}
               onChange={handleChange}

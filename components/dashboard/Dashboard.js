@@ -60,10 +60,15 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     Top: 0,
     right: 0,
+    color: theme.palette.background.dark,
   },
   iconContainer: {
     flexShrink: 0,
     display: 'flex',
+  },
+  labelContainer: {
+    marginLeft: 5,
+    textDecoration: 'underline',
   },
   grid: {
     display: 'grid',
@@ -403,7 +408,7 @@ export default function Dashboard(props) {
                 <span className={classes.iconContainer}>
                   <SettingsIcon />
                 </span>
-                <span style={{ marginLeft: 5 }}>
+                <span className={classes.labelContainer}>
                   <b>UPDATE ACTION PLAN</b>
                 </span>
               </Button>
