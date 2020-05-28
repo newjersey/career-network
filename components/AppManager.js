@@ -14,7 +14,6 @@ import Cookies from 'universal-cookie';
 
 import { useAuth } from './Auth';
 import AcknowledgementDialog from './AcknowledgementDialog';
-import Banner from './Banner';
 import EnvName from './EnvName';
 import Footer from './Footer';
 import Header from './Header';
@@ -157,7 +156,6 @@ export default function AppManager(props) {
       {!closed && <AcknowledgementDialog onClose={handleAcknowledgementClosed} />}
       {process.env.showName && <EnvName />}
       <Header onSignOut={handleSignOut} user={user} />
-      <Banner />
       <main>{children}</main>
       <Footer />
     </>
