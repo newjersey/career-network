@@ -6,4 +6,4 @@ function CovidResourcesPage() {
   return <CovidResources />;
 }
 
-export default withTitle(CovidResourcesPage, 'Covid Resources');
+export default withTitle(CovidResourcesPage, 'COVID-19 Resources');

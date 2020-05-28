@@ -1,7 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -81,17 +80,6 @@ function ResourceCard({ value, name, title, description, link }) {
           </Button>
         </CardContent>
       </Card>
-      {/* <CardActions>
-        <Button
-          className={classes.button}
-          href={link}
-          target="_blank"
-          fullWidth
-          onClick={handleClick}
-        >
-          visit {name}
-        </Button>
-      </CardActions> */}
     </div>
   );
 }
