@@ -174,7 +174,8 @@ function Nav(props) {
     },
     {
       href: '/covid-resources',
-      name: 'Covid Resources',
+      name: 'COVID-19',
+      shortName: 'COVID-19',
       show: true,
     },
   ];

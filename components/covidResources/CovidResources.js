@@ -34,7 +34,7 @@ const resources = [
     value: 'work-nj',
     title: 'Work NJ - Helpful Resources',
     description: `The Work NJ Hub will help connect to benefits and resources you need while you are trying to safely get back to work, as well as some tips for coping with the stress of losing a job.`,
-    link: 'https://jobs.covid19.nj.gov/',
+    link: 'https://covid19.nj.gov/work',
   },
   {
     value: 'job-portal',
@@ -82,7 +82,7 @@ export default function CovidResources() {
             container
             item
             direction="row"
-            spacing={3}
+            spacing={2}
             xs={12}
             sm={7}
           >
