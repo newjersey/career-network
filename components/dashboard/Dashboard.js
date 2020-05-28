@@ -56,6 +56,9 @@ const useStyles = makeStyles(theme => ({
   cardContent: {
     padding: theme.spacing(1),
   },
+  backgroundHeader: {
+    paddingTop: theme.spacing(3),
+  },
   planSetting: {
     position: 'absolute',
     Top: 0,
@@ -397,9 +400,9 @@ export default function Dashboard(props) {
         show={activeDialog === DIALOGS.CELEBRATION}
         onClose={() => setActiveDialog()}
       />
-      <BackgroundHeader>
+      <BackgroundHeader className={classes.backgroundHeader}>
         <ScaffoldContainer>
-          <Box position="relative">
+          <Box position="relative" display="flex">
             <Flags authorizedFlags={['actionPlan']}>
               <Button
                 classes={{ root: classes.planSetting }}
@@ -413,12 +416,14 @@ export default function Dashboard(props) {
                 </span>
               </Button>
             </Flags>
-            <Typography component="h1" variant="h2" gutterBottom>
-              Welcome, {user && user.firstName}
-            </Typography>
-            <Typography variant="subtitle1">
-              Here’s your personalized action plan. It will update as you make progress.
-            </Typography>
+            <Box mt={4}>
+              <Typography component="h1" variant="h2" gutterBottom>
+                Welcome, {user && user.firstName}
+              </Typography>
+              <Typography variant="subtitle1">
+                Here’s your personalized action plan. It will update as you make progress.
+              </Typography>
+            </Box>
           </Box>
         </ScaffoldContainer>
       </BackgroundHeader>
