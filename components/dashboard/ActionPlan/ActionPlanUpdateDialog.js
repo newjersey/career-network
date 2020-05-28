@@ -44,7 +44,7 @@ function ActionPlanUpdateDialog(props) {
   const { show, handleClose, actionPlan } = props;
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState();
-  const [values, setValues] = useState(actionPlan);
+  const [values, setValues] = useState({});
   const formId = 'actionPlan';
 
   const handleChange = event => {
@@ -55,12 +55,16 @@ function ActionPlanUpdateDialog(props) {
   const onClose = () => {
     setError();
     setSubmitting(false);
+    setValues({});
     handleClose();
   };
 
   const handleSave = () => {
     const updatedData = {
-      ...values,
+      goals: (values.goals && parseInt(values.goals, 10)) || actionPlan.goals,
+      activities: (values.activities && parseInt(values.activities, 10)) || actionPlan.activities,
+      applications:
+        (values.applications && parseInt(values.applications, 10)) || actionPlan.applications,
       lastUpdatedTimestamp: new Date(),
     };
     userDocRef.set({ actionPlan: updatedData }, { merge: true });
@@ -72,7 +76,7 @@ function ActionPlanUpdateDialog(props) {
     setSubmitting(true);
     try {
       await handleSave();
-      onClose();
+      handleClose();
     } catch (err) {
       setError(err.message);
     } finally {
@@ -119,7 +123,7 @@ function ActionPlanUpdateDialog(props) {
               className={classes.input}
               id={`${formId}-goals`}
               inputProps={{ name: 'goals', min: 0 }}
-              value={values.goals}
+              value={values.goals || actionPlan.goals}
               onChange={handleChange}
               variant="outlined"
               type="number"
@@ -142,7 +146,7 @@ function ActionPlanUpdateDialog(props) {
               className={classes.input}
               id={`${formId}-activities`}
               inputProps={{ name: 'activities', min: 0 }}
-              value={values.activities}
+              value={values.activities || actionPlan.activities}
               onChange={handleChange}
               variant="outlined"
               type="number"
@@ -165,7 +169,7 @@ function ActionPlanUpdateDialog(props) {
               className={classes.input}
               id={`${formId}-applications`}
               inputProps={{ name: 'applications', min: 0 }}
-              value={values.applications}
+              value={values.applications || actionPlan.applications}
               min={0}
               onChange={handleChange}
               variant="outlined"

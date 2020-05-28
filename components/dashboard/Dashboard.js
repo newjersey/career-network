@@ -72,6 +72,7 @@ const useStyles = makeStyles(theme => ({
   labelContainer: {
     marginLeft: 5,
     textDecoration: 'underline',
+    fontWeight: 'bold',
   },
   grid: {
     display: 'grid',
@@ -411,9 +412,7 @@ export default function Dashboard(props) {
                 <span className={classes.iconContainer}>
                   <SettingsIcon />
                 </span>
-                <span className={classes.labelContainer}>
-                  <b>UPDATE ACTION PLAN</b>
-                </span>
+                <span className={classes.labelContainer}>UPDATE ACTION PLAN</span>
               </Button>
             </Flags>
             <Box mt={4}>
