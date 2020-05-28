@@ -9,18 +9,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import startOfWeek from 'date-fns/startOfWeek';
 import Typography from '@material-ui/core/Typography';
-
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import NextWeekIcon from '@material-ui/icons/NextWeek';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
+
 import FirebasePropTypes from '../../Firebase/PropTypes';
 import { useAuth } from '../../Auth';
-
-const PLAN_COLORS = {
-  goal: '#1980c8',
-  activity: '#f29a38',
-  application: '#7ea94f',
-};
+import { ACTION_COLORS } from './constants';
 
 const ACTION_PLAN_DEFAULT = {
   goals: 3,
@@ -95,11 +90,11 @@ function ActionPlanBar({ userStats, actionPlan }) {
             <Button
               classes={{ label: classes.buttonLabel }}
               fullWidth
-              style={{ backgroundColor: fade(PLAN_COLORS.goal, 0.08) }}
+              style={{ backgroundColor: fade(ACTION_COLORS.goal, 0.08) }}
               startIcon={
                 <div
                   className={classes.iconContainer}
-                  style={{ color: PLAN_COLORS.goal, borderColor: PLAN_COLORS.goal }}
+                  style={{ color: ACTION_COLORS.goal, borderColor: ACTION_COLORS.goal }}
                 >
                   <VpnKeyIcon />
                 </div>
@@ -107,7 +102,7 @@ function ActionPlanBar({ userStats, actionPlan }) {
             >
               <Box>
                 <Typography className={classes.text} variant="h6">
-                  <span style={{ color: PLAN_COLORS.goal }}>
+                  <span style={{ color: ACTION_COLORS.goal }}>
                     <b>{userStats.goals || 0}</b>
                   </span>
                   <span style={{ fontWeight: 400 }}> of {actionPlan.goals || 0}</span>
@@ -124,11 +119,11 @@ function ActionPlanBar({ userStats, actionPlan }) {
             <Button
               classes={{ label: classes.buttonLabel }}
               fullWidth
-              style={{ backgroundColor: fade(PLAN_COLORS.activity, 0.08) }}
+              style={{ backgroundColor: fade(ACTION_COLORS.activity, 0.08) }}
               startIcon={
                 <div
                   className={classes.iconContainer}
-                  style={{ borderColor: PLAN_COLORS.activity, color: PLAN_COLORS.activity }}
+                  style={{ borderColor: ACTION_COLORS.activity, color: ACTION_COLORS.activity }}
                 >
                   <AssignmentTurnedInIcon />
                 </div>
@@ -136,7 +131,7 @@ function ActionPlanBar({ userStats, actionPlan }) {
             >
               <Box>
                 <Typography className={classes.text} variant="h6">
-                  <span style={{ color: PLAN_COLORS.activity }}>
+                  <span style={{ color: ACTION_COLORS.activity }}>
                     <b>{userStats.activities || 0}</b>
                   </span>
                   <span style={{ fontWeight: 400 }}> of {actionPlan.activities || 0}</span>
@@ -153,11 +148,14 @@ function ActionPlanBar({ userStats, actionPlan }) {
             <Button
               classes={{ label: classes.buttonLabel }}
               fullWidth
-              style={{ backgroundColor: fade(PLAN_COLORS.application, 0.08) }}
+              style={{ backgroundColor: fade(ACTION_COLORS.application, 0.08) }}
               startIcon={
                 <div
                   className={classes.iconContainer}
-                  style={{ borderColor: PLAN_COLORS.application, color: PLAN_COLORS.application }}
+                  style={{
+                    borderColor: ACTION_COLORS.application,
+                    color: ACTION_COLORS.application,
+                  }}
                 >
                   <NextWeekIcon />
                 </div>
@@ -165,7 +163,7 @@ function ActionPlanBar({ userStats, actionPlan }) {
             >
               <Box>
                 <Typography className={classes.text} variant="h6">
-                  <span style={{ color: PLAN_COLORS.application }}>
+                  <span style={{ color: ACTION_COLORS.application }}>
                     <b>{userStats.applications || 0}</b>
                   </span>
                   <span style={{ fontWeight: 400 }}> of {actionPlan.applications || 0}</span>

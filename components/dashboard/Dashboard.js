@@ -12,12 +12,14 @@ import PubSub from 'pubsub-js';
 import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
+import SettingsIcon from '@material-ui/icons/Settings';
 import every from 'lodash/every';
 import { getFirstIncompleteAction, isDone, mostRecent } from '../../src/app-helper';
 import { useAnalytics } from '../Analytics';
 import { useAuth } from '../Auth';
 import ActivityInputDialog from '../activityInput/ActivityInputDialog';
 import ActionPlanBar from './ActionPlan/ActionPlanBar';
+import ActionPlanUpdateDialog from './ActionPlan/ActionPlanUpdateDialog';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import ApplicationTrackerCard from './ApplicationTrackerCard';
 import AssessmentCompleteDialog from './AssessmentCompleteDialog';
@@ -53,6 +55,24 @@ const useStyles = makeStyles(theme => ({
   },
   cardContent: {
     padding: theme.spacing(1),
+  },
+  backgroundHeader: {
+    paddingTop: theme.spacing(3),
+  },
+  planSetting: {
+    position: 'absolute',
+    Top: 0,
+    right: 0,
+    color: theme.palette.background.dark,
+  },
+  iconContainer: {
+    flexShrink: 0,
+    display: 'flex',
+  },
+  labelContainer: {
+    marginLeft: 5,
+    textDecoration: 'underline',
+    fontWeight: 'bold',
   },
   grid: {
     display: 'grid',
@@ -263,6 +283,7 @@ const DIALOGS = {
   ACTIVITY_INPUT: 'ActivityInputDialog',
   UPCOMING_INTERVIEW: 'UpcomingInterviewDialog',
   ASSESSMENT_COMPLETE: 'AssessmentCompleteDialog',
+  ACTION_PLAN_UPDATE: 'ActionPlanUpdateDialog',
   CELEBRATION: 'CelebrationDialog',
 };
 
@@ -371,18 +392,38 @@ export default function Dashboard(props) {
         onClose={() => setActiveDialog()}
         onLogActivityButtonClick={() => setActiveDialog(DIALOGS.ACTIVITY_INPUT)}
       />
+      <ActionPlanUpdateDialog
+        show={activeDialog === DIALOGS.ACTION_PLAN_UPDATE}
+        handleClose={() => setActiveDialog()}
+        actionPlan={user.actionPlan}
+      />
       <CelebrationDialog
         show={activeDialog === DIALOGS.CELEBRATION}
         onClose={() => setActiveDialog()}
       />
-      <BackgroundHeader>
+      <BackgroundHeader className={classes.backgroundHeader}>
         <ScaffoldContainer>
-          <Typography component="h1" variant="h2" gutterBottom>
-            Welcome, {user && user.firstName}
-          </Typography>
-          <Typography variant="subtitle1">
-            Here’s your personalized action plan. It will update as you make progress.
-          </Typography>
+          <Box position="relative" display="flex">
+            <Flags authorizedFlags={['actionPlan']}>
+              <Button
+                classes={{ root: classes.planSetting }}
+                onClick={() => setActiveDialog(DIALOGS.ACTION_PLAN_UPDATE)}
+              >
+                <span className={classes.iconContainer}>
+                  <SettingsIcon />
+                </span>
+                <span className={classes.labelContainer}>UPDATE ACTION PLAN</span>
+              </Button>
+            </Flags>
+            <Box mt={4}>
+              <Typography component="h1" variant="h2" gutterBottom>
+                Welcome, {user && user.firstName}
+              </Typography>
+              <Typography variant="subtitle1">
+                Here’s your personalized action plan. It will update as you make progress.
+              </Typography>
+            </Box>
+          </Box>
         </ScaffoldContainer>
       </BackgroundHeader>
 
