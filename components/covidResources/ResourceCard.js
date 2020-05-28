@@ -3,9 +3,12 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import FlagIcon from '@material-ui/icons/Flag';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import FlagIcon from '@material-ui/icons/Flag';
+import HighlightIcon from '@material-ui/icons/Highlight';
+import WorkIcon from '@material-ui/icons/Work';
+import PropTypes from '../Firebase/PropTypes';
 
 const useStyles = makeStyles(theme => ({
   wrapper: {
@@ -20,10 +23,11 @@ const useStyles = makeStyles(theme => ({
     border: `3px solid ${theme.palette.primary.light}`,
     borderRadius: '50%',
     lineHeight: 0,
-    padding: theme.spacing(0.5),
+    padding: theme.spacing(0.6),
   },
   card: {
     padding: theme.spacing(3, 2, 2),
+    height: theme.spacing(40),
   },
   cardContent: {
     padding: theme.spacing(1),
@@ -33,32 +37,39 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const handleClick = () => {
-  window.Intercom('trackEvent', 'covid-access-button-clicked');
-};
-
-function CovidJobsAccess() {
+function ResourceCard({ value, title, description, link }) {
   const classes = useStyles();
+
+  const handleClick = () => {
+    window.Intercom('trackEvent', `covid-${title}-button-clicked'`);
+  };
+
+  const getIcon = () => {
+    if (value === 'information-hub') {
+      return <FlagIcon fontSize="large" />;
+    }
+    if (value === 'work-nj') {
+      return <HighlightIcon fontSize="large" />;
+    }
+    return <WorkIcon fontSize="large" />;
+  };
 
   return (
     <div className={classes.wrapper}>
-      <div className={classes.iconContainer}>
-        <FlagIcon fontSize="large" />
-      </div>
+      <div className={classes.iconContainer}>{getIcon()}</div>
       <Card className={classes.card} variant="outlined">
         <CardContent className={classes.cardContent}>
           <Typography variant="h6" gutterBottom>
-            COVID-19 Job Portal
+            {title}
           </Typography>
           <Typography variant="body1" gutterBottom>
-            Have you lost your job or have your hours reduced as a result of COVID-19? Visit the
-            COVID-19 Jobs Portal.
+            {description}
           </Typography>
         </CardContent>
         <CardActions>
           <Button
             className={classes.button}
-            href="https://jobs.covid19.nj.gov/"
+            href={link}
             target="_blank"
             fullWidth
             onClick={handleClick}
@@ -71,4 +82,18 @@ function CovidJobsAccess() {
   );
 }
 
-export default CovidJobsAccess;
+ResourceCard.propTypes = {
+  value: PropTypes.string,
+  title: PropTypes.string,
+  description: PropTypes.string,
+  link: PropTypes.string,
+};
+
+ResourceCard.defaultProps = {
+  value: '',
+  title: '',
+  description: '',
+  link: '',
+};
+
+export default ResourceCard;
