@@ -93,8 +93,6 @@ export default function AppManager(props) {
     // the timeout prevents some kind of race condition that throws a benign console
     // error when booting immediately after the above "clean slate" shutdown
     window.setTimeout(() => window.Intercom('boot', config), 1);
-
-    return () => window.Intercom('shutdown');
   }, [
     intercomUserHash,
     userCreationTimestampSeconds,
