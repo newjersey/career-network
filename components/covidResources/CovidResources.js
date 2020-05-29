@@ -90,7 +90,7 @@ export default function CovidResources() {
             sm={7}
           >
             {resources.map(resource => (
-              <Grid item xs={12} sm={12} md={6} key={resource.value}>
+              <Grid item xs={12} md={6} key={resource.value}>
                 <ResourceCard {...resource} />
               </Grid>
             ))}

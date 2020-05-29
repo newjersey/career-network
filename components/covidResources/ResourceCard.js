@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import FlagIcon from '@material-ui/icons/Flag';
 import HighlightIcon from '@material-ui/icons/Highlight';
 import WorkIcon from '@material-ui/icons/Work';
-import PropTypes from '../Firebase/PropTypes';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles(theme => ({
   wrapper: {
