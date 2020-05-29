@@ -172,6 +172,12 @@ function Nav(props) {
       show: true,
       onClick: handleHelpClick,
     },
+    {
+      href: '/covid-resources',
+      name: 'COVID-19',
+      shortName: 'COVID-19',
+      show: true,
+    },
   ];
 
   return (

@@ -24,9 +24,7 @@ import AirtablePropTypes from '../Airtable/PropTypes';
 import ApplicationTrackerCard from './ApplicationTrackerCard';
 import AssessmentCompleteDialog from './AssessmentCompleteDialog';
 import BackgroundHeader from '../BackgroundHeader';
-import CovidJobsAccess from './CovidJobsAccess';
 import FirebasePropTypes from '../Firebase/PropTypes';
-import NotificationCard from './NotificationCard';
 import ProgressFeed from './ProgressFeed';
 import ScaffoldContainer from '../ScaffoldContainer';
 import SentimentTracker from './SentimentTracker/SentimentTracker';
@@ -488,7 +486,6 @@ export default function Dashboard(props) {
                 <UserProfileCard user={user} />
               </Box>
             </Flags>
-            <CovidJobsAccess />
             {
               // Hide this feature since the data has become out of sync with the current climate
               /* <Box mt={8} style={{ position: 'relative' }}>
@@ -547,7 +544,6 @@ export default function Dashboard(props) {
           </Box>
         </Box>
       </ScaffoldContainer>
-      <NotificationCard />
     </div>
   );
 }
