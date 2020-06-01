@@ -492,8 +492,6 @@ export default function Dashboard(props) {
                       <EmploymentOutlookLauchpad />
                 </Box> */
             }
-          </Box>
-          <Box className={classes.gridR}>
             <Flags authorizedFlags={['activityLog']}>
               <Box mb={3}>
                 <Card variant="outlined">
@@ -508,11 +506,14 @@ export default function Dashboard(props) {
                   <ProgressFeed
                     activities={allActivityLogEntries}
                     completedTasks={completedTasks}
+                    applications={allApplicationLogEntries}
                     limit={historyLimit}
                   />
                 </Card>
               </Box>
             </Flags>
+          </Box>
+          <Box className={classes.gridR}>
             <Flags authorizedFlags={['applicationTracker']}>
               <Box mb={3} data-intercom="application-tracker">
                 <ApplicationTrackerCard applications={allApplicationLogEntries} />

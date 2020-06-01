@@ -21,11 +21,15 @@ const useStyles = makeStyles({
 });
 export default function ProgressFeed(props) {
   const classes = useStyles();
-  const { activities, completedTasks, limit } = props;
+  const { activities, completedTasks, applications, limit } = props;
 
   // protect against immediately-created items that don't yet have a server-generated timestamp
   const getTimestamp = item =>
     (item.data().timestamp && item.data().timestamp.toDate()) || new Date();
+
+  const getApplicationTimestamp = item =>
+    (item.data().statusEntries[0].timestamp && item.data().statusEntries[0].timestamp.toDate()) ||
+    new Date();
 
   const sorted = [
     ...activities.map(item => ({
@@ -36,6 +40,15 @@ export default function ProgressFeed(props) {
         timeSpentInMinutes: item.data().timeSpentInMinutes,
         key: item.id,
         actionType: ACTION_TYPES.activity,
+      },
+    })),
+    ...applications.map(item => ({
+      timestamp: getApplicationTimestamp(item),
+      props: {
+        title: `Application Opened for ${item.data().jobTitle} at ${item.data().company}`,
+        date: item.data().statusEntries[0].timestamp,
+        key: item.id,
+        actionType: ACTION_TYPES.application,
       },
     })),
     ...completedTasks.map(item => ({
@@ -65,7 +78,7 @@ export default function ProgressFeed(props) {
               data-intercom="all-progress-button"
               fullWidth
             >
-              See All
+              View All Actions
             </Button>
           </NextLink>
         </Box>
@@ -76,6 +89,7 @@ export default function ProgressFeed(props) {
 
 ProgressFeed.propTypes = {
   activities: FirebasePropTypes.querySnapshot.isRequired,
+  applications: FirebasePropTypes.querySnapshot.isRequired,
   completedTasks: FirebasePropTypes.querySnapshot.isRequired,
   limit: PropTypes.number.isRequired,
 };
