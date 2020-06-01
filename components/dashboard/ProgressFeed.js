@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { compareDesc } from 'date-fns';
 import NextLink from 'next/link';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+import { ACTION_TYPES } from './ActionPlan/constants';
 import FirebasePropTypes from '../Firebase/PropTypes';
 import ProgressFeedItem from './ProgressFeedItem';
 
@@ -31,10 +32,10 @@ export default function ProgressFeed(props) {
       timestamp: getTimestamp(item),
       props: {
         title: item.data().briefDescription,
-        subheader: item.data().activityTypeLabel,
         date: item.data().dateCompleted,
         timeSpentInMinutes: item.data().timeSpentInMinutes,
         key: item.id,
+        actionType: ACTION_TYPES.activity,
       },
     })),
     ...completedTasks.map(item => ({
@@ -44,6 +45,7 @@ export default function ProgressFeed(props) {
         subheader: item.data().task.fields.Category,
         date: item.data().timestamp,
         key: item.id,
+        actionType: ACTION_TYPES.goal,
       },
     })),
   ].sort((a, b) => compareDesc(a.timestamp, b.timestamp));

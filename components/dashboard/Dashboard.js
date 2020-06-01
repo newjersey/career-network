@@ -500,7 +500,7 @@ export default function Dashboard(props) {
                   <CardHeader
                     title={
                       <Typography component="h2" variant="h6" data-intercom="activity-title">
-                        Activity Log
+                        Recent Actions
                       </Typography>
                     }
                     disableTypography
