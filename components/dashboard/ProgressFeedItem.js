@@ -9,7 +9,7 @@ import Divider from '@material-ui/core/Divider';
 import PropTypes from 'prop-types';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import NextWeekIcon from '@material-ui/icons/NextWeek';
-import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import StarIcon from '@material-ui/icons/Star';
 
 import { ACTION_COLORS, ACTION_TYPES } from './ActionPlan/constants';
 import DateCompleted from '../DateCompleted';
@@ -49,7 +49,7 @@ export default function ProgressFeedItem(props) {
   const getIcon = () => {
     switch (actionType.value) {
       case ACTION_TYPES.goal.value:
-        return <VpnKeyIcon fontSize="inherit" />;
+        return <StarIcon fontSize="inherit" />;
       case ACTION_TYPES.application.value:
         return <NextWeekIcon fontSize="inherit" />;
       default:
