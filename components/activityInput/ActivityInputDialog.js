@@ -9,7 +9,6 @@ import firebase from 'firebase/app';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Grid from '@material-ui/core/Grid';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
@@ -33,72 +32,81 @@ const useActivityDialogStyles = makeStyles(theme => ({
   formControl: {
     width: '100%',
     margin: theme.spacing(1, 0, 0, 0),
+    minHeight: 108,
   },
-  textField: {
+  inputField: {
     margin: theme.spacing(1, 0, 0, 0),
   },
-  toggleButton: {
+  toggleButtonGroup: {
     marginTop: theme.spacing(2),
   },
   menuItem: {
     whiteSpace: 'normal',
+  },
+  toggleButton: {
+    flexBasis: 'calc(100%/3)',
+    flex: 1,
+    marginRight: 0,
+    paddingTop: 0,
+  },
+  labelWithSub: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  dialogActions: {
+    padding: theme.spacing(2, 3),
+  },
+  difficultyButton: {
+    color: theme.palette.background.dark,
+    '&.toggleButton-0': {
+      backgroundColor: '#fbe6aa',
+    },
+    '&.toggleButton-1': {
+      backgroundColor: '#f8cb98',
+    },
+    '&.toggleButton-2': {
+      backgroundColor: '#ec9996',
+    },
+  },
+  dialogTitle: {
+    marginTop: theme.spacing(4),
   },
 }));
 
 const ACTIVITY_TYPES = [
   {
     value: 'openings',
-    label: 'Searched for job openings (Indeed, LinkedIn, Monster, CareerBuilder, etc.)',
-    category: AirtablePropTypes.TASK_CATEGORIES.apply,
-  },
-  {
-    value: 'application',
-    label: 'Completed a job application',
+    label: 'Searched for Job Openings',
     category: AirtablePropTypes.TASK_CATEGORIES.apply,
   },
   {
     value: 'materials',
-    label: 'Worked on marketing materials (resume, cover letter, LinkedIn profile/activity, etc.)',
+    label: 'Worked on Marketing Materials',
     category: AirtablePropTypes.TASK_CATEGORIES.marketing,
   },
   {
-    value: 'interview-prep',
-    label: 'Prepared for an interview',
-    category: AirtablePropTypes.TASK_CATEGORIES.apply,
-  },
-  {
-    value: 'networking-irl',
-    label: 'Attended a networking event/job fair',
-    category: AirtablePropTypes.TASK_CATEGORIES.relationship,
-  },
-  {
     value: 'networking-virtual',
-    label: 'Had a virtual networking interaction (via email, LinkedIn, etc.)',
+    label: 'Had a Virtual Networking Interaction (via Email, LinkedIn, Meeting)',
     category: AirtablePropTypes.TASK_CATEGORIES.relationship,
   },
   {
     value: 'contact',
-    label: 'Had a meeting/call with a contact',
+    label: 'Had a Meeting/Call with a Contact',
     category: AirtablePropTypes.TASK_CATEGORIES.relationship,
   },
   {
     value: 'research-company-industry',
-    label: 'Researched a target company/industry',
-    category: AirtablePropTypes.TASK_CATEGORIES.research,
-  },
-  {
-    value: 'research-contacts',
-    label: 'Researched contacts at target company',
+    label: 'Researched Target Organizations and Contacts',
     category: AirtablePropTypes.TASK_CATEGORIES.research,
   },
   {
     value: 'organization',
-    label: 'Organized my search & routines',
+    label: 'Organized My Search',
     category: AirtablePropTypes.TASK_CATEGORIES.mindset,
   },
   {
     value: 'self-care',
-    label: 'Self-care to deal with stress of the search',
+    label: 'Self-Care to Deal with Stress of the Search',
     category: AirtablePropTypes.TASK_CATEGORIES.mindset,
   },
   {
@@ -106,32 +114,27 @@ const ACTIVITY_TYPES = [
     label: 'Other',
     category: AirtablePropTypes.TASK_CATEGORIES.other,
   },
-  {
-    value: 'assessment-complete',
-    label: 'Completed assessment',
-    category: AirtablePropTypes.TASK_CATEGORIES.other,
-  },
 ];
 
 const TIME_SPENT_OPTIONS = [
   {
-    label: '15 minutes',
+    label: 'Less than 30 Minutes',
     value: 15,
   },
   {
-    label: '30 minutes',
+    label: '30 Minutes',
     value: 30,
   },
   {
-    label: '1 hour',
+    label: '1 Hour',
     value: 60,
   },
   {
-    label: '1.5 hours',
+    label: '1.5 Hours',
     value: 90,
   },
   {
-    label: '2+ hours',
+    label: '2+ Hours',
     value: 120,
   },
 ];
@@ -269,24 +272,30 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
       open={show}
       onExited={resetComponent}
     >
-      <DialogTitle id="customized-dialog-title" onClose={onClose}>
-        <Typography variant="h5">Log an Activity</Typography>
+      <DialogTitle id="customized-dialog-title" onClose={onClose} className={classes.dialogTitle}>
+        <Typography variant="h5" gutterBottom>
+          Log an Activity
+        </Typography>
+        <Typography variant="body2" color="textSecondary">
+          Research suggests that job seekers who track their progress are more successful and land
+          their next position faster.
+        </Typography>
       </DialogTitle>
 
-      <DialogContent dividers>
+      <DialogContent>
         {submitting && <CircularProgress />}
         {!(submitting || success) && (
           <form id={formId}>
             <FormControl className={classes.formControl}>
-              <InputLabel error={!!(formErrors && formErrors.activityTypeValue)}>
-                Activity
-              </InputLabel>
+              <span>Activity Type</span>
               <Select
                 inputProps={{
                   name: 'activityType',
                 }}
+                className={classes.inputField}
                 error={!!(formErrors && formErrors.activityTypeValue)}
                 value={formValues.activityTypeValue}
+                variant="outlined"
                 onChange={e =>
                   setFormValues({
                     ...formValues,
@@ -312,60 +321,57 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
               )}
             </FormControl>
 
-            <TextField
-              label="Brief Description"
-              value={formValues.briefDescription}
-              error={!!(formErrors && formErrors.briefDescription)}
-              helperText={(formErrors && formErrors.briefDescription) || null}
-              fullWidth
-              onChange={e => setFormValues({ ...formValues, briefDescription: e.target.value })}
-              className={classes.textField}
-              inputProps={{ maxLength: 80 }}
-            />
-
-            <TextField
-              label="Notes and Reflection"
-              value={formValues.description}
-              error={!!(formErrors && formErrors.description)}
-              helperText={(formErrors && formErrors.description) || null}
-              fullWidth
-              onChange={e => setFormValues({ ...formValues, description: e.target.value })}
-              className={classes.textField}
-            />
+            <FormControl className={classes.formControl}>
+              <span>Activity Title</span>
+              <TextField
+                variant="outlined"
+                value={formValues.briefDescription}
+                error={!!(formErrors && formErrors.briefDescription)}
+                fullWidth
+                onChange={e => setFormValues({ ...formValues, briefDescription: e.target.value })}
+                className={classes.inputField}
+                inputProps={{ maxLength: 80 }}
+              />
+              {formErrors && formErrors.briefDescription && (
+                <FormHelperText error>{formErrors.briefDescription}</FormHelperText>
+              )}
+            </FormControl>
 
             <Grid container justify="space-between" alignItems="flex-start" spacing={isXs ? 0 : 3}>
               <Grid item xs={12} sm={6}>
-                <MuiThemeProvider theme={datePickerTheme}>
-                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <KeyboardDatePicker
-                      disableToolbar
-                      disableFuture
-                      fullWidth
-                      variant="inline"
-                      format="MM/dd/yyyy"
-                      margin="normal"
-                      label="Date Completed"
-                      value={formValues.dateCompleted}
-                      onChange={date =>
-                        setFormValues({ ...formValues, dateCompleted: startOfDay(date) })
-                      }
-                      KeyboardButtonProps={{
-                        'aria-label': 'change date',
-                      }}
-                    />
-                  </MuiPickersUtilsProvider>
-                </MuiThemeProvider>
+                <FormControl className={classes.formControl}>
+                  <span>Dates</span>
+                  <MuiThemeProvider theme={datePickerTheme}>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                      <KeyboardDatePicker
+                        disableToolbar
+                        disableFuture
+                        fullWidth
+                        variant="inline"
+                        inputVariant="outlined"
+                        format="MM/dd/yyyy"
+                        margin="normal"
+                        value={formValues.dateCompleted}
+                        onChange={date =>
+                          setFormValues({ ...formValues, dateCompleted: startOfDay(date) })
+                        }
+                        KeyboardButtonProps={{
+                          'aria-label': 'change date',
+                        }}
+                      />
+                    </MuiPickersUtilsProvider>
+                  </MuiThemeProvider>
+                </FormControl>
               </Grid>
-
               <Grid item xs={12} sm={6}>
                 <FormControl className={classes.formControl}>
-                  <InputLabel error={!!(formErrors && formErrors.timeSpentInMinutes)}>
-                    Time Spent
-                  </InputLabel>
+                  <span>Time Spent</span>
                   <Select
+                    variant="outlined"
                     inputProps={{
                       name: 'timeSpent',
                     }}
+                    className={classes.inputField}
                     error={!!(formErrors && formErrors.timeSpentInMinutes)}
                     value={formValues.timeSpentInMinutes}
                     onChange={e =>
@@ -385,45 +391,67 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
               </Grid>
             </Grid>
 
-            <FormControl className={classes.formControl}>
-              <InputLabel error={!!(formErrors && formErrors.difficultyLevel)} shrink>
-                Difficulty Level
-              </InputLabel>
-              <Grid item xs={12} className={classes.toggleButton}>
-                <ToggleButton
-                  options={DIFFICULTY_LEVELS}
-                  value={String(formValues.difficultyLevel)}
-                  handleChange={e => setFormValues({ ...formValues, difficultyLevel: e })}
-                />
+            <Grid container>
+              <Grid item xs={12} className={classes.toggleButtonGroup}>
+                <FormControl className={classes.formControl}>
+                  <span>Difficulty Level</span>
+                  <ToggleButton
+                    buttonVariant="outlined"
+                    selectedButtonVariant="contained"
+                    classNameOverrides={{
+                      containedPrimary: classes.difficultyButton,
+                    }}
+                    containerProps={{ className: classes.difficultyButtonContainer }}
+                    buttonClassName={classes.toggleButton}
+                    options={DIFFICULTY_LEVELS}
+                    value={String(formValues.difficultyLevel)}
+                    handleChange={e => setFormValues({ ...formValues, difficultyLevel: e })}
+                  />
+                  {formErrors && formErrors.difficultyLevel && (
+                    <FormHelperText error>{formErrors.difficultyLevel}</FormHelperText>
+                  )}
+                </FormControl>
               </Grid>
-              {formErrors && formErrors.difficultyLevel && (
-                <FormHelperText error>{formErrors.difficultyLevel}</FormHelperText>
+            </Grid>
+
+            <Grid container>
+              <Grid item xs={12}>
+                <FormControl className={classes.formControl}>
+                  <div className={classes.labelWithSub}>
+                    <Typography variant="body2">I Felt...</Typography>
+                    <Typography variant="caption" color="textSecondary">
+                      (Select All that Apply)
+                    </Typography>
+                  </div>
+                  <ToggleButton
+                    options={shuffledFeelings}
+                    multiSelect
+                    buttonVariant="outlined"
+                    selectedButtonVariant="contained"
+                    buttonClassName={classes.toggleButton}
+                    value={formValues.activityFeeling}
+                    handleChange={e => setFormValues({ ...formValues, activityFeeling: e })}
+                  />
+                </FormControl>
+              </Grid>
+            </Grid>
+
+            <FormControl className={classes.formControl}>
+              <span>Notes & Reflection</span>
+              <TextField
+                variant="outlined"
+                value={formValues.description}
+                error={!!(formErrors && formErrors.description)}
+                fullWidth
+                multiline
+                rows={3}
+                onChange={e => setFormValues({ ...formValues, description: e.target.value })}
+                className={classes.inputField}
+              />
+              {formErrors && formErrors.description && (
+                <FormHelperText error>{formErrors.description}</FormHelperText>
               )}
             </FormControl>
-
-            <FormControl className={classes.formControl}>
-              <InputLabel shrink>This activity made me feel… (select all that apply)</InputLabel>
-              <Grid item xs={12} className={classes.toggleButton}>
-                <ToggleButton
-                  options={shuffledFeelings}
-                  multiSelect
-                  value={formValues.activityFeeling}
-                  handleChange={e => setFormValues({ ...formValues, activityFeeling: e })}
-                />
-              </Grid>
-            </FormControl>
-
-            <TextField
-              label="Why do you feel this way?"
-              multiline
-              rows="4"
-              className={classes.textField}
-              margin="normal"
-              variant="outlined"
-              fullWidth
-              value={formValues.whyIFeelThisWay}
-              onChange={e => setFormValues({ ...formValues, whyIFeelThisWay: e.target.value })}
-            />
           </form>
         )}
         {error && (
@@ -433,14 +461,28 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
         )}
         <SubmitSuccess message="Activity added!" show={success} />
       </DialogContent>
-      <DialogActions>
+      <DialogActions className={classes.dialogActions}>
         {!success && (
-          <Button autoFocus onClick={handleSave} fullWidth color="primary">
+          <Button
+            autoFocus
+            onClick={handleSave}
+            fullWidth
+            color="primary"
+            size="large"
+            variant="contained"
+          >
             Submit
           </Button>
         )}
         {success && (
-          <Button autoFocus onClick={resetComponent} fullWidth color="primary">
+          <Button
+            autoFocus
+            onClick={resetComponent}
+            fullWidth
+            color="primary"
+            size="large"
+            variant="contained"
+          >
             Add Another Activity
           </Button>
         )}

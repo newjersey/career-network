@@ -6,7 +6,6 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
 import PropTypes from 'prop-types';
 import PubSub from 'pubsub-js';
 import React, { useEffect, useState } from 'react';
@@ -25,7 +24,6 @@ import ApplicationTrackerCard from './ApplicationTrackerCard';
 import AssessmentCompleteDialog from './AssessmentCompleteDialog';
 import BackgroundHeader from '../BackgroundHeader';
 import FirebasePropTypes from '../Firebase/PropTypes';
-import ProgressFeed from './ProgressFeed';
 import ScaffoldContainer from '../ScaffoldContainer';
 import SentimentTracker from './SentimentTracker/SentimentTracker';
 import TaskList from './TaskList';
@@ -460,15 +458,6 @@ export default function Dashboard(props) {
             <Typography variant="h5" className={classes.subtitle} data-intercom="task-count">
               Top {tasks.length} Goals
             </Typography>
-            <Button
-              variant="contained"
-              size="large"
-              color="primary"
-              onClick={() => setActiveDialog(DIALOGS.ACTIVITY_INPUT)}
-              data-intercom="log-activity-button"
-            >
-              Log Activity
-            </Button>
           </Box>
           <Box className={classes.gridC}>
             <TaskList
@@ -492,28 +481,35 @@ export default function Dashboard(props) {
                       <EmploymentOutlookLauchpad />
                 </Box> */
             }
+          </Box>
+          <Box className={classes.gridR}>
             <Flags authorizedFlags={['activityLog']}>
               <Box mb={3}>
-                <Card variant="outlined">
-                  <CardHeader
-                    title={
-                      <Typography component="h2" variant="h6" data-intercom="activity-title">
-                        Recent Actions
-                      </Typography>
-                    }
-                    disableTypography
-                  />
-                  <ProgressFeed
-                    activities={allActivityLogEntries}
-                    completedTasks={completedTasks}
-                    applications={allApplicationLogEntries}
-                    limit={historyLimit}
-                  />
+                <Card variant="outlined" className={classes.card}>
+                  <CardContent className={classes.cardContent}>
+                    <Typography variant="h6" gutterBottom>
+                      Activity Log
+                    </Typography>
+                    <Typography variant="body1" gutterBottom>
+                      We know you job search happens beyond your computer. Our research suggests
+                      jobseekers who track their progress land their next role faster.
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button
+                      fullWidth
+                      color="primary"
+                      variant="contained"
+                      size="large"
+                      data-intercom="log-activity-button"
+                      onClick={() => setActiveDialog(DIALOGS.ACTIVITY_INPUT)}
+                    >
+                      Log An Activity
+                    </Button>
+                  </CardActions>
                 </Card>
               </Box>
             </Flags>
-          </Box>
-          <Box className={classes.gridR}>
             <Flags authorizedFlags={['applicationTracker']}>
               <Box mb={3} data-intercom="application-tracker">
                 <ApplicationTrackerCard applications={allApplicationLogEntries} />
