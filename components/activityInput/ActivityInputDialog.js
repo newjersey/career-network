@@ -37,13 +37,13 @@ const useActivityDialogStyles = makeStyles(theme => ({
   inputField: {
     margin: theme.spacing(1, 0, 0, 0),
   },
-  toggleButton: {
+  toggleButtonGroup: {
     marginTop: theme.spacing(2),
   },
   menuItem: {
     whiteSpace: 'normal',
   },
-  difficultyButton: {
+  toggleButton: {
     flex: 1,
   },
   labelWithSub: {
@@ -52,6 +52,18 @@ const useActivityDialogStyles = makeStyles(theme => ({
   },
   dialogActions: {
     padding: theme.spacing(2, 3),
+  },
+  difficultyButton: {
+    color: theme.palette.background.dark,
+    '&.toggleButton-0': {
+      backgroundColor: '#fbe6aa',
+    },
+    '&.toggleButton-1': {
+      backgroundColor: '#f8cb98',
+    },
+    '&.toggleButton-2': {
+      backgroundColor: '#ec9996',
+    },
   },
 }));
 
@@ -375,11 +387,17 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
             </Grid>
 
             <Grid container>
-              <Grid item xs={12} className={classes.toggleButton}>
+              <Grid item xs={12} className={classes.toggleButtonGroup}>
                 <FormControl className={classes.formControl}>
                   <span>Difficulty Level</span>
                   <ToggleButton
-                    buttonClassName={classes.difficultyButton}
+                    buttonVariant="outlined"
+                    selectedButtonVariant="contained"
+                    classNameOverrides={{
+                      containedPrimary: classes.difficultyButton,
+                    }}
+                    containerClassName={classes.difficultyButtonContainer}
+                    buttonClassName={classes.toggleButton}
                     options={DIFFICULTY_LEVELS}
                     value={String(formValues.difficultyLevel)}
                     handleChange={e => setFormValues({ ...formValues, difficultyLevel: e })}
@@ -405,7 +423,7 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
                     multiSelect
                     buttonVariant="outlined"
                     selectedButtonVariant="contained"
-                    buttonClassName={classes.difficultyButton}
+                    buttonClassName={classes.toggleButton}
                     value={formValues.activityFeeling}
                     handleChange={e => setFormValues({ ...formValues, activityFeeling: e })}
                   />

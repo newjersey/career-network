@@ -82,7 +82,7 @@ function ToggleButton(props) {
 
   return (
     <Grid container className={containerClassName}>
-      {options.map(opt => (
+      {options.map((opt, index) => (
         <Grid
           item
           className={clsx(classes.button, buttonClassName)}
@@ -94,7 +94,7 @@ function ToggleButton(props) {
         >
           <Button
             style={{ height: '44px' }}
-            classes={classNameOverrides}
+            classes={{ root: `toggleButton-${index}`, ...classNameOverrides }}
             fullWidth
             variant={
               selectedButtonVariant && isSelected(opt) ? selectedButtonVariant : buttonVariant
