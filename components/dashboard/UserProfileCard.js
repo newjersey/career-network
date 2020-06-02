@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import Avatar from '@material-ui/core/Avatar';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -57,6 +58,16 @@ function UserProfileCard({ user }) {
             </Grid>
           </Grid>
           <Divider variant="fullWidth" />
+          {user.userData && user.userData.userProfile && user.userData.userProfile.goal && (
+            <Box mt={2}>
+              <Typography variant="body2" component="h3" gutterBottom>
+                <b>CAREER GOAL</b>
+              </Typography>
+              <Typography variant="body2" component="p">
+                {user.userData.userProfile.goal}
+              </Typography>
+            </Box>
+          )}
         </CardContent>
         <CardActions disableSpacing>
           <NextLink href="/profile">
