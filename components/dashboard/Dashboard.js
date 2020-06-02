@@ -482,7 +482,7 @@ export default function Dashboard(props) {
           </Box>
           <Box className={classes.gridL} position="relative">
             <Flags authorizedFlags={['userProfile']}>
-              <Box mb={5}>
+              <Box mb={3}>
                 <UserProfileCard user={user} />
               </Box>
             </Flags>
