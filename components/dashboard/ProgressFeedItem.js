@@ -100,5 +100,3 @@ ProgressFeedItem.propTypes = {
     label: PropTypes.string.isRequired,
   }).isRequired,
 };
-
-ProgressFeedItem.defaultProps = {};
