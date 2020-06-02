@@ -50,6 +50,9 @@ const useActivityDialogStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
+  dialogActions: {
+    padding: theme.spacing(2, 3),
+  },
 }));
 
 const ACTIVITY_TYPES = [
@@ -262,7 +265,7 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
         </Typography>
       </DialogTitle>
 
-      <DialogContent dividers>
+      <DialogContent>
         {submitting && <CircularProgress />}
         {!(submitting || success) && (
           <form id={formId}>
@@ -389,10 +392,10 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
             </Grid>
 
             <Grid container>
-              <Grid item xs={12} className={classes.toggleButton}>
+              <Grid item xs={12}>
                 <FormControl className={classes.formControl}>
                   <div className={classes.labelWithSub}>
-                    <Typography>I Felt...</Typography>
+                    <Typography variant="body2">I Felt...</Typography>
                     <Typography variant="caption" color="textSecondary">
                       (Select All that Apply)
                     </Typography>
@@ -400,6 +403,8 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
                   <ToggleButton
                     options={shuffledFeelings}
                     multiSelect
+                    buttonVariant="outlined"
+                    selectedButtonVariant="contained"
                     buttonClassName={classes.difficultyButton}
                     value={formValues.activityFeeling}
                     handleChange={e => setFormValues({ ...formValues, activityFeeling: e })}
@@ -415,6 +420,8 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
                 value={formValues.description}
                 error={!!(formErrors && formErrors.description)}
                 fullWidth
+                multiline
+                rows={3}
                 onChange={e => setFormValues({ ...formValues, description: e.target.value })}
                 className={classes.inputField}
               />
@@ -431,14 +438,28 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
         )}
         <SubmitSuccess message="Activity added!" show={success} />
       </DialogContent>
-      <DialogActions>
+      <DialogActions className={classes.dialogActions}>
         {!success && (
-          <Button autoFocus onClick={handleSave} fullWidth color="primary">
+          <Button
+            autoFocus
+            onClick={handleSave}
+            fullWidth
+            color="primary"
+            size="large"
+            variant="contained"
+          >
             Submit
           </Button>
         )}
         {success && (
-          <Button autoFocus onClick={resetComponent} fullWidth color="primary">
+          <Button
+            autoFocus
+            onClick={resetComponent}
+            fullWidth
+            color="primary"
+            size="large"
+            variant="contained"
+          >
             Add Another Activity
           </Button>
         )}
