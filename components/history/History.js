@@ -2,26 +2,25 @@ import { format, compareDesc, getMonth, getYear } from 'date-fns';
 import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import CalendarIcon from '@material-ui/icons/CalendarTodayRounded';
-import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
-import Hidden from '@material-ui/core/Hidden';
-import React, { useState, useLayoutEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import uniqBy from 'lodash/fp/uniqBy';
 
 import Activity from './Activity';
 import ActivityInputDialog, { ACTIVITY_TYPES } from '../activityInput/ActivityInputDialog';
 import AirtablePropTypes from '../Airtable/PropTypes';
+import BackgroundHeader from '../BackgroundHeader';
 import CompletedTask from './CompletedTask';
 import EmptyState from './EmptyState';
-import Filter from './Filter';
 import HistoryPropTypes from './PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
+import { ACTION_TYPES } from '../dashboard/ActionPlan/constants';
+import ActionItem from './ActionItem';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    padding: theme.spacing(5, 0),
+  backgroundHeader: {
+    background: `linear-gradient(to right, #ffffff, #60b1e9 100%)`,
   },
   pageHeader: {
     marginTop: theme.spacing(4),
@@ -59,17 +58,7 @@ const unrecognizedCategoryName = AirtablePropTypes.TASK_CATEGORIES.other.name;
 export default function History(props) {
   const classes = useStyles();
   const { activities, completedTasks } = props;
-  const headerRef = useRef(null);
-  const sectionHeaderRef = useRef(null);
-  const [headerHeight, setHeaderHeight] = useState();
   const [showDialog, setShowDialog] = useState(false);
-
-  useLayoutEffect(() => {
-    setHeaderHeight(
-      headerRef.current.getBoundingClientRect().height +
-        sectionHeaderRef.current.getBoundingClientRect().height
-    );
-  }, []);
 
   const activitiesTemp = activities.map(a => {
     const { activityTypeValue, dateCompleted, ...activity } = a.data();
@@ -79,6 +68,8 @@ export default function History(props) {
       dateCompleted,
       component: Activity,
       id: a.id,
+      title: activity.briefDescription,
+      actionType: ACTION_TYPES.activity,
     };
   });
 
@@ -93,22 +84,13 @@ export default function History(props) {
       timestamp,
       component: CompletedTask,
       id: taskEvent.id,
+      actionType: ACTION_TYPES.goal,
     };
   });
 
   const cards = [...activitiesTemp, ...tasksTemp].sort((a, b) =>
     compareDesc(new Date(a.dateCmp), new Date(b.dateCmp))
   );
-
-  const cardCategoryNames = cards
-    .map(card => card.categoryName)
-    .map(categoryName => AirtablePropTypes.findTaskCategory(categoryName).name);
-
-  const [activeCategoryFilters, setActiveCategoryFilters] = useState(
-    Object.fromEntries(cardCategoryNames.map(categoryName => [categoryName, true]))
-  );
-
-  const filteredCards = cards.filter(card => activeCategoryFilters[card.categoryName] === true);
 
   const activityPeriods = uniqBy('formatted')(
     cards.map(card => {
@@ -121,64 +103,51 @@ export default function History(props) {
     })
   );
 
-  const onFilterChange = name => event => {
-    setActiveCategoryFilters({ ...activeCategoryFilters, [name]: !!event.target.checked });
-  };
-
   const isEmpty = () => {
-    return filteredCards.length === 0;
+    return cards.length === 0;
   };
 
   return (
     <div className={classes.root}>
       <ActivityInputDialog show={showDialog} onClose={() => setShowDialog()} />
-      <ScaffoldContainer>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={3}>
-            <Hidden only={['xs', 'sm']}>
-              <Box width={1} height={headerHeight} />
-            </Hidden>
-            <Card className={classes.siderail} variant="outlined">
-              <Box mb={3}>
-                <Typography component="h2" variant="h6">
-                  Filter List By...
-                </Typography>
-              </Box>
-              <Typography variant="h5" style={{ fontSize: 14, color: '#92929d' }} gutterBottom>
-                ACTIVITY TYPE
-              </Typography>
-              <Filter
-                filterOptions={activeCategoryFilters}
-                onChange={onFilterChange}
-                catchAll={unrecognizedCategoryName}
-              />
-            </Card>
+      <BackgroundHeader className={classes.backgroundHeader}>
+        <ScaffoldContainer className={classes.header}>
+          <Grid container justify="center">
+            <Grid item xs={12} md={9}>
+              <Typography variant="h5">All Actions</Typography>
+            </Grid>
+            <Button
+              variant="contained"
+              size="large"
+              color="primary"
+              onClick={() => setShowDialog(true)}
+              data-intercom="log-activity-button"
+            >
+              +&nbsp;&nbsp;Log Activity
+            </Button>
           </Grid>
+        </ScaffoldContainer>
+      </BackgroundHeader>
+      <ScaffoldContainer>
+        <Grid container justify="center">
           <Grid item xs={12} md={9}>
-            <Box display="flex" alignItems="baseline" width={1} ref={headerRef}>
+            <Box display="flex" alignItems="baseline" width={1}>
               <Typography variant="h5" component="h5" className={classes.pageHeader}>
                 All Progress
               </Typography>
             </Box>
             {isEmpty() && (
               <div>
-                <Hidden only={['xs', 'sm']}>
-                  <Box
-                    width={1}
-                    height={headerHeight - headerRef.current.getBoundingClientRect().height}
-                  />
-                </Hidden>
                 <EmptyState />
               </div>
             )}
             {!isEmpty() &&
               activityPeriods.map(period => (
                 <div key={period.formatted}>
-                  {filteredCards.filter(card => isInPeriod(card.dateCompleted.toDate(), period))
-                    .length > 0 && (
-                    <Box display="flex" alignItems="baseline" width={1} ref={sectionHeaderRef}>
+                  {cards.filter(card => isInPeriod(card.dateCompleted.toDate(), period)).length >
+                    0 && (
+                    <Box display="flex" alignItems="baseline" width={1}>
                       <div className={classes.sectionHeader}>
-                        <CalendarIcon className={classes.calendarIcon} fontSize="small" />
                         <Typography
                           variant="subtitle2"
                           display="inline"
@@ -187,25 +156,15 @@ export default function History(props) {
                           {period.formatted}
                         </Typography>
                       </div>
-
-                      <Button
-                        variant="contained"
-                        size="large"
-                        color="primary"
-                        onClick={() => setShowDialog(true)}
-                        data-intercom="log-activity-button"
-                      >
-                        +&nbsp;&nbsp;Log Activity
-                      </Button>
                     </Box>
                   )}
                   <Grid container direction="row" justify="center" alignItems="flex-start">
-                    {filteredCards
+                    {cards
                       .filter(card => isInPeriod(card.dateCompleted.toDate(), period))
                       .map(card => (
                         <Grid key={card.id} item xs={12} className={classes.listItem}>
                           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-                          <card.component {...card} />
+                          <ActionItem {...card} />
                         </Grid>
                       ))}
                   </Grid>

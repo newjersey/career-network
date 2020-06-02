@@ -1,22 +1,19 @@
-export const ACTION_COLORS = {
-  goal: '#1980c8',
-  activity: '#f29a38',
-  application: '#7ea94f',
-};
-
 export const ACTION_TYPES = {
   goal: {
     value: 'goal',
     label: 'Goal Completed',
+    color: '#1980c8',
   },
   activity: {
     value: 'activity',
     label: 'Activity Logged',
+    color: '#f29a38',
   },
   application: {
     value: 'application',
     label: 'Application Added',
+    color: '#7ea94f',
   },
 };
 
-export default { ACTION_COLORS, ACTION_TYPES };
+export default ACTION_TYPES;
