@@ -1,14 +1,17 @@
-import { format, compareDesc, getMonth, getYear } from 'date-fns';
+import { compareDesc, getMonth, getYear } from 'date-fns';
 import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CalendarIcon from '@material-ui/icons/CalendarTodayRounded';
+import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
-import uniqBy from 'lodash/fp/uniqBy';
 
 import Activity from './Activity';
 import ActivityInputDialog, { ACTIVITY_TYPES } from '../activityInput/ActivityInputDialog';
+import ActionStatsCard from './ActionStatsCard';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import BackgroundHeader from '../BackgroundHeader';
 import CompletedTask from './CompletedTask';
@@ -38,19 +41,26 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(4),
     marginBottom: theme.spacing(3),
   },
-  calendarIcon: {
+  calendarIconContainer: {
     marginRight: theme.spacing(1),
   },
   siderail: {
     padding: theme.spacing(4),
+  },
+  card: {
+    padding: theme.spacing(3),
+  },
+  statsContainer: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(3),
   },
 }));
 
 const getActivityCategoryName = activityTypeValue =>
   ACTIVITY_TYPES.find(activityType => activityType.value === activityTypeValue).category.name;
 
-const isInPeriod = (date, { month, year }) => {
-  return getMonth(date) === month && getYear(date) === year;
+const isInPeriod = (date, period) => {
+  return !period || (getMonth(date) === period.month && getYear(date) === period.year);
 };
 
 const unrecognizedCategoryName = AirtablePropTypes.TASK_CATEGORIES.other.name;
@@ -92,19 +102,30 @@ export default function History(props) {
     compareDesc(new Date(a.dateCmp), new Date(b.dateCmp))
   );
 
-  const activityPeriods = uniqBy('formatted')(
-    cards.map(card => {
-      const date = card.dateCompleted.toDate();
-      return {
-        month: getMonth(date),
-        year: getYear(date),
-        formatted: format(date, 'MMMM y'),
-      };
-    })
-  );
+  // const activityPeriods = uniqBy('formatted')(
+  //   cards.map(card => {
+  //     const date = card.dateCompleted.toDate();
+  //     return {
+  //       month: getMonth(date),
+  //       year: getYear(date),
+  //       formatted: format(date, 'MMMM y'),
+  //     };
+  //   })
+  // );
 
   const isEmpty = () => {
     return cards.length === 0;
+  };
+
+  const getActionCount = actionTypeValue => {
+    switch (actionTypeValue) {
+      case ACTION_TYPES.goal.value:
+        return completedTasks.length;
+      case ACTION_TYPES.activity.value:
+        return activities.length;
+      default:
+        return 0;
+    }
   };
 
   return (
@@ -131,45 +152,53 @@ export default function History(props) {
       <ScaffoldContainer>
         <Grid container justify="center">
           <Grid item xs={12} md={9}>
-            <Box display="flex" alignItems="baseline" width={1}>
+            <Box display="flex" justifyContent="space-between" alignItems="baseline">
               <Typography variant="h5" component="h5" className={classes.pageHeader}>
-                All Progress
+                All Weeks
               </Typography>
+              <Box display="flex" alignItems="center">
+                <span className={classes.calendarIconContainer}>
+                  <CalendarIcon />
+                </span>
+                <span>View All Weeks</span>
+              </Box>
             </Box>
-            {isEmpty() && (
-              <div>
-                <EmptyState />
-              </div>
-            )}
-            {!isEmpty() &&
-              activityPeriods.map(period => (
-                <div key={period.formatted}>
-                  {cards.filter(card => isInPeriod(card.dateCompleted.toDate(), period)).length >
-                    0 && (
-                    <Box display="flex" alignItems="baseline" width={1}>
-                      <div className={classes.sectionHeader}>
-                        <Typography
-                          variant="subtitle2"
-                          display="inline"
-                          style={{ textTransform: 'uppercase' }}
-                        >
-                          {period.formatted}
-                        </Typography>
-                      </div>
-                    </Box>
-                  )}
-                  <Grid container direction="row" justify="center" alignItems="flex-start">
-                    {cards
-                      .filter(card => isInPeriod(card.dateCompleted.toDate(), period))
-                      .map(card => (
-                        <Grid key={card.id} item xs={12} className={classes.listItem}>
-                          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-                          <ActionItem {...card} />
-                        </Grid>
-                      ))}
-                  </Grid>
+            <Card className={classes.card} variant="outlined">
+              <Typography>Completed Actions for All Weeks</Typography>
+              <Grid
+                className={classes.statsContainer}
+                container
+                direction="row"
+                justify="space-evenly"
+                alignItems="center"
+                spacing={1}
+              >
+                {Object.values(ACTION_TYPES).map(actionType => (
+                  <ActionStatsCard
+                    actionType={actionType}
+                    count={getActionCount(actionType.value)}
+                  />
+                ))}
+              </Grid>
+              <Divider />
+              {isEmpty() && (
+                <div>
+                  <EmptyState />
                 </div>
-              ))}
+              )}
+              {!isEmpty() && (
+                <Grid container direction="row" justify="center" alignItems="flex-start">
+                  {cards
+                    .filter(card => isInPeriod(card.dateCompleted.toDate(), null))
+                    .map(card => (
+                      <Grid key={card.id} item xs={12} className={classes.listItem}>
+                        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+                        <ActionItem {...card} />
+                      </Grid>
+                    ))}
+                </Grid>
+              )}
+            </Card>
           </Grid>
         </Grid>
       </ScaffoldContainer>

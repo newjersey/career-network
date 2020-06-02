@@ -10,22 +10,11 @@ import NextWeekIcon from '@material-ui/icons/NextWeek';
 import StarIcon from '@material-ui/icons/Star';
 
 import { ACTION_TYPES } from '../dashboard/ActionPlan/constants';
-import DateCompleted from '../DateCompleted';
-import FirebasePropTypes from '../Firebase/PropTypes';
 
 const useStyles = makeStyles(theme => ({
   card: {
-    minWidth: 275,
-    padding: theme.spacing(1),
-  },
-  group: {
-    marginBottom: theme.spacing(2),
-  },
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    position: 'relative',
+    padding: theme.spacing(2),
+    width: '32%',
   },
   iconContainer: {
     border: `1px solid`,
@@ -36,10 +25,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function ActionItem(props) {
+function ActionStatsCard({ actionType, count }) {
   const classes = useStyles();
-
-  const { title, why, dateCompleted, actionType } = props;
 
   const getIcon = () => {
     switch (actionType.value) {
@@ -53,7 +40,7 @@ function ActionItem(props) {
   };
 
   return (
-    <>
+    <Card className={classes.card} variant="outlined">
       <Grid container direction="row" alignItems="center" spacing={1}>
         <Grid item>
           <div
@@ -68,42 +55,31 @@ function ActionItem(props) {
           </div>
         </Grid>
         <Grid item>
-          <Typography variant="body2">{actionType.label}</Typography>
-        </Grid>
-        <Grid item>
-          <Typography variant="h6">&#183;</Typography>
-        </Grid>
-        <Grid item>
-          <DateCompleted variant="body2">{dateCompleted}</DateCompleted>
+          <Typography
+            variant="body2"
+            style={{
+              color: actionType.color,
+            }}
+          >
+            {count} {actionType.label}
+          </Typography>
         </Grid>
       </Grid>
-      <Card className={classes.card} variant="outlined">
-        <Typography component="h1" variant="body1" className={classes.group}>
-          {title}
-        </Typography>
-        {why && (
-          <Typography variant="body2" component="p" color="textSecondary">
-            {why}
-          </Typography>
-        )}
-      </Card>
-    </>
+    </Card>
   );
 }
 
-ActionItem.propTypes = {
-  dateCompleted: FirebasePropTypes.timestamp.isRequired,
-  title: PropTypes.string.isRequired,
-  why: PropTypes.string,
+ActionStatsCard.propTypes = {
   actionType: PropTypes.shape({
     value: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     color: PropTypes.string.isRequired,
   }).isRequired,
+  count: PropTypes.number,
 };
 
-ActionItem.defaultProps = {
-  why: null,
+ActionStatsCard.defaultProps = {
+  count: 0,
 };
 
-export default ActionItem;
+export default ActionStatsCard;
