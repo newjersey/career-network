@@ -68,6 +68,9 @@ const useActivityDialogStyles = makeStyles(theme => ({
       backgroundColor: '#ec9996',
     },
   },
+  dialogTitle: {
+    marginTop: theme.spacing(4),
+  },
 }));
 
 const ACTIVITY_TYPES = [
@@ -267,10 +270,9 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
       onClose={onClose}
       aria-labelledby="customized-dialog-title"
       open={show}
-      scroll="body"
       onExited={resetComponent}
     >
-      <DialogTitle id="customized-dialog-title" onClose={onClose}>
+      <DialogTitle id="customized-dialog-title" onClose={onClose} className={classes.dialogTitle}>
         <Typography variant="h5" gutterBottom>
           Log an Activity
         </Typography>

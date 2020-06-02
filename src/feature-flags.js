@@ -40,7 +40,7 @@ const envConfigs = {
     },
     {
       name: 'activityLog',
-      isActive: false,
+      isActive: true,
     },
   ],
 };
