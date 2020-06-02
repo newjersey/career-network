@@ -44,7 +44,10 @@ const useActivityDialogStyles = makeStyles(theme => ({
     whiteSpace: 'normal',
   },
   toggleButton: {
+    flexBasis: 'calc(100%/3)',
     flex: 1,
+    marginRight: 0,
+    paddingTop: 0,
   },
   labelWithSub: {
     display: 'flex',
@@ -396,7 +399,7 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
                     classNameOverrides={{
                       containedPrimary: classes.difficultyButton,
                     }}
-                    containerClassName={classes.difficultyButtonContainer}
+                    containerProps={{ className: classes.difficultyButtonContainer }}
                     buttonClassName={classes.toggleButton}
                     options={DIFFICULTY_LEVELS}
                     value={String(formValues.difficultyLevel)}

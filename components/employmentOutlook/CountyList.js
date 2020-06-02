@@ -86,7 +86,7 @@ export default function CountyList(props) {
       <ToggleButton
         buttonClassName={classes.countyButton}
         buttonVariant="outlined"
-        containerClassName={classes.county}
+        containerProps={{ className: classes.county }}
         options={COUNY_NAMES}
         disabledOptions={disablesList}
         value={value}
