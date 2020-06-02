@@ -9,12 +9,10 @@ import Grid from '@material-ui/core/Grid';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import Activity from './Activity';
 import ActivityInputDialog, { ACTIVITY_TYPES } from '../activityInput/ActivityInputDialog';
 import ActionStatsCard from './ActionStatsCard';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import BackgroundHeader from '../BackgroundHeader';
-import CompletedTask from './CompletedTask';
 import EmptyState from './EmptyState';
 import HistoryPropTypes from './PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
@@ -67,39 +65,65 @@ const unrecognizedCategoryName = AirtablePropTypes.TASK_CATEGORIES.other.name;
 
 export default function History(props) {
   const classes = useStyles();
-  const { activities, completedTasks } = props;
+  const { activities, completedTasks, applications } = props;
   const [showDialog, setShowDialog] = useState(false);
+
+  // protect against immediately-created items that don't yet have a server-generated timestamp
+  const getTimestamp = item =>
+    (item.data().timestamp && item.data().timestamp.toDate()) || new Date();
+
+  const getApplicationTimestamp = item =>
+    (item.data().statusEntries[0].timestamp && item.data().statusEntries[0].timestamp.toDate()) ||
+    new Date();
 
   const activitiesTemp = activities.map(a => {
     const { activityTypeValue, dateCompleted, ...activity } = a.data();
     return {
-      ...activity,
-      categoryName: getActivityCategoryName(activityTypeValue) || unrecognizedCategoryName,
-      dateCompleted,
-      component: Activity,
-      id: a.id,
-      title: activity.briefDescription,
-      actionType: ACTION_TYPES.activity,
+      timestamp: getTimestamp(a),
+      props: {
+        ...activity,
+        categoryName: getActivityCategoryName(activityTypeValue) || unrecognizedCategoryName,
+        dateCompleted,
+        id: a.id,
+        title: activity.briefDescription,
+        actionType: ACTION_TYPES.activity,
+      },
     };
   });
 
   const tasksTemp = completedTasks.map(taskEvent => {
     const { task, timestamp } = taskEvent.data();
     return {
-      ...task,
-      categoryName: task.fields.Category || unrecognizedCategoryName,
-      title: task.fields.Task,
-      why: task.fields.Why,
-      dateCompleted: timestamp,
-      timestamp,
-      component: CompletedTask,
-      id: taskEvent.id,
-      actionType: ACTION_TYPES.goal,
+      timestamp: getTimestamp(taskEvent),
+      props: {
+        ...task,
+        categoryName: task.fields.Category || unrecognizedCategoryName,
+        title: task.fields.Task,
+        why: task.fields.Why,
+        dateCompleted: timestamp,
+        id: taskEvent.id,
+        actionType: ACTION_TYPES.goal,
+      },
     };
   });
 
-  const cards = [...activitiesTemp, ...tasksTemp].sort((a, b) =>
-    compareDesc(new Date(a.dateCmp), new Date(b.dateCmp))
+  const applicationsTemp = applications.map(application => {
+    return {
+      timestamp: getApplicationTimestamp(application),
+      props: {
+        ...application,
+        title: `Application Opened for ${application.data().jobTitle} at ${
+          application.data().company
+        }`,
+        dateCompleted: application.data().statusEntries[0].timestamp,
+        id: application.id,
+        actionType: ACTION_TYPES.application,
+      },
+    };
+  });
+
+  const cards = [...activitiesTemp, ...tasksTemp, ...applicationsTemp].sort((a, b) =>
+    compareDesc(a.timestamp, b.timestamp)
   );
 
   // const activityPeriods = uniqBy('formatted')(
@@ -123,6 +147,8 @@ export default function History(props) {
         return completedTasks.length;
       case ACTION_TYPES.activity.value:
         return activities.length;
+      case ACTION_TYPES.application.value:
+        return applications.length;
       default:
         return 0;
     }
@@ -175,6 +201,7 @@ export default function History(props) {
               >
                 {Object.values(ACTION_TYPES).map(actionType => (
                   <ActionStatsCard
+                    key={actionType.value}
                     actionType={actionType}
                     count={getActionCount(actionType.value)}
                   />
@@ -189,11 +216,11 @@ export default function History(props) {
               {!isEmpty() && (
                 <Grid container direction="row" justify="center" alignItems="flex-start">
                   {cards
-                    .filter(card => isInPeriod(card.dateCompleted.toDate(), null))
+                    .filter(card => isInPeriod(card.timestamp, null))
                     .map(card => (
-                      <Grid key={card.id} item xs={12} className={classes.listItem}>
+                      <Grid key={card.props.id} item xs={12} className={classes.listItem}>
                         {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-                        <ActionItem {...card} />
+                        <ActionItem {...card.props} />
                       </Grid>
                     ))}
                 </Grid>
