@@ -482,7 +482,7 @@ export default function Dashboard(props) {
           </Box>
           <Box className={classes.gridL} position="relative">
             <Flags authorizedFlags={['userProfile']}>
-              <Box mb={5}>
+              <Box mb={3}>
                 <UserProfileCard user={user} />
               </Box>
             </Flags>
@@ -492,15 +492,13 @@ export default function Dashboard(props) {
                       <EmploymentOutlookLauchpad />
                 </Box> */
             }
-          </Box>
-          <Box className={classes.gridR}>
             <Flags authorizedFlags={['activityLog']}>
               <Box mb={3}>
                 <Card variant="outlined">
                   <CardHeader
                     title={
                       <Typography component="h2" variant="h6" data-intercom="activity-title">
-                        Activity Log
+                        Recent Actions
                       </Typography>
                     }
                     disableTypography
@@ -508,11 +506,14 @@ export default function Dashboard(props) {
                   <ProgressFeed
                     activities={allActivityLogEntries}
                     completedTasks={completedTasks}
+                    applications={allApplicationLogEntries}
                     limit={historyLimit}
                   />
                 </Card>
               </Box>
             </Flags>
+          </Box>
+          <Box className={classes.gridR}>
             <Flags authorizedFlags={['applicationTracker']}>
               <Box mb={3} data-intercom="application-tracker">
                 <ApplicationTrackerCard applications={allApplicationLogEntries} />

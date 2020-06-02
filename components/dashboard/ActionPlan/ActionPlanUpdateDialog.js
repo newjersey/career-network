@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import NextWeekIcon from '@material-ui/icons/NextWeek';
-import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import StarIcon from '@material-ui/icons/Star';
 
 import { useAuth } from '../../Auth';
 import { ACTION_COLORS } from './constants';
@@ -110,7 +110,7 @@ function ActionPlanUpdateDialog(props) {
             <div>
               <span className={classes.itemLabel} style={{ color: ACTION_COLORS.goal }}>
                 <span>
-                  <VpnKeyIcon />
+                  <StarIcon />
                 </span>
                 <span className={classes.labelContainer}>
                   <Typography variant="body1">Completed Goals</Typography>
