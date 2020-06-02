@@ -11,7 +11,7 @@ import startOfWeek from 'date-fns/startOfWeek';
 import Typography from '@material-ui/core/Typography';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import NextWeekIcon from '@material-ui/icons/NextWeek';
-import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import StarIcon from '@material-ui/icons/Star';
 
 import FirebasePropTypes from '../../Firebase/PropTypes';
 import { useAuth } from '../../Auth';
@@ -96,7 +96,7 @@ function ActionPlanBar({ userStats, actionPlan }) {
                   className={classes.iconContainer}
                   style={{ color: ACTION_COLORS.goal, borderColor: ACTION_COLORS.goal }}
                 >
-                  <VpnKeyIcon />
+                  <StarIcon />
                 </div>
               }
             >
