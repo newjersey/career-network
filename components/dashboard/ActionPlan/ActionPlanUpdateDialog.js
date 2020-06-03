@@ -14,7 +14,7 @@ import NextWeekIcon from '@material-ui/icons/NextWeek';
 import StarIcon from '@material-ui/icons/Star';
 
 import { useAuth } from '../../Auth';
-import { ACTION_COLORS } from './constants';
+import { ACTION_TYPES } from './constants';
 import { DialogTitle, DialogContent, DialogActions } from '../../DialogComponents';
 import FirebasePropTypes from '../../Firebase/PropTypes';
 
@@ -108,7 +108,7 @@ function ActionPlanUpdateDialog(props) {
         <form id={formId} onSubmit={handleSubmit}>
           <Box display="flex" justifyContent="space-between" mt={3}>
             <div>
-              <span className={classes.itemLabel} style={{ color: ACTION_COLORS.goal }}>
+              <span className={classes.itemLabel} style={{ color: ACTION_TYPES.goal.color }}>
                 <span>
                   <StarIcon />
                 </span>
@@ -131,7 +131,7 @@ function ActionPlanUpdateDialog(props) {
           </Box>
           <Box display="flex" justifyContent="space-between" mt={3}>
             <div>
-              <span className={classes.itemLabel} style={{ color: ACTION_COLORS.activity }}>
+              <span className={classes.itemLabel} style={{ color: ACTION_TYPES.activity.color }}>
                 <span>
                   <AssignmentTurnedInIcon />
                 </span>
@@ -154,7 +154,7 @@ function ActionPlanUpdateDialog(props) {
           </Box>
           <Box display="flex" justifyContent="space-between" mt={3} mb={3}>
             <div>
-              <span className={classes.itemLabel} style={{ color: ACTION_COLORS.application }}>
+              <span className={classes.itemLabel} style={{ color: ACTION_TYPES.application.color }}>
                 <span>
                   <NextWeekIcon />
                 </span>

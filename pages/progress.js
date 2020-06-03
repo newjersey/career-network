@@ -18,8 +18,16 @@ function HistoryPage() {
     { orderBy: ['timestamp', 'desc'] }
   );
 
-  return fullyLoaded(user, allUserActivities, completedTasks) ? (
-    <History activities={allUserActivities} completedTasks={completedTasks} />
+  const allApplicationLogEntries = useUserSubcollection('applicationLogEntries', {
+    orderBy: ['lastUpdateTimestamp', 'desc'],
+  });
+
+  return fullyLoaded(user, allUserActivities, completedTasks, allApplicationLogEntries) ? (
+    <History
+      activities={allUserActivities}
+      completedTasks={completedTasks}
+      applications={allApplicationLogEntries}
+    />
   ) : (
     <FullPageProgress />
   );
