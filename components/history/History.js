@@ -11,13 +11,15 @@ import Typography from '@material-ui/core/Typography';
 import uniqBy from 'lodash/fp/uniqBy';
 
 import Activity from './Activity';
-import ActivityInputDialog, { ACTIVITY_TYPES } from '../activityInput/ActivityInputDialog';
+import { ACTIVITY_TYPES } from '../activityInput/constants';
+import ActivityInputDialog from '../activityInput/ActivityInputDialog';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import CompletedTask from './CompletedTask';
 import EmptyState from './EmptyState';
 import Filter from './Filter';
 import HistoryPropTypes from './PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
+import ActivityDetailDialog from './ActivityDetailDialog';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -56,13 +58,19 @@ const isInPeriod = (date, { month, year }) => {
 
 const unrecognizedCategoryName = AirtablePropTypes.TASK_CATEGORIES.other.name;
 
+const DIALOGS = {
+  ACTIVITY_INPUT: 'ActivityInputDialog',
+  ACTIVITY_DETAIL: 'ActivityDetailDialog',
+};
+
+const INITIAL_DIALOG_CONFIG = {};
 export default function History(props) {
   const classes = useStyles();
   const { activities, completedTasks } = props;
   const headerRef = useRef(null);
   const sectionHeaderRef = useRef(null);
   const [headerHeight, setHeaderHeight] = useState();
-  const [showDialog, setShowDialog] = useState(false);
+  const [activeDialog, setActiveDialog] = useState(INITIAL_DIALOG_CONFIG);
 
   useLayoutEffect(() => {
     setHeaderHeight(
@@ -70,6 +78,16 @@ export default function History(props) {
         sectionHeaderRef.current.getBoundingClientRect().height
     );
   }, []);
+
+  const openActivityDetail = selectedActivity =>
+    setActiveDialog({
+      name: DIALOGS.ACTIVITY_DETAIL,
+      activity: selectedActivity,
+    });
+
+  const openActivityInput = () => setActiveDialog({ name: DIALOGS.ACTIVITY_INPUT });
+
+  const closeActiveDialog = () => setActiveDialog(INITIAL_DIALOG_CONFIG);
 
   const activitiesTemp = activities.map(a => {
     const { activityTypeValue, dateCompleted, ...activity } = a.data();
@@ -79,6 +97,7 @@ export default function History(props) {
       dateCompleted,
       component: Activity,
       id: a.id,
+      openActivityDetail: () => openActivityDetail({ dateCompleted, ...activity }),
     };
   });
 
@@ -131,7 +150,15 @@ export default function History(props) {
 
   return (
     <div className={classes.root}>
-      <ActivityInputDialog show={showDialog} onClose={() => setShowDialog()} />
+      <ActivityInputDialog
+        show={activeDialog.name === DIALOGS.ACTIVITY_INPUT}
+        onClose={closeActiveDialog}
+      />
+      <ActivityDetailDialog
+        {...activeDialog}
+        show={activeDialog.name === DIALOGS.ACTIVITY_DETAIL}
+        onClose={closeActiveDialog}
+      />
       <ScaffoldContainer>
         <Grid container spacing={3}>
           <Grid item xs={12} md={3}>
@@ -192,7 +219,7 @@ export default function History(props) {
                         variant="contained"
                         size="large"
                         color="primary"
-                        onClick={() => setShowDialog(true)}
+                        onClick={openActivityInput}
                         data-intercom="log-activity-button"
                       >
                         +&nbsp;&nbsp;Log Activity

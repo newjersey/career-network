@@ -4,6 +4,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Chip from '@material-ui/core/Chip';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -59,6 +60,7 @@ function Activity(props) {
     difficultyLevel,
     activityFeeling,
     whyIFeelThisWay,
+    openActivityDetail,
   } = props;
 
   return (
@@ -68,6 +70,7 @@ function Activity(props) {
           <Typography variant="body2" noWrap style={{ maxWidth: '75%' }}>
             {activityTypeLabel}
           </Typography>
+          <Button onClick={openActivityDetail}>Open Detail (temp)</Button>
         </div>
 
         <Typography component="h1" variant="h5" className={classes.group}>
@@ -155,17 +158,19 @@ Activity.propTypes = {
   activityTypeLabel: PropTypes.string.isRequired,
   dateCompleted: FirebasePropTypes.timestamp.isRequired,
   description: PropTypes.string,
-  difficultyLevel: PropTypes.string.isRequired,
+  difficultyLevel: PropTypes.string,
   timeSpentInMinutes: PropTypes.number.isRequired,
   activityFeeling: PropTypes.arrayOf(PropTypes.string),
   whyIFeelThisWay: PropTypes.string,
   briefDescription: PropTypes.string.isRequired,
+  openActivityDetail: PropTypes.func.isRequired,
 };
 
 Activity.defaultProps = {
   activityFeeling: [],
   whyIFeelThisWay: '',
   description: '',
+  difficultyLevel: '',
 };
 
 export default Activity;
