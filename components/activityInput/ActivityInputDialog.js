@@ -23,10 +23,10 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import { DialogTitle, DialogContent, DialogActions } from '../DialogComponents';
 import { useAnalytics } from '../Analytics';
 import { useAuth } from '../Auth';
-import AirtablePropTypes from '../Airtable/PropTypes';
 import SubmitSuccess from './SubmitSuccess';
 import ToggleButton from '../ToggleButton';
 import validate from './ActivityInputValidationRules';
+import { ACTIVITY_TYPES, TIME_SPENT_OPTIONS, DIFFICULTY_LEVELS, FEELINGS } from './constants';
 
 const useActivityDialogStyles = makeStyles(theme => ({
   formControl: {
@@ -72,83 +72,6 @@ const useActivityDialogStyles = makeStyles(theme => ({
     marginTop: theme.spacing(4),
   },
 }));
-
-const ACTIVITY_TYPES = [
-  {
-    value: 'openings',
-    label: 'Searched for Job Openings',
-    category: AirtablePropTypes.TASK_CATEGORIES.apply,
-  },
-  {
-    value: 'materials',
-    label: 'Worked on Marketing Materials',
-    category: AirtablePropTypes.TASK_CATEGORIES.marketing,
-  },
-  {
-    value: 'networking-virtual',
-    label: 'Had a Virtual Networking Interaction (via Email, LinkedIn, Meeting)',
-    category: AirtablePropTypes.TASK_CATEGORIES.relationship,
-  },
-  {
-    value: 'contact',
-    label: 'Had a Meeting/Call with a Contact',
-    category: AirtablePropTypes.TASK_CATEGORIES.relationship,
-  },
-  {
-    value: 'research-company-industry',
-    label: 'Researched Target Organizations and Contacts',
-    category: AirtablePropTypes.TASK_CATEGORIES.research,
-  },
-  {
-    value: 'organization',
-    label: 'Organized My Search',
-    category: AirtablePropTypes.TASK_CATEGORIES.mindset,
-  },
-  {
-    value: 'self-care',
-    label: 'Self-Care to Deal with Stress of the Search',
-    category: AirtablePropTypes.TASK_CATEGORIES.mindset,
-  },
-  {
-    value: 'other',
-    label: 'Other',
-    category: AirtablePropTypes.TASK_CATEGORIES.other,
-  },
-];
-
-const TIME_SPENT_OPTIONS = [
-  {
-    label: 'Less than 30 Minutes',
-    value: 15,
-  },
-  {
-    label: '30 Minutes',
-    value: 30,
-  },
-  {
-    label: '1 Hour',
-    value: 60,
-  },
-  {
-    label: '1.5 Hours',
-    value: 90,
-  },
-  {
-    label: '2+ Hours',
-    value: 120,
-  },
-];
-
-const DIFFICULTY_LEVELS = ['Easy', 'Medium', 'Hard'];
-
-const FEELINGS = [
-  'Confident',
-  'Discouraged',
-  'Frustrated',
-  'Optimistic',
-  'Motivated',
-  'Overwhelmed',
-];
 
 const initialFormValues = {
   activityTypeValue: '',
@@ -498,4 +421,3 @@ ActivityInputDialog.propTypes = {
 };
 
 export default withMobileDialog()(ActivityInputDialog);
-export { ACTIVITY_TYPES };

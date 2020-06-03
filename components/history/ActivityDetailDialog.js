@@ -6,6 +6,7 @@ import Dialog from '@material-ui/core/Dialog';
 import { makeStyles } from '@material-ui/core/styles';
 import formatDate from 'date-fns/format';
 import { DialogTitle, DialogContent } from '../DialogComponents';
+import { TIME_SPENT_OPTIONS } from '../activityInput/constants';
 import FirebasePropTypes from '../Firebase/PropTypes';
 
 const useStyles = makeStyles(theme => ({
@@ -30,7 +31,9 @@ function ActivityDetailDialog({ show, activity, onClose }) {
   } = activity;
 
   const formattedDate = dateCompleted ? formatDate(dateCompleted.toDate(), 'EEEE, MMMM do') : '';
-
+  const timeSpentString = timeSpentInMinutes
+    ? TIME_SPENT_OPTIONS.find(timeOption => timeOption.value === timeSpentInMinutes).label
+    : '';
   return (
     <div>
       <Dialog open={show} aria-labelledby="activity-detail-dialog">
@@ -65,7 +68,7 @@ function ActivityDetailDialog({ show, activity, onClose }) {
             <Typography variant="caption" color="textSecondary">
               Time Spent
             </Typography>
-            <Typography variant="body2">{timeSpentInMinutes}</Typography>
+            <Typography variant="body2">{timeSpentString}</Typography>
           </div>
           <div className={classes.infoGroup}>
             <Typography variant="caption" color="textSecondary">
