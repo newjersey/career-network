@@ -17,6 +17,7 @@ import EmptyState from './EmptyState';
 import HistoryPropTypes from './PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
 import ActivityDetailDialog from './ActivityDetailDialog';
+import ApplicationHistoryDialog from '../applicationTracker/ApplicationHistory/ApplicationHistoryDialog';
 import { ACTION_TYPES } from '../dashboard/ActionPlan/constants';
 import { ACTIVITY_TYPES } from '../activityInput/constants';
 import ActionItem from './ActionItem';
@@ -69,6 +70,7 @@ const getActivityCategoryName = activityTypeValue => {
 const DIALOGS = {
   ACTIVITY_INPUT: 'ActivityInputDialog',
   ACTIVITY_DETAIL: 'ActivityDetailDialog',
+  APPLICATION_HISTORY: 'ApplicationHistoryDialog',
 };
 
 const isInPeriod = (date, period) => {
@@ -85,15 +87,17 @@ export default function History(props) {
   const getTimestamp = item =>
     (item.data().timestamp && item.data().timestamp.toDate()) || new Date();
 
-  const getApplicationTimestamp = item =>
-    (item.data().statusEntries[0].timestamp && item.data().statusEntries[0].timestamp.toDate()) ||
-    new Date();
+  const getApplicationTimestamp = statusEntries =>
+    (statusEntries[0].timestamp && statusEntries[0].timestamp.toDate()) || new Date();
 
   const openActivityDetail = selectedActivity =>
     setActiveDialog({
       name: DIALOGS.ACTIVITY_DETAIL,
       activity: selectedActivity,
     });
+
+  const openApplicationDetail = application =>
+    setActiveDialog({ name: DIALOGS.APPLICATION_HISTORY, application });
 
   const openActivityInput = () => setActiveDialog({ name: DIALOGS.ACTIVITY_INPUT });
 
@@ -111,7 +115,7 @@ export default function History(props) {
         title: activity.briefDescription,
         activityTypeValue,
         actionType: ACTION_TYPES.activity,
-        openActivityDetail: () => openActivityDetail({ dateCompleted, ...activity }),
+        openDetails: () => openActivityDetail({ dateCompleted, ...activity }),
       },
     };
   });
@@ -132,17 +136,17 @@ export default function History(props) {
     };
   });
 
-  const applicationsTemp = applications.map(application => {
+  const applicationsTemp = applications.map(applicationDocument => {
+    const application = applicationDocument.data();
     return {
-      timestamp: getApplicationTimestamp(application),
+      timestamp: getApplicationTimestamp(application.statusEntries),
       props: {
         ...application,
-        title: `Application Opened for ${application.data().jobTitle} at ${
-          application.data().company
-        }`,
-        dateCompleted: application.data().statusEntries[0].timestamp,
-        id: application.id,
+        title: `Application Opened for ${application.jobTitle} at ${application.company}`,
+        dateCompleted: application.statusEntries[0].timestamp,
+        id: applicationDocument.id,
         actionType: ACTION_TYPES.application,
+        openDetails: () => openApplicationDetail(application),
       },
     };
   });
@@ -185,6 +189,11 @@ export default function History(props) {
         {...activeDialog}
         show={activeDialog.name === DIALOGS.ACTIVITY_DETAIL}
         onClose={closeActiveDialog}
+      />
+      <ApplicationHistoryDialog
+        {...activeDialog}
+        handleClose={closeActiveDialog}
+        open={activeDialog.name === DIALOGS.APPLICATION_HISTORY}
       />
       <BackgroundHeader className={classes.backgroundHeader}>
         <ScaffoldContainer className={classes.header}>

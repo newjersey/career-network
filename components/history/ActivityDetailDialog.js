@@ -5,6 +5,9 @@ import Divider from '@material-ui/core/Divider';
 import Dialog from '@material-ui/core/Dialog';
 import { makeStyles } from '@material-ui/core/styles';
 import formatDate from 'date-fns/format';
+
+import ActionIcon from '../dashboard/ActionPlan/ActionIcon';
+import { ACTION_TYPES } from '../dashboard/ActionPlan/constants';
 import { DialogTitle, DialogContent } from '../DialogComponents';
 import { TIME_SPENT_OPTIONS } from '../activityInput/constants';
 import FirebasePropTypes from '../Firebase/PropTypes';
@@ -15,6 +18,12 @@ const useStyles = makeStyles(theme => ({
   },
   dialogSubtitle: {
     margin: theme.spacing(0, 0, 2),
+    display: 'flex',
+    alignItems: 'center',
+  },
+  iconContainer: {
+    display: 'inline-block',
+    marginRight: theme.spacing(1),
   },
 }));
 
@@ -36,14 +45,18 @@ function ActivityDetailDialog({ show, activity, onClose }) {
     : '';
   return (
     <div>
-      <Dialog open={show} aria-labelledby="activity-detail-dialog">
+      <Dialog open={show} aria-labelledby="activity-detail-dialog" maxWidth="sm" fullWidth>
         <DialogTitle id="activity-detail-dialog" onClose={onClose} />
         <DialogContent>
           <div className={classes.dialogSubtitle}>
-            <Typography variant="caption" display="inline">
-              Activity Logged •{' '}
+            <span className={classes.iconContainer}>
+              <ActionIcon actionType={ACTION_TYPES.activity} isAssessmentCompleteAction={false} />
+            </span>
+            <Typography variant="caption" color="textPrimary">
+              Activity Logged •
             </Typography>
-            <Typography variant="caption" display="inline">
+            &nbsp;
+            <Typography variant="caption" color="textSecondary">
               {formattedDate}
             </Typography>
           </div>
