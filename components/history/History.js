@@ -21,32 +21,33 @@ import ActionItem from './ActionItem';
 
 const useStyles = makeStyles(theme => ({
   backgroundHeader: {
-    background: `linear-gradient(to right, #ffffff, #60b1e9 100%)`,
+    background: `linear-gradient(to right, #ffffff, #fbe6aa 100%)`,
   },
   pageHeader: {
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
     fontWeight: theme.typography.fontWeightMedium,
-  },
-  listItem: {
-    marginBottom: theme.spacing(2),
-  },
-  sectionHeader: {
-    display: 'flex',
-    flexGrow: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    marginTop: theme.spacing(4),
-    marginBottom: theme.spacing(3),
+    color: theme.palette.background.dark,
   },
   calendarIconContainer: {
     marginRight: theme.spacing(1),
   },
-  siderail: {
-    padding: theme.spacing(4),
+  sectionTitle: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2),
+    color: theme.palette.background.dark,
+    fontSize: '1rem',
+  },
+  divider: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+  },
+  listItem: {
+    marginBottom: theme.spacing(3),
   },
   card: {
     padding: theme.spacing(3),
+    marginBottom: theme.spacing(3),
   },
   statsContainer: {
     marginTop: theme.spacing(2),
@@ -86,6 +87,7 @@ export default function History(props) {
         dateCompleted,
         id: a.id,
         title: activity.briefDescription,
+        activityTypeValue,
         actionType: ACTION_TYPES.activity,
       },
     };
@@ -126,19 +128,15 @@ export default function History(props) {
     compareDesc(a.timestamp, b.timestamp)
   );
 
-  // const activityPeriods = uniqBy('formatted')(
-  //   cards.map(card => {
-  //     const date = card.dateCompleted.toDate();
-  //     return {
-  //       month: getMonth(date),
-  //       year: getYear(date),
-  //       formatted: format(date, 'MMMM y'),
-  //     };
-  //   })
-  // );
-
   const isEmpty = () => {
     return cards.length === 0;
+  };
+
+  // Filtered out Assessment-complete activity since it's not a user logged activity
+  const getActivitiesWithoutAssessmentComplete = () => {
+    return activitiesTemp.filter(
+      activity => activity.props.activityTypeValue !== 'assessment-complete'
+    );
   };
 
   const getActionCount = actionTypeValue => {
@@ -146,7 +144,7 @@ export default function History(props) {
       case ACTION_TYPES.goal.value:
         return completedTasks.length;
       case ACTION_TYPES.activity.value:
-        return activities.length;
+        return getActivitiesWithoutAssessmentComplete().length;
       case ACTION_TYPES.application.value:
         return applications.length;
       default:
@@ -178,8 +176,8 @@ export default function History(props) {
       <ScaffoldContainer>
         <Grid container justify="center">
           <Grid item xs={12} md={9}>
-            <Box display="flex" justifyContent="space-between" alignItems="baseline">
-              <Typography variant="h5" component="h5" className={classes.pageHeader}>
+            <Box display="flex" justifyContent="space-between" alignItems="baseline" mt={4}>
+              <Typography variant="h5" className={classes.pageHeader}>
                 All Weeks
               </Typography>
               <Box display="flex" alignItems="center">
@@ -190,7 +188,9 @@ export default function History(props) {
               </Box>
             </Box>
             <Card className={classes.card} variant="outlined">
-              <Typography>Completed Actions for All Weeks</Typography>
+              <Typography className={classes.sectionTitle} variant="h5">
+                Completed Actions for All Weeks
+              </Typography>
               <Grid
                 className={classes.statsContainer}
                 container
@@ -207,7 +207,10 @@ export default function History(props) {
                   />
                 ))}
               </Grid>
-              <Divider />
+              <Divider className={classes.divider} />
+              <Typography className={classes.sectionTitle} variant="h5">
+                All Weeks
+              </Typography>
               {isEmpty() && (
                 <div>
                   <EmptyState />

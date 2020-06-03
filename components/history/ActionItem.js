@@ -1,92 +1,101 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { fade } from '@material-ui/core/styles/colorManipulator';
+import { format } from 'date-fns';
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
-import NextWeekIcon from '@material-ui/icons/NextWeek';
-import StarIcon from '@material-ui/icons/Star';
 
-import { ACTION_TYPES } from '../dashboard/ActionPlan/constants';
-import DateCompleted from '../DateCompleted';
+import ActionIcon from '../dashboard/ActionPlan/ActionIcon';
 import FirebasePropTypes from '../Firebase/PropTypes';
 
 const useStyles = makeStyles(theme => ({
   card: {
     minWidth: 275,
-    padding: theme.spacing(1),
+    padding: theme.spacing(2),
+    marginTop: theme.spacing(1),
   },
-  group: {
-    marginBottom: theme.spacing(2),
+  description: {
+    marginTop: theme.spacing(2),
   },
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    position: 'relative',
-  },
-  iconContainer: {
-    border: `1px solid`,
-    borderRadius: '50%',
-    lineHeight: 0,
-    padding: theme.spacing(0.6),
-    fontSize: '14px',
+  celebrateCard: {
+    marginTop: theme.spacing(1),
+    backgroundImage: 'url(/static/img/celebrate.svg)',
+    backgroundSize: 'cover',
+    padding: theme.spacing(4, 6, 3, 6),
   },
 }));
 
 function ActionItem(props) {
   const classes = useStyles();
+  const { title, why, dateCompleted, actionType, activityTypeValue } = props;
 
-  const { title, why, dateCompleted, actionType } = props;
+  const isAssessmentCompleteAction =
+    activityTypeValue && activityTypeValue === 'assessment-complete';
 
-  const getIcon = () => {
-    switch (actionType.value) {
-      case ACTION_TYPES.goal.value:
-        return <StarIcon fontSize="inherit" />;
-      case ACTION_TYPES.application.value:
-        return <NextWeekIcon fontSize="inherit" />;
-      default:
-        return <AssignmentTurnedInIcon fontSize="inherit" />;
-    }
-  };
+  const getActionLabel = () =>
+    isAssessmentCompleteAction ? 'Upfront Assessment Completed' : actionType.label;
 
   return (
     <>
       <Grid container direction="row" alignItems="center" spacing={1}>
         <Grid item>
-          <div
-            className={classes.iconContainer}
-            style={{
-              color: actionType.color,
-              borderColor: actionType.color,
-              backgroundColor: fade(actionType.color, 0.08),
-            }}
-          >
-            {getIcon()}
-          </div>
+          <ActionIcon
+            actionType={actionType}
+            isAssessmentCompleteAction={isAssessmentCompleteAction}
+          />
         </Grid>
         <Grid item>
-          <Typography variant="body2">{actionType.label}</Typography>
+          <Typography variant="body2">{getActionLabel()}</Typography>
         </Grid>
         <Grid item>
           <Typography variant="h6">&#183;</Typography>
         </Grid>
         <Grid item>
-          <DateCompleted variant="body2">{dateCompleted}</DateCompleted>
+          <Typography variant="body2" color="textSecondary">
+            {format(dateCompleted.toDate(), 'EEEE, MMM do')}
+          </Typography>
         </Grid>
       </Grid>
-      <Card className={classes.card} variant="outlined">
-        <Typography component="h1" variant="body1" className={classes.group}>
-          {title}
-        </Typography>
-        {why && (
-          <Typography variant="body2" component="p" color="textSecondary">
-            {why}
+      {isAssessmentCompleteAction ? (
+        <Card className={classes.celebrateCard} variant="outlined">
+          <Typography variant="body1" align="center">
+            <span
+              role="img"
+              aria-label="clap-emoji"
+              display="inline-block"
+              style={{ marginRight: 8 }}
+            >
+              👍👍
+            </span>
+            Upfront Assessment Completed
+            <span
+              role="img"
+              aria-label="clap-emoji"
+              display="inline-block"
+              style={{ marginLeft: 8 }}
+            >
+              👍👍
+            </span>
           </Typography>
-        )}
-      </Card>
+        </Card>
+      ) : (
+        <Card className={classes.card} variant="outlined">
+          <Typography component="h1" variant="body1">
+            {title}
+          </Typography>
+          {why && (
+            <Typography
+              className={classes.description}
+              variant="body2"
+              component="p"
+              color="textSecondary"
+            >
+              {why}
+            </Typography>
+          )}
+        </Card>
+      )}
     </>
   );
 }
@@ -95,6 +104,7 @@ ActionItem.propTypes = {
   dateCompleted: FirebasePropTypes.timestamp.isRequired,
   title: PropTypes.string.isRequired,
   why: PropTypes.string,
+  activityTypeValue: PropTypes.string,
   actionType: PropTypes.shape({
     value: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
@@ -104,6 +114,7 @@ ActionItem.propTypes = {
 
 ActionItem.defaultProps = {
   why: null,
+  activityTypeValue: null,
 };
 
 export default ActionItem;

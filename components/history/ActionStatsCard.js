@@ -1,15 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { fade } from '@material-ui/core/styles/colorManipulator';
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
-import NextWeekIcon from '@material-ui/icons/NextWeek';
-import StarIcon from '@material-ui/icons/Star';
-
-import { ACTION_TYPES } from '../dashboard/ActionPlan/constants';
+import ActionIcon from '../dashboard/ActionPlan/ActionIcon';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -17,42 +12,20 @@ const useStyles = makeStyles(theme => ({
     width: '32%',
   },
   iconContainer: {
-    border: `1px solid`,
-    borderRadius: '50%',
-    lineHeight: 0,
-    padding: theme.spacing(0.6),
-    fontSize: '14px',
+    padding: theme.spacing(0.8),
+    fontSize: '16px',
+    marginLeft: theme.spacing(1),
   },
 }));
 
 function ActionStatsCard({ actionType, count }) {
   const classes = useStyles();
 
-  const getIcon = () => {
-    switch (actionType.value) {
-      case ACTION_TYPES.goal.value:
-        return <StarIcon fontSize="inherit" />;
-      case ACTION_TYPES.application.value:
-        return <NextWeekIcon fontSize="inherit" />;
-      default:
-        return <AssignmentTurnedInIcon fontSize="inherit" />;
-    }
-  };
-
   return (
-    <Card className={classes.card} variant="outlined">
+    <Card className={classes.card} variant="outlined" style={{ borderColor: actionType.color }}>
       <Grid container direction="row" alignItems="center" spacing={1}>
         <Grid item>
-          <div
-            className={classes.iconContainer}
-            style={{
-              color: actionType.color,
-              borderColor: actionType.color,
-              backgroundColor: fade(actionType.color, 0.08),
-            }}
-          >
-            {getIcon()}
-          </div>
+          <ActionIcon actionType={actionType} iconClassName={classes.iconContainer} />
         </Grid>
         <Grid item>
           <Typography
@@ -61,7 +34,7 @@ function ActionStatsCard({ actionType, count }) {
               color: actionType.color,
             }}
           >
-            {count} {actionType.label}
+            <b>{count}</b> {actionType.label}
           </Typography>
         </Grid>
       </Grid>
