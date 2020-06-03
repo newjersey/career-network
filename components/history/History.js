@@ -168,7 +168,7 @@ export default function History(props) {
               onClick={() => setShowDialog(true)}
               data-intercom="log-activity-button"
             >
-              +&nbsp;&nbsp;Log Activity
+              Log An Activity
             </Button>
           </Grid>
         </ScaffoldContainer>
