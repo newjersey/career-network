@@ -25,6 +25,9 @@ const useStyles = makeStyles(theme => ({
     display: 'inline-block',
     marginRight: theme.spacing(1),
   },
+  title: {
+    fontSize: theme.typography.pxToRem(24),
+  },
 }));
 
 function ActivityDetailDialog({ show, activity, onClose }) {
@@ -43,6 +46,7 @@ function ActivityDetailDialog({ show, activity, onClose }) {
   const timeSpentString = timeSpentInMinutes
     ? TIME_SPENT_OPTIONS.find(timeOption => timeOption.value === timeSpentInMinutes).label
     : '';
+
   return (
     <div>
       <Dialog open={show} aria-labelledby="activity-detail-dialog" maxWidth="sm" fullWidth>
@@ -60,28 +64,36 @@ function ActivityDetailDialog({ show, activity, onClose }) {
               {formattedDate}
             </Typography>
           </div>
-          <Typography variant="h4" color="primary" gutterBottom>
+          <Typography variant="h4" color="textPrimary" className={classes.title} gutterBottom>
             {briefDescription}
           </Typography>
-          <Typography variant="body2">{description}</Typography>
+          <Typography variant="body2" color="textPrimary">
+            {description}
+          </Typography>
           <Divider className={classes.infoGroup} />
           <div className={classes.infoGroup}>
             <Typography variant="caption" color="textSecondary">
               Activity Type
             </Typography>
-            <Typography variant="body2">{activityTypeLabel}</Typography>
+            <Typography variant="body2" color="textPrimary">
+              {activityTypeLabel}
+            </Typography>
           </div>
           <div className={classes.infoGroup}>
             <Typography variant="caption" color="textSecondary">
               Difficulty Level
             </Typography>
-            <Typography variant="body2">{difficultyLevel}</Typography>
+            <Typography variant="body2" color="textPrimary">
+              {difficultyLevel}
+            </Typography>
           </div>
           <div className={classes.infoGroup}>
             <Typography variant="caption" color="textSecondary">
               Time Spent
             </Typography>
-            <Typography variant="body2">{timeSpentString}</Typography>
+            <Typography variant="body2" color="textPrimary">
+              {timeSpentString}
+            </Typography>
           </div>
           <div className={classes.infoGroup}>
             <Typography variant="caption" color="textSecondary">

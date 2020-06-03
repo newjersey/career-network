@@ -155,9 +155,7 @@ export default function History(props) {
     compareDesc(a.timestamp, b.timestamp)
   );
 
-  const isEmpty = () => {
-    return cards.length === 0;
-  };
+  const isEmpty = () => cards.length === 0;
 
   // Filtered out Assessment-complete activity since it's not a user logged activity
   const getActivitiesWithoutAssessmentComplete = () => {
