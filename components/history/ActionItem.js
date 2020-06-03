@@ -14,13 +14,16 @@ const useStyles = makeStyles(theme => ({
     minWidth: 275,
     padding: theme.spacing(2),
     marginTop: theme.spacing(1),
+    marginLeft: theme.spacing(4),
+    borderColor: theme.palette.grey[400],
   },
   description: {
     marginTop: theme.spacing(2),
   },
   celebrateCard: {
     marginTop: theme.spacing(1),
-    backgroundImage: 'url(/static/img/celebrate.svg)',
+    marginLeft: theme.spacing(4),
+    backgroundImage: 'url(/static/img/assessment-complete-history.png)',
     backgroundSize: 'cover',
     padding: theme.spacing(4, 6, 3, 6),
   },
