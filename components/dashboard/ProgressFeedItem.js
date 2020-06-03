@@ -11,7 +11,7 @@ import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import NextWeekIcon from '@material-ui/icons/NextWeek';
 import StarIcon from '@material-ui/icons/Star';
 
-import { ACTION_COLORS, ACTION_TYPES } from './ActionPlan/constants';
+import { ACTION_TYPES } from './ActionPlan/constants';
 import DateCompleted from '../DateCompleted';
 import FirebasePropTypes from '../Firebase/PropTypes';
 
@@ -66,9 +66,9 @@ export default function ProgressFeedItem(props) {
             <div
               className={classes.iconContainer}
               style={{
-                color: ACTION_COLORS[actionType.value],
-                borderColor: ACTION_COLORS[actionType.value],
-                backgroundColor: fade(ACTION_COLORS[actionType.value], 0.08),
+                color: actionType.color,
+                borderColor: actionType.color,
+                backgroundColor: fade(actionType.color, 0.08),
               }}
             >
               {getIcon()}
@@ -98,5 +98,6 @@ ProgressFeedItem.propTypes = {
   actionType: PropTypes.shape({
     value: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
+    color: PropTypes.string.isRequired,
   }).isRequired,
 };

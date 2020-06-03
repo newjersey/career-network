@@ -15,7 +15,7 @@ import StarIcon from '@material-ui/icons/Star';
 
 import FirebasePropTypes from '../../Firebase/PropTypes';
 import { useAuth } from '../../Auth';
-import { ACTION_COLORS } from './constants';
+import { ACTION_TYPES } from './constants';
 
 const ACTION_PLAN_DEFAULT = {
   goals: 3,
@@ -90,11 +90,11 @@ function ActionPlanBar({ userStats, actionPlan }) {
             <Button
               classes={{ label: classes.buttonLabel }}
               fullWidth
-              style={{ backgroundColor: fade(ACTION_COLORS.goal, 0.08) }}
+              style={{ backgroundColor: fade(ACTION_TYPES.goal.color, 0.08) }}
               startIcon={
                 <div
                   className={classes.iconContainer}
-                  style={{ color: ACTION_COLORS.goal, borderColor: ACTION_COLORS.goal }}
+                  style={{ color: ACTION_TYPES.goal.color, borderColor: ACTION_TYPES.goal.color }}
                 >
                   <StarIcon />
                 </div>
@@ -102,7 +102,7 @@ function ActionPlanBar({ userStats, actionPlan }) {
             >
               <Box>
                 <Typography className={classes.text} variant="h6">
-                  <span style={{ color: ACTION_COLORS.goal }}>
+                  <span style={{ color: ACTION_TYPES.goal.color }}>
                     <b>{userStats.goals || 0}</b>
                   </span>
                   <span style={{ fontWeight: 400 }}> of {actionPlan.goals || 0}</span>
@@ -119,11 +119,14 @@ function ActionPlanBar({ userStats, actionPlan }) {
             <Button
               classes={{ label: classes.buttonLabel }}
               fullWidth
-              style={{ backgroundColor: fade(ACTION_COLORS.activity, 0.08) }}
+              style={{ backgroundColor: fade(ACTION_TYPES.activity.color, 0.08) }}
               startIcon={
                 <div
                   className={classes.iconContainer}
-                  style={{ borderColor: ACTION_COLORS.activity, color: ACTION_COLORS.activity }}
+                  style={{
+                    borderColor: ACTION_TYPES.activity.color,
+                    color: ACTION_TYPES.activity.color,
+                  }}
                 >
                   <AssignmentTurnedInIcon />
                 </div>
@@ -131,7 +134,7 @@ function ActionPlanBar({ userStats, actionPlan }) {
             >
               <Box>
                 <Typography className={classes.text} variant="h6">
-                  <span style={{ color: ACTION_COLORS.activity }}>
+                  <span style={{ color: ACTION_TYPES.activity.color }}>
                     <b>{userStats.activities || 0}</b>
                   </span>
                   <span style={{ fontWeight: 400 }}> of {actionPlan.activities || 0}</span>
@@ -148,13 +151,13 @@ function ActionPlanBar({ userStats, actionPlan }) {
             <Button
               classes={{ label: classes.buttonLabel }}
               fullWidth
-              style={{ backgroundColor: fade(ACTION_COLORS.application, 0.08) }}
+              style={{ backgroundColor: fade(ACTION_TYPES.application.color, 0.08) }}
               startIcon={
                 <div
                   className={classes.iconContainer}
                   style={{
-                    borderColor: ACTION_COLORS.application,
-                    color: ACTION_COLORS.application,
+                    borderColor: ACTION_TYPES.application.color,
+                    color: ACTION_TYPES.application.color,
                   }}
                 >
                   <NextWeekIcon />
@@ -163,7 +166,7 @@ function ActionPlanBar({ userStats, actionPlan }) {
             >
               <Box>
                 <Typography className={classes.text} variant="h6">
-                  <span style={{ color: ACTION_COLORS.application }}>
+                  <span style={{ color: ACTION_TYPES.application.color }}>
                     <b>{userStats.applications || 0}</b>
                   </span>
                   <span style={{ fontWeight: 400 }}> of {actionPlan.applications || 0}</span>
