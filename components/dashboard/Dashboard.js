@@ -460,15 +460,6 @@ export default function Dashboard(props) {
             <Typography variant="h5" className={classes.subtitle} data-intercom="task-count">
               Top {tasks.length} Goals
             </Typography>
-            <Button
-              variant="contained"
-              size="large"
-              color="primary"
-              onClick={() => setActiveDialog(DIALOGS.ACTIVITY_INPUT)}
-              data-intercom="log-activity-button"
-            >
-              Log Activity
-            </Button>
           </Box>
           <Box className={classes.gridC}>
             <TaskList
@@ -514,6 +505,33 @@ export default function Dashboard(props) {
             </Flags>
           </Box>
           <Box className={classes.gridR}>
+            <Flags authorizedFlags={['activityLog']}>
+              <Box mb={3}>
+                <Card variant="outlined" className={classes.card}>
+                  <CardContent className={classes.cardContent}>
+                    <Typography variant="h6" gutterBottom>
+                      Activity Log
+                    </Typography>
+                    <Typography variant="body1" gutterBottom>
+                      We know you job search happens beyond your computer. Our research suggests
+                      jobseekers who track their progress land their next role faster.
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button
+                      fullWidth
+                      color="primary"
+                      variant="contained"
+                      size="large"
+                      data-intercom="log-activity-button"
+                      onClick={() => setActiveDialog(DIALOGS.ACTIVITY_INPUT)}
+                    >
+                      Log An Activity
+                    </Button>
+                  </CardActions>
+                </Card>
+              </Box>
+            </Flags>
             <Flags authorizedFlags={['applicationTracker']}>
               <Box mb={3} data-intercom="application-tracker">
                 <ApplicationTrackerCard applications={allApplicationLogEntries} />

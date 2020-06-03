@@ -55,14 +55,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const getActivityCategoryName = activityTypeValue =>
-  ACTIVITY_TYPES.find(activityType => activityType.value === activityTypeValue).category.name;
+const unrecognizedCategoryName = AirtablePropTypes.TASK_CATEGORIES.other.name;
+
+const getActivityCategoryName = activityTypeValue => {
+  const matchingActivity = ACTIVITY_TYPES.find(
+    activityType => activityType.value === activityTypeValue
+  );
+  return matchingActivity ? matchingActivity.category.name : unrecognizedCategoryName;
+};
 
 const isInPeriod = (date, period) => {
   return !period || (getMonth(date) === period.month && getYear(date) === period.year);
 };
-
-const unrecognizedCategoryName = AirtablePropTypes.TASK_CATEGORIES.other.name;
 
 export default function History(props) {
   const classes = useStyles();
@@ -83,7 +87,7 @@ export default function History(props) {
       timestamp: getTimestamp(a),
       props: {
         ...activity,
-        categoryName: getActivityCategoryName(activityTypeValue) || unrecognizedCategoryName,
+        categoryName: getActivityCategoryName(activityTypeValue),
         dateCompleted,
         id: a.id,
         title: activity.briefDescription,

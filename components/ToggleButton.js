@@ -8,9 +8,6 @@ import React, { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(theme => ({
-  button: {
-    margin: theme.spacing(1, 2, 1, 0),
-  },
   popover: {
     pointerEvents: 'none',
   },
@@ -19,6 +16,9 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: 'black',
     color: 'white',
     boxShadow: 'none',
+  },
+  container: {
+    margin: theme.spacing(1, -1),
   },
 }));
 
@@ -34,10 +34,15 @@ function ToggleButton(props) {
     buttonClassName,
     buttonVariant,
     selectedButtonVariant,
-    containerClassName,
+    containerProps,
     disabledMessage,
     classNameOverrides,
   } = props;
+  const gridContainerProps = {
+    spacing: 2,
+    ...containerProps,
+    className: clsx(classes.container, containerProps.className),
+  };
   const [selected, setSelected] = useState(value);
   const [anchorEl, setAnchorEl] = useState(null);
   const [openPopover, setOpenPopover] = useState(false);
@@ -81,11 +86,11 @@ function ToggleButton(props) {
   }, [anchorEl]);
 
   return (
-    <Grid container className={containerClassName}>
-      {options.map(opt => (
+    <Grid container {...gridContainerProps}>
+      {options.map((opt, index) => (
         <Grid
           item
-          className={clsx(classes.button, buttonClassName)}
+          className={buttonClassName}
           key={opt}
           aria-owns={hasPopover(opt) ? 'mouse-over-popover' : undefined}
           aria-haspopup={hasPopover(opt) ? 'true' : 'false'}
@@ -94,7 +99,7 @@ function ToggleButton(props) {
         >
           <Button
             style={{ height: '44px' }}
-            classes={classNameOverrides}
+            classes={{ root: `toggleButton-${index}`, ...classNameOverrides }}
             fullWidth
             variant={
               selectedButtonVariant && isSelected(opt) ? selectedButtonVariant : buttonVariant
@@ -138,7 +143,7 @@ ToggleButton.propTypes = {
   multiSelect: PropTypes.bool,
   disableDeselect: PropTypes.bool,
   buttonClassName: PropTypes.string,
-  containerClassName: PropTypes.string,
+  containerProps: PropTypes.objectOf(PropTypes.any),
   buttonVariant: PropTypes.string,
   selectedButtonVariant: PropTypes.string,
   disabledMessage: PropTypes.string,
@@ -152,7 +157,7 @@ ToggleButton.defaultProps = {
   buttonClassName: undefined,
   buttonVariant: 'contained',
   selectedButtonVariant: undefined,
-  containerClassName: undefined,
+  containerProps: {},
   disabledMessage: '',
   classNameOverrides: {},
 };
