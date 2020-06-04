@@ -1,4 +1,11 @@
-import { compareDesc, getMonth, getYear } from 'date-fns';
+import {
+  compareDesc,
+  getYear,
+  getWeek,
+  differenceInYears,
+  addYears,
+  getISOWeeksInYear,
+} from 'date-fns';
 import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -9,15 +16,16 @@ import Grid from '@material-ui/core/Grid';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
+import { ACTION_TYPES } from '../dashboard/ActionPlan/constants';
 import ActivityInputDialog, { ACTIVITY_TYPES } from '../activityInput/ActivityInputDialog';
+import ActionItem from './ActionItem';
 import ActionStatsCard from './ActionStatsCard';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import BackgroundHeader from '../BackgroundHeader';
 import EmptyState from './EmptyState';
 import HistoryPropTypes from './PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
-import { ACTION_TYPES } from '../dashboard/ActionPlan/constants';
-import ActionItem from './ActionItem';
+import WeekSelect from './WeekSelect';
 
 const useStyles = makeStyles(theme => ({
   backgroundHeader: {
@@ -31,6 +39,9 @@ const useStyles = makeStyles(theme => ({
   },
   calendarIconContainer: {
     marginRight: theme.spacing(1),
+  },
+  weekSelect: {
+    marginLeft: theme.spacing(1),
   },
   sectionTitle: {
     marginTop: theme.spacing(1),
@@ -65,13 +76,55 @@ const getActivityCategoryName = activityTypeValue => {
 };
 
 const isInPeriod = (date, period) => {
-  return !period || (getMonth(date) === period.month && getYear(date) === period.year);
+  return !period || (getWeek(date) === period.week && getYear(date) === period.year);
+};
+
+const getAllYearsInDates = (startDate, endDate) => {
+  const startYear = getYear(startDate);
+  const yearDiff = differenceInYears(startDate, endDate);
+  return yearDiff > 0
+    ? Array.from(Array(yearDiff).keys(), y => addYears(startYear, y))
+    : [startDate];
+};
+
+const getAllWeeksPeriods = (startDate, endDate) => {
+  const startYear = getYear(startDate);
+  const endYear = getYear(endDate);
+  return getAllYearsInDates(startDate, endDate).reduce((current, y) => {
+    const numberOfWeeks = getISOWeeksInYear(y);
+    const weeksIndexes = [...Array(numberOfWeeks).keys()];
+    let adjustedWeeksIndexes;
+    if (getYear(y) === startYear && getYear(y) === endYear) {
+      adjustedWeeksIndexes = weeksIndexes.slice(getWeek(startDate) - 1, getWeek(endDate));
+    } else if (getYear(y) === startYear) {
+      adjustedWeeksIndexes = weeksIndexes.slice(getWeek(startDate) - 1);
+    } else if (getYear(y) === endYear) {
+      adjustedWeeksIndexes = weeksIndexes.slice(0, getWeek(endDate));
+    }
+    const weeksInYear = adjustedWeeksIndexes.map(w => ({ week: w + 1, year: getYear(y) }));
+
+    return [...current, ...weeksInYear];
+  }, []);
+};
+
+// Filtered out Assessment-complete activity since it's not a user logged activity
+const getActivitiesWithoutAssessmentComplete = activitiesTemp => {
+  return activitiesTemp.filter(
+    activity => activity.props.activityTypeValue !== 'assessment-complete'
+  );
+};
+
+const filterActionsByPeriod = (actionCards, selectedWeek, allWeeksPeriods) => {
+  return actionCards.filter(card =>
+    isInPeriod(card.timestamp, selectedWeek === 0 ? null : allWeeksPeriods[selectedWeek - 1])
+  );
 };
 
 export default function History(props) {
   const classes = useStyles();
   const { activities, completedTasks, applications } = props;
   const [showDialog, setShowDialog] = useState(false);
+  const [selectedWeek, setSelectedWeek] = useState(0);
 
   // protect against immediately-created items that don't yet have a server-generated timestamp
   const getTimestamp = item =>
@@ -132,25 +185,25 @@ export default function History(props) {
     compareDesc(a.timestamp, b.timestamp)
   );
 
+  // console.log(allYears);
   const isEmpty = () => {
     return cards.length === 0;
   };
 
-  // Filtered out Assessment-complete activity since it's not a user logged activity
-  const getActivitiesWithoutAssessmentComplete = () => {
-    return activitiesTemp.filter(
-      activity => activity.props.activityTypeValue !== 'assessment-complete'
-    );
-  };
+  const allWeeksPeriods = getAllWeeksPeriods(cards[cards.length - 1].timestamp, cards[0].timestamp);
 
   const getActionCount = actionTypeValue => {
     switch (actionTypeValue) {
       case ACTION_TYPES.goal.value:
-        return completedTasks.length;
+        return filterActionsByPeriod(tasksTemp, selectedWeek, allWeeksPeriods).length;
       case ACTION_TYPES.activity.value:
-        return getActivitiesWithoutAssessmentComplete().length;
+        return filterActionsByPeriod(
+          getActivitiesWithoutAssessmentComplete(activitiesTemp),
+          selectedWeek,
+          allWeeksPeriods
+        ).length;
       case ACTION_TYPES.application.value:
-        return applications.length;
+        return filterActionsByPeriod(applicationsTemp, selectedWeek, allWeeksPeriods).length;
       default:
         return 0;
     }
@@ -188,12 +241,19 @@ export default function History(props) {
                 <span className={classes.calendarIconContainer}>
                   <CalendarIcon />
                 </span>
-                <span>View All Weeks</span>
+                <span>View</span>
+                <span className={classes.weekSelect}>
+                  <WeekSelect
+                    totalWeeks={allWeeksPeriods.length}
+                    value={selectedWeek}
+                    onChange={setSelectedWeek}
+                  />
+                </span>
               </Box>
             </Box>
             <Card className={classes.card} variant="outlined">
               <Typography className={classes.sectionTitle} variant="h5">
-                Completed Actions for All Weeks
+                Completed Actions for {selectedWeek === 0 ? 'All Weeks' : `Week ${selectedWeek}`}
               </Typography>
               <Grid
                 className={classes.statsContainer}
@@ -213,7 +273,7 @@ export default function History(props) {
               </Grid>
               <Divider className={classes.divider} />
               <Typography className={classes.sectionTitle} variant="h5">
-                All Weeks
+                {selectedWeek === 0 ? 'All Weeks' : `Week ${selectedWeek}`}
               </Typography>
               {isEmpty() && (
                 <div>
@@ -223,7 +283,12 @@ export default function History(props) {
               {!isEmpty() && (
                 <Grid container direction="row" justify="center" alignItems="flex-start">
                   {cards
-                    .filter(card => isInPeriod(card.timestamp, null))
+                    .filter(card =>
+                      isInPeriod(
+                        card.timestamp,
+                        selectedWeek === 0 ? null : allWeeksPeriods[selectedWeek - 1]
+                      )
+                    )
                     .map(card => (
                       <Grid key={card.props.id} item xs={12} className={classes.listItem}>
                         {/* eslint-disable-next-line react/jsx-props-no-spreading */}
