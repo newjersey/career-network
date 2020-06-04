@@ -11,9 +11,10 @@ import PropTypes from 'prop-types';
 import PubSub from 'pubsub-js';
 import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
-
 import SettingsIcon from '@material-ui/icons/Settings';
 import every from 'lodash/every';
+
+import { WEEKLY_ACTION_PLAN_COMPLETE } from '../constants';
 import { getFirstIncompleteAction, isDone, mostRecent } from '../../src/app-helper';
 import { useAnalytics } from '../Analytics';
 import { useAuth } from '../Auth';
@@ -297,6 +298,7 @@ export default function Dashboard(props) {
     allQuestionResponses,
     allActions,
     allActionDispositionEvents,
+    allCompletionEvents,
     allTaskDispositionEvents,
     completedTasks,
     historyLimit,
@@ -373,7 +375,7 @@ export default function Dashboard(props) {
       userDocRef.set({ weeklyStats: { showCelebration: false } }, { merge: true });
       userDocRef
         .collection('completionEvents')
-        .add({ timestamp: new Date(), type: 'weekly-action-plan-complete' });
+        .add({ timestamp: new Date(), type: WEEKLY_ACTION_PLAN_COMPLETE });
       setActiveDialog(DIALOGS.CELEBRATION);
     }
   }, [user.weeklyStats]);
@@ -501,6 +503,7 @@ export default function Dashboard(props) {
                     activities={allActivityLogEntries}
                     completedTasks={completedTasks}
                     applications={allApplicationLogEntries}
+                    completionEvents={allCompletionEvents}
                     limit={historyLimit}
                   />
                 </Card>
@@ -578,6 +581,7 @@ Dashboard.propTypes = {
   allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
   allActionDispositionEvents: FirebasePropTypes.querySnapshot,
+  allCompletionEvents: FirebasePropTypes.querySnapshot,
   allTaskDispositionEvents: FirebasePropTypes.querySnapshot,
   completedTasks: FirebasePropTypes.querySnapshot,
   historyLimit: PropTypes.number.isRequired,
@@ -592,5 +596,6 @@ Dashboard.defaultProps = {
   completedTasks: [],
   allActivityLogEntries: [],
   allApplicationLogEntries: [],
+  allCompletionEvents: [],
   interviewLogEntries: [],
 };

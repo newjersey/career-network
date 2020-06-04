@@ -18,9 +18,11 @@ import HistoryPropTypes from './PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
 import ActivityDetailDialog from './ActivityDetailDialog';
 import ApplicationHistoryDialog from '../applicationTracker/ApplicationHistory/ApplicationHistoryDialog';
-import { ACTION_TYPES } from '../dashboard/ActionPlan/constants';
+import { ACTION_TYPES, COMPLETION_EVENT_TYPES, INITIAL_ASSESSMENT_COMPLETE } from '../constants';
 import { ACTIVITY_TYPES } from '../activityInput/constants';
 import ActionItem from './ActionItem';
+
+const COMPLETED_ASSESSMENT_ACTIVITY_DEPRECATED = 'assessment-complete';
 
 const useStyles = makeStyles(theme => ({
   backgroundHeader: {
@@ -80,7 +82,7 @@ const isInPeriod = (date, period) => {
 const INITIAL_DIALOG_CONFIG = {};
 export default function History(props) {
   const classes = useStyles();
-  const { activities, completedTasks, applications } = props;
+  const { activities, completedTasks, applications, completionEvents } = props;
   const [activeDialog, setActiveDialog] = useState(INITIAL_DIALOG_CONFIG);
 
   // protect against immediately-created items that don't yet have a server-generated timestamp
@@ -103,22 +105,30 @@ export default function History(props) {
 
   const closeActiveDialog = () => setActiveDialog(INITIAL_DIALOG_CONFIG);
 
-  const activitiesTemp = activities.map(a => {
-    const { activityTypeValue, dateCompleted, ...activity } = a.data();
-    return {
-      timestamp: getTimestamp(a),
-      props: {
-        ...activity,
-        categoryName: getActivityCategoryName(activityTypeValue),
-        dateCompleted,
-        id: a.id,
-        title: activity.briefDescription,
-        activityTypeValue,
-        actionType: ACTION_TYPES.activity,
-        openDetails: () => openActivityDetail({ dateCompleted, ...activity }),
-      },
-    };
-  });
+  const activitiesTemp = activities
+    .filter(
+      activity => activity.data().activityTypeValue !== COMPLETED_ASSESSMENT_ACTIVITY_DEPRECATED
+    )
+    .map(a => {
+      const { activityTypeValue, dateCompleted, ...activity } = a.data();
+      return {
+        timestamp: getTimestamp(a),
+        props: {
+          ...activity,
+          categoryName: getActivityCategoryName(activityTypeValue),
+          dateCompleted,
+          id: a.id,
+          title: activity.briefDescription,
+          activityTypeValue,
+          actionType: ACTION_TYPES.activity,
+          openDetails: () => openActivityDetail({ dateCompleted, ...activity }),
+        },
+      };
+    });
+
+  const assessmentCompleteActivitesDeprecated = activities.filter(
+    item => item.data().activityTypeValue === COMPLETED_ASSESSMENT_ACTIVITY_DEPRECATED
+  );
 
   const tasksTemp = completedTasks.map(taskEvent => {
     const { task, timestamp } = taskEvent.data();
@@ -151,25 +161,42 @@ export default function History(props) {
     };
   });
 
-  const cards = [...activitiesTemp, ...tasksTemp, ...applicationsTemp].sort((a, b) =>
-    compareDesc(a.timestamp, b.timestamp)
+  const completionEventsTemp = [...assessmentCompleteActivitesDeprecated, ...completionEvents].map(
+    completionEvent => {
+      const eventData = completionEvent.data();
+      const eventType = eventData.type ? eventData.type : INITIAL_ASSESSMENT_COMPLETE;
+      const dateCompleted = eventData.dateCompleted ? eventData.dateCompleted : eventData.timestamp;
+
+      return {
+        timestamp: getTimestamp(completionEvent),
+        props: {
+          ...eventData,
+          title: COMPLETION_EVENT_TYPES[eventType] ? COMPLETION_EVENT_TYPES[eventType].label : '',
+          dateCompleted,
+          id: completionEvent.id,
+          actionType: COMPLETION_EVENT_TYPES[eventType],
+          isCompletionEvent: true,
+        },
+      };
+    }
   );
 
-  const isEmpty = () => cards.length === 0;
+  const cards = [
+    ...activitiesTemp,
+    ...tasksTemp,
+    ...applicationsTemp,
+    ...completionEventsTemp,
+  ].sort((a, b) => compareDesc(a.timestamp, b.timestamp));
 
+  const isEmpty = () => cards.length === 0;
   // Filtered out Assessment-complete activity since it's not a user logged activity
-  const getActivitiesWithoutAssessmentComplete = () => {
-    return activitiesTemp.filter(
-      activity => activity.props.activityTypeValue !== 'assessment-complete'
-    );
-  };
 
   const getActionCount = actionTypeValue => {
     switch (actionTypeValue) {
       case ACTION_TYPES.goal.value:
         return completedTasks.length;
       case ACTION_TYPES.activity.value:
-        return getActivitiesWithoutAssessmentComplete().length;
+        return activitiesTemp.length;
       case ACTION_TYPES.application.value:
         return applications.length;
       default:

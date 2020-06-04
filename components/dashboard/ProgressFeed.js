@@ -7,7 +7,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-import { ACTION_TYPES } from './ActionPlan/constants';
+import { ACTION_TYPES, COMPLETION_EVENT_TYPES } from '../constants';
 import FirebasePropTypes from '../Firebase/PropTypes';
 import ProgressFeedItem from './ProgressFeedItem';
 
@@ -21,7 +21,7 @@ const useStyles = makeStyles({
 });
 export default function ProgressFeed(props) {
   const classes = useStyles();
-  const { activities, completedTasks, applications, limit } = props;
+  const { activities, completedTasks, applications, completionEvents, limit } = props;
 
   // protect against immediately-created items that don't yet have a server-generated timestamp
   const getTimestamp = item =>
@@ -61,6 +61,22 @@ export default function ProgressFeed(props) {
         actionType: ACTION_TYPES.goal,
       },
     })),
+    ...completionEvents.map(item => {
+      const { type, timestamp } = item.data();
+
+      const eventType = COMPLETION_EVENT_TYPES[type];
+
+      return {
+        timestamp: getTimestamp(item),
+        props: {
+          title: eventType.label,
+          subheader: `👏👏 ${eventType.label} 👏👏`,
+          date: timestamp,
+          actionType: eventType,
+          key: item.id,
+        },
+      };
+    }),
   ].sort((a, b) => compareDesc(a.timestamp, b.timestamp));
 
   return (
@@ -91,5 +107,6 @@ ProgressFeed.propTypes = {
   activities: FirebasePropTypes.querySnapshot.isRequired,
   applications: FirebasePropTypes.querySnapshot.isRequired,
   completedTasks: FirebasePropTypes.querySnapshot.isRequired,
+  completionEvents: FirebasePropTypes.querySnapshot.isRequired,
   limit: PropTypes.number.isRequired,
 };

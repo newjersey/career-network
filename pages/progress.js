@@ -12,6 +12,8 @@ function HistoryPage() {
     orderBy: ['timestamp', 'desc'],
   });
 
+  const allCompletionEvents = useUserSubcollection('completionEvents');
+
   const completedTasks = useUserSubcollection(
     'taskDispositionEvents',
     { where: ['type', '==', 'done'] },
@@ -22,11 +24,18 @@ function HistoryPage() {
     orderBy: ['lastUpdateTimestamp', 'desc'],
   });
 
-  return fullyLoaded(user, allUserActivities, completedTasks, allApplicationLogEntries) ? (
+  return fullyLoaded(
+    user,
+    allUserActivities,
+    allCompletionEvents,
+    completedTasks,
+    allApplicationLogEntries
+  ) ? (
     <History
       activities={allUserActivities}
       completedTasks={completedTasks}
       applications={allApplicationLogEntries}
+      completionEvents={allCompletionEvents}
     />
   ) : (
     <FullPageProgress />

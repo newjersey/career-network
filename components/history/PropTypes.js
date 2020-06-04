@@ -4,4 +4,5 @@ export default {
   activities: FirebasePropTypes.querySnapshot,
   completedTasks: FirebasePropTypes.querySnapshot,
   applications: FirebasePropTypes.querySnapshot,
+  completionEvents: FirebasePropTypes.querySnapshot,
 };

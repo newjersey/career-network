@@ -8,9 +8,11 @@ import CakeIcon from '@material-ui/icons/Cake';
 import NextWeekIcon from '@material-ui/icons/NextWeek';
 import StarIcon from '@material-ui/icons/Star';
 
-import { ACTION_TYPES } from './constants';
-
-const ASSESSMENT_COMPLETE_COLOR = '#9f90ff';
+import {
+  ACTION_TYPES,
+  WEEKLY_ACTION_PLAN_COMPLETE,
+  INITIAL_ASSESSMENT_COMPLETE,
+} from '../../constants';
 
 const useStyles = makeStyles(theme => ({
   iconContainer: {
@@ -25,8 +27,6 @@ const useStyles = makeStyles(theme => ({
 function ActionIcon({ actionType, iconClassName, isAssessmentCompleteAction }) {
   const classes = useStyles();
 
-  const mainColor = isAssessmentCompleteAction ? ASSESSMENT_COMPLETE_COLOR : actionType.color;
-
   const getIcon = () => {
     switch (actionType.value) {
       case ACTION_TYPES.goal.value:
@@ -39,6 +39,9 @@ function ActionIcon({ actionType, iconClassName, isAssessmentCompleteAction }) {
         ) : (
           <AssignmentTurnedInIcon fontSize="inherit" />
         );
+      case INITIAL_ASSESSMENT_COMPLETE:
+      case WEEKLY_ACTION_PLAN_COMPLETE:
+        return <AssignmentTurnedInIcon fontSize="inherit" />;
       default:
         return null;
     }
@@ -48,9 +51,9 @@ function ActionIcon({ actionType, iconClassName, isAssessmentCompleteAction }) {
     <div
       className={clsx(classes.iconContainer, iconClassName)}
       style={{
-        color: mainColor,
-        borderColor: mainColor,
-        backgroundColor: fade(mainColor, 0.08),
+        color: actionType.color,
+        borderColor: actionType.color,
+        backgroundColor: fade(actionType.color, 0.08),
       }}
     >
       {getIcon()}

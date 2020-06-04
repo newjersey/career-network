@@ -15,6 +15,7 @@ function DashboardPage() {
   const allQuestionResponses = useUserSubcollection('questionResponses');
   const allActionDispositionEvents = useUserSubcollection('actionDispositionEvents');
   const allTaskDispositionEvents = useUserSubcollection('taskDispositionEvents');
+  const allCompletionEvents = useUserSubcollection('completionEvents');
   const interviewLogEntries = useUserSubcollection('interviewLogEntries');
   const completedTasks = useUserSubcollection(
     'taskDispositionEvents',
@@ -46,6 +47,7 @@ function DashboardPage() {
     allActionDispositionEvents,
     allActivityLogEntries,
     allApplicationLogEntries,
+    allCompletionEvents,
     completedTasks
   ) ? (
     <Dashboard
@@ -54,6 +56,7 @@ function DashboardPage() {
       allTaskDispositionEvents={allTaskDispositionEvents}
       allActivityLogEntries={allActivityLogEntries}
       allApplicationLogEntries={allApplicationLogEntries}
+      allCompletionEvents={allCompletionEvents}
       completedTasks={completedTasks}
       historyLimit={HISTORY_LIMIT}
       interviewLogEntries={interviewLogEntries}

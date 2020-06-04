@@ -43,36 +43,31 @@ const useStyles = makeStyles(theme => ({
 
 function ActionItem(props) {
   const classes = useStyles();
-  const { title, why, dateCompleted, actionType, activityTypeValue, openDetails } = props;
+  const { title, why, dateCompleted, actionType, openDetails, isCompletionEvent } = props;
 
-  const isAssessmentCompleteAction =
-    activityTypeValue && activityTypeValue === 'assessment-complete';
-
-  const getActionLabel = () =>
-    isAssessmentCompleteAction ? 'Upfront Assessment Completed' : actionType.label;
-
+  const formattedDate =
+    dateCompleted instanceof Date
+      ? format(dateCompleted, 'EEEE, MMM do')
+      : format(dateCompleted.toDate(), 'EEEE, MMM do');
   return (
     <>
       <Grid container direction="row" alignItems="center" spacing={1}>
         <Grid item>
-          <ActionIcon
-            actionType={actionType}
-            isAssessmentCompleteAction={isAssessmentCompleteAction}
-          />
+          <ActionIcon actionType={actionType} />
         </Grid>
         <Grid item>
-          <Typography variant="body2">{getActionLabel()}</Typography>
+          <Typography variant="body2">{actionType.label}</Typography>
         </Grid>
         <Grid item>
           <Typography variant="h6">&#183;</Typography>
         </Grid>
         <Grid item>
           <Typography variant="body2" color="textSecondary">
-            {format(dateCompleted.toDate(), 'EEEE, MMM do')}
+            {formattedDate}
           </Typography>
         </Grid>
       </Grid>
-      {isAssessmentCompleteAction ? (
+      {isCompletionEvent ? (
         <Card className={classes.celebrateCard} variant="outlined">
           <Typography variant="body1" align="center">
             <span
@@ -83,7 +78,7 @@ function ActionItem(props) {
             >
               👍👍
             </span>
-            Upfront Assessment Completed
+            {actionType.label}
             <span
               role="img"
               aria-label="clap-emoji"
@@ -126,19 +121,19 @@ ActionItem.propTypes = {
   dateCompleted: FirebasePropTypes.timestamp.isRequired,
   title: PropTypes.string.isRequired,
   why: PropTypes.string,
-  activityTypeValue: PropTypes.string,
   actionType: PropTypes.shape({
     value: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     color: PropTypes.string.isRequired,
   }).isRequired,
   openDetails: PropTypes.func,
+  isCompletionEvent: PropTypes.bool,
 };
 
 ActionItem.defaultProps = {
   why: null,
-  activityTypeValue: null,
   openDetails: null,
+  isCompletionEvent: false,
 };
 
 export default ActionItem;
