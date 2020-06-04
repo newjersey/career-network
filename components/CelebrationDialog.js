@@ -80,7 +80,8 @@ function CelebrationDialog({ show, onClose }) {
           Job searching is hard and we are here to help you achieve your goals. Taking these steps
           forward every day will add up
           <br /> while you are on the journey.
-          <p />
+          <br />
+          <br />
           Make sure to treat yourself and do something special and keep your positive momentum
           going.
         </Typography>

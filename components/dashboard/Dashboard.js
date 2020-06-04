@@ -371,6 +371,9 @@ export default function Dashboard(props) {
       every(statKeys, key => user.weeklyStats[key] >= user.actionPlan[key])
     ) {
       userDocRef.set({ weeklyStats: { showCelebration: false } }, { merge: true });
+      userDocRef
+        .collection('completionEvents')
+        .add({ timestamp: new Date(), type: 'weekly-action-plan-complete' });
       setActiveDialog(DIALOGS.CELEBRATION);
     }
   }, [user.weeklyStats]);

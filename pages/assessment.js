@@ -79,6 +79,11 @@ function Assessment() {
       { merge: true }
     );
 
+    userDocRef.collection('completionEvents').add({
+      timestamp: new Date(),
+      type: 'initial-assessment-complete',
+    });
+
     sendOtherServicesDescriptionToIntercom();
     analytics.updateProperties({ 'initial-assessment-complete': true });
 
