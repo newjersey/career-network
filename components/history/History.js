@@ -203,7 +203,6 @@ export default function History(props) {
 
   return (
     <div className={classes.root}>
-      {JSON.stringify(allWeeksPeriods)}
       <ActivityInputDialog show={showDialog} onClose={() => setShowDialog()} />
       <BackgroundHeader className={classes.backgroundHeader}>
         <ScaffoldContainer className={classes.header}>
