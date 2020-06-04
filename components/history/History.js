@@ -191,7 +191,8 @@ export default function History(props) {
     return cards.length === 0;
   };
 
-  const allWeeksPeriods = getAllWeeksPeriods(cards[cards.length - 1].timestamp, cards[0].timestamp);
+  const todayDate = new Date();
+  const allWeeksPeriods = getAllWeeksPeriods(cards[cards.length - 1].timestamp, todayDate);
 
   const getActionCount = actionTypeValue => {
     switch (actionTypeValue) {
