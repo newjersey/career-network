@@ -200,8 +200,8 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
           Log an Activity
         </Typography>
         <Typography variant="body2" color="textSecondary">
-          Research suggests that job seekers who track their progress are more successful and land
-          their next position faster.
+          Our research suggests jobseekers who track their progress land their next role faster. The
+          activity log allows you to track your job search activities even outside of this platform.
         </Typography>
       </DialogTitle>
 
