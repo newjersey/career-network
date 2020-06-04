@@ -19,26 +19,24 @@ export default function WeekSelect(props) {
   const weeks = [...weeksTemp.slice(1), 0];
 
   return (
-    <>
-      <Select
-        className={classes.select}
-        displayEmpty
-        value={value}
-        onChange={e => onChange(e.target.value)}
-      >
-        {weeks.reverse().map(week => (
-          <MenuItem key={week} value={week}>
-            {week !== 0 ? (
-              <Typography variant="body2" color="textSecondary">
-                Week {week}
-              </Typography>
-            ) : (
-              <Typography variant="body2">All Weeks</Typography>
-            )}
-          </MenuItem>
-        ))}
-      </Select>
-    </>
+    <Select
+      className={classes.select}
+      displayEmpty
+      value={value}
+      onChange={e => onChange(e.target.value)}
+    >
+      {weeks.reverse().map(week => (
+        <MenuItem key={week} value={week}>
+          {week !== 0 ? (
+            <Typography variant="body2" color="textSecondary">
+              Week {week}
+            </Typography>
+          ) : (
+            <Typography variant="body2">All Weeks</Typography>
+          )}
+        </MenuItem>
+      ))}
+    </Select>
   );
 }
 
@@ -47,5 +45,3 @@ WeekSelect.propTypes = {
   value: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
 };
-
-WeekSelect.defaultProps = {};

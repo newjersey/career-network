@@ -75,6 +75,7 @@ const getActivityCategoryName = activityTypeValue => {
   return matchingActivity ? matchingActivity.category.name : unrecognizedCategoryName;
 };
 
+// period: {week, year}
 const isInPeriod = (date, period) => {
   return !period || (getWeek(date) === period.week && getYear(date) === period.year);
 };
@@ -87,6 +88,7 @@ const getAllYearsInDates = (startDate, endDate) => {
     : [startDate];
 };
 
+// get all (week) periods: {week, year} from startDate to the endDate
 const getAllWeeksPeriods = (startDate, endDate) => {
   const startYear = getYear(startDate);
   const endYear = getYear(endDate);
@@ -124,7 +126,7 @@ export default function History(props) {
   const classes = useStyles();
   const { activities, completedTasks, applications } = props;
   const [showDialog, setShowDialog] = useState(false);
-  const [selectedWeek, setSelectedWeek] = useState(0);
+  const [selectedWeek, setSelectedWeek] = useState(0); // Use 0 to represent 'All Weeks'
 
   // protect against immediately-created items that don't yet have a server-generated timestamp
   const getTimestamp = item =>
@@ -185,7 +187,6 @@ export default function History(props) {
     compareDesc(a.timestamp, b.timestamp)
   );
 
-  // console.log(allYears);
   const isEmpty = () => {
     return cards.length === 0;
   };
