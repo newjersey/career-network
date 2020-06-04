@@ -9,14 +9,17 @@ import Grid from '@material-ui/core/Grid';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import ActivityInputDialog, { ACTIVITY_TYPES } from '../activityInput/ActivityInputDialog';
+import ActivityInputDialog from '../activityInput/ActivityInputDialog';
 import ActionStatsCard from './ActionStatsCard';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import BackgroundHeader from '../BackgroundHeader';
 import EmptyState from './EmptyState';
 import HistoryPropTypes from './PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
+import ActivityDetailDialog from './ActivityDetailDialog';
+import ApplicationHistoryDialog from '../applicationTracker/ApplicationHistory/ApplicationHistoryDialog';
 import { ACTION_TYPES } from '../dashboard/ActionPlan/constants';
+import { ACTIVITY_TYPES } from '../activityInput/constants';
 import ActionItem from './ActionItem';
 
 const useStyles = makeStyles(theme => ({
@@ -64,22 +67,41 @@ const getActivityCategoryName = activityTypeValue => {
   return matchingActivity ? matchingActivity.category.name : unrecognizedCategoryName;
 };
 
+const DIALOGS = {
+  ACTIVITY_INPUT: 'ActivityInputDialog',
+  ACTIVITY_DETAIL: 'ActivityDetailDialog',
+  APPLICATION_HISTORY: 'ApplicationHistoryDialog',
+};
+
 const isInPeriod = (date, period) => {
   return !period || (getMonth(date) === period.month && getYear(date) === period.year);
 };
 
+const INITIAL_DIALOG_CONFIG = {};
 export default function History(props) {
   const classes = useStyles();
   const { activities, completedTasks, applications } = props;
-  const [showDialog, setShowDialog] = useState(false);
+  const [activeDialog, setActiveDialog] = useState(INITIAL_DIALOG_CONFIG);
 
   // protect against immediately-created items that don't yet have a server-generated timestamp
   const getTimestamp = item =>
     (item.data().timestamp && item.data().timestamp.toDate()) || new Date();
 
-  const getApplicationTimestamp = item =>
-    (item.data().statusEntries[0].timestamp && item.data().statusEntries[0].timestamp.toDate()) ||
-    new Date();
+  const getApplicationTimestamp = statusEntries =>
+    (statusEntries[0].timestamp && statusEntries[0].timestamp.toDate()) || new Date();
+
+  const openActivityDetail = selectedActivity =>
+    setActiveDialog({
+      name: DIALOGS.ACTIVITY_DETAIL,
+      activity: selectedActivity,
+    });
+
+  const openApplicationDetail = application =>
+    setActiveDialog({ name: DIALOGS.APPLICATION_HISTORY, application });
+
+  const openActivityInput = () => setActiveDialog({ name: DIALOGS.ACTIVITY_INPUT });
+
+  const closeActiveDialog = () => setActiveDialog(INITIAL_DIALOG_CONFIG);
 
   const activitiesTemp = activities.map(a => {
     const { activityTypeValue, dateCompleted, ...activity } = a.data();
@@ -93,6 +115,7 @@ export default function History(props) {
         title: activity.briefDescription,
         activityTypeValue,
         actionType: ACTION_TYPES.activity,
+        openDetails: () => openActivityDetail({ dateCompleted, ...activity }),
       },
     };
   });
@@ -113,17 +136,17 @@ export default function History(props) {
     };
   });
 
-  const applicationsTemp = applications.map(application => {
+  const applicationsTemp = applications.map(applicationDocument => {
+    const application = applicationDocument.data();
     return {
-      timestamp: getApplicationTimestamp(application),
+      timestamp: getApplicationTimestamp(application.statusEntries),
       props: {
         ...application,
-        title: `Application Opened for ${application.data().jobTitle} at ${
-          application.data().company
-        }`,
-        dateCompleted: application.data().statusEntries[0].timestamp,
-        id: application.id,
+        title: `Application Opened for ${application.jobTitle} at ${application.company}`,
+        dateCompleted: application.statusEntries[0].timestamp,
+        id: applicationDocument.id,
         actionType: ACTION_TYPES.application,
+        openDetails: () => openApplicationDetail(application),
       },
     };
   });
@@ -132,9 +155,7 @@ export default function History(props) {
     compareDesc(a.timestamp, b.timestamp)
   );
 
-  const isEmpty = () => {
-    return cards.length === 0;
-  };
+  const isEmpty = () => cards.length === 0;
 
   // Filtered out Assessment-complete activity since it's not a user logged activity
   const getActivitiesWithoutAssessmentComplete = () => {
@@ -158,7 +179,20 @@ export default function History(props) {
 
   return (
     <div className={classes.root}>
-      <ActivityInputDialog show={showDialog} onClose={() => setShowDialog()} />
+      <ActivityInputDialog
+        show={activeDialog.name === DIALOGS.ACTIVITY_INPUT}
+        onClose={closeActiveDialog}
+      />
+      <ActivityDetailDialog
+        {...activeDialog}
+        show={activeDialog.name === DIALOGS.ACTIVITY_DETAIL}
+        onClose={closeActiveDialog}
+      />
+      <ApplicationHistoryDialog
+        {...activeDialog}
+        handleClose={closeActiveDialog}
+        open={activeDialog.name === DIALOGS.APPLICATION_HISTORY}
+      />
       <BackgroundHeader className={classes.backgroundHeader}>
         <ScaffoldContainer className={classes.header}>
           <Grid container justify="center">
@@ -169,7 +203,7 @@ export default function History(props) {
               variant="contained"
               size="large"
               color="primary"
-              onClick={() => setShowDialog(true)}
+              onClick={openActivityInput}
               data-intercom="log-activity-button"
             >
               Log An Activity
