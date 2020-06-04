@@ -1,11 +1,4 @@
-import {
-  compareDesc,
-  getYear,
-  getWeek,
-  differenceInYears,
-  addYears,
-  getISOWeeksInYear,
-} from 'date-fns';
+import { compareDesc, getYear, getWeek, addYears, getISOWeeksInYear } from 'date-fns';
 import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -81,11 +74,8 @@ const isInPeriod = (date, period) => {
 };
 
 const getAllYearsInDates = (startDate, endDate) => {
-  const startYear = getYear(startDate);
-  const yearDiff = differenceInYears(startDate, endDate);
-  return yearDiff > 0
-    ? Array.from(Array(yearDiff).keys(), y => addYears(startYear, y))
-    : [startDate];
+  const totalYears = getYear(endDate) - getYear(startDate) + 1;
+  return Array.from(Array(totalYears).keys(), y => addYears(startDate, y));
 };
 
 // get all (week) periods: {week, year} from startDate to the endDate
@@ -213,6 +203,7 @@ export default function History(props) {
 
   return (
     <div className={classes.root}>
+      {JSON.stringify(allWeeksPeriods)}
       <ActivityInputDialog show={showDialog} onClose={() => setShowDialog()} />
       <BackgroundHeader className={classes.backgroundHeader}>
         <ScaffoldContainer className={classes.header}>
