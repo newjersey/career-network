@@ -519,8 +519,9 @@ export default function Dashboard(props) {
                       Activity Log
                     </Typography>
                     <Typography variant="body1" gutterBottom>
-                      We know you job search happens beyond your computer. Our research suggests
-                      jobseekers who track their progress land their next role faster.
+                      Our research suggests jobseekers who track their progress land their next role
+                      faster. The activity log allows you to track your job search activities even
+                      outside of this platform.
                     </Typography>
                   </CardContent>
                   <CardActions>
