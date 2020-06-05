@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import React from 'react';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
-import CakeIcon from '@material-ui/icons/Cake';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import NextWeekIcon from '@material-ui/icons/NextWeek';
 import StarIcon from '@material-ui/icons/Star';
 import ActionPlan from '@material-ui/icons/LocalActivity';
@@ -37,7 +37,7 @@ function ActionIcon({ value, color, iconClassName }) {
       case ACTION_TYPES.activity.value:
         return <AssignmentTurnedInIcon fontSize="inherit" />;
       case INITIAL_ASSESSMENT_COMPLETE:
-        return <CakeIcon fontSize="inherit" />;
+        return <AccountCircleIcon fontSize="inherit" />;
       case WEEKLY_ACTION_PLAN_COMPLETE:
         return <ActionPlan fontSize="inherit" />;
       default:
