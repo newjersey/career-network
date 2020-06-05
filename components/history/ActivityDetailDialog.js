@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import formatDate from 'date-fns/format';
 
 import ActionIcon from '../dashboard/ActionPlan/ActionIcon';
-import { ACTION_TYPES } from '../dashboard/ActionPlan/constants';
+import { ACTION_TYPES } from '../constants';
 import { DialogTitle, DialogContent } from '../DialogComponents';
 import { TIME_SPENT_OPTIONS } from '../activityInput/constants';
 import FirebasePropTypes from '../Firebase/PropTypes';
@@ -54,7 +54,7 @@ function ActivityDetailDialog({ show, activity, onClose }) {
         <DialogContent>
           <div className={classes.dialogSubtitle}>
             <span className={classes.iconContainer}>
-              <ActionIcon actionType={ACTION_TYPES.activity} isAssessmentCompleteAction={false} />
+              <ActionIcon {...ACTION_TYPES.activity} />
             </span>
             <Typography variant="caption" color="textPrimary">
               Activity Logged •

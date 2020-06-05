@@ -3,7 +3,6 @@ import React, { useCallback, useState } from 'react';
 import Router from 'next/router';
 
 import { allPropsLoaded, englishList, fullyLoaded } from '../src/app-helper';
-import { logActivity } from '../components/activityInput/ActivityInputDialog';
 import { useAnalytics } from '../components/Analytics';
 import { useAuth, withAuthRequired } from '../components/Auth';
 import { useRecords } from '../components/Airtable';
@@ -58,13 +57,6 @@ function Assessment() {
   const handleComplete = () => {
     setIsFinished(true);
 
-    logActivity(userDocRef, {
-      activityTypeValue: 'assessment-complete',
-      activityTypeLabel: 'Completed assessment',
-      briefDescription: 'Completed assessment',
-      dateCompleted: new Date(),
-    });
-
     // save a complete copy of the exact configassessment configuration answered
     // (for a paper trail, and for using to display a read-only view of answers)
     userDocRef
@@ -78,6 +70,11 @@ function Assessment() {
       { isAssessmentComplete: true, shouldSeeAssesssmentCompletionCelebration: true },
       { merge: true }
     );
+
+    userDocRef.collection('completionEvents').add({
+      timestamp: new Date(),
+      type: 'initial-assessment-complete',
+    });
 
     sendOtherServicesDescriptionToIntercom();
     analytics.updateProperties({ 'initial-assessment-complete': true });

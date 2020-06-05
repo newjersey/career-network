@@ -37,6 +37,11 @@ service cloud.firestore {
       match /taskDispositionEvents/{document} {
         allow read, create: if request.auth.uid == uid;
       }
+      
+      // completion events are immutable: no updating allowed
+      match /completionEvents/{document} {
+        allow read, create: if request.auth.uid == uid;
+      }
 
       // sentiment events are immutable: no updating allowed
       match /sentimentEvents/{document} {
@@ -48,11 +53,6 @@ service cloud.firestore {
         // allow read access to coaches
         allow read: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isCoach == true &&
             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.assignments.hasAny([uid]);
-      }
-
-      // sentiment events are immutable: no updating allowed
-      match /sentimentEvents/{document} {
-       allow read, create: if request.auth.uid == uid;
       }
 
       // activity log entries are immutable: no updating allowed

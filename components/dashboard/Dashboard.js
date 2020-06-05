@@ -11,9 +11,10 @@ import PropTypes from 'prop-types';
 import PubSub from 'pubsub-js';
 import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
-
 import SettingsIcon from '@material-ui/icons/Settings';
 import every from 'lodash/every';
+
+import { WEEKLY_ACTION_PLAN_COMPLETE } from '../constants';
 import { getFirstIncompleteAction, isDone, mostRecent } from '../../src/app-helper';
 import { useAnalytics } from '../Analytics';
 import { useAuth } from '../Auth';
@@ -297,10 +298,11 @@ export default function Dashboard(props) {
     allQuestionResponses,
     allActions,
     allActionDispositionEvents,
+    completionEvents,
     allTaskDispositionEvents,
     completedTasks,
     historyLimit,
-    allActivityLogEntries,
+    activityLogEntries,
     allApplicationLogEntries,
     ...restProps
   } = props;
@@ -371,6 +373,9 @@ export default function Dashboard(props) {
       every(statKeys, key => user.weeklyStats[key] >= user.actionPlan[key])
     ) {
       userDocRef.set({ weeklyStats: { showCelebration: false } }, { merge: true });
+      userDocRef
+        .collection('completionEvents')
+        .add({ timestamp: new Date(), type: WEEKLY_ACTION_PLAN_COMPLETE });
       setActiveDialog(DIALOGS.CELEBRATION);
     }
   }, [user.weeklyStats]);
@@ -495,9 +500,10 @@ export default function Dashboard(props) {
                     disableTypography
                   />
                   <ProgressFeed
-                    activities={allActivityLogEntries}
+                    activities={activityLogEntries}
                     completedTasks={completedTasks}
                     applications={allApplicationLogEntries}
+                    completionEvents={completionEvents}
                     limit={historyLimit}
                   />
                 </Card>
@@ -513,8 +519,9 @@ export default function Dashboard(props) {
                       Activity Log
                     </Typography>
                     <Typography variant="body1" gutterBottom>
-                      We know you job search happens beyond your computer. Our research suggests
-                      jobseekers who track their progress land their next role faster.
+                      Our research suggests jobseekers who track their progress land their next role
+                      faster. The activity log allows you to track your job search activities even
+                      outside of this platform.
                     </Typography>
                   </CardContent>
                   <CardActions>
@@ -575,10 +582,11 @@ Dashboard.propTypes = {
   allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
   allActionDispositionEvents: FirebasePropTypes.querySnapshot,
+  completionEvents: FirebasePropTypes.querySnapshot,
   allTaskDispositionEvents: FirebasePropTypes.querySnapshot,
   completedTasks: FirebasePropTypes.querySnapshot,
   historyLimit: PropTypes.number.isRequired,
-  allActivityLogEntries: FirebasePropTypes.querySnapshot,
+  activityLogEntries: FirebasePropTypes.querySnapshot,
   allApplicationLogEntries: FirebasePropTypes.querySnapshot,
   interviewLogEntries: FirebasePropTypes.querySnapshot,
 };
@@ -587,7 +595,8 @@ Dashboard.defaultProps = {
   allActionDispositionEvents: [],
   allTaskDispositionEvents: [],
   completedTasks: [],
-  allActivityLogEntries: [],
+  activityLogEntries: [],
   allApplicationLogEntries: [],
+  completionEvents: [],
   interviewLogEntries: [],
 };

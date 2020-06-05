@@ -27,13 +27,6 @@ const useStyles = makeStyles(theme => ({
   description: {
     marginTop: theme.spacing(2),
   },
-  celebrateCard: {
-    marginTop: theme.spacing(1),
-    marginLeft: theme.spacing(4),
-    backgroundImage: 'url(/static/img/assessment-complete-history.png)',
-    backgroundSize: 'cover',
-    padding: theme.spacing(4, 6, 3, 6),
-  },
   openButton: {
     backgroundColor: theme.palette.grey['100'],
     color: theme.palette.background.dark,
@@ -43,25 +36,16 @@ const useStyles = makeStyles(theme => ({
 
 function ActionItem(props) {
   const classes = useStyles();
-  const { title, why, dateCompleted, actionType, activityTypeValue, openDetails } = props;
-
-  const isAssessmentCompleteAction =
-    activityTypeValue && activityTypeValue === 'assessment-complete';
-
-  const getActionLabel = () =>
-    isAssessmentCompleteAction ? 'Upfront Assessment Completed' : actionType.label;
+  const { title, why, dateCompleted, actionType, openDetails } = props;
 
   return (
     <>
       <Grid container direction="row" alignItems="center" spacing={1}>
         <Grid item>
-          <ActionIcon
-            actionType={actionType}
-            isAssessmentCompleteAction={isAssessmentCompleteAction}
-          />
+          <ActionIcon {...actionType} />
         </Grid>
         <Grid item>
-          <Typography variant="body2">{getActionLabel()}</Typography>
+          <Typography variant="body2">{actionType.label}</Typography>
         </Grid>
         <Grid item>
           <Typography variant="h6">&#183;</Typography>
@@ -72,52 +56,28 @@ function ActionItem(props) {
           </Typography>
         </Grid>
       </Grid>
-      {isAssessmentCompleteAction ? (
-        <Card className={classes.celebrateCard} variant="outlined">
-          <Typography variant="body1" align="center">
-            <span
-              role="img"
-              aria-label="clap-emoji"
-              display="inline-block"
-              style={{ marginRight: 8 }}
-            >
-              👍👍
-            </span>
-            Upfront Assessment Completed
-            <span
-              role="img"
-              aria-label="clap-emoji"
-              display="inline-block"
-              style={{ marginLeft: 8 }}
-            >
-              👍👍
-            </span>
+      <Card className={classes.card} variant="outlined">
+        <div className={classes.cardTitle}>
+          <Typography component="h1" variant="body1">
+            {title}
           </Typography>
-        </Card>
-      ) : (
-        <Card className={classes.card} variant="outlined">
-          <div className={classes.cardTitle}>
-            <Typography component="h1" variant="body1">
-              {title}
-            </Typography>
-            {openDetails && (
-              <Button className={classes.openButton} variant="contained" onClick={openDetails}>
-                Open
-              </Button>
-            )}
-          </div>
-          {why && (
-            <Typography
-              className={classes.description}
-              variant="body2"
-              component="p"
-              color="textSecondary"
-            >
-              {why}
-            </Typography>
+          {openDetails && (
+            <Button className={classes.openButton} variant="contained" onClick={openDetails}>
+              Open
+            </Button>
           )}
-        </Card>
-      )}
+        </div>
+        {why && (
+          <Typography
+            className={classes.description}
+            variant="body2"
+            component="p"
+            color="textSecondary"
+          >
+            {why}
+          </Typography>
+        )}
+      </Card>
     </>
   );
 }
@@ -126,7 +86,6 @@ ActionItem.propTypes = {
   dateCompleted: FirebasePropTypes.timestamp.isRequired,
   title: PropTypes.string.isRequired,
   why: PropTypes.string,
-  activityTypeValue: PropTypes.string,
   actionType: PropTypes.shape({
     value: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
@@ -137,7 +96,6 @@ ActionItem.propTypes = {
 
 ActionItem.defaultProps = {
   why: null,
-  activityTypeValue: null,
   openDetails: null,
 };
 

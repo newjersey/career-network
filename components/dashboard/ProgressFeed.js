@@ -7,7 +7,12 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-import { ACTION_TYPES } from './ActionPlan/constants';
+import {
+  ACTION_TYPES,
+  COMPLETION_EVENT_TYPES,
+  WEEKLY_ACTION_PLAN_COMPLETE,
+  INITIAL_ASSESSMENT_COMPLETE,
+} from '../constants';
 import FirebasePropTypes from '../Firebase/PropTypes';
 import ProgressFeedItem from './ProgressFeedItem';
 
@@ -21,7 +26,7 @@ const useStyles = makeStyles({
 });
 export default function ProgressFeed(props) {
   const classes = useStyles();
-  const { activities, completedTasks, applications, limit } = props;
+  const { activities, completedTasks, applications, completionEvents, limit } = props;
 
   // protect against immediately-created items that don't yet have a server-generated timestamp
   const getTimestamp = item =>
@@ -39,7 +44,7 @@ export default function ProgressFeed(props) {
         date: item.data().dateCompleted,
         timeSpentInMinutes: item.data().timeSpentInMinutes,
         key: item.id,
-        actionType: ACTION_TYPES.activity,
+        ...ACTION_TYPES.activity,
       },
     })),
     ...applications.map(item => ({
@@ -48,7 +53,7 @@ export default function ProgressFeed(props) {
         title: `Application Opened for ${item.data().jobTitle} at ${item.data().company}`,
         date: item.data().statusEntries[0].timestamp,
         key: item.id,
-        actionType: ACTION_TYPES.application,
+        ...ACTION_TYPES.application,
       },
     })),
     ...completedTasks.map(item => ({
@@ -58,9 +63,27 @@ export default function ProgressFeed(props) {
         subheader: item.data().task.fields.Category,
         date: item.data().timestamp,
         key: item.id,
-        actionType: ACTION_TYPES.goal,
+        ...ACTION_TYPES.goal,
       },
     })),
+    ...completionEvents.map(item => {
+      // set default to support old assessment complete activity
+      const { type = INITIAL_ASSESSMENT_COMPLETE, timestamp } = item.data();
+
+      const eventData = COMPLETION_EVENT_TYPES[type];
+      const title =
+        type === WEEKLY_ACTION_PLAN_COMPLETE ? `Weekly Action Plan Completed` : eventData.label;
+
+      return {
+        timestamp: getTimestamp(item),
+        props: {
+          title,
+          date: timestamp,
+          key: item.id,
+          ...COMPLETION_EVENT_TYPES[type],
+        },
+      };
+    }),
   ].sort((a, b) => compareDesc(a.timestamp, b.timestamp));
 
   return (
@@ -91,5 +114,6 @@ ProgressFeed.propTypes = {
   activities: FirebasePropTypes.querySnapshot.isRequired,
   applications: FirebasePropTypes.querySnapshot.isRequired,
   completedTasks: FirebasePropTypes.querySnapshot.isRequired,
+  completionEvents: FirebasePropTypes.querySnapshot.isRequired,
   limit: PropTypes.number.isRequired,
 };

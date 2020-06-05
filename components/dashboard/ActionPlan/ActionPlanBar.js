@@ -15,7 +15,7 @@ import StarIcon from '@material-ui/icons/Star';
 
 import FirebasePropTypes from '../../Firebase/PropTypes';
 import { useAuth } from '../../Auth';
-import { ACTION_TYPES } from './constants';
+import { ACTION_TYPES } from '../../constants';
 
 const ACTION_PLAN_DEFAULT = {
   goals: 3,
