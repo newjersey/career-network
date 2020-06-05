@@ -1,7 +1,7 @@
 import FirebasePropTypes from '../Firebase/PropTypes';
 
 export default {
-  activities: FirebasePropTypes.querySnapshot,
+  activityLogEntries: FirebasePropTypes.querySnapshot,
   completedTasks: FirebasePropTypes.querySnapshot,
   applications: FirebasePropTypes.querySnapshot,
   completionEvents: FirebasePropTypes.querySnapshot,

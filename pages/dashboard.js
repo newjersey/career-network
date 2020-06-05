@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { allPropsLoaded, fullyLoaded } from '../src/app-helper';
+import { allPropsLoaded, fullyLoaded, getActivitiesAndCompletionEvents } from '../src/app-helper';
 import { useAuth, withAuthRequired } from '../components/Auth';
 import { useRecords } from '../components/Airtable';
 import { useUserSubcollection } from '../components/Firebase';
@@ -54,12 +54,11 @@ function DashboardPage() {
       allQuestionResponses={allQuestionResponses}
       allActionDispositionEvents={allActionDispositionEvents}
       allTaskDispositionEvents={allTaskDispositionEvents}
-      allActivityLogEntries={allActivityLogEntries}
       allApplicationLogEntries={allApplicationLogEntries}
-      allCompletionEvents={allCompletionEvents}
       completedTasks={completedTasks}
       historyLimit={HISTORY_LIMIT}
       interviewLogEntries={interviewLogEntries}
+      {...getActivitiesAndCompletionEvents(allActivityLogEntries, allCompletionEvents)}
       {...recordProps}
     />
   ) : (

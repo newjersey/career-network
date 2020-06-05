@@ -1,5 +1,7 @@
 import every from 'lodash/fp/every';
 import identity from 'lodash/fp/identity';
+import partition from 'lodash/partition';
+import { COMPLETED_ASSESSMENT_ACTIVITY_DEPRECATED } from '../components/constants';
 
 /**
  * Checks that all values in the props are truthy, meaning they've loaded
@@ -160,4 +162,25 @@ export function englishList(array, oxfordComma = true) {
         array[array.length - 1]
       }`;
   }
+}
+
+/**
+ * Supports deprecated storing of 'assessment complete' as an activity rather than
+ * completion event
+ * @param {QueryDocumentSnapshot[]} activityLogEntries all activities logged for user
+ * @param {QueryDocumentSnapshot[]} completionEvents all completion events logged for user
+ * @returns An object containing allActivityLogEntries and allCompletionEvents
+ */
+export function getActivitiesAndCompletionEvents(allActivityLogEntries, allCompletionEvents) {
+  const [assessmentCompleteActivities, nonAssessmentCompleteActivities] = partition(
+    allActivityLogEntries,
+    activity => activity.data().activityTypeValue === COMPLETED_ASSESSMENT_ACTIVITY_DEPRECATED
+  );
+
+  const completionEvents = [...allCompletionEvents, ...assessmentCompleteActivities];
+
+  return {
+    activityLogEntries: nonAssessmentCompleteActivities,
+    completionEvents,
+  };
 }

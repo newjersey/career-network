@@ -7,7 +7,12 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-import { ACTION_TYPES, COMPLETION_EVENT_TYPES, WEEKLY_ACTION_PLAN_COMPLETE } from '../constants';
+import {
+  ACTION_TYPES,
+  COMPLETION_EVENT_TYPES,
+  WEEKLY_ACTION_PLAN_COMPLETE,
+  INITIAL_ASSESSMENT_COMPLETE,
+} from '../constants';
 import FirebasePropTypes from '../Firebase/PropTypes';
 import ProgressFeedItem from './ProgressFeedItem';
 
@@ -62,11 +67,12 @@ export default function ProgressFeed(props) {
       },
     })),
     ...completionEvents.map(item => {
-      const { type, timestamp } = item.data();
+      // set default to support old assessment complete activity
+      const { type = INITIAL_ASSESSMENT_COMPLETE, timestamp } = item.data();
 
-      const eventType = COMPLETION_EVENT_TYPES[type];
+      const eventData = COMPLETION_EVENT_TYPES[type];
       const title =
-        type === WEEKLY_ACTION_PLAN_COMPLETE ? `Weekly Action Plan Completed` : eventType.label;
+        type === WEEKLY_ACTION_PLAN_COMPLETE ? `Weekly Action Plan Completed` : eventData.label;
 
       return {
         timestamp: getTimestamp(item),

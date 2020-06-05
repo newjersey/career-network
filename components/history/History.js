@@ -18,11 +18,7 @@ import HistoryPropTypes from './PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
 import ActivityDetailDialog from './ActivityDetailDialog';
 import ApplicationHistoryDialog from '../applicationTracker/ApplicationHistory/ApplicationHistoryDialog';
-import {
-  ACTION_TYPES,
-  INITIAL_ASSESSMENT_COMPLETE,
-  COMPLETED_ASSESSMENT_ACTIVITY_DEPRECATED,
-} from '../constants';
+import { ACTION_TYPES, INITIAL_ASSESSMENT_COMPLETE } from '../constants';
 import { ACTIVITY_TYPES } from '../activityInput/constants';
 import ActionItem from './ActionItem';
 import CompletionActionItem from './CompletionActionItem';
@@ -85,7 +81,7 @@ const isInPeriod = (date, period) => {
 const INITIAL_DIALOG_CONFIG = {};
 export default function History(props) {
   const classes = useStyles();
-  const { activities, completedTasks, applications, completionEvents } = props;
+  const { activityLogEntries, completedTasks, applications, completionEvents } = props;
   const [activeDialog, setActiveDialog] = useState(INITIAL_DIALOG_CONFIG);
 
   // protect against immediately-created items that don't yet have a server-generated timestamp
@@ -108,30 +104,22 @@ export default function History(props) {
 
   const closeActiveDialog = () => setActiveDialog(INITIAL_DIALOG_CONFIG);
 
-  const activitiesTemp = activities
-    .filter(
-      activity => activity.data().activityTypeValue !== COMPLETED_ASSESSMENT_ACTIVITY_DEPRECATED
-    )
-    .map(a => {
-      const { activityTypeValue, dateCompleted, ...activity } = a.data();
-      return {
-        timestamp: getTimestamp(a),
-        props: {
-          ...activity,
-          categoryName: getActivityCategoryName(activityTypeValue),
-          dateCompleted,
-          id: a.id,
-          title: activity.briefDescription,
-          activityTypeValue,
-          actionType: ACTION_TYPES.activity,
-          openDetails: () => openActivityDetail({ dateCompleted, ...activity }),
-        },
-      };
-    });
-
-  const assessmentCompleteActivitesDeprecated = activities.filter(
-    item => item.data().activityTypeValue === COMPLETED_ASSESSMENT_ACTIVITY_DEPRECATED
-  );
+  const activitiesTemp = activityLogEntries.map(a => {
+    const { activityTypeValue, dateCompleted, ...activity } = a.data();
+    return {
+      timestamp: getTimestamp(a),
+      props: {
+        ...activity,
+        categoryName: getActivityCategoryName(activityTypeValue),
+        dateCompleted,
+        id: a.id,
+        title: activity.briefDescription,
+        activityTypeValue,
+        actionType: ACTION_TYPES.activity,
+        openDetails: () => openActivityDetail({ dateCompleted, ...activity }),
+      },
+    };
+  });
 
   const tasksTemp = completedTasks.map(taskEvent => {
     const { task, timestamp } = taskEvent.data();
@@ -164,21 +152,19 @@ export default function History(props) {
     };
   });
 
-  const completionEventsTemp = [...assessmentCompleteActivitesDeprecated, ...completionEvents].map(
-    completionEvent => {
-      const { type, dateCompleted, timestamp } = completionEvent.data();
+  const completionEventsTemp = completionEvents.map(completionEvent => {
+    const { type = INITIAL_ASSESSMENT_COMPLETE, timestamp } = completionEvent.data();
 
-      return {
-        timestamp: getTimestamp(completionEvent),
-        isCompletionEvent: true,
-        props: {
-          dateCompleted: dateCompleted || timestamp,
-          id: completionEvent.id,
-          type: type || INITIAL_ASSESSMENT_COMPLETE,
-        },
-      };
-    }
-  );
+    return {
+      timestamp: getTimestamp(completionEvent),
+      isCompletionEvent: true,
+      props: {
+        dateCompleted: timestamp,
+        id: completionEvent.id,
+        type,
+      },
+    };
+  });
 
   const cards = [
     ...activitiesTemp,

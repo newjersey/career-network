@@ -1,5 +1,5 @@
 import React from 'react';
-import { fullyLoaded } from '../src/app-helper';
+import { fullyLoaded, getActivitiesAndCompletionEvents } from '../src/app-helper';
 import { useAuth, withAuthRequired } from '../components/Auth';
 import { useUserSubcollection } from '../components/Firebase';
 import History from '../components/history/History';
@@ -32,10 +32,9 @@ function HistoryPage() {
     allApplicationLogEntries
   ) ? (
     <History
-      activities={allUserActivities}
       completedTasks={completedTasks}
       applications={allApplicationLogEntries}
-      completionEvents={allCompletionEvents}
+      {...getActivitiesAndCompletionEvents(allUserActivities, allCompletionEvents)}
     />
   ) : (
     <FullPageProgress />

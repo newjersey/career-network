@@ -298,11 +298,11 @@ export default function Dashboard(props) {
     allQuestionResponses,
     allActions,
     allActionDispositionEvents,
-    allCompletionEvents,
+    completionEvents,
     allTaskDispositionEvents,
     completedTasks,
     historyLimit,
-    allActivityLogEntries,
+    activityLogEntries,
     allApplicationLogEntries,
     ...restProps
   } = props;
@@ -500,10 +500,10 @@ export default function Dashboard(props) {
                     disableTypography
                   />
                   <ProgressFeed
-                    activities={allActivityLogEntries}
+                    activities={activityLogEntries}
                     completedTasks={completedTasks}
                     applications={allApplicationLogEntries}
-                    completionEvents={allCompletionEvents}
+                    completionEvents={completionEvents}
                     limit={historyLimit}
                   />
                 </Card>
@@ -581,11 +581,11 @@ Dashboard.propTypes = {
   allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
   allActionDispositionEvents: FirebasePropTypes.querySnapshot,
-  allCompletionEvents: FirebasePropTypes.querySnapshot,
+  completionEvents: FirebasePropTypes.querySnapshot,
   allTaskDispositionEvents: FirebasePropTypes.querySnapshot,
   completedTasks: FirebasePropTypes.querySnapshot,
   historyLimit: PropTypes.number.isRequired,
-  allActivityLogEntries: FirebasePropTypes.querySnapshot,
+  activityLogEntries: FirebasePropTypes.querySnapshot,
   allApplicationLogEntries: FirebasePropTypes.querySnapshot,
   interviewLogEntries: FirebasePropTypes.querySnapshot,
 };
@@ -594,8 +594,8 @@ Dashboard.defaultProps = {
   allActionDispositionEvents: [],
   allTaskDispositionEvents: [],
   completedTasks: [],
-  allActivityLogEntries: [],
+  activityLogEntries: [],
   allApplicationLogEntries: [],
-  allCompletionEvents: [],
+  completionEvents: [],
   interviewLogEntries: [],
 };
