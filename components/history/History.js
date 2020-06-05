@@ -32,9 +32,7 @@ const useStyles = makeStyles(theme => ({
   },
   calendarIconContainer: {
     marginRight: theme.spacing(1),
-  },
-  weekSelect: {
-    marginLeft: theme.spacing(1),
+    fontSize: '16px',
   },
   sectionTitle: {
     marginTop: theme.spacing(1),
@@ -231,10 +229,9 @@ export default function History(props) {
               </Typography>
               <Box display="flex" alignItems="center">
                 <span className={classes.calendarIconContainer}>
-                  <CalendarIcon />
+                  <CalendarIcon fontSize="inherit" />
                 </span>
-                <span>View</span>
-                <span className={classes.weekSelect}>
+                <span>
                   <WeekSelect
                     totalWeeks={allWeeksPeriods.length}
                     value={selectedWeek}

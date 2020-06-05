@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
   select: {
-    width: '90px',
+    width: '120px',
   },
 });
 
@@ -32,7 +32,7 @@ export default function WeekSelect(props) {
               Week {week}
             </Typography>
           ) : (
-            <Typography variant="body2">All Weeks</Typography>
+            <Typography variant="body2">View All Weeks</Typography>
           )}
         </MenuItem>
       ))}
