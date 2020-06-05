@@ -14,7 +14,7 @@ import NextWeekIcon from '@material-ui/icons/NextWeek';
 import StarIcon from '@material-ui/icons/Star';
 
 import { useAuth } from '../../Auth';
-import { ACTION_TYPES } from './constants';
+import { ACTION_TYPES } from '../../constants';
 import { DialogTitle, DialogContent, DialogActions } from '../../DialogComponents';
 import FirebasePropTypes from '../../Firebase/PropTypes';
 

@@ -9,8 +9,6 @@ import Grid from '@material-ui/core/Grid';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import { ACTION_TYPES } from '../dashboard/ActionPlan/constants';
-import { ACTIVITY_TYPES } from '../activityInput/constants';
 import ActionItem from './ActionItem';
 import ActionStatsCard from './ActionStatsCard';
 import ActivityDetailDialog from './ActivityDetailDialog';
@@ -21,6 +19,9 @@ import BackgroundHeader from '../BackgroundHeader';
 import EmptyState from './EmptyState';
 import HistoryPropTypes from './PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
+import { ACTION_TYPES, INITIAL_ASSESSMENT_COMPLETE } from '../constants';
+import { ACTIVITY_TYPES } from '../activityInput/constants';
+import CompletionActionItem from './CompletionActionItem';
 import WeekSelect from './WeekSelect';
 
 const useStyles = makeStyles(theme => ({
@@ -122,7 +123,7 @@ const filterActionsByPeriod = (actionCards, selectedWeek, allWeeksPeriods) => {
 const INITIAL_DIALOG_CONFIG = {};
 export default function History(props) {
   const classes = useStyles();
-  const { activities, completedTasks, applications } = props;
+  const { activityLogEntries, completedTasks, applications, completionEvents } = props;
   const [selectedWeek, setSelectedWeek] = useState(0); // Use 0 to represent 'All Weeks'
   const [activeDialog, setActiveDialog] = useState(INITIAL_DIALOG_CONFIG);
 
@@ -146,7 +147,7 @@ export default function History(props) {
 
   const closeActiveDialog = () => setActiveDialog(INITIAL_DIALOG_CONFIG);
 
-  const activitiesTemp = activities.map(a => {
+  const activitiesTemp = activityLogEntries.map(a => {
     const { activityTypeValue, dateCompleted, ...activity } = a.data();
     return {
       timestamp: getTimestamp(a),
@@ -194,12 +195,29 @@ export default function History(props) {
     };
   });
 
-  const cards = [...activitiesTemp, ...tasksTemp, ...applicationsTemp].sort((a, b) =>
-    compareDesc(a.timestamp, b.timestamp)
-  );
+  const completionEventsTemp = completionEvents.map(completionEvent => {
+    const { type = INITIAL_ASSESSMENT_COMPLETE, timestamp } = completionEvent.data();
+
+    return {
+      timestamp: getTimestamp(completionEvent),
+      isCompletionEvent: true,
+      props: {
+        dateCompleted: timestamp,
+        id: completionEvent.id,
+        type,
+      },
+    };
+  });
+
+  const cards = [
+    ...activitiesTemp,
+    ...tasksTemp,
+    ...applicationsTemp,
+    ...completionEventsTemp,
+  ].sort((a, b) => compareDesc(a.timestamp, b.timestamp));
 
   const isEmpty = () => cards.length === 0;
-
+  // Filtered out Assessment-complete activity since it's not a user logged activity
   const todayDate = new Date();
   const allWeeksPeriods = getAllWeeksPeriods(cards[cards.length - 1].timestamp, todayDate);
 
@@ -315,7 +333,11 @@ export default function History(props) {
                     .map(card => (
                       <Grid key={card.props.id} item xs={12} className={classes.listItem}>
                         {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-                        <ActionItem {...card.props} />
+                        {card.isCompletionEvent ? (
+                          <CompletionActionItem {...card.props} />
+                        ) : (
+                          <ActionItem {...card.props} />
+                        )}
                       </Grid>
                     ))}
                 </Grid>

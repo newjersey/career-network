@@ -25,7 +25,7 @@ function ActionStatsCard({ actionType, count }) {
     <Card className={classes.card} variant="outlined" style={{ borderColor: actionType.color }}>
       <Grid container direction="row" alignItems="center" spacing={1}>
         <Grid item>
-          <ActionIcon actionType={actionType} iconClassName={classes.iconContainer} />
+          <ActionIcon {...actionType} iconClassName={classes.iconContainer} />
         </Grid>
         <Grid item>
           <Typography

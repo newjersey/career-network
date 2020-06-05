@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { allPropsLoaded, fullyLoaded } from '../src/app-helper';
+import { allPropsLoaded, fullyLoaded, getActivitiesAndCompletionEvents } from '../src/app-helper';
 import { useAuth, withAuthRequired } from '../components/Auth';
 import { useRecords } from '../components/Airtable';
 import { useUserSubcollection } from '../components/Firebase';
@@ -15,6 +15,7 @@ function DashboardPage() {
   const allQuestionResponses = useUserSubcollection('questionResponses');
   const allActionDispositionEvents = useUserSubcollection('actionDispositionEvents');
   const allTaskDispositionEvents = useUserSubcollection('taskDispositionEvents');
+  const allCompletionEvents = useUserSubcollection('completionEvents');
   const interviewLogEntries = useUserSubcollection('interviewLogEntries');
   const completedTasks = useUserSubcollection(
     'taskDispositionEvents',
@@ -46,17 +47,18 @@ function DashboardPage() {
     allActionDispositionEvents,
     allActivityLogEntries,
     allApplicationLogEntries,
+    allCompletionEvents,
     completedTasks
   ) ? (
     <Dashboard
       allQuestionResponses={allQuestionResponses}
       allActionDispositionEvents={allActionDispositionEvents}
       allTaskDispositionEvents={allTaskDispositionEvents}
-      allActivityLogEntries={allActivityLogEntries}
       allApplicationLogEntries={allApplicationLogEntries}
       completedTasks={completedTasks}
       historyLimit={HISTORY_LIMIT}
       interviewLogEntries={interviewLogEntries}
+      {...getActivitiesAndCompletionEvents(allActivityLogEntries, allCompletionEvents)}
       {...recordProps}
     />
   ) : (

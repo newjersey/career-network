@@ -7,10 +7,13 @@ import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import CakeIcon from '@material-ui/icons/Cake';
 import NextWeekIcon from '@material-ui/icons/NextWeek';
 import StarIcon from '@material-ui/icons/Star';
+import ActionPlan from '@material-ui/icons/LocalActivity';
 
-import { ACTION_TYPES } from './constants';
-
-const ASSESSMENT_COMPLETE_COLOR = '#9f90ff';
+import {
+  ACTION_TYPES,
+  WEEKLY_ACTION_PLAN_COMPLETE,
+  INITIAL_ASSESSMENT_COMPLETE,
+} from '../../constants';
 
 const useStyles = makeStyles(theme => ({
   iconContainer: {
@@ -22,23 +25,21 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function ActionIcon({ actionType, iconClassName, isAssessmentCompleteAction }) {
+function ActionIcon({ value, color, iconClassName }) {
   const classes = useStyles();
 
-  const mainColor = isAssessmentCompleteAction ? ASSESSMENT_COMPLETE_COLOR : actionType.color;
-
   const getIcon = () => {
-    switch (actionType.value) {
+    switch (value) {
       case ACTION_TYPES.goal.value:
         return <StarIcon fontSize="inherit" />;
       case ACTION_TYPES.application.value:
         return <NextWeekIcon fontSize="inherit" />;
       case ACTION_TYPES.activity.value:
-        return isAssessmentCompleteAction ? (
-          <CakeIcon fontSize="inherit" />
-        ) : (
-          <AssignmentTurnedInIcon fontSize="inherit" />
-        );
+        return <AssignmentTurnedInIcon fontSize="inherit" />;
+      case INITIAL_ASSESSMENT_COMPLETE:
+        return <CakeIcon fontSize="inherit" />;
+      case WEEKLY_ACTION_PLAN_COMPLETE:
+        return <ActionPlan fontSize="inherit" />;
       default:
         return null;
     }
@@ -48,9 +49,9 @@ function ActionIcon({ actionType, iconClassName, isAssessmentCompleteAction }) {
     <div
       className={clsx(classes.iconContainer, iconClassName)}
       style={{
-        color: mainColor,
-        borderColor: mainColor,
-        backgroundColor: fade(mainColor, 0.08),
+        color,
+        borderColor: color,
+        backgroundColor: fade(color, 0.08),
       }}
     >
       {getIcon()}
@@ -59,18 +60,13 @@ function ActionIcon({ actionType, iconClassName, isAssessmentCompleteAction }) {
 }
 
 ActionIcon.propTypes = {
-  actionType: PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-    color: PropTypes.string.isRequired,
-  }).isRequired,
+  value: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
   iconClassName: PropTypes.string,
-  isAssessmentCompleteAction: PropTypes.bool,
 };
 
 ActionIcon.defaultProps = {
   iconClassName: undefined,
-  isAssessmentCompleteAction: false,
 };
 
 export default ActionIcon;

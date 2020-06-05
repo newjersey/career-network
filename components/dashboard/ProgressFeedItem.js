@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/styles';
-import { fade } from '@material-ui/core/styles/colorManipulator';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
@@ -7,11 +6,8 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import PropTypes from 'prop-types';
-import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
-import NextWeekIcon from '@material-ui/icons/NextWeek';
-import StarIcon from '@material-ui/icons/Star';
+import ActionIcon from './ActionPlan/ActionIcon';
 
-import { ACTION_TYPES } from './ActionPlan/constants';
 import DateCompleted from '../DateCompleted';
 import FirebasePropTypes from '../Firebase/PropTypes';
 
@@ -44,18 +40,22 @@ const useStyles = makeStyles(theme => ({
 
 export default function ProgressFeedItem(props) {
   const classes = useStyles();
-  const { title, date, actionType } = props;
+  const { title, date, value, color, label } = props;
 
-  const getIcon = () => {
-    switch (actionType.value) {
-      case ACTION_TYPES.goal.value:
-        return <StarIcon fontSize="inherit" />;
-      case ACTION_TYPES.application.value:
-        return <NextWeekIcon fontSize="inherit" />;
-      default:
-        return <AssignmentTurnedInIcon fontSize="inherit" />;
-    }
-  };
+  // const getIcon = () => {
+  //  switch (value) {
+  //    case ACTION_TYPES.goal.value:
+  //      return <StarIcon fontSize="inherit" />;
+  //    case ACTION_TYPES.application.value:
+  //      return <NextWeekIcon fontSize="inherit" />;
+  //    case WEEKLY_ACTION_PLAN_COMPLETE:
+  //      return <ActionPlan fontSize="inherit" />;
+  //    case INITIAL_ASSESSMENT_COMPLETE:
+
+  //    default:
+  //      return <AssignmentTurnedInIcon fontSize="inherit" />;
+  //  }
+  // };
 
   return (
     <Card className={classes.card} data-intercom="progress-feed-item">
@@ -63,19 +63,10 @@ export default function ProgressFeedItem(props) {
       <CardContent className={classes.cardContent}>
         <Grid container direction="row" alignItems="center" spacing={1}>
           <Grid item>
-            <div
-              className={classes.iconContainer}
-              style={{
-                color: actionType.color,
-                borderColor: actionType.color,
-                backgroundColor: fade(actionType.color, 0.08),
-              }}
-            >
-              {getIcon()}
-            </div>
+            <ActionIcon iconClassName={classes.iconContainer} value={value} color={color} />
           </Grid>
           <Grid item>
-            <Typography variant="body2">{actionType.label}</Typography>
+            <Typography variant="body2">{label}</Typography>
           </Grid>
           <Grid item>
             <Typography variant="h6">&#183;</Typography>
@@ -95,9 +86,7 @@ export default function ProgressFeedItem(props) {
 ProgressFeedItem.propTypes = {
   title: PropTypes.string.isRequired,
   date: FirebasePropTypes.timestamp.isRequired,
-  actionType: PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-    color: PropTypes.string.isRequired,
-  }).isRequired,
+  value: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
 };
