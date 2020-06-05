@@ -1,10 +1,6 @@
 export const INITIAL_ASSESSMENT_COMPLETE = 'initial-assessment-complete';
 export const WEEKLY_ACTION_PLAN_COMPLETE = 'weekly-action-plan-complete';
-
-export const COMPLETION_EVENT_LABELS = {
-  [INITIAL_ASSESSMENT_COMPLETE]: 'Upfront Assessment Completed',
-  [WEEKLY_ACTION_PLAN_COMPLETE]: 'Weekly Action Plan Completed',
-};
+export const COMPLETED_ASSESSMENT_ACTIVITY_DEPRECATED = 'assessment-complete';
 
 export const ACTION_TYPES = {
   goal: {
@@ -32,15 +28,15 @@ export const COMPLETION_EVENT_TYPES = {
   },
   [WEEKLY_ACTION_PLAN_COMPLETE]: {
     value: WEEKLY_ACTION_PLAN_COMPLETE,
-    label: 'Weekly Action Plan Completed',
-    color: '#9f90ff',
+    label: 'Action Plan',
+    color: '#d09d09',
   },
 };
 
 export default {
   ACTION_TYPES,
-  COMPLETION_EVENT_LABELS,
   INITIAL_ASSESSMENT_COMPLETE,
   WEEKLY_ACTION_PLAN_COMPLETE,
   COMPLETION_EVENT_TYPES,
+  COMPLETED_ASSESSMENT_ACTIVITY_DEPRECATED,
 };

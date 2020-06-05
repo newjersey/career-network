@@ -44,10 +44,10 @@ const useStyles = makeStyles(theme => ({
 
 export default function ProgressFeedItem(props) {
   const classes = useStyles();
-  const { title, date, actionType } = props;
+  const { title, date, value, color, label } = props;
 
   const getIcon = () => {
-    switch (actionType.value) {
+    switch (value) {
       case ACTION_TYPES.goal.value:
         return <StarIcon fontSize="inherit" />;
       case ACTION_TYPES.application.value:
@@ -66,16 +66,16 @@ export default function ProgressFeedItem(props) {
             <div
               className={classes.iconContainer}
               style={{
-                color: actionType.color,
-                borderColor: actionType.color,
-                backgroundColor: fade(actionType.color, 0.08),
+                color,
+                borderColor: color,
+                backgroundColor: fade(color, 0.08),
               }}
             >
               {getIcon()}
             </div>
           </Grid>
           <Grid item>
-            <Typography variant="body2">{actionType.label}</Typography>
+            <Typography variant="body2">{label}</Typography>
           </Grid>
           <Grid item>
             <Typography variant="h6">&#183;</Typography>
@@ -95,9 +95,7 @@ export default function ProgressFeedItem(props) {
 ProgressFeedItem.propTypes = {
   title: PropTypes.string.isRequired,
   date: FirebasePropTypes.timestamp.isRequired,
-  actionType: PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-    color: PropTypes.string.isRequired,
-  }).isRequired,
+  value: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
 };

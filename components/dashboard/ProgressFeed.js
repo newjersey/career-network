@@ -7,7 +7,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-import { ACTION_TYPES, COMPLETION_EVENT_TYPES } from '../constants';
+import { ACTION_TYPES, COMPLETION_EVENT_TYPES, WEEKLY_ACTION_PLAN_COMPLETE } from '../constants';
 import FirebasePropTypes from '../Firebase/PropTypes';
 import ProgressFeedItem from './ProgressFeedItem';
 
@@ -39,7 +39,7 @@ export default function ProgressFeed(props) {
         date: item.data().dateCompleted,
         timeSpentInMinutes: item.data().timeSpentInMinutes,
         key: item.id,
-        actionType: ACTION_TYPES.activity,
+        ...ACTION_TYPES.activity,
       },
     })),
     ...applications.map(item => ({
@@ -48,7 +48,7 @@ export default function ProgressFeed(props) {
         title: `Application Opened for ${item.data().jobTitle} at ${item.data().company}`,
         date: item.data().statusEntries[0].timestamp,
         key: item.id,
-        actionType: ACTION_TYPES.application,
+        ...ACTION_TYPES.application,
       },
     })),
     ...completedTasks.map(item => ({
@@ -58,22 +58,23 @@ export default function ProgressFeed(props) {
         subheader: item.data().task.fields.Category,
         date: item.data().timestamp,
         key: item.id,
-        actionType: ACTION_TYPES.goal,
+        ...ACTION_TYPES.goal,
       },
     })),
     ...completionEvents.map(item => {
       const { type, timestamp } = item.data();
 
       const eventType = COMPLETION_EVENT_TYPES[type];
+      const title =
+        type === WEEKLY_ACTION_PLAN_COMPLETE ? `Weekly Action Plan Completed` : eventType.label;
 
       return {
         timestamp: getTimestamp(item),
         props: {
-          title: eventType.label,
-          subheader: `👏👏 ${eventType.label} 👏👏`,
+          title,
           date: timestamp,
-          actionType: eventType,
           key: item.id,
+          ...COMPLETION_EVENT_TYPES[type],
         },
       };
     }),

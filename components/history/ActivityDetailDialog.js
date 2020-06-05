@@ -54,7 +54,7 @@ function ActivityDetailDialog({ show, activity, onClose }) {
         <DialogContent>
           <div className={classes.dialogSubtitle}>
             <span className={classes.iconContainer}>
-              <ActionIcon actionType={ACTION_TYPES.activity} isAssessmentCompleteAction={false} />
+              <ActionIcon {...ACTION_TYPES.activity} />
             </span>
             <Typography variant="caption" color="textPrimary">
               Activity Logged •

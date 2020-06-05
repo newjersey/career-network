@@ -27,13 +27,6 @@ const useStyles = makeStyles(theme => ({
   description: {
     marginTop: theme.spacing(2),
   },
-  celebrateCard: {
-    marginTop: theme.spacing(1),
-    marginLeft: theme.spacing(4),
-    backgroundImage: 'url(/static/img/assessment-complete-history.png)',
-    backgroundSize: 'cover',
-    padding: theme.spacing(4, 6, 3, 6),
-  },
   openButton: {
     backgroundColor: theme.palette.grey['100'],
     color: theme.palette.background.dark,
@@ -43,17 +36,13 @@ const useStyles = makeStyles(theme => ({
 
 function ActionItem(props) {
   const classes = useStyles();
-  const { title, why, dateCompleted, actionType, openDetails, isCompletionEvent } = props;
+  const { title, why, dateCompleted, actionType, openDetails } = props;
 
-  const formattedDate =
-    dateCompleted instanceof Date
-      ? format(dateCompleted, 'EEEE, MMM do')
-      : format(dateCompleted.toDate(), 'EEEE, MMM do');
   return (
     <>
       <Grid container direction="row" alignItems="center" spacing={1}>
         <Grid item>
-          <ActionIcon actionType={actionType} />
+          <ActionIcon {...actionType} />
         </Grid>
         <Grid item>
           <Typography variant="body2">{actionType.label}</Typography>
@@ -63,56 +52,32 @@ function ActionItem(props) {
         </Grid>
         <Grid item>
           <Typography variant="body2" color="textSecondary">
-            {formattedDate}
+            {format(dateCompleted.toDate(), 'EEEE, MMM do')}
           </Typography>
         </Grid>
       </Grid>
-      {isCompletionEvent ? (
-        <Card className={classes.celebrateCard} variant="outlined">
-          <Typography variant="body1" align="center">
-            <span
-              role="img"
-              aria-label="clap-emoji"
-              display="inline-block"
-              style={{ marginRight: 8 }}
-            >
-              👍👍
-            </span>
-            {actionType.label}
-            <span
-              role="img"
-              aria-label="clap-emoji"
-              display="inline-block"
-              style={{ marginLeft: 8 }}
-            >
-              👍👍
-            </span>
+      <Card className={classes.card} variant="outlined">
+        <div className={classes.cardTitle}>
+          <Typography component="h1" variant="body1">
+            {title}
           </Typography>
-        </Card>
-      ) : (
-        <Card className={classes.card} variant="outlined">
-          <div className={classes.cardTitle}>
-            <Typography component="h1" variant="body1">
-              {title}
-            </Typography>
-            {openDetails && (
-              <Button className={classes.openButton} variant="contained" onClick={openDetails}>
-                Open
-              </Button>
-            )}
-          </div>
-          {why && (
-            <Typography
-              className={classes.description}
-              variant="body2"
-              component="p"
-              color="textSecondary"
-            >
-              {why}
-            </Typography>
+          {openDetails && (
+            <Button className={classes.openButton} variant="contained" onClick={openDetails}>
+              Open
+            </Button>
           )}
-        </Card>
-      )}
+        </div>
+        {why && (
+          <Typography
+            className={classes.description}
+            variant="body2"
+            component="p"
+            color="textSecondary"
+          >
+            {why}
+          </Typography>
+        )}
+      </Card>
     </>
   );
 }
@@ -127,13 +92,11 @@ ActionItem.propTypes = {
     color: PropTypes.string.isRequired,
   }).isRequired,
   openDetails: PropTypes.func,
-  isCompletionEvent: PropTypes.bool,
 };
 
 ActionItem.defaultProps = {
   why: null,
   openDetails: null,
-  isCompletionEvent: false,
 };
 
 export default ActionItem;

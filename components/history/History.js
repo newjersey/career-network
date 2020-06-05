@@ -18,11 +18,14 @@ import HistoryPropTypes from './PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
 import ActivityDetailDialog from './ActivityDetailDialog';
 import ApplicationHistoryDialog from '../applicationTracker/ApplicationHistory/ApplicationHistoryDialog';
-import { ACTION_TYPES, COMPLETION_EVENT_TYPES, INITIAL_ASSESSMENT_COMPLETE } from '../constants';
+import {
+  ACTION_TYPES,
+  INITIAL_ASSESSMENT_COMPLETE,
+  COMPLETED_ASSESSMENT_ACTIVITY_DEPRECATED,
+} from '../constants';
 import { ACTIVITY_TYPES } from '../activityInput/constants';
 import ActionItem from './ActionItem';
-
-const COMPLETED_ASSESSMENT_ACTIVITY_DEPRECATED = 'assessment-complete';
+import CompletionActionItem from './CompletionActionItem';
 
 const useStyles = makeStyles(theme => ({
   backgroundHeader: {
@@ -163,19 +166,15 @@ export default function History(props) {
 
   const completionEventsTemp = [...assessmentCompleteActivitesDeprecated, ...completionEvents].map(
     completionEvent => {
-      const eventData = completionEvent.data();
-      const eventType = eventData.type ? eventData.type : INITIAL_ASSESSMENT_COMPLETE;
-      const dateCompleted = eventData.dateCompleted ? eventData.dateCompleted : eventData.timestamp;
+      const { type, dateCompleted, timestamp } = completionEvent.data();
 
       return {
         timestamp: getTimestamp(completionEvent),
+        isCompletionEvent: true,
         props: {
-          ...eventData,
-          title: COMPLETION_EVENT_TYPES[eventType] ? COMPLETION_EVENT_TYPES[eventType].label : '',
-          dateCompleted,
+          dateCompleted: dateCompleted || timestamp,
           id: completionEvent.id,
-          actionType: COMPLETION_EVENT_TYPES[eventType],
-          isCompletionEvent: true,
+          type: type || INITIAL_ASSESSMENT_COMPLETE,
         },
       };
     }
@@ -288,7 +287,11 @@ export default function History(props) {
                     .map(card => (
                       <Grid key={card.props.id} item xs={12} className={classes.listItem}>
                         {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-                        <ActionItem {...card.props} />
+                        {card.isCompletionEvent ? (
+                          <CompletionActionItem {...card.props} />
+                        ) : (
+                          <ActionItem {...card.props} />
+                        )}
                       </Grid>
                     ))}
                 </Grid>
