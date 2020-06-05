@@ -9,7 +9,7 @@ import { Box } from '@material-ui/core';
 import { useAuth } from '../Auth';
 import ScaffoldContainer from '../ScaffoldContainer';
 import BackgroundHeader from '../BackgroundHeader';
-import ApplicationDialog from './ApplicationDialog/ApplicationDialog';
+import ApplicationDialog from './ApplicationDialog';
 import ApplicationTable from './ApplicationTable';
 import ApplicationUpdateDialog from './ApplicationUpdateDialog/ApplicationUpdateDialog';
 import ApplicationHistoryDialog from './ApplicationHistory/ApplicationHistoryDialog';
