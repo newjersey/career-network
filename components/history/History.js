@@ -238,7 +238,7 @@ export default function History(props) {
             </Box>
             <Card className={classes.card} variant="outlined">
               <Typography className={classes.sectionTitle} variant="h5">
-                Completed Actions for {selectedWeek < 0 ? 'All Weeks' : `Week ${selectedWeek}`}
+                Completed Actions for {selectedWeek < 0 ? 'All Weeks' : `Week ${selectedWeek + 1}`}
               </Typography>
               <Grid
                 className={classes.statsContainer}
