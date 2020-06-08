@@ -1,3 +1,4 @@
+import React, { useState, useMemo } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -5,11 +6,11 @@ import Card from '@material-ui/core/Card';
 import CalendarIcon from '@material-ui/icons/CalendarTodayRounded';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
-import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import isSameWeek from 'date-fns/isSameWeek';
 import eachWeekOfInterval from 'date-fns/eachWeekOfInterval';
+import countBy from 'lodash/countBy';
 import ActionStatsCard from './ActionStatsCard';
 import ActivityDetailDialog from './ActivityDetailDialog';
 import ActivityInputDialog from '../activityInput/ActivityInputDialog';
@@ -71,12 +72,6 @@ const DIALOGS = {
   ACTIVITY_INPUT: 'ActivityInputDialog',
   ACTIVITY_DETAIL: 'ActivityDetailDialog',
   APPLICATION_HISTORY: 'ApplicationHistoryDialog',
-};
-
-const filterActionsByPeriod = (actionCards, selectedWeek, allWeeksPeriods) => {
-  return selectedWeek < 0
-    ? actionCards
-    : actionCards.filter(card => isSameWeek(card.timestamp, allWeeksPeriods[selectedWeek]));
 };
 
 const INITIAL_DIALOG_CONFIG = {};
@@ -179,18 +174,13 @@ export default function History(props) {
     end: todayDate,
   }).reverse();
 
-  const getActionCount = actionTypeValue => {
-    switch (actionTypeValue) {
-      case ACTION_TYPES.goal.value:
-        return filterActionsByPeriod(tasksTemp, selectedWeek, allWeeksPeriods).length;
-      case ACTION_TYPES.activity.value:
-        return filterActionsByPeriod(activitiesTemp, selectedWeek, allWeeksPeriods).length;
-      case ACTION_TYPES.application.value:
-        return filterActionsByPeriod(applicationsTemp, selectedWeek, allWeeksPeriods).length;
-      default:
-        return 0;
-    }
-  };
+  const actionCounts = useMemo(() => {
+    const visibleCards =
+      selectedWeek < 0
+        ? cards
+        : cards.filter(card => isSameWeek(card.timestamp, allWeeksPeriods[selectedWeek]));
+    return countBy(visibleCards, item => item.props.actionType && item.props.actionType.value);
+  }, [selectedWeek, allWeeksPeriods, cards]);
 
   return (
     <div className={classes.root}>
@@ -264,7 +254,7 @@ export default function History(props) {
                     selected={selectedFilter === actionType.value}
                     handleSelect={newValue => setSelectedFilter(newValue)}
                     actionType={actionType}
-                    count={getActionCount(actionType.value)}
+                    count={actionCounts[actionType.value] || 0}
                   />
                 ))}
               </Grid>

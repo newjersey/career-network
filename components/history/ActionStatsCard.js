@@ -57,7 +57,7 @@ function ActionStatsCard(props) {
                 color: actionType.color,
               }}
             >
-              <b>{count}</b> {actionType.label}
+              {actionType.label} <b>{count}</b>
             </Typography>
           </Grid>
         </Grid>
