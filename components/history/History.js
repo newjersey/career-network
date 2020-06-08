@@ -1,4 +1,3 @@
-import { compareDesc, getYear, getWeek, addYears, getISOWeeksInYear } from 'date-fns';
 import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -9,7 +8,8 @@ import Grid from '@material-ui/core/Grid';
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import ActionItem from './ActionItem';
+import isSameWeek from 'date-fns/isSameWeek';
+import eachWeekOfInterval from 'date-fns/eachWeekOfInterval';
 import ActionStatsCard from './ActionStatsCard';
 import ActivityDetailDialog from './ActivityDetailDialog';
 import ActivityInputDialog from '../activityInput/ActivityInputDialog';
@@ -21,8 +21,8 @@ import HistoryPropTypes from './PropTypes';
 import ScaffoldContainer from '../ScaffoldContainer';
 import { ACTION_TYPES, INITIAL_ASSESSMENT_COMPLETE } from '../constants';
 import { ACTIVITY_TYPES } from '../activityInput/constants';
-import CompletionActionItem from './CompletionActionItem';
 import WeekSelect from './WeekSelect';
+import WeekSegment from './WeekSegment';
 
 const useStyles = makeStyles(theme => ({
   backgroundHeader: {
@@ -46,9 +46,6 @@ const useStyles = makeStyles(theme => ({
   },
   divider: {
     marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3),
-  },
-  listItem: {
     marginBottom: theme.spacing(3),
   },
   card: {
@@ -76,55 +73,18 @@ const DIALOGS = {
   APPLICATION_HISTORY: 'ApplicationHistoryDialog',
 };
 
-// period: {week, year}
-const isInPeriod = (date, period) => {
-  return !period || (getWeek(date) === period.week && getYear(date) === period.year);
-};
-
-const getAllYearsInDates = (startDate, endDate) => {
-  const totalYears = getYear(endDate) - getYear(startDate) + 1;
-  return Array.from(Array(totalYears).keys(), y => addYears(startDate, y));
-};
-
-// get all (week) periods: {week, year} from startDate to the endDate
-const getAllWeeksPeriods = (startDate, endDate) => {
-  const startYear = getYear(startDate);
-  const endYear = getYear(endDate);
-  return getAllYearsInDates(startDate, endDate).reduce((current, y) => {
-    const numberOfWeeks = getISOWeeksInYear(y);
-    const weeksIndexes = [...Array(numberOfWeeks).keys()];
-    let adjustedWeeksIndexes;
-    if (getYear(y) === startYear && getYear(y) === endYear) {
-      adjustedWeeksIndexes = weeksIndexes.slice(getWeek(startDate) - 1, getWeek(endDate));
-    } else if (getYear(y) === startYear) {
-      adjustedWeeksIndexes = weeksIndexes.slice(getWeek(startDate) - 1);
-    } else if (getYear(y) === endYear) {
-      adjustedWeeksIndexes = weeksIndexes.slice(0, getWeek(endDate));
-    }
-    const weeksInYear = adjustedWeeksIndexes.map(w => ({ week: w + 1, year: getYear(y) }));
-
-    return [...current, ...weeksInYear];
-  }, []);
-};
-
-// Filtered out Assessment-complete activity since it's not a user logged activity
-const getActivitiesWithoutAssessmentComplete = activitiesTemp => {
-  return activitiesTemp.filter(
-    activity => activity.props.activityTypeValue !== 'assessment-complete'
-  );
-};
-
 const filterActionsByPeriod = (actionCards, selectedWeek, allWeeksPeriods) => {
-  return actionCards.filter(card =>
-    isInPeriod(card.timestamp, selectedWeek === 0 ? null : allWeeksPeriods[selectedWeek - 1])
-  );
+  return selectedWeek < 0
+    ? actionCards
+    : actionCards.filter(card => isSameWeek(card.timestamp, allWeeksPeriods[selectedWeek]));
 };
 
 const INITIAL_DIALOG_CONFIG = {};
 export default function History(props) {
   const classes = useStyles();
   const { activityLogEntries, completedTasks, applications, completionEvents } = props;
-  const [selectedWeek, setSelectedWeek] = useState(0); // Use 0 to represent 'All Weeks'
+  const [selectedWeek, setSelectedWeek] = useState(-1); // Use -1 to represent 'All Weeks'
+  const [selectedFilter, setSelectedFilter] = useState();
   const [activeDialog, setActiveDialog] = useState(INITIAL_DIALOG_CONFIG);
 
   // protect against immediately-created items that don't yet have a server-generated timestamp
@@ -209,28 +169,22 @@ export default function History(props) {
     };
   });
 
-  const cards = [
-    ...activitiesTemp,
-    ...tasksTemp,
-    ...applicationsTemp,
-    ...completionEventsTemp,
-  ].sort((a, b) => compareDesc(a.timestamp, b.timestamp));
+  const cards = [...activitiesTemp, ...tasksTemp, ...applicationsTemp, ...completionEventsTemp];
 
   const isEmpty = () => cards.length === 0;
-  // Filtered out Assessment-complete activity since it's not a user logged activity
+
   const todayDate = new Date();
-  const allWeeksPeriods = getAllWeeksPeriods(cards[cards.length - 1].timestamp, todayDate);
+  const allWeeksPeriods = eachWeekOfInterval({
+    start: cards[cards.length - 1].timestamp,
+    end: todayDate,
+  }).reverse();
 
   const getActionCount = actionTypeValue => {
     switch (actionTypeValue) {
       case ACTION_TYPES.goal.value:
         return filterActionsByPeriod(tasksTemp, selectedWeek, allWeeksPeriods).length;
       case ACTION_TYPES.activity.value:
-        return filterActionsByPeriod(
-          getActivitiesWithoutAssessmentComplete(activitiesTemp),
-          selectedWeek,
-          allWeeksPeriods
-        ).length;
+        return filterActionsByPeriod(activitiesTemp, selectedWeek, allWeeksPeriods).length;
       case ACTION_TYPES.application.value:
         return filterActionsByPeriod(applicationsTemp, selectedWeek, allWeeksPeriods).length;
       default:
@@ -285,7 +239,7 @@ export default function History(props) {
                 </span>
                 <span>
                   <WeekSelect
-                    totalWeeks={allWeeksPeriods.length}
+                    weeks={allWeeksPeriods}
                     value={selectedWeek}
                     onChange={setSelectedWeek}
                   />
@@ -294,7 +248,7 @@ export default function History(props) {
             </Box>
             <Card className={classes.card} variant="outlined">
               <Typography className={classes.sectionTitle} variant="h5">
-                Completed Actions for {selectedWeek === 0 ? 'All Weeks' : `Week ${selectedWeek}`}
+                Completed Actions for {selectedWeek < 0 ? 'All Weeks' : `Week ${selectedWeek}`}
               </Typography>
               <Grid
                 className={classes.statsContainer}
@@ -307,41 +261,36 @@ export default function History(props) {
                 {Object.values(ACTION_TYPES).map(actionType => (
                   <ActionStatsCard
                     key={actionType.value}
+                    selected={selectedFilter === actionType.value}
+                    handleSelect={newValue => setSelectedFilter(newValue)}
                     actionType={actionType}
                     count={getActionCount(actionType.value)}
                   />
                 ))}
               </Grid>
               <Divider className={classes.divider} />
-              <Typography className={classes.sectionTitle} variant="h5">
-                {selectedWeek === 0 ? 'All Weeks' : `Week ${selectedWeek}`}
-              </Typography>
               {isEmpty() && (
                 <div>
                   <EmptyState />
                 </div>
               )}
-              {!isEmpty() && (
-                <Grid container direction="row" justify="center" alignItems="flex-start">
-                  {cards
-                    .filter(card =>
-                      isInPeriod(
-                        card.timestamp,
-                        selectedWeek === 0 ? null : allWeeksPeriods[selectedWeek - 1]
-                      )
-                    )
-                    .map(card => (
-                      <Grid key={card.props.id} item xs={12} className={classes.listItem}>
-                        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-                        {card.isCompletionEvent ? (
-                          <CompletionActionItem {...card.props} />
-                        ) : (
-                          <ActionItem {...card.props} />
-                        )}
-                      </Grid>
-                    ))}
-                </Grid>
-              )}
+              {!isEmpty() &&
+                allWeeksPeriods.map((week, index) => (
+                  <Grid
+                    container
+                    direction="row"
+                    justify="flex-start"
+                    alignItems="flex-start"
+                    key={week}
+                  >
+                    <WeekSegment
+                      selectedFilter={selectedFilter}
+                      cards={cards.filter(card => isSameWeek(card.timestamp, week))}
+                      weekIndex={allWeeksPeriods.length - index}
+                      isVisible={(selectedWeek > 0 && selectedWeek === index) || selectedWeek < 0}
+                    />
+                  </Grid>
+                ))}
             </Card>
           </Grid>
         </Grid>
