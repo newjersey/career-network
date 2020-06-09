@@ -21,7 +21,6 @@ const useStyles = makeStyles(theme => ({
 function WeekSegment(props) {
   const classes = useStyles();
   const { cards, weekIndex, isVisible, selectedFilter } = props;
-
   const visibleCards = useMemo(
     () =>
       cards.filter(

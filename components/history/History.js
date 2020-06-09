@@ -180,6 +180,7 @@ export default function History(props) {
     end: todayDate,
   }).reverse();
 
+  // Retrieve the action type count for cards in the selected week (or total count if all weeks)
   const actionCounts = useMemo(() => {
     const visibleCards =
       selectedWeek < 0
@@ -244,7 +245,8 @@ export default function History(props) {
             </Box>
             <Card className={classes.card} variant="outlined">
               <Typography className={classes.sectionTitle} variant="h5">
-                Completed Actions for {selectedWeek < 0 ? 'All Weeks' : `Week ${selectedWeek + 1}`}
+                Completed Actions for{' '}
+                {selectedWeek < 0 ? 'All Weeks' : `Week ${allWeeksPeriods.length - selectedWeek}`}
               </Typography>
               <Grid
                 className={classes.statsContainer}
@@ -283,7 +285,7 @@ export default function History(props) {
                       selectedFilter={selectedFilter}
                       cards={cards.filter(card => isSameWeek(card.timestamp, week))}
                       weekIndex={allWeeksPeriods.length - index}
-                      isVisible={(selectedWeek > 0 && selectedWeek === index) || selectedWeek < 0}
+                      isVisible={(selectedWeek > -1 && selectedWeek === index) || selectedWeek < 0}
                     />
                   </Grid>
                 ))}
