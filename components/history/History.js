@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 
 import isSameWeek from 'date-fns/isSameWeek';
 import eachWeekOfInterval from 'date-fns/eachWeekOfInterval';
+import compareDesc from 'date-fns/compareDesc';
 import countBy from 'lodash/countBy';
 import ActionStatsCard from './ActionStatsCard';
 import ActivityDetailDialog from './ActivityDetailDialog';
@@ -164,7 +165,12 @@ export default function History(props) {
     };
   });
 
-  const cards = [...activitiesTemp, ...tasksTemp, ...applicationsTemp, ...completionEventsTemp];
+  const cards = [
+    ...activitiesTemp,
+    ...tasksTemp,
+    ...applicationsTemp,
+    ...completionEventsTemp,
+  ].sort((a, b) => compareDesc(a.timestamp, b.timestamp));
 
   const isEmpty = () => cards.length === 0;
 

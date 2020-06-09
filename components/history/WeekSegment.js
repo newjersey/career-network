@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import compareDesc from 'date-fns/compareDesc';
 import ActionItem from './ActionItem';
 import CompletionActionItem from './CompletionActionItem';
 
@@ -25,15 +24,13 @@ function WeekSegment(props) {
 
   const visibleCards = useMemo(
     () =>
-      cards
-        .sort((a, b) => compareDesc(a.timestamp, b.timestamp))
-        .filter(
-          item =>
-            !selectedFilter ||
-            (selectedFilter &&
-              item.props.actionType &&
-              item.props.actionType.value === selectedFilter)
-        ),
+      cards.filter(
+        item =>
+          !selectedFilter ||
+          (selectedFilter &&
+            item.props.actionType &&
+            item.props.actionType.value === selectedFilter)
+      ),
     [cards, selectedFilter]
   );
 
