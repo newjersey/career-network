@@ -378,7 +378,7 @@ export default function Dashboard(props) {
         .add({ timestamp: new Date(), type: WEEKLY_ACTION_PLAN_COMPLETE });
       setActiveDialog(DIALOGS.CELEBRATION);
     }
-  }, [user.weeklyStats]);
+  }, [user.weeklyStats]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className={classes.root}>

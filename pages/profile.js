@@ -77,7 +77,7 @@ function ProfilePage() {
     } else if (fullyLoaded(allQuestionResponses)) {
       handleInitialize();
     }
-  }, [allQuestionResponses]);
+  }, [allQuestionResponses]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return fullyLoaded(user, allQuestionResponses, user.userData.userProfile) && initialized ? (
     <Profile profileData={user.userData.userProfile} />

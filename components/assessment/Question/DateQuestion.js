@@ -112,7 +112,7 @@ export default function DateQuestion(props) {
       onChangeCommitted(`${selectedDate.month} ${selectedDate.year}`);
     }
     onChange(selectedDate);
-  }, [selectedDate]);
+  }, [selectedDate]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className={classes.group}>

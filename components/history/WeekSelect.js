@@ -13,10 +13,7 @@ const useStyles = makeStyles({
 
 export default function WeekSelect(props) {
   const classes = useStyles();
-  const { totalWeeks, value, onChange } = props;
-
-  const weeksTemp = [...Array(totalWeeks + 1).keys()];
-  const weeks = [...weeksTemp.slice(1), 0];
+  const { value, onChange, weeks } = props;
 
   return (
     <Select
@@ -25,15 +22,14 @@ export default function WeekSelect(props) {
       value={value}
       onChange={e => onChange(e.target.value)}
     >
-      {weeks.reverse().map(week => (
-        <MenuItem key={week} value={week}>
-          {week !== 0 ? (
-            <Typography variant="body2" color="textSecondary">
-              Week {week}
-            </Typography>
-          ) : (
-            <Typography variant="body2">View All Weeks</Typography>
-          )}
+      <MenuItem value={-1}>
+        <Typography variant="body2">View All Weeks</Typography>
+      </MenuItem>
+      {weeks.map((week, index) => (
+        <MenuItem key={week} value={index}>
+          <Typography variant="body2" color="textSecondary">
+            Week {weeks.length - index}
+          </Typography>
         </MenuItem>
       ))}
     </Select>
@@ -41,7 +37,11 @@ export default function WeekSelect(props) {
 }
 
 WeekSelect.propTypes = {
-  totalWeeks: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
+  weeks: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
   onChange: PropTypes.func.isRequired,
+};
+
+WeekSelect.defaultProps = {
+  weeks: [],
 };
