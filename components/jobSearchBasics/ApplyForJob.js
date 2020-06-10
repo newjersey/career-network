@@ -1,5 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
+import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
@@ -103,11 +104,11 @@ const MILESTONE_TYPES = [
   },
 ];
 
-export default function ApplyForJob() {
+export default function ApplyForJob({ scrollToRef }) {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} ref={scrollToRef}>
       <ScaffoldContainer>
         <Grid container justify="center">
           <Grid item container xs={12} sm={4}>
@@ -169,3 +170,13 @@ export default function ApplyForJob() {
     </div>
   );
 }
+
+ApplyForJob.propTypes = {
+  scrollToRef: PropTypes.shape({
+    current: PropTypes.object,
+  }),
+};
+
+ApplyForJob.defaultProps = {
+  scrollToRef: null,
+};

@@ -1,5 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
+import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
@@ -88,11 +89,11 @@ const JOB_SEARCH_TOOLS = [
   },
 ];
 
-export default function FindingJob() {
+export default function FindingJob({ scrollToRef }) {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} ref={scrollToRef}>
       <ScaffoldContainer>
         <Grid container justify="center">
           <Grid item container xs={12} sm={4}>
@@ -168,3 +169,13 @@ export default function FindingJob() {
     </div>
   );
 }
+
+FindingJob.propTypes = {
+  scrollToRef: PropTypes.shape({
+    current: PropTypes.object,
+  }),
+};
+
+FindingJob.defaultProps = {
+  scrollToRef: null,
+};

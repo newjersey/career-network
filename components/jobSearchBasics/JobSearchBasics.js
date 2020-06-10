@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import ScaffoldContainer from '../ScaffoldContainer';
@@ -81,9 +81,31 @@ const SHAPES = {
   TRIANGLE: 'triangle',
 };
 
+const SECTIONS = {
+  FINDING_JOBS: 'findingJobs',
+  APPLY_FOR_JOB: 'applyForJob',
+  HEALTH: 'health',
+};
+
 export default function JobSearchBasics() {
   const classes = useStyles();
-  const [shape, setShowShape] = useState(SHAPES.TRIANGLE);
+  const [shape, setShowShape] = useState();
+  const findingJobSection = useRef(null);
+  const applyForJobSection = useRef(null);
+  const healthSection = useRef(null);
+
+  const handleScrollTo = section => {
+    const selectedSection = {
+      [SECTIONS.FINDING_JOBS]: findingJobSection,
+      [SECTIONS.APPLY_FOR_JOB]: applyForJobSection,
+      [SECTIONS.HEALTH]: healthSection,
+    }[section];
+
+    selectedSection.current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  };
 
   return (
     <div>
@@ -99,6 +121,7 @@ export default function JobSearchBasics() {
             </Typography>
             <Box
               className={classes.hoverBlock}
+              onClick={() => handleScrollTo(SECTIONS.FINDING_JOBS)}
               onMouseLeave={() => setShowShape()}
               onMouseEnter={() => setShowShape(SHAPES.CIRCLE)}
             >
@@ -109,6 +132,7 @@ export default function JobSearchBasics() {
             </Box>
             <Box
               className={classes.hoverBlock}
+              onClick={() => handleScrollTo(SECTIONS.APPLY_FOR_JOB)}
               onMouseLeave={() => setShowShape()}
               onMouseEnter={() => setShowShape(SHAPES.SQUARE)}
             >
@@ -119,6 +143,7 @@ export default function JobSearchBasics() {
             </Box>
             <Box
               className={classes.hoverBlock}
+              onClick={() => handleScrollTo(SECTIONS.HEALTH)}
               onMouseLeave={() => setShowShape()}
               onMouseEnter={() => setShowShape(SHAPES.TRIANGLE)}
             >
@@ -134,9 +159,9 @@ export default function JobSearchBasics() {
           </Grid>
         </Grid>
       </ScaffoldContainer>
-      <FindingJob />
-      <ApplyForJob />
-      <Health />
+      <FindingJob scrollToRef={findingJobSection} />
+      <ApplyForJob scrollToRef={applyForJobSection} />
+      <Health scrollToRef={healthSection} />
     </div>
   );
 }
