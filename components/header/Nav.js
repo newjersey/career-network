@@ -140,11 +140,6 @@ function Nav(props) {
       show: user && showApplicationTracker,
     },
     {
-      href: '/job-search-basics',
-      name: 'Job Search Basics',
-      show: user && showJobSearchBasics,
-    },
-    {
       href: '/toolkit',
       name: 'Job Toolkit',
       shortName: 'Toolkit',
@@ -180,6 +175,12 @@ function Nav(props) {
       shortName: 'Help',
       show: true,
       onClick: handleHelpClick,
+    },
+    {
+      href: '/job-search-basics',
+      name: 'The Basics',
+      shortName: 'The Basics',
+      show: showJobSearchBasics,
     },
     {
       href: '/covid-resources',
@@ -253,7 +254,7 @@ function Nav(props) {
                           <ListItemIcon>
                             <AssignmentIcon />
                           </ListItemIcon>
-                          <ListItemText primary="Job Search Basics" />
+                          <ListItemText primary="The Basics" />
                         </ListItem>
                       </NextLink>
                     </Flags>

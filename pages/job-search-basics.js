@@ -6,4 +6,4 @@ function JobSearchBasicsPage() {
   return <JobSearchBasics />;
 }
 
-export default withTitle(JobSearchBasicsPage, 'Job Search Basics');
+export default withTitle(JobSearchBasicsPage, 'The Basics');
