@@ -38,13 +38,12 @@ const useStyles = makeStyles(theme => ({
   },
   iconContainer: {
     borderRadius: '50%',
-    padding: theme.spacing(1.5),
+    padding: theme.spacing(1.7),
     width: '56px',
     height: '56px',
     background: 'white',
     boxShadow: '0 8px 12px 0 rgba(0, 0, 0, 0.04)',
     color: JOB_SEARCH_BASICS_TYPES.apply.color,
-    fontSize: '28px',
   },
   topicIcon: {
     color: JOB_SEARCH_BASICS_TYPES.apply.color,

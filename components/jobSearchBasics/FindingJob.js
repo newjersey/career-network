@@ -37,13 +37,12 @@ const useStyles = makeStyles(theme => ({
   },
   iconContainer: {
     borderRadius: '50%',
-    padding: theme.spacing(1.5),
+    padding: theme.spacing(1.7),
     width: '56px',
     height: '56px',
     background: 'white',
     boxShadow: '0 8px 12px 0 rgba(0, 0, 0, 0.04)',
     color: JOB_SEARCH_BASICS_TYPES.search.color,
-    fontSize: '28px',
   },
 }));
 
@@ -97,7 +96,7 @@ export default function FindingJob() {
         <Grid container justify="center">
           <Grid item container xs={12} sm={4}>
             <Typography className={classes.title} component="h1" variant="h3">
-              Finding job
+              Finding Job
               <br />
               Opportunities
             </Typography>
