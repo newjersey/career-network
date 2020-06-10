@@ -20,6 +20,10 @@ const envConfigs = {
       name: 'activityLog',
       isActive: true,
     },
+    {
+      name: 'jobSearchBasics',
+      isActive: false,
+    },
   ],
   PREVIEW: [
     {
@@ -40,6 +44,10 @@ const envConfigs = {
     },
     {
       name: 'activityLog',
+      isActive: true,
+    },
+    {
+      name: 'jobSearchBasics',
       isActive: true,
     },
   ],

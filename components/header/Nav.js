@@ -119,6 +119,10 @@ function Nav(props) {
     flag => flag.name === 'applicationTracker' && flag.isActive
   );
 
+  const showJobSearchBasics = !!featureFlags.find(
+    flag => flag.name === 'jobSearchBasics' && flag.isActive
+  );
+
   const pages = [
     {
       href: '/assessment',
@@ -173,6 +177,12 @@ function Nav(props) {
       onClick: handleHelpClick,
     },
     {
+      href: '/job-search-basics',
+      name: 'The Basics',
+      shortName: 'The Basics',
+      show: showJobSearchBasics,
+    },
+    {
       href: '/covid-resources',
       name: 'COVID-19',
       shortName: 'COVID-19',
@@ -218,6 +228,16 @@ function Nav(props) {
                         </ListItem>
                       </NextLink>
                     )}
+                    <Flags authorizedFlags={['userProfile']}>
+                      <NextLink href="/profile">
+                        <ListItem button>
+                          <ListItemIcon>
+                            <PersonIcon />
+                          </ListItemIcon>
+                          <ListItemText primary="My Profile" />
+                        </ListItem>
+                      </NextLink>
+                    </Flags>
                     <Flags authorizedFlags={['applicationTracker']}>
                       <NextLink href="/application-tracker">
                         <ListItem button>
@@ -228,13 +248,13 @@ function Nav(props) {
                         </ListItem>
                       </NextLink>
                     </Flags>
-                    <Flags authorizedFlags={['userProfile']}>
-                      <NextLink href="/profile">
+                    <Flags authorizedFlags={['jobSearchBasics']}>
+                      <NextLink href="/job-search-basics">
                         <ListItem button>
                           <ListItemIcon>
-                            <PersonIcon />
+                            <AssignmentIcon />
                           </ListItemIcon>
-                          <ListItemText primary="My Profile" />
+                          <ListItemText primary="The Basics" />
                         </ListItem>
                       </NextLink>
                     </Flags>

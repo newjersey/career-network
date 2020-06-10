@@ -33,10 +33,29 @@ export const COMPLETION_EVENT_TYPES = {
   },
 };
 
+export const JOB_SEARCH_BASICS_TYPES = {
+  search: {
+    value: 'search',
+    label: 'Finding Job Opportunities',
+    color: '#244cd2',
+  },
+  apply: {
+    value: 'apply',
+    label: 'Applying for Jobs',
+    color: '#f5bc17',
+  },
+  health: {
+    value: 'health',
+    label: 'Taking Care of Yourself',
+    color: '#a647cb',
+  },
+};
+
 export default {
   ACTION_TYPES,
   INITIAL_ASSESSMENT_COMPLETE,
   WEEKLY_ACTION_PLAN_COMPLETE,
   COMPLETION_EVENT_TYPES,
   COMPLETED_ASSESSMENT_ACTIVITY_DEPRECATED,
+  JOB_SEARCH_BASICS_TYPES,
 };
