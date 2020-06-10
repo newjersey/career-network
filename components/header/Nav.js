@@ -164,6 +164,12 @@ function Nav(props) {
       show: user && user.isCoach,
     },
     {
+      href: '/job-search-basics',
+      name: 'The Basics',
+      shortName: 'The Basics',
+      show: showJobSearchBasics,
+    },
+    {
       href: '/about',
       name: 'About',
       shortName: 'About',
@@ -175,12 +181,6 @@ function Nav(props) {
       shortName: 'Help',
       show: true,
       onClick: handleHelpClick,
-    },
-    {
-      href: '/job-search-basics',
-      name: 'The Basics',
-      shortName: 'The Basics',
-      show: showJobSearchBasics,
     },
     {
       href: '/covid-resources',
