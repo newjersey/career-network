@@ -113,7 +113,7 @@ export default function JobSearchBasics() {
         <Grid className={classes.navContainer} container justify="center">
           <Grid item xs={12} sm={5} className={classes.navText}>
             <Typography className={classes.title} component="h1" variant="h3">
-              Components
+              The basics
               <br />
               of a Successful
               <br />
