@@ -7,11 +7,12 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import { makeStyles } from '@material-ui/core/styles';
 import { DialogTitle, DialogContent, DialogActions } from '../DialogComponents';
+import DateInput from '../DateInput';
 
 const APPLICATION_INITIAL_STATE = {
   jobTitle: '',
   company: '',
-  dateApplied: '',
+  dateApplied: new Date(),
   notes: '',
 };
 
@@ -59,16 +60,6 @@ function ApplicationDialog({ open, applicationData, handleClose, handleSave }) {
     }
   };
 
-  const getTodaysDate = () => {
-    const todaysDate = new Date();
-    return `${todaysDate.getFullYear()}-${(todaysDate.getMonth() + 1)
-      .toString()
-      .padStart(2, 0)}-${todaysDate
-      .getDate()
-      .toString()
-      .padStart(2, 0)}`;
-  };
-
   return (
     <div>
       <Dialog open={open} aria-labelledby="application-dialog">
@@ -107,18 +98,13 @@ function ApplicationDialog({ open, applicationData, handleClose, handleSave }) {
               variant="outlined"
             />
             <span>Date Applied</span>
-            <TextField
-              autoFocus
+            <DateInput
               className={classes.textField}
-              fullWidth
               id={`${formId}-date-applied`}
-              InputLabelProps={{ shrink: true }}
               inputProps={{ name: 'dateApplied' }}
-              onChange={handleChange}
+              onChange={date => setValues(prevValues => ({ ...prevValues, dateApplied: date }))}
               placeholder="Select the Date Applied"
-              type="date"
-              value={values.dateApplied === '' ? getTodaysDate() : values.dateApplied}
-              variant="outlined"
+              value={values.dateApplied}
             />
             <span>Note</span>
             <TextField

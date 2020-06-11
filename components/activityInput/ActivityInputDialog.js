@@ -25,6 +25,7 @@ import { useAnalytics } from '../Analytics';
 import { useAuth } from '../Auth';
 import SubmitSuccess from './SubmitSuccess';
 import ToggleButton from '../ToggleButton';
+import DateInput from '../DateInput';
 import validate from './ActivityInputValidationRules';
 import { ACTIVITY_TYPES, TIME_SPENT_OPTIONS, DIFFICULTY_LEVELS, FEELINGS } from './constants';
 
@@ -134,7 +135,8 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
   const handleSave = () => {
     setError();
     setAttemptSubmitting(true);
-    setFormErrors(validate(formValues));
+    console.log(formValues);
+    // setFormErrors(validate(formValues));
   };
 
   const resetComponent = () => {
@@ -264,26 +266,15 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
               <Grid item xs={12} sm={6}>
                 <FormControl className={classes.formControl}>
                   <span>Dates</span>
-                  <MuiThemeProvider theme={datePickerTheme}>
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                      <KeyboardDatePicker
-                        disableToolbar
-                        disableFuture
-                        fullWidth
-                        variant="inline"
-                        inputVariant="outlined"
-                        format="MM/dd/yyyy"
-                        margin="normal"
-                        value={formValues.dateCompleted}
-                        onChange={date =>
-                          setFormValues({ ...formValues, dateCompleted: startOfDay(date) })
-                        }
-                        KeyboardButtonProps={{
-                          'aria-label': 'change date',
-                        }}
-                      />
-                    </MuiPickersUtilsProvider>
-                  </MuiThemeProvider>
+                  <DateInput
+                    value={formValues.dateCompleted}
+                    onChange={date =>
+                      setFormValues(prevValues => ({
+                        ...prevValues,
+                        dateCompleted: startOfDay(date),
+                      }))
+                    }
+                  />
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6}>
