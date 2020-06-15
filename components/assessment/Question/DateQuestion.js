@@ -59,6 +59,11 @@ const MONTHS = [
   'December',
 ];
 
+const isValidMonthYear = ({ month, year }) => {
+  const yearVal = parseInt(year, 10);
+  return MONTHS.includes(month) && yearVal > 1900 && yearVal < 2100;
+};
+
 export default function DateQuestion(props) {
   const classes = useStyles();
   const {
@@ -67,19 +72,12 @@ export default function DateQuestion(props) {
     optional,
     onValidationChange,
     question,
-    reflectValidity,
     value,
+    groupIsValid,
+    reflectValidity,
+    isLastInGroup,
   } = props;
-  const isValid = optional || !!value;
-  const reflectError = reflectValidity && !isValid;
-  const helperText = question.fields['Helper Text'];
   const initialValue = value && value.length > 0 ? value.split(' ') : undefined;
-
-  useEffect(() => {
-    onValidationChange(isValid);
-  }, [isValid, onValidationChange]);
-
-  // if value is null, then don't set initial for inputs
   const [selectedDate, setSelectedDate] = useState(
     initialValue
       ? {
@@ -89,6 +87,17 @@ export default function DateQuestion(props) {
       : {}
   );
   const [selectedYear, setSelectedYear] = useState(selectedDate.year);
+  const isValid =
+    (optional && !selectedDate.month && !selectedDate.year) || isValidMonthYear(selectedDate);
+  const reflectError = reflectValidity && (!isValid || !groupIsValid);
+  const errorMessage =
+    isLastInGroup && !groupIsValid
+      ? 'Please enter a valid date range.'
+      : 'Please enter valid month and year.';
+
+  useEffect(() => {
+    onValidationChange(isValid, value);
+  }, [isValid, onValidationChange, value]);
 
   const handleYearChange = newYear => {
     setSelectedYear(newYear);
@@ -99,16 +108,9 @@ export default function DateQuestion(props) {
     setSelectedDate(prevValues => ({ ...prevValues, month: newMonth }));
   };
 
-  const handleYearCommit = newYear => {
-    // If incomplete year is entered, don't persist year or month
-    if (newYear.length < 4) {
-      onChangeCommitted(``);
-    }
-  };
-
   useEffect(() => {
     // Only persist date if both are filled in
-    if (selectedDate.month && selectedDate.year && selectedDate.year.length === 4) {
+    if (selectedDate.month && selectedDate.year) {
       onChangeCommitted(`${selectedDate.month} ${selectedDate.year}`);
     }
     onChange(selectedDate);
@@ -117,7 +119,7 @@ export default function DateQuestion(props) {
   return (
     <div className={classes.group}>
       <span className={classes.label}>{question.fields.Label}</span>
-      <FormControl className={classes.formControl}>
+      <FormControl className={classes.formControl} error={reflectError}>
         <div className={classes.group}>
           <Select
             disabled={question.fields.Disabled}
@@ -125,7 +127,7 @@ export default function DateQuestion(props) {
             className={classes.monthSelect}
             error={reflectError}
             onChange={event => handleMonthChange(event.target.value)}
-            value={selectedDate && selectedDate.month !== undefined ? selectedDate.month : ''}
+            value={selectedDate.month || ''}
             variant="outlined"
           >
             <MenuItem value="">
@@ -143,19 +145,18 @@ export default function DateQuestion(props) {
             error={reflectError}
             FormHelperTextProps={{ classes: { root: classes.helperText } }}
             fullWidth
-            inputProps={{ maxlength: '4', type: 'text', pattern: 'd*' }}
+            inputProps={{ maxLength: 4, type: 'text', pattern: 'd*' }}
             max={2099}
             min={1900}
-            onBlur={e => handleYearCommit(e.target.value)}
             onChange={e => handleYearChange(e.target.value)}
             placeholder="Year"
             step={1}
             type="number"
-            value={selectedYear}
+            value={selectedYear || ''}
             variant="outlined"
           />
         </div>
-        {helperText && <FormHelperText className={classes.helperText}>{helperText}</FormHelperText>}
+        {reflectError && isLastInGroup && <FormHelperText error>{errorMessage}</FormHelperText>}
       </FormControl>
     </div>
   );
@@ -167,10 +168,14 @@ DateQuestion.propTypes = {
   onValidationChange: PropTypes.func.isRequired,
   optional: PropTypes.bool.isRequired,
   question: AirtablePropTypes.question.isRequired,
-  reflectValidity: PropTypes.bool,
   value: PropTypes.string.isRequired,
+  isLastInGroup: PropTypes.bool,
+  reflectValidity: PropTypes.bool,
+  groupIsValid: PropTypes.bool,
 };
 
 DateQuestion.defaultProps = {
+  groupIsValid: true,
   reflectValidity: false,
+  isLastInGroup: false,
 };

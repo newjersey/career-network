@@ -51,7 +51,7 @@ function ApplicationDialog({ open, applicationData, handleClose, handleSave }) {
     setError();
     setSubmitting(true);
     try {
-      await handleSave(values);
+      await handleSave({ ...values });
       onClose();
     } catch (err) {
       setError(err.message);
@@ -105,6 +105,7 @@ function ApplicationDialog({ open, applicationData, handleClose, handleSave }) {
               onChange={date => setValues(prevValues => ({ ...prevValues, dateApplied: date }))}
               placeholder="Select the Date Applied"
               value={values.dateApplied}
+              disableFuture
             />
             <span>Note</span>
             <TextField

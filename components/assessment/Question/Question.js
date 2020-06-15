@@ -52,6 +52,7 @@ function Question(props) {
     optional,
     readOnly,
     reflectValidity,
+    groupIsValid,
   } = props;
   const {
     Disabled: disabled,
@@ -165,6 +166,8 @@ function Question(props) {
   const dateQuestionProps = {
     ...commonQuestionProps,
     views: dateInputOptions,
+    groupIsValid,
+    isLastInGroup,
     onChange: _value => setLocalValue(_value),
     onChangeCommitted: _value => setValue(_value),
     value,
@@ -265,9 +268,11 @@ Question.propTypes = {
   optional: PropTypes.bool.isRequired,
   readOnly: PropTypes.bool.isRequired,
   reflectValidity: PropTypes.bool.isRequired,
+  groupIsValid: PropTypes.bool,
 };
 
 Question.defaultProps = {
   isInGroup: false,
   isLastInGroup: false,
+  groupIsValid: false,
 };
