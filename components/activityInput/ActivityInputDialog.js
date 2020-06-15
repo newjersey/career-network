@@ -1,9 +1,6 @@
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import DateFnsUtils from '@date-io/date-fns';
 import Dialog from '@material-ui/core/Dialog';
 import firebase from 'firebase/app';
 import FormControl from '@material-ui/core/FormControl';
@@ -119,24 +116,10 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
     activity => activity.value !== 'assessment-complete'
   );
 
-  const datePickerTheme = createMuiTheme({
-    overrides: {
-      MuiFormControl: {
-        marginNormal: {
-          marginTop: theme.spacing(1),
-          marginRight: theme.spacing(0),
-          marginBottom: theme.spacing(1),
-          marginLeft: theme.spacing(0),
-        },
-      },
-    },
-  });
-
   const handleSave = () => {
     setError();
     setAttemptSubmitting(true);
-    console.log(formValues);
-    // setFormErrors(validate(formValues));
+    setFormErrors(validate(formValues));
   };
 
   const resetComponent = () => {
