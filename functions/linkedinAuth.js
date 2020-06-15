@@ -10,7 +10,7 @@ const cors = require('cors')({ origin: true });
 const admin = require('firebase-admin');
 
 const OAUTH_SCOPES = ['r_liteprofile', 'r_emailaddress'];
-const PREVIEW_PROJECT_ID = 'nj-career-network';
+const PREVIEW_PROJECT_ID = 'nj-career-network-ppe';
 const PROD_PROJECT_ID = 'nj-career-network';
 
 const getCallBackUrl = projectId => {
