@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 const useStyles = makeStyles(theme => ({
   textField: {
@@ -21,13 +22,30 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const EDU_START_YEAR = 'education-start-year';
+const EDU_END_YEAR = 'education-end-year';
+
 function EducationItemForm({ handleChange, handleSubmit, values }) {
   const formId = 'educationItems';
   const classes = useStyles();
+  const [rangeError, setRangeError] = useState();
+
+  useEffect(() => {
+    if (rangeError) {
+      setRangeError();
+    }
+  }, [values]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onSubmit = event => {
     event.preventDefault();
-    handleSubmit(values);
+    if (
+      (!values[EDU_START_YEAR] && !values[EDU_END_YEAR]) ||
+      parseInt(values[EDU_START_YEAR], 10) <= parseInt(values[EDU_END_YEAR], 10)
+    ) {
+      handleSubmit(values);
+    } else {
+      setRangeError(true);
+    }
   };
 
   return (
@@ -71,12 +89,12 @@ function EducationItemForm({ handleChange, handleSubmit, values }) {
               id={`${formId}-education-start-year`}
               InputLabelProps={{ shrink: true }}
               inputProps={{
-                name: 'education-start-year',
+                name: EDU_START_YEAR,
               }}
               type="number"
               onChange={handleChange}
               placeholder="Enter Start Year"
-              value={values['education-start-year']}
+              value={values[EDU_START_YEAR]}
             />
           </Grid>
           <div className={classes.dash}>–</div>
@@ -87,16 +105,17 @@ function EducationItemForm({ handleChange, handleSubmit, values }) {
               id={`${formId}-education-end-year`}
               InputLabelProps={{ shrink: true }}
               inputProps={{
-                name: 'education-end-year',
+                name: EDU_END_YEAR,
               }}
               onChange={handleChange}
               placeholder="Enter End Year"
               type="number"
-              value={values['education-end-year']}
+              value={values[EDU_END_YEAR]}
               variant="outlined"
             />
           </Grid>
         </Grid>
+        {rangeError && <FormHelperText error>Please enter valid date range.</FormHelperText>}
       </form>
     </>
   );

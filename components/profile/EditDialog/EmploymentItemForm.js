@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 const useStyles = makeStyles(theme => ({
   textField: {
@@ -47,22 +48,39 @@ const MONTHS = [
 
 const monthYearIsValid = (month, year) => month && year && `${year}`.match(/^[0-9]{1,2}.[0-9]{2}$/);
 
+const isValidDateRange = ({ startMonth, startYear, endMonth, endYear }) =>
+  (!startMonth && !startYear && !endMonth && !endYear) ||
+  (monthYearIsValid(startMonth, startYear) &&
+    monthYearIsValid(endMonth, endYear) &&
+    new Date(`${startMonth} ${startYear}`) <= new Date(`${endMonth} ${endYear}`));
+
 function EmploymentItemForm({ handleChange, handleSubmit, values }) {
   const formId = 'employmentItems';
   const classes = useStyles();
+  const [rangeError, setRangeError] = useState();
+
+  useEffect(() => {
+    if (rangeError) {
+      setRangeError();
+    }
+  }, [values]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onSubmit = event => {
     event.preventDefault();
     const { startMonth, startYear, endMonth, endYear, org, title } = values;
-
-    const updatedItem = {
-      start: monthYearIsValid(startMonth, startYear) ? `${startMonth} ${startYear}` : '',
-      end: monthYearIsValid(endMonth, endYear) ? `${endMonth} ${endYear}` : '',
-      org,
-      title,
-    };
-
-    handleSubmit(updatedItem);
+    if (isValidDateRange({ startMonth, startYear, endMonth, endYear })) {
+      const start = startMonth && startYear ? `${startMonth} ${startYear}` : '';
+      const end = endMonth && endYear ? `${endMonth} ${endYear}` : '';
+      const updatedItem = {
+        start,
+        end,
+        org,
+        title,
+      };
+      handleSubmit(updatedItem);
+    } else {
+      setRangeError(true);
+    }
   };
 
   return (
@@ -77,7 +95,7 @@ function EmploymentItemForm({ handleChange, handleSubmit, values }) {
           InputLabelProps={{ shrink: true }}
           onChange={handleChange}
           placeholder="Enter the Job Title"
-          value={values.title}
+          value={values.title || ''}
           variant="outlined"
         />
         <span>Company / Organization</span>
@@ -90,7 +108,7 @@ function EmploymentItemForm({ handleChange, handleSubmit, values }) {
           inputProps={{ name: 'org' }}
           onChange={handleChange}
           placeholder="Enter the Company / Organization Name"
-          value={values.org}
+          value={values.org || ''}
           variant="outlined"
         />
         <span>Employment Dates</span>
@@ -100,10 +118,11 @@ function EmploymentItemForm({ handleChange, handleSubmit, values }) {
               className={classes.textField}
               displayEmpty
               fullWidth
+              error={rangeError}
               id={`${formId}-start-month`}
               inputProps={{ name: 'startMonth', placeholder: 'Month' }}
               onChange={handleChange}
-              value={values.startMonth}
+              value={values.startMonth || ''}
               variant="outlined"
             >
               <MenuItem value="" disabled>
@@ -120,6 +139,7 @@ function EmploymentItemForm({ handleChange, handleSubmit, values }) {
             <TextField
               fullWidth
               variant="outlined"
+              error={rangeError}
               className={classes.textField}
               id={`${formId}-start-year`}
               inputProps={{
@@ -131,7 +151,7 @@ function EmploymentItemForm({ handleChange, handleSubmit, values }) {
               max={2099}
               onChange={handleChange}
               placeholder="Year"
-              value={values.startYear}
+              value={values.startYear || ''}
             />
           </Grid>
           <div className={classes.dash}>–</div>
@@ -139,10 +159,11 @@ function EmploymentItemForm({ handleChange, handleSubmit, values }) {
             <Select
               fullWidth
               variant="outlined"
+              error={rangeError}
               className={classes.textField}
               inputProps={{ name: 'endMonth', placeholder: 'Month' }}
               id={`${formId}-end-month`}
-              value={values.endMonth}
+              value={values.endMonth || ''}
               onChange={handleChange}
               displayEmpty
             >
@@ -159,6 +180,7 @@ function EmploymentItemForm({ handleChange, handleSubmit, values }) {
           <Grid item md={3}>
             <TextField
               fullWidth
+              error={rangeError}
               variant="outlined"
               className={classes.textField}
               id={`${formId}-end-year`}
@@ -172,10 +194,11 @@ function EmploymentItemForm({ handleChange, handleSubmit, values }) {
               max={2099}
               onChange={handleChange}
               placeholder="Year"
-              value={values.endYear}
+              value={values.endYear || ''}
             />
           </Grid>
         </Grid>
+        {rangeError && <FormHelperText error>Please enter valid date range.</FormHelperText>}
       </form>
     </>
   );
