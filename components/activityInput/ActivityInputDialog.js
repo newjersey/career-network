@@ -251,6 +251,7 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
                   <span>Dates</span>
                   <DateInput
                     value={formValues.dateCompleted}
+                    disableFuture
                     onChange={date =>
                       setFormValues(prevValues => ({
                         ...prevValues,
