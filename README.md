@@ -24,7 +24,7 @@ Enter your Intercom test identity verification secret into `functions/.runtimeco
 
 See for identity verification secret info: https://www.intercom.com/help/en/articles/183-enable-identity-verification-for-web-and-mobile
 
-Download the service account private key (Firebase console --> Settings --> Service accounts), and put it under root directory of /functions with name 'service-account.json'
+Enter LinkedIn App ID and secret into `functions/.runtimeconfig.json`
 
 ## Testing
 
