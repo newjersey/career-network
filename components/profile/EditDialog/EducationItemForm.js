@@ -62,7 +62,7 @@ function EducationItemForm({ handleChange, handleSubmit, values }) {
           InputLabelProps={{ shrink: true }}
           onChange={handleChange}
           placeholder="Enter the School Name"
-          value={values.school}
+          value={values.school || ''}
           variant="outlined"
         />
         <span>Major / Field of Study</span>
@@ -76,7 +76,7 @@ function EducationItemForm({ handleChange, handleSubmit, values }) {
           }}
           onChange={handleChange}
           placeholder="Enter the Major / Field of Study"
-          value={values['study-field']}
+          value={values['study-field'] || ''}
           variant="outlined"
         />
         <span>Years Attended</span>
@@ -84,6 +84,7 @@ function EducationItemForm({ handleChange, handleSubmit, values }) {
           <Grid item md={6}>
             <TextField
               fullWidth
+              error={rangeError}
               variant="outlined"
               className={classes.textField}
               id={`${formId}-education-start-year`}
@@ -94,13 +95,14 @@ function EducationItemForm({ handleChange, handleSubmit, values }) {
               type="number"
               onChange={handleChange}
               placeholder="Enter Start Year"
-              value={values[EDU_START_YEAR]}
+              value={values[EDU_START_YEAR] || ''}
             />
           </Grid>
           <div className={classes.dash}>–</div>
           <Grid item md={6}>
             <TextField
               className={classes.textField}
+              error={rangeError}
               fullWidth
               id={`${formId}-education-end-year`}
               InputLabelProps={{ shrink: true }}
@@ -110,7 +112,7 @@ function EducationItemForm({ handleChange, handleSubmit, values }) {
               onChange={handleChange}
               placeholder="Enter End Year"
               type="number"
-              value={values[EDU_END_YEAR]}
+              value={values[EDU_END_YEAR] || ''}
               variant="outlined"
             />
           </Grid>
