@@ -8,6 +8,7 @@ import ScaffoldContainer from '../ScaffoldContainer';
 import FindingJob from './FindingJob';
 import ApplyForJob from './ApplyForJob';
 import Health from './Health';
+import Picture from '../Picture';
 
 const useStyles = makeStyles(theme => ({
   navContainer: {
@@ -21,45 +22,16 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 500,
     lineHeight: '4.25rem',
   },
-  shape: {
+  shapeContainer: {
     height: '100%',
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  circle: {
-    marginTop: '50%',
-    background: `linear-gradient(to right top, #304ffe, #ffffff 100%)`,
-    borderRadius: '50%',
-    width: 400,
-    height: 400,
-  },
-  square: {
-    marginTop: '50%',
-    background: `linear-gradient(223.56deg, #FFFFFF -20.79%, rgba(255, 255, 255, 0) 100%), #F7CA48`,
-    borderRadius: 4,
+  shape: {
     width: 368,
-    height: 368,
-    opacity: 0.3,
-  },
-  triangle: {
-    borderRadius: 4,
-    margin: '0 auto',
-    background: 'transparent',
-    overflow: 'hidden',
-    width: 346.4 /* height*sqrt(3)/2 */,
-    height: 400,
-    transform: `translateX(25%) translateY(25%) rotate(90deg) skewY(30deg)`,
-    '&::before': {
-      display: 'block',
-      width: 'inherit',
-      height: 'inherit',
-      transform: `skewY(-30deg) rotate(60deg) translate(50%)`,
-      background: `linear-gradient(255.76deg, #FFFFFF -21.08%, rgba(255, 255, 255, 0) 149.76%), #CC97E1`,
-      backgroundSize: 'cover',
-      content: '""',
-    },
+    height: 'auto',
   },
   hoverBlock: {
     marginTop: theme.spacing(1),
@@ -75,12 +47,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SHAPES = {
-  CIRCLE: 'circle',
-  SQUARE: 'square',
-  TRIANGLE: 'triangle',
-};
-
 const SECTIONS = {
   FINDING_JOBS: 'findingJobs',
   APPLY_FOR_JOB: 'applyForJob',
@@ -89,7 +55,7 @@ const SECTIONS = {
 
 export default function JobSearchBasics() {
   const classes = useStyles();
-  const [shape, setShowShape] = useState();
+  const [shape, setShowShape] = useState(SECTIONS.FINDING_JOBS);
   const findingJobSection = useRef(null);
   const applyForJobSection = useRef(null);
   const healthSection = useRef(null);
@@ -123,7 +89,7 @@ export default function JobSearchBasics() {
               className={classes.hoverBlock}
               onClick={() => handleScrollTo(SECTIONS.FINDING_JOBS)}
               onMouseLeave={() => setShowShape()}
-              onMouseEnter={() => setShowShape(SHAPES.CIRCLE)}
+              onMouseEnter={() => setShowShape(SECTIONS.FINDING_JOBS)}
             >
               <Typography variant="h6">Finding Job Opportunities</Typography>
               <Typography variant="body1">
@@ -134,7 +100,7 @@ export default function JobSearchBasics() {
               className={classes.hoverBlock}
               onClick={() => handleScrollTo(SECTIONS.APPLY_FOR_JOB)}
               onMouseLeave={() => setShowShape()}
-              onMouseEnter={() => setShowShape(SHAPES.SQUARE)}
+              onMouseEnter={() => setShowShape(SECTIONS.APPLY_FOR_JOB)}
             >
               <Typography variant="h6">Applying for Jobs</Typography>
               <Typography variant="body1">
@@ -145,7 +111,7 @@ export default function JobSearchBasics() {
               className={classes.hoverBlock}
               onClick={() => handleScrollTo(SECTIONS.HEALTH)}
               onMouseLeave={() => setShowShape()}
-              onMouseEnter={() => setShowShape(SHAPES.TRIANGLE)}
+              onMouseEnter={() => setShowShape(SECTIONS.HEALTH)}
             >
               <Typography variant="h6">Taking Care of Yourself</Typography>
               <Typography variant="body1">
@@ -155,7 +121,9 @@ export default function JobSearchBasics() {
             </Box>
           </Grid>
           <Grid item container xs={12} sm={5} justify="center">
-            <div className={classes.shape}>{shape && <div className={classes[shape]} />}</div>
+            <div className={classes.shapeContainer}>
+              {shape && <Picture path={`${shape}.png`} className={classes.shape} />}
+            </div>
           </Grid>
         </Grid>
       </ScaffoldContainer>
