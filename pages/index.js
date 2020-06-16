@@ -1,7 +1,5 @@
 import React from 'react';
 
-// import Hero from '../components/home/Hero';
-// import Section from '../components/home/Section';
 import Featured from '../components/home/Featured';
 import Tools from '../components/home/Tools';
 import Logos from '../components/home/Logos';
@@ -17,11 +15,6 @@ export default function Index() {
       <Tools toolsContent={toolItems} />
       <Logos logoContent={logoItems} />
       <Featured featuredContent={featuredItems.slice(featuredItems.length - 1)} />
-      {/*
-      <Section alt={1}>
-        <Hero />
-      </Section>
-      */}
     </div>
   );
 }
