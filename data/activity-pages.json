@@ -10,21 +10,18 @@
       "slug": "what-and-why",
       "content": [
         {
-        "component": "text",
-        "content": "lowerasdfasljlk"
-      }
-    ]
+          "component": "text",
+          "content": "lowerasdfasljlk"
+        }
+      ]
     },
     {
       "name": "Tips for Success",
       "slug": "tips-for-success",
-      "content": [{
+      "content": [
+        {
           "component": "list",
-          "content": [
-            "one",
-            "two",
-            "three"
-          ]
+          "content": ["one", "two", "three"]
         },
         {
           "component": "callout",
@@ -36,7 +33,8 @@
     {
       "name": "Examples",
       "slug": "examples",
-      "content": [{
+      "content": [
+        {
           "component": "text",
           "content": "helloooo"
         },
@@ -50,7 +48,8 @@
     {
       "name": "Practice",
       "slug": "practice",
-      "content": [{
+      "content": [
+        {
           "component": "text",
           "content": "helloooo"
         },
@@ -68,11 +67,3 @@
     }
   ]
 }
-
-// specify document id for template uuid
-// store activity template inputs in user/activityTemplateEntries/<template uuid>/<question input values>
-
-// Unique id for every Practice question
-// Unique id used to persist responses
-// Are the questions fixed for the template?
-// how are they currently managing activities that they author?
