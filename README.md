@@ -92,6 +92,8 @@ See for identity verification secret info: https://www.intercom.com/help/en/arti
 
 (Optional) Preview the exported static site locally:
 
+The LinkedIn Auth uses the default service accounts for [signing custom tokens](https://firebase.google.com/docs/auth/admin/create-custom-tokens), if that account don't have the `iam.serviceAccounts.signBlob` permission, you may use [IAM and admin](https://console.cloud.google.com/projectselector2/iam-admin) of the Google Cloud Platform Console to grant it with the necessary permissions.
+
 ```sh
 npm run preview
 ```
