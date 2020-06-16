@@ -1,4 +1,5 @@
 {
+  "slug": "activity-template-0",
   "category": "<JOB_SEARCH_BASICS_CATEGORY>",
   "milestone": "<MILESTONE_TYPE>",
   "title": "title string",
@@ -54,8 +55,9 @@
           "content": "helloooo"
         },
         {
-          "component": "activity_inputs"
-        
+          "component": "practice_question",
+          "questionId": "q-uuid",
+          "order": 0
         }
       ]
     },
@@ -66,3 +68,11 @@
     }
   ]
 }
+
+// specify document id for template uuid
+// store activity template inputs in user/activityTemplateEntries/<template uuid>/<question input values>
+
+// Unique id for every Practice question
+// Unique id used to persist responses
+// Are the questions fixed for the template?
+// how are they currently managing activities that they author?
