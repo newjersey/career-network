@@ -1,6 +1,6 @@
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 
-const HeaderFont = '"Public Sans", "Helvetica", "Arial", sans-serif';
+const HeaderFont = '"Inter", "Helvetica", "Arial", sans-serif';
 const SecondaryMainColor = '#4D840A';
 
 // Create a theme instance.
