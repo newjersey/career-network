@@ -10,6 +10,19 @@ const cors = require('cors')({ origin: true });
 const admin = require('firebase-admin');
 
 const OAUTH_SCOPES = ['r_liteprofile', 'r_emailaddress'];
+const PREVIEW_PROJECT_ID = 'nj-career-network-ppe';
+const PROD_PROJECT_ID = 'nj-career-network';
+
+const getCallBackUrl = projectId => {
+  switch (projectId) {
+    case PREVIEW_PROJECT_ID:
+      return `https://preview.njcareers.org/popup`;
+    case PROD_PROJECT_ID:
+      return `https://njcareers.org/popup`;
+    default:
+      return `https://${projectId}.firebaseapp.com/popup`;
+  }
+};
 
 /**
  * Creates a configured LinkedIn API Client instance.
@@ -23,10 +36,13 @@ function linkedInClient() {
     return null;
   }
 
+  const projectId = process.env.GCLOUD_PROJECT;
+  const callbackUrl = getCallBackUrl(projectId);
+
   return nodeLinkedinClient(
     functions.config().linkedin.client_id,
     functions.config().linkedin.client_secret,
-    `https://preview.njcareers.org/popup`
+    callbackUrl
   );
 }
 
