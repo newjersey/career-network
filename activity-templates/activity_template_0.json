@@ -1,8 +1,8 @@
 {
   "slug": "activity-template-0",
-  "category": "",
-  "milestone": "<MILESTONE_TYPE>",
-  "title": "title string",
+  "category": "applying-for-jobs",
+  "milestone": "resume",
+  "title": "Write My Summary of Qualifications",
   "total_time": 15,
   "sections": [
     {
