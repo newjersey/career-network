@@ -1,0 +1,69 @@
+{
+  "slug": "activity-template-0",
+  "category": "<JOB_SEARCH_BASICS_CATEGORY>",
+  "milestone": "<MILESTONE_TYPE>",
+  "title": "title string",
+  "total_time": 15,
+  "sections": [
+    {
+      "name": "What & Why",
+      "slug": "what-and-why",
+      "content": [
+        {
+          "component": "text",
+          "content": "lowerasdfasljlk"
+        }
+      ]
+    },
+    {
+      "name": "Tips for Success",
+      "slug": "tips-for-success",
+      "content": [
+        {
+          "component": "list",
+          "content": ["one", "two", "three"]
+        },
+        {
+          "component": "callout",
+          "type": "pro-tip",
+          "content": "asfasdfasdf"
+        }
+      ]
+    },
+    {
+      "name": "Examples",
+      "slug": "examples",
+      "content": [
+        {
+          "component": "text",
+          "content": "helloooo"
+        },
+        {
+          "component": "callout",
+          "type": "quote",
+          "content": "asfasdfasdf"
+        }
+      ]
+    },
+    {
+      "name": "Practice",
+      "slug": "practice",
+      "content": [
+        {
+          "component": "text",
+          "content": "helloooo"
+        },
+        {
+          "component": "practice_question",
+          "questionId": "q-uuid",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "name": "Next Steps",
+      "slug": "next-steps",
+      "content": "lowerasdfasljlk"
+    }
+  ]
+}
