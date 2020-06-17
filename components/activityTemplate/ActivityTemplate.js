@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
+import Section from './Section';
 
 const useStyles = makeStyles(theme => ({
   section: {
@@ -13,11 +14,11 @@ const useStyles = makeStyles(theme => ({
 export default function ActivityTemplate(props) {
   const classes = useStyles();
   const { activityTemplate, templateId } = props;
+  const practiceData = activityTemplate.sections.find(sec => sec.slug === 'practice');
 
   return (
     <div className={classes.root}>
-      Activity Template: {templateId}
-      <Grid xs={12}>{JSON.stringify(activityTemplate)}</Grid>
+      <Section sectionData={practiceData} />
     </div>
   );
 }
