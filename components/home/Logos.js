@@ -5,9 +5,10 @@ import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Favorite from '@material-ui/icons/Favorite';
+import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
 import ScaffoldContainer from '../ScaffoldContainer';
+import { logoItems } from './content/LOGO_CONTENT';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,53 +20,55 @@ const useStyles = makeStyles(theme => ({
     },
   },
   heading: {
-    fontWeight: 'bold',
-    color: '#598fe0',
+    color: '#0c4163',
   },
   headingContainer: {
     textAlign: 'center',
     paddingBottom: '4rem',
   },
   media: {
-    height: 140,
-    width: 140,
+    height: 100,
+    width: 100,
     margin: '0 auto',
   },
   mediaRect: {
-    height: 100,
-    width: 280,
-    margin: '0 auto',
+    height: 60,
+    width: 180,
+    margin: '20px auto 20px',
   },
   icon: {
     fontSize: '3rem',
-    color: '#598fe0',
+    color: '#0c4163',
     marginTop: '2rem',
   },
   cardContent: {
-    color: '#598fe0',
+    color: '#2f2f34',
     textAlign: 'center',
     margin: '0 auto',
-    maxWidth: 250,
+    width: '90%',
+  },
+  divider: {
+    margin: '12vh 10% 0',
   },
 }));
 
-function Logos(props) {
-  const { logoContent } = props;
+function Logos() {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <ScaffoldContainer>
-        <Grid container justify="center" alignItems="flex-end" style={{ paddingTop: '6rem' }}>
+        <Grid container justify="center" alignItems="flex-start" style={{ paddingTop: '6rem' }}>
           <Grid item xs={12} sm={12} className={classes.headingContainer}>
-            <Typography variant="h3" className={classes.heading}>
-              Powered by people who want to see you succeed
+            <Typography variant="h4" className={classes.heading}>
+              Powered by people who want to see
+              <br /> you succeed
             </Typography>
             <Favorite className={classes.icon} />
           </Grid>
 
-          {logoContent.map(item => (
-            <Grid item key={item.name} xs={12} sm={4}>
+          {logoItems.map(item => (
+            <Grid item key={item.name} xs={12} sm={2}>
               <Card>
                 <CardMedia
                   className={item.type === 'rectangle' ? classes.mediaRect : classes.media}
@@ -79,13 +82,10 @@ function Logos(props) {
             </Grid>
           ))}
         </Grid>
+        <Divider variant="middle" light="true" className={classes.divider} />
       </ScaffoldContainer>
     </div>
   );
 }
-
-Logos.propTypes = {
-  logoContent: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
 
 export default Logos;

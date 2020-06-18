@@ -4,9 +4,11 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
+import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
 import ScaffoldContainer from '../ScaffoldContainer';
+
+import { toolItems } from './content/TOOLS_CONTENT';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,53 +23,49 @@ const useStyles = makeStyles(theme => ({
   },
   heading: {
     fontWeight: 'bold',
-    color: '#598fe0',
-    width: '90%',
+    color: '#0c4163',
+    textAlign: 'left',
   },
   content: {
     fontWeight: 'lighter',
-    color: '#598fe0',
+    color: '#2f2f34',
   },
-  contentContainer: {
-    textAlign: 'left',
+  titleContainer: {
     marginTop: '3rem',
+    textAlign: 'center',
+    color: '#0c4163',
   },
   media: {
     borderRadius: '50%',
-    height: 50,
-    width: 50,
-    marginLeft: '1rem',
+    height: 60,
+    width: 60,
+    margin: '0 auto 1.5vh',
+  },
+  divider: {
+    margin: '5vh 45% 0',
+    backgroundColor: '#0c4163',
   },
 }));
 
-function Tools(props) {
-  const { toolsContent } = props;
+function Tools() {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <ScaffoldContainer>
-        <Grid container spacing={10}>
-          <Grid item xs={12} sm={5} className={classes.contentContainer}>
-            <Typography variant="overline" style={{ color: '#598fe0' }}>
-              Featuring
+        <Grid container justify="center" alignItems="center" spacing={10}>
+          <Grid item xs={12} sm={12} className={classes.titleContainer}>
+            <Typography variant="overline">Featuring</Typography>
+            <Typography variant="h3">
+              The tools you&apos;ll
+              <br /> need to succeed
             </Typography>
-            <Typography variant="h3" className={classes.heading}>
-              The tools you&apos;ll need to succeed
-            </Typography>
-            <Typography
-              variant="body2"
-              className={classes.content}
-              style={{ paddingTop: '1.5rem', width: '70%' }}
-            >
-              You are the only one who can get yourself a job, but we&apos;ve created a platform to
-              provide you with the tools and knowledge you need to make it all happen.
-            </Typography>
+            <Divider className={classes.divider} />
           </Grid>
-          <Grid item xs={12} sm={7}>
+          <Grid item xs={12} sm={10}>
             <Grid container item>
-              {toolsContent.map(item => (
-                <Grid item key={item.heading} xs={12} sm={6}>
+              {toolItems.map(item => (
+                <Grid item key={item.heading} xs={12} sm={4}>
                   <Card>
                     <CardMedia className={classes.media} image={`${item.img}`} alt={item.heading} />
                     <CardContent>
@@ -88,9 +86,5 @@ function Tools(props) {
     </div>
   );
 }
-
-Tools.propTypes = {
-  toolsContent: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
 
 export default Tools;

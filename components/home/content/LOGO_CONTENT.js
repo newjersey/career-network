@@ -5,24 +5,24 @@ export const logoItems = [
     type: '',
   },
   {
-    name: 'Heldric Center for Workforce Development at Rutgers University',
-    img: '/static/img/rutgers.png',
+    name: 'Lumina Foundation',
+    img: '/static/img/lumina_horiz_cmyk.svg',
     type: 'rectangle',
   },
   {
-    name: 'NJ Office of Innovation',
-    img: '/static/img/nj-seal-480x480.png',
-    type: '',
-  },
-  {
-    name: 'Lumina Foundation',
-    img: '/static/img/lumina_horiz_cmyk.svg',
+    name: `Heldric Center for Workforce Development at Rutgers University`,
+    img: '/static/img/rutgers.png',
     type: 'rectangle',
   },
   {
     name: 'New America',
     img: '/static/img/new-america-logo-black.svg',
     type: 'rectangle',
+  },
+  {
+    name: 'NJ Office of Innovation',
+    img: '/static/img/nj-seal-480x480.png',
+    type: '',
   },
 ];
 
