@@ -31,6 +31,9 @@ const theme = createMuiTheme({
   },
   typography: {
     fontSize: 14,
+    h1: {
+      fontSize: '4rem',
+    },
     h2: {
       fontFamily: HeaderFont,
       fontSize: '2rem',
@@ -39,6 +42,11 @@ const theme = createMuiTheme({
     h5: {
       fontFamily: HeaderFont,
       fontWeight: 700,
+    },
+    h6: {
+      fontFamily: HeaderFont,
+      fontWeight: 700,
+      fontSize: '0.875rem',
     },
     subtitle2: {
       textTransform: 'uppercase',

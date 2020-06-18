@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 export default function useTemplate(templateId) {
-  const [template, setTemplate] = useState({});
+  const [template, setTemplate] = useState();
   const cleanupRef = useRef();
 
   useEffect(() => {

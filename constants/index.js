@@ -4,6 +4,7 @@ import {
   APPLYING_FOR_JOBS,
   TAKING_CARE,
   JOB_SEARCH_CATEGORIES,
+  JOB_SEARCH_CATEGORY_COLORS,
 } from './job-search-categories';
 
 export {
@@ -15,4 +16,5 @@ export {
   APPLYING_FOR_JOBS,
   TAKING_CARE,
   JOB_SEARCH_CATEGORIES,
+  JOB_SEARCH_CATEGORY_COLORS,
 };
