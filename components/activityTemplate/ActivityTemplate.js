@@ -1,7 +1,8 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/styles';
 import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/styles';
 import ActivityHeader from './Header/ActivityHeader';
+import Section from './Section';
 import { JOB_SEARCH_CATEGORIES, MILESTONE_TYPES } from '../../constants';
 
 const useStyles = makeStyles(theme => ({
@@ -15,7 +16,7 @@ export default function ActivityTemplate(props) {
   const classes = useStyles();
   const { activityTemplate } = props;
   const { category, milestone, title } = activityTemplate;
-
+  const practiceData = activityTemplate.sections.find(sec => sec.slug === 'practice');
   const categoryType = JOB_SEARCH_CATEGORIES.find(cat => cat.slug === category);
   const milestoneType = MILESTONE_TYPES.find(ms => ms.slug === milestone);
 
@@ -28,6 +29,7 @@ export default function ActivityTemplate(props) {
         milestoneLabel={milestoneType.name}
         title={title}
       />
+      <Section sectionData={practiceData} />
     </div>
   );
 }
