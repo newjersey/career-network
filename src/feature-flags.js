@@ -24,6 +24,10 @@ const envConfigs = {
       name: 'jobSearchBasics',
       isActive: false,
     },
+    {
+      name: 'activityTemplate',
+      isActive: false,
+    },
   ],
   PREVIEW: [
     {
@@ -49,6 +53,10 @@ const envConfigs = {
     {
       name: 'jobSearchBasics',
       isActive: true,
+    },
+    {
+      name: 'activityTemplate',
+      isActive: false,
     },
   ],
 };

@@ -5,6 +5,7 @@ import AirtablePropTypes from '../Airtable/PropTypes';
 import FirebasePropTypes from '../Firebase/PropTypes';
 import Question from './Question';
 import QuestionGroup from './QuestionGroup';
+import RangeQuestionGroup from './RangeQuestionGroup';
 
 export default function AssessmentEntry(props) {
   const { assessmentEntry, allQuestions, allQuestionGroups, ...restProps } = props;
@@ -18,6 +19,17 @@ export default function AssessmentEntry(props) {
   if (questionGroups && questionGroups.length) {
     const id = questionGroups[0];
     const questionGroup = allQuestionGroups.find(qg => qg.id === id);
+
+    if (questionGroup.fields.Slug === 'job-date-range') {
+      return (
+        <RangeQuestionGroup
+          questionGroup={questionGroup}
+          allQuestions={allQuestions}
+          optional={optional}
+          {...restProps}
+        />
+      );
+    }
 
     return (
       <QuestionGroup

@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Resume",
+    "category_slug": "applying-for-jobs",
+    "slug": "resume"
+  },
+  {
+    "name": "Personal Values",
+    "category_slug": "health",
+    "slug": "personal-values"
+  },
+  {
+    "name": "Interviewing Skills",
+    "category_slug": "applying-for-jobs",
+    "slug": "interviewing-skills"
+  }
+]

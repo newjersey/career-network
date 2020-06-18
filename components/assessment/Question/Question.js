@@ -9,6 +9,7 @@ import FirebasePropTypes from '../../Firebase/PropTypes';
 import OptionQuestion from './OptionQuestion';
 import SliderQuestion from './SliderQuestion';
 import TextQuestion from './TextQuestion';
+import MonthYearQuestion from './MonthYearQuestion';
 import DateQuestion from './DateQuestion';
 
 function getDefaultValue(question, user) {
@@ -52,6 +53,7 @@ function Question(props) {
     optional,
     readOnly,
     reflectValidity,
+    groupIsValid,
   } = props;
   const {
     Disabled: disabled,
@@ -162,11 +164,19 @@ function Question(props) {
     value: localValue,
   };
 
-  const dateQuestionProps = {
+  const monthYearQuestionProps = {
     ...commonQuestionProps,
     views: dateInputOptions,
+    groupIsValid,
+    isLastInGroup,
     onChange: _value => setLocalValue(_value),
     onChangeCommitted: _value => setValue(_value),
+    value,
+  };
+
+  const dateQuestionProps = {
+    ...commonQuestionProps,
+    onChange: _value => setValue(_value),
     value,
   };
 
@@ -214,9 +224,9 @@ function Question(props) {
       return <TextQuestion {...textQuestionProps} type="tel" autoComplete="tel-national" />;
     case 'Date':
       return dateInputOptions && dateInputOptions.length > 0 ? (
-        <DateQuestion {...dateQuestionProps} InputLabelProps={{ shrink: true }} />
+        <MonthYearQuestion {...monthYearQuestionProps} InputLabelProps={{ shrink: true }} />
       ) : (
-        <TextQuestion {...textQuestionProps} type="date" InputLabelProps={{ shrink: true }} />
+        <DateQuestion {...dateQuestionProps} InputLabelProps={{ shrink: true }} />
       );
     case 'Binary':
       return <BinaryQuestion {...discreteQuestionProps} />;
@@ -265,9 +275,11 @@ Question.propTypes = {
   optional: PropTypes.bool.isRequired,
   readOnly: PropTypes.bool.isRequired,
   reflectValidity: PropTypes.bool.isRequired,
+  groupIsValid: PropTypes.bool,
 };
 
 Question.defaultProps = {
   isInGroup: false,
   isLastInGroup: false,
+  groupIsValid: false,
 };

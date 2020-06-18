@@ -1,9 +1,6 @@
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import DateFnsUtils from '@date-io/date-fns';
 import Dialog from '@material-ui/core/Dialog';
 import firebase from 'firebase/app';
 import FormControl from '@material-ui/core/FormControl';
@@ -25,6 +22,7 @@ import { useAnalytics } from '../Analytics';
 import { useAuth } from '../Auth';
 import SubmitSuccess from './SubmitSuccess';
 import ToggleButton from '../ToggleButton';
+import DateInput from '../DateInput';
 import validate from './ActivityInputValidationRules';
 import { ACTIVITY_TYPES, TIME_SPENT_OPTIONS, DIFFICULTY_LEVELS, FEELINGS } from './constants';
 
@@ -117,19 +115,6 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
   const activitiesForInput = ACTIVITY_TYPES.filter(
     activity => activity.value !== 'assessment-complete'
   );
-
-  const datePickerTheme = createMuiTheme({
-    overrides: {
-      MuiFormControl: {
-        marginNormal: {
-          marginTop: theme.spacing(1),
-          marginRight: theme.spacing(0),
-          marginBottom: theme.spacing(1),
-          marginLeft: theme.spacing(0),
-        },
-      },
-    },
-  });
 
   const handleSave = () => {
     setError();
@@ -264,26 +249,16 @@ function ActivityInputDialog({ fullScreen, show, onClose }) {
               <Grid item xs={12} sm={6}>
                 <FormControl className={classes.formControl}>
                   <span>Dates</span>
-                  <MuiThemeProvider theme={datePickerTheme}>
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                      <KeyboardDatePicker
-                        disableToolbar
-                        disableFuture
-                        fullWidth
-                        variant="inline"
-                        inputVariant="outlined"
-                        format="MM/dd/yyyy"
-                        margin="normal"
-                        value={formValues.dateCompleted}
-                        onChange={date =>
-                          setFormValues({ ...formValues, dateCompleted: startOfDay(date) })
-                        }
-                        KeyboardButtonProps={{
-                          'aria-label': 'change date',
-                        }}
-                      />
-                    </MuiPickersUtilsProvider>
-                  </MuiThemeProvider>
+                  <DateInput
+                    value={formValues.dateCompleted}
+                    disableFuture
+                    onChange={date =>
+                      setFormValues(prevValues => ({
+                        ...prevValues,
+                        dateCompleted: startOfDay(date),
+                      }))
+                    }
+                  />
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6}>

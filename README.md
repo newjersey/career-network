@@ -24,7 +24,7 @@ Enter your Intercom test identity verification secret into `functions/.runtimeco
 
 See for identity verification secret info: https://www.intercom.com/help/en/articles/183-enable-identity-verification-for-web-and-mobile
 
-Download the service account private key (Firebase console --> Settings --> Service accounts), and put it under root directory of /functions with name 'service-account.json'
+Enter LinkedIn App ID and secret into `functions/.runtimeconfig.json`
 
 ## Testing
 
@@ -91,6 +91,8 @@ Set
 See for identity verification secret info: https://www.intercom.com/help/en/articles/183-enable-identity-verification-for-web-and-mobile
 
 (Optional) Preview the exported static site locally:
+
+The LinkedIn Auth uses the default service accounts for [signing custom tokens](https://firebase.google.com/docs/auth/admin/create-custom-tokens), if that account don't have the `iam.serviceAccounts.signBlob` permission, you may use [IAM and admin](https://console.cloud.google.com/projectselector2/iam-admin) of the Google Cloud Platform Console to grant it with the necessary permissions.
 
 ```sh
 npm run preview
