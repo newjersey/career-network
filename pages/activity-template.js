@@ -6,7 +6,6 @@ import { useAuth, withAuthRequired } from '../components/Auth';
 import ActivityTemplate from '../components/activityTemplate/ActivityTemplate';
 import FullPageProgress from '../components/FullPageProgress';
 import withTitle from '../components/withTitle';
-// import activityTemplateJSON from '../data/activity-pages.json';
 
 function ActivityTemplatePage() {
   const { user } = useAuth();
