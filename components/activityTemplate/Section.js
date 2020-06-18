@@ -1,5 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 import React from 'react';
+import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
@@ -19,7 +20,11 @@ function Section({ sectionData }) {
 
   const getContentComponent = contentItem => {
     if (contentItem.component === 'text') {
-      return <Typography variant="body1">{contentItem.content}</Typography>;
+      return (
+        <Box mb={4}>
+          <Typography variant="body1">{contentItem.content}</Typography>
+        </Box>
+      );
     }
     if (contentItem.component === 'practice_question_group') {
       return <QuestionGroup questions={contentItem.questions} />;
