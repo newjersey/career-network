@@ -1,8 +1,8 @@
 {
   "slug": "activity-template-0",
-  "category": "<JOB_SEARCH_BASICS_CATEGORY>",
-  "milestone": "<MILESTONE_TYPE>",
-  "title": "title string",
+  "category": "applying-for-jobs",
+  "milestone": "resume",
+  "title": "Write My Summary of Qualifications",
   "total_time": 15,
   "sections": [
     {
@@ -56,22 +56,22 @@
         {
           "component": "practice_question_group",
           "questions": [
-            { 
+            {
               "questionId": "q-uuid",
               "order": 0,
               "title": "Type of job I want:"
             },
-            { 
+            {
               "questionId": "q-uuid",
               "order": 1,
               "title": "My top 2 or 3 skills related to this job are:"
             },
-            { 
+            {
               "questionId": "q-uuid",
               "order": 2,
               "title": "Here are 2 facts about my experience or training:"
             },
-            { 
+            {
               "questionId": "q-uuid",
               "order": 3,
               "title": "My draft statement:"
