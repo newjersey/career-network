@@ -1,28 +1,18 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/styles';
 import PropTypes from 'prop-types';
-import Grid from '@material-ui/core/Grid';
-
-const useStyles = makeStyles(theme => ({
-  section: {
-    paddingTop: theme.spacing(6),
-    paddingBottom: theme.spacing(3),
-  },
-}));
+import Section from './Section';
 
 export default function ActivityTemplate(props) {
-  const classes = useStyles();
-  const { activityTemplate, templateId } = props;
+  const { activityTemplate } = props;
+  const practiceData = activityTemplate.sections.find(sec => sec.slug === 'practice');
 
   return (
-    <div className={classes.root}>
-      Activity Template: {templateId}
-      <Grid xs={12}>{JSON.stringify(activityTemplate)}</Grid>
+    <div>
+      <Section sectionData={practiceData} />
     </div>
   );
 }
 
 ActivityTemplate.propTypes = {
   activityTemplate: PropTypes.objectOf(PropTypes.any).isRequired,
-  templateId: PropTypes.string.isRequired,
 };
