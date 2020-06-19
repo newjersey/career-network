@@ -64,6 +64,7 @@ const isValidMonthYear = ({ month, year }) => {
   return MONTHS.includes(month) && yearVal > 1900 && yearVal < 2100;
 };
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 export default function MonthYearQuestion(props) {
   const classes = useStyles();
   const {
@@ -76,8 +77,10 @@ export default function MonthYearQuestion(props) {
     groupIsValid,
     reflectValidity,
     isLastInGroup,
+    isCurrentJobSelected,
   } = props;
-  const initialValue = value && value.length > 0 ? value.split(' ') : undefined;
+
+  const initialValue = value && value.length > 0 && value.split(' ');
   const [selectedDate, setSelectedDate] = useState(
     initialValue
       ? {
@@ -86,10 +89,12 @@ export default function MonthYearQuestion(props) {
         }
       : {}
   );
+
   const [selectedYear, setSelectedYear] = useState(selectedDate.year);
   const isValid =
     (optional && !selectedDate.month && !selectedDate.year) || isValidMonthYear(selectedDate);
   const reflectError = reflectValidity && (!isValid || !groupIsValid);
+  const isDisabled = question.fields.Disabled || (isLastInGroup && isCurrentJobSelected);
   const errorMessage =
     isLastInGroup && !groupIsValid
       ? 'Please enter a valid date range.'
@@ -109,6 +114,15 @@ export default function MonthYearQuestion(props) {
   };
 
   useEffect(() => {
+    // set value to empty if end range input and isCurrentJob is selected
+    if (isCurrentJobSelected && isLastInGroup && selectedDate) {
+      handleYearChange('');
+      setSelectedDate({});
+      onChangeCommitted('');
+    }
+  }, [isCurrentJobSelected]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
     // Only persist date if both are filled in
     if (selectedDate.month && selectedDate.year) {
       onChangeCommitted(`${selectedDate.month} ${selectedDate.year}`);
@@ -119,10 +133,10 @@ export default function MonthYearQuestion(props) {
   return (
     <div className={classes.group}>
       <span className={classes.label}>{question.fields.Label}</span>
-      <FormControl className={classes.formControl} error={reflectError}>
+      <FormControl className={classes.formControl} error={reflectError} disabled={isDisabled}>
         <div className={classes.group}>
           <Select
-            disabled={question.fields.Disabled}
+            disabled={isDisabled}
             displayEmpty
             className={classes.monthSelect}
             error={reflectError}
@@ -141,7 +155,7 @@ export default function MonthYearQuestion(props) {
           </Select>
           <TextField
             className={classes.year}
-            disabled={question.fields.Disabled}
+            disabled={isDisabled}
             error={reflectError}
             FormHelperTextProps={{ classes: { root: classes.helperText } }}
             fullWidth
@@ -170,6 +184,7 @@ MonthYearQuestion.propTypes = {
   question: AirtablePropTypes.question.isRequired,
   value: PropTypes.string.isRequired,
   isLastInGroup: PropTypes.bool,
+  isCurrentJobSelected: PropTypes.bool,
   reflectValidity: PropTypes.bool,
   groupIsValid: PropTypes.bool,
 };
@@ -178,4 +193,5 @@ MonthYearQuestion.defaultProps = {
   groupIsValid: true,
   reflectValidity: false,
   isLastInGroup: false,
+  isCurrentJobSelected: false,
 };
