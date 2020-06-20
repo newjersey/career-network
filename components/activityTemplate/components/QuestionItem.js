@@ -85,7 +85,7 @@ const QuestionItem = ({ index, title, isLast }) => {
               variant="outlined"
               onFocus={handleFocus}
               onBlur={handleBlur}
-              value={value}
+              value={value || ''}
               onChange={handleChange}
               fullWidth
               multiline
