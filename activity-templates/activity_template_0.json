@@ -25,12 +25,19 @@
       "content": [
         {
           "component": "list",
-          "content": ["one", "two", "three"]
+          "heading": "Best Practices",
+          "subheading": "Keep these tips in mind as you continue through this activity",
+          "items": [
+            "<b>Keep it short.</b> Two to 3 sentences is enough to capture the key points.",
+            "Focus on <b>how you can help an employer</b> — not on what they can do for you.",
+            "<b>Be specific.</b> Don’t just say you’re a problem solver. Tell them the types of problems you solve.",
+            "<b>Back it up with numbers.</b> If you’ve been a supervisor, include the size of your team."
+          ]
         },
         {
           "component": "callout",
-          "type": "pro-tip",
-          "content": "asfasdfasdf"
+          "variant": "pro-tip",
+          "content": "Create a daily routine that includes time to work toward your goals. The simple act of having a routine can reduce stress and anxiety."
         }
       ]
     },
