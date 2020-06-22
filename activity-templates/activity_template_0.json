@@ -54,6 +54,10 @@
           "content": "Jot down some notes about how you might answer these interview questions. Then practice delivering the answers in front of a mirror or to a friend. "
         },
         {
+          "component": "text",
+          "content": "Out of time or ideas? You can always come back and finish later - we'll save your answers here."
+        },
+        {
           "component": "practice_question_group",
           "questions": [
             {
