@@ -54,6 +54,7 @@ function Question(props) {
     readOnly,
     reflectValidity,
     groupIsValid,
+    isCurrentJobSelected,
   } = props;
   const {
     Disabled: disabled,
@@ -166,7 +167,9 @@ function Question(props) {
 
   const monthYearQuestionProps = {
     ...commonQuestionProps,
+    isCurrentJobSelected, // if question with slug is-current-job is selected
     views: dateInputOptions,
+    optional: isLastInGroup ? isCurrentJobSelected && optional : !isCurrentJobSelected, //  end is optional but must select start if isCurrentJob is true
     groupIsValid,
     isLastInGroup,
     onChange: _value => setLocalValue(_value),
@@ -176,6 +179,7 @@ function Question(props) {
 
   const dateQuestionProps = {
     ...commonQuestionProps,
+    disableFuture: question.fields.Slug === 'birthday',
     onChange: _value => setValue(_value),
     value,
   };
@@ -271,6 +275,7 @@ Question.propTypes = {
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
   isInGroup: PropTypes.bool,
   isLastInGroup: PropTypes.bool,
+  isCurrentJobSelected: PropTypes.bool,
   onValidationChange: PropTypes.func.isRequired,
   optional: PropTypes.bool.isRequired,
   readOnly: PropTypes.bool.isRequired,
@@ -282,4 +287,5 @@ Question.defaultProps = {
   isInGroup: false,
   isLastInGroup: false,
   groupIsValid: false,
+  isCurrentJobSelected: false,
 };

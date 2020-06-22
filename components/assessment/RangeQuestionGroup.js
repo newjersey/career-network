@@ -32,6 +32,16 @@ export default function RangeQuestionGroup(props) {
     questionGroup.fields.Questions.includes(question.id)
   );
 
+  // Find question and watch value for is-current-job
+  const isCurrentJobQuestionId = allQuestions.find(q => q.fields.Slug === 'is-current-job').id;
+  const currentJobQuestionResponse = restProps.allQuestionResponses.find(
+    q => q.id === isCurrentJobQuestionId
+  );
+  const isCurrentJobQuestion = currentJobQuestionResponse
+    ? currentJobQuestionResponse.data().value
+    : false;
+
+  const [startDateQuestion, endDateQuestion] = questions;
   const validationStates = useRef(Array.from(Array(questions.length)));
   const valueStates = useRef(Array.from(Array(questions.length)));
   const wasValid = useRef();
@@ -50,7 +60,7 @@ export default function RangeQuestionGroup(props) {
     // determine if the QuestionGroup as a whole is valid
     const isValid =
       validationStates.current.map(a => !!a).reduce((a, b) => a && b, true) &&
-      isValidRange(valueStates.current[0], valueStates.current[1]);
+      (isCurrentJobQuestion || isValidRange(valueStates.current[0], valueStates.current[1]));
 
     // fire parent callback if validation has changed
     if (wasValid.current !== isValid) {
@@ -61,27 +71,28 @@ export default function RangeQuestionGroup(props) {
     wasValid.current = isValid;
   });
 
-  const [startDateQuestion, endDateQuestion] = questions;
   return (
     <div className={classes.root}>
       <FormControl component="fieldset" className={classes.formControl} error={!wasValid.current}>
         <Question
-          key={startDateQuestion.id}
-          question={startDateQuestion}
-          onValidationChange={handleDateRangeValidationChange(0)}
           groupIsValid={wasValid.current}
-          {...restProps}
+          isCurrentJobSelected={isCurrentJobQuestion}
           isInGroup
+          key={startDateQuestion.id}
+          onValidationChange={handleDateRangeValidationChange(0)}
+          question={startDateQuestion}
+          {...restProps}
         />
         <FormGroup />
         <Question
-          key={endDateQuestion.id}
-          question={endDateQuestion}
-          onValidationChange={handleDateRangeValidationChange(1)}
-          {...restProps}
-          isInGroup
+          isCurrentJobSelected={isCurrentJobQuestion} // disable end of range if is-current-job is selected
           groupIsValid={wasValid.current}
+          isInGroup
           isLastInGroup
+          key={endDateQuestion.id}
+          onValidationChange={handleDateRangeValidationChange(1)}
+          question={endDateQuestion}
+          {...restProps}
         />
         <FormGroup />
       </FormControl>
