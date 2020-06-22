@@ -28,6 +28,10 @@ const theme = createMuiTheme({
       secondaryHeader: '#fdf8ef',
       linkedIn: '#2867b2',
     },
+    navy: {
+      200: '#177DBE',
+      primary: '#125F90',
+    },
   },
   typography: {
     fontSize: 14,
@@ -51,6 +55,10 @@ const theme = createMuiTheme({
     },
     subtitle2: {
       textTransform: 'uppercase',
+    },
+    body1: {
+      fontSize: '1.25rem',
+      lineHeight: 1.6,
     },
     body2: {
       letterSpacing: 'normal',

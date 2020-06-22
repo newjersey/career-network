@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/styles';
 import React from 'react';
 import PropTypes from 'prop-types';
 import QuestionItem from './QuestionItem';
-import FirebasePropTypes from '../Firebase/PropTypes';
+import FirebasePropTypes from '../../Firebase/PropTypes';
 
 const useStyles = makeStyles({
   stepsContainer: {

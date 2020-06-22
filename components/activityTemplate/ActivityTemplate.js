@@ -1,10 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { fade } from '@material-ui/core/styles/colorManipulator';
 import { makeStyles } from '@material-ui/styles';
 import ActivityHeader from './Header/ActivityHeader';
 import Section from './Section';
+import {
+  JOB_SEARCH_CATEGORIES,
+  MILESTONE_TYPES,
+  JOB_SEARCH_CATEGORY_COLORS,
+} from '../../constants';
 import FirebasePropTypes from '../Firebase/PropTypes';
-import { JOB_SEARCH_CATEGORIES, MILESTONE_TYPES } from '../../constants';
 
 const useStyles = makeStyles(theme => ({
   section: {
@@ -18,6 +23,8 @@ export default function ActivityTemplate(props) {
   const { activityTemplate, allPracticeQuestionInputs } = props;
   const { category, milestone, title, slug } = activityTemplate;
   const practiceData = activityTemplate.sections.find(sec => sec.slug === 'practice');
+  const whatAndWhy = activityTemplate.sections.find(sec => sec.slug === 'what-and-why');
+  const tipsForSuccess = activityTemplate.sections.find(sec => sec.slug === 'tips-for-success');
   const categoryType = JOB_SEARCH_CATEGORIES.find(cat => cat.slug === category);
   const milestoneType = MILESTONE_TYPES.find(ms => ms.slug === milestone);
 
@@ -30,9 +37,12 @@ export default function ActivityTemplate(props) {
         milestoneLabel={milestoneType.name}
         title={title}
       />
+      <Section sectionData={whatAndWhy} />
+      <Section sectionData={tipsForSuccess} />
       <Section
         sectionData={practiceData}
         templateSlug={slug}
+        backgroundColor={fade(JOB_SEARCH_CATEGORY_COLORS[category], 0.07)}
         allPracticeQuestionInputs={allPracticeQuestionInputs}
       />
     </div>
