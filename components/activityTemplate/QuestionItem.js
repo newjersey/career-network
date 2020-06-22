@@ -6,6 +6,7 @@ import StepConnector from '@material-ui/core/StepConnector';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import firebase from 'firebase/app';
 import TextField from '@material-ui/core/TextField';
 import isEmpty from 'lodash/isEmpty';
 import DoneIcon from '@material-ui/icons/Done';
@@ -68,6 +69,7 @@ const QuestionItem = ({ index, title, isLast, templateSlug, questionId, inputVal
       questionId,
       order: index,
       value,
+      lastUpdateTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
     };
 
     const docRef = userDocRef.collection('practiceQuestionInputs').doc(questionId);
