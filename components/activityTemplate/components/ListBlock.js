@@ -6,8 +6,6 @@ import PropTypes from 'prop-types';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    paddingTop: theme.spacing(16),
-    paddingBottom: theme.spacing(16),
     backgroundColor: props => props.backgroundColor || theme.palette.background.paper,
   },
 }));

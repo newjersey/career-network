@@ -22,7 +22,7 @@ function Section({ sectionData, ...restProps }) {
   return (
     <div className={classes.root}>
       <ScaffoldContainer>
-        <Grid container>
+        <Grid container justify="flex-end">
           <Grid item container xs={12} sm={4}>
             <Typography className={classes.title} component="h2" variant="h3">
               {sectionData.name}
@@ -30,7 +30,7 @@ function Section({ sectionData, ...restProps }) {
           </Grid>
 
           {sectionData.content.map(({ component, ...props }, index) => (
-            <Grid item container xs={12} sm={component === 'callout' ? 12 : 6}>
+            <Grid item container xs={12} sm={component === 'callout' ? 12 : 8}>
               <SectionComponent key={getSectionKey(component, index)} type={component} {...props} />
             </Grid>
           ))}
