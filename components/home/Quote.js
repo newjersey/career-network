@@ -30,10 +30,15 @@ const useStyles = makeStyles(theme => ({
   },
   heading: {
     paddingBottom: theme.spacing(3),
+    color: theme.palette.background.dark,
+  },
+  cite: {
+    color: theme.palette.background.dark,
   },
   icon: {
     fontSize: '3rem',
     transform: 'rotate(180deg) scaleX(1)',
+    color: theme.palette.background.dark,
   },
 }));
 
@@ -61,7 +66,9 @@ function Quote() {
                 </b>
                 like New Jersey Career Network before.”
               </Typography>
-              <Typography variant="subtitle1">– Verified New Jersey Career Network User</Typography>
+              <Typography variant="subtitle1" className={classes.cite}>
+                – Verified New Jersey Career Network User
+              </Typography>
             </Grid>
           </Grid>
         </Paper>
