@@ -28,11 +28,12 @@ function Section({ sectionData, ...restProps }) {
               {sectionData.name}
             </Typography>
           </Grid>
-          <Grid item container xs={12} sm={6}>
-            {sectionData.content.map(({ component, ...props }, index) => (
+
+          {sectionData.content.map(({ component, ...props }, index) => (
+            <Grid item container xs={12} sm={component === 'callout' ? 12 : 6}>
               <SectionComponent key={getSectionKey(component, index)} type={component} {...props} />
-            ))}
-          </Grid>
+            </Grid>
+          ))}
         </Grid>
       </ScaffoldContainer>
     </div>

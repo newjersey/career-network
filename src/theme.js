@@ -28,6 +28,9 @@ const theme = createMuiTheme({
       secondaryHeader: '#fdf8ef',
       linkedIn: '#2867b2',
     },
+    navy: {
+      primary: '#125F90',
+    },
   },
   typography: {
     fontSize: 14,

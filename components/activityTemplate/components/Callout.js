@@ -5,11 +5,13 @@ import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles(theme => ({
   root: {
+    margin: theme.spacing(3, 0),
     padding: theme.spacing(10, 12),
     borderStyle: 'solid',
-    borderWidth: 1,
-    borderRadius: 8,
+    borderWidth: `1px 1px 1px 4px`,
+    borderRadius: theme.spacing(0, 1, 1, 0),
     borderColor: theme.palette.grey['200'],
+    borderLeftColor: theme.palette.navy.primary,
   },
 }));
 
