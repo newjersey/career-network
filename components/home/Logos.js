@@ -16,6 +16,7 @@ const useStyles = makeStyles(theme => ({
   },
   heading: {
     fontFamily: theme.typography.h2.fontFamily,
+    color: theme.palette.background.dark,
     textAlign: 'center',
     paddingBottom: '4rem',
     fontWeight: 'normal',
@@ -30,7 +31,7 @@ const useStyles = makeStyles(theme => ({
     height: theme.spacing(22),
   },
   logoName: {
-    color: theme.palette.grey['450'],
+    color: theme.palette.grey['500'],
     textAlign: 'center',
   },
   divider: {

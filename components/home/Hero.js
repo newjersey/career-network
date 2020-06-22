@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.grey['800'],
   },
   illustration: {
-    width: theme.spacing(46),
+    width: theme.spacing(60),
     height: '100%',
   },
   btn: {
@@ -51,7 +51,7 @@ function Hero() {
 
   return (
     <div className={classes.root}>
-      <Grid container justify="space-evenly" alignItems="center" className={classes.mainContainer}>
+      <Grid container justify="space-between" alignItems="center" className={classes.mainContainer}>
         <Grid item xs={12} md={5} className={classes.textContainer}>
           <Typography variant="h1" className={classes.heading}>
             Change the way you look for jobs.

@@ -34,7 +34,7 @@ const FEATURED_ITEMS = [
     title: 'Find your way out of a job-search rut.',
     body:
       'If you’re repeating the same steps and not getting results, let us show you new techniques to best represent yourself and sell your experience.',
-    image: '/static/img/index/03_Featured Callouts/02_Asset_Rut-2x.png',
+    image: '/static/img/index/03_Featured Callouts/01_Asset_Rut-2x.png',
     imageProps: {
       side: 'left',
     },
