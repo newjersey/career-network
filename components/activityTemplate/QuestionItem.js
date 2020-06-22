@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
@@ -9,6 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import isEmpty from 'lodash/isEmpty';
 import DoneIcon from '@material-ui/icons/Done';
+import { useAuth } from '../Auth';
 
 const PRACTIC_SECTION_COLOR = '#d09d09';
 
@@ -45,15 +46,32 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const QuestionItem = ({ index, title, isLast }) => {
+const QuestionItem = ({ index, title, isLast, templateSlug, questionId, inputValue }) => {
   const classes = useStyles();
+  const { userDocRef } = useAuth();
   const [value, setValue] = useState(null);
   const [inProgress, setInProgress] = useState(false);
   const [complete, setComplete] = useState(false);
 
+  useEffect(() => {
+    setValue(inputValue);
+  }, [inputValue]);
+
   const handleChange = event => {
     event.persist();
     setValue(event.target.value);
+  };
+
+  const handleSave = () => {
+    const inputData = {
+      templateSlug,
+      questionId,
+      order: index,
+      value,
+    };
+
+    const docRef = userDocRef.collection('practiceQuestionInputs').doc(questionId);
+    docRef.set({ ...inputData }, { merge: true });
   };
 
   const handleFocus = () => {
@@ -62,6 +80,10 @@ const QuestionItem = ({ index, title, isLast }) => {
 
   const handleBlur = () => {
     setInProgress(false);
+
+    if (!isEmpty(value)) {
+      handleSave();
+    }
     setComplete(!isEmpty(value));
   };
 
@@ -103,6 +125,13 @@ QuestionItem.propTypes = {
   index: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   isLast: PropTypes.bool.isRequired,
+  templateSlug: PropTypes.string.isRequired,
+  questionId: PropTypes.string.isRequired,
+  inputValue: PropTypes.string,
+};
+
+QuestionItem.defaultProps = {
+  inputValue: null,
 };
 
 export default QuestionItem;

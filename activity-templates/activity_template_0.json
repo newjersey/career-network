@@ -57,22 +57,22 @@
           "component": "practice_question_group",
           "questions": [
             {
-              "questionId": "q-uuid",
+              "questionId": "template-0-q-0",
               "order": 0,
               "title": "Type of job I want:"
             },
             {
-              "questionId": "q-uuid",
+              "questionId": "template-0-q-1",
               "order": 1,
               "title": "My top 2 or 3 skills related to this job are:"
             },
             {
-              "questionId": "q-uuid",
+              "questionId": "template-0-q-2",
               "order": 2,
               "title": "Here are 2 facts about my experience or training:"
             },
             {
-              "questionId": "q-uuid",
+              "questionId": "template-0-q-3",
               "order": 3,
               "title": "My draft statement:"
             }
