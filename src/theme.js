@@ -55,6 +55,10 @@ const theme = createMuiTheme({
     subtitle2: {
       textTransform: 'uppercase',
     },
+    body1: {
+      fontSize: '1.25rem',
+      lineHeight: 1.6,
+    },
     body2: {
       letterSpacing: 'normal',
       lineHeight: 1.67,

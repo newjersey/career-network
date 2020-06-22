@@ -8,6 +8,10 @@ const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: props => props.backgroundColor || theme.palette.background.paper,
   },
+  body4: {
+    fontSize: '1.125rem',
+    lineHeight: 1.57,
+  },
 }));
 
 const getItemKey = index => `item-${index}`;
@@ -22,13 +26,19 @@ function ListBlock({ heading, subheading, items }) {
         </Typography>
       )}
       {subheading && (
-        <Typography paragraph display="block" variant="body2">
+        <Typography paragraph display="block" variant="body2" className={classes.body4}>
           {subheading}
         </Typography>
       )}
       <ul>
         {items.map((item, index) => (
-          <Typography component="li" variant="body2" key={getItemKey(index)} gutterBottom>
+          <Typography
+            component="li"
+            variant="body2"
+            key={getItemKey(index)}
+            gutterBottom
+            className={classes.body4}
+          >
             <span dangerouslySetInnerHTML={{ __html: item }} />
           </Typography>
         ))}

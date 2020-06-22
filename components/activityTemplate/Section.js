@@ -8,10 +8,11 @@ import SectionComponent from './SectionComponent';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    paddingTop: theme.spacing(16),
-    paddingBottom: theme.spacing(16),
+    paddingTop: theme.spacing(10),
+    paddingBottom: theme.spacing(10),
     backgroundColor: props => props.backgroundColor || theme.palette.background.paper,
   },
+  title: {},
 }));
 
 function Section({ sectionData, ...restProps }) {
@@ -22,12 +23,13 @@ function Section({ sectionData, ...restProps }) {
   return (
     <div className={classes.root}>
       <ScaffoldContainer>
-        <Grid container justify="flex-end">
-          <Grid item container xs={12} sm={4}>
-            <Typography className={classes.title} component="h2" variant="h3">
+        <Grid container justify="flex-end" spacing={4}>
+          <Grid item container xs={12} sm={2}>
+            <Typography component="h2" variant="h3" align="right">
               {sectionData.name}
             </Typography>
           </Grid>
+          <Grid xs={0} sm={1} />
 
           {sectionData.content.map(({ component, ...props }, index) => (
             <Grid item container xs={12} sm={component === 'callout' ? 12 : 8}>
