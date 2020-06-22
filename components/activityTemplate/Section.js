@@ -12,7 +12,6 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: theme.spacing(10),
     backgroundColor: props => props.backgroundColor || theme.palette.background.paper,
   },
-  title: {},
 }));
 function Section({ sectionData, ...restProps }) {
   const classes = useStyles(restProps);
@@ -27,10 +26,10 @@ function Section({ sectionData, ...restProps }) {
               {sectionData.name}
             </Typography>
           </Grid>
-          <Grid xs={0} sm={1} />
+          <Grid item xs={0} sm={1} />
 
           {sectionData.content.map(({ component, ...props }, index) => (
-            <Grid item container xs={12} sm={component === 'callout' ? 12 : 8}>
+            <Grid item container xs={12} sm={component === 'callout' ? 12 : 9}>
               <SectionComponent
                 key={getSectionKey(component, index)}
                 type={component}
