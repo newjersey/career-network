@@ -29,6 +29,7 @@ const theme = createMuiTheme({
       linkedIn: '#2867b2',
     },
     navy: {
+      200: '#177DBE',
       primary: '#125F90',
     },
   },
