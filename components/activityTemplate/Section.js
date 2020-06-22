@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import ScaffoldContainer from '../ScaffoldContainer';
 import QuestionGroup from './QuestionGroup';
+import FirebasePropTypes from '../Firebase/PropTypes';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Section({ sectionData }) {
+function Section({ sectionData, templateSlug, allPracticeQuestionInputs }) {
   const classes = useStyles();
 
   const getContentComponent = contentItem => {
@@ -27,7 +28,13 @@ function Section({ sectionData }) {
       );
     }
     if (contentItem.component === 'practice_question_group') {
-      return <QuestionGroup questions={contentItem.questions} />;
+      return (
+        <QuestionGroup
+          questions={contentItem.questions}
+          templateSlug={templateSlug}
+          allPracticeQuestionInputs={allPracticeQuestionInputs}
+        />
+      );
     }
     return null;
   };
@@ -52,8 +59,8 @@ function Section({ sectionData }) {
 
 Section.propTypes = {
   sectionData: PropTypes.objectOf(PropTypes.any).isRequired,
+  templateSlug: PropTypes.string.isRequired,
+  allPracticeQuestionInputs: FirebasePropTypes.querySnapshot.isRequired,
 };
-
-Section.defaultProps = {};
 
 export default Section;

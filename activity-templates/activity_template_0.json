@@ -54,25 +54,29 @@
           "content": "Jot down some notes about how you might answer these interview questions. Then practice delivering the answers in front of a mirror or to a friend. "
         },
         {
+          "component": "text",
+          "content": "Out of time or ideas? You can always come back and finish later - we'll save your answers here."
+        },
+        {
           "component": "practice_question_group",
           "questions": [
             {
-              "questionId": "q-uuid",
+              "questionId": "template-0-q-0",
               "order": 0,
               "title": "Type of job I want:"
             },
             {
-              "questionId": "q-uuid",
+              "questionId": "template-0-q-1",
               "order": 1,
               "title": "My top 2 or 3 skills related to this job are:"
             },
             {
-              "questionId": "q-uuid",
+              "questionId": "template-0-q-2",
               "order": 2,
               "title": "Here are 2 facts about my experience or training:"
             },
             {
-              "questionId": "q-uuid",
+              "questionId": "template-0-q-3",
               "order": 3,
               "title": "My draft statement:"
             }

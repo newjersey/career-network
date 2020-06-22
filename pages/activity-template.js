@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { fullyLoaded } from '../src/app-helper';
 import useTemplate from '../components/activityTemplate/useTemplate';
 import { useAuth, withAuthRequired } from '../components/Auth';
+import { useUserSubcollection } from '../components/Firebase';
 import ActivityTemplate from '../components/activityTemplate/ActivityTemplate';
 import FullPageProgress from '../components/FullPageProgress';
 import withTitle from '../components/withTitle';
@@ -14,8 +15,14 @@ function ActivityTemplatePage() {
   // Once we have the cms, use the template-id param to retrieve the
   // page template and user inputs
 
-  return fullyLoaded(user, activityTemplate) ? (
-    <ActivityTemplate templateId={query.template} activityTemplate={activityTemplate} />
+  const allPracticeQuestionInputs = useUserSubcollection('practiceQuestionInputs');
+
+  return fullyLoaded(user, activityTemplate, allPracticeQuestionInputs) ? (
+    <ActivityTemplate
+      templateId={query.template}
+      activityTemplate={activityTemplate}
+      allPracticeQuestionInputs={allPracticeQuestionInputs}
+    />
   ) : (
     <FullPageProgress />
   );

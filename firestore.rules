@@ -68,6 +68,11 @@ service cloud.firestore {
       match /applicationLogEntries/{document} {
        allow read, create, update: if request.auth.uid == uid;
       }
+
+      // any user can read, create, and update their own practice question inputs
+      match /practiceQuestionInputs/{document} {
+        allow read, create, update: if request.auth.uid == uid;
+      }
     }
 
     match /userPreauthorizations/{email} {
