@@ -9,6 +9,7 @@ import {
   MILESTONE_TYPES,
   JOB_SEARCH_CATEGORY_COLORS,
 } from '../../constants';
+import FirebasePropTypes from '../Firebase/PropTypes';
 
 const useStyles = makeStyles(theme => ({
   section: {
@@ -19,8 +20,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function ActivityTemplate(props) {
   const classes = useStyles();
-  const { activityTemplate } = props;
-  const { category, milestone, title } = activityTemplate;
+  const { activityTemplate, allPracticeQuestionInputs } = props;
+  const { category, milestone, title, slug } = activityTemplate;
   const practiceData = activityTemplate.sections.find(sec => sec.slug === 'practice');
   const whatAndWhy = activityTemplate.sections.find(sec => sec.slug === 'what-and-why');
   const tipsForSuccess = activityTemplate.sections.find(sec => sec.slug === 'tips-for-success');
@@ -40,7 +41,9 @@ export default function ActivityTemplate(props) {
       <Section sectionData={tipsForSuccess} />
       <Section
         sectionData={practiceData}
+        templateSlug={slug}
         backgroundColor={fade(JOB_SEARCH_CATEGORY_COLORS[category], 0.07)}
+        allPracticeQuestionInputs={allPracticeQuestionInputs}
       />
     </div>
   );
@@ -48,4 +51,9 @@ export default function ActivityTemplate(props) {
 
 ActivityTemplate.propTypes = {
   activityTemplate: PropTypes.objectOf(PropTypes.any).isRequired,
+  allPracticeQuestionInputs: FirebasePropTypes.querySnapshot,
+};
+
+ActivityTemplate.defaultProps = {
+  allPracticeQuestionInputs: [],
 };

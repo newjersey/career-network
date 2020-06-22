@@ -14,10 +14,8 @@ const useStyles = makeStyles(theme => ({
   },
   title: {},
 }));
-
 function Section({ sectionData, ...restProps }) {
   const classes = useStyles(restProps);
-
   const getSectionKey = (type, index) => `${type}-${index}`;
 
   return (
@@ -33,7 +31,12 @@ function Section({ sectionData, ...restProps }) {
 
           {sectionData.content.map(({ component, ...props }, index) => (
             <Grid item container xs={12} sm={component === 'callout' ? 12 : 8}>
-              <SectionComponent key={getSectionKey(component, index)} type={component} {...props} />
+              <SectionComponent
+                key={getSectionKey(component, index)}
+                type={component}
+                {...props}
+                {...restProps}
+              />
             </Grid>
           ))}
         </Grid>

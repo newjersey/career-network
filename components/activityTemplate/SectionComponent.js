@@ -14,7 +14,7 @@ const COMPONENT_TYPES = {
 
 function SectionComponent({ type, ...props }) {
   const Component = COMPONENT_TYPES[type];
-  return <Component {...props} />;
+  return Component ? <Component {...props} /> : null;
 }
 
 SectionComponent.propTypes = {

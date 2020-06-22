@@ -19,7 +19,6 @@ export default function AssessmentEntry(props) {
   if (questionGroups && questionGroups.length) {
     const id = questionGroups[0];
     const questionGroup = allQuestionGroups.find(qg => qg.id === id);
-
     if (questionGroup.fields.Slug === 'job-date-range') {
       return (
         <RangeQuestionGroup
