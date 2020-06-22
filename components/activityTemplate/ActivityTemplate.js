@@ -48,10 +48,7 @@ export default function ActivityTemplate(props) {
         backgroundColor={fade(JOB_SEARCH_CATEGORY_COLORS[category], 0.07)}
         allPracticeQuestionInputs={allPracticeQuestionInputs}
       />
-      <Section
-        sectionData={nextSteps}
-        backgroundColor={fade(JOB_SEARCH_CATEGORY_COLORS[category], 0.07)}
-      />
+      <Section sectionData={nextSteps} backgroundColor="#f5fafe" />
     </div>
   );
 }

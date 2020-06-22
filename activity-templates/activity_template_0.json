@@ -111,7 +111,7 @@
       "content": [        
         {
           "component": "callout",
-          "variant": "quote",
+          "variant": "next",
           "content": "Once you’ve got a draft, go ahead and add it to your profile. The profile is private, so you don’t have to have everything perfect right away. "
         }
       ]

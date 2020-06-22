@@ -2,8 +2,10 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
+import clsx from 'clsx';
 import InfoOutlined from '@material-ui/icons/InfoOutlined';
 import FormatQuote from '@material-ui/icons/FormatQuote';
+import ForwardIcon from '@material-ui/icons/Forward';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,6 +17,11 @@ const useStyles = makeStyles(theme => ({
     borderRadius: theme.spacing(0, 1, 1, 0),
     borderColor: theme.palette.grey['200'],
     borderLeftColor: theme.palette.navy.primary,
+  },
+  next: {
+    borderWidth: '1px',
+    borderColor: theme.palette.navy.primary,
+    backgroundColor: 'white',
   },
   icon: {
     height: 48,
@@ -31,10 +38,22 @@ const useStyles = makeStyles(theme => ({
 
 function Callout({ content, variant, ...restProps }) {
   const classes = useStyles();
-  const calloutIcon = variant === 'pro-tip' ? <InfoOutlined /> : <FormatQuote />;
+  // const calloutIcon = variant === 'pro-tip' ? <InfoOutlined /> : <FormatQuote />;
+  const calloutIcon = () => {
+    switch (variant) {
+      case 'pro-tip':
+        return <InfoOutlined />;
+      case 'quote':
+        return <FormatQuote />;
+      case 'next':
+        return <ForwardIcon />;
+      default:
+        return null;
+    }
+  };
   return (
-    <div className={classes.root}>
-      <div className={classes.icon}>{calloutIcon}</div>
+    <div className={clsx(classes.root, variant === 'next' && classes.next)}>
+      <div className={classes.icon}>{calloutIcon()}</div>
       <Typography variant="body1" {...restProps}>
         {content}
       </Typography>
@@ -44,7 +63,7 @@ function Callout({ content, variant, ...restProps }) {
 
 Callout.propTypes = {
   content: PropTypes.string.isRequired,
-  variant: PropTypes.oneOf(['pro-tip', 'quote']).isRequired,
+  variant: PropTypes.oneOf(['pro-tip', 'quote', 'next']).isRequired,
 };
 
 Callout.displayName = 'Callout';
