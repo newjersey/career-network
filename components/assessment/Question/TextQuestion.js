@@ -69,7 +69,7 @@ export default function TextQuestion(props) {
         inputProps={inputProps}
         FormHelperTextProps={{ classes: { root: classes.helperText } }}
         error={reflectError}
-        value={value}
+        value={value || ''}
         {...restProps}
       />
     </>

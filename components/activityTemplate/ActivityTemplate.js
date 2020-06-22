@@ -1,7 +1,15 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/styles';
 import PropTypes from 'prop-types';
-import Grid from '@material-ui/core/Grid';
+import { fade } from '@material-ui/core/styles/colorManipulator';
+import { makeStyles } from '@material-ui/styles';
+import ActivityHeader from './Header/ActivityHeader';
+import Section from './Section';
+import {
+  JOB_SEARCH_CATEGORIES,
+  MILESTONE_TYPES,
+  JOB_SEARCH_CATEGORY_COLORS,
+} from '../../constants';
+import FirebasePropTypes from '../Firebase/PropTypes';
 
 const useStyles = makeStyles(theme => ({
   section: {
@@ -12,17 +20,40 @@ const useStyles = makeStyles(theme => ({
 
 export default function ActivityTemplate(props) {
   const classes = useStyles();
-  const { activityTemplate, templateId } = props;
+  const { activityTemplate, allPracticeQuestionInputs } = props;
+  const { category, milestone, title, slug } = activityTemplate;
+  const practiceData = activityTemplate.sections.find(sec => sec.slug === 'practice');
+  const whatAndWhy = activityTemplate.sections.find(sec => sec.slug === 'what-and-why');
+  const tipsForSuccess = activityTemplate.sections.find(sec => sec.slug === 'tips-for-success');
+  const categoryType = JOB_SEARCH_CATEGORIES.find(cat => cat.slug === category);
+  const milestoneType = MILESTONE_TYPES.find(ms => ms.slug === milestone);
 
   return (
     <div className={classes.root}>
-      Activity Template: {templateId}
-      <Grid xs={12}>{JSON.stringify(activityTemplate)}</Grid>
+      <ActivityHeader
+        categoryType={categoryType.slug}
+        categoryLabel={categoryType.name}
+        milestoneType={milestoneType.slug}
+        milestoneLabel={milestoneType.name}
+        title={title}
+      />
+      <Section sectionData={whatAndWhy} />
+      <Section sectionData={tipsForSuccess} />
+      <Section
+        sectionData={practiceData}
+        templateSlug={slug}
+        backgroundColor={fade(JOB_SEARCH_CATEGORY_COLORS[category], 0.07)}
+        allPracticeQuestionInputs={allPracticeQuestionInputs}
+      />
     </div>
   );
 }
 
 ActivityTemplate.propTypes = {
   activityTemplate: PropTypes.objectOf(PropTypes.any).isRequired,
-  templateId: PropTypes.string.isRequired,
+  allPracticeQuestionInputs: FirebasePropTypes.querySnapshot,
+};
+
+ActivityTemplate.defaultProps = {
+  allPracticeQuestionInputs: [],
 };

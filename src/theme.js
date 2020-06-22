@@ -28,9 +28,17 @@ const theme = createMuiTheme({
       secondaryHeader: '#fdf8ef',
       linkedIn: '#2867b2',
     },
+    navy: {
+      200: '#177DBE',
+      primary: '#125F90',
+    },
   },
   typography: {
     fontSize: 14,
+    h1: {
+      fontSize: '3rem',
+      fontWeight: 400,
+    },
     h2: {
       fontFamily: HeaderFont,
       fontSize: '2rem',
@@ -40,8 +48,17 @@ const theme = createMuiTheme({
       fontFamily: HeaderFont,
       fontWeight: 700,
     },
+    h6: {
+      fontFamily: HeaderFont,
+      fontWeight: 700,
+      fontSize: '0.875rem',
+    },
     subtitle2: {
       textTransform: 'uppercase',
+    },
+    body1: {
+      fontSize: '1.25rem',
+      lineHeight: 1.6,
     },
     body2: {
       letterSpacing: 'normal',

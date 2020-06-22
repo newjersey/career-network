@@ -8,7 +8,8 @@ import ScaffoldContainer from '../ScaffoldContainer';
 import FindingJob from './FindingJob';
 import ApplyForJob from './ApplyForJob';
 import Health from './Health';
-import Picture from '../Picture';
+import JobSearchShape from '../JobSearchShape';
+import { FINDING_JOB, APPLYING_FOR_JOBS, TAKING_CARE } from '../../constants';
 
 const useStyles = makeStyles(theme => ({
   navContainer: {
@@ -47,24 +48,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SECTIONS = {
-  FINDING_JOBS: 'findingJobs',
-  APPLY_FOR_JOB: 'applyForJob',
-  HEALTH: 'health',
-};
-
 export default function JobSearchBasics() {
   const classes = useStyles();
-  const [shape, setShowShape] = useState(SECTIONS.FINDING_JOBS);
+  const [shape, setShowShape] = useState(FINDING_JOB);
   const findingJobSection = useRef(null);
   const applyForJobSection = useRef(null);
   const healthSection = useRef(null);
 
   const handleScrollTo = section => {
     const selectedSection = {
-      [SECTIONS.FINDING_JOBS]: findingJobSection,
-      [SECTIONS.APPLY_FOR_JOB]: applyForJobSection,
-      [SECTIONS.HEALTH]: healthSection,
+      [FINDING_JOB]: findingJobSection,
+      [APPLYING_FOR_JOBS]: applyForJobSection,
+      [TAKING_CARE]: healthSection,
     }[section];
 
     selectedSection.current.scrollIntoView({
@@ -87,9 +82,9 @@ export default function JobSearchBasics() {
             </Typography>
             <Box
               className={classes.hoverBlock}
-              onClick={() => handleScrollTo(SECTIONS.FINDING_JOBS)}
+              onClick={() => handleScrollTo(FINDING_JOB)}
               onMouseLeave={() => setShowShape()}
-              onMouseEnter={() => setShowShape(SECTIONS.FINDING_JOBS)}
+              onMouseEnter={() => setShowShape(FINDING_JOB)}
             >
               <Typography variant="h6">Finding Job Opportunities</Typography>
               <Typography variant="body1">
@@ -98,9 +93,9 @@ export default function JobSearchBasics() {
             </Box>
             <Box
               className={classes.hoverBlock}
-              onClick={() => handleScrollTo(SECTIONS.APPLY_FOR_JOB)}
+              onClick={() => handleScrollTo(APPLYING_FOR_JOBS)}
               onMouseLeave={() => setShowShape()}
-              onMouseEnter={() => setShowShape(SECTIONS.APPLY_FOR_JOB)}
+              onMouseEnter={() => setShowShape(APPLYING_FOR_JOBS)}
             >
               <Typography variant="h6">Applying for Jobs</Typography>
               <Typography variant="body1">
@@ -109,9 +104,9 @@ export default function JobSearchBasics() {
             </Box>
             <Box
               className={classes.hoverBlock}
-              onClick={() => handleScrollTo(SECTIONS.HEALTH)}
+              onClick={() => handleScrollTo(TAKING_CARE)}
               onMouseLeave={() => setShowShape()}
-              onMouseEnter={() => setShowShape(SECTIONS.HEALTH)}
+              onMouseEnter={() => setShowShape(TAKING_CARE)}
             >
               <Typography variant="h6">Taking Care of Yourself</Typography>
               <Typography variant="body1">
@@ -122,7 +117,7 @@ export default function JobSearchBasics() {
           </Grid>
           <Grid item container xs={12} sm={5} justify="center">
             <div className={classes.shapeContainer}>
-              {shape && <Picture path={`${shape}.png`} className={classes.shape} />}
+              {shape && <JobSearchShape jobSearchCategory={shape} className={classes.shape} />}
             </div>
           </Grid>
         </Grid>
