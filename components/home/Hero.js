@@ -1,65 +1,77 @@
-import { makeStyles } from '@material-ui/styles';
-import Button from '@material-ui/core/Button';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { useAuth } from '../Auth';
 
+const HERO_ILLUSTRATION = '/static/img/index/01_Hero/Hero Illustration - Desktop-2x.png';
+
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundSize: '33vw',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'top right',
-    paddingBottom: '3em',
-    [theme.breakpoints.up('sm')]: {
-      backgroundImage: 'url(/static/img/index/hero.svg)',
-      paddingBottom: '6em',
-    },
+    background: '#EBF9FA',
+    width: '100%',
   },
-  title: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(3),
-    [theme.breakpoints.only('sm')]: {
-      maxWidth: '56%',
-    },
+  mainContainer: {
+    padding: theme.spacing(12),
   },
-  highlight: {
-    color: theme.palette.primary.main,
+  textContainer: {
+    paddingLeft: theme.spacing(5),
   },
-  about: {
-    marginTop: theme.spacing(4),
-    [theme.breakpoints.up('md')]: {
-      maxWidth: '56%',
-    },
+  heading: {
+    fontFamily: theme.typography.h2.fontFamily,
+    fontSize: '3.8rem',
+    color: theme.palette.background.dark,
+    marginBottom: theme.spacing(5),
+  },
+  body: {
+    color: theme.palette.grey['800'],
+  },
+  illustration: {
+    width: theme.spacing(46),
+    height: '100%',
+  },
+  btn: {
+    marginTop: theme.spacing(5),
+    width: theme.spacing(33),
+    height: theme.spacing(8),
+  },
+  btnText: {
+    fontWeight: 'bold',
   },
 }));
 
 function Hero() {
   const classes = useStyles();
+
   const { showSignIn } = useAuth();
+
+  const handleClick = () => showSignIn();
 
   return (
     <div className={classes.root}>
-      <Typography variant="h6" component="h3">
-        We’ll guide you from start to finish
-      </Typography>
-      <Typography variant="h4" component="h1" className={classes.title}>
-        Get a <span className={classes.highlight}>personalized</span> career-search{' '}
-        <span className={classes.highlight}>plan</span>
-      </Typography>
+      <Grid container justify="space-evenly" alignItems="center" className={classes.mainContainer}>
+        <Grid item xs={12} md={5} className={classes.textContainer}>
+          <Typography variant="h1" className={classes.heading}>
+            Change the way you look for jobs.
+          </Typography>
 
-      <Button variant="contained" size="large" color="primary" onClick={showSignIn}>
-        Get Started Today
-      </Button>
-
-      <Typography className={classes.about}>
-        Job search is hard. We can help. By answering some questions about your search, our expert
-        system can make customized recommendations about next steps, with curated resources to help
-        you complete them. Each day you’ll receive additional recommended tasks that will help you
-        stay focused on the right activities for your search. And as you complete them and report on
-        your progress, our digital coach will learn what’s working and help you refine and focus on
-        the activities that work best for you.
-      </Typography>
+          <Typography variant="body1" className={classes.body}>
+            The New Jersey Career Network is your free resource to help find meaningful work.
+            Elevate your search with our interactive tool, designed to help you land the job you
+            want.
+          </Typography>
+          <Button variant="contained" color="primary" onClick={handleClick} className={classes.btn}>
+            <Typography variant="button" className={classes.bntText}>
+              Sign up for free
+            </Typography>
+          </Button>
+        </Grid>
+        <Grid item container xs={12} md={6} justify="center">
+          <img src={HERO_ILLUSTRATION} alt="main graphic" className={classes.illustration} />
+        </Grid>
+      </Grid>
     </div>
   );
 }

@@ -1,89 +1,108 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Card from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
 import Favorite from '@material-ui/icons/Favorite';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
-import ScaffoldContainer from '../ScaffoldContainer';
-import { logoItems } from './content/LOGO_CONTENT';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    paddingLeft: theme.spacing(5),
-    paddingRight: theme.spacing(5),
-    paddingBottom: theme.spacing(5),
-    '& .MuiCardMedia-root': {
-      backgroundSize: 'contain',
-    },
+  mainContainer: {
+    paddingTop: theme.spacing(12),
+    paddingBottom: theme.spacing(12),
+  },
+  logosContainer: {
+    marginRight: theme.spacing(2),
+    marginLeft: theme.spacing(2),
   },
   heading: {
-    color: '#0c4163',
-  },
-  headingContainer: {
+    fontFamily: theme.typography.h2.fontFamily,
     textAlign: 'center',
     paddingBottom: '4rem',
-  },
-  media: {
-    height: 100,
-    width: 100,
-    margin: '0 auto',
-  },
-  mediaRect: {
-    height: 60,
-    width: 180,
-    margin: '20px auto 20px',
+    fontWeight: 'normal',
   },
   icon: {
     fontSize: '3rem',
-    color: '#0c4163',
+    color: theme.palette.background.dark,
     marginTop: '2rem',
   },
-  cardContent: {
-    color: '#2f2f34',
+  logoImg: {
+    width: theme.spacing(22),
+    height: theme.spacing(22),
+  },
+  logoName: {
+    color: theme.palette.grey['450'],
     textAlign: 'center',
-    margin: '0 auto',
-    width: '90%',
   },
   divider: {
-    margin: '12vh 10% 0',
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    marginRight: '10%',
+    marginLeft: '10%',
+    color: theme.palette.grey['300'],
   },
 }));
+
+const LOGO_CONTENT = [
+  {
+    name: 'New Jersey Department of Labor',
+    img: '/static/img/index/05_Logos/DOL-2x.png',
+  },
+  {
+    name: `Heldric Center for Workforce Development at Rutgers University`,
+    img: '/static/img/index/05_Logos/Rutgers-2x.png',
+  },
+  {
+    name: 'New Jersey Office of Innovation',
+    img: '/static/img/index/05_Logos/NJ-CIO-2x.png',
+  },
+
+  {
+    name: 'New America',
+    img: '/static/img/index/05_Logos/New-America-2x.png',
+  },
+
+  {
+    name: 'Lumina Foundation',
+    img: '/static/img/index/05_Logos/Lumina-2x.png',
+  },
+];
 
 function Logos() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <ScaffoldContainer>
-        <Grid container justify="center" alignItems="flex-start" style={{ paddingTop: '6rem' }}>
-          <Grid item xs={12} sm={12} className={classes.headingContainer}>
-            <Typography variant="h4" className={classes.heading}>
-              Powered by people who want to see
-              <br /> you succeed
-            </Typography>
+    <div>
+      <Grid container justify="center" alignItems="center" className={classes.mainContainer}>
+        <Grid container item md={12} justify="center">
+          <Typography variant="h2" className={classes.heading}>
+            Powered by people who want to see
+            <br /> you succeed.
+            <br />
             <Favorite className={classes.icon} />
-          </Grid>
-
-          {logoItems.map(item => (
-            <Grid item key={item.name} xs={12} sm={2}>
-              <Card>
-                <CardMedia
-                  className={item.type === 'rectangle' ? classes.mediaRect : classes.media}
-                  image={`${item.img}`}
-                  alt={item.name}
-                />
-                <CardContent className={classes.cardContent}>
-                  <Typography variant="caption">{item.name}</Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
+          </Typography>
         </Grid>
-        <Divider variant="middle" light="true" className={classes.divider} />
-      </ScaffoldContainer>
+        {LOGO_CONTENT.map(item => (
+          <Grid
+            item
+            container
+            xs={6}
+            md={2}
+            direction="column"
+            justify="center"
+            alignItems="center"
+            key={item.name}
+            className={classes.logosContainer}
+          >
+            <Grid item md={12}>
+              <img className={classes.logoImg} src={`${item.img}`} alt={item.name} />
+            </Grid>
+            <Grid item md={12} className={classes.logoName}>
+              <Typography variant="caption">{item.name}</Typography>
+            </Grid>
+          </Grid>
+        ))}
+      </Grid>
+      <Divider variant="middle" className={classes.divider} />
     </div>
   );
 }
