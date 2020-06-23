@@ -82,7 +82,8 @@ function getSections(data) {
 }
 
 export default class ActivityTemplate {
-  constructor(jsonData) {
+  constructor(jsonData, originalFile = '') {
+    this.original = originalFile;
     this.slug = `activity_template_${jsonData.Entry.Number}`;
     this.tempateId = `template-${jsonData.Entry.Number}`;
     this.title = jsonData.Title;
