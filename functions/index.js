@@ -4,7 +4,6 @@ const admin = require('firebase-admin');
 const crypto = require('crypto');
 const functions = require('firebase-functions');
 const https = require('https');
-
 const { WebClient: SlackWebClient } = require('@slack/web-api');
 const { linkedinRedirect, linkedinAuthorize } = require('./linkedinAuth');
 
@@ -31,6 +30,39 @@ const postSlackMessage = async (conversationId, text, options = {}) => {
     ...options,
   });
 };
+
+exports.activityTemplateWebhook = functions.https.onRequest(async (req, res) => {
+  const storage = new Storage();
+  const bucketName = `${process.env.GCLOUD_PROJECT}-activity-templates`;
+  // Get a reference to the destination file in GCS
+  // const activity = new ActivityTemplateModel(req.body);
+  const content = JSON.stringify(req.body);
+  const bucket = storage.bucket(bucketName);
+
+  try {
+    const bucketExists = (await bucket.exists())[0];
+    console.log(`Bucket ${bucketName} exists: ${bucketExists}`);
+    if (!bucketExists) {
+      console.log(`Creating bucket: ${bucketName}`);
+      await storage.createBucket(bucketName);
+    }
+  } catch (err) {
+    throw new Error('Create bucket operation failed');
+  }
+
+  try {
+    const fileName = `ActivityTemplate_${Date.now()}.json`;
+    const file = bucket.file(fileName);
+    console.log('File: ', content);
+    await file.save(content, {
+      metadata: { contentType: 'application/json' },
+      public: true,
+    });
+    res.status(200).send(`Created Activity Template with name: ${fileName}`);
+  } catch (err) {
+    throw new Error('Save file failed: ', err);
+  }
+});
 
 // Uses native https package with streams to keep things quick and light.
 exports.airtableProxy = functions.https.onRequest((req, res) => {
