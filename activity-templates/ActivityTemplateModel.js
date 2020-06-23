@@ -73,11 +73,14 @@ function getSections(data) {
 
   const citations = {
     name: 'Citations',
-    items: data.Citations.CitationItems.map(item => ({
+    slug: 'citations',
+    content: data.Citations.CitationItems.map(item => ({
+      component: 'citation',
       label: item.Label,
       url: item.URL,
     })),
   };
+
   return [whatAndWhy, tipsForSuccess, examples, practice, citations, nextSteps];
 }
 
