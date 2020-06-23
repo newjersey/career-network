@@ -26,6 +26,8 @@ export default function ActivityTemplate(props) {
   const whatAndWhy = activityTemplate.sections.find(sec => sec.slug === 'what-and-why');
   const tipsForSuccess = activityTemplate.sections.find(sec => sec.slug === 'tips-for-success');
   const citations = activityTemplate.sections.find(sec => sec.slug === 'citations');
+  const examples = activityTemplate.sections.find(sec => sec.slug === 'examples');
+  const nextSteps = activityTemplate.sections.find(sec => sec.slug === 'next-steps');
   const categoryType = JOB_SEARCH_CATEGORIES.find(cat => cat.slug === category);
   const milestoneType = MILESTONE_TYPES.find(ms => ms.slug === milestone);
 
@@ -40,6 +42,7 @@ export default function ActivityTemplate(props) {
       />
       <Section sectionData={whatAndWhy} />
       <Section sectionData={tipsForSuccess} />
+      {examples && <Section sectionData={examples} />}
       <Section
         sectionData={practiceData}
         templateSlug={slug}
@@ -47,6 +50,7 @@ export default function ActivityTemplate(props) {
         allPracticeQuestionInputs={allPracticeQuestionInputs}
       />
       <Section sectionData={citations} />
+      <Section sectionData={nextSteps} backgroundColor="#f5fafe" />
     </div>
   );
 }

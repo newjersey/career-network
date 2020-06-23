@@ -16,11 +16,12 @@ const useStyles = makeStyles(theme => ({
 function Section({ sectionData, ...restProps }) {
   const classes = useStyles(restProps);
   const getSectionKey = (type, index) => `${type}-${index}`;
+  const nextStep = sectionData.slug === 'next-steps';
 
   return (
     <div className={classes.root}>
       <ScaffoldContainer>
-        <Grid container justify="flex-end" spacing={4}>
+        <Grid container justify={nextStep ? 'flex-start' : 'flex-end'} spacing={4}>
           <Grid item container xs={12} sm={2}>
             <Typography component="h2" variant="h3" align="right">
               {sectionData.name}

@@ -47,12 +47,22 @@
       "content": [
         {
           "component": "text",
-          "content": "helloooo"
+          "content": "Here are examples of how other people have summarized their qualifications:"
         },
         {
           "component": "callout",
-          "type": "quote",
-          "content": "asfasdfasdf"
+          "variant": "quote",
+          "content": "Waitress with 5+ years of experience in providing excellent service to diners at quality establishments. Possesses familiarity with POS terminals and common restaurant machinery. Expert with a proven ability to “upsell” alcohol, dessert, and appetizers to customers. (1)"
+        },
+        {
+          "component": "callout",
+          "variant": "quote",
+          "content": "Creative, resourceful teacher with eight years of varied instructional experience. (2)"
+        },
+        {
+          "component": "callout",
+          "variant": "quote",
+          "content": "Accomplished search engine optimization specialist with over 12 years of experience in digital marketing. Have increased organic search traffic by an average of 26% (YoY) over the past 5 years. (3)"
         }
       ]
     },
@@ -119,7 +129,13 @@
     {
       "name": "Next Steps",
       "slug": "next-steps",
-      "content": "lowerasdfasljlk"
+      "content": [
+        {
+          "component": "callout",
+          "variant": "next",
+          "content": "Once you’ve got a draft, go ahead and add it to your profile. The profile is private, so you don’t have to have everything perfect right away. "
+        }
+      ]
     }
   ]
 }
