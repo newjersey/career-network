@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(10),
     paddingLeft: theme.spacing(12),
     [theme.breakpoints.down('xs')]: {
-      paddingTop: theme.spacing(3),
+      paddingTop: theme.spacing(10),
       paddingLeft: theme.spacing(3),
     },
   },
@@ -75,15 +75,12 @@ function Quote() {
             <Grid item md={1}>
               <FormatQuoteIcon className={classes.icon} />
             </Grid>
-            <Grid md={6}>
+            <Grid item xs={8} md={6}>
               <Typography variant="h4" className={classes.heading}>
-                Unique. I’ve{' '}
-                <b>
-                  never seen <br /> anything{' '}
-                </b>
+                Unique. I’ve <b>never seen anything </b>
                 like New Jersey Career Network before.”
               </Typography>
-              <Typography variant="subtitle1" className={classes.cite}>
+              <Typography variant="caption" className={classes.cite}>
                 – Verified New Jersey Career Network User
               </Typography>
             </Grid>

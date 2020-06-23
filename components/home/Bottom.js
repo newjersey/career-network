@@ -19,12 +19,14 @@ const useStyles = makeStyles(theme => ({
   mainContainer: {
     padding: theme.spacing(5),
     paddingBottom: theme.spacing(40),
-    width: theme.spacing(60),
-    margin: '5rem auto 0',
+    width: theme.spacing(70),
+    margin: '10rem auto 0',
     textAlign: 'center',
+    [theme.breakpoints.down('xs')]: {
+      width: theme.spacing(65),
+    },
   },
   heading: {
-    fontFamily: theme.typography.h2.fontFamily,
     fontSize: '3rem',
     color: theme.palette.background.dark,
   },

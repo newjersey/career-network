@@ -25,7 +25,6 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.dark,
   },
   heading: {
-    fontFamily: theme.typography.h2.fontFamily,
     fontSize: '3rem',
     color: theme.palette.background.dark,
     marginTop: theme.spacing(15),
@@ -45,7 +44,7 @@ function Welcome() {
           Welcome to the new tool at your disposal.
         </Typography>
         <Divider className={classes.divider} />
-        <Typography className={classes.body}>
+        <Typography variant="body1" className={classes.body}>
           You may have used Linkedin, Monster, and Indeed. This is not another job board. This is a
           new tool that can help grow your skill set, and change how you approach your job search
           entirely.

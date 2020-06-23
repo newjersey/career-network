@@ -15,7 +15,6 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(2),
   },
   heading: {
-    fontFamily: theme.typography.h2.fontFamily,
     color: theme.palette.background.dark,
     textAlign: 'center',
     paddingBottom: '4rem',
@@ -34,6 +33,7 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.grey['500'],
     textAlign: 'center',
     width: theme.spacing(15),
+    lineHeight: 'normal',
   },
   divider: {
     marginTop: theme.spacing(3),

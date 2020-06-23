@@ -24,7 +24,6 @@ const useStyles = makeStyles(theme => ({
     },
   },
   heading: {
-    fontFamily: theme.typography.h2.fontFamily,
     fontSize: '3.8rem',
     color: theme.palette.background.dark,
     marginBottom: theme.spacing(5),

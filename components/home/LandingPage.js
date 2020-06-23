@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Hero from './Hero';
 import Welcome from './Welcome';
 import Featured from './Featured';

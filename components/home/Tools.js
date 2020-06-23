@@ -19,7 +19,6 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.background.dark,
   },
   heading: {
-    fontFamily: theme.typography.h2.fontFamily,
     color: theme.palette.background.dark,
     fontSize: '3rem',
   },

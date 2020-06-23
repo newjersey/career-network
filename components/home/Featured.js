@@ -22,7 +22,6 @@ const useStyles = makeStyles(theme => ({
     },
   },
   featuredItemTitle: {
-    fontFamily: theme.typography.h2.fontFamily,
     fontSize: '3rem',
     color: theme.palette.background.dark,
     marginBottom: theme.spacing(3),
@@ -49,7 +48,7 @@ const FEATURED_ITEMS = [
     image: '/static/img/index/03_Featured Callouts/01_Asset_Rut-2x.png',
   },
   {
-    title: 'Organize your search.',
+    title: 'Keep your search organized.',
     body:
       'It can be tough to organize your approach, but we can help you break down the chaotic job search into manageable steps.',
     image: '/static/img/index/03_Featured Callouts/02_Asset_Organized-2x.png',
