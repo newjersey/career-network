@@ -50,7 +50,9 @@ const theme = createMuiTheme({
     },
     h5: {
       fontFamily: HeaderFont,
-      fontWeight: 700,
+      fontSize: '1rem',
+      letterSpacing: '0.0075em',
+      fontWeight: 600,
     },
     h6: {
       fontFamily: HeaderFont,

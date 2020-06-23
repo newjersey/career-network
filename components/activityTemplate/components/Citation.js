@@ -38,7 +38,7 @@ function Citation({ label, url, index, ...restProps }) {
   return (
     <div className={classes.root}>
       <div className={classes.circle}>{index + 1}</div>
-      <Link href={url} target="_blank" variant="h6" underline="always" color="inherit">
+      <Link href={url} target="_blank" variant="h5" underline="always" color="inherit">
         {label}
       </Link>
     </div>
