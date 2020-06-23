@@ -28,8 +28,12 @@ const theme = createMuiTheme({
       secondaryHeader: '#fdf8ef',
       linkedIn: '#2867b2',
     },
+    grey: {
+      900: '#171719',
+    },
     navy: {
       200: '#177DBE',
+      500: '#062335',
       primary: '#125F90',
     },
   },
