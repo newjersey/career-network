@@ -37,17 +37,23 @@ exports.activityTemplateWebhook = functions.https.onRequest(async (req, res) => 
   // Get a reference to the destination file in GCS
   // const activity = new ActivityTemplateModel(req.body);
   const content = JSON.stringify(req.body);
+  const bucket = storage.bucket(bucketName);
+
   try {
-    const bucket = storage.bucket(bucketName);
+    const bucketExists = (await bucket.exists())[0];
+    console.log(`Bucket ${bucketName} exists: ${bucketExists}`);
+    if (!bucketExists) {
+      console.log(`Creating bucket: ${bucketName}`);
+      await storage.createBucket(bucketName);
+    }
+  } catch (err) {
+    throw new Error('Create bucket operation failed');
+  }
+
+  try {
     const fileName = `ActivityTemplate_${Date.now()}.json`;
-    // const bucketExists = (await bucket.exists())[0];
-    // console.log(`Bucket ${bucketName} exists: ${bucketExists}`);
-    // if (!bucketExists) {
-    //  console.log(`Creating bucket: ${bucketName}`);
-    //  await storage.createBucket(bucketName);
-    // }
     const file = bucket.file(fileName);
-    console.log('Saving: ', content);
+    console.log('File: ', content);
     await file.save(content, {
       metadata: { contentType: 'application/json' },
       public: true,
