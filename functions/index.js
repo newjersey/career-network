@@ -4,7 +4,6 @@ const admin = require('firebase-admin');
 const crypto = require('crypto');
 const functions = require('firebase-functions');
 const https = require('https');
-
 const { WebClient: SlackWebClient } = require('@slack/web-api');
 const { linkedinRedirect, linkedinAuthorize } = require('./linkedinAuth');
 
@@ -31,6 +30,23 @@ const postSlackMessage = async (conversationId, text, options = {}) => {
     ...options,
   });
 };
+
+exports.activityTemplateWebhook = functions.https.onRequest(async (req, res) => {
+  const storage = new Storage();
+  const bucket = storage.bucket(`activity-templates`);
+  // Get a reference to the destination file in GCS
+  const activity = new ActivityTemplateModel(req.body);
+  const file = bucket.file(activity.fileName);
+  // const contents = JSON.stringify(req.body);
+  try {
+    console.log('Saving: ', activity);
+    await file.save(activity);
+    res.ok();
+  } catch (err) {
+    console.error('Could not save: ', err);
+    throw new Error('Save operation failed');
+  }
+});
 
 // Uses native https package with streams to keep things quick and light.
 exports.airtableProxy = functions.https.onRequest((req, res) => {
