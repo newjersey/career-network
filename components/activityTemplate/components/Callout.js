@@ -10,13 +10,14 @@ import ForwardIcon from '@material-ui/icons/Forward';
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
-    margin: theme.spacing(3, 0),
+    margin: theme.spacing(1, 0),
     padding: theme.spacing(10, 12),
     borderStyle: 'solid',
     borderWidth: `1px 1px 1px 4px`,
     borderRadius: theme.spacing(0, 1, 1, 0),
     borderColor: theme.palette.grey['200'],
     borderLeftColor: theme.palette.navy.primary,
+    width: '100%',
   },
   next: {
     borderWidth: '1px',
