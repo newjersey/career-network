@@ -41,7 +41,7 @@ export default function ActivityTemplate(props) {
       />
       <Section sectionData={whatAndWhy} />
       <Section sectionData={tipsForSuccess} />
-      <Section sectionData={examples} />
+      {examples && <Section sectionData={examples} />}
       <Section
         sectionData={practiceData}
         templateSlug={slug}
