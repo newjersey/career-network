@@ -36,6 +36,7 @@ const theme = createMuiTheme({
   typography: {
     fontSize: 14,
     h1: {
+      fontFamily: HeaderFont,
       fontSize: '3rem',
       fontWeight: 400,
     },
