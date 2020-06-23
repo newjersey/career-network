@@ -33,18 +33,28 @@ const postSlackMessage = async (conversationId, text, options = {}) => {
 
 exports.activityTemplateWebhook = functions.https.onRequest(async (req, res) => {
   const storage = new Storage();
-  const bucket = storage.bucket(`activity-templates`);
+  const bucketName = `${process.env.GCLOUD_PROJECT}-activity-templates`;
   // Get a reference to the destination file in GCS
-  const activity = new ActivityTemplateModel(req.body);
-  const file = bucket.file(activity.fileName);
-  // const contents = JSON.stringify(req.body);
+  // const activity = new ActivityTemplateModel(req.body);
+  const content = JSON.stringify(req.body);
   try {
-    console.log('Saving: ', activity);
-    await file.save(activity);
-    res.ok();
+    const bucket = storage.bucket(bucketName);
+    const fileName = `ActivityTemplate_${Date.now()}.json`;
+    // const bucketExists = (await bucket.exists())[0];
+    // console.log(`Bucket ${bucketName} exists: ${bucketExists}`);
+    // if (!bucketExists) {
+    //  console.log(`Creating bucket: ${bucketName}`);
+    //  await storage.createBucket(bucketName);
+    // }
+    const file = bucket.file(fileName);
+    console.log('Saving: ', content);
+    await file.save(content, {
+      metadata: { contentType: 'application/json' },
+      public: true,
+    });
+    res.status(200).send(`Created Activity Template with name: ${fileName}`);
   } catch (err) {
-    console.error('Could not save: ', err);
-    throw new Error('Save operation failed');
+    throw new Error('Save file failed: ', err);
   }
 });
 
