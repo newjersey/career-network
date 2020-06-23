@@ -34,8 +34,7 @@ export default function ActivityTemplate(props) {
   const milestoneType = MILESTONE_TYPES.find(ms => ms.slug === milestone);
 
   const handleComplete = () => {
-    console.log('handleComplete');
-    const taskData = {
+    const activityData = {
       createdTime: new Date(),
       fields: {
         Category: category,
@@ -51,7 +50,7 @@ export default function ActivityTemplate(props) {
       taskId: slug,
       timestamp: new Date(),
       type: 'done',
-      task: taskData,
+      task: activityData,
     };
 
     userDocRef.collection('taskDispositionEvents').add(data);
