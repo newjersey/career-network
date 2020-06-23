@@ -88,17 +88,16 @@ function Tools() {
   return (
     <ScaffoldContainer className={classes.root}>
       <Grid container justify="center" alignItems="center" spacing={10}>
-        <Grid item xs={12} sm={12} className={classes.headingContainer}>
+        <Grid item md={9} className={classes.headingContainer}>
           <Typography variant="h1" className={classes.heading}>
-            Our super power? Putting your
-            <br /> super power to work.
+            Our super power? Putting your super power to work.
           </Typography>
           <Divider className={classes.divider} />
         </Grid>
-        <Grid item xs={12} sm={10}>
-          <Grid container item>
+        <Grid item md={10}>
+          <Grid container item justify="center">
             {TOOL_CONTENT.map(item => (
-              <Grid item key={item.title} xs={12} sm={4}>
+              <Grid item key={item.title} xs={9} sm={6} md={4}>
                 <Card>
                   <CardMedia className={classes.media} image={`${item.img}`} alt={item.title} />
                   <CardContent>

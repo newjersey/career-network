@@ -33,6 +33,7 @@ const useStyles = makeStyles(theme => ({
   logoName: {
     color: theme.palette.grey['500'],
     textAlign: 'center',
+    width: theme.spacing(15),
   },
   divider: {
     marginTop: theme.spacing(3),
@@ -73,7 +74,7 @@ function Logos() {
 
   return (
     <div>
-      <Grid container justify="center" alignItems="center" className={classes.mainContainer}>
+      <Grid container justify="center" alignItems="flex-start" className={classes.mainContainer}>
         <Grid container item md={12} justify="center">
           <Typography variant="h2" className={classes.heading}>
             Powered by people who want to see
@@ -86,10 +87,10 @@ function Logos() {
           <Grid
             item
             container
-            xs={6}
+            xs={5}
             md={2}
             direction="column"
-            justify="center"
+            justify="flex-start"
             alignItems="center"
             key={item.name}
             className={classes.logosContainer}
@@ -97,7 +98,12 @@ function Logos() {
             <Grid item md={12}>
               <img className={classes.logoImg} src={`${item.img}`} alt={item.name} />
             </Grid>
-            <Grid item md={12} className={classes.logoName}>
+            <Grid
+              item
+              md={12}
+              className={classes.logoName}
+              style={{ width: item.name.length > 60 && '75%' }}
+            >
               <Typography variant="caption">{item.name}</Typography>
             </Grid>
           </Grid>

@@ -18,6 +18,10 @@ const useStyles = makeStyles(theme => ({
   },
   textContainer: {
     paddingLeft: theme.spacing(5),
+    [theme.breakpoints.down('sm')]: {
+      paddingLeft: 0,
+      marginBottom: theme.spacing(8),
+    },
   },
   heading: {
     fontFamily: theme.typography.h2.fontFamily,
@@ -28,7 +32,7 @@ const useStyles = makeStyles(theme => ({
   body: {
     color: theme.palette.grey['800'],
   },
-  illustration: {
+  img: {
     width: theme.spacing(60),
     height: '100%',
   },
@@ -69,7 +73,7 @@ function Hero() {
           </Button>
         </Grid>
         <Grid item container xs={12} md={6} justify="center">
-          <img src={HERO_ILLUSTRATION} alt="main graphic" className={classes.illustration} />
+          <img src={HERO_ILLUSTRATION} alt="main graphic" className={classes.img} />
         </Grid>
       </Grid>
     </div>

@@ -7,32 +7,32 @@ import { useAuth } from '../Auth';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundImage: `url('/static/img/index/04_Conversion/Conversion Asset - Desktop-2x.png')`,
+    backgroundImage: `url('/static/img/index/04_Conversion/Coversion Asset - Desktop-2x.png')`,
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
     backgroundSize: 'cover',
-    backgroundColor: theme.palette.background.dark,
-    height: theme.spacing(80),
-    borderRadius: '0 0 40% 40%',
-    overflow: 'hidden',
-    borderBottom: 'solid 3.5rem white',
+    height: theme.spacing(95),
+    [theme.breakpoints.down('xs')]: {
+      backgroundImage: `url('/static/img/index/04_Conversion/Conversion Asset - Mobile-2x.png')`,
+      backgroundPosition: 'bottom center',
+    },
   },
   mainContainer: {
-    padding: theme.spacing(12),
-    paddingTop: theme.spacing(15),
-  },
-  btnContainer: {
-    margin: '3.5rem auto',
+    padding: theme.spacing(5),
+    width: theme.spacing(80),
+    margin: '0 auto',
     textAlign: 'center',
-    width: theme.spacing(65),
+    [theme.breakpoints.down('xs')]: {
+      width: theme.spacing(65),
+    },
   },
+
   heading: {
     fontFamily: theme.typography.h2.fontFamily,
     fontSize: '3rem',
     color: theme.palette.grey['50'],
-    margin: '3.5rem auto',
-    textAlign: 'center',
-    width: theme.spacing(65),
+    marginBottom: theme.spacing(5),
+    marginTop: theme.spacing(20),
   },
   btn: {
     backgroundColor: 'white',
@@ -55,11 +55,10 @@ function Welcome() {
         <Typography variant="h1" className={classes.heading}>
           Change the way you look for jobs.
         </Typography>
-        <div className={classes.btnContainer}>
-          <Button variant="contained" onClick={handleClick} className={classes.btn}>
-            <Typography variant="button">Sign up for free</Typography>
-          </Button>
-        </div>
+
+        <Button variant="contained" onClick={handleClick} className={classes.btn}>
+          <Typography variant="button">Sign up for free</Typography>
+        </Button>
       </div>
     </div>
   );

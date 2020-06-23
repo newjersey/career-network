@@ -11,24 +11,27 @@ const useStyles = makeStyles(theme => ({
     backgroundSize: 'cover',
   },
   mainContainer: {
-    padding: theme.spacing(12),
+    padding: theme.spacing(5),
+    width: theme.spacing(85),
+    height: theme.spacing(80),
+    margin: '0 auto',
+    textAlign: 'center',
+    [theme.breakpoints.down('xs')]: {
+      width: theme.spacing(65),
+    },
   },
   divider: {
-    margin: '5vh 45% 0',
+    margin: '5vh 45% 5vh',
     backgroundColor: theme.palette.background.dark,
   },
   heading: {
     fontFamily: theme.typography.h2.fontFamily,
     fontSize: '3rem',
     color: theme.palette.background.dark,
-    margin: '3.5rem auto',
-    textAlign: 'center',
-    width: theme.spacing(60),
+    marginTop: theme.spacing(15),
   },
   body: {
-    textAlign: 'center',
-    margin: '3.5rem auto',
-    width: theme.spacing(60),
+    color: theme.palette.grey['800'],
   },
 }));
 

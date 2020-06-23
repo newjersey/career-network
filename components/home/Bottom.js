@@ -5,36 +5,33 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { useAuth } from '../Auth';
 
-const margins = '3.5rem auto';
-
 const useStyles = makeStyles(theme => ({
   root: {
     backgroundImage: `url('/static/img/index/08_Bottom Graphic/Bottom Graphic - Desktop-2x.png')`,
     backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'bottom',
+    backgroundPosition: 'bottom center',
     backgroundSize: 'cover',
+    [theme.breakpoints.down('xs')]: {
+      backgroundImage: `url('/static/img/index/08_Bottom Graphic/Bottom Graphic - Mobile-2x.png')`,
+      backgroundPosition: 'bottom center',
+    },
   },
   mainContainer: {
-    padding: theme.spacing(10),
+    padding: theme.spacing(5),
     paddingBottom: theme.spacing(40),
-  },
-  btnContainer: {
-    margin: margins,
-    textAlign: 'center',
     width: theme.spacing(60),
+    margin: '5rem auto 0',
+    textAlign: 'center',
   },
   heading: {
     fontFamily: theme.typography.h2.fontFamily,
     fontSize: '3rem',
     color: theme.palette.background.dark,
-    margin: margins,
-    textAlign: 'center',
-    width: theme.spacing(60),
   },
   body: {
-    textAlign: 'center',
-    margin: margins,
-    width: theme.spacing(60),
+    color: theme.palette.grey['800'],
+    marginBottom: theme.spacing(5),
+    marginTop: theme.spacing(5),
   },
   btn: {
     width: theme.spacing(33),
@@ -59,11 +56,9 @@ function Welcome() {
           Getting a job can be hard, but the New Jersey Career Network is your resource along your
           journey.
         </Typography>
-        <div className={classes.btnContainer}>
-          <Button variant="contained" color="primary" onClick={handleClick} className={classes.btn}>
-            <Typography variant="button">Sign up for free</Typography>
-          </Button>
-        </div>
+        <Button variant="contained" color="primary" onClick={handleClick} className={classes.btn}>
+          <Typography variant="button">Sign up for free</Typography>
+        </Button>
       </div>
     </div>
   );

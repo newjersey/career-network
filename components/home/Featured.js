@@ -8,9 +8,18 @@ const useStyles = makeStyles(theme => ({
   root: {
     paddingRight: theme.spacing(15),
     paddingLeft: theme.spacing(15),
+    [theme.breakpoints.down('sm')]: {
+      paddingRight: theme.spacing(5),
+      paddingLeft: theme.spacing(5),
+    },
   },
   img: {
     width: theme.spacing(50),
+    marginTop: theme.spacing(5),
+    padding: theme.spacing(3),
+    [theme.breakpoints.down('sm')]: {
+      width: '80%',
+    },
   },
   featuredItemTitle: {
     fontFamily: theme.typography.h2.fontFamily,
@@ -22,6 +31,9 @@ const useStyles = makeStyles(theme => ({
     fontSize: '1.25rem',
     width: theme.spacing(50),
     color: theme.palette.grey['700'],
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
   },
   featuredItemContainer: {
     marginTop: theme.spacing(15),
@@ -35,27 +47,18 @@ const FEATURED_ITEMS = [
     body:
       'If you’re repeating the same steps and not getting results, let us show you new techniques to best represent yourself and sell your experience.',
     image: '/static/img/index/03_Featured Callouts/01_Asset_Rut-2x.png',
-    imageProps: {
-      side: 'left',
-    },
   },
   {
     title: 'Organize your search.',
     body:
       'It can be tough to organize your approach, but we can help you break down the chaotic job search into manageable steps.',
     image: '/static/img/index/03_Featured Callouts/02_Asset_Organized-2x.png',
-    imageProps: {
-      side: 'right',
-    },
   },
   {
     title: 'Learn helpful coping skills.',
     body:
       'We get it. Searching for a job can be rough, especially in uncertain times. Check out our tips on learning skills that can help you manage stress.',
     image: '/static/img/index/03_Featured Callouts/03_Asset_Coping-2x.png',
-    imageProps: {
-      side: 'left',
-    },
   },
 ];
 
@@ -71,11 +74,8 @@ const FeaturedItems = () => {
           justify="space-between"
           alignItems="center"
           className={classes.featuredItemContainer}
-          direction={index % 2 === 0 ? 'row' : 'row-reverse'}
+          direction={index % 2 === 0 ? 'row-reverse' : 'row'}
         >
-          <Grid item container xs={12} md={5} justify="center">
-            <img src={item.image} alt={item.title} className={classes.img} />
-          </Grid>
           <Grid item xs={12} md={6}>
             <Typography variant="h1" className={classes.featuredItemTitle}>
               {item.title}
@@ -83,6 +83,9 @@ const FeaturedItems = () => {
             <Typography variant="body1" className={classes.body}>
               {item.body}
             </Typography>
+          </Grid>
+          <Grid item container xs={12} md={5} justify="center">
+            <img src={item.image} alt={item.title} className={classes.img} />
           </Grid>
         </Grid>
       ))}

@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Hero() {
+function HeroDepricated() {
   const classes = useStyles();
   const { showSignIn } = useAuth();
 
@@ -64,4 +64,4 @@ function Hero() {
   );
 }
 
-export default Hero;
+export default HeroDepricated;
