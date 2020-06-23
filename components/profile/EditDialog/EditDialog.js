@@ -71,7 +71,7 @@ function EditDialog({ show, onClose, mode, name, items, itemIndex }) {
     } else if (!show) {
       reset();
     }
-  }, [show, name]);
+  }, [show, name]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleClose = () => {
     reset();
