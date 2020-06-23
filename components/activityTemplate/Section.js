@@ -17,6 +17,8 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     margin: theme.spacing(5, 2),
+    padding: theme.spacing(2),
+    backgroundColor: theme.palette.background.dark,
   },
 }));
 function Section({ sectionData, onComplete, ...restProps }) {
@@ -36,7 +38,13 @@ function Section({ sectionData, onComplete, ...restProps }) {
           <Grid item xs={0} sm={1} />
 
           {sectionData.content.map(({ component, ...props }, index) => (
-            <Grid item container xs={12} sm={component === 'callout' ? 12 : 9}>
+            <Grid
+              item
+              container
+              xs={12}
+              sm={component === 'callout' ? 12 : 9}
+              key={getSectionKey(component, index)}
+            >
               <SectionComponent
                 key={getSectionKey(component, index)}
                 type={component}
