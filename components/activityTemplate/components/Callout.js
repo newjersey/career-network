@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 
 function Callout({ content, variant, ...restProps }) {
   const classes = useStyles();
-  // const calloutIcon = variant === 'pro-tip' ? <InfoOutlined /> : <FormatQuote />;
+
   const calloutIcon = () => {
     switch (variant) {
       case 'pro-tip':
@@ -52,6 +52,7 @@ function Callout({ content, variant, ...restProps }) {
         return null;
     }
   };
+
   return (
     <div className={clsx(classes.root, variant === 'next' && classes.next)}>
       <div className={classes.icon}>{calloutIcon()}</div>
