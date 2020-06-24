@@ -48,6 +48,11 @@ const theme = createMuiTheme({
       fontSize: '2rem',
       fontWeight: 700,
     },
+    h3: {
+      fontFamily: HeaderFont,
+      fontSize: '1.5rem',
+      fontWeight: 500,
+    },
     h5: {
       fontFamily: HeaderFont,
       fontSize: '1rem',

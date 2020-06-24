@@ -34,6 +34,7 @@ import TimeDistanceParser from '../../src/time-distance-parser';
 import UpcomingInterviewDialog from './UpcomingInterviewDialog/UpcomingInterviewDialog';
 import UserProfileCard from './UserProfileCard';
 import CelebrationDialog from '../CelebrationDialog';
+import ActivityTemplateCard from './ActivityTemplateCard';
 
 const TASK_COUNT_LIMIT = 3;
 const ROW_GAP = 2;
@@ -297,6 +298,7 @@ export default function Dashboard(props) {
     allTasks,
     allQuestionResponses,
     allActions,
+    allActivityTemplates,
     allActionDispositionEvents,
     completionEvents,
     allTaskDispositionEvents,
@@ -467,6 +469,9 @@ export default function Dashboard(props) {
             </Typography>
           </Box>
           <Box className={classes.gridC}>
+            {allActivityTemplates.map(template => (
+              <ActivityTemplateCard totalTime={template.total_time} {...template} />
+            ))}
             <TaskList
               tasks={tasks}
               allActions={allActions}
@@ -581,6 +586,7 @@ Dashboard.propTypes = {
   allTasks: AirtablePropTypes.tasks.isRequired,
   allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
+  allActivityTemplates: FirebasePropTypes.querySnapshot,
   allActionDispositionEvents: FirebasePropTypes.querySnapshot,
   completionEvents: FirebasePropTypes.querySnapshot,
   allTaskDispositionEvents: FirebasePropTypes.querySnapshot,
@@ -593,6 +599,7 @@ Dashboard.propTypes = {
 
 Dashboard.defaultProps = {
   allActionDispositionEvents: [],
+  allActivityTemplates: [],
   allTaskDispositionEvents: [],
   completedTasks: [],
   activityLogEntries: [],
