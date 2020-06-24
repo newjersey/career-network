@@ -5,7 +5,7 @@ export const COMPLETED_ASSESSMENT_ACTIVITY_DEPRECATED = 'assessment-complete';
 export const ACTION_TYPES = {
   goal: {
     value: 'goal',
-    label: 'Goals Completed',
+    label: 'Activities Completed',
     color: '#1980c8',
   },
   activity: {
