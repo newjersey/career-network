@@ -30,8 +30,8 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     textTransform: 'none',
-    marginRight: theme.spacing(4),
-    padding: theme.spacing(2, 0),
+    marginRight: theme.spacing(5),
+    padding: theme.spacing(2.5, 0),
     borderRadius: 0,
     fontSize: '1rem',
     '&:hover': {
