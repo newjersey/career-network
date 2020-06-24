@@ -4,12 +4,14 @@ import TextBlock from './components/TextBlock';
 import ListBlock from './components/ListBlock';
 import QuestionGroup from './components/QuestionGroup';
 import Callout from './components/Callout';
+import Citation from './components/Citation';
 
 const COMPONENT_TYPES = {
   text: TextBlock,
   list: ListBlock,
   practice_question_group: QuestionGroup,
   callout: Callout,
+  citation: Citation,
 };
 
 function SectionComponent({ type, ...props }) {
