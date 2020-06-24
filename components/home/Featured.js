@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import ScaffoldContainer from '../ScaffoldContainer';
 
 const useStyles = makeStyles(theme => ({
-  root: {
+  mainContainer: {
     paddingRight: theme.spacing(15),
     paddingLeft: theme.spacing(15),
     [theme.breakpoints.down('sm')]: {
@@ -14,20 +14,19 @@ const useStyles = makeStyles(theme => ({
     },
   },
   img: {
-    width: theme.spacing(50),
+    width: theme.spacing(60),
+    height: '100%',
     marginTop: theme.spacing(5),
     padding: theme.spacing(3),
     [theme.breakpoints.down('sm')]: {
-      width: '80%',
+      width: '100%',
     },
   },
-  featuredItemTitle: {
-    fontSize: '3rem',
+  heading: {
     color: theme.palette.background.dark,
     marginBottom: theme.spacing(3),
   },
   body: {
-    fontSize: '1.25rem',
     width: theme.spacing(50),
     color: theme.palette.grey['700'],
     [theme.breakpoints.down('sm')]: {
@@ -65,7 +64,7 @@ const FeaturedItems = () => {
   const classes = useStyles();
 
   return (
-    <ScaffoldContainer className={classes.root}>
+    <ScaffoldContainer className={classes.mainContainer}>
       {FEATURED_ITEMS.map((item, index) => (
         <Grid
           container
@@ -76,14 +75,14 @@ const FeaturedItems = () => {
           direction={index % 2 === 0 ? 'row-reverse' : 'row'}
         >
           <Grid item xs={12} md={6}>
-            <Typography variant="h1" className={classes.featuredItemTitle}>
+            <Typography variant="h1" className={classes.heading}>
               {item.title}
             </Typography>
             <Typography variant="body1" className={classes.body}>
               {item.body}
             </Typography>
           </Grid>
-          <Grid item container xs={12} md={5} justify="center">
+          <Grid item container xs={12} md={4} justify="center">
             <img src={item.image} alt={item.title} className={classes.img} />
           </Grid>
         </Grid>

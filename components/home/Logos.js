@@ -11,29 +11,36 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: theme.spacing(12),
   },
   logosContainer: {
-    marginRight: theme.spacing(2),
-    marginLeft: theme.spacing(2),
+    margin: theme.spacing(2),
   },
   heading: {
     color: theme.palette.background.dark,
     textAlign: 'center',
-    paddingBottom: '4rem',
-    fontWeight: 'normal',
+    marginRight: theme.spacing(45),
+    marginLeft: theme.spacing(45),
+    [theme.breakpoints.down('sm')]: {
+      marginRight: theme.spacing(5),
+      marginLeft: theme.spacing(5),
+    },
   },
   icon: {
-    fontSize: '3rem',
+    fontSize: theme.spacing(6),
     color: theme.palette.background.dark,
-    marginTop: '2rem',
+    margin: '3rem 0 2rem',
   },
   logoImg: {
-    width: theme.spacing(22),
-    height: theme.spacing(22),
+    width: '80%',
+    height: '80%',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      height: '100%',
+    },
   },
   logoName: {
-    color: theme.palette.grey['500'],
+    color: theme.palette.grey['800'],
     textAlign: 'center',
     width: theme.spacing(15),
-    lineHeight: 'normal',
+    lineHeight: '0.5',
   },
   divider: {
     marginTop: theme.spacing(3),
@@ -76,9 +83,8 @@ function Logos() {
     <div>
       <Grid container justify="center" alignItems="flex-start" className={classes.mainContainer}>
         <Grid container item md={12} justify="center">
-          <Typography variant="h2" className={classes.heading}>
-            Powered by people who want to see
-            <br /> you succeed.
+          <Typography variant="h1" className={classes.heading}>
+            Powered by people who want to see you succeed.
             <br />
             <Favorite className={classes.icon} />
           </Typography>
@@ -95,14 +101,14 @@ function Logos() {
             key={item.name}
             className={classes.logosContainer}
           >
-            <Grid item md={12}>
+            <Grid item container md={12} justify="center">
               <img className={classes.logoImg} src={`${item.img}`} alt={item.name} />
             </Grid>
             <Grid
               item
               md={12}
               className={classes.logoName}
-              style={{ width: item.name.length > 60 && '75%' }}
+              style={{ width: item.name.length > 60 && '80%' }}
             >
               <Typography variant="caption">{item.name}</Typography>
             </Grid>

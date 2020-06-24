@@ -14,13 +14,12 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: theme.spacing(10),
   },
   headingContainer: {
-    marginTop: '3rem',
+    marginTop: theme.spacing(5),
     textAlign: 'center',
     color: theme.palette.background.dark,
   },
   heading: {
     color: theme.palette.background.dark,
-    fontSize: '3rem',
   },
   title: {
     fontWeight: 'bold',

@@ -28,34 +28,41 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(10),
     paddingLeft: theme.spacing(12),
     [theme.breakpoints.down('xs')]: {
-      paddingTop: theme.spacing(10),
-      paddingLeft: theme.spacing(3),
+      paddingTop: theme.spacing(5),
+      paddingLeft: theme.spacing(2),
     },
   },
   paper: {
-    width: theme.spacing(115),
-    height: theme.spacing(40),
+    width: '70%',
+    height: '80%',
     backgroundImage: `url('/static/img/index/06_Pull Quote/Pull Quote - Desktop-2x.png')`,
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
     [theme.breakpoints.down('xs')]: {
-      width: theme.spacing(50),
-      height: theme.spacing(56),
+      width: '90%',
+      height: '95%',
       backgroundImage: `url('/static/img/index/06_Pull Quote/Pull Quote - Mobile-2x.png')`,
     },
   },
   heading: {
     paddingBottom: theme.spacing(3),
+    paddingLeft: theme.spacing(1),
     color: theme.palette.background.dark,
   },
   cite: {
     color: theme.palette.background.dark,
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '0.6rem',
+    },
   },
   icon: {
     fontSize: '3rem',
     transform: 'rotate(180deg) scaleX(1)',
     color: theme.palette.background.dark,
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1.5rem',
+    },
   },
 }));
 
@@ -75,7 +82,7 @@ function Quote() {
             <Grid item md={1}>
               <FormatQuoteIcon className={classes.icon} />
             </Grid>
-            <Grid item xs={8} md={6}>
+            <Grid item xs={10} md={5}>
               <Typography variant="h4" className={classes.heading}>
                 Unique. I’ve <b>never seen anything </b>
                 like New Jersey Career Network before.”

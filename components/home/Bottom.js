@@ -1,6 +1,7 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { useAuth } from '../Auth';
@@ -17,17 +18,13 @@ const useStyles = makeStyles(theme => ({
     },
   },
   mainContainer: {
-    padding: theme.spacing(5),
+    paddingTop: theme.spacing(20),
     paddingBottom: theme.spacing(40),
-    width: theme.spacing(70),
-    margin: '10rem auto 0',
+    marginRight: theme.spacing(3),
+    marginLeft: theme.spacing(3),
     textAlign: 'center',
-    [theme.breakpoints.down('xs')]: {
-      width: theme.spacing(65),
-    },
   },
   heading: {
-    fontSize: '3rem',
     color: theme.palette.background.dark,
   },
   body: {
@@ -51,16 +48,25 @@ function Welcome() {
   return (
     <div className={classes.root}>
       <div className={classes.mainContainer}>
-        <Typography variant="h1" className={classes.heading}>
-          Get started today.
-        </Typography>
-        <Typography className={classes.body}>
-          Getting a job can be hard, but the New Jersey Career Network is your resource along your
-          journey.
-        </Typography>
-        <Button variant="contained" color="primary" onClick={handleClick} className={classes.btn}>
-          <Typography variant="button">Sign up for free</Typography>
-        </Button>
+        <Grid container justify="center" alignItems="center">
+          <Grid item md={5}>
+            <Typography variant="h1" className={classes.heading}>
+              Get started today.
+            </Typography>
+            <Typography variant="body1" className={classes.body}>
+              Getting a job can be hard, but the New Jersey Career Network is your resource along
+              your journey.
+            </Typography>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleClick}
+              className={classes.btn}
+            >
+              <Typography variant="button">Sign up for free</Typography>
+            </Button>
+          </Grid>
+        </Grid>
       </div>
     </div>
   );

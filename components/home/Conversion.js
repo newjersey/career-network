@@ -1,6 +1,7 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { useAuth } from '../Auth';
@@ -18,16 +19,12 @@ const useStyles = makeStyles(theme => ({
     },
   },
   mainContainer: {
-    padding: theme.spacing(5),
-    width: theme.spacing(80),
-    margin: '0 auto',
     textAlign: 'center',
-    [theme.breakpoints.down('xs')]: {
-      width: theme.spacing(65),
-    },
+    paddingTop: theme.spacing(10),
+    marginRight: theme.spacing(5),
+    marginLeft: theme.spacing(5),
   },
   heading: {
-    fontSize: '3rem',
     color: theme.palette.grey['50'],
     marginBottom: theme.spacing(5),
     marginTop: theme.spacing(20),
@@ -50,13 +47,17 @@ function Welcome() {
   return (
     <div className={classes.root}>
       <div className={classes.mainContainer}>
-        <Typography variant="h1" className={classes.heading}>
-          Change the way you look for jobs.
-        </Typography>
+        <Grid container justify="center" alignItems="center">
+          <Grid item md={5}>
+            <Typography variant="h1" className={classes.heading}>
+              Change the way you look for jobs.
+            </Typography>
 
-        <Button variant="contained" onClick={handleClick} className={classes.btn}>
-          <Typography variant="button">Sign up for free</Typography>
-        </Button>
+            <Button variant="contained" onClick={handleClick} className={classes.btn}>
+              <Typography variant="button">Sign up for free</Typography>
+            </Button>
+          </Grid>
+        </Grid>
       </div>
     </div>
   );

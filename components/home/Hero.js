@@ -15,6 +15,9 @@ const useStyles = makeStyles(theme => ({
   },
   mainContainer: {
     padding: theme.spacing(12),
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(5),
+    },
   },
   textContainer: {
     paddingLeft: theme.spacing(5),
@@ -24,9 +27,15 @@ const useStyles = makeStyles(theme => ({
     },
   },
   heading: {
-    fontSize: '3.8rem',
+    fontSize: '3.5rem',
     color: theme.palette.background.dark,
     marginBottom: theme.spacing(5),
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '3rem',
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '2.2rem',
+    },
   },
   body: {
     color: theme.palette.grey['800'],
@@ -34,10 +43,13 @@ const useStyles = makeStyles(theme => ({
   img: {
     width: theme.spacing(60),
     height: '100%',
+    [theme.breakpoints.down('sm')]: {
+      width: theme.spacing(35),
+    },
   },
   btn: {
     marginTop: theme.spacing(5),
-    width: theme.spacing(33),
+    width: theme.spacing(32),
     height: theme.spacing(8),
   },
   btnText: {
