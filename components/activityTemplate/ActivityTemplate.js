@@ -139,6 +139,7 @@ export default function ActivityTemplate(props) {
             .filter(sectionKey => sectionKey !== 'EXAMPLES' || examples)
             .map(sectionKey => (
               <Button
+                key={SECTIONS[sectionKey].value}
                 className={classes.button}
                 onClick={() => handleScrollTo(SECTIONS[sectionKey].value)}
               >
