@@ -35,14 +35,14 @@ const useStyles = makeStyles(theme => ({
   paper: {
     width: '70%',
     height: '80%',
-    backgroundImage: `url('/static/img/index/06_Pull Quote/Pull Quote - Desktop-2x.png')`,
+    backgroundImage: `url('/static/img/index/06_Pull_Quote/Pull_Quote_Desktop-2x.png')`,
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
     [theme.breakpoints.down('xs')]: {
       width: '90%',
       height: '95%',
-      backgroundImage: `url('/static/img/index/06_Pull Quote/Pull Quote - Mobile-2x.png')`,
+      backgroundImage: `url('/static/img/index/06_Pull_Quote/Pull_Quote_Mobile-2x.png')`,
     },
   },
   heading: {

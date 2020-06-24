@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundImage: `url('/static/img/index/02_Welcome/Welcome Graphic - Desktop-2x.png')`,
+    backgroundImage: `url('/static/img/index/02_Welcome/Welcome_Graphic_Desktop-2x.png')`,
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'bottom',
     backgroundSize: 'cover',

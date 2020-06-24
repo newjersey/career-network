@@ -44,19 +44,19 @@ const FEATURED_ITEMS = [
     title: 'Find your way out of a job-search rut.',
     body:
       'If you’re repeating the same steps and not getting results, let us show you new techniques to best represent yourself and sell your experience.',
-    image: '/static/img/index/03_Featured Callouts/01_Asset_Rut-2x.png',
+    image: '/static/img/index/03_Featured_Callouts/01_Asset_Rut-2x.png',
   },
   {
     title: 'Keep your search organized.',
     body:
       'It can be tough to organize your approach, but we can help you break down the chaotic job search into manageable steps.',
-    image: '/static/img/index/03_Featured Callouts/02_Asset_Organized-2x.png',
+    image: '/static/img/index/03_Featured_Callouts/02_Asset_Organized-2x.png',
   },
   {
     title: 'Learn helpful coping skills.',
     body:
       'We get it. Searching for a job can be rough, especially in uncertain times. Check out our tips on learning skills that can help you manage stress.',
-    image: '/static/img/index/03_Featured Callouts/03_Asset_Coping-2x.png',
+    image: '/static/img/index/03_Featured_Callouts/03_Asset_Coping-2x.png',
   },
 ];
 

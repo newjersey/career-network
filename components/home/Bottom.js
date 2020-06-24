@@ -8,12 +8,12 @@ import { useAuth } from '../Auth';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundImage: `url('/static/img/index/08_Bottom Graphic/Bottom Graphic - Desktop-2x.png')`,
+    backgroundImage: `url('/static/img/index/08_Bottom_Graphic/Bottom_Graphic_Desktop-2x.png')`,
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'bottom center',
     backgroundSize: 'cover',
     [theme.breakpoints.down('xs')]: {
-      backgroundImage: `url('/static/img/index/08_Bottom Graphic/Bottom Graphic - Mobile-2x.png')`,
+      backgroundImage: `url('/static/img/index/08_Bottom_Graphic/Bottom_Graphic_Mobile-2x.png')`,
       backgroundPosition: 'bottom center',
     },
   },

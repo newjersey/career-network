@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { useAuth } from '../Auth';
 
-const HERO_ILLUSTRATION = '/static/img/index/01_Hero/Hero Illustration - Desktop-2x.png';
+const HERO_ILLUSTRATION = '/static/img/index/01_Hero/Hero_Illustration_Desktop-2x.png';
 
 const useStyles = makeStyles(theme => ({
   root: {
