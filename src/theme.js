@@ -28,8 +28,12 @@ const theme = createMuiTheme({
       secondaryHeader: '#fdf8ef',
       linkedIn: '#2867b2',
     },
+    grey: {
+      900: '#171719',
+    },
     navy: {
       200: '#177DBE',
+      500: '#062335',
       primary: '#125F90',
     },
   },
@@ -46,7 +50,9 @@ const theme = createMuiTheme({
     },
     h5: {
       fontFamily: HeaderFont,
-      fontWeight: 700,
+      fontSize: '1rem',
+      letterSpacing: '0.0075em',
+      fontWeight: 600,
     },
     h6: {
       fontFamily: HeaderFont,

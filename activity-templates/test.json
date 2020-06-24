@@ -1,0 +1,152 @@
+{
+  "Form": {
+    "Id": "1",
+    "InternalName": "ActivityTemplate",
+    "Name": "Activity Template"
+  },
+  "$version": 7,
+  "$etag": "W/\"datetime'2020-06-23T14%3A05%3A20.7115087Z'\"",
+  "Entry": {
+    "AdminLink": "https://www.cognitoforms.com/HannahSmith1/1/entries/7",
+    "CustomerCard": null,
+    "DateCreated": "2020-06-23T14:05:20.288Z",
+    "DateSubmitted": "2020-06-23T14:05:20.288Z",
+    "DateUpdated": "2020-06-23T14:05:20.288Z",
+    "EditLink": "https://www.cognitoforms.com/HannahSmith1/ActivityTemplate#tDgB8unU9EGXazfNcCRaWeHqitVfu_JUmvkylZ9RTMw$*",
+    "LastPageViewed": null,
+    "Number": 7,
+    "Order": null,
+    "Origin": {
+      "City": null,
+      "CountryCode": null,
+      "IpAddress": "68.129.186.103",
+      "IsImported": false,
+      "Region": null,
+      "Timezone": null,
+      "UserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36"
+    },
+    "PaymentToken": null,
+    "Status": "Submitted",
+    "Timestamp": "2020-06-23T14:05:20.288Z",
+    "Version": 1,
+    "ViewLink": "https://www.cognitoforms.com/HannahSmith1/ActivityTemplate#BedcFSDXecXaih6PidxY_ga4i6dPkBA6yOdDbr3V69I$*"
+  },
+  "Title": "Hello World",
+  "Category": "Finding Job Opportunities",
+  "Milestone": "Cover Letter",
+  "WhatandWhy": {
+    "Component": [
+      {
+        "Id": "4ugWC4",
+        "Type": "Text",
+        "Content": "This is a text Component",
+        "Items": [
+          {
+            "Id": "5HlUA",
+            "Content": null,
+            "ItemNumber": 1
+          }
+        ],
+        "Variant": null,
+        "ListHeading": null,
+        "ListSubheading": null,
+        "ItemNumber": 1
+      },
+      {
+        "Id": "29lTz3",
+        "Type": "List",
+        "Content": null,
+        "Items": [
+          {
+            "Id": "GlfZ6",
+            "Content": "List bold item",
+            "ItemNumber": 1
+          },
+          {
+            "Id": "oONKF",
+            "Content": "List italic text",
+            "ItemNumber": 2
+          }
+        ],
+        "Variant": null,
+        "ListHeading": "List Heading content",
+        "ListSubheading": "List subheading content",
+        "ItemNumber": 2
+      }
+    ],
+    "Component_Minimum": 1
+  },
+  "Practice": {
+    "Questions": [
+      {
+        "Id": "2s7Cxy",
+        "Question": "Question numbah one!",
+        "Order1": 1,
+        "ItemNumber": 1,
+        "Order1_Minimum": 1,
+        "Order1_Maximum": 10,
+        "Order1_IncrementBy": 1
+      }
+    ],
+    "Description": {
+      "Type": "Text",
+      "Content": "Here is my long descrription."
+    }
+  },
+  "TipsForSuccess": {
+    "Component": [
+      {
+        "Id": "29mrF6",
+        "Type": "Callout",
+        "Content": "Pro tips!!! Here is my callout",
+        "Items": [
+          {
+            "Id": "o7m1y",
+            "Content": null,
+            "ItemNumber": 1
+          }
+        ],
+        "Variant": "Pro-Tip",
+        "ListHeading": null,
+        "ListSubheading": null,
+        "ItemNumber": 1
+      },
+      {
+        "Id": "4ujY9r",
+        "Type": "Callout",
+        "Content": "Quote Callout! quote me",
+        "Items": [
+          {
+            "Id": "69WZW",
+            "Content": null,
+            "ItemNumber": 1
+          }
+        ],
+        "Variant": "Quote",
+        "ListHeading": null,
+        "ListSubheading": null,
+        "ItemNumber": 2
+      }
+    ],
+    "Component_Minimum": 1
+  },
+  "Examples": {
+    "Component": [],
+    "Component_Minimum": 0
+  },
+  "NextSteps": {
+    "Content": "Here are the next steps"
+  },
+  "Citations": {
+    "CitationItems": [
+      {
+        "Id": "3BPge4",
+        "Label": "label number 1",
+        "URL": "url number 1",
+        "ItemNumber": 1
+      }
+    ]
+  },
+  "TotalTime": "20",
+  "Id": "1-7"
+}

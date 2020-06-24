@@ -58,7 +58,7 @@
           "component": "callout",
           "variant": "quote",
           "content": "Creative, resourceful teacher with eight years of varied instructional experience. (2)"
-        },        
+        },
         {
           "component": "callout",
           "variant": "quote",
@@ -106,9 +106,30 @@
       ]
     },
     {
+      "name": "Citations",
+      "slug": "citations",
+      "content": [
+        {
+          "component": "citation",
+          "label": "ResumeGenius: Waiter / Waitress Resume Sample",
+          "url": "https://resumegenius.com/resume-samples/waiter-waitress-resume-example"
+        },
+        {
+          "component": "citation",
+          "label": "Monster Blog: Teacher Resume Objective Examples Can Inform your Career Summary",
+          "url": "https://www.monster.com/career-advice/article/teacher-resume-objective"
+        },
+        {
+          "component": "citation",
+          "label": "JobScan Blog: Resume Objective Statements: Examples, How-To, and FAQ",
+          "url": "https://www.jobscan.co/blog/resume-objective-statements-faq-how-to-examples/"
+        }
+      ]
+    },
+    {
       "name": "Next Steps",
       "slug": "next-steps",
-      "content": [        
+      "content": [
         {
           "component": "callout",
           "variant": "next",

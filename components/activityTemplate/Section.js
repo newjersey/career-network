@@ -48,6 +48,7 @@ function Section({ sectionData, onComplete, ...restProps }) {
               <SectionComponent
                 key={getSectionKey(component, index)}
                 type={component}
+                index={index}
                 {...props}
                 {...restProps}
               />
