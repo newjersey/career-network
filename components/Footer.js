@@ -10,7 +10,7 @@ import ScaffoldContainer from './ScaffoldContainer';
 const color = '#fff';
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundColor: '#333',
+    backgroundColor: '#062335',
     paddingTop: theme.spacing(1.5),
     paddingBottom: theme.spacing(1.5),
   },
