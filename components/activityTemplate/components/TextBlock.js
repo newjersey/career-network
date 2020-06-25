@@ -3,11 +3,9 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
 
-const TextBlock = ({ content, ...restProps }) => (
+const TextBlock = ({ content }) => (
   <Box mb={4}>
-    <Typography variant="body1" {...restProps}>
-      {content}
-    </Typography>
+    <Typography variant="body1">{content}</Typography>
   </Box>
 );
 

@@ -51,7 +51,7 @@ function Welcome() {
         <ScaffoldContainer>
           <Grid container justify="center">
             <Grid item xs={12} sm={12} md={7}>
-              <Typography variant="h2" gutterBottom>
+              <Typography variant="h2" style={{ fontWeight: 700 }} gutterBottom>
                 Welcome to the New Jersey Career Network!
               </Typography>
               <Typography variant="h6">

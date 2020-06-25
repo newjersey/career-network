@@ -24,7 +24,7 @@ function EmploymentOutlook() {
     <div className={classes.root}>
       <BackgroundHeader>
         <ScaffoldContainer>
-          <Typography component="h1" variant="h2" gutterBottom>
+          <Typography component="h1" variant="h2" style={{ fontWeight: 700 }} gutterBottom>
             Employment Outlook
           </Typography>
           <Typography variant="subtitle1">

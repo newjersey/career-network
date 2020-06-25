@@ -60,7 +60,7 @@ function CelebrationDialog({ show, onClose }) {
         <Typography variant="body1" align="center" style={{ marginTop: '3em' }}>
           Weekly Action Plan Completed
         </Typography>
-        <Typography variant="h2" align="center">
+        <Typography variant="h2" align="center" style={{ fontWeight: 700 }}>
           <span
             role="img"
             aria-label="clap-emoji"

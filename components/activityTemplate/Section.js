@@ -31,27 +31,21 @@ function Section({ sectionData, onComplete, scrollToRef, ...restProps }) {
       <ScaffoldContainer>
         <Grid container justify={nextStep ? 'flex-start' : 'flex-end'} spacing={4}>
           <Grid item container xs={12} sm={2}>
-            <Typography component="h2" variant="h3" align="right">
+            <Typography variant="h2" align="right">
               {sectionData.name}
             </Typography>
           </Grid>
-          <Grid item xs={0} sm={1} />
+          <Grid item sm={1} />
 
           {sectionData.content.map(({ component, ...props }, index) => (
             <Grid
+              key={getSectionKey(component, index)}
               item
               container
               xs={12}
               sm={component === 'callout' ? 12 : 9}
-              key={getSectionKey(component, index)}
             >
-              <SectionComponent
-                key={getSectionKey(component, index)}
-                type={component}
-                index={index}
-                {...props}
-                {...restProps}
-              />
+              <SectionComponent type={component} index={index} {...props} {...restProps} />
             </Grid>
           ))}
 
