@@ -11,6 +11,7 @@ export const REFERENCES = 'references';
 export const SOCIAL_NETWORK = 'social-network';
 export const LIST_STRENGTHS = 'list-of-strengths';
 export const SELF_CARE_PLAN = 'self-care-plan';
+export const STRESS_MANAGEMENT_PRACTICES = 'stress-management-practices';
 
 export const MILESTONE_TYPES = [
   {
@@ -68,6 +69,11 @@ export const MILESTONE_TYPES = [
     category_slug: TAKING_CARE,
     slug: SELF_CARE_PLAN,
   },
+  {
+    name: 'Stress Management Practices',
+    category_slug: TAKING_CARE,
+    slug: STRESS_MANAGEMENT_PRACTICES,
+  },
 ];
 
 export default {
@@ -83,4 +89,5 @@ export default {
   SOCIAL_NETWORK,
   LIST_STRENGTHS,
   SELF_CARE_PLAN,
+  STRESS_MANAGEMENT_PRACTICES,
 };

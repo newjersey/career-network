@@ -1,0 +1,142 @@
+{
+  "original": "ActivityTemplate_1593114204190.json",
+  "slug": "activity-template-15",
+  "tempateId": "template-15",
+  "title": "Set My Daily Routine",
+  "category": "health",
+  "milestone": "stress-management-practices",
+  "total_time": "15 min",
+  "sections": [
+    {
+      "name": "What & Why",
+      "slug": "what-and-why",
+      "content": [
+        {
+          "component": "text",
+          "content": "One of the big adjustments to being unemployed can be the sudden lack of structure. Many of us go from being overly scheduled to having large blocks of “free” time. And there’s no supervisor to enforce a deadline.\n\nSetting a daily routine can help you feel more organized and less overwhelmed. It can also help you enjoy other aspects of your life, so the job search doesn't take over your whole day. You can be confident that you have a plan. \n\nIt may take some trial and error to find a routine that works for you. Be patient with yourself as you try different approaches."
+        }
+      ]
+    },
+    {
+      "name": "Tips for Success",
+      "slug": "tips-for-success",
+      "content": [
+        {
+          "component": "list",
+          "heading": "Get Organized",
+          "subheading": null,
+          "items": [
+            "Create a work space. Ideally, your workspace is someplace other than your bedroom. But wherever it is, commit the space to your job search. It’ll make it easier to set aside the search when it’s time to do other things.",
+            "Be realistic. Many of us have competing responsibilities, like young kids, aging parents, or both. Figure out how much time you actually have for your job search and focus on making the most of that time.",
+            "Get dressed first thing. Most of us have gotten a lot more casual during the pandemic. But the habit of getting up and dressed can help you feel ready to meet the day.",
+            "Set daily goals. Start your day by deciding what you want to accomplish. Put the most important things first. Then check them off as you go.",
+            "Try out the NJCN action plan feature. This can help you track your progress as you get organized."
+          ]
+        },
+        {
+          "component": "list",
+          "heading": "Take Breaks",
+          "subheading": null,
+          "items": [
+            "Schedule breaks — and change the scenery. To stay productive, you need to give your brain some rest. Get up, stretch, and go to a different spot in your home — or better yet, outside.",
+            "Include some physical activity. Staying (or getting) active can help your mood as well as your health. And it’s another way to feel like you’re accomplishing something."
+          ]
+        },
+        {
+          "component": "list",
+          "heading": "Build in Variety",
+          "subheading": null,
+          "items": [
+            "Check out the types of job search activities on NJCN. Writing cover letters all day or searching job boards for hours will get tiresome quickly. We have a broad range of activities that can help with your job search.",
+            "Set aside time for different types of job search activities. Decide ahead of time how much time you’ll spend on each activity.",
+            "Switch up your routine on different days of the week. You may find it helpful to have certain days allocated for certain types of tasks."
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Examples",
+      "slug": "examples",
+      "content": [
+        {
+          "component": "text",
+          "content": "People have different preferences about how detailed to get. There’s no wrong way, so feel free to try more than one approach."
+        },
+        {
+          "component": "list",
+          "heading": "Very Detailed Routine",
+          "subheading": null,
+          "items": [
+            "6:30 a.m. — Get up, brush teeth, shower, get dressed.",
+            "7 a.m. — Walk the dog.",
+            "7:30 a.m. — Have breakfast.",
+            "8 a.m. — Prioritize the day’s to do list.",
+            "8:15 a.m. — Tackle the most difficult task.",
+            "9:30 a.m. — Take a stretch break."
+          ]
+        },
+        {
+          "component": "list",
+          "heading": "Less Detailed Routine",
+          "subheading": "6:30 to 9:30 a.m.",
+          "items": [
+            "Get clean and dressed for the day.",
+            "Eat breakfast and walk the dog.",
+            "Do 1 thing on my to do list."
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Practice",
+      "slug": "practice",
+      "content": [
+        {
+          "component": "text",
+          "content": "This is your chance to draft a routine that meets your needs — and hopefully some of your wants."
+        },
+        {
+          "component": "practice_question_group",
+          "questions": [
+            {
+              "questionId": "template-15-q-1",
+              "order": 1,
+              "title": "What I need to do every day: (Include the basics, too, like making meals and doing dishes.)"
+            },
+            {
+              "questionId": "template-15-q-2",
+              "order": 2,
+              "title": "What I need to get done every week:"
+            },
+            {
+              "questionId": "template-15-q-3",
+              "order": 3,
+              "title": "What I want to make time for: (Include how often you want to do these things.)"
+            },
+            {
+              "questionId": "template-15-q-4",
+              "order": 4,
+              "title": "Here’s the routine I will try for the next week:"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Citations",
+      "slug": "citations",
+      "content": [{ "component": "citation", "label": null, "url": null }]
+    },
+    {
+      "name": "Next Steps",
+      "slug": "next-steps",
+      "content": [
+        {
+          "component": "callout",
+          "variant": "next",
+          "content": "Try out your draft routine. Feel free to make changes as you need to, just be sure to note what they are so you can learn from them. \n\nAnd if sticking to a routine is hard for you, see if a friend or family member is willing to help. Most of all, be patient with yourself as you figure out what works best for you."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "original": "ActivityTemplate_1593105676529.json",
+  "slug": "activity-template-13",
+  "tempateId": "template-13",
+  "title": "Find a Mentor",
+  "category": "finding-job-opportunities",
+  "milestone": "professional-network",
+  "total_time": "30 min",
+  "sections": [
+    {
+      "name": "What & Why",
+      "slug": "what-and-why",
+      "content": [
+        {
+          "component": "text",
+          "content": "A mentor is someone who provides guidance and encouragement to help you achieve your goals. You may have a variety of people who serve as informal mentors to you. Or you may want to seek out someone specific.\n\nIn one survey, more than 7 out of 10 executives said that mentoring played a key role in shaping their career. (Source: Forbes) \n\nSome companies offer formal mentoring programs for their employees. In one of these companies, employees who had mentors were 5 times more likely to get promoted than those who did not have a mentor. (Source: Sun Microsystems) \n\nA mentor is different from a supervisor. \nA supervisor is a boss or manager whose role is to make sure you're meeting the company’s goals. They can hire and promote you. \n\nA mentor isn’t usually in a position to hire or promote you. Their role is to provide a space for you to learn, grow, and ask questions."
+        }
+      ]
+    },
+    {
+      "name": "Tips for Success",
+      "slug": "tips-for-success",
+      "content": [
+        {
+          "component": "list",
+          "heading": "Finding the Right Mentor",
+          "subheading": null,
+          "items": [
+            "Look inside your network. Who do you admire professionally? Has anyone taken an interest in your career path? Could they offer more guidance?",
+            "Get to know someone first. If you don’t already know someone who could be your mentor, look for a mentorship program or a connection on LinkedIn. Research people in roles you’re interested in, and find ways to connect with them.",
+            "Consider a team of mentors. You may find it more helpful to learn lessons from many people rather than from one official mentor."
+          ]
+        },
+        {
+          "component": "list",
+          "heading": "Getting the Most out of a Mentorship",
+          "subheading": null,
+          "items": [
+            "Ask specific questions. Asking more questions is a great way to learn from both informal and formal mentors. How did they get their role? How did they learn a specific skill? What advice do they have for someone trying to get a promotion?",
+            "Be clear about expectations. After getting to know someone, you can ask if they would be open to a more formal mentorship. This could mean meeting once a month for coffee or having a weekly phone chat. Respect their right to say no.",
+            "Be specific about what you're looking for and what you're willing to put into the relationship. You could ask for advice on finding a career track, feedback on proposals, or help with public speaking.",
+            "Ask if you can help them. Be respectful of people’s time and look for ways to offer them something in return for their guidance.",
+            "Welcome feedback. Hearing criticism can be tough. A successful mentorship will challenge you to grow more."
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Examples",
+      "slug": "examples",
+      "content": [
+        {
+          "component": "text",
+          "content": "If you’re reaching out to someone for the first time, try to find a connection first."
+        },
+        {
+          "component": "callout",
+          "variant": "quote",
+          "content": "Hi Emily, my name is Sam and I’ve been working in the hospitality industry for 5 years. I just read your blog on challenges with restaurant management, and I learned so much! Thank you for putting that out there. I was hoping to learn more about your work as a restaurant owner and the path you took to get to your current role. Are you available next week for a 20-minute call?"
+        },
+        {
+          "component": "text",
+          "content": "Once you have an established connection, you may want to ask for a more regular interaction."
+        },
+        {
+          "component": "callout",
+          "variant": "quote",
+          "content": "Hi Tara, I have learned so much from hearing you talk about your experiences within the restaurant industry. Thank you for sharing your lessons with me. My goal is to one day work up to general manager of a restaurant in the area, and I would love to continue learning from your expertise. I’m looking for advice on how to work up to a promotion and how to communicate better in the workplace. Would you be open to getting coffee once a month to help me stay on that path?"
+        },
+        {
+          "component": "text",
+          "content": "If you’re leaving a job, you may want to stay connected with a respected, senior colleague."
+        },
+        {
+          "component": "callout",
+          "variant": "quote",
+          "content": "Hi Robyn, I have learned so much watching you in your role as PR Director. I admire the way you take on big challenges and keep the team motivated. I am leaving the company for a communications role, but I was hoping to stay connected and continue to learn from your expertise. Would you be open to mentoring me in the way you connect with media outlets? Perhaps we could have a weekly check in for the next 2 months?"
+        }
+      ]
+    },
+    {
+      "name": "Practice",
+      "slug": "practice",
+      "content": [
+        {
+          "component": "text",
+          "content": "Use the prompts below to think about what you’d like in a mentor."
+        },
+        {
+          "component": "practice_question_group",
+          "questions": [
+            {
+              "questionId": "template-13-q-1",
+              "order": 1,
+              "title": "I would benefit from learning these things from a mentor: (ex. guidance on picking a career path, learning a skill, etc.)"
+            },
+            {
+              "questionId": "template-13-q-2",
+              "order": 2,
+              "title": "These are some people who might be able to help me with these goals:"
+            },
+            {
+              "questionId": "template-13-q-3",
+              "order": 3,
+              "title": "These specific questions would help me find the guidance I’m looking for:"
+            },
+            {
+              "questionId": "template-13-q-4",
+              "order": 4,
+              "title": "These are some ways I could connect with or help out my potential mentor:"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Citations",
+      "slug": "citations",
+      "content": [
+        {
+          "component": "citation",
+          "label": "Forbes: Role of mentoring in executives' careers",
+          "url": "https://www.forbes.com/sites/yec/2018/10/02/be-one-get-one-the-importance-of-mentorship/#208ac7057434"
+        },
+        {
+          "component": "citation",
+          "label": "Sun Microsystems: Mentoring and promotion",
+          "url": "https://dl.acm.org/doi/pdf/10.5555/1698217"
+        }
+      ]
+    },
+    {
+      "name": "Next Steps",
+      "slug": "next-steps",
+      "content": [
+        {
+          "component": "callout",
+          "variant": "next",
+          "content": "Research a few potential mentors. Choose 1 or 2 people to contact this week."
+        }
+      ]
+    }
+  ]
+}

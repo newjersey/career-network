@@ -1,0 +1,124 @@
+{
+  "original": "ActivityTemplate_1593112754307.json",
+  "slug": "activity-template-14",
+  "tempateId": "template-14",
+  "title": "Age-Proof My Resume",
+  "category": "applying-for-jobs",
+  "milestone": "resume",
+  "total_time": "15 min",
+  "sections": [
+    {
+      "name": "What & Why",
+      "slug": "what-and-why",
+      "content": [
+        {
+          "component": "text",
+          "content": "Three out of 4 older adults say that they feel less confident about finding a new job because of ageism. (Source: AARP) But there are steps you can take to counter age bias and make your resume stand out. \n\nHiring managers want to see the most recent and relevant work — and they want to see that you have the skills for today’s job market. So it’s a good idea to remove old jobs and outdated skills to make sure your resume stays up to date. \n\nAnd the good news? You have more material to work with than someone just starting out. Follow the tips below to make the most of your experience."
+        }
+      ]
+    },
+    {
+      "name": "Tips for Success",
+      "slug": "tips-for-success",
+      "content": [
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": null,
+          "items": [
+            "Use Gmail. AOL, Hotmail, and Yahoo email addresses can suggest to employers that you are less tech-savvy. And as a bonus, Google gives you access to helpful tools like Google Drive and Google Calendar, which many companies use.",
+            "Focus on recent and most relevant experience. Don’t include every job role you’ve ever had in your resume. Tailor it for each application, and focus on recent jobs within the last 15 years. Keep your resume under 2 pages.",
+            "Use keywords. Study job postings. What qualities and skills are they looking for? If any apply to you, add those keywords to your resume.",
+            "Remove outdated or age-revealing phrases. “Over 25 years of experience…” and “seasoned professional” call attention to your age. “References available upon request” and “Proficient in Microsoft Office” are also best to leave off, since a manager will likely assume these already.",
+            "Remove graduation dates or any other dates that reveal your age.",
+            "Include your LinkedIn profile. Create a professional LinkedIn profile (find our tips in the Professional Network milestone) and include a link at the top of your resume. When you edit your profile on LinkedIn, you can customize the URL to make it look cleaner."
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Examples",
+      "slug": "examples",
+      "content": [
+        {
+          "component": "text",
+          "content": "The Balance Careers offer these examples of how people have age-proofed their resumes."
+        },
+        {
+          "component": "list",
+          "heading": "Before and After",
+          "subheading": null,
+          "items": [
+            "Before: Seasoned professional with over 25 years of marketing and management experience.",
+            "After: Sales professional producing consistent YOY growth through strategic goal-setting and sales floor management."
+          ]
+        },
+        {
+          "component": "list",
+          "heading": "Additional Experience",
+          "subheading": "Instead of listing out all job roles from more than 15 years ago, you can add an “Additional experience” section at the end:",
+          "items": [
+            "Additional experience includes roles as a Sales Executive for Retro Auto (Yakima, Washington) and as a Sales Representative for Home Hardware Sales (Yakima, Washington)."
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Practice",
+      "slug": "practice",
+      "content": [
+        {
+          "component": "text",
+          "content": "Review your resume and find the parts you want to emphasize the most to hiring managers. Are they easy to find? Or are they buried under other experience and content?"
+        },
+        {
+          "component": "practice_question_group",
+          "questions": [
+            {
+              "questionId": "template-14-q-1",
+              "order": 1,
+              "title": "The most important skills I have to offer are:"
+            },
+            {
+              "questionId": "template-14-q-2",
+              "order": 2,
+              "title": "The most relevant experience I have is:"
+            },
+            {
+              "questionId": "template-14-q-3",
+              "order": 3,
+              "title": "I need to make these changes to my resume:"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Citations",
+      "slug": "citations",
+      "content": [
+        {
+          "component": "citation",
+          "label": "AARP: Ageism and job-searcher confidence",
+          "url": "https://www.aarp.org/research/topics/economics/info-2018/multicultural-work-jobs.html"
+        },
+        {
+          "component": "citation",
+          "label": "The Balance Careers: Age-proofing examples",
+          "url": "https://www.thebalancecareers.com/resume-tips-for-older-job-seekers-2064046"
+        }
+      ]
+    },
+    {
+      "name": "Next Steps",
+      "slug": "next-steps",
+      "content": [
+        {
+          "component": "callout",
+          "variant": "next",
+          "content": "Use the notes from your practice session to revise your resume. Then double-check it for dates, outdated language, and experience that’s not relevant."
+        }
+      ]
+    }
+  ]
+}

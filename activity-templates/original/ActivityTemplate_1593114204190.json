@@ -1,0 +1,293 @@
+{
+  "Form": {
+    "Id": "1",
+    "InternalName": "ActivityTemplate",
+    "Name": "Activity Template"
+  },
+  "$version": 7,
+  "$etag": "W/\"datetime'2020-06-25T19%3A43%3A22.8931153Z'\"",
+  "Entry": {
+    "AdminLink": "https://www.cognitoforms.com/HannahSmith1/1/entries/15",
+    "CustomerCard": null,
+    "DateCreated": "2020-06-25T19:43:22.523Z",
+    "DateSubmitted": "2020-06-25T19:43:22.523Z",
+    "DateUpdated": "2020-06-25T19:43:22.523Z",
+    "EditLink": "https://www.cognitoforms.com/HannahSmith1/ActivityTemplate#3ASu_3WW1WcpUy_w395I3KYxuCvjI5HYhAu64YHMtB0$*",
+    "LastPageViewed": null,
+    "Number": 15,
+    "Order": null,
+    "Origin": {
+      "City": null,
+      "CountryCode": null,
+      "IpAddress": "73.4.6.103",
+      "IsImported": false,
+      "Region": null,
+      "Timezone": null,
+      "UserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"
+    },
+    "PaymentToken": null,
+    "Status": "Submitted",
+    "Timestamp": "2020-06-25T19:43:22.523Z",
+    "Version": 1,
+    "ViewLink": "https://www.cognitoforms.com/HannahSmith1/ActivityTemplate#c-2_xXoPxLkIgWXPYFKdDWrXEbT0caDb9ODzX_r8-2Q$*"
+  },
+  "Title": "Set My Daily Routine",
+  "Category": "Taking Care of Yourself",
+  "Milestone": "Stress Management Practices",
+  "WhatandWhy": {
+    "Component": [
+      {
+        "Id": "32bMfS",
+        "Type": "Text",
+        "Content": "One of the big adjustments to being unemployed can be the sudden lack of structure. Many of us go from being overly scheduled to having large blocks of “free” time. And there’s no supervisor to enforce a deadline.\n\nSetting a daily routine can help you feel more organized and less overwhelmed. It can also help you enjoy other aspects of your life, so the job search doesn't take over your whole day. You can be confident that you have a plan. \n\nIt may take some trial and error to find a routine that works for you. Be patient with yourself as you try different approaches.",
+        "Items": [
+          {
+            "Id": "2rofte",
+            "Content": null,
+            "ItemNumber": 1
+          }
+        ],
+        "Variant": null,
+        "ListHeading": null,
+        "ListSubheading": null,
+        "ItemNumber": 1
+      }
+    ],
+    "Component_Minimum": 1
+  },
+  "Practice": {
+    "Questions": [
+      {
+        "Id": "2r4IZW",
+        "Question": "What I need to do every day: (Include the basics, too, like making meals and doing dishes.)",
+        "Order1": 1,
+        "ItemNumber": 1,
+        "Order1_Minimum": 1,
+        "Order1_Maximum": 10,
+        "Order1_IncrementBy": 1
+      },
+      {
+        "Id": "3CfnS9",
+        "Question": "What I need to get done every week:",
+        "Order1": 2,
+        "ItemNumber": 2,
+        "Order1_Minimum": 1,
+        "Order1_Maximum": 10,
+        "Order1_IncrementBy": 1
+      },
+      {
+        "Id": "4cJFey",
+        "Question": "What I want to make time for: (Include how often you want to do these things.)",
+        "Order1": 3,
+        "ItemNumber": 3,
+        "Order1_Minimum": 1,
+        "Order1_Maximum": 10,
+        "Order1_IncrementBy": 1
+      },
+      {
+        "Id": "oVX1x",
+        "Question": "Here’s the routine I will try for the next week:",
+        "Order1": 4,
+        "ItemNumber": 4,
+        "Order1_Minimum": 1,
+        "Order1_Maximum": 10,
+        "Order1_IncrementBy": 1
+      }
+    ],
+    "Description": {
+      "Type": "Text",
+      "Content": "This is your chance to draft a routine that meets your needs — and hopefully some of your wants."
+    }
+  },
+  "TipsForSuccess": {
+    "Component": [
+      {
+        "Id": "29jYdO",
+        "Type": "List",
+        "Content": null,
+        "Items": [
+          {
+            "Id": "1zoT7y",
+            "Content": "Create a work space. Ideally, your workspace is someplace other than your bedroom. But wherever it is, commit the space to your job search. It’ll make it easier to set aside the search when it’s time to do other things.",
+            "ItemNumber": 1
+          },
+          {
+            "Id": "5MiNb",
+            "Content": "Be realistic. Many of us have competing responsibilities, like young kids, aging parents, or both. Figure out how much time you actually have for your job search and focus on making the most of that time.",
+            "ItemNumber": 2
+          },
+          {
+            "Id": "1QVCp4",
+            "Content": "Get dressed first thing. Most of us have gotten a lot more casual during the pandemic. But the habit of getting up and dressed can help you feel ready to meet the day.",
+            "ItemNumber": 3
+          },
+          {
+            "Id": "32ewKf",
+            "Content": "Set daily goals. Start your day by deciding what you want to accomplish. Put the most important things first. Then check them off as you go.",
+            "ItemNumber": 4
+          },
+          {
+            "Id": "4c5w5S",
+            "Content": "Try out the NJCN action plan feature. This can help you track your progress as you get organized.",
+            "ItemNumber": 5
+          }
+        ],
+        "Variant": null,
+        "ListHeading": "Get Organized",
+        "ListSubheading": null,
+        "ItemNumber": 1
+      },
+      {
+        "Id": "3jSXoB",
+        "Type": "List",
+        "Content": null,
+        "Items": [
+          {
+            "Id": "3k3pfO",
+            "Content": "Schedule breaks — and change the scenery. To stay productive, you need to give your brain some rest. Get up, stretch, and go to a different spot in your home — or better yet, outside.",
+            "ItemNumber": 1
+          },
+          {
+            "Id": "2K2h4R",
+            "Content": "Include some physical activity. Staying (or getting) active can help your mood as well as your health. And it’s another way to feel like you’re accomplishing something.",
+            "ItemNumber": 2
+          }
+        ],
+        "Variant": null,
+        "ListHeading": "Take Breaks",
+        "ListSubheading": null,
+        "ItemNumber": 2
+      },
+      {
+        "Id": "3U9Lmq",
+        "Type": "List",
+        "Content": null,
+        "Items": [
+          {
+            "Id": "28TzwI",
+            "Content": "Check out the types of job search activities on NJCN. Writing cover letters all day or searching job boards for hours will get tiresome quickly. We have a broad range of activities that can help with your job search.",
+            "ItemNumber": 1
+          },
+          {
+            "Id": "31G9Db",
+            "Content": "Set aside time for different types of job search activities. Decide ahead of time how much time you’ll spend on each activity.",
+            "ItemNumber": 2
+          },
+          {
+            "Id": "2rgh3k",
+            "Content": "Switch up your routine on different days of the week. You may find it helpful to have certain days allocated for certain types of tasks.",
+            "ItemNumber": 3
+          }
+        ],
+        "Variant": null,
+        "ListHeading": "Build in Variety",
+        "ListSubheading": null,
+        "ItemNumber": 3
+      }
+    ],
+    "Component_Minimum": 1
+  },
+  "Examples": {
+    "Component": [
+      {
+        "Id": "3C9BQs",
+        "Type": "Text",
+        "Content": "People have different preferences about how detailed to get. There’s no wrong way, so feel free to try more than one approach.",
+        "Items": [
+          {
+            "Id": "1gpXNu",
+            "Content": null,
+            "ItemNumber": 1
+          }
+        ],
+        "Variant": null,
+        "ListHeading": null,
+        "ListSubheading": null,
+        "ItemNumber": 1
+      },
+      {
+        "Id": "3BULcJ",
+        "Type": "List",
+        "Content": null,
+        "Items": [
+          {
+            "Id": "1zw2oo",
+            "Content": "6:30 a.m. — Get up, brush teeth, shower, get dressed.",
+            "ItemNumber": 1
+          },
+          {
+            "Id": "29IZFL",
+            "Content": "7 a.m. — Walk the dog.",
+            "ItemNumber": 2
+          },
+          {
+            "Id": "1R64gi",
+            "Content": "7:30 a.m. — Have breakfast.",
+            "ItemNumber": 3
+          },
+          {
+            "Id": "32hPkD",
+            "Content": "8 a.m. — Prioritize the day’s to do list.",
+            "ItemNumber": 4
+          },
+          {
+            "Id": "1yVbQ8",
+            "Content": "8:15 a.m. — Tackle the most difficult task.",
+            "ItemNumber": 5
+          },
+          {
+            "Id": "31AVHD",
+            "Content": "9:30 a.m. — Take a stretch break.",
+            "ItemNumber": 6
+          }
+        ],
+        "Variant": null,
+        "ListHeading": "Very Detailed Routine",
+        "ListSubheading": null,
+        "ItemNumber": 2
+      },
+      {
+        "Id": "4c4GWK",
+        "Type": "List",
+        "Content": null,
+        "Items": [
+          {
+            "Id": "1QTY6Q",
+            "Content": "Get clean and dressed for the day.",
+            "ItemNumber": 1
+          },
+          {
+            "Id": "6icsV",
+            "Content": "Eat breakfast and walk the dog.",
+            "ItemNumber": 2
+          },
+          {
+            "Id": "owEwy",
+            "Content": "Do 1 thing on my to do list.",
+            "ItemNumber": 3
+          }
+        ],
+        "Variant": null,
+        "ListHeading": "Less Detailed Routine",
+        "ListSubheading": "6:30 to 9:30 a.m.",
+        "ItemNumber": 3
+      }
+    ],
+    "Component_Minimum": 0
+  },
+  "NextSteps": {
+    "Content": "Try out your draft routine. Feel free to make changes as you need to, just be sure to note what they are so you can learn from them. \n\nAnd if sticking to a routine is hard for you, see if a friend or family member is willing to help. Most of all, be patient with yourself as you figure out what works best for you."
+  },
+  "Citations": {
+    "CitationItems": [
+      {
+        "Id": "3jVqPS",
+        "Label": null,
+        "URL": null,
+        "ItemNumber": 1
+      }
+    ]
+  },
+  "TotalTime": "15 min",
+  "Id": "1-15"
+}
