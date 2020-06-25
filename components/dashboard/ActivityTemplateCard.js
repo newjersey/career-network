@@ -20,10 +20,10 @@ const useStyles = makeStyles({
     margin: theme.spacing(2, 0),
   },
   overviewWrapper: {
-    maxHeight: 60,
+    maxHeight: 66,
   },
   overview: {
-    lineHeight: '20px',
+    lineHeight: '22px',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     display: '-webkit-box',
@@ -73,7 +73,8 @@ function ActivityTemplateCard(props) {
       <Box
         display="flex"
         justify="space-between"
-        px={3}
+        pl={5}
+        pr={4}
         py={2}
         borderTop={0.5}
         borderColor={categoryColor}
