@@ -65,16 +65,44 @@ const processTemplate = async (id, data) => {
 const main = async () => {
   const templates = {};
   const directoryPath = path.resolve(__dirname, '../activity-templates/templates');
+  // retrieve templates that are already in firebase
+  const templatesInDb = (await db.collection('activityTemplates').listDocuments()).map(
+    doc => doc.id
+  );
+
+  // read all the templates that are in the activity-templates/templates directory
+  // the activity-templates/templates directory is treated as source of truth
   fs.readdir(directoryPath, (err, files) => {
     if (err) {
       console.log(`Unable to scan directory: ${err}`);
     }
+    // Iterate through templates directory
+    // If the template exists in firebase but is not in the templates dir, delete it from firebase
+    // If the template exists in templates/ but not in firebase, add it to firebase
+    // If the template exists in both firebase and templates/, update it (temporarily)
     files.forEach(module => {
+      const templateId = module.replace('.json', '');
+      const foundIndex = templatesInDb.indexOf(templateId);
       const templatePath = path.join(directoryPath, module);
+      if (foundIndex > -1) {
+        console.log('Template exists!');
+        templatesInDb.splice(foundIndex, 1);
+      }
       templates[module] = require(templatePath); // eslint-disable-line import/no-dynamic-require, global-require
       console.log('Processing :', module);
-      processTemplate(module.replace('.json', ''), templates[module]);
+      processTemplate(templateId, templates[module]);
     });
+    if (templatesInDb.length > 0) {
+      // remove these files
+      templatesInDb.forEach(tempId =>
+        db
+          .collection('activityTemplates')
+          .doc(tempId)
+          .delete()
+          .then(() => console.log('Deleted template: ', tempId))
+          .catch(() => console.error('Could not delete: ', tempId))
+      );
+    }
   });
 };
 
