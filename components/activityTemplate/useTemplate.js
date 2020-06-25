@@ -6,7 +6,7 @@ export default function useTemplate(templateId) {
 
   useEffect(() => {
     (async () => {
-      const result = await import(`../../activity-templates/${templateId}.json`);
+      const result = await import(`../../activity-templates/templates/${templateId}.json`);
 
       if (!cleanupRef.current) {
         setTemplate(result.default);

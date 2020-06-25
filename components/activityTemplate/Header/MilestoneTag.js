@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import FileCopy from '@material-ui/icons/FileCopy';
 import PhoneInTalk from '@material-ui/icons/PhoneInTalk';
 import { RESUME, PERSONAL_VALUES, INTERVIEWING_SKILLS } from '../../../constants';
+import ActivityTemplatePropTypes from '../PropTypes';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -50,7 +51,7 @@ MilestoneTag.propTypes = {
   className: PropTypes.string,
   color: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  type: PropTypes.oneOf([RESUME, PERSONAL_VALUES, INTERVIEWING_SKILLS]).isRequired,
+  type: ActivityTemplatePropTypes.milestoneSlug.isRequired,
 };
 
 MilestoneTag.defaultProps = {
