@@ -3,8 +3,8 @@
   "slug": "activity-template-10",
   "tempateId": "template-10",
   "title": "Write My 30-Second Networking Pitch",
-  "category": "Finding Job Opportunities",
-  "milestone": "Professional Network",
+  "category": "finding-job-opportunities",
+  "milestone": "professional-network",
   "total_time": "30 min",
   "sections": [
     {
@@ -71,11 +71,7 @@
               "order": 2,
               "title": "In this role, I was responsible for:"
             },
-            {
-              "questionId": "template-10-q-3",
-              "order": 3,
-              "title": "In one year, I hope to:"
-            },
+            { "questionId": "template-10-q-3", "order": 3, "title": "In one year, I hope to:" },
             {
               "questionId": "template-10-q-4",
               "order": 4,
@@ -114,7 +110,13 @@
     {
       "name": "Next Steps",
       "slug": "next-steps",
-      "content": "Once you have a draft pitch, practice saying it out loud. Then ask a friend to listen to it and give you feedback."
+      "content": [
+        {
+          "component": "callout",
+          "variant": "next",
+          "content": "Once you have a draft pitch, practice saying it out loud. Then ask a friend to listen to it and give you feedback."
+        }
+      ]
     }
   ]
 }

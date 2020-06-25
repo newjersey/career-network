@@ -158,7 +158,7 @@ function getSections(data) {
   const nextSteps = {
     name: 'Next Steps',
     slug: 'next-steps',
-    content: data.NextSteps.Content,
+    content: [{ component: 'callout', variant: 'next', content: data.NextSteps.Content }],
   };
 
   const citations = {
