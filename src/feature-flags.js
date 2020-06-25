@@ -56,7 +56,7 @@ const envConfigs = {
     },
     {
       name: 'activityTemplate',
-      isActive: false,
+      isActive: true,
     },
   ],
 };

@@ -421,7 +421,7 @@ export default function Dashboard(props) {
               </Button>
             </Flags>
             <Box mt={4}>
-              <Typography component="h1" variant="h2" gutterBottom>
+              <Typography component="h1" variant="h2" style={{ fontWeight: 700 }} gutterBottom>
                 Welcome, {user && user.firstName}
               </Typography>
               <Typography variant="subtitle1">
@@ -464,21 +464,42 @@ export default function Dashboard(props) {
             justifyContent="space-between"
             className={classes.gridH}
           >
-            <Typography variant="h5" className={classes.subtitle} data-intercom="task-count">
-              Top {tasks.length} Goals
-            </Typography>
+            <Flags
+              authorizedFlags={['activityTemplate']}
+              renderOn={() => (
+                <Typography variant="h5" className={classes.subtitle} data-intercom="task-count">
+                  Top {allActivityTemplates.length} Activities
+                </Typography>
+              )}
+              renderOff={() => (
+                <Typography variant="h5" className={classes.subtitle} data-intercom="task-count">
+                  Top {tasks.length} Goals
+                </Typography>
+              )}
+            />
           </Box>
           <Box className={classes.gridC}>
-            {allActivityTemplates.map(template => (
-              <ActivityTemplateCard totalTime={template.total_time} {...template} />
-            ))}
-            <TaskList
-              tasks={tasks}
-              allActions={allActions}
-              allActionDispositionEvents={allActionDispositionEvents}
-              allTaskDispositionEvents={allTaskDispositionEvents}
-              onActionComplete={handleActionComplete}
-              {...restProps}
+            <Flags
+              authorizedFlags={['activityTemplate']}
+              renderOn={() =>
+                allActivityTemplates.map(template => (
+                  <ActivityTemplateCard
+                    key={template.slug}
+                    totalTime={template.total_time}
+                    {...template}
+                  />
+                ))
+              }
+              renderOff={() => (
+                <TaskList
+                  tasks={tasks}
+                  allActions={allActions}
+                  allActionDispositionEvents={allActionDispositionEvents}
+                  allTaskDispositionEvents={allTaskDispositionEvents}
+                  onActionComplete={handleActionComplete}
+                  {...restProps}
+                />
+              )}
             />
           </Box>
           <Box className={classes.gridL} position="relative">
@@ -586,7 +607,7 @@ Dashboard.propTypes = {
   allTasks: AirtablePropTypes.tasks.isRequired,
   allQualityChecks: AirtablePropTypes.qualityChecks.isRequired,
   allQuestionResponses: FirebasePropTypes.querySnapshot.isRequired,
-  allActivityTemplates: FirebasePropTypes.querySnapshot,
+  allActivityTemplates: PropTypes.arrayOf(PropTypes.object),
   allActionDispositionEvents: FirebasePropTypes.querySnapshot,
   completionEvents: FirebasePropTypes.querySnapshot,
   allTaskDispositionEvents: FirebasePropTypes.querySnapshot,

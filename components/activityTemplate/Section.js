@@ -23,7 +23,7 @@ function Section({ sectionData, ...restProps }) {
       <ScaffoldContainer>
         <Grid container justify={nextStep ? 'flex-start' : 'flex-end'} spacing={4}>
           <Grid item container xs={12} sm={2}>
-            <Typography component="h2" variant="h3" align="right">
+            <Typography variant="h2" align="right">
               {sectionData.name}
             </Typography>
           </Grid>

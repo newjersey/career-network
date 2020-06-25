@@ -39,6 +39,10 @@ const useStyles = makeStyles({
     margin: theme.spacing(0, 1.5, 0, 1),
     fontWeight: 400,
   },
+  link: {
+    fontWeight: 700,
+    color: theme.palette.text.secondary,
+  },
 });
 
 function ActivityTemplateCard(props) {
@@ -73,7 +77,7 @@ function ActivityTemplateCard(props) {
         py={2}
         borderTop={0.5}
         borderColor={categoryColor}
-        bg={fade(JOB_SEARCH_CATEGORY_COLORS[category], 0.07)}
+        bgcolor={fade(JOB_SEARCH_CATEGORY_COLORS[category], 0.07)}
       >
         <div className={classes.leftFooter}>
           <MilestoneIcon type={milestone} color={categoryColor} />
@@ -86,9 +90,7 @@ function ActivityTemplateCard(props) {
           </Typography>
         </div>
         <NextLink href={`/activity-template?template=${slug}`}>
-          <Button style={{ fontWeight: 700 }} className={classes.link}>
-            Start this activity ▸
-          </Button>
+          <Button className={classes.link}>Start this activity ▸</Button>
         </NextLink>
       </Box>
     </Box>

@@ -46,7 +46,7 @@ const theme = createMuiTheme({
     h2: {
       fontFamily: HeaderFont,
       fontSize: '2rem',
-      fontWeight: 700,
+      fontWeight: 500,
     },
     h3: {
       fontFamily: HeaderFont,
