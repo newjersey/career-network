@@ -3,7 +3,7 @@
   "category": "applying-for-jobs",
   "milestone": "resume",
   "title": "Write My Summary of Qualifications",
-  "total_time": 15,
+  "total_time": "20 Minutes",
   "sections": [
     {
       "name": "What & Why",
@@ -133,7 +133,7 @@
         {
           "component": "callout",
           "variant": "next",
-          "content": "Once you’ve got a draft you’re happy with, it’s time to add it to your resume. "
+          "content": "Once you’ve got a draft, go ahead and add it to your profile. The profile is private, so you don’t have to have everything perfect right away. "
         }
       ]
     }

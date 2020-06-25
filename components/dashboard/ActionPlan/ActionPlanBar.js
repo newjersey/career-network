@@ -108,7 +108,7 @@ function ActionPlanBar({ userStats, actionPlan }) {
                   <span style={{ fontWeight: 400 }}> of {actionPlan.goals || 0}</span>
                 </Typography>
                 <Typography className={classes.text} variant="body2">
-                  Goals Completed this Week
+                  Activities Completed this Week
                 </Typography>
               </Box>
             </Button>
