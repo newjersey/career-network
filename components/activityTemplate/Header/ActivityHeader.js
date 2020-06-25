@@ -6,15 +6,8 @@ import Divider from '@material-ui/core/Divider';
 import ScaffoldContainer from '../../ScaffoldContainer';
 import JobSearchShape from '../../JobSearchShape';
 import MilestoneTag from './MilestoneTag';
-import {
-  JOB_SEARCH_CATEGORY_COLORS,
-  FINDING_JOB,
-  APPLYING_FOR_JOBS,
-  TAKING_CARE,
-  RESUME,
-  PERSONAL_VALUES,
-  INTERVIEWING_SKILLS,
-} from '../../../constants';
+import { JOB_SEARCH_CATEGORY_COLORS } from '../../../constants';
+import ActivityTemplatePropTypes from '../PropTypes';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -76,9 +69,9 @@ export default function ActivityHeader(props) {
 
 ActivityHeader.propTypes = {
   title: PropTypes.string.isRequired,
-  categoryType: PropTypes.oneOf([FINDING_JOB, APPLYING_FOR_JOBS, TAKING_CARE]).isRequired,
+  categoryType: ActivityTemplatePropTypes.jobCategorySlug.isRequired,
   categoryLabel: PropTypes.string.isRequired,
-  milestoneType: PropTypes.oneOf([RESUME, PERSONAL_VALUES, INTERVIEWING_SKILLS]).isRequired,
+  milestoneType: ActivityTemplatePropTypes.milestoneSlug.isRequired,
   milestoneLabel: PropTypes.string.isRequired,
 };
 

@@ -1,3 +1,93 @@
+/** CONSTANT DEFS */
+// TODO: didn't use constants/ because node
+const FINDING_JOB = 'finding-job-opportunities';
+const APPLYING_FOR_JOBS = 'applying-for-jobs';
+const TAKING_CARE = 'health';
+const RESUME = 'resume';
+const PERSONAL_VALUES = 'personal-values';
+const INTERVIEWING_SKILLS = 'interviewing-skills';
+const PROFESSIONAL_NETWORK = 'professional-network';
+const RESEARCH_SKILLS = 'research-skills';
+const LIST_WANTS_MUST_HAVES = 'list-wants-and-must-haves';
+const COVER_LETTER = 'cover-letter';
+const REFERENCES = 'references';
+const SOCIAL_NETWORK = 'social-network';
+const LIST_STRENGTHS = 'list-of-strengths';
+const SELF_CARE_PLAN = 'self-care-plan';
+
+const JOB_SEARCH_CATEGORIES = [
+  {
+    name: 'Finding Job Opportunities',
+    slug: FINDING_JOB,
+  },
+  {
+    name: 'Applying for Jobs',
+    slug: APPLYING_FOR_JOBS,
+  },
+  {
+    name: 'Taking Care of Yourself',
+    slug: TAKING_CARE,
+  },
+];
+
+const MILESTONE_TYPES = [
+  {
+    name: 'Resume',
+    category_slug: APPLYING_FOR_JOBS,
+    slug: RESUME,
+  },
+  {
+    name: 'Personal Values',
+    category_slug: TAKING_CARE,
+    slug: PERSONAL_VALUES,
+  },
+  {
+    name: 'Interviewing Skills',
+    category_slug: APPLYING_FOR_JOBS,
+    slug: INTERVIEWING_SKILLS,
+  },
+  {
+    name: 'Professional Network',
+    category_slug: FINDING_JOB,
+    slug: PROFESSIONAL_NETWORK,
+  },
+  {
+    name: 'Research Skills',
+    category_slug: FINDING_JOB,
+    slug: RESEARCH_SKILLS,
+  },
+  {
+    name: 'List of Your ‘Wants’ and ‘Must Haves’',
+    category_slug: APPLYING_FOR_JOBS,
+    slug: LIST_WANTS_MUST_HAVES,
+  },
+  {
+    name: 'Cover Letter',
+    category_slug: APPLYING_FOR_JOBS,
+    slug: COVER_LETTER,
+  },
+  {
+    name: 'References',
+    category_slug: APPLYING_FOR_JOBS,
+    slug: REFERENCES,
+  },
+  {
+    name: 'Supportive Social Network',
+    category_slug: FINDING_JOB,
+    slug: SOCIAL_NETWORK,
+  },
+  {
+    name: 'List of Strengths',
+    category_slug: APPLYING_FOR_JOBS,
+    slug: LIST_STRENGTHS,
+  },
+  {
+    name: 'Self-Care Plan',
+    category_slug: TAKING_CARE,
+    slug: SELF_CARE_PLAN,
+  },
+];
+
 function getComponent(obj) {
   switch (obj.Type) {
     case 'Text':
@@ -84,14 +174,17 @@ function getSections(data) {
   return [whatAndWhy, tipsForSuccess, examples, practice, citations, nextSteps];
 }
 
+const getCategorySlug = category => JOB_SEARCH_CATEGORIES.find(cat => cat.name === category).slug;
+const getMilestoneSlug = milestone => MILESTONE_TYPES.find(ms => ms.name === milestone).slug;
+
 class ActivityTemplate {
   constructor(jsonData, originalFile = '') {
     this.original = originalFile;
     this.slug = `activity-template-${jsonData.Entry.Number}`;
     this.tempateId = `template-${jsonData.Entry.Number}`;
     this.title = jsonData.Title;
-    this.category = jsonData.Category;
-    this.milestone = jsonData.Milestone;
+    this.category = getCategorySlug(jsonData.Category);
+    this.milestone = getMilestoneSlug(jsonData.Milestone);
     this.total_time = jsonData.TotalTime;
     this.sections = getSections(jsonData);
   }
