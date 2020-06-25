@@ -21,13 +21,13 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.dark,
   },
 }));
-function Section({ sectionData, onComplete, ...restProps }) {
+function Section({ sectionData, onComplete, scrollToRef, ...restProps }) {
   const classes = useStyles(restProps);
   const getSectionKey = (type, index) => `${type}-${index}`;
   const nextStep = sectionData.slug === 'next-steps';
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} ref={scrollToRef}>
       <ScaffoldContainer>
         <Grid container justify={nextStep ? 'flex-start' : 'flex-end'} spacing={4}>
           <Grid item container xs={12} sm={2}>
@@ -79,11 +79,15 @@ Section.propTypes = {
   sectionData: PropTypes.objectOf(PropTypes.any).isRequired,
   backgroundColor: PropTypes.string,
   onComplete: PropTypes.func,
+  scrollToRef: PropTypes.shape({
+    current: PropTypes.object,
+  }),
 };
 
 Section.defaultProps = {
   backgroundColor: null,
   onComplete: null,
+  scrollToRef: null,
 };
 
 export default Section;

@@ -1,0 +1,141 @@
+{
+  "slug": "activity-template-0",
+  "category": "applying-for-jobs",
+  "milestone": "resume",
+  "title": "Write My Summary of Qualifications",
+  "total_time": "20 Minutes",
+  "sections": [
+    {
+      "name": "What & Why",
+      "slug": "what-and-why",
+      "content": [
+        {
+          "component": "text",
+          "content": "The Summary of Qualifications sets the stage for your resume. It summarizes what you have to offer and ties it to your ideal job."
+        },
+        {
+          "component": "text",
+          "content": "This summary statement goes by many names — like Personal Statement or Career Summary — depending on the resume template you choose. What you call it is much less important than what you include."
+        }
+      ]
+    },
+    {
+      "name": "Tips for Success",
+      "slug": "tips-for-success",
+      "content": [
+        {
+          "component": "list",
+          "heading": "Best Practices",
+          "subheading": "Keep these tips in mind as you continue through this activity",
+          "items": [
+            "<b>Keep it short.</b> Two to 3 sentences is enough to capture the key points.",
+            "Focus on <b>how you can help an employer</b> — not on what they can do for you.",
+            "<b>Be specific.</b> Don’t just say you’re a problem solver. Tell them the types of problems you solve.",
+            "<b>Back it up with numbers.</b> If you’ve been a supervisor, include the size of your team."
+          ]
+        },
+        {
+          "component": "callout",
+          "variant": "pro-tip",
+          "content": "Create a daily routine that includes time to work toward your goals. The simple act of having a routine can reduce stress and anxiety."
+        }
+      ]
+    },
+    {
+      "name": "Examples",
+      "slug": "examples",
+      "content": [
+        {
+          "component": "text",
+          "content": "Here are examples of how other people have summarized their qualifications:"
+        },
+        {
+          "component": "callout",
+          "variant": "quote",
+          "content": "Waitress with 5+ years of experience in providing excellent service to diners at quality establishments. Possesses familiarity with POS terminals and common restaurant machinery. Expert with a proven ability to “upsell” alcohol, dessert, and appetizers to customers. (1)"
+        },
+        {
+          "component": "callout",
+          "variant": "quote",
+          "content": "Creative, resourceful teacher with eight years of varied instructional experience. (2)"
+        },
+        {
+          "component": "callout",
+          "variant": "quote",
+          "content": "Accomplished search engine optimization specialist with over 12 years of experience in digital marketing. Have increased organic search traffic by an average of 26% (YoY) over the past 5 years. (3)"
+        }
+      ]
+    },
+    {
+      "name": "Practice",
+      "slug": "practice",
+      "content": [
+        {
+          "component": "text",
+          "content": "Jot down some notes about how you might answer these interview questions. Then practice delivering the answers in front of a mirror or to a friend. "
+        },
+        {
+          "component": "text",
+          "content": "Out of time or ideas? You can always come back and finish later - we'll save your answers here."
+        },
+        {
+          "component": "practice_question_group",
+          "questions": [
+            {
+              "questionId": "template-0-q-0",
+              "order": 0,
+              "title": "Type of job I want:"
+            },
+            {
+              "questionId": "template-0-q-1",
+              "order": 1,
+              "title": "My top 2 or 3 skills related to this job are:"
+            },
+            {
+              "questionId": "template-0-q-2",
+              "order": 2,
+              "title": "Here are 2 facts about my experience or training:"
+            },
+            {
+              "questionId": "template-0-q-3",
+              "order": 3,
+              "title": "My draft statement:"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Citations",
+      "slug": "citations",
+      "content": [
+        {
+          "component": "citation",
+          "label": "ResumeGenius: Waiter / Waitress Resume Sample",
+          "url": "https://resumegenius.com/resume-samples/waiter-waitress-resume-example"
+        },
+        {
+          "component": "citation",
+          "label": "Monster Blog: Teacher Resume Objective Examples Can Inform your Career Summary",
+          "url": "https://www.monster.com/career-advice/article/teacher-resume-objective"
+        },
+        {
+          "component": "citation",
+          "label": "JobScan Blog: Resume Objective Statements: Examples, How-To, and FAQ",
+          "url": "https://www.jobscan.co/blog/resume-objective-statements-faq-how-to-examples/"
+        }
+      ]
+    },
+    {
+      "name": "Next Steps",
+      "slug": "next-steps",
+      "content": [
+        {
+          "component": "callout",
+          "variant": "next",
+          "content": "Once you’ve got a draft, go ahead and add it to your profile. The profile is private, so you don’t have to have everything perfect right away. "
+        }
+      ]
+    }
+  ]
+}
