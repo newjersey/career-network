@@ -84,10 +84,10 @@ function getSections(data) {
   return [whatAndWhy, tipsForSuccess, examples, practice, citations, nextSteps];
 }
 
-export default class ActivityTemplate {
+class ActivityTemplate {
   constructor(jsonData, originalFile = '') {
     this.original = originalFile;
-    this.slug = `activity_template_${jsonData.Entry.Number}`;
+    this.slug = `activity-template-${jsonData.Entry.Number}`;
     this.tempateId = `template-${jsonData.Entry.Number}`;
     this.title = jsonData.Title;
     this.category = jsonData.Category;
@@ -104,3 +104,5 @@ export default class ActivityTemplate {
     return JSON.stringify(this);
   }
 }
+
+module.exports = ActivityTemplate;

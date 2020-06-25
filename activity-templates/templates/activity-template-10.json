@@ -1,0 +1,120 @@
+{
+  "original": " ActivityTemplate_1593006469400.json",
+  "slug": "activity-template-10",
+  "tempateId": "template-10",
+  "title": "Write My 30-Second Networking Pitch",
+  "category": "Finding Job Opportunities",
+  "milestone": "Professional Network",
+  "total_time": "30 min",
+  "sections": [
+    {
+      "name": "What & Why",
+      "slug": "what-and-why",
+      "content": [
+        {
+          "component": "text",
+          "content": "Networking is making meaningful connections with people who can help you achieve your goals. And if the idea of networking makes you anxious, you're not alone. But we can help.\n\nLet’s talk about why it’s important to network in the first place. Experts estimate that as many as 4 out of 5 people landed their current job because of someone in their network. (Source 1: Payscale.com) People like to hire people they know and trust.\n\nA strong networking pitch is an important tool for growing your network. A good pitch is a memorable description of what you do or what you're good at. You can use your pitch to start conversations during virtual networking events or interviews — basically any time you want to make a professional impression."
+        }
+      ]
+    },
+    {
+      "name": "Tips for Success",
+      "slug": "tips-for-success",
+      "content": [
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": null,
+          "items": [
+            "Keep it snappy. You want to explain how you help people, or what you’re really good at. But don’t include your entire work history. Keep it between 2 to 3 sentences, or about 30 seconds long.",
+            "Think about your audience. If you’re preparing to speak with a specific person, you’ll want to tailor the pitch. What information would be most useful for your contact?",
+            "Be genuine. You don’t want to come across as salesy. The goal of a networking pitch is to earn more conversation — not to convince someone they need to hire you.",
+            "Keep it conversational. You’ll want to come across as approachable, not like you’re giving a lecture.",
+            "Keep your network open. Don’t limit yourself to just people who can help you. There’s give and take in networking. Think of ways you may be able to help someone you’re speaking with.",
+            "Practice speaking your pitch until you feel confident and comfortable."
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Examples",
+      "slug": "examples",
+      "content": [
+        {
+          "component": "text",
+          "content": "Here are some sample networking pitches to show how they can be used in different situations."
+        },
+        {
+          "component": "text",
+          "content": "Context: Virtual networking event\n“Hi! I’m impressed with the reviews of the hotel you work at. I used to work in the front office of Hotel Mansfield, which had some of the highest-ranked guest services in the city during my time there. I’d love to hear more about what you do at your hotel. Do you have time to chat next week?”\n\nContext: Virtual job fair (speaking to a hiring manager)\n“Hi, my name is Christina. I’m currently attending New York University, majoring in marketing with a communications minor. Marketing is the career for me, because I thrive on being creative and client focused, and I enjoy using these skills to grow revenue. I have studied your company, and I’m drawn to your culture of constant innovation. I would be a strong match for this opportunity.” (Adapted from Source 2: Saylordotorg)\n\nContext: Email following an online webinar \n“Hi Rick, thank you for speaking during the New Human Resources webinar. I learned so much from your ideas about keeping morale high in a remote work environment. With a background in business and Human Resources, I’m passionate about learning how to create the right environment to make people work the most effectively. I’d love to get a chance to speak more with you. Are you available to chat next Wednesday?”"
+        }
+      ]
+    },
+    {
+      "name": "Practice",
+      "slug": "practice",
+      "content": [
+        {
+          "component": "text",
+          "content": "Write down some responses to the following prompts. Don’t worry about crafting a pitch right away — just brainstorm some responses."
+        },
+        {
+          "component": "practice_question_group",
+          "questions": [
+            {
+              "questionId": "template-10-q-1",
+              "order": 1,
+              "title": "My current or most recent work experience is:"
+            },
+            {
+              "questionId": "template-10-q-2",
+              "order": 2,
+              "title": "In this role, I was responsible for:"
+            },
+            {
+              "questionId": "template-10-q-3",
+              "order": 3,
+              "title": "In one year, I hope to:"
+            },
+            {
+              "questionId": "template-10-q-4",
+              "order": 4,
+              "title": "I help customers and other people with this problem:"
+            },
+            {
+              "questionId": "template-10-q-5",
+              "order": 5,
+              "title": "In my job roles, I’ve been most excited about:"
+            },
+            {
+              "questionId": "template-10-q-6",
+              "order": 6,
+              "title": "Now it’s time to put it all together. Review what you jotted down, choose the strongest pieces, and draft your networking pitch here."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Citations",
+      "slug": "citations",
+      "content": [
+        {
+          "component": "citation",
+          "label": "Source 1: Payscale.com",
+          "url": "https://www.payscale.com/career-news/2017/04/many-jobs-found-networking"
+        },
+        {
+          "component": "citation",
+          "label": "Source 2: Saylordotorg",
+          "url": "https://saylordotorg.github.io/text_six-steps-to-job-search-success/s09-03-your-networking-pitch.html"
+        }
+      ]
+    },
+    {
+      "name": "Next Steps",
+      "slug": "next-steps",
+      "content": "Once you have a draft pitch, practice saying it out loud. Then ask a friend to listen to it and give you feedback."
+    }
+  ]
+}
