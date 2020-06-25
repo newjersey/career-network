@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Callout({ content, variant, ...restProps }) {
+function Callout({ content, variant }) {
   const classes = useStyles();
 
   const calloutIcon = () => {
@@ -56,9 +56,7 @@ function Callout({ content, variant, ...restProps }) {
   return (
     <div className={clsx(classes.root, variant === 'next' && classes.next)}>
       <div className={classes.icon}>{calloutIcon()}</div>
-      <Typography variant="body1" {...restProps}>
-        {content}
-      </Typography>
+      <Typography variant="body1">{content}</Typography>
     </div>
   );
 }

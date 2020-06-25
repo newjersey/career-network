@@ -27,17 +27,17 @@ function Section({ sectionData, ...restProps }) {
               {sectionData.name}
             </Typography>
           </Grid>
-          <Grid item xs={0} sm={1} />
+          <Grid item sm={1} />
 
           {sectionData.content.map(({ component, ...props }, index) => (
-            <Grid item container xs={12} sm={component === 'callout' ? 12 : 9}>
-              <SectionComponent
-                key={getSectionKey(component, index)}
-                type={component}
-                index={index}
-                {...props}
-                {...restProps}
-              />
+            <Grid
+              key={getSectionKey(component, index)}
+              item
+              container
+              xs={12}
+              sm={component === 'callout' ? 12 : 9}
+            >
+              <SectionComponent type={component} index={index} {...props} {...restProps} />
             </Grid>
           ))}
         </Grid>
