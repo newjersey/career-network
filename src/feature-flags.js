@@ -28,6 +28,10 @@ const envConfigs = {
       name: 'activityTemplate',
       isActive: false,
     },
+    {
+      name: 'landingPage',
+      isActive: false,
+    },
   ],
   PREVIEW: [
     {
@@ -57,6 +61,10 @@ const envConfigs = {
     {
       name: 'activityTemplate',
       isActive: false,
+    },
+    {
+      name: 'landingPage',
+      isActive: true,
     },
   ],
 };

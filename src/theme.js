@@ -40,6 +40,7 @@ const theme = createMuiTheme({
   typography: {
     fontSize: 14,
     h1: {
+      fontFamily: HeaderFont,
       fontSize: '3rem',
       fontWeight: 400,
     },
@@ -67,6 +68,7 @@ const theme = createMuiTheme({
       lineHeight: 1.6,
     },
     body2: {
+      fontSize: '1.125rem',
       letterSpacing: 'normal',
       lineHeight: 1.67,
     },
