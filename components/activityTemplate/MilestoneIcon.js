@@ -2,7 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FileCopy from '@material-ui/icons/FileCopy';
 import PhoneInTalk from '@material-ui/icons/PhoneInTalk';
-import { RESUME, PERSONAL_VALUES, INTERVIEWING_SKILLS } from '../../constants';
+import GroupAdd from '@material-ui/icons/GroupAdd';
+import {
+  RESUME,
+  PERSONAL_VALUES,
+  INTERVIEWING_SKILLS,
+  PROFESSIONAL_NETWORK,
+} from '../../constants';
 import ActivityTemplatePropTypes from './PropTypes';
 
 const MilestoneIcon = ({ type, color, className }) => {
@@ -10,6 +16,7 @@ const MilestoneIcon = ({ type, color, className }) => {
     [INTERVIEWING_SKILLS]: <PhoneInTalk style={{ color }} className={className} />,
     [RESUME]: <FileCopy style={{ color }} className={className} />,
     [PERSONAL_VALUES]: <FileCopy style={{ color }} className={className} />,
+    [PROFESSIONAL_NETWORK]: <GroupAdd style={{ color }} className={className} />,
   };
   return milestoneIcons[type] || null;
 };
