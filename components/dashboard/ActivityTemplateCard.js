@@ -20,10 +20,10 @@ const useStyles = makeStyles({
     margin: theme.spacing(2, 0),
   },
   overviewWrapper: {
-    maxHeight: 66,
+    maxHeight: 66, // body4 line height * 3
   },
   overview: {
-    lineHeight: '22px',
+    ...theme.typography.body4,
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     display: '-webkit-box',
@@ -36,8 +36,8 @@ const useStyles = makeStyles({
     alignItems: 'center',
   },
   iconLabel: {
+    ...theme.typography.h7,
     margin: theme.spacing(0, 1.5, 0, 1),
-    fontWeight: 400,
   },
   link: {
     fontWeight: 700,
@@ -58,14 +58,14 @@ function ActivityTemplateCard(props) {
   return (
     <Box borderColor="grey.300" border={0.5} borderRadius={6} mb={3}>
       <Box p={5}>
-        <Typography variant="body2" style={{ color: categoryColor, fontWeight: 600 }}>
+        <Typography variant="h6" style={{ color: categoryColor, fontSize: 12, fontWeight: 700 }}>
           {categoryType.name}
         </Typography>
         <Typography variant="h3" className={classes.title}>
           {title}
         </Typography>
         <div className={classes.overviewWrapper}>
-          <Typography variant="body2" className={classes.overview} display="block">
+          <Typography variant="body2" className={classes.overview}>
             {overview}
           </Typography>
         </div>

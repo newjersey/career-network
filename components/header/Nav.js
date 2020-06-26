@@ -58,8 +58,6 @@ const useStyles = makeStyles(theme => ({
     },
   },
   title: {
-    fontSize: '1.5em',
-    fontWeight: 300,
     cursor: 'pointer',
   },
   list: {
@@ -317,7 +315,7 @@ function Nav(props) {
                     </Grid>
                   </Hidden>
                   <Grid item className={classes.titleContainer}>
-                    <Typography variant="h1" color="primary" className={classes.title}>
+                    <Typography variant="h5" color="primary" className={classes.title}>
                       Career Network
                     </Typography>
                   </Grid>

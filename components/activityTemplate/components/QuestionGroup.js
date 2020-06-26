@@ -12,7 +12,7 @@ const useStyles = makeStyles({
   },
 });
 
-function QuestionGroup({ questions, templateSlug, allPracticeQuestionInputs }) {
+function QuestionGroup({ questions, templateSlug, allPracticeQuestionInputs, color }) {
   const classes = useStyles();
   const getInputValue = questionId => {
     const inputData = allPracticeQuestionInputs.find(
@@ -23,14 +23,16 @@ function QuestionGroup({ questions, templateSlug, allPracticeQuestionInputs }) {
 
   return (
     <div className={classes.stepsContainer}>
-      {questions.map(question => (
+      {questions.map((question, index) => (
         <QuestionItem
+          color={color}
           key={question.questionId}
           templateSlug={templateSlug}
           questionId={question.questionId}
-          index={question.order}
+          index={index}
+          order={question.order}
           title={question.title}
-          isLast={question.order + 1 === questions.length}
+          isLast={index === questions.length - 1}
           inputValue={getInputValue(question.questionId) || null}
         />
       ))}
@@ -42,6 +44,7 @@ QuestionGroup.propTypes = {
   questions: PropTypes.arrayOf(PropTypes.object).isRequired,
   templateSlug: PropTypes.string.isRequired,
   allPracticeQuestionInputs: FirebasePropTypes.querySnapshot.isRequired,
+  color: PropTypes.string.isRequired,
 };
 
 export default QuestionGroup;

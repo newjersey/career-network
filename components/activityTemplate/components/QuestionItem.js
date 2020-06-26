@@ -12,8 +12,6 @@ import isEmpty from 'lodash/isEmpty';
 import DoneIcon from '@material-ui/icons/Done';
 import { useAuth } from '../../Auth';
 
-const PRACTIC_SECTION_COLOR = '#d09d09';
-
 const useStyles = makeStyles(theme => ({
   stepContent: {
     marginTop: 8,
@@ -28,8 +26,8 @@ const useStyles = makeStyles(theme => ({
     borderLeft: 'none',
   },
   iconContainer: {
-    color: PRACTIC_SECTION_COLOR,
-    border: `2px solid ${PRACTIC_SECTION_COLOR}`,
+    color: props => props.color,
+    border: props => `2px solid ${props.color}`,
     borderRadius: '50%',
     padding: theme.spacing(0.6),
     width: 40,
@@ -47,8 +45,17 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const QuestionItem = ({ index, title, isLast, templateSlug, questionId, inputValue }) => {
-  const classes = useStyles();
+const QuestionItem = ({
+  index,
+  order,
+  title,
+  isLast,
+  templateSlug,
+  questionId,
+  inputValue,
+  color,
+}) => {
+  const classes = useStyles({ color });
   const { userDocRef } = useAuth();
   const [value, setValue] = useState(null);
   const [inProgress, setInProgress] = useState(false);
@@ -67,7 +74,7 @@ const QuestionItem = ({ index, title, isLast, templateSlug, questionId, inputVal
     const inputData = {
       templateSlug,
       questionId,
-      order: index,
+      order,
       value,
       lastUpdateTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
     };
@@ -95,8 +102,8 @@ const QuestionItem = ({ index, title, isLast, templateSlug, questionId, inputVal
       <span
         className={classes.iconContainer}
         style={{
-          color: inProgress || complete ? 'white' : PRACTIC_SECTION_COLOR,
-          backgroundColor: inProgress || complete ? PRACTIC_SECTION_COLOR : 'white',
+          color: inProgress || complete ? 'white' : color,
+          backgroundColor: inProgress || complete ? color : 'white',
         }}
       >
         {!complete ? <b>{index + 1}</b> : <DoneIcon />}
@@ -125,11 +132,13 @@ const QuestionItem = ({ index, title, isLast, templateSlug, questionId, inputVal
 
 QuestionItem.propTypes = {
   index: PropTypes.number.isRequired,
+  order: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   isLast: PropTypes.bool.isRequired,
   templateSlug: PropTypes.string.isRequired,
   questionId: PropTypes.string.isRequired,
   inputValue: PropTypes.string,
+  color: PropTypes.string.isRequired,
 };
 
 QuestionItem.defaultProps = {

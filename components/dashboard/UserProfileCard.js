@@ -60,10 +60,7 @@ function UserProfileCard({ user }) {
           <Divider variant="fullWidth" />
           {user.userData && user.userData.userProfile && user.userData.userProfile.goal && (
             <Box mt={2}>
-              <Typography variant="body2" component="h3" gutterBottom>
-                <b>CAREER GOAL</b>
-              </Typography>
-              <Typography variant="body2" component="p">
+              <Typography variant="body1" component="p">
                 {user.userData.userProfile.goal}
               </Typography>
             </Box>

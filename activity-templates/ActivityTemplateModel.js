@@ -14,6 +14,7 @@ const REFERENCES = 'references';
 const SOCIAL_NETWORK = 'social-network';
 const LIST_STRENGTHS = 'list-of-strengths';
 const SELF_CARE_PLAN = 'self-care-plan';
+const STRESS_MANAGEMENT_PRACTICES = 'stress-management-practices';
 
 const JOB_SEARCH_CATEGORIES = [
   {
@@ -85,6 +86,11 @@ const MILESTONE_TYPES = [
     name: 'Self-Care Plan',
     category_slug: TAKING_CARE,
     slug: SELF_CARE_PLAN,
+  },
+  {
+    name: 'Stress Management Practices',
+    category_slug: TAKING_CARE,
+    slug: STRESS_MANAGEMENT_PRACTICES,
   },
 ];
 

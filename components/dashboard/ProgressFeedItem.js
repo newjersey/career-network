@@ -22,6 +22,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   cardTitle: {
+    fontWeight: 500,
     fontSize: '1rem',
     marginLeft: theme.spacing(4),
   },
@@ -35,6 +36,9 @@ const useStyles = makeStyles(theme => ({
     lineHeight: 0,
     padding: theme.spacing(0.6),
     fontSize: '14px',
+  },
+  body5: {
+    ...theme.typography.body5,
   },
 }));
 
@@ -66,13 +70,17 @@ export default function ProgressFeedItem(props) {
             <ActionIcon iconClassName={classes.iconContainer} value={value} color={color} />
           </Grid>
           <Grid item>
-            <Typography variant="body2">{label}</Typography>
+            <Typography variant="body2" className={classes.body5}>
+              {label}
+            </Typography>
           </Grid>
           <Grid item>
             <Typography variant="h6">&#183;</Typography>
           </Grid>
           <Grid item>
-            <DateCompleted variant="body2">{date}</DateCompleted>
+            <DateCompleted variant="body2" className={classes.body5}>
+              {date}
+            </DateCompleted>
           </Grid>
         </Grid>
         <Typography variant="h6" component="h2" className={classes.cardTitle}>
