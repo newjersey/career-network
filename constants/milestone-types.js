@@ -61,7 +61,7 @@ export const MILESTONE_TYPES = [
   },
   {
     name: 'List of Strengths',
-    category_slug: APPLYING_FOR_JOBS,
+    category_slug: TAKING_CARE,
     slug: LIST_STRENGTHS,
   },
   {
