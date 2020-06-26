@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import Hidden from '@material-ui/core/Hidden';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import TableBody from '@material-ui/core/TableBody';
@@ -81,9 +82,11 @@ function ApplicationTable({ applications, handleUpdate, openApplicationHistory }
             <TableCell classes={{ head: classes.head }} className={classes.detailsCol}>
               Details
             </TableCell>
-            <TableCell classes={{ head: classes.head }} align="left">
-              Last Update
-            </TableCell>
+            <Hidden only="xs">
+              <TableCell classes={{ head: classes.head }} align="left">
+                Last Update
+              </TableCell>
+            </Hidden>
             <TableCell classes={{ head: classes.head }} align="left">
               Status
             </TableCell>
@@ -97,7 +100,9 @@ function ApplicationTable({ applications, handleUpdate, openApplicationHistory }
                 <Typography variant="body1">{jobTitle}</Typography>
                 {company && <Typography variant="body2">at {company}</Typography>}
               </TableCell>
-              <TableCell align="left">{lastUpdate && formatLastUpdate(lastUpdate)}</TableCell>
+              <Hidden only="xs">
+                <TableCell align="left">{lastUpdate && formatLastUpdate(lastUpdate)}</TableCell>
+              </Hidden>
               <TableCell align="left">
                 <StatusChip status={status} />
               </TableCell>
