@@ -30,7 +30,7 @@ function QuestionGroup({ questions, templateSlug, allPracticeQuestionInputs }) {
           questionId={question.questionId}
           index={question.order}
           title={question.title}
-          isLast={question.order + 1 === questions.length}
+          isLast={question.order === questions.length}
           inputValue={getInputValue(question.questionId) || null}
         />
       ))}

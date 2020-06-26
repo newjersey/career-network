@@ -1,13 +1,35 @@
+/* eslint-disable react/no-danger */
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import { makeStyles } from '@material-ui/styles';
 import PropTypes from 'prop-types';
+import Typography from '@material-ui/core/Typography';
 
-const TextBlock = ({ content }) => (
-  <Box mb={4}>
-    <Typography variant="body1">{content}</Typography>
-  </Box>
-);
+const useStyles = makeStyles(theme => ({
+  root: {
+    marginBottom: theme.spacing(3),
+    whiteSpace: 'pre-wrap',
+    display: 'block',
+  },
+}));
+
+function TextBlock({ content }) {
+  const classes = useStyles();
+  return (
+    <>
+      {React.Children.toArray(
+        content
+          .split('\n')
+          .map(text => (
+            <Typography
+              className={classes.root}
+              variant="body1"
+              dangerouslySetInnerHTML={{ __html: text }}
+            />
+          ))
+      )}
+    </>
+  );
+}
 
 TextBlock.propTypes = {
   content: PropTypes.string.isRequired,

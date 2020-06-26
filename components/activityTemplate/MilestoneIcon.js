@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import FileCopy from '@material-ui/icons/FileCopy';
 import PhoneInTalk from '@material-ui/icons/PhoneInTalk';
 import { RESUME, PERSONAL_VALUES, INTERVIEWING_SKILLS } from '../../constants';
+import ActivityTemplatePropTypes from './PropTypes';
 
 const MilestoneIcon = ({ type, color, className }) => {
   const milestoneIcons = {
@@ -16,7 +17,7 @@ const MilestoneIcon = ({ type, color, className }) => {
 MilestoneIcon.propTypes = {
   className: PropTypes.string,
   color: PropTypes.string.isRequired,
-  type: PropTypes.oneOf([RESUME, PERSONAL_VALUES, INTERVIEWING_SKILLS]).isRequired,
+  type: ActivityTemplatePropTypes.milestoneSlug.isRequired,
 };
 
 MilestoneIcon.defaultProps = {

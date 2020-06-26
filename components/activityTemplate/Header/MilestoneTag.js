@@ -4,10 +4,8 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
-import FileCopy from '@material-ui/icons/FileCopy';
-import PhoneInTalk from '@material-ui/icons/PhoneInTalk';
-import { RESUME, PERSONAL_VALUES, INTERVIEWING_SKILLS } from '../../../constants';
 import ActivityTemplatePropTypes from '../PropTypes';
+import MilestoneIcon from '../MilestoneIcon';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -32,16 +30,10 @@ const useStyles = makeStyles(theme => ({
 const MilestoneTag = ({ label, type, color, className }) => {
   const classes = useStyles({ color });
 
-  const icon = {
-    [INTERVIEWING_SKILLS]: <PhoneInTalk style={{ color }} />,
-    [RESUME]: <FileCopy style={{ color }} />,
-    [PERSONAL_VALUES]: <FileCopy style={{ color }} />,
-  }[type];
-
   return (
     <Chip
       classes={{ root: clsx(classes.root, className), icon: classes.icon, label: classes.label }}
-      icon={icon}
+      icon={<MilestoneIcon color={color} type={type} />}
       label={<Typography variant="h6">{label}</Typography>}
     />
   );
