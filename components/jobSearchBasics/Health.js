@@ -11,6 +11,7 @@ import HighlightIcon from '@material-ui/icons/Highlight';
 import HotTubIcon from '@material-ui/icons/HotTub';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import ScaffoldContainer from '../ScaffoldContainer';
+import SectionHeader from './SectionHeader';
 import { JOB_SEARCH_BASICS_TYPES } from '../constants';
 
 const useStyles = makeStyles(theme => ({
@@ -21,7 +22,7 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     color: JOB_SEARCH_BASICS_TYPES.health.color,
-    fontWeight: 500,
+    fontWeight: 600,
     fontSize: '2.5rem',
     lineHeight: '3.5rem',
     textAlign: 'right',
@@ -110,7 +111,7 @@ export default function Health({ scrollToRef }) {
       <ScaffoldContainer>
         <Grid container justify="center">
           <Grid item container xs={12} sm={4}>
-            <Typography className={classes.title} component="h1" variant="h3">
+            <Typography className={classes.title} variant="h2">
               Taking Care
               <br />
               of Yourself
@@ -140,9 +141,7 @@ export default function Health({ scrollToRef }) {
             ))}
 
             <Box mt={8}>
-              <Typography variant="h6" gutterBottom>
-                Milestones to Measure Progress
-              </Typography>
+              <SectionHeader gutterBottom>Milestones to Measure Progress</SectionHeader>
               <Typography variant="body1">
                 One thing we’ve heard from job seekers is that it’s hard to feel like you’re making
                 progress from one day to the next. That’s why we’ve included milestones to help you

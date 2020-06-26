@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.background.dark,
   },
   title: {
-    fontWeight: 500,
+    fontWeight: 600,
     lineHeight: '4.25rem',
   },
   shapeContainer: {
@@ -73,7 +73,7 @@ export default function JobSearchBasics() {
       <ScaffoldContainer>
         <Grid className={classes.navContainer} container justify="center">
           <Grid item xs={12} sm={5} className={classes.navText}>
-            <Typography className={classes.title} component="h1" variant="h3">
+            <Typography className={classes.title} component="h1" variant="h1">
               The Basics
               <br />
               of a Successful
