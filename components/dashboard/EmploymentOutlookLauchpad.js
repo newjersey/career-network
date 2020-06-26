@@ -41,7 +41,7 @@ function EmploymentOutlookLauchpad() {
       </div>
       <Card className={classes.card} variant="outlined">
         <CardContent className={classes.cardContent}>
-          <Typography variant="h6" gutterBottom>
+          <Typography variant="h5" gutterBottom>
             Employment Outlook
           </Typography>
           <Typography variant="body1" gutterBottom>

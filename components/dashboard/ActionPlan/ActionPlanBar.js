@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import NextWeekIcon from '@material-ui/icons/NextWeek';
 import StarIcon from '@material-ui/icons/Star';
+import clsx from 'clsx';
 
 import FirebasePropTypes from '../../Firebase/PropTypes';
 import { useAuth } from '../../Auth';
@@ -43,9 +44,14 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(0.5, 3, 0.5),
   },
   text: {
+    fontWeight: 400,
     textTransform: 'none',
     textAlign: 'left',
     marginLeft: theme.spacing(1),
+  },
+  countText: {
+    fontSize: 20,
+    lineHeight: 1.4,
   },
 }));
 
@@ -101,13 +107,13 @@ function ActionPlanBar({ userStats, actionPlan }) {
               }
             >
               <Box>
-                <Typography className={classes.text} variant="h6">
+                <Typography className={clsx(classes.text, classes.countText)} variant="h4">
                   <span style={{ color: ACTION_TYPES.goal.color }}>
                     <b>{userStats.goals || 0}</b>
                   </span>
                   <span style={{ fontWeight: 400 }}> of {actionPlan.goals || 0}</span>
                 </Typography>
-                <Typography className={classes.text} variant="body2">
+                <Typography className={classes.text} variant="h6">
                   Activities Completed this Week
                 </Typography>
               </Box>
@@ -133,13 +139,13 @@ function ActionPlanBar({ userStats, actionPlan }) {
               }
             >
               <Box>
-                <Typography className={classes.text} variant="h6">
+                <Typography className={clsx(classes.text, classes.countText)} variant="h4">
                   <span style={{ color: ACTION_TYPES.activity.color }}>
                     <b>{userStats.activities || 0}</b>
                   </span>
                   <span style={{ fontWeight: 400 }}> of {actionPlan.activities || 0}</span>
                 </Typography>
-                <Typography className={classes.text} variant="body2">
+                <Typography className={classes.text} variant="h6">
                   Activities Logged this Week
                 </Typography>
               </Box>
@@ -165,13 +171,13 @@ function ActionPlanBar({ userStats, actionPlan }) {
               }
             >
               <Box>
-                <Typography className={classes.text} variant="h6">
+                <Typography className={clsx(classes.text, classes.countText)} variant="h4">
                   <span style={{ color: ACTION_TYPES.application.color }}>
                     <b>{userStats.applications || 0}</b>
                   </span>
                   <span style={{ fontWeight: 400 }}> of {actionPlan.applications || 0}</span>
                 </Typography>
-                <Typography className={classes.text} variant="body2">
+                <Typography className={classes.text} variant="h6">
                   Applications Added this Week
                 </Typography>
               </Box>

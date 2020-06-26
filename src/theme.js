@@ -56,26 +56,41 @@ const theme = createMuiTheme({
     },
     h5: {
       fontFamily: HeaderFont,
-      fontSize: '1rem',
+      fontSize: 16,
       letterSpacing: '0.0075em',
       fontWeight: 600,
     },
     h6: {
       fontFamily: HeaderFont,
       fontWeight: 700,
-      fontSize: '0.875rem',
+      fontSize: '1rem',
+    },
+    h7: {
+      fontFamily: HeaderFont,
+      fontWeight: 500,
+      fontSize: '0.857rem',
+      lineHeight: 1.14,
     },
     subtitle2: {
       textTransform: 'uppercase',
     },
     body1: {
-      fontSize: '1.25rem',
-      lineHeight: 1.6,
+      // UPDATED UNTIL TYPOGRAPHY EXTENDED FO BODY4
+      fontSize: '1rem',
+      lineHeight: 1.57,
     },
     body2: {
       fontSize: '1.125rem',
       letterSpacing: 'normal',
       lineHeight: 1.67,
+    },
+    body4: {
+      fontSize: '1rem',
+      lineHeight: 1.57,
+    },
+    body5: {
+      fontSize: 12,
+      lineHeight: '18px',
     },
     overline: {
       letterSpacing: 'normal',

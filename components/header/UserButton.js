@@ -18,6 +18,7 @@ import { Flags } from 'react-feature-flags';
 // eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles(theme => ({
   name: {
+    fontWeight: 500,
     color: '#000',
     cursor: 'pointer',
     marginRight: '1em',
@@ -52,6 +53,7 @@ export default function UserButton(props) {
       <Grid container alignItems="center" wrap="nowrap">
         <Grid item>
           <Typography
+            variant="h6"
             className={classes.name}
             aria-owns={anchorEl ? 'simple-menu' : undefined}
             aria-haspopup="true"
