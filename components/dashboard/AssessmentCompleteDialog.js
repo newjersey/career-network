@@ -42,7 +42,7 @@ function AssessmentCompleteDialog({ show, onClose, onLogActivityButtonClick }) {
         <Typography variant="body1" align="center" style={{ marginTop: '3em' }}>
           You’ve Completed Your Profile
         </Typography>
-        <Typography variant="h2" align="center">
+        <Typography variant="h2" align="center" style={{ fontWeight: 700 }}>
           Welcome to New Jersey Career Network
         </Typography>
       </DialogTitle>
