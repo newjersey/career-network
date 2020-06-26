@@ -23,14 +23,15 @@ function QuestionGroup({ questions, templateSlug, allPracticeQuestionInputs }) {
 
   return (
     <div className={classes.stepsContainer}>
-      {questions.map(question => (
+      {questions.map((question, index) => (
         <QuestionItem
           key={question.questionId}
           templateSlug={templateSlug}
           questionId={question.questionId}
-          index={question.order}
+          index={index}
+          order={question.order}
           title={question.title}
-          isLast={question.order === questions.length}
+          isLast={index === questions.length - 1}
           inputValue={getInputValue(question.questionId) || null}
         />
       ))}

@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const QuestionItem = ({ index, title, isLast, templateSlug, questionId, inputValue }) => {
+const QuestionItem = ({ index, order, title, isLast, templateSlug, questionId, inputValue }) => {
   const classes = useStyles();
   const { userDocRef } = useAuth();
   const [value, setValue] = useState(null);
@@ -67,7 +67,7 @@ const QuestionItem = ({ index, title, isLast, templateSlug, questionId, inputVal
     const inputData = {
       templateSlug,
       questionId,
-      order: index,
+      order,
       value,
       lastUpdateTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
     };
@@ -125,6 +125,7 @@ const QuestionItem = ({ index, title, isLast, templateSlug, questionId, inputVal
 
 QuestionItem.propTypes = {
   index: PropTypes.number.isRequired,
+  order: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   isLast: PropTypes.bool.isRequired,
   templateSlug: PropTypes.string.isRequired,
