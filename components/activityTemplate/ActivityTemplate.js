@@ -154,6 +154,7 @@ export default function ActivityTemplate(props) {
       <Section
         sectionData={practiceData}
         templateSlug={slug}
+        color={JOB_SEARCH_CATEGORY_COLORS[category]}
         backgroundColor={fade(JOB_SEARCH_CATEGORY_COLORS[category], 0.07)}
         allPracticeQuestionInputs={allPracticeQuestionInputs}
         scrollToRef={practiceSection}
