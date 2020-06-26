@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
     height: 'auto',
     position: 'absolute',
     top: -100,
-    right: -90,
+    right: -100,
   },
   shapeContainer: {
     position: 'relative',
