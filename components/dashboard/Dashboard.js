@@ -310,6 +310,10 @@ export default function Dashboard(props) {
   } = props;
 
   const tasks = getTasks(props, TASK_COUNT_LIMIT);
+  const completedTaskIds = completedTasks.map(task => task.data().taskId);
+  const incompleteActivityTemplates = allActivityTemplates.filter(
+    template => !completedTaskIds.includes(template.slug)
+  );
   const [activeDialog, setActiveDialog] = useState();
   const isSentimentLoggedToday =
     user.lastSentimentTimestamp && isToday(user.lastSentimentTimestamp.toDate());
@@ -482,7 +486,7 @@ export default function Dashboard(props) {
             <Flags
               authorizedFlags={['activityTemplate']}
               renderOn={() =>
-                allActivityTemplates.map(template => (
+                incompleteActivityTemplates.map(template => (
                   <ActivityTemplateCard
                     key={template.slug}
                     totalTime={template.total_time}
