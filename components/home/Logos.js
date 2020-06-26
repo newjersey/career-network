@@ -31,10 +31,6 @@ const useStyles = makeStyles(theme => ({
   logoImg: {
     width: '80%',
     height: '80%',
-    [theme.breakpoints.down('sm')]: {
-      width: '100%',
-      height: '100%',
-    },
   },
   logoName: {
     color: theme.palette.grey['800'],
@@ -64,12 +60,10 @@ const LOGO_CONTENT = [
     name: 'New Jersey Office of Innovation',
     img: '/static/img/index/05_Logos/NJ-CIO-2x.png',
   },
-
   {
     name: 'New America',
     img: '/static/img/index/05_Logos/New-America-2x.png',
   },
-
   {
     name: 'Lumina Foundation',
     img: '/static/img/index/05_Logos/Lumina-2x.png',
@@ -101,7 +95,7 @@ function Logos() {
             key={item.name}
             className={classes.logosContainer}
           >
-            <Grid item container md={12} justify="center">
+            <Grid item container sm={9} md={12} justify="center">
               <img className={classes.logoImg} src={`${item.img}`} alt={item.name} />
             </Grid>
             <Grid

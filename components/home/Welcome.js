@@ -43,9 +43,9 @@ function Welcome() {
             </Typography>
             <Divider className={classes.divider} />
             <Typography variant="body1" className={classes.body}>
-              You may have used Linkedin, Monster, and Indeed. This is not another job board. This
-              is a new tool that can help grow your skill set, and change how you approach your job
-              search entirely.
+              This is not another job board. This is a new tool that can help grow your skill set,
+              and change how you approach your job search entirely. You may have used Linkedin,
+              Monster, and Indeed before but this is a new tool made for you.
             </Typography>
           </Grid>
         </Grid>
