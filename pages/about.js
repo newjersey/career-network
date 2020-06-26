@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { makeStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
@@ -6,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Picture from '../components/Picture';
 import ScaffoldContainer from '../components/ScaffoldContainer';
 import withTitle from '../components/withTitle';
+import Error from './_error';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -168,4 +170,4 @@ function About() {
   );
 }
 
-export default withTitle(About, 'About');
+export default withTitle(Error, 'About');

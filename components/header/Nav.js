@@ -173,7 +173,7 @@ function Nav(props) {
       href: '/about',
       name: 'About',
       shortName: 'About',
-      show: true,
+      show: false,
     },
     {
       href: '',
