@@ -14,6 +14,7 @@ const useStyles = makeStyles(theme => ({
     position: 'relative',
     width: '100%',
     display: 'flex',
+    overflow: 'hidden',
   },
   title: {
     margin: theme.spacing(2, 0, 2),
@@ -23,14 +24,16 @@ const useStyles = makeStyles(theme => ({
     },
   },
   categoryShape: {
-    width: 224,
+    width: 314,
+    height: 'auto',
     position: 'absolute',
-    top: 0,
-    right: 0,
+    top: -100,
+    right: -90,
   },
   shapeContainer: {
     position: 'relative',
-    marginLeft: theme.spacing(12),
+    zIndex: 2,
+    overflow: 'hidden',
   },
   headerContent: {
     marginTop: theme.spacing(12),
@@ -53,7 +56,7 @@ export default function ActivityHeader(props) {
     <div className={classes.root}>
       <ScaffoldContainer className={classes.headerContent}>
         <Divider variant="fullWidth" className={classes.divider} />
-        <Typography variant="body2" style={{ color: categoryColor, fontWeight: 600 }}>
+        <Typography variant="h6" style={{ color: categoryColor, fontWeight: 600 }}>
           {categoryLabel}
         </Typography>
         <Typography variant="h1" className={classes.title}>
@@ -61,7 +64,6 @@ export default function ActivityHeader(props) {
         </Typography>
         <MilestoneTag color={categoryColor} type={milestoneType} label={milestoneLabel} />
       </ScaffoldContainer>
-
       <JobSearchShape jobSearchCategory={categoryType} className={classes.categoryShape} />
     </div>
   );

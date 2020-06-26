@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(theme => ({
   root: {
+    fontSize: 20,
     marginBottom: theme.spacing(3),
     whiteSpace: 'pre-wrap',
     display: 'block',

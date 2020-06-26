@@ -35,6 +35,9 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.common.white,
     marginRight: theme.spacing(3),
   },
+  text: {
+    fontSize: 20,
+  },
 }));
 
 function Callout({ content, variant }) {
@@ -56,7 +59,9 @@ function Callout({ content, variant }) {
   return (
     <div className={clsx(classes.root, variant === 'next' && classes.next)}>
       <div className={classes.icon}>{calloutIcon()}</div>
-      <Typography variant="body1">{content}</Typography>
+      <Typography variant="body1" className={classes.text}>
+        {content}
+      </Typography>
     </div>
   );
 }
