@@ -76,6 +76,8 @@ export default function ActivityTemplate(props) {
   const categoryType = JOB_SEARCH_CATEGORIES.find(cat => cat.slug === category);
   const milestoneType = MILESTONE_TYPES.find(ms => ms.slug === milestone);
 
+  const showCitations = citations.content.filter(citation => citation.label !== null).length > 0;
+
   const whatAndWhySection = useRef(null);
   const tipsForSuccessSection = useRef(null);
   const examplesSection = useRef(null);
@@ -164,7 +166,7 @@ export default function ActivityTemplate(props) {
         onComplete={() => handleComplete()}
         backgroundColor="#f5fafe"
       />
-      <Section sectionData={citations} />
+      {showCitations && <Section sectionData={citations} />}
     </div>
   );
 }
