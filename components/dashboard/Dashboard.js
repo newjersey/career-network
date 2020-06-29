@@ -472,7 +472,7 @@ export default function Dashboard(props) {
               authorizedFlags={['activityTemplate']}
               renderOn={() => (
                 <Typography variant="h5" className={classes.subtitle} data-intercom="task-count">
-                  Top {allActivityTemplates.length} Activities
+                  Recommended Activities
                 </Typography>
               )}
               renderOff={() => (
@@ -524,7 +524,7 @@ export default function Dashboard(props) {
                   <CardHeader
                     title={
                       <Typography component="h2" variant="h6" data-intercom="activity-title">
-                        Recent Actions
+                        Action Log
                       </Typography>
                     }
                     disableTypography
@@ -546,7 +546,7 @@ export default function Dashboard(props) {
                 <Card variant="outlined" className={classes.card}>
                   <CardContent className={classes.cardContent}>
                     <Typography variant="h6" gutterBottom>
-                      Activity Log
+                      Log an Activity
                     </Typography>
                     <Typography variant="body1" gutterBottom>
                       Our research suggests jobseekers who track their progress land their next role

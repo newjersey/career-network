@@ -101,7 +101,7 @@ export default function ProgressFeed(props) {
               data-intercom="all-progress-button"
               fullWidth
             >
-              View All Actions
+              View All Activities
             </Button>
           </NextLink>
         </Box>
