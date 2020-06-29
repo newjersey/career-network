@@ -6,7 +6,6 @@ import Grid from '@material-ui/core/Grid';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import ClassIcon from '@material-ui/icons/Class';
-import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import PhoneInTalkIcon from '@material-ui/icons/PhoneInTalk';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
@@ -30,13 +29,7 @@ const useStyles = makeStyles(theme => ({
   },
   itemContainer: {
     display: 'flex',
-    alignItems: 'center',
     marginTop: theme.spacing(4),
-  },
-  itemLabel: {
-    color: theme.palette.background.dark,
-    fontSize: '1rem',
-    fontWeight: 500,
   },
   iconContainer: {
     borderRadius: '50%',
@@ -76,17 +69,10 @@ const TOPIC_TYPES = [
 const MILESTONE_TYPES = [
   {
     value: 'cover-letter',
-    label: 'Cover Letter',
+    label: 'Cover Letter and Other Information',
     description:
-      'Many job postings require applicants to include a cover letter. This letter is your chance to tell the employer why you’re a great fit for the specific job and company.',
+      'Many job postings require applicants to provide more than just your work history. Supporting information could include a cover letter, list of references, or even a portfolio, depending on the role',
     icon: ClassIcon,
-  },
-  {
-    value: 'references',
-    label: 'References',
-    description:
-      'Before you’re hired, most companies will want to talk to people about your skills and relevant experience. Learn how to choose your references carefully.',
-    icon: RecordVoiceOverIcon,
   },
   {
     value: 'resume',
@@ -119,6 +105,11 @@ export default function ApplyForJob({ scrollToRef }) {
             </Typography>
           </Grid>
           <Grid item container xs={12} sm={6}>
+            <Box mb={2}>
+              <Typography variant="h5">
+                Stand out in the job market by telling your story effectively.
+              </Typography>
+            </Box>
             <Typography variant="body1">
               The exact steps you take to apply for a job will be different depending on the type of
               job you’re applying for. But there are some tips and tricks that will help in just
@@ -137,7 +128,7 @@ export default function ApplyForJob({ scrollToRef }) {
               </Box>
             ))}
 
-            <Box mt={8}>
+            <Box mt={10}>
               <SectionHeader gutterBottom>Milestones to Measure Progress</SectionHeader>
               <Typography variant="body1">
                 One thing we’ve heard from job seekers is that it’s hard to feel like you’re making
@@ -152,10 +143,10 @@ export default function ApplyForJob({ scrollToRef }) {
                 <Box key={milestone.value} className={classes.itemContainer}>
                   <milestone.icon className={classes.iconContainer} />
                   <Box ml={3}>
-                    <Typography className={classes.itemLabel} variant="h6" gutterBottom>
+                    <Typography variant="h5" gutterBottom>
                       {milestone.label}
                     </Typography>
-                    <Typography variant="body2" gutterBottom>
+                    <Typography variant="body1" gutterBottom>
                       {milestone.description}
                     </Typography>
                   </Box>
