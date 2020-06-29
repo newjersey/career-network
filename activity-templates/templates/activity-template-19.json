@@ -1,0 +1,102 @@
+{
+  "original": "ActivityTemplate_1593202501749.json",
+  "slug": "activity-template-19",
+  "tempateId": "template-19",
+  "title": "Practice Meditation",
+  "category": "health",
+  "milestone": "stress-management-practices",
+  "total_time": "10 min",
+  "sections": [
+    {
+      "name": "What & Why",
+      "slug": "what-and-why",
+      "content": [
+        {
+          "component": "text",
+          "content": "Um, meditation?\nIf the suggestion to meditate seems out of place, hear us out a bit. While meditating won’t get you a job interview, it can help your state of mind. And when you feel better, it’s easier to keep doing the things you need to do for yourself and your family.\n\nBenefits of meditation\nMeditation can help calm your mind and body, improving your ability to manage stress. Other benefits may include reducing negative emotions, boosting creativity, and gaining fresh perspective. (Source: Mayo Clinic)"
+        },
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": "There are different types of meditation, but they usually have these 4 things in common: (Source: NCCIH)",
+          "items": [
+            "A quiet place with as few distractions as possible",
+            "A comfortable position, whether it’s walking, lying down, or sitting",
+            "Intentional focus on something like breathing, a short saying (mantra), or a part of the body",
+            "An attitude of self-acceptance and patience"
+          ]
+        },
+        {
+          "component": "text",
+          "content": "Remember that if one type of meditation isn’t for you, there are plenty of others to explore. \n\nThe benefits — particularly when you’re going through an uncertain or stressful time — can be worth the effort."
+        }
+      ]
+    },
+    {
+      "name": "Tips for Success",
+      "slug": "tips-for-success",
+      "content": [
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": null,
+          "items": [
+            "Start small. Try meditating for just 2 to 5 minutes at first.",
+            "Choose a comfortable position. There’s no single “right” position for meditation. Find what’s comfortable for you.",
+            "Accept that your mind will wander. Let thoughts come and go without judging them. Gently bring your attention back to the present moment.",
+            "Try guided meditation. In a guided meditation, someone else talks you through what to do while you meditate. Some people find this a helpful way to get started, and there are free guided meditations online and in the app store.",
+            "Give it time. Like any new skill, meditation takes practice. It’s normal to be fidgety or to have trouble focusing when you’re just starting out."
+          ]
+        }
+      ]
+    },
+    { "name": "Examples", "slug": "examples", "content": [] },
+    {
+      "name": "Practice",
+      "slug": "practice",
+      "content": [
+        {
+          "component": "text",
+          "content": "There’s no need to get fancy. You can try a simple meditation right here, right now. Read the instructions below, then give it a go.\n\n1. Set a timer for 2 minutes. \n2. Find a comfortable position. \n3. Take a deep breath in through your nose, filling your belly. \n4. Hold it for a count of 3. \n5. Slowly let your breath out, feeling your body relax. \n6. Repeat until you hear the timer."
+        },
+        {
+          "component": "practice_question_group",
+          "questions": [
+            {
+              "questionId": "template-19-q-1",
+              "order": 1,
+              "title": "Write down how you feel after doing that brief meditation:"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Citations",
+      "slug": "citations",
+      "content": [
+        {
+          "component": "citation",
+          "label": "Mayo Clinic: Benefits of meditation",
+          "url": "https://www.mayoclinic.org/tests-procedures/meditation/in-depth/meditation/art-20045858"
+        },
+        {
+          "component": "citation",
+          "label": "NCCIH: Common components of meditation",
+          "url": "https://www.nccih.nih.gov/health/meditation-in-depth"
+        }
+      ]
+    },
+    {
+      "name": "Next Steps",
+      "slug": "next-steps",
+      "content": [
+        {
+          "component": "callout",
+          "variant": "next",
+          "content": "Try out a few different meditations to see what you like best. We recommend repeating each one for at least a few days."
+        }
+      ]
+    }
+  ]
+}

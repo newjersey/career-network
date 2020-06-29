@@ -77,6 +77,7 @@ export default function ActivityTemplate(props) {
   const milestoneType = MILESTONE_TYPES.find(ms => ms.slug === milestone);
 
   const showCitations = citations.content.filter(citation => citation.label !== null).length > 0;
+  const showExamples = examples && examples.content && examples.content.length > 0;
 
   const whatAndWhySection = useRef(null);
   const tipsForSuccessSection = useRef(null);
@@ -152,7 +153,7 @@ export default function ActivityTemplate(props) {
       </Box>
       <Section sectionData={whatAndWhy} scrollToRef={whatAndWhySection} />
       <Section sectionData={tipsForSuccess} scrollToRef={tipsForSuccessSection} />
-      {examples && <Section sectionData={examples} scrollToRef={examplesSection} />}
+      {showExamples && <Section sectionData={examples} scrollToRef={examplesSection} />}
       <Section
         sectionData={practiceData}
         templateSlug={slug}

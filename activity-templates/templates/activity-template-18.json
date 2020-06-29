@@ -1,0 +1,130 @@
+{
+  "original": "ActivityTemplate_1593201859991.json",
+  "slug": "activity-template-18",
+  "tempateId": "template-18",
+  "title": "Complete My Draft Resume",
+  "category": "applying-for-jobs",
+  "milestone": "resume",
+  "total_time": "45 min",
+  "sections": [
+    {
+      "name": "What & Why",
+      "slug": "what-and-why",
+      "content": [
+        {
+          "component": "text",
+          "content": "Many job postings will ask for your resume — a document that summarizes your skills, experiences, and education in one place. And even if you don’t need an official resume for your industry, it can still be useful to draft a document that has your key information. \n\nThis activity is focused on putting together a complete resume draft. If you haven’t updated your resume in a while — or if this is your very first one — we suggest completing these other activities first:"
+        },
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": null,
+          "items": [
+            "Write My Summary of Qualifications — Get tips to help you write a memorable introduction",
+            "Draft My Accomplishment Statements — Practice turning job responsibilities into statements that recruiters are more likely to notice"
+          ]
+        },
+        {
+          "component": "text",
+          "content": "Putting your best foot forward\nResumes can be formatted differently to highlight the sections that are most important for you. For example, a recent graduate may want to place education at the top of their resume. Other people may want to highlight relevant job experience first. \n\nTo show your most relevant experience, you will likely need to customize your resume for different job applications. But it’s a good idea to have a master resume that you can use as a starting point for each application."
+        }
+      ]
+    },
+    {
+      "name": "Tips for Success",
+      "slug": "tips-for-success",
+      "content": [
+        {
+          "component": "list",
+          "heading": "The Basics",
+          "subheading": "If staring at a blank page feels overwhelming, you’re not alone. There are many tools to help you!",
+          "items": [
+            "Start with a template. You can find many templates online. If you need help figuring out what to include in your resume, look on sites like myperfectresume.com. Or if you want to update your resume to a prettier layout, you can find free templates on canva.com or rxresu.me.",
+            "Limit it to 1-2 pages. A hiring manager spends an estimated 6 seconds on your resume before marking it “yes” or “no.”  (Source: Glassdoor) Be selective, and keep the most relevant content at the very top.",
+            "Make the formatting easy to read. Use at least a size 11 font, and include plenty of space between sections. Large blocks of text crammed together can be overwhelming.",
+            "Include your LinkedIn profile. Create a professional LinkedIn profile (find our tips in the Professional Network milestone) and include a link at the top of your resume. When you edit your profile on LinkedIn, you can customize the URL to make it look cleaner.",
+            "Include a Gmail address. AOL, Hotmail, and Yahoo email addresses can suggest to employers that you are less tech-savvy.",
+            "Be honest. Employers verify work history through references and background checks, so lying in a resume will likely come back to hurt you."
+          ]
+        },
+        {
+          "component": "list",
+          "heading": "How to List Unfinished Schooling",
+          "subheading": "Whether or not you have a degree, coursework counts! There are lots of reasons why people don’t finish — or haven’t finished yet — and employers still want to know what you’ve studied.",
+          "items": [
+            "If you completed some school but never graduated, you can still mention the school name under your “Education” section. You could also add “Completed [x] credits toward a [x degree].”",
+            "If you’re planning to graduate, list your school name, degree program (if applicable), and your expected graduation date."
+          ]
+        },
+        {
+          "component": "list",
+          "heading": "How to Format If You Have Little or No Job Experience",
+          "subheading": null,
+          "items": [
+            "Volunteering counts as experience. You can add volunteer roles under your “Experience” section, or you can add a separate “Volunteer Experience” section. Either way, explain what your role was and what impact you had.",
+            "Highlight educational accomplishments. Consider adding a “Projects” or “Relevant Coursework” section to explain some of your educational contributions."
+          ]
+        },
+        {
+          "component": "list",
+          "heading": "Tips for Online Applications",
+          "subheading": "If you submit your resume in an online application, there’s a good chance a computer will read it before a human does.   Many employers use a tool called an applicant tracking system (ATS). This software scans and ranks applicants and weeds out the least relevant resumes. Here are some tips for getting your resume past the digital gatekeepers.",
+          "items": [
+            "Use keywords. Study the job posting you’re applying to. What skills and qualities are they looking for? Which keywords stand out? If any of those apply to you, include them in your resume.",
+            "Use the right format. Your options for a resume are generally PDF or Word Doc (docx). PDFs are great at keeping your resume intact and nice looking. However, Word Docs are generally a safer bet for ATS. If the directions say a PDF is OK, then you can use a PDF."
+          ]
+        }
+      ]
+    },
+    { "name": "Examples", "slug": "examples", "content": [] },
+    {
+      "name": "Practice",
+      "slug": "practice",
+      "content": [
+        {
+          "component": "text",
+          "content": "Most of your practice can take place as you draft the resume in a template. But these prompts can help you get organized. Skip any that aren’t relevant for you."
+        },
+        {
+          "component": "practice_question_group",
+          "questions": [
+            {
+              "questionId": "template-18-q-1",
+              "order": 1,
+              "title": "Here are the jobs I’m going to include in my resume, along with the dates of employment:"
+            },
+            { "questionId": "template-18-q-2", "order": 2, "title": "My relevant volunteer work:" },
+            {
+              "questionId": "template-18-q-3",
+              "order": 3,
+              "title": "My training, certifications, and education:"
+            },
+            { "questionId": "template-18-q-4", "order": 4, "title": "My job-related skills:" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Citations",
+      "slug": "citations",
+      "content": [
+        {
+          "component": "citation",
+          "label": "Glassdoor: Average time a recruiter will spend looking at each resume",
+          "url": "https://www.glassdoor.com/blog/scanning-resumes/"
+        }
+      ]
+    },
+    {
+      "name": "Next Steps",
+      "slug": "next-steps",
+      "content": [
+        {
+          "component": "callout",
+          "variant": "next",
+          "content": "Find a resume template or layout that works best for you based on where you are in your career. Fill in your job history, education, and skills. If you completed our other resume activities, don’t forget to pull in your work from those."
+        }
+      ]
+    }
+  ]
+}

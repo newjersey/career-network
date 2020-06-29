@@ -1,0 +1,137 @@
+{
+  "original": "ActivityTemplate_1593203830315.json",
+  "slug": "activity-template-20",
+  "tempateId": "template-20",
+  "title": "List My Coping Strategies",
+  "category": "health",
+  "milestone": "stress-management-practices",
+  "total_time": "10 min",
+  "sections": [
+    {
+      "name": "What & Why",
+      "slug": "what-and-why",
+      "content": [
+        {
+          "component": "text",
+          "content": "oping strategies are how we deal with the situation when things aren’t going well. Some of these strategies — like talking to an understanding friend — help us. And others — like overeating or ignoring a problem — can actually make things worse.\n\nBenefits of healthy coping skills\nHealthy coping skills help you feel better in the moment. But they can also help you bounce back more quickly when things go wrong — meaning that coping skills make you more resilient in the long run.\n\nRight now, we’re all facing a lot of uncertainty and added stress during the pandemic. If you’re also out of work, as many people are, that can make this national time of uncertainty even more challenging. \n\nPlanning ahead\nWhen we’re feeling stressed, it can be hard to think of what to do for ourselves. So today we’re going to focus on healthy coping strategies. \n\nYou’ll have the opportunity to think about the actions that help you cope and make a list to keep handy."
+        }
+      ]
+    },
+    {
+      "name": "Tips for Success",
+      "slug": "tips-for-success",
+      "content": [
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": null,
+          "items": [
+            "Go for variety. The same coping strategy won’t work for every situation. Be creative to give yourself options.",
+            "Focus on self-care. If an activity helps you feel better in the moment but worse afterwards — like watching too much TV or drinking too much alcohol — don’t add it to your list. Stay focused on the positive strategies for this activity.",
+            "Keep it simple. Make sure to include some shorter activities that fit into your daily routine.",
+            "Look for inspiration. If you get stuck, ask other people what helps them. Or read about coping strategies online."
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Examples",
+      "slug": "examples",
+      "content": [
+        {
+          "component": "text",
+          "content": "Here are some of the different categories of coping strategies, along with some examples."
+        },
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": "Find a distraction to take your mind off what’s upsetting you.",
+          "items": ["Read a book.", "Write in a journal.", "Play a game."]
+        },
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": "Connect with other people.",
+          "items": [
+            "Call a friend.",
+            "Volunteer to shop for an older neighbor.",
+            "Spend some time with family (or even a pet!)."
+          ]
+        },
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": "Do something spiritual.",
+          "items": ["Try meditating.", "Say a prayer.", "Spend time in nature."]
+        },
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": "Release some tension.",
+          "items": [
+            "Read or watch something that makes you laugh.",
+            "Get some exercise.",
+            "Have a good cry."
+          ]
+        },
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": "Try a different perspective.",
+          "items": [
+            "Write a list of things you’re grateful for.",
+            "Practice a growth mindset.",
+            "Use positive self talk."
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Practice",
+      "slug": "practice",
+      "content": [
+        {
+          "component": "text",
+          "content": "Take a few minutes to brainstorm each of the lists below."
+        },
+        {
+          "component": "practice_question_group",
+          "questions": [
+            {
+              "questionId": "template-20-q-1",
+              "order": 1,
+              "title": "Activities that help me feel better:"
+            },
+            {
+              "questionId": "template-20-q-2",
+              "order": 2,
+              "title": "Activities that take my mind off of things:"
+            },
+            { "questionId": "template-20-q-3", "order": 3, "title": "Hobbies that I enjoy:" },
+            {
+              "questionId": "template-20-q-4",
+              "order": 4,
+              "title": "Things that help me get new perspective:"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Citations",
+      "slug": "citations",
+      "content": [{ "component": "citation", "label": null, "url": null }]
+    },
+    {
+      "name": "Next Steps",
+      "slug": "next-steps",
+      "content": [
+        {
+          "component": "callout",
+          "variant": "next",
+          "content": "Print out your list or copy and paste it into an email to yourself. Keep it somewhere you can find it when you need to, and remember to add to it as you think of new things."
+        }
+      ]
+    }
+  ]
+}
