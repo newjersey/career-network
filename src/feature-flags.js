@@ -32,6 +32,10 @@ const envConfigs = {
       name: 'landingPage',
       isActive: false,
     },
+    {
+      name: 'milestonePages',
+      isActive: false,
+    },
   ],
   PREVIEW: [
     {
@@ -64,6 +68,10 @@ const envConfigs = {
     },
     {
       name: 'landingPage',
+      isActive: true,
+    },
+    {
+      name: 'milestonePages',
       isActive: true,
     },
   ],
