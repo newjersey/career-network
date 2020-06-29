@@ -1,0 +1,141 @@
+{
+  "original": "ActivityTemplate_1593204672601.json",
+  "slug": "activity-template-21",
+  "tempateId": "template-21",
+  "title": "Jot Down Your Interview Stories",
+  "category": "applying-for-jobs",
+  "milestone": "interviewing-skills",
+  "total_time": "15 min",
+  "sections": [
+    {
+      "name": "What & Why",
+      "slug": "what-and-why",
+      "content": [
+        {
+          "component": "text",
+          "content": "When you answer interview questions, it’s helpful to offer specific examples to back up your answers. For example, if you’re making the point that you’re great with customers, tell a short story about a time you saved the day with an unhappy customer.\n\nWhile interview questions will vary based on industry and job role, there are some common interview themes that pop up across the board."
+        },
+        {
+          "component": "list",
+          "heading": "Common interview themes",
+          "subheading": "Here are some of the themes to think about when you put your stories together:",
+          "items": [
+            "How you work on a team",
+            "Your leadership style",
+            "What you’ve learned from making a mistake",
+            "Your approach to handling a conflict at work",
+            "How you cope with stressful situations"
+          ]
+        },
+        { "component": "text", "content": "Let’s take a look at tips for choosing useful stories." }
+      ]
+    },
+    {
+      "name": "Tips for Success",
+      "slug": "tips-for-success",
+      "content": [
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": null,
+          "items": [
+            "Look for simple examples. You won’t have time during an interview to provide a complicated backstory. Try to find anecdotes that don’t require a lot of context to get the main point across.",
+            "Focus on positive outcomes. You’ll probably be asked to give some examples that don’t make you look good to start. The key is to be choosey — think of situations where you learned from a relatively minor mistake or where you were able to recover quickly from a setback.",
+            "Play up your personality. Is diplomacy one of your best qualities? Are you known for your sense of humor? Choose stories that can also help interviewers get to know you better.",
+            "Make it memorable. The best stories will have an unexpected twist. Think about how you could surprise an interviewer and make a lasting, positive impression."
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Examples",
+      "slug": "examples",
+      "content": [
+        {
+          "component": "text",
+          "content": "Here are 2 examples of how to use stories to answer interview questions."
+        },
+        { "component": "text", "content": "Tell us about how you faced a challenge at work." },
+        {
+          "component": "callout",
+          "variant": "quote",
+          "content": "“In my last job, we were facing a tough deadline and my boss was out for the day. Our client was expecting a project to be delivered by 5PM, but we were far behind schedule. I took the lead on the project, delegated tasks to the four other team members in a way that I thought would utilize everyone’s strengths best. And then I re-organized my own personal tasks so I could dedicate my entire day to contributing to this project as well. The project was a success and we delivered the work on-time. I went on to lead more projects after that, and used what I learned to be a better project manager.” (Source: Career Sidekick)"
+        },
+        { "component": "text", "content": "Tell me about a time you failed." },
+        {
+          "component": "callout",
+          "variant": "quote",
+          "content": "“In my most recent position, I had recently been promoted to Supervisor, and was managing the department on my own right before the department closed. An employee was acting out and I confronted him in front of everybody. It made the situation worse and caused a lot of distraction for every employee on the floor. I failed to lead properly in this situation, and spoke to my manager the next day to discuss what I could have done differently. We both agreed that I should have handled this in-private with the employee, by asking them to step inside my office with me. If I had done this instead of reacting the way I did, the situation would have turned out much better. From that point onward, I am always conscious of whether a discussion with a team member should occur in public or behind closed doors, and it made me a better leader.” (Source: Career Sidekick)"
+        }
+      ]
+    },
+    {
+      "name": "Practice",
+      "slug": "practice",
+      "content": [
+        {
+          "component": "text",
+          "content": "Do a quick brainstorm of the stories you could tell for each of these themes. Don’t worry about actually telling the story yet. This activity is to help you identify some options for developing into stories later."
+        },
+        {
+          "component": "practice_question_group",
+          "questions": [
+            {
+              "questionId": "template-21-q-1",
+              "order": 1,
+              "title": "Accomplishments I’m proud of:"
+            },
+            {
+              "questionId": "template-21-q-2",
+              "order": 2,
+              "title": "Mistakes I’ve made and learned from:"
+            },
+            { "questionId": "template-21-q-3", "order": 3, "title": "How I’ve shown leadership:" },
+            {
+              "questionId": "template-21-q-4",
+              "order": 4,
+              "title": "My ways of handling stress at work:"
+            },
+            {
+              "questionId": "template-21-q-5",
+              "order": 5,
+              "title": "Times I’ve been part of a team:"
+            },
+            {
+              "questionId": "template-21-q-6",
+              "order": 6,
+              "title": "When I’ve solved a tough problem:"
+            },
+            {
+              "questionId": "template-21-q-7",
+              "order": 7,
+              "title": "Are there any other stories you’d like to work into an interview? Write them down, along with what you’d like to highlight in the example."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Citations",
+      "slug": "citations",
+      "content": [
+        {
+          "component": "citation",
+          "label": "Career Sidekick: Sample interview questions and answers",
+          "url": "https://careersidekick.com/what-to-say-in-a-job-interview-questions-and-answers/"
+        }
+      ]
+    },
+    {
+      "name": "Next Steps",
+      "slug": "next-steps",
+      "content": [
+        {
+          "component": "callout",
+          "variant": "next",
+          "content": "When you’re happy with the list of possible stories, you’re ready to move on to preparing to tell each of them. Check out the activity on the STAR interview method to get started."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,150 @@
+{
+  "original": "ActivityTemplate_1593201197326.json",
+  "slug": "activity-template-17",
+  "tempateId": "template-17",
+  "title": "Draft My Accomplishment Statements",
+  "category": "applying-for-jobs",
+  "milestone": "resume",
+  "total_time": "45 min",
+  "sections": [
+    {
+      "name": "What & Why",
+      "slug": "what-and-why",
+      "content": [
+        {
+          "component": "text",
+          "content": "Accomplishment statements are the foundation of a strong resume. \n\nUnder each of your previous jobs, you’ll include a brief description of your role and responsibilities. To catch the attention of recruiters, turn these descriptions into statements that emphasize your impact and achievements."
+        },
+        {
+          "component": "list",
+          "heading": "Turning a job responsibility into an accomplishment statement",
+          "subheading": "Here’s an example of the difference between a basic job responsibility and a strong accomplishment statement:",
+          "items": [
+            "Job responsibility: “Trained new employees”",
+            "Accomplishment statement: “Trained more than 20 employees in one year, resulting in faster service and increased customer satisfaction.”"
+          ]
+        },
+        {
+          "component": "text",
+          "content": "In this activity, you’ll have a chance to practice writing your own statements."
+        }
+      ]
+    },
+    {
+      "name": "Tips for Success",
+      "slug": "tips-for-success",
+      "content": [
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": null,
+          "items": [
+            "Include at least 2 bullet points with accomplishment statements under each job experience.",
+            "Use keywords from job postings. Pay attention to what recruiters are looking for in job applicants, and work these into your statements.",
+            "Use strong action words. Start each accomplishment with a strong verb and end with a positive outcome.",
+            "Check your verb tense. Use present tense verbs for current jobs and past tense verbs for previous jobs. For example, in your current job, you “work on a team of 6” and in your last job, you “worked on a team of 3.”",
+            "Include numbers. When you can, back up your accomplishments with numbers. For example, how big was the budget you managed? How many customers did you help in a month?"
+          ]
+        },
+        {
+          "component": "callout",
+          "variant": "pro-tip",
+          "content": "If you’re light on job experience, remember that volunteering counts, too. You can add volunteer-related accomplishment statements under work experience or in a separate section."
+        }
+      ]
+    },
+    {
+      "name": "Examples",
+      "slug": "examples",
+      "content": [
+        {
+          "component": "list",
+          "heading": "Accomplishment statements from a waiter’s resume (Source: Monster.com)",
+          "subheading": null,
+          "items": [
+            "Thrived within high-volume environments, serving up to 275 guests per shift.",
+            "Routinely ranked in the top 3 amongst all wait staff at multiple venues for the highest ticket averages.",
+            "Upsold customers effectively (e.g., premium bar brands, appetizers and desserts) and optimized table-turns; outperformed wait staff average sales by up to 15%."
+          ]
+        },
+        {
+          "component": "list",
+          "heading": "Accomplishment statements from a bank teller’s resume (Source: Monster.com)",
+          "subheading": null,
+          "items": [
+            "Build rapport with customers, displaying friendly, attentive service in all interactions.",
+            "Educate customers on online service offerings and mobile apps. Help account holders access technology to enhance banking convenience via multiple self-service channels.",
+            "Earned “Employee Ace” award for going above and beyond in assisting teammates and customers."
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Practice",
+      "slug": "practice",
+      "content": [
+        {
+          "component": "text",
+          "content": "Take a few minutes and jot down your ideas for each of these prompts. Don’t overthink it — you’ll have a chance to edit in the last section."
+        },
+        {
+          "component": "practice_question_group",
+          "questions": [
+            {
+              "questionId": "template-17-q-1",
+              "order": 1,
+              "title": "Here are up to 4 current or previous jobs I want to start with:"
+            },
+            {
+              "questionId": "template-17-q-2",
+              "order": 2,
+              "title": "For each of these jobs, here’s how I contributed: \n(Start with an action word like led, launched, managed, trained, coordinated, etc.)"
+            },
+            {
+              "questionId": "template-17-q-3",
+              "order": 3,
+              "title": "For each of these jobs, here’s at least one of my accomplishments: \n(Start with an action word like won, earned, ranked, etc.)"
+            },
+            {
+              "questionId": "template-17-q-4",
+              "order": 4,
+              "title": "This is the impact I had in each role: \n(Start with an action word like increased, reduced, streamlined, launched, organized, etc.)"
+            },
+            {
+              "questionId": "template-17-q-5",
+              "order": 5,
+              "title": "Now use your work above to draft at least 2 accomplishment statements for each of the jobs:"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Citations",
+      "slug": "citations",
+      "content": [
+        {
+          "component": "citation",
+          "label": "Monster.com: Examples of accomplishment statements for waiter",
+          "url": "https://www.monster.com/career-advice/article/waitress-resume-sample"
+        },
+        {
+          "component": "citation",
+          "label": "Monster.com: Example of accomplishment statements for bank teller",
+          "url": "https://www.monster.com/career-advice/article/bank-teller-resume-sample"
+        }
+      ]
+    },
+    {
+      "name": "Next Steps",
+      "slug": "next-steps",
+      "content": [
+        {
+          "component": "callout",
+          "variant": "next",
+          "content": "Now that you have some accomplishment statements, you can add them to your resume. If you don’t have a resume yet, check out the activity on completing a draft resume."
+        }
+      ]
+    }
+  ]
+}
