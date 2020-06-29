@@ -1,7 +1,10 @@
 import { makeStyles } from '@material-ui/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import PropTypes from 'prop-types';
+import { Flags } from 'react-feature-flags';
+import NextLink from 'next/link';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -46,11 +49,16 @@ const useStyles = makeStyles(theme => ({
     boxShadow: '0 8px 12px 0 rgba(0, 0, 0, 0.04)',
     color: JOB_SEARCH_BASICS_TYPES.search.color,
   },
+  link: {
+    fontWeight: 700,
+    color: theme.palette.text.secondary,
+  },
 }));
 
 const MILESTONE_TYPES = [
   {
     value: 'professional-network',
+    milestoneLink: `milestones/professional-network`,
     label: 'Professional Network',
     description:
       'Your professional network includes anyone who can speak to your good qualities and connect you with opportunities. We’ll show you how to develop this network into a powerful tool for job hunting.',
@@ -134,6 +142,13 @@ export default function FindingJob({ scrollToRef }) {
                     <Typography variant="body2" gutterBottom>
                       {milestone.description}
                     </Typography>
+                    <Flags authorizedFlags={['milestonePages']}>
+                      {milestone.milestoneLink && (
+                        <NextLink href={milestone.milestoneLink}>
+                          <Button className={classes.link}>Learn more</Button>
+                        </NextLink>
+                      )}
+                    </Flags>
                   </Box>
                 </Box>
               ))}

@@ -20,7 +20,7 @@ const SectionHeader = ({ children, classes, ...rest }) => (
 );
 
 SectionHeader.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
   classes: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
