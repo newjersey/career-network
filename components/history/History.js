@@ -35,6 +35,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2),
     fontWeight: theme.typography.fontWeightMedium,
     color: theme.palette.background.dark,
+    fontSize: '1.25rem',
   },
   calendarIconContainer: {
     marginRight: theme.spacing(1),
@@ -206,10 +207,10 @@ export default function History(props) {
         open={activeDialog.name === DIALOGS.APPLICATION_HISTORY}
       />
       <BackgroundHeader className={classes.backgroundHeader}>
-        <ScaffoldContainer className={classes.header}>
+        <ScaffoldContainer>
           <Grid container justify="center">
             <Grid item xs={12} md={9}>
-              <Typography variant="h5">All Actions</Typography>
+              <Typography variant="h3">All Actions</Typography>
             </Grid>
             <Button
               variant="contained"

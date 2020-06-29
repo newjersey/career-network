@@ -150,7 +150,7 @@ export default function ApplicationTracker({ allApplicationLogEntries }) {
     <div className={classes.root}>
       <BackgroundHeader className={classes.backgroundHeader}>
         <ScaffoldContainer className={classes.header}>
-          <Typography variant="h5">Application Tracker</Typography>
+          <Typography variant="h3">Application Tracker</Typography>
           <Button
             className={classes.button}
             variant="contained"
