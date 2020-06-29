@@ -27,6 +27,10 @@ const useStyles = makeStyles(theme => ({
     lineHeight: '3.5rem',
     textAlign: 'right',
   },
+  goal: {
+    color: '#232326',
+    marginBottom: theme.spacing(3),
+  },
   itemContainer: {
     display: 'flex',
     alignItems: 'center',
@@ -64,8 +68,8 @@ const MILESTONE_TYPES = [
     icon: FindInPageIcon,
   },
   {
-    value: 'list-wants',
-    label: 'List of Your ‘Wants’ and ‘Must Haves’',
+    value: 'job-goals',
+    label: 'Job Goals',
     description:
       'What you want and what you need may not always line up — especially if you’ve been out of work for a while. We have activities focused on helping you figure out if, where, and when to compromise.',
     icon: ReportIcon,
@@ -104,6 +108,10 @@ export default function FindingJob({ scrollToRef }) {
             </Typography>
           </Grid>
           <Grid item container xs={12} sm={6}>
+            <Typography className={classes.goal} variant="h5">
+              Expand your approach to finding jobs that match your needs and interests
+            </Typography>
+
             <Typography variant="body1">
               When you’re looking for jobs, it can be easy to get in the habit of doing the same
               things every day — whether it’s returning to the same online job boards or checking
@@ -113,7 +121,7 @@ export default function FindingJob({ scrollToRef }) {
               There are lots of things you can do to broaden your view of the possibilities. And
               many of them may be more interesting than what you’re currently doing.
             </Typography>
-            <Box mt={4}>
+            <Box mt={10}>
               <SectionHeader gutterBottom>Milestones to Measure Progress</SectionHeader>
               <Typography variant="body1">
                 One thing we’ve heard from job seekers is that it’s hard to feel like you’re making
