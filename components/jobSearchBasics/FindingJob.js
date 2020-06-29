@@ -52,7 +52,7 @@ const useStyles = makeStyles(theme => ({
 const MILESTONE_TYPES = [
   {
     value: 'professional-network',
-    milestoneLink: `milestones/professional-network`,
+    milestoneLink: `/milestones/professional-network`,
     label: 'Professional Network',
     description:
       'Your professional network includes anyone who can speak to your good qualities and connect you with opportunities. We’ll show you how to develop this network into a powerful tool for job hunting.',
@@ -144,7 +144,7 @@ export default function FindingJob({ scrollToRef }) {
                     </Typography>
                     <Flags authorizedFlags={['milestonePages']}>
                       {milestone.milestoneLink && (
-                        <NextLink href={milestone.milestoneLink}>
+                        <NextLink href="/milestones/[milestone]" as={milestone.milestoneLink}>
                           <Button className={classes.link}>Learn more</Button>
                         </NextLink>
                       )}
