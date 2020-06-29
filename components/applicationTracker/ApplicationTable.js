@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
 import TableCell from '@material-ui/core/TableCell';
@@ -77,35 +78,40 @@ function ApplicationTable({ applications, handleUpdate, openApplicationHistory }
   return (
     <div className={classes.root}>
       <Table aria-label="application-table">
-        <TableHead>
-          <TableRow className={classes.headerRow}>
-            <TableCell classes={{ head: classes.head }} className={classes.detailsCol}>
-              Details
-            </TableCell>
-            <Hidden only="xs">
+        <Hidden smDown>
+          <TableHead>
+            <TableRow className={classes.headerRow}>
+              <TableCell classes={{ head: classes.head }} className={classes.detailsCol}>
+                Details
+              </TableCell>
               <TableCell classes={{ head: classes.head }} align="left">
                 Last Update
               </TableCell>
-            </Hidden>
-            <TableCell classes={{ head: classes.head }} align="left">
-              Status
-            </TableCell>
-            <TableCell classes={{ head: classes.head }} align="left" />
-          </TableRow>
-        </TableHead>
+              <TableCell classes={{ head: classes.head }} align="left">
+                Status
+              </TableCell>
+              <TableCell classes={{ head: classes.head }} align="left" />
+            </TableRow>
+          </TableHead>
+        </Hidden>
         <TableBody>
           {rows.map(({ jobTitle, company, lastUpdate, status, id, document }) => (
             <TableRow key={id} hover onClick={event => handleClick(event, id, document)}>
               <TableCell component="th" scope="row" className={classes.firstCol}>
                 <Typography variant="body1">{jobTitle}</Typography>
                 {company && <Typography variant="body2">at {company}</Typography>}
+                <Hidden mdUp>
+                  <Box mt={2}>
+                    <StatusChip status={status} />
+                  </Box>
+                </Hidden>
               </TableCell>
-              <Hidden only="xs">
+              <Hidden smDown>
                 <TableCell align="left">{lastUpdate && formatLastUpdate(lastUpdate)}</TableCell>
+                <TableCell align="left">
+                  <StatusChip status={status} />
+                </TableCell>
               </Hidden>
-              <TableCell align="left">
-                <StatusChip status={status} />
-              </TableCell>
               <TableCell align="right">
                 <Button
                   className={classes.button}
