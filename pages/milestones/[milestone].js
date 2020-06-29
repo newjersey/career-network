@@ -3,11 +3,25 @@ import path from 'path';
 import fs from 'fs';
 import PropTypes from 'prop-types';
 import { withAuthRequired } from '../../components/Auth';
+import { fullyLoaded } from '../../src/app-helper';
 import Milestone from '../../components/milestone/Milestone';
+import { useAllActivityTemplates } from '../../components/Firebase';
+import FullPageProgress from '../../components/FullPageProgress';
 import withTitle from '../../components/withTitle';
+import ActivityTemplatePropTypes from '../../components/activityTemplate/PropTypes';
 
 function MilestonePage({ milestone }) {
-  return <Milestone milestone={milestone} />;
+  const allTemplates = useAllActivityTemplates();
+
+  const activityTemplates = allTemplates.filter(
+    template => template.category === milestone.category
+  );
+
+  return fullyLoaded(allTemplates) ? (
+    <Milestone milestone={milestone} activityTemplates={activityTemplates} />
+  ) : (
+    <FullPageProgress />
+  );
 }
 
 export async function getStaticPaths() {
@@ -37,6 +51,8 @@ export async function getStaticProps({ params }) {
 MilestonePage.propTypes = {
   milestone: PropTypes.shape({
     title: PropTypes.string,
+    slug: ActivityTemplatePropTypes.milestoneSlug.isRequired,
+    category: ActivityTemplatePropTypes.jobCategorySlug.isRequired,
   }).isRequired,
 };
 

@@ -1,4 +1,17 @@
 {
   "slug": "professional-network",
-  "title": "Professional Network"
+  "category": "finding-job-opportunities",
+  "title": "Professional Network",
+  "sections": [
+    {
+      "name": "Activities",
+      "slug": "activities",
+      "content": [
+        {
+          "component": "text",
+          "content": "Choose one of these activities to get started on your Professional Network milestone:"
+        }
+      ]
+    }
+  ]
 }
