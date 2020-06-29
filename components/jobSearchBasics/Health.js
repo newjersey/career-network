@@ -26,19 +26,9 @@ const useStyles = makeStyles(theme => ({
     lineHeight: '3.5rem',
     textAlign: 'right',
   },
-  goal: {
-    color: '#232326',
-    marginBottom: theme.spacing(3),
-  },
   itemContainer: {
     display: 'flex',
-    alignItems: 'center',
     marginTop: theme.spacing(4),
-  },
-  itemLabel: {
-    color: theme.palette.background.dark,
-    fontSize: '1rem',
-    fontWeight: 500,
   },
   iconContainer: {
     borderRadius: '50%',
@@ -85,7 +75,7 @@ const MILESTONE_TYPES = [
   },
   {
     value: 'staying-motivated',
-    label: 'Staying motivated',
+    label: 'Staying Motivated',
     description:
       'Finding the right job for you can take time. We’ll give you tips for staying motivated, even when the going gets tough.',
     icon: HighlightIcon,
@@ -114,10 +104,12 @@ export default function Health({ scrollToRef }) {
             </Typography>
           </Grid>
           <Grid item container xs={12} sm={6}>
-            <Typography className={classes.goal} variant="h5">
-              To stay healthy and motivated — because there’s a whole lot more to you than what you
-              do for work.
-            </Typography>
+            <Box mb={2}>
+              <Typography variant="h5">
+                To stay healthy and motivated — because there’s a whole lot more to you than what
+                you do for work.
+              </Typography>
+            </Box>
             <Typography variant="body1">
               Sometimes, a job search can be exciting and inspiring. But if you’re out of work or
               feeling like your options are limited, a job search can be a time of uncertainty and
@@ -155,10 +147,10 @@ export default function Health({ scrollToRef }) {
                 <Box key={milestone.value} className={classes.itemContainer}>
                   <milestone.icon className={classes.iconContainer} />
                   <Box ml={3}>
-                    <Typography className={classes.itemLabel} variant="h6" gutterBottom>
+                    <Typography variant="h5" gutterBottom>
                       {milestone.label}
                     </Typography>
-                    <Typography variant="body2" gutterBottom>
+                    <Typography variant="body1" gutterBottom>
                       {milestone.description}
                     </Typography>
                   </Box>

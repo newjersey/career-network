@@ -27,19 +27,9 @@ const useStyles = makeStyles(theme => ({
     lineHeight: '3.5rem',
     textAlign: 'right',
   },
-  goal: {
-    color: '#232326',
-    marginBottom: theme.spacing(3),
-  },
   itemContainer: {
     display: 'flex',
-    alignItems: 'center',
     marginTop: theme.spacing(4),
-  },
-  itemLabel: {
-    color: theme.palette.background.dark,
-    fontSize: '1rem',
-    fontWeight: 500,
   },
   iconContainer: {
     borderRadius: '50%',
@@ -108,9 +98,11 @@ export default function FindingJob({ scrollToRef }) {
             </Typography>
           </Grid>
           <Grid item container xs={12} sm={6}>
-            <Typography className={classes.goal} variant="h5">
-              Expand your approach to finding jobs that match your needs and interests
-            </Typography>
+            <Box mb={2}>
+              <Typography variant="h5">
+                Expand your approach to finding jobs that match your needs and interests
+              </Typography>
+            </Box>
 
             <Typography variant="body1">
               When you’re looking for jobs, it can be easy to get in the habit of doing the same
@@ -136,10 +128,10 @@ export default function FindingJob({ scrollToRef }) {
                 <Box key={milestone.value} className={classes.itemContainer}>
                   <milestone.icon className={classes.iconContainer} />
                   <Box ml={3}>
-                    <Typography className={classes.itemLabel} variant="h6" gutterBottom>
+                    <Typography variant="h5" gutterBottom>
                       {milestone.label}
                     </Typography>
-                    <Typography variant="body2" gutterBottom>
+                    <Typography variant="body1" gutterBottom>
                       {milestone.description}
                     </Typography>
                   </Box>
@@ -157,10 +149,10 @@ export default function FindingJob({ scrollToRef }) {
                 <Box key={tool.value} className={classes.itemContainer}>
                   <tool.icon className={classes.iconContainer} />
                   <Box ml={3}>
-                    <Typography className={classes.itemLabel} variant="h6" gutterBottom>
+                    <Typography className={classes.itemLabel} variant="h5" gutterBottom>
                       {tool.label}
                     </Typography>
-                    <Typography variant="body2" gutterBottom>
+                    <Typography variant="body1" gutterBottom>
                       {tool.description}
                     </Typography>
                   </Box>
