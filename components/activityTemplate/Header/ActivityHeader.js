@@ -62,7 +62,9 @@ export default function ActivityHeader(props) {
         <Typography variant="h1" className={classes.title}>
           {title}
         </Typography>
-        <MilestoneTag color={categoryColor} type={milestoneType} label={milestoneLabel} />
+        {milestoneType && (
+          <MilestoneTag color={categoryColor} type={milestoneType} label={milestoneLabel} />
+        )}
       </ScaffoldContainer>
       <JobSearchShape jobSearchCategory={categoryType} className={classes.categoryShape} />
     </div>
