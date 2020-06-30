@@ -11,17 +11,17 @@ import Highlight from '@material-ui/icons/Highlight';
 import Class from '@material-ui/icons/Class';
 import {
   RESUME,
-  PERSONAL_VALUES,
+  STAYING_MOTIVATED,
   INTERVIEWING_SKILLS,
   PROFESSIONAL_NETWORK,
   RESEARCH_SKILLS,
   COVER_LETTER,
-  LIST_STRENGTHS,
+  STRENGTHS_AND_VALUES,
   STRESS_MANAGEMENT_PRACTICES,
-  LIST_WANTS_MUST_HAVES,
   SELF_CARE_PLAN,
   SOCIAL_NETWORK,
   REFERENCES,
+  JOB_GOALS,
 } from '../../constants';
 import ActivityTemplatePropTypes from './PropTypes';
 
@@ -29,15 +29,15 @@ const MilestoneIcon = ({ type, color, className }) => {
   const milestoneIcons = {
     [INTERVIEWING_SKILLS]: <PhoneInTalk style={{ color }} className={className} />,
     [RESUME]: <FileCopy style={{ color }} className={className} />,
-    [PERSONAL_VALUES]: <FileCopy style={{ color }} className={className} />,
+    [STAYING_MOTIVATED]: <FileCopy style={{ color }} className={className} />,
     [REFERENCES]: <FileCopy style={{ color }} className={className} />,
     [PROFESSIONAL_NETWORK]: <GroupAdd style={{ color }} className={className} />,
     [SOCIAL_NETWORK]: <GroupAdd style={{ color }} className={className} />,
     [RESEARCH_SKILLS]: <FindInPage style={{ color }} className={className} />,
     [COVER_LETTER]: <Class style={{ color }} className={className} />,
-    [LIST_STRENGTHS]: <FitnessCenter style={{ color }} className={className} />,
+    [STRENGTHS_AND_VALUES]: <FitnessCenter style={{ color }} className={className} />,
     [STRESS_MANAGEMENT_PRACTICES]: <HotTub style={{ color }} className={className} />,
-    [LIST_WANTS_MUST_HAVES]: <Report style={{ color }} className={className} />,
+    [JOB_GOALS]: <Report style={{ color }} className={className} />,
     [SELF_CARE_PLAN]: <Highlight style={{ color }} className={className} />,
   };
   return milestoneIcons[type] || null;
