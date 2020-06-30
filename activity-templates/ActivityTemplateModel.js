@@ -4,7 +4,7 @@ const FINDING_JOB = 'finding-job-opportunities';
 const APPLYING_FOR_JOBS = 'applying-for-jobs';
 const TAKING_CARE = 'health';
 const RESUME = 'resume';
-const PERSONAL_VALUES = 'personal-values';
+const STAYING_MOTIVATED = 'staying-motivated';
 const INTERVIEWING_SKILLS = 'interviewing-skills';
 const PROFESSIONAL_NETWORK = 'professional-network';
 const RESEARCH_SKILLS = 'research-skills';
@@ -12,9 +12,10 @@ const LIST_WANTS_MUST_HAVES = 'list-wants-and-must-haves';
 const COVER_LETTER = 'cover-letter';
 const REFERENCES = 'references';
 const SOCIAL_NETWORK = 'social-network';
-const LIST_STRENGTHS = 'list-of-strengths';
+const STRENGTHS_AND_VALUES = 'strenths-and-values';
 const SELF_CARE_PLAN = 'self-care-plan';
 const STRESS_MANAGEMENT_PRACTICES = 'stress-management-practices';
+const SUPPORTING_INFORMATION = 'supporting-information';
 
 const JOB_SEARCH_CATEGORIES = [
   {
@@ -38,9 +39,9 @@ const MILESTONE_TYPES = [
     slug: RESUME,
   },
   {
-    name: 'Personal Values',
+    name: 'Staying Motivated',
     category_slug: TAKING_CARE,
-    slug: PERSONAL_VALUES,
+    slug: STAYING_MOTIVATED,
   },
   {
     name: 'Interviewing Skills',
@@ -78,9 +79,9 @@ const MILESTONE_TYPES = [
     slug: SOCIAL_NETWORK,
   },
   {
-    name: 'List of Strengths',
+    name: 'Strengths and Values',
     category_slug: APPLYING_FOR_JOBS,
-    slug: LIST_STRENGTHS,
+    slug: STRENGTHS_AND_VALUES,
   },
   {
     name: 'Self-Care Plan',
@@ -91,6 +92,11 @@ const MILESTONE_TYPES = [
     name: 'Stress Management Practices',
     category_slug: TAKING_CARE,
     slug: STRESS_MANAGEMENT_PRACTICES,
+  },
+  {
+    name: 'Supporting Information',
+    category_slug: APPLYING_FOR_JOBS,
+    slug: SUPPORTING_INFORMATION,
   },
 ];
 

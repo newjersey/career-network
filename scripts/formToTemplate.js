@@ -26,6 +26,7 @@ const main = async () => {
       templates[module] = require(templatePath); // eslint-disable-line import/no-dynamic-require, global-require
       console.log('Processing :', module);
       const template = new ActivityTemplateModel(templates[module], module);
+      console.log('template: ', template);
       const templateFile = `${template.slug}.json`;
 
       processTemplate(templateFile, template);
