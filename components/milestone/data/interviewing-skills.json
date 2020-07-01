@@ -1,0 +1,33 @@
+{
+    "slug": "interviewing-skills",
+    "category": "finding-job-opportunities",
+    "title": "Interviewing Skills",
+    "sections": [
+      {
+        "name": "Activities",
+        "slug": "activities",
+        "content": [
+          {
+            "component": "text",
+            "content": "Choose one of these activities to get started on your Interviewing Skills milestone:"
+          }
+        ]
+      },
+      {
+        "name": "Milestone",
+        "slug": "milestone",
+        "content": [
+          {
+            "component": "text",
+            "content": "Job interviews are an opportunity for potential employers to learn what it’d be like to have you on the team. You can also use this opportunity to find out more about the organization, the role, and what it’d be like to work there."
+          },
+          {
+            "component": "list",
+            "heading": "Preparing for interviews can help you feel more in control.",
+            "subheading": "Job interviews are an opportunity for potential employers to learn what it’d be like to have you on the team. You can also use this opportunity to find out more about the organization, the role, and what it’d be like to work there."
+          }
+        ]
+      }
+    ]
+  }
+  

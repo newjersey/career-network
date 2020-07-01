@@ -4,8 +4,7 @@ export const RESUME = 'resume';
 export const INTERVIEWING_SKILLS = 'interviewing-skills';
 export const PROFESSIONAL_NETWORK = 'professional-network';
 export const RESEARCH_SKILLS = 'research-skills';
-export const COVER_LETTER = 'cover-letter';
-export const REFERENCES = 'references';
+export const SUPPORTING_INFORMATION = 'supporting-information';
 export const SOCIAL_NETWORK = 'social-network';
 export const SELF_CARE_PLAN = 'self-care-plan';
 export const STRESS_MANAGEMENT_PRACTICES = 'stress-management-practices';
@@ -35,14 +34,9 @@ export const MILESTONE_TYPES = [
     slug: RESEARCH_SKILLS,
   },
   {
-    name: 'Cover Letter and Other Information',
+    name: 'Supporting Information',
     category_slug: APPLYING_FOR_JOBS,
-    slug: COVER_LETTER,
-  },
-  {
-    name: 'References',
-    category_slug: APPLYING_FOR_JOBS,
-    slug: REFERENCES,
+    slug: SUPPORTING_INFORMATION,
   },
   {
     name: 'Supportive Social Network',
@@ -83,8 +77,7 @@ export default {
   INTERVIEWING_SKILLS,
   PROFESSIONAL_NETWORK,
   RESEARCH_SKILLS,
-  COVER_LETTER,
-  REFERENCES,
+  SUPPORTING_INFORMATION,
   SOCIAL_NETWORK,
   STRENGTHS_AND_VALUES,
   SELF_CARE_PLAN,

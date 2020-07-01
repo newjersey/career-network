@@ -1,0 +1,38 @@
+{
+    "slug": "strenths-and-values",
+    "category": "health",
+    "title": "Strengths and Values",
+    "sections": [
+      {
+        "name": "Activities",
+        "slug": "activities",
+        "content": [
+          {
+            "component": "text",
+            "content": "Choose one of these activities to get started on your Job Goals milestone:"
+          }
+        ]
+      },
+      {
+        "name": "Milestone",
+        "slug": "milestone",
+        "content": [
+          {
+            "component": "text",
+            "content": "Let’s face it — it’s unrealistic to expect to completely avoid stress. And in fact, many positive life events are stressful, like planning an event or having a baby. The key is to learn how to manage stress effectively, not to remove it completely."
+          },
+          {
+            "component": "list",
+            "heading": "Change + uncertainty = stress.",
+            "subheading": "Change and uncertainty are common causes of both positive and negative stress. When you’re looking for a new job, you’re dealing with change and uncertainty at the same time.\n\nThat’s why we recommend setting aside some of your job search time to focus specifically on building your stress management skills."
+          },
+          {
+            "component": "list",
+            "heading":"Use routine and coping skills to manage stress.",
+            "subheading": "The good news is that there’s a lot of research on how to handle stress. The activities in this milestone will help you set a routine that includes healthy habits."
+          }
+        ]
+      }
+    ]
+  }
+  

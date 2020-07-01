@@ -61,6 +61,7 @@ const MILESTONE_TYPES = [
   {
     value: 'research-skills',
     label: 'Research Skills',
+    milestoneLink: `/milestones/research-skills`,
     description:
       'These are the skills that allow you to get creative in how you find opportunities. We’ll give you tips on how to identify companies, people, and industry sources that can help your search.',
     icon: FindInPageIcon,
@@ -68,6 +69,7 @@ const MILESTONE_TYPES = [
   {
     value: 'job-goals',
     label: 'Job Goals',
+    milestoneLink: `/milestones/job-goals`,
     description:
       'What you want and what you need may not always line up — especially if you’ve been out of work for a while. We have activities focused on helping you figure out if, where, and when to compromise.',
     icon: ReportIcon,
