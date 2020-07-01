@@ -1,4 +1,27 @@
 {
   "slug": "professional-network",
-  "title": "Professional Network"
+  "title": "Professional Network",
+  "name": "Milestone",
+  "content": [
+    {
+      "component": "text",
+      "content": "A professional network is a group of people who are connected for business or career reasons. Networking is seeking out and taking care of relationships with people who can help you achieve your goals.\n\nThe people in your network are familiar with your skills, experience, or work ethic — or they’re directly connected with someone who can speak to these things. "
+    },
+    {
+      "component": "list",
+      "heading": "An effective network is built on trust and mutual support. ",
+      "subheading": "There’s a give and take to networking, and you can expect to be on either side at different times. You could turn to your network for things like:",
+      "items": [
+        "Seeing if someone has a connection at a company you’re interested in",
+        "Finding an accountant to help with your taxes",
+        "Getting advice on whether to attend a conference",
+        "Sharing a job posting that looks like a good fit for someone you know"
+      ]
+    },
+    {
+      "component": "list",
+      "heading": "Building a strong network takes time, but it doesn’t need to be difficult.",
+      "subheading": "Even if the idea of networking makes you queasy — as it does for some of us — you’re not alone. We’re here to help you get going."
+    }
+  ]
 }
