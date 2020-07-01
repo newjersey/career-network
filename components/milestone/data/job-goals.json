@@ -22,14 +22,12 @@
             "content": "When you’re looking for a job, it’s normal to feel like a lot of things are out of your control. But there are things you can take charge of, like identifying what you want out of your work life."
           },
           {
-            "component": "list",
-            "heading": "It’s hard to get what you want when you don’t know what that is.",
-            "subheading": "The focus of these activities is to help you figure this out. What’s most important to you in a job? What tasks do you most enjoy doing? What skills or knowledge would you like to develop?\n\nThese answers won’t just help you picture the future you want. They’ll also help you speak confidently in job interviews. After all, potential employers want to know where you’re headed and how their job fits into your plans."
+            "component": "text",
+            "content": "<b>It’s hard to get what you want when you don’t know what that is.</b>\nThe focus of these activities is to help you figure this out. What’s most important to you in a job? What tasks do you most enjoy doing? What skills or knowledge would you like to develop?\n\nThese answers won’t just help you picture the future you want. They’ll also help you speak confidently in job interviews. After all, potential employers want to know where you’re headed and how their job fits into your plans."
           },
           {
-            "component": "list",
-            "heading": "When you have a vision, you can lay down the path.",
-            "subheading": "Each job you take can be a step in the right direction. For now, that step may be paying the rent. By identifying your priorities, you can make the next right decision. And you can be confident that it’s part of a plan."
+            "component": "text",
+            "content": "<b>When you have a vision, you can lay down the path.</b>\nEach job you take can be a step in the right direction. For now, that step may be paying the rent. By identifying your priorities, you can make the next right decision. And you can be confident that it’s part of a plan."
           }
         ]
       }

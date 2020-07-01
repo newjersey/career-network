@@ -9,7 +9,7 @@
         "content": [
           {
             "component": "text",
-            "content": "Choose one of these activities to get started on your Job Goals milestone:"
+            "content": "Choose one of these activities to get started on your Strengths and Values milestone:"
           }
         ]
       },
@@ -22,9 +22,8 @@
             "content": "As we’ve said before, you’re more than what you do for work. It’s important to recognize this and consider your whole self.\n\nOur character traits — like our sense of humor or honesty — are part of what make us valuable employees. While these traits may be a little harder to identify than your Microsoft Excel skills, it’s worth the effort."
           },
           {
-            "component": "list",
-            "heading": "Know what you have to offer.",
-            "subheading": "The activities here aren’t just feel-good exercises. (Although hopefully you’ll enjoy them!) When you understand your strengths and values, you’ll have more ways to highlight your unique abilities to potential employers."
+            "component": "text",
+            "content": "<b>Know what you have to offer.</b>\nThe activities here aren’t just feel-good exercises. (Although hopefully you’ll enjoy them!) When you understand your strengths and values, you’ll have more ways to highlight your unique abilities to potential employers."
           }
         ]
       }
