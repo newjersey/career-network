@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
+import ActivitiesSection from './ActivitiesSection';
 import Section from '../activityTemplate/Section';
 
 const useStyles = makeStyles(theme => ({
@@ -12,24 +13,22 @@ const useStyles = makeStyles(theme => ({
 
 export default function Milestone(props) {
   const classes = useStyles();
-  const { milestone } = props;
-
+  const { milestone, activityTemplates } = props;
+  const activitiesSection = milestone.sections.find(section => section.slug === 'activities');
+  const overviewSection = milestone.sections.find(section => section.slug === 'milestone');
   return (
     <div className={classes.root}>
-      {/* <ActivityHeader
-        categoryType={categoryType.slug}
-        categoryLabel={categoryType.name}
-        milestoneType={milestoneType.slug}
-        milestoneLabel={milestoneType.name}
-        title={title}
-      /> */}
-      <Section sectionData={milestone} />
+      <Section sectionData={overviewSection} />
+      <ActivitiesSection sectionData={activitiesSection} activityTemplates={activityTemplates} />
     </div>
   );
 }
 
 Milestone.propTypes = {
   milestone: PropTypes.objectOf(PropTypes.any).isRequired,
+  activityTemplates: PropTypes.arrayOf(PropTypes.any),
 };
 
-Milestone.defaultProps = {};
+Milestone.defaultProps = {
+  activityTemplates: [],
+};

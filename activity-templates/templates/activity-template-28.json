@@ -1,1 +1,131 @@
-{"original":"ActivityTemplate_1593464601704.json","slug":"activity-template-28","tempateId":"template-28","title":"Prepare for My Live Video Interview","category":"applying-for-jobs","milestone":"interviewing-skills","total_time":"45 min","sections":[{"name":"What & Why","slug":"what-and-why","content":[{"component":"text","content":"Live video interviews are becoming more and more common. During both in-person and video interviews, you will be answering questions from the employer or recruiter in real time. This is an opportunity for you to learn more about the role and the team and to explain why you’re the best candidate for the job.\n\nVideo interviews can come with tech challenges that could add unnecessary stress. Learn some simple tips to ensure a smooth and successful video interview."}]},{"name":"Tips for Success","slug":"tips-for-success","content":[{"component":"list","heading":"Do Your Homework","subheading":"The best way to stand out in an interview is to do your homework beforehand.","items":["Find out as much as you can about the company and the person leading the interview: What is the company’s mission? What are they known for? Has the company been in the news recently?","Plan some questions for the employer. This is also an opportunity for you to see whether or not you would be happy in this role.","Practice explaining your strengths to a friend or the mirror. Consider writing bullet points on a sticky note.","Look up questions that are unique to your industry or role. You may face more job-specific questions that you’ll want to practice beforehand."]},{"component":"list","heading":"Get Comfortable with the Technology","subheading":"Avoid last-minute tech difficulties by becoming familiar with the platform.","items":["Know which streaming service the employer wants to use (Zoom, Google Meet, Skype, etc) and do a practice call with a friend using that same service, if you can. You may need to install or update the service first.","Test the audio and webcam ideally several days before the interview, so you have time to buy or borrow necessary equipment if something is broken.","Test your internet speed directly in Google by typing in “speed test.” The results will tell you if your connection can handle video conferencing.","Use headphones with a built-in microphone, if you have them, for the clearest audio."]},{"component":"list","heading":"Set Up Your Space","subheading":"When you prepare your space ahead of time, you’ll make the best impression — and minimize potential distractions.","items":["For the best lighting, face a window or light source. Don’t sit with a window directly behind you.","Make sure your environment is quiet and clean. Have kids and pets stay in a separate room during the interview.","When speaking, try to look directly at the webcam, or as close to it as possible.","At the beginning of the call, thank the interviewer for taking the time to talk with you."]}]},{"name":"Examples","slug":"examples","content":[{"component":"text","content":"Many interviews start with \"Tell me about yourself.\" The best way to answer this is to give a brief overview that highlights a recent accomplishment or two. \n\nHere are some examples of how people might answer that question. Your own answer should be honest, short (about 2 minutes), and relevant to the position."},{"component":"callout","variant":"quote","content":"I am a hard worker with extensive experience in the service industry. I've received praise from previous bosses for always being kind to customers and on time. Although I love my current job, I feel ready to take on more responsibility, and this position really excites me."},{"component":"callout","variant":"quote","content":"I'm a recent Rutgers University graduate with a bachelor's degree in Computer and Information Sciences. As a college intern at Code for America, I designed a tool used by thousands of students that made it easier to sift through peer-reviewed studies. I'm hoping to apply my skills and passion for problem-solving to a cutting edge tech company like yours."}]},{"name":"Practice","slug":"practice","content":[{"component":"text","content":"Jot down some notes about how you might answer these interview questions. Then practice delivering the answers in front of a mirror or to a friend."},{"component":"practice_question_group","questions":[{"questionId":"template-28-q-1","order":1,"title":"Why do you think you’d be a good fit for this position?"},{"questionId":"template-28-q-2","order":2,"title":"Give an example of a time when you went above and beyond your role."},{"questionId":"template-28-q-3","order":3,"title":"Give an example of a time you made a mistake, and what you learned from it."},{"questionId":"template-28-q-4","order":4,"title":"What can you do for us that other candidates can’t?"}]}]},{"name":"Citations","slug":"citations","content":[{"component":"citation","label":null,"url":null}]},{"name":"Next Steps","slug":"next-steps","content":[{"component":"callout","variant":"next","content":"You’re ready to interview with the employer!"}]}]}
+{
+  "original": "ActivityTemplate_1593464601704.json",
+  "slug": "activity-template-28",
+  "tempateId": "template-28",
+  "title": "Prepare for My Live Video Interview",
+  "category": "applying-for-jobs",
+  "milestone": "interviewing-skills",
+  "total_time": "45 min",
+  "sections": [
+    {
+      "name": "What & Why",
+      "slug": "what-and-why",
+      "content": [
+        {
+          "component": "text",
+          "content": "Live video interviews are becoming more and more common. During both in-person and video interviews, you will be answering questions from the employer or recruiter in real time. This is an opportunity for you to learn more about the role and the team and to explain why you’re the best candidate for the job.\n\nVideo interviews can come with tech challenges that could add unnecessary stress. Learn some simple tips to ensure a smooth and successful video interview."
+        }
+      ]
+    },
+    {
+      "name": "Tips for Success",
+      "slug": "tips-for-success",
+      "content": [
+        {
+          "component": "list",
+          "heading": "Do Your Homework",
+          "subheading": "The best way to stand out in an interview is to do your homework beforehand.",
+          "items": [
+            "Find out as much as you can about the company and the person leading the interview: What is the company’s mission? What are they known for? Has the company been in the news recently?",
+            "Plan some questions for the employer. This is also an opportunity for you to see whether or not you would be happy in this role.",
+            "Practice explaining your strengths to a friend or the mirror. Consider writing bullet points on a sticky note.",
+            "Look up questions that are unique to your industry or role. You may face more job-specific questions that you’ll want to practice beforehand."
+          ]
+        },
+        {
+          "component": "list",
+          "heading": "Get Comfortable with the Technology",
+          "subheading": "Avoid last-minute tech difficulties by becoming familiar with the platform.",
+          "items": [
+            "Know which streaming service the employer wants to use (Zoom, Google Meet, Skype, etc) and do a practice call with a friend using that same service, if you can. You may need to install or update the service first.",
+            "Test the audio and webcam ideally several days before the interview, so you have time to buy or borrow necessary equipment if something is broken.",
+            "Test your internet speed directly in Google by typing in “speed test.” The results will tell you if your connection can handle video conferencing.",
+            "Use headphones with a built-in microphone, if you have them, for the clearest audio."
+          ]
+        },
+        {
+          "component": "list",
+          "heading": "Set Up Your Space",
+          "subheading": "When you prepare your space ahead of time, you’ll make the best impression — and minimize potential distractions.",
+          "items": [
+            "For the best lighting, face a window or light source. Don’t sit with a window directly behind you.",
+            "Make sure your environment is quiet and clean. Have kids and pets stay in a separate room during the interview.",
+            "When speaking, try to look directly at the webcam, or as close to it as possible.",
+            "At the beginning of the call, thank the interviewer for taking the time to talk with you."
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Examples",
+      "slug": "examples",
+      "content": [
+        {
+          "component": "text",
+          "content": "Many interviews start with \"Tell me about yourself.\" The best way to answer this is to give a brief overview that highlights a recent accomplishment or two. \n\nHere are some examples of how people might answer that question. Your own answer should be honest, short (about 2 minutes), and relevant to the position."
+        },
+        {
+          "component": "callout",
+          "variant": "quote",
+          "content": "I am a hard worker with extensive experience in the service industry. I've received praise from previous bosses for always being kind to customers and on time. Although I love my current job, I feel ready to take on more responsibility, and this position really excites me."
+        },
+        {
+          "component": "callout",
+          "variant": "quote",
+          "content": "I'm a recent Rutgers University graduate with a bachelor's degree in Computer and Information Sciences. As a college intern at Code for America, I designed a tool used by thousands of students that made it easier to sift through peer-reviewed studies. I'm hoping to apply my skills and passion for problem-solving to a cutting edge tech company like yours."
+        }
+      ]
+    },
+    {
+      "name": "Practice",
+      "slug": "practice",
+      "content": [
+        {
+          "component": "text",
+          "content": "Jot down some notes about how you might answer these interview questions. Then practice delivering the answers in front of a mirror or to a friend."
+        },
+        {
+          "component": "practice_question_group",
+          "questions": [
+            {
+              "questionId": "template-28-q-1",
+              "order": 1,
+              "title": "Why do you think you’d be a good fit for this position?"
+            },
+            {
+              "questionId": "template-28-q-2",
+              "order": 2,
+              "title": "Give an example of a time when you went above and beyond your role."
+            },
+            {
+              "questionId": "template-28-q-3",
+              "order": 3,
+              "title": "Give an example of a time you made a mistake, and what you learned from it."
+            },
+            {
+              "questionId": "template-28-q-4",
+              "order": 4,
+              "title": "What can you do for us that other candidates can’t?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Citations",
+      "slug": "citations",
+      "content": [{ "component": "citation", "label": null, "url": null }]
+    },
+    {
+      "name": "Next Steps",
+      "slug": "next-steps",
+      "content": [
+        {
+          "component": "callout",
+          "variant": "next",
+          "content": "You’re ready to interview with the employer!"
+        }
+      ]
+    }
+  ]
+}
