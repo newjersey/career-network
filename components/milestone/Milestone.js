@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import ActivitiesSection from './ActivitiesSection';
+import Section from '../activityTemplate/Section';
 
 const useStyles = makeStyles(theme => ({
   section: {
@@ -17,6 +18,7 @@ export default function Milestone(props) {
   return (
     <div className={classes.root}>
       <ActivitiesSection sectionData={activitiesSection} activityTemplates={activityTemplates} />
+      <Section sectionData={milestone} />
     </div>
   );
 }

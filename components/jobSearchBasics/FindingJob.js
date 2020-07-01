@@ -32,13 +32,7 @@ const useStyles = makeStyles(theme => ({
   },
   itemContainer: {
     display: 'flex',
-    alignItems: 'center',
     marginTop: theme.spacing(4),
-  },
-  itemLabel: {
-    color: theme.palette.background.dark,
-    fontSize: '1rem',
-    fontWeight: 500,
   },
   iconContainer: {
     borderRadius: '50%',
@@ -58,7 +52,7 @@ const useStyles = makeStyles(theme => ({
 const MILESTONE_TYPES = [
   {
     value: 'professional-network',
-    milestoneLink: `milestones/professional-network`,
+    milestoneLink: `/milestones/professional-network`,
     label: 'Professional Network',
     description:
       'Your professional network includes anyone who can speak to your good qualities and connect you with opportunities. We’ll show you how to develop this network into a powerful tool for job hunting.',
@@ -72,8 +66,8 @@ const MILESTONE_TYPES = [
     icon: FindInPageIcon,
   },
   {
-    value: 'list-wants',
-    label: 'List of Your ‘Wants’ and ‘Must Haves’',
+    value: 'job-goals',
+    label: 'Job Goals',
     description:
       'What you want and what you need may not always line up — especially if you’ve been out of work for a while. We have activities focused on helping you figure out if, where, and when to compromise.',
     icon: ReportIcon,
@@ -112,6 +106,12 @@ export default function FindingJob({ scrollToRef }) {
             </Typography>
           </Grid>
           <Grid item container xs={12} sm={6}>
+            <Box mb={2}>
+              <Typography variant="h5">
+                Expand your approach to finding jobs that match your needs and interests
+              </Typography>
+            </Box>
+
             <Typography variant="body1">
               When you’re looking for jobs, it can be easy to get in the habit of doing the same
               things every day — whether it’s returning to the same online job boards or checking
@@ -121,7 +121,7 @@ export default function FindingJob({ scrollToRef }) {
               There are lots of things you can do to broaden your view of the possibilities. And
               many of them may be more interesting than what you’re currently doing.
             </Typography>
-            <Box mt={4}>
+            <Box mt={10}>
               <SectionHeader gutterBottom>Milestones to Measure Progress</SectionHeader>
               <Typography variant="body1">
                 One thing we’ve heard from job seekers is that it’s hard to feel like you’re making
@@ -136,15 +136,15 @@ export default function FindingJob({ scrollToRef }) {
                 <Box key={milestone.value} className={classes.itemContainer}>
                   <milestone.icon className={classes.iconContainer} />
                   <Box ml={3}>
-                    <Typography className={classes.itemLabel} variant="h6" gutterBottom>
+                    <Typography variant="h5" gutterBottom>
                       {milestone.label}
                     </Typography>
-                    <Typography variant="body2" gutterBottom>
+                    <Typography variant="body1" gutterBottom>
                       {milestone.description}
                     </Typography>
                     <Flags authorizedFlags={['milestonePages']}>
                       {milestone.milestoneLink && (
-                        <NextLink href={milestone.milestoneLink}>
+                        <NextLink href="/milestones/[milestone]" as={milestone.milestoneLink}>
                           <Button className={classes.link}>Learn more</Button>
                         </NextLink>
                       )}
@@ -164,10 +164,10 @@ export default function FindingJob({ scrollToRef }) {
                 <Box key={tool.value} className={classes.itemContainer}>
                   <tool.icon className={classes.iconContainer} />
                   <Box ml={3}>
-                    <Typography className={classes.itemLabel} variant="h6" gutterBottom>
+                    <Typography className={classes.itemLabel} variant="h5" gutterBottom>
                       {tool.label}
                     </Typography>
-                    <Typography variant="body2" gutterBottom>
+                    <Typography variant="body1" gutterBottom>
                       {tool.description}
                     </Typography>
                   </Box>

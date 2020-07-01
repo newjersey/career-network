@@ -5,7 +5,6 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import FilterTiltShiftIcon from '@material-ui/icons/FilterTiltShift';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import HighlightIcon from '@material-ui/icons/Highlight';
 import HotTubIcon from '@material-ui/icons/HotTub';
@@ -29,13 +28,7 @@ const useStyles = makeStyles(theme => ({
   },
   itemContainer: {
     display: 'flex',
-    alignItems: 'center',
     marginTop: theme.spacing(4),
-  },
-  itemLabel: {
-    color: theme.palette.background.dark,
-    fontSize: '1rem',
-    fontWeight: 500,
   },
   iconContainer: {
     borderRadius: '50%',
@@ -74,29 +67,22 @@ const TOPIC_TYPES = [
 
 const MILESTONE_TYPES = [
   {
-    value: 'supportive-social-network',
-    label: 'Supportive Social Network',
+    value: 'strenths-and-values',
+    label: 'Strengths and Values',
     description:
-      'Positive relationships can help us feel optimistic and connected. And toxic ones can make hard times harder. We have tips on the give and take of supportive networks.',
-    icon: FilterTiltShiftIcon,
-  },
-  {
-    value: 'list-of-strengths',
-    label: 'List of Strengths',
-    description:
-      'Taking the time to understand the specifics of what we have to offer the world can build confidence. ',
+      'Taking the time to understand the specifics of what we have to offer the world can build confidence. What’s important to you? How does this affect your job search? Let’s explore.',
     icon: FitnessCenterIcon,
   },
   {
-    value: 'personal-values',
-    label: 'Personal Values',
+    value: 'staying-motivated',
+    label: 'Staying Motivated',
     description:
-      'What’s important to you and how does this affect choices in your day to day life? What does it mean for your job search? Let’s discuss.',
+      'Finding the right job for you can take time. We’ll give you tips for staying motivated, even when the going gets tough.',
     icon: HighlightIcon,
   },
   {
-    value: 'self-care-plan',
-    label: 'Self-Care Plan',
+    value: 'stress-management',
+    label: 'Stress Management Practices',
     description:
       'We all experience stress differently, and what works for one person may not work for the next. We’ll help you find activities that are right for you.',
     icon: HotTubIcon,
@@ -118,6 +104,12 @@ export default function Health({ scrollToRef }) {
             </Typography>
           </Grid>
           <Grid item container xs={12} sm={6}>
+            <Box mb={2}>
+              <Typography variant="h5">
+                To stay healthy and motivated — because there’s a whole lot more to you than what
+                you do for work.
+              </Typography>
+            </Box>
             <Typography variant="body1">
               Sometimes, a job search can be exciting and inspiring. But if you’re out of work or
               feeling like your options are limited, a job search can be a time of uncertainty and
@@ -140,7 +132,7 @@ export default function Health({ scrollToRef }) {
               </Box>
             ))}
 
-            <Box mt={8}>
+            <Box mt={10}>
               <SectionHeader gutterBottom>Milestones to Measure Progress</SectionHeader>
               <Typography variant="body1">
                 One thing we’ve heard from job seekers is that it’s hard to feel like you’re making
@@ -155,10 +147,10 @@ export default function Health({ scrollToRef }) {
                 <Box key={milestone.value} className={classes.itemContainer}>
                   <milestone.icon className={classes.iconContainer} />
                   <Box ml={3}>
-                    <Typography className={classes.itemLabel} variant="h6" gutterBottom>
+                    <Typography variant="h5" gutterBottom>
                       {milestone.label}
                     </Typography>
-                    <Typography variant="body2" gutterBottom>
+                    <Typography variant="body1" gutterBottom>
                       {milestone.description}
                     </Typography>
                   </Box>
