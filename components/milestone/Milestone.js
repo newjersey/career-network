@@ -15,10 +15,11 @@ export default function Milestone(props) {
   const classes = useStyles();
   const { milestone, activityTemplates } = props;
   const activitiesSection = milestone.sections.find(section => section.slug === 'activities');
+  const overviewSection = milestone.sections.find(section => section.slug === 'milestone');
   return (
     <div className={classes.root}>
+      <Section sectionData={overviewSection} />
       <ActivitiesSection sectionData={activitiesSection} activityTemplates={activityTemplates} />
-      <Section sectionData={milestone} />
     </div>
   );
 }
