@@ -63,7 +63,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ActivityHeader(props) {
+export default function TemplateHeader(props) {
   const classes = useStyles();
   const {
     title,
@@ -111,15 +111,17 @@ export default function ActivityHeader(props) {
   );
 }
 
-ActivityHeader.propTypes = {
+TemplateHeader.propTypes = {
   title: PropTypes.string.isRequired,
   categoryType: ActivityTemplatePropTypes.jobCategorySlug.isRequired,
   categoryLabel: PropTypes.string.isRequired,
   milestoneType: ActivityTemplatePropTypes.milestoneSlug.isRequired,
   milestoneLabel: PropTypes.string.isRequired,
-  isMilestone: PropTypes.bool.isRequired,
-  // eslint-disable-next-line react/require-default-props
+  isMilestone: PropTypes.bool,
   milestoneGoal: PropTypes.string,
 };
 
-ActivityHeader.defaultProps = {};
+TemplateHeader.defaultProps = {
+  isMilestone: false,
+  milestoneGoal: null,
+};
