@@ -7,11 +7,11 @@ import Button from '@material-ui/core/Button';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import Divider from '@material-ui/core/Divider';
-import ScaffoldContainer from '../../ScaffoldContainer';
-import JobSearchShape from '../../JobSearchShape';
-import MilestoneTag from './MilestoneTag';
-import { JOB_SEARCH_CATEGORY_COLORS } from '../../../constants';
-import ActivityTemplatePropTypes from '../PropTypes';
+import ScaffoldContainer from './ScaffoldContainer';
+import JobSearchShape from './JobSearchShape';
+import MilestoneTag from './activityTemplate/Header/MilestoneTag';
+import { JOB_SEARCH_CATEGORY_COLORS } from '../constants';
+import ActivityTemplatePropTypes from './activityTemplate/PropTypes';
 
 const useStyles = makeStyles(theme => ({
   root: {
