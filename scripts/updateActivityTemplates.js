@@ -33,7 +33,7 @@ const fs = require('fs');
 //   ),
 // };
 
-const projectId = 'nj-career-network-dev4';
+const projectId = 'nj-career-network-dev5';
 const firebaseConfig = {
   authDomain: `${projectId}.firebaseapp.com`,
   databaseURL: `https://${projectId}.firebaseio.com`,
@@ -45,7 +45,7 @@ const firebaseConfig = {
   credential: admin.credential.cert(
     // Generate from Firebase console --> Settings --> Service accounts
     // eslint-disable-next-line global-require
-    require('../.auth/nj-career-network-dev4-firebase-adminsdk-akk0b-4afc0b6724.json')
+    require('../.auth/nj-career-network-dev5-ba2070698d23.json')
   ),
 };
 
