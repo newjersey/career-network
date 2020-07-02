@@ -1,0 +1,115 @@
+{
+  "original": "ActivityTemplate_1593461429213.json",
+  "slug": "activity-template-27",
+  "tempateId": "template-27",
+  "title": "Set Small and Specific Goals",
+  "category": "health",
+  "milestone": "staying-motivated",
+  "total_time": "30 min",
+  "sections": [
+    {
+      "name": "What & Why",
+      "slug": "what-and-why",
+      "content": [
+        {
+          "component": "text",
+          "content": "Setting goals helps you figure out what you want and how you're going to get there. When you set specific, achievable goals for your job search, you can be more productive  and more likely to succeed."
+        }
+      ]
+    },
+    {
+      "name": "Tips for Success",
+      "slug": "tips-for-success",
+      "content": [
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": null,
+          "items": [
+            "Break down large goals into smaller goals. It's great to have an overarching goal to set direction for yourself. But when it comes to making measurable progress, keep your daily focus on smaller, achievable goals. This can also help you stay motivated.",
+            "Focus on positive outcomes. Instead of \"find a less stressful job\" try \"make a list of 10 companies that would be fun to work for.\"",
+            "Make your goals specific. Include numbers and deadlines. Instead of \"meet new people,\" try \"contact 5 new people from my list of companies by next Monday.\"",
+            "Check your progress and make changes when you need to. Step back and see what's working — and what isn't. If you're applying to 12 jobs a week but not hearing back from anyone, it's OK to adjust your plan and set some new goals."
+          ]
+        },
+        {
+          "component": "callout",
+          "variant": "pro-tip",
+          "content": "Create a daily routine that includes time to work toward your goals. The simple act of having a routine can reduce stress and anxiety. (Source: Headspace) Check out our related activity, Set My Daily Routine."
+        }
+      ]
+    },
+    {
+      "name": "Examples",
+      "slug": "examples",
+      "content": [
+        {
+          "component": "text",
+          "content": "To stay on track in your job search, set clear goals. Here are some examples that are achievable and specific."
+        },
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": null,
+          "items": [
+            "Make 5 connections within the hospitality industry each week.",
+            "Research 1 company that's hiring every day.",
+            "By Monday, contact 3 people I’ve worked with before and tell them that I’m looking for a new opportunity."
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Practice",
+      "slug": "practice",
+      "content": [
+        {
+          "component": "text",
+          "content": "Stay focused and accountable by writing down your goals and commitments."
+        },
+        {
+          "component": "practice_question_group",
+          "questions": [
+            {
+              "questionId": "template-27-q-1",
+              "order": 1,
+              "title": "This is one large goal I would like to achieve:"
+            },
+            {
+              "questionId": "template-27-q-2",
+              "order": 2,
+              "title": "These things could help me move one step closer to my goal: (You don’t have to commit to anything here.)"
+            },
+            {
+              "questionId": "template-27-q-3",
+              "order": 3,
+              "title": "These are the steps I will take to get me closer to my goal: (Which options from above give you energy or feel the easiest?)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Citations",
+      "slug": "citations",
+      "content": [
+        {
+          "component": "citation",
+          "label": "Headspace: Benefits of routine",
+          "url": "https://www.headspace.com/blog/2016/08/22/the-secret-benefit-of-routines-it-wont-surprise-you/"
+        }
+      ]
+    },
+    {
+      "name": "Next Steps",
+      "slug": "next-steps",
+      "content": [
+        {
+          "component": "callout",
+          "variant": "next",
+          "content": "Think of what’s realistic for you to add to your daily routine. Look at the list of mini goals that you just made and choose at least 3 you will achieve this week."
+        }
+      ]
+    }
+  ]
+}

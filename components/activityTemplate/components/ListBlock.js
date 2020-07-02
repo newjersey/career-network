@@ -8,6 +8,10 @@ const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: props => props.backgroundColor || theme.palette.background.paper,
   },
+  heading: {
+    fontWeight: 700,
+    fontSize: '1.125rem',
+  },
   body4: {
     fontSize: '1.125rem',
     lineHeight: 1.57,
@@ -21,7 +25,7 @@ function ListBlock({ heading, subheading, items }) {
   return (
     <div className={classes.root}>
       {heading && (
-        <Typography gutterBottom display="block" variant="body1" style={{ fontWeight: 700 }}>
+        <Typography gutterBottom display="block" variant="body1" className={classes.heading}>
           {heading}
         </Typography>
       )}
