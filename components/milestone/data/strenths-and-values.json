@@ -26,6 +26,24 @@
             "content": "<b>Know what you have to offer.</b>\nThe activities here aren’t just feel-good exercises. (Although hopefully you’ll enjoy them!) When you understand your strengths and values, you’ll have more ways to highlight your unique abilities to potential employers."
           }
         ]
+      },
+      {
+        "name": "More Milestones",
+        "slug": "more-milestones",
+        "content": [
+          {
+            "component": "link",
+            "milestone": "strenths-and-values"
+          },
+          {
+            "component": "link",
+            "milestone": "staying-motivated"
+          },
+          {
+            "component": "link",
+            "milestone": "stress-management-practices"
+          }
+        ]
       }
     ]
   }

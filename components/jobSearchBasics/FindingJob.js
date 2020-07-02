@@ -46,6 +46,7 @@ const useStyles = makeStyles(theme => ({
   link: {
     fontWeight: 700,
     color: theme.palette.text.secondary,
+    textDecoration: 'underline',
   },
 }));
 

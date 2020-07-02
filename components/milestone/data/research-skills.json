@@ -32,6 +32,24 @@
             "subheading": "There are a lot of job boards out there. Many of them post the same job openings, but there are some sites that specialize in specific types of jobs.\n\nThe important thing is to pick a starting point for your research, see how it goes, and make changes as needed. We’ll provide guidance to make it less overwhelming."
           }
         ]
+      },
+      {
+        "name": "More Milestones",
+        "slug": "more-milestones",
+        "content": [
+          {
+            "component": "link",
+            "milestone": "professional-network"
+          },
+          {
+            "component": "link",
+            "milestone": "research-skills"
+          },
+          {
+            "component": "link",
+            "milestone": "job-goals"
+          }
+        ]
       }
     ]
   }

@@ -51,6 +51,24 @@
             "subheading": "Many things about a job search, like the job market itself, aren’t in your control. You can take charge of how you approach the search, and signing up for a tool like NJCN is a good step."
           }
         ]
+      },
+      {
+        "name": "More Milestones",
+        "slug": "more-milestones",
+        "content": [
+          {
+            "component": "link",
+            "milestone": "strenths-and-values"
+          },
+          {
+            "component": "link",
+            "milestone": "staying-motivated"
+          },
+          {
+            "component": "link",
+            "milestone": "stress-management-practices"
+          }
+        ]
       }
     ]
   }

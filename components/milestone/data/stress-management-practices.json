@@ -32,6 +32,24 @@
             "subheading": "The good news is that there’s a lot of research on how to handle stress. The activities in this milestone will help you set a routine that includes healthy habits."
           }
         ]
+      },
+      {
+        "name": "More Milestones",
+        "slug": "more-milestones",
+        "content": [
+          {
+            "component": "link",
+            "milestone": "strenths-and-values"
+          },
+          {
+            "component": "link",
+            "milestone": "staying-motivated"
+          },
+          {
+            "component": "link",
+            "milestone": "stress-management-practices"
+          }
+        ]
       }
     ]
   }

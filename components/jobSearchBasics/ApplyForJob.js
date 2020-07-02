@@ -47,6 +47,10 @@ const useStyles = makeStyles(theme => ({
     color: JOB_SEARCH_BASICS_TYPES.apply.color,
     fontSize: '18px',
   },
+  link: {
+    fontWeight: 700,
+    color: theme.palette.text.secondary,
+  },
 }));
 
 const TOPIC_TYPES = [
