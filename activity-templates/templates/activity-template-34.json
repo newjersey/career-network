@@ -1,0 +1,106 @@
+{
+  "original": "ActivityTemplate_1593551841703.json",
+  "slug": "activity-template-34",
+  "tempateId": "template-34",
+  "title": "Take Stock of My Soft Skills",
+  "category": "health",
+  "milestone": "strenths-and-values",
+  "total_time": "15 min",
+  "sections": [
+    {
+      "name": "What & Why",
+      "slug": "what-and-why",
+      "content": [
+        {
+          "component": "text",
+          "content": "Soft skills are basically your people skills. While you can improve them, they’re usually abilities that come naturally to you. And unlike hard skills, such as specific technical expertise, soft skills can improve your value as an employee across industries. \n\nBy identifying your soft skills, you can start to use them to stand out to potential employers."
+        }
+      ]
+    },
+    {
+      "name": "Tips for Success",
+      "slug": "tips-for-success",
+      "content": [
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": "It can be hard to identify your soft skills at first, since they’re not as easy to quantify or demonstrate as other types of skills. These questions can help you start to identify them.",
+          "items": [
+            "Do you work best on a team or on your own?",
+            "When you have an opinion, how do you like to communicate it? Do you have more success writing an email or talking to people?",
+            "How do you handle someone who’s upset? Do you use the facts, empathy, or a combination of both?",
+            "How do you approach solving a challenging problem?"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Examples",
+      "slug": "examples",
+      "content": [
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": "Here are just a few examples of soft skills that employers look for:",
+          "items": [
+            "Problem solving",
+            "Emotional control",
+            "Delegating",
+            "Teamwork",
+            "Ability to go with the flow",
+            "Interpersonal skills, like negotiating, networking, or public speaking",
+            "Work ethic",
+            "Critical thinking",
+            "Creativity"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Practice",
+      "slug": "practice",
+      "content": [
+        {
+          "component": "text",
+          "content": "Start with a brainstorm of your soft skills. If you get stuck, do a quick online search for lists of soft skills. Then spend some time thinking about examples of how you’ve used these skills in previous jobs."
+        },
+        {
+          "component": "practice_question_group",
+          "questions": [
+            {
+              "questionId": "template-34-q-1",
+              "order": 1,
+              "title": "The soft skills that I use well include:"
+            },
+            {
+              "questionId": "template-34-q-2",
+              "order": 2,
+              "title": "The 3 soft skills that I’m most confident about are:"
+            },
+            {
+              "questionId": "template-34-q-3",
+              "order": 3,
+              "title": "Here’s an example of how I’ve used each of these 3 soft skills to be successful at work:"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Citations",
+      "slug": "citations",
+      "content": [{ "component": "citation", "label": null, "url": null }]
+    },
+    {
+      "name": "Next Steps",
+      "slug": "next-steps",
+      "content": [
+        {
+          "component": "callout",
+          "variant": "next",
+          "content": "Now that you have identified some of your soft skills, you can start including them in your job search. Check out our related activities, Jot Down My Interview Stories and Write My Accomplishment Statements."
+        }
+      ]
+    }
+  ]
+}

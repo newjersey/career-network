@@ -1,0 +1,133 @@
+{
+  "original": "ActivityTemplate_1594038300741.json",
+  "slug": "activity-template-39",
+  "tempateId": "template-39",
+  "title": "Set Up Google Alerts",
+  "category": "finding-job-opportunities",
+  "milestone": "research-skills",
+  "total_time": "5 min",
+  "sections": [
+    {
+      "name": "What & Why",
+      "slug": "what-and-why",
+      "content": [
+        {
+          "component": "text",
+          "content": "Google Alerts is a great free way to stay on top of company news, trends in your industry, and other key information for your job search. \n\nWhen you set up a Google alert for a specific term, Google will email you when a new article that matches that term appears in its top search results. \n\nTurning on a Google alert takes less than a minute — and it can give you an advantage over other job seekers if you use the information well. Below are tips for using Google alerts effectively as you look for your next job."
+        }
+      ]
+    },
+    {
+      "name": "Tips for Success",
+      "slug": "tips-for-success",
+      "content": [
+        {
+          "component": "list",
+          "heading": "Choosing What to Set Up Alerts For",
+          "subheading": null,
+          "items": [
+            "Google yourself. About 77% of employers Google candidates. (Source: Monster) If you set up alerts for your name, you can know ahead of time what information they will find. If someone else with the same name has a scandalous online reputation, you may want to clarify that with a potential employer in an email or interview.",
+            "Find companies that are growing or hiring. If you want to work in a specific city or in a specific industry, you can set up a Google alert with that location or industry followed by “company expanding” OR “company hiring.”",
+            "Stay connected to former bosses or companies that are important to you. Set up a Google alert for professional connections you care about. Then you can congratulate them if positive news comes up.",
+            "Use information from the alerts to show you have updated knowledge about the industry or company when you’re interviewing and applying to jobs."
+          ]
+        },
+        {
+          "component": "list",
+          "heading": "How to Set Up an Alert",
+          "subheading": null,
+          "items": [
+            "Go to Google.com/alerts. Type in the phrase you want to search on Google, and add your email address.",
+            "Click on “show options” to customize your results. Adjust the frequency and the type of content you want to see.",
+            "Look at the preview. Make sure the type of information in the preview is what you want alerts on. If not, adjust your search."
+          ]
+        },
+        {
+          "component": "list",
+          "heading": "Tailoring Your Results",
+          "subheading": "Use signs and terms to tailor your results.",
+          "items": [
+            "Quotation marks. Quotes keep phrases intact. If you type in “Anna Grace Smith” you will see only entries with the full name together. Without the quotes, you might receive entries with the names separated throughout the article.",
+            "“OR.” Use OR to include alternate versions. For example, “Anna Grace Smith” OR “Anna Smith.”",
+            "Minus sign. If you add “-” before a term, Google will exclude any entries with that term in it.",
+            "“Site.” If you add “site:” before a website, Google will show you only entries from that specific site. If you add a minus sign before it, “-site:”, Google will exclude entries from that specific website. If you prefer to see job postings from employer websites only, you could remove job search engine sites by saying -site:indeed.com -site:linkedin.com -site:ziprecruiter.com."
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Examples",
+      "slug": "examples",
+      "content": [
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": "Here are some examples of Google alerts that might be useful for someone seeking a job.",
+          "items": [
+            "Hoboken, NJ (“company expanding” OR “company hiring”)",
+            "Telehealth OR telemedicine",
+            "Jobs (“Riverdale Company” OR “Tech World”)",
+            "“Sales associate” job (Newark OR Trenton) bank -”Bank of America” -site:indeed.com -site:linkedin.com -site:ziprecruiter.com"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Practice",
+      "slug": "practice",
+      "content": [
+        {
+          "component": "text",
+          "content": "Answer the following prompts to figure out which Google alerts would be most useful for you."
+        },
+        {
+          "component": "practice_question_group",
+          "questions": [
+            {
+              "questionId": "template-39-q-1",
+              "order": 1,
+              "title": "Are there any specific companies that you are interested in working for and you’d like to know when they are hiring?"
+            },
+            {
+              "questionId": "template-39-q-2",
+              "order": 2,
+              "title": "Which industry would be the most useful for you to stay updated on?"
+            },
+            {
+              "questionId": "template-39-q-3",
+              "order": 3,
+              "title": "Do you want to work for a growing company in a specific city?"
+            },
+            {
+              "questionId": "template-39-q-4",
+              "order": 4,
+              "title": "Are there specific companies you don’t want to hear about? Consider using the minus sign in your search for that company."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Citations",
+      "slug": "citations",
+      "content": [
+        {
+          "component": "citation",
+          "label": "Job Applicant, Beware: You’re Being Googled",
+          "url": "https://www.monster.com/career-advice/article/hr-googling-job-applicants"
+        }
+      ]
+    },
+    {
+      "name": "Next Steps",
+      "slug": "next-steps",
+      "content": [
+        {
+          "component": "callout",
+          "variant": "next",
+          "content": "Choose which Google alerts would be most helpful for you based on your answers in the practice above. Go to Google.com/alerts and set up 2 to 3 alerts. If the emails aren’t exactly what you’re looking for, you can always adjust your alerts later."
+        }
+      ]
+    }
+  ]
+}
