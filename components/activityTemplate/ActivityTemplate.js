@@ -6,7 +6,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import firebase from 'firebase/app';
 import { useAuth } from '../Auth';
-import ActivityHeader from './Header/ActivityHeader';
+import TemplateHeader from '../TemplateHeader';
 import ScaffoldContainer from '../ScaffoldContainer';
 import Section from './Section';
 import {
@@ -129,7 +129,7 @@ export default function ActivityTemplate(props) {
 
   return (
     <div className={classes.root}>
-      <ActivityHeader
+      <TemplateHeader
         categoryType={categoryType.slug}
         categoryLabel={categoryType.name}
         milestoneType={milestoneType.slug}
