@@ -1,0 +1,54 @@
+{
+  "slug": "supporting-information",
+  "category": "applying-for-jobs",
+  "title": "Supporting Information",
+  "milestoneGoal": "Many job postings require applicants to include a cover letter. This letter is your chance to tell the employer why you’re a great fit for the specific job and company.",
+  "sections": [
+    {
+      "name": "Activities",
+      "slug": "activities",
+      "content": [
+        {
+          "component": "text",
+          "content": "Choose one of these activities to get started on your Supporting Information milestone:"
+        }
+      ]
+    },
+    {
+      "name": "Milestone",
+      "slug": "milestone",
+      "content": [
+        {
+          "component": "text",
+          "content": "Once you have a solid resume, it’s time to turn your attention to other tools that will help you stand out to employers. Just as you’ll tailor your resume to each specific job, you’ll also need to align these other materials with job postings."
+        },
+        {
+          "component": "text",
+          "content": "<b>Show some personality.</b>\nAccomplishment statements and job skills are the foundation of your application. Your other materials, like the cover letter, are an opportunity to show employers why it might be lovely to work with you."
+        },
+        {
+          "component": "text",
+          "content": "<b>Think carefully about your references.</b>\nGood references can be key to landing a job. While you probably won’t need to share references with an employer until you’re close to a job offer, it’s not too early to put together a list of people who can speak to your skills.\n\nThe activities in this milestone will help you make the most of your supporting materials. By learning how to play to your strengths in each format, you’ll be prepared to jump into action each time a job catches your attention."
+        }
+      ]
+    },
+    {
+      "name": "More Milestones",
+      "slug": "more-milestones",
+      "content": [
+        {
+          "component": "link",
+          "milestone": "supporting-information"
+        },
+        {
+          "component": "link",
+          "milestone": "resume"
+        },
+        {
+          "component": "link",
+          "milestone": "interviewing-skills"
+        }
+      ]
+    }
+  ]
+}

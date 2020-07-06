@@ -99,7 +99,7 @@ export default function TemplateHeader(props) {
           {title}
         </Typography>
         {isMilestone ? (
-          <Typography variant="body2" style={{ width: '50%' }}>
+          <Typography variant="body2" style={{ width: '55%' }}>
             {milestoneGoal}
           </Typography>
         ) : (

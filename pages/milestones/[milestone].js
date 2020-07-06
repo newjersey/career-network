@@ -12,10 +12,7 @@ import ActivityTemplatePropTypes from '../../components/activityTemplate/PropTyp
 
 function MilestonePage({ milestone }) {
   const allTemplates = useAllActivityTemplates();
-
-  const activityTemplates = allTemplates.filter(
-    template => template.category === milestone.category
-  );
+  const activityTemplates = allTemplates.filter(template => template.milestone === milestone.slug);
 
   return fullyLoaded(allTemplates) ? (
     <Milestone milestone={milestone} activityTemplates={activityTemplates} />

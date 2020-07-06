@@ -39,6 +39,24 @@
           "subheading": "Even if the idea of networking makes you queasy — as it does for some of us — you’re not alone. We’re here to help you get going."
         }
       ]
+    },
+    {
+      "name": "More Milestones",
+      "slug": "more-milestones",
+      "content": [
+        {
+          "component": "link",
+          "milestone": "professional-network"
+        },
+        {
+          "component": "link",
+          "milestone": "research-skills"
+        },
+        {
+          "component": "link",
+          "milestone": "job-goals"
+        }
+      ]
     }
   ]
 }

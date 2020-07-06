@@ -1,0 +1,50 @@
+{
+  "slug": "interviewing-skills",
+  "category": "applying-for-jobs",
+  "title": "Interviewing Skills",
+  "milestoneGoal": "Interviews can be intimidating, especially if you haven’t had many or are out of practice. We’ll help you prep for everything from a phone screen to a video interview. ",
+  "sections": [
+    {
+      "name": "Activities",
+      "slug": "activities",
+      "content": [
+        {
+          "component": "text",
+          "content": "Choose one of these activities to get started on your Interviewing Skills milestone:"
+        }
+      ]
+    },
+    {
+      "name": "Milestone",
+      "slug": "milestone",
+      "content": [
+        {
+          "component": "text",
+          "content": "Job interviews are an opportunity for potential employers to learn what it’d be like to have you on the team. You can also use this opportunity to find out more about the organization, the role, and what it’d be like to work there."
+        },
+        {
+          "component": "text",
+          "content": "<b>Preparing for interviews can help you feel more in control.</b>\nJob interviews are an opportunity for potential employers to learn what it’d be like to have you on the team. You can also use this opportunity to find out more about the organization, the role, and what it’d be like to work there."
+        }
+      ]
+    },
+    {
+      "name": "More Milestones",
+      "slug": "more-milestones",
+      "content": [
+        {
+          "component": "link",
+          "milestone": "supporting-information"
+        },
+        {
+          "component": "link",
+          "milestone": "resume"
+        },
+        {
+          "component": "link",
+          "milestone": "interviewing-skills"
+        }
+      ]
+    }
+  ]
+}

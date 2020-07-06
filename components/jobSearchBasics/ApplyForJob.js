@@ -1,8 +1,11 @@
 import { makeStyles } from '@material-ui/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
+import { Flags } from 'react-feature-flags';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import NextLink from 'next/link';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import ClassIcon from '@material-ui/icons/Class';
@@ -44,6 +47,10 @@ const useStyles = makeStyles(theme => ({
     color: JOB_SEARCH_BASICS_TYPES.apply.color,
     fontSize: '18px',
   },
+  link: {
+    fontWeight: 700,
+    color: theme.palette.text.secondary,
+  },
 }));
 
 const TOPIC_TYPES = [
@@ -68,8 +75,9 @@ const TOPIC_TYPES = [
 
 const MILESTONE_TYPES = [
   {
-    value: 'cover-letter',
-    label: 'Cover Letter and Other Information',
+    value: 'supporting-information',
+    label: 'Supporting Information',
+    milestoneLink: `/milestones/supporting-information`,
     description:
       'Many job postings require applicants to provide more than just your work history. Supporting information could include a cover letter, list of references, or even a portfolio, depending on the role',
     icon: ClassIcon,
@@ -77,13 +85,15 @@ const MILESTONE_TYPES = [
   {
     value: 'resume',
     label: 'Resume',
+    milestoneLink: `/milestones/resume`,
     description:
       'This is a summary of your work history. It may include information about your awards, interests, and volunteer activities. ',
     icon: FileCopyIcon,
   },
   {
-    value: 'interview-skills',
-    label: 'Interview Skills',
+    value: 'interviewing-skills',
+    label: 'Interviewing Skills',
+    milestoneLink: `/milestones/interviewing-skills`,
     description:
       'Interviews can be intimidating, especially if you haven’t had many or are out of practice. We’ll help you prep for everything from a phone screen to a video interview. ',
     icon: PhoneInTalkIcon,
@@ -149,6 +159,13 @@ export default function ApplyForJob({ scrollToRef }) {
                     <Typography variant="body1" gutterBottom>
                       {milestone.description}
                     </Typography>
+                    <Flags authorizedFlags={['milestonePages']}>
+                      {milestone.milestoneLink && (
+                        <NextLink href="/milestones/[milestone]" as={milestone.milestoneLink}>
+                          <Button className={classes.link}>Learn more</Button>
+                        </NextLink>
+                      )}
+                    </Flags>
                   </Box>
                 </Box>
               ))}

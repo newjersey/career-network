@@ -1,8 +1,11 @@
 import { makeStyles } from '@material-ui/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
+import { Flags } from 'react-feature-flags';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import NextLink from 'next/link';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
@@ -43,6 +46,10 @@ const useStyles = makeStyles(theme => ({
     color: JOB_SEARCH_BASICS_TYPES.health.color,
     fontSize: '18px',
   },
+  link: {
+    fontWeight: 700,
+    color: theme.palette.text.secondary,
+  },
 }));
 
 const TOPIC_TYPES = [
@@ -69,6 +76,7 @@ const MILESTONE_TYPES = [
   {
     value: 'strenths-and-values',
     label: 'Strengths and Values',
+    milestoneLink: `/milestones/strenths-and-values`,
     description:
       'Taking the time to understand the specifics of what we have to offer the world can build confidence. What’s important to you? How does this affect your job search? Let’s explore.',
     icon: FitnessCenterIcon,
@@ -76,13 +84,15 @@ const MILESTONE_TYPES = [
   {
     value: 'staying-motivated',
     label: 'Staying Motivated',
+    milestoneLink: `/milestones/staying-motivated`,
     description:
       'Finding the right job for you can take time. We’ll give you tips for staying motivated, even when the going gets tough.',
     icon: HighlightIcon,
   },
   {
-    value: 'stress-management',
+    value: 'stress-management-practices',
     label: 'Stress Management Practices',
+    milestoneLink: `/milestones/stress-management-practices`,
     description:
       'We all experience stress differently, and what works for one person may not work for the next. We’ll help you find activities that are right for you.',
     icon: HotTubIcon,
@@ -153,6 +163,13 @@ export default function Health({ scrollToRef }) {
                     <Typography variant="body1" gutterBottom>
                       {milestone.description}
                     </Typography>
+                    <Flags authorizedFlags={['milestonePages']}>
+                      {milestone.milestoneLink && (
+                        <NextLink href="/milestones/[milestone]" as={milestone.milestoneLink}>
+                          <Button className={classes.link}>Learn more</Button>
+                        </NextLink>
+                      )}
+                    </Flags>
                   </Box>
                 </Box>
               ))}

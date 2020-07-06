@@ -8,13 +8,11 @@ const STAYING_MOTIVATED = 'staying-motivated';
 const INTERVIEWING_SKILLS = 'interviewing-skills';
 const PROFESSIONAL_NETWORK = 'professional-network';
 const RESEARCH_SKILLS = 'research-skills';
-const COVER_LETTER = 'cover-letter';
-const REFERENCES = 'references';
 const SOCIAL_NETWORK = 'social-network';
 const STRENGTHS_AND_VALUES = 'strenths-and-values';
-const SELF_CARE_PLAN = 'self-care-plan';
 const STRESS_MANAGEMENT_PRACTICES = 'stress-management-practices';
 const JOB_GOALS = 'job-goals';
+const SUPPORTING_INFORMATION = 'supporting-information';
 
 const JOB_SEARCH_CATEGORIES = [
   {
@@ -63,14 +61,9 @@ const MILESTONE_TYPES = [
     slug: JOB_GOALS,
   },
   {
-    name: 'Cover Letter and Other Information',
+    name: 'Supporting Information',
     category_slug: APPLYING_FOR_JOBS,
-    slug: COVER_LETTER,
-  },
-  {
-    name: 'References',
-    category_slug: APPLYING_FOR_JOBS,
-    slug: REFERENCES,
+    slug: SUPPORTING_INFORMATION,
   },
   {
     name: 'Supportive Social Network',
@@ -81,11 +74,6 @@ const MILESTONE_TYPES = [
     name: 'Strengths and Values',
     category_slug: APPLYING_FOR_JOBS,
     slug: STRENGTHS_AND_VALUES,
-  },
-  {
-    name: 'Self-Care Plan',
-    category_slug: TAKING_CARE,
-    slug: SELF_CARE_PLAN,
   },
   {
     name: 'Stress Management Practices',
