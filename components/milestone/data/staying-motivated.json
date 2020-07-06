@@ -1,75 +1,74 @@
 {
-    "slug": "staying-motivated",
-    "category": "health",
-    "title": "Staying Motivated",
-    "sections": [
-      {
-        "name": "Activities",
-        "slug": "activities",
-        "content": [
-          {
-            "component": "text",
-            "content": "Choose one of these activities to get started on your Staying Motivated milestone:"
-          }
-        ]
-      },
-      {
-        "name": "Milestone",
-        "slug": "milestone",
-        "content": [
-          {
-            "component": "text",
-            "content": "Finding the right job for you can take time. We’ll give you tips for staying motivated, even when the going gets tough."
-          },
-          {
-            "component": "list",
-            "subheading": "Finding a job can seem like all or nothing — either you’ve landed a job or you haven’t. Everything in the middle is uncertainty:",
-            "items": [
-              "Seeing if someone has a connection at a company you’re interested in",
-              "Finding an accountant to help with your taxes",
-              "Getting advice on whether to attend a conference",
-              "Sharing a job posting that looks like a good fit for someone you know"
-            ]
-          },
-          {
-            "component": "text",
-            "content":"Staying motivated is about moving forward in the face of these questions. It’s not easy, for sure. But it’s possible, and we’re here to help."
-          },
-          {
-            "component": "list",
-            "heading": "Focus on little steps.",
-            "subheading":"It’s normal to get overwhelmed when you have a big goal like landing a job. Decide what you can get done in the next hour and then do it."
-          },
-          {
-            "component": "list",
-            "heading": "Look for inspiration.",
-            "subheading":"Maybe today you need to find a job, any job. But make time to figure out what work you’d really like to do, too. Having a long-term goal can give you a sense of purpose."
-          },
-          {
-            "component": "list",
-            "heading":"Commit to learning from this experience.",
-            "subheading": "Many things about a job search, like the job market itself, aren’t in your control. You can take charge of how you approach the search, and signing up for a tool like NJCN is a good step."
-          }
-        ]
-      },
-      {
-        "name": "More Milestones",
-        "slug": "more-milestones",
-        "content": [
-          {
-            "component": "link",
-            "milestone": "strenths-and-values"
-          },
-          {
-            "component": "link",
-            "milestone": "staying-motivated"
-          },
-          {
-            "component": "link",
-            "milestone": "stress-management-practices"
-          }
-        ]
-      }
-    ]
-  }
-  
+  "slug": "staying-motivated",
+  "category": "health",
+  "title": "Staying Motivated",
+  "sections": [
+    {
+      "name": "Activities",
+      "slug": "activities",
+      "content": [
+        {
+          "component": "text",
+          "content": "Choose one of these activities to get started on your Staying Motivated milestone:"
+        }
+      ]
+    },
+    {
+      "name": "Milestone",
+      "slug": "milestone",
+      "content": [
+        {
+          "component": "text",
+          "content": "Finding the right job for you can take time. We’ll give you tips for staying motivated, even when the going gets tough."
+        },
+        {
+          "component": "list",
+          "subheading": "Finding a job can seem like all or nothing — either you’ve landed a job or you haven’t. Everything in the middle is uncertainty:",
+          "items": [
+            "Seeing if someone has a connection at a company you’re interested in",
+            "Finding an accountant to help with your taxes",
+            "Getting advice on whether to attend a conference",
+            "Sharing a job posting that looks like a good fit for someone you know"
+          ]
+        },
+        {
+          "component": "text",
+          "content": "Staying motivated is about moving forward in the face of these questions. It’s not easy, for sure. But it’s possible, and we’re here to help."
+        },
+        {
+          "component": "list",
+          "heading": "Focus on little steps.",
+          "subheading": "It’s normal to get overwhelmed when you have a big goal like landing a job. Decide what you can get done in the next hour and then do it."
+        },
+        {
+          "component": "list",
+          "heading": "Look for inspiration.",
+          "subheading": "Maybe today you need to find a job, any job. But make time to figure out what work you’d really like to do, too. Having a long-term goal can give you a sense of purpose."
+        },
+        {
+          "component": "list",
+          "heading": "Commit to learning from this experience.",
+          "subheading": "Many things about a job search, like the job market itself, aren’t in your control. You can take charge of how you approach the search, and signing up for a tool like NJCN is a good step."
+        }
+      ]
+    },
+    {
+      "name": "More Milestones",
+      "slug": "more-milestones",
+      "content": [
+        {
+          "component": "link",
+          "milestone": "strenths-and-values"
+        },
+        {
+          "component": "link",
+          "milestone": "staying-motivated"
+        },
+        {
+          "component": "link",
+          "milestone": "stress-management-practices"
+        }
+      ]
+    }
+  ]
+}

@@ -1,50 +1,49 @@
 {
-    "slug": "resume",
-    "category": "applying-for-jobs",
-    "title": "Resume",
-    "sections": [
-      {
-        "name": "Activities",
-        "slug": "activities",
-        "content": [
-          {
-            "component": "text",
-            "content": "Choose one of these activities to get started on your Resume milestone:"
-          }
-        ]
-      },
-      {
-        "name": "Milestone",
-        "slug": "milestone",
-        "content": [
-          {
-            "component": "text",
-            "content": "Many job postings will ask for your resume — a document that summarizes your skills, experiences, and education in one place. A good resume is one that gives potential employers an understanding of what you’d bring to the role.\n\nThe activities in this milestone provide tips, examples, and opportunities for practice that will help you create a competitive resume — step by step."
-          },
-          {
-            "component": "text",
-            "content": "<b>What if I don’t need a resume?</b>\nEven if you don’t need an official resume for your industry, it can still be useful to draft a document that has your key information. Job applications commonly ask for a lot of detail about past employment.\n\nWhether you’re creating a formal resume or preparing to complete job applications, the steps in this milestone will help you gather the information you’ll need."
-          }
-        ]
-      },
-      {
-        "name": "More Milestones",
-        "slug": "more-milestones",
-        "content": [
-          {
-            "component": "link",
-            "milestone": "supporting-information"
-          },
-          {
-            "component": "link",
-            "milestone": "resume"
-          },
-          {
-            "component": "link",
-            "milestone": "interviewing-skills"
-          }
-        ]
-      }
-    ]
-  }
-  
+  "slug": "resume",
+  "category": "applying-for-jobs",
+  "title": "Resume",
+  "sections": [
+    {
+      "name": "Activities",
+      "slug": "activities",
+      "content": [
+        {
+          "component": "text",
+          "content": "Choose one of these activities to get started on your Resume milestone:"
+        }
+      ]
+    },
+    {
+      "name": "Milestone",
+      "slug": "milestone",
+      "content": [
+        {
+          "component": "text",
+          "content": "Many job postings will ask for your resume — a document that summarizes your skills, experiences, and education in one place. A good resume is one that gives potential employers an understanding of what you’d bring to the role.\n\nThe activities in this milestone provide tips, examples, and opportunities for practice that will help you create a competitive resume — step by step."
+        },
+        {
+          "component": "text",
+          "content": "<b>What if I don’t need a resume?</b>\nEven if you don’t need an official resume for your industry, it can still be useful to draft a document that has your key information. Job applications commonly ask for a lot of detail about past employment.\n\nWhether you’re creating a formal resume or preparing to complete job applications, the steps in this milestone will help you gather the information you’ll need."
+        }
+      ]
+    },
+    {
+      "name": "More Milestones",
+      "slug": "more-milestones",
+      "content": [
+        {
+          "component": "link",
+          "milestone": "supporting-information"
+        },
+        {
+          "component": "link",
+          "milestone": "resume"
+        },
+        {
+          "component": "link",
+          "milestone": "interviewing-skills"
+        }
+      ]
+    }
+  ]
+}

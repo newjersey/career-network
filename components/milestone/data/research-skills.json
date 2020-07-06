@@ -1,56 +1,55 @@
 {
-    "slug": "research-skills",
-    "category": "finding-job-opportunities",
-    "title": "Research Skills",
-    "sections": [
-      {
-        "name": "Activities",
-        "slug": "activities",
-        "content": [
-          {
-            "component": "text",
-            "content": "Choose one of these activities to get started on your Research Skills milestone:"
-          }
-        ]
-      },
-      {
-        "name": "Milestone",
-        "slug": "milestone",
-        "content": [
-          {
-            "component": "text",
-            "content": "While searching for jobs online may be convenient, it can also be a bit overwhelming. There are pros and cons to having the whole internet universe at your fingertips!"
-          },
-          {
-            "component": "list",
-            "heading": "Choose a starting point.",
-            "subheading": "Do you want to track specific companies that are likely to hire people with your skills? Or are interesting job descriptions more important to you than the company?"
-          },
-          {
-            "component": "list",
-            "heading": "Learn about search tools.",
-            "subheading": "There are a lot of job boards out there. Many of them post the same job openings, but there are some sites that specialize in specific types of jobs.\n\nThe important thing is to pick a starting point for your research, see how it goes, and make changes as needed. We’ll provide guidance to make it less overwhelming."
-          }
-        ]
-      },
-      {
-        "name": "More Milestones",
-        "slug": "more-milestones",
-        "content": [
-          {
-            "component": "link",
-            "milestone": "professional-network"
-          },
-          {
-            "component": "link",
-            "milestone": "research-skills"
-          },
-          {
-            "component": "link",
-            "milestone": "job-goals"
-          }
-        ]
-      }
-    ]
-  }
-  
+  "slug": "research-skills",
+  "category": "finding-job-opportunities",
+  "title": "Research Skills",
+  "sections": [
+    {
+      "name": "Activities",
+      "slug": "activities",
+      "content": [
+        {
+          "component": "text",
+          "content": "Choose one of these activities to get started on your Research Skills milestone:"
+        }
+      ]
+    },
+    {
+      "name": "Milestone",
+      "slug": "milestone",
+      "content": [
+        {
+          "component": "text",
+          "content": "While searching for jobs online may be convenient, it can also be a bit overwhelming. There are pros and cons to having the whole internet universe at your fingertips!"
+        },
+        {
+          "component": "list",
+          "heading": "Choose a starting point.",
+          "subheading": "Do you want to track specific companies that are likely to hire people with your skills? Or are interesting job descriptions more important to you than the company?"
+        },
+        {
+          "component": "list",
+          "heading": "Learn about search tools.",
+          "subheading": "There are a lot of job boards out there. Many of them post the same job openings, but there are some sites that specialize in specific types of jobs.\n\nThe important thing is to pick a starting point for your research, see how it goes, and make changes as needed. We’ll provide guidance to make it less overwhelming."
+        }
+      ]
+    },
+    {
+      "name": "More Milestones",
+      "slug": "more-milestones",
+      "content": [
+        {
+          "component": "link",
+          "milestone": "professional-network"
+        },
+        {
+          "component": "link",
+          "milestone": "research-skills"
+        },
+        {
+          "component": "link",
+          "milestone": "job-goals"
+        }
+      ]
+    }
+  ]
+}
