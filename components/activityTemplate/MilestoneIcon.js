@@ -18,7 +18,6 @@ import {
   SUPPORTING_INFORMATION,
   STRENGTHS_AND_VALUES,
   STRESS_MANAGEMENT_PRACTICES,
-  SELF_CARE_PLAN,
   SOCIAL_NETWORK,
   JOB_GOALS,
 } from '../../constants';
@@ -28,7 +27,7 @@ const MilestoneIcon = ({ type, color, className }) => {
   const milestoneIcons = {
     [INTERVIEWING_SKILLS]: <PhoneInTalk style={{ color }} className={className} />,
     [RESUME]: <FileCopy style={{ color }} className={className} />,
-    [STAYING_MOTIVATED]: <FileCopy style={{ color }} className={className} />,
+    [STAYING_MOTIVATED]: <Highlight style={{ color }} className={className} />,
     [PROFESSIONAL_NETWORK]: <GroupAdd style={{ color }} className={className} />,
     [SOCIAL_NETWORK]: <GroupAdd style={{ color }} className={className} />,
     [RESEARCH_SKILLS]: <FindInPage style={{ color }} className={className} />,
@@ -36,7 +35,6 @@ const MilestoneIcon = ({ type, color, className }) => {
     [STRENGTHS_AND_VALUES]: <FitnessCenter style={{ color }} className={className} />,
     [STRESS_MANAGEMENT_PRACTICES]: <HotTub style={{ color }} className={className} />,
     [JOB_GOALS]: <Report style={{ color }} className={className} />,
-    [SELF_CARE_PLAN]: <Highlight style={{ color }} className={className} />,
   };
   return milestoneIcons[type] || null;
 };

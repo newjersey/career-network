@@ -6,7 +6,6 @@ export const PROFESSIONAL_NETWORK = 'professional-network';
 export const RESEARCH_SKILLS = 'research-skills';
 export const SUPPORTING_INFORMATION = 'supporting-information';
 export const SOCIAL_NETWORK = 'social-network';
-export const SELF_CARE_PLAN = 'self-care-plan';
 export const STRESS_MANAGEMENT_PRACTICES = 'stress-management-practices';
 export const JOB_GOALS = 'job-goals';
 export const STAYING_MOTIVATED = 'staying-motivated';
@@ -51,7 +50,6 @@ export const MILESTONE_TYPES = [
   {
     name: 'Self-Care Plan',
     category_slug: TAKING_CARE,
-    slug: SELF_CARE_PLAN,
   },
   {
     name: 'Stress Management Practices',
@@ -80,6 +78,5 @@ export default {
   SUPPORTING_INFORMATION,
   SOCIAL_NETWORK,
   STRENGTHS_AND_VALUES,
-  SELF_CARE_PLAN,
   STRESS_MANAGEMENT_PRACTICES,
 };
