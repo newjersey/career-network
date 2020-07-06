@@ -1,0 +1,143 @@
+{
+  "original": "ActivityTemplate_1594038560805.json",
+  "slug": "activity-template-40",
+  "tempateId": "template-40",
+  "title": "Find Companies That Interest Me",
+  "category": "finding-job-opportunities",
+  "milestone": "research-skills",
+  "total_time": "30 min",
+  "sections": [
+    {
+      "name": "What & Why",
+      "slug": "what-and-why",
+      "content": [
+        {
+          "component": "text",
+          "content": "Taking the time to research companies as part of your job search is a smart move that may save you time, energy, and frustrating work experiences."
+        },
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": "Imagine 2 people have the same role but at different companies. The first worker:",
+          "items": [
+            "Participates in an employer-sponsored mentorship program",
+            "Has opportunities for promotions",
+            "Receives a 401K match from their employer"
+          ]
+        },
+        {
+          "component": "text",
+          "content": "The other employee has limited opportunity for growth, no HR department to address employee concerns, and no 401K match. \n\nEven though both workers have the same title on paper, their day-to-day experiences are completely different."
+        },
+        {
+          "component": "text",
+          "content": "Prioritizing short-term needs \nRight now, your priority might be finding a job, period. You may not have the flexibility to hold out for a company that’s 100% aligned with your values. But this research can help you plan further ahead. And you might just luck out and find a good place to land even in a hurry. \n\nThe tips below will show you how to get a peek at what it might be like to work at a specific company."
+        }
+      ]
+    },
+    {
+      "name": "Tips for Success",
+      "slug": "tips-for-success",
+      "content": [
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": null,
+          "items": [
+            "Look at your network. See where friends, former colleagues, and former classmates are working. Ask what their company culture is like. Experts estimate that as many as 4 out of 5 people landed their current job because of someone in their network. (Source: Payscale.com)",
+            "Consult “best of” lists. Companies that are growing need great people to work for them. Think about how companies on these lists could use your talents and consider reaching out, even if they don’t have a specific job posting listed. See the next section for an example of a “best of” list.",
+            "Follow authors and bloggers who write about your industry. They might have insight on growing companies and where the market is going.",
+            "Use GlassDoor to research company reviews, salaries, and company information. And use LinkedIn’s companies section to look up promotions, new hires and company statistics."
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Examples",
+      "slug": "examples",
+      "content": [
+        {
+          "component": "text",
+          "content": "This is an example of a “Best of” news list that might provide some potential companies to look into."
+        },
+        {
+          "component": "list",
+          "heading": "Business is booming for these 14 companies during the coronavirus pandemic",
+          "subheading": null,
+          "items": [
+            "Activision Blizzard, Electronic Arts and Nintendo",
+            "Clorox Company and Reckitt Benckiser",
+            "Peloton",
+            "Publix and Kroger",
+            "Beyond Meat",
+            "3M",
+            "Wayfair and Overstock",
+            "Slack and Zoom"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Practice",
+      "slug": "practice",
+      "content": [
+        {
+          "component": "text",
+          "content": "Answer the following prompts about the type of company you want to work for."
+        },
+        {
+          "component": "practice_question_group",
+          "questions": [
+            {
+              "questionId": "template-40-q-1",
+              "order": 1,
+              "title": "What size company do you see yourself working in? Consider that in a small company, you might feel like your contributions are felt more significantly. But a larger company may have more job security and more established processes to learn from."
+            },
+            {
+              "questionId": "template-40-q-2",
+              "order": 2,
+              "title": "What benefits are important to you? Dental and Medical coverage?  Remote working options? Learning opportunities? Floating holidays?"
+            },
+            {
+              "questionId": "template-40-q-3",
+              "order": 3,
+              "title": "Are there specific company values that you’re looking for? (It’s common for companies to have core values, like honesty, doing the right thing, or customers first.)"
+            },
+            {
+              "questionId": "template-40-q-4",
+              "order": 4,
+              "title": "What else is important to you in a company?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Citations",
+      "slug": "citations",
+      "content": [
+        {
+          "component": "citation",
+          "label": "Payscale: Networking and Finding a Job",
+          "url": "https://www.payscale.com/career-news/2017/04/many-jobs-found-networking"
+        },
+        {
+          "component": "citation",
+          "label": "CNN Business: Companies that are doing well during the Pandemic",
+          "url": "https://www.cnn.com/2020/05/07/business/companies-thriving-coronavirus-pandemic/index.html"
+        }
+      ]
+    },
+    {
+      "name": "Next Steps",
+      "slug": "next-steps",
+      "content": [
+        {
+          "component": "callout",
+          "variant": "next",
+          "content": "Look up companies you’ve found from “best of lists” and network connections. Use this information to narrow down your list of companies. Then be sure to follow them on LinkedIn and check their job postings regularly."
+        }
+      ]
+    }
+  ]
+}

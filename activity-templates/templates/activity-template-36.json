@@ -1,0 +1,151 @@
+{
+  "original": "ActivityTemplate_1594037460647.json",
+  "slug": "activity-template-36",
+  "tempateId": "template-36",
+  "title": "Identify Promising Jobs",
+  "category": "finding-job-opportunities",
+  "milestone": "job-goals",
+  "total_time": "30 min",
+  "sections": [
+    {
+      "name": "What & Why",
+      "slug": "what-and-why",
+      "content": [
+        {
+          "component": "text",
+          "content": "If you don’t know which jobs to start applying to, that’s OK. A good place to start is by identifying your job interests. Then let your interests guide you toward promising job roles. \n\nBalancing short-term needs and long-term wants\nIf you’re worried about how to put food on the table, it’s hard to think about anything but finding a job, any job. And maybe that’s what you need to do for now. \n\nBut long-term, it can be helpful to know where you want to end up. Clearly identifying your job interests — the work you want to do, skills you want to use, and the projects you want to work on — can improve your search strategy. \n\nFinding your path\nBy defining the work you ultimately want, you’ll be better positioned to recognize jobs that can help you get there. And maybe offer some of what you’re looking for in the meantime."
+        }
+      ]
+    },
+    {
+      "name": "Tips for Success",
+      "slug": "tips-for-success",
+      "content": [
+        {
+          "component": "list",
+          "heading": "Finding Work You Want to Do",
+          "subheading": "While there may not always be a job available that makes you happy 100% of the time, these tips can help you identify your natural strengths.",
+          "items": [
+            "Look back at previous jobs. What has felt rewarding? When have you been engaged or excited? Those are emotions to look for when identifying work that will keep you motivated.",
+            "Build new skills. Set aside time to follow your curiosity and take on new projects or learn new skills. And remember which ones you enjoy the most.",
+            "Test yourself. There are a variety of tools that help you identify your strengths and interests. If you’d like some help, look into Holland’s RIASEC or the Myers-Briggs personality test. You can also check out our related activity, Identify My Strengths."
+          ]
+        },
+        {
+          "component": "list",
+          "heading": "Practical Considerations",
+          "subheading": "When you are looking for a job, you’ll want to consider practical aspects, like what you’re qualified for and what work is available. Even if you don’t land your ideal job right away, you can still work toward a path that feels like the right fit.",
+          "items": [
+            "Recognize your qualifications. You can always build on your skill set and qualifications, but applying to a job you are not yet qualified for is not a great use of your time. Instead work on building relevant skills.",
+            "Look at the market. Businesses and industries are quickly changing because of the pandemic. Think about how needs have shifted and which companies are hiring. Industrial real estate, public health, online retailers, e-learning, and sustainable building are a few of the industries thriving right now. (Sources: Colliers, BusinessWire, and McKinsey)",
+            "Identify where people need help. It might not be practical to pursue your dream job if there’s not enough of a need for people to pay. Think about what problems exist today and how you might be able to use your skills to be part of the solution. For more on this, visit the “Identify the Problems I Solve” activity.",
+            "Pay attention to feedback. Feedback can help you refine your list of promising jobs. For example, if you like working with people and you’ve gotten positive feedback on your customer service, keep this in mind as you consider different jobs.",
+            "Build your network. Find people who work in your job interest areas. Ask how they landed the job and the path they took to get there. For more information, visit the Professional Network milestone."
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Examples",
+      "slug": "examples",
+      "content": [
+        {
+          "component": "text",
+          "content": "Here’s an example of how you could connect the dots between your current interests and a future goal.\n\nI feel most engaged when I’m talking with people and helping them solve problems. The results from my Holland Code test suggest I’m a good fit with social and investigative careers, including teaching and counseling. \nIn the long-term, I’d like to earn enough money to finish college, then graduate and become a counselor."
+        },
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": "Right now, I need to find a job with my current skill set:",
+          "items": [
+            "Strong listener",
+            "Clear communicator",
+            "Persuasive talker",
+            "High school graduate with some college education"
+          ]
+        },
+        {
+          "component": "text",
+          "content": "Right now, I have the qualifications and natural strengths to be a good customer service representative. In my job search, I found many e-learning companies hiring for this position. \n\nOne good job fit for me now would be a customer service representative for an e-learning company."
+        }
+      ]
+    },
+    {
+      "name": "Practice",
+      "slug": "practice",
+      "content": [
+        {
+          "component": "text",
+          "content": "Write down answers to the following prompts, and then use the information to guide you to promising job roles. \nYou may need to do some outside research on LinkedIn and job search boards to see which types of jobs are available and what extra skills are needed to qualify for those jobs."
+        },
+        {
+          "component": "practice_question_group",
+          "questions": [
+            {
+              "questionId": "template-36-q-1",
+              "order": 1,
+              "title": "What projects and tasks feel the most rewarding and engaging to you?"
+            },
+            {
+              "questionId": "template-36-q-2",
+              "order": 2,
+              "title": "What are your current strengths and skills?"
+            },
+            {
+              "questionId": "template-36-q-3",
+              "order": 3,
+              "title": "What type of people or companies would benefit from your current strengths and skills?"
+            },
+            {
+              "questionId": "template-36-q-4",
+              "order": 4,
+              "title": "Could any of those companies or people get you one step closer to your ideal job?"
+            },
+            {
+              "questionId": "template-36-q-5",
+              "order": 5,
+              "title": "What roles are they hiring that match your qualifications?"
+            },
+            {
+              "questionId": "template-36-q-6",
+              "order": 6,
+              "title": "From that list, write down 1 to 2 promising job roles:"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Citations",
+      "slug": "citations",
+      "content": [
+        {
+          "component": "citation",
+          "label": "12 Industry Channels Expected to Thrive Post-COVID-19",
+          "url": "https://knowledge-leader.colliers.com/editor/12-industry-channels-expected-to-thrive-post-covid-19/"
+        },
+        {
+          "component": "citation",
+          "label": "Impact of COVID-19 on the Global Green Building Materials Market",
+          "url": "https://www.businesswire.com/news/home/20200615005280/en/Impact-COVID-19-Global-Green-Building-Materials-Market"
+        },
+        {
+          "component": "citation",
+          "label": "COVID-19: Implications for Business",
+          "url": "https://www.mckinsey.com/business-functions/risk/our-insights/covid-19-implications-for-business#"
+        }
+      ]
+    },
+    {
+      "name": "Next Steps",
+      "slug": "next-steps",
+      "content": [
+        {
+          "component": "callout",
+          "variant": "next",
+          "content": "Start researching your promising job roles. Which specific companies are hiring for those positions? Which of those companies could get you closest to your ideal job?"
+        }
+      ]
+    }
+  ]
+}

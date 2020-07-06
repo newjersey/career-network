@@ -1,0 +1,122 @@
+{
+  "original": "ActivityTemplate_1594037651576.json",
+  "slug": "activity-template-37",
+  "tempateId": "template-37",
+  "title": "List My Wants and Must Haves",
+  "category": "finding-job-opportunities",
+  "milestone": "job-goals",
+  "total_time": "20 min",
+  "sections": [
+    {
+      "name": "What & Why",
+      "slug": "what-and-why",
+      "content": [
+        {
+          "component": "text",
+          "content": "Whether you’re trying to find your first job or you’re making a midlife career change, one helpful step is making a “Must have” and a “Want” list."
+        },
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": "Taking the time to think through these 2 lists before diving into your search can help you:",
+          "items": [
+            "Focus your job efforts",
+            "Communicate your priorities",
+            "Avoid making the wrong job choice"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Tips for Success",
+      "slug": "tips-for-success",
+      "content": [
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": null,
+          "items": [
+            "Consider growth opportunities. Many internships or entry-level jobs might not involve the most exciting day-to-day tasks, but they could offer growth opportunities that benefit your future.",
+            "Look at your schedule and location. What days and hours are you available to work? Can you realistically take a job that’s located an hour away? What amount of commute time would you accept?",
+            "Include a salary range. What salary range does a job need to hit in order for you to consider it? Include that range in your must have list, and bump it up to a more comfortable range for your wants list.",
+            "Examine benefits. Many companies offer medical and dental coverage. Some others include a 401K match and continued education opportunities.",
+            "Don’t forget culture. If a company’s culture clashes with your values and personality, your happiness is likely to suffer. What is important to you when it comes to culture?"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Examples",
+      "slug": "examples",
+      "content": [
+        {
+          "component": "list",
+          "heading": "Here’s an example of a “must-have” list:",
+          "subheading": null,
+          "items": [
+            "Commute under 45 minutes",
+            "Salary at or above $35K",
+            "Medical coverage",
+            "Culture that values diversity",
+            "Growth opportunities",
+            "Work space with windows and natural light"
+          ]
+        },
+        {
+          "component": "list",
+          "heading": "Here’s an example of a “want” list:",
+          "subheading": null,
+          "items": [
+            "Training and career development opportunities",
+            "Salary above $55K",
+            "Flexible working hours",
+            "Mentorship opportunities",
+            "401K company match"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Practice",
+      "slug": "practice",
+      "content": [
+        {
+          "component": "text",
+          "content": "Which aspects of a job are important for you? Consider growth opportunities, day-to-day tasks, schedule, location, salary, benefits, and culture."
+        },
+        {
+          "component": "practice_question_group",
+          "questions": [
+            {
+              "questionId": "template-37-q-1",
+              "order": 1,
+              "title": "My brainstorm of what I’m looking for: (ex. perks, commute, etc.)"
+            },
+            {
+              "questionId": "template-37-q-2",
+              "order": 2,
+              "title": "Out of the list above, these are my “must haves”:"
+            },
+            { "questionId": "template-37-q-3", "order": 3, "title": "And these are my “wants”:" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Citations",
+      "slug": "citations",
+      "content": [{ "component": "citation", "label": null, "url": null }]
+    },
+    {
+      "name": "Next Steps",
+      "slug": "next-steps",
+      "content": [
+        {
+          "component": "callout",
+          "variant": "next",
+          "content": "Consult your list as you decide which jobs to apply to, and also as you negotiate an offer. At some point in your job search, you may find it helpful to rank the items on your “want” list based on how important they are."
+        }
+      ]
+    }
+  ]
+}

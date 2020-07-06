@@ -1,0 +1,146 @@
+{
+  "original": "ActivityTemplate_1593551576176.json",
+  "slug": "activity-template-33",
+  "tempateId": "template-33",
+  "title": "Strengthen My Emotional Intelligence",
+  "category": "health",
+  "milestone": "strenths-and-values",
+  "total_time": "30 min",
+  "sections": [
+    {
+      "name": "What & Why",
+      "slug": "what-and-why",
+      "content": [
+        {
+          "component": "text",
+          "content": "Emotional intelligence (EI) is the ability to identify, understand, and manage emotions — both our own emotions and those of people around us."
+        },
+        {
+          "component": "list",
+          "heading": "4 categories of EI (Source: The Emotional Intelligence Institute)",
+          "subheading": null,
+          "items": [
+            "Noticing and expressing feelings",
+            "Using emotions to make decisions or to put yourself in someone else’s shoes",
+            "Understanding how you or someone else is feeling and why",
+            "Knowing how to manage emotions to achieve goals (for example, knowing how and when to express anger)"
+          ]
+        },
+        {
+          "component": "list",
+          "heading": "Benefits of high EI (Source: Verywell Mind)",
+          "subheading": "Studies show that people with high EI are better at:",
+          "items": [
+            "Solving problems and making good decisions",
+            "Managing stress and handling conflict",
+            "Relating to the feelings of others",
+            "Listening to and learning from feedback"
+          ]
+        },
+        {
+          "component": "text",
+          "content": "Increasing your EI\nStrengthening your EI can have benefits in your personal life, as well as in the workplace. And luckily, it’s possible to improve your EI. \n\nIn the next section, we’ll go over some tips to get you started."
+        }
+      ]
+    },
+    {
+      "name": "Tips for Success",
+      "slug": "tips-for-success",
+      "content": [
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": "Check out these tips from Verywell Mind. The questions here will help you get warmed up for the Practice section, too.",
+          "items": [
+            "Pay attention to your feelings. Make a point to observe how you’re feeling throughout the day. How do these feelings affect the decisions you make? How do they affect how you respond to the people around you?",
+            "Identify your emotional strengths and weaknesses. How often do you lose your cool? Do you communicate clearly about your feelings?",
+            "Remember that feelings come and go. When we have a strong emotion — good or bad — it’s easy to feel like it’ll last forever. Instead of reacting right away based on the intensity of a feeling, remind yourself that it’s temporary. Make sure that the actions you do take are consistent with your values and goals.",
+            "Find ways to manage (or regulate) your emotions. This doesn’t mean ignoring your feelings, but rather learning to express them in appropriate ways. For example, if you disagree with someone, what helps you stay calm and focused on a solution?",
+            "Listen to other people. This can be hard, especially when we feel strongly about something. But slow yourself down next time, and really focus on listening to the other person’s perspective.",
+            "Put yourself in the other person’s shoes. Try to see the situation from someone else’s perspective. What could you be missing? What information do you have that the other person might not?"
+          ]
+        }
+      ]
+    },
+    { "name": "Examples", "slug": "examples", "content": [] },
+    {
+      "name": "Practice",
+      "slug": "practice",
+      "content": [
+        { "component": "text", "content": "Take a few minutes here to reflect on these prompts." },
+        {
+          "component": "practice_question_group",
+          "questions": [
+            {
+              "questionId": "template-33-q-1",
+              "order": 1,
+              "title": "Here’s an example of a time that I made a good decision based on my feelings:"
+            },
+            {
+              "questionId": "template-33-q-2",
+              "order": 2,
+              "title": "What can I learn from this good decision?"
+            },
+            {
+              "questionId": "template-33-q-3",
+              "order": 3,
+              "title": "Here’s an example of a time that I made a bad decision based on my feelings:"
+            },
+            {
+              "questionId": "template-33-q-4",
+              "order": 4,
+              "title": "What can I learn from this bad decision?"
+            },
+            {
+              "questionId": "template-33-q-5",
+              "order": 5,
+              "title": "In my personal life, I’d like to get better at managing these emotions: (Include your reasons.)"
+            },
+            {
+              "questionId": "template-33-q-6",
+              "order": 6,
+              "title": "In my work life, I’d like to get better at managing these emotions: (Include your reasons.)"
+            },
+            {
+              "questionId": "template-33-q-7",
+              "order": 7,
+              "title": "Here’s one thing I’m going to do this week to strengthen my emotional intelligence:"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Citations",
+      "slug": "citations",
+      "content": [
+        {
+          "component": "citation",
+          "label": "The Emotional Intelligence Institute: Components of emotional intelligence",
+          "url": "http://www.theeiinstitute.com/what-is-emotional-intelligence/4-mayer-and-salovey-model-of-emotional-intelligence.html"
+        },
+        {
+          "component": "citation",
+          "label": "Verywell Mind: Benefits of high emotional intelligence",
+          "url": "https://www.verywellmind.com/utilizing-emotional-intelligence-in-the-workplace-4164713"
+        },
+        {
+          "component": "citation",
+          "label": "Verywell Mind: Increasing your emotional intelligence",
+          "url": "https://www.verywellmind.com/utilizing-emotional-intelligence-in-the-workplace-4164713"
+        }
+      ]
+    },
+    {
+      "name": "Next Steps",
+      "slug": "next-steps",
+      "content": [
+        {
+          "component": "callout",
+          "variant": "next",
+          "content": "As you practice boosting your emotional intelligence over the next week, set aside a few minutes at the end of each day to reflect on how it’s going. What do you notice about how you’re feeling during the day? Does anything surprise you? \n\nAnd check out our related activities, List My Coping Strategies and Practice Meditation."
+        }
+      ]
+    }
+  ]
+}

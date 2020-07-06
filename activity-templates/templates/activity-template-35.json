@@ -1,0 +1,125 @@
+{
+  "original": "ActivityTemplate_1593552374773.json",
+  "slug": "activity-template-35",
+  "tempateId": "template-35",
+  "title": "Write My Job Ad",
+  "category": "finding-job-opportunities",
+  "milestone": "job-goals",
+  "total_time": "20 min",
+  "sections": [
+    {
+      "name": "What & Why",
+      "slug": "what-and-why",
+      "content": [
+        {
+          "component": "text",
+          "content": "When we’re looking for a new job, most of us spend a lot of time trying to show that we could meet employers’ expectations. But what if organizations had to apply to you? This isn’t just a silly game — doing this exercise can give you a new perspective on your job search. \n\nImagine that there’s a new Jobs section on LinkedIn or Indeed. Instead of organizations posting what they want in job applicants, you get to post what you want in a job. If an employer thinks that they can provide a role that meets your requirements, they can apply."
+        },
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": "Creating a personal job advertisement will help you:",
+          "items": [
+            "Learn to market yourself",
+            "Get clear about your job targets",
+            "Identify the things that you won't compromise on"
+          ]
+        },
+        {
+          "component": "text",
+          "content": "And if you want to promote your personal job ad, you can upload it to Craigslist.com where they have a “Job wanted” section, or you could publish it in your local newspaper. \n\nBut even if you don’t intend to share the ad, take some time to write it."
+        }
+      ]
+    },
+    {
+      "name": "Tips for Success",
+      "slug": "tips-for-success",
+      "content": [
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": null,
+          "items": [
+            "Consider your strengths. When do you feel most confident? What are you great at? If you need help identifying your strengths, you can find personality tests online like Myers-Briggs or Clifton Strengthsfinder. You can also check out our related activity, Identify My Strengths.",
+            "Ask for feedback. A great way to learn more about your abilities and opportunities to grow is to ask for feedback from people who have worked with you. Use these insights to develop your job ad.",
+            "Think about where you want to go. Which challenges give you motivation and excitement? Where do you hope to see yourself in a few years?",
+            "Reflect on what makes you happy. When writing your job ad, think about what environments you would be happiest in. For example, if being outdoors all day makes you happiest, you may want to add in your job ad, “I won’t take a job where I can’t be outdoors.”"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Examples",
+      "slug": "examples",
+      "content": [
+        {
+          "component": "text",
+          "content": "Name and motto: Bob Bowman. The best in me brings out the best in others. \n\nPersonal qualities: Open, curious, generous, compassionate, anxious, ambitious, courageous, bright, determined. \n\nTalents: Social intelligence, psychology and counseling, sports, creativity.\n\nValues: Meaning, freedom, status, courage, integrity.\n\nAmbitions: I want to build something. I want to make a difference to other people. I want to build a movement that changes the way people see work. I want to use psychology to help people cope with their suffering. \n\nAnything else you wish for in your ideal job: I want to be an expert in something and to pass this expertise on. I want to build effective tools that help people move forward and make these accessible for free. I want to be very well paid but want this to reflect my value to others. I want to write brilliant books that aren’t afraid to challenge convention. I want to travel a bit. I want to have time to dedicate to my family. I want to work with brilliant, like-minded people. \n\nJobs that need not apply: Anything to do with bureaucracy. Selling things that people don’t need. Anything that has no evidence to support it. \n\nOne thing you cannot compromise on: My values."
+        }
+      ]
+    },
+    {
+      "name": "Practice",
+      "slug": "practice",
+      "content": [
+        {
+          "component": "text",
+          "content": "Use these prompts to generate your own job ad. Use the example above for inspiration."
+        },
+        {
+          "component": "practice_question_group",
+          "questions": [
+            { "questionId": "template-35-q-1", "order": 1, "title": "My personal motto:" },
+            { "questionId": "template-35-q-2", "order": 2, "title": "My top 3 to 5 qualities:" },
+            {
+              "questionId": "template-35-q-3",
+              "order": 3,
+              "title": "Four to 5 of my talents or skills:"
+            },
+            {
+              "questionId": "template-35-q-4",
+              "order": 4,
+              "title": "My values for a job environment:"
+            },
+            {
+              "questionId": "template-35-q-5",
+              "order": 5,
+              "title": "My ambitions: (For example, “I want to run my own business” or “I want to be paid well enough to take a vacation twice a year.”)"
+            },
+            {
+              "questionId": "template-35-q-6",
+              "order": 6,
+              "title": "Anything else I would want in my ideal job:"
+            },
+            {
+              "questionId": "template-35-q-7",
+              "order": 7,
+              "title": "Which jobs should not apply? (For example, “I don’t want a job that requires overnight travel.”)"
+            },
+            {
+              "questionId": "template-35-q-8",
+              "order": 8,
+              "title": "What is one thing that I can’t compromise on?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Citations",
+      "slug": "citations",
+      "content": [{ "component": "citation", "label": null, "url": null }]
+    },
+    {
+      "name": "Next Steps",
+      "slug": "next-steps",
+      "content": [
+        {
+          "component": "callout",
+          "variant": "next",
+          "content": "Review your job ad throughout your job search. Use it as inspiration when you apply for jobs. You can also use it as guidance to decide which jobs to apply to and which to consider skipping."
+        }
+      ]
+    }
+  ]
+}
