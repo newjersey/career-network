@@ -1,0 +1,121 @@
+{
+  "original": "ActivityTemplate_1593549129560.json",
+  "slug": "activity-template-32",
+  "tempateId": "template-32",
+  "title": "Identify My Strengths",
+  "category": "health",
+  "milestone": "strenths-and-values",
+  "total_time": "15 min",
+  "sections": [
+    {
+      "name": "What & Why",
+      "slug": "what-and-why",
+      "content": [
+        {
+          "component": "text",
+          "content": "Before you make a case for why someone should hire you, it helps to feel secure and grounded in your strengths. Take some time in this activity to reflect on what you have to offer — not just to an employer, but to the world around you."
+        }
+      ]
+    },
+    {
+      "name": "Tips for Success",
+      "slug": "tips-for-success",
+      "content": [
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": null,
+          "items": [
+            "Think about compliments you’ve received. Compliments are a great source of information about your strengths. What do your friends and family value about you? What have previous coworkers or bosses said about you?",
+            "Look for themes. Do friends come to you when they’re upset? Do you find yourself offering to help an older neighbor? The common trait here could be empathy, meaning that you’re good at understanding and relating to other people’s feelings.",
+            "Use a list of character traits. Getting stuck? Try doing a quick online search for lists of character traits and strengths.",
+            "Take a survey. There are online surveys to help you identify your strengths, too. The VIA Character Strengths Survey is a free option that takes about 15 minutes. You’ll need to create an account, but your results are private and confidential."
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Examples",
+      "slug": "examples",
+      "content": [
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": "Here are some of the strengths that recruiters look for: (Source: Monster.com)",
+          "items": ["Reliability", "Positivity", "Enthusiasm or passion", "Curiosity"]
+        },
+        {
+          "component": "text",
+          "content": "As you can see, these are many of the qualities that we tend to value in our friends and family, too."
+        }
+      ]
+    },
+    {
+      "name": "Practice",
+      "slug": "practice",
+      "content": [
+        {
+          "component": "text",
+          "content": "If you have trouble getting going with this activity, you may want to do a little homework first. For example, you could look for a list of traits or take the VIA Character Strengths Survey.\n\nBut if you’re feeling ready to go, dive right in and see where this takes you."
+        },
+        {
+          "component": "practice_question_group",
+          "questions": [
+            {
+              "questionId": "template-32-q-1",
+              "order": 1,
+              "title": "My friends and family often tell me that I’m:"
+            },
+            {
+              "questionId": "template-32-q-2",
+              "order": 2,
+              "title": "In school, I got positive feedback on:"
+            },
+            {
+              "questionId": "template-32-q-3",
+              "order": 3,
+              "title": "These tasks at home are my favorite:"
+            },
+            {
+              "questionId": "template-32-q-4",
+              "order": 4,
+              "title": "These tasks from previous jobs have been satisfying:"
+            },
+            {
+              "questionId": "template-32-q-5",
+              "order": 5,
+              "title": "I take a lot of pride in my ability to:"
+            },
+            {
+              "questionId": "template-32-q-6",
+              "order": 6,
+              "title": "Based on this reflection, I believe my top strengths are:"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Citations",
+      "slug": "citations",
+      "content": [
+        {
+          "component": "citation",
+          "label": "Monster.com: Strengths recruiters look for",
+          "url": "https://www.monster.com/career-advice/article/qualities-recruiters-want-to-see"
+        }
+      ]
+    },
+    {
+      "name": "Next Steps",
+      "slug": "next-steps",
+      "content": [
+        {
+          "component": "callout",
+          "variant": "next",
+          "content": "Begin to think about how you can highlight your strengths in your marketing materials and in your job search. Keep the list handy so that you can add to it as you think of more strengths."
+        }
+      ]
+    }
+  ]
+}

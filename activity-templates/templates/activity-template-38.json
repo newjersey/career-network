@@ -1,0 +1,141 @@
+{
+  "original": "ActivityTemplate_1594038025718.json",
+  "slug": "activity-template-38",
+  "tempateId": "template-38",
+  "title": "Choose Job Search Boards",
+  "category": "finding-job-opportunities",
+  "milestone": "research-skills",
+  "total_time": "30 min",
+  "sections": [
+    {
+      "name": "What & Why",
+      "slug": "what-and-why",
+      "content": [
+        {
+          "component": "text",
+          "content": "Job search boards show open jobs. If you visit a job search site, you will see a list of available jobs with information about what type of person the employer is looking for. Some job boards focus on a particular industry or interest — like healthcare or sales — while others focus on a particular location. \n\nJob search boards are incredibly useful for connecting companies and recruiters with job seekers. Here’s how to get the most out of them and how to avoid scams."
+        }
+      ]
+    },
+    {
+      "name": "Tips for Success",
+      "slug": "tips-for-success",
+      "content": [
+        {
+          "component": "list",
+          "heading": null,
+          "subheading": null,
+          "items": [
+            "Focus on 1 to 2 job search sites. There are many job search boards online, but they’re often posting the same jobs. Rather than wasting effort looking at every job board, stick with 1 or 2 that have jobs in your industry.",
+            "Don’t overlook local job boards. If you’re looking for an onsite job, start local. Restaurants and small businesses may post on a local channel first.",
+            "Beware of scams. If an offer sounds too good to be true, investigate. The work-from-home position that allows you to make up to $100,000 a year with no skills or degrees necessary is likely a scam. Look up the company in the Better Business Bureau, and find reviews on sites like Yelp.",
+            "Use “All filters” or “Advanced search” options. If you click on “All filters” on LinkedIn, you can filter by salary, job type (part-time, full-time, contract, etc), and benefits. Similarly, the “Advanced search” option on Indeed and other sites allows you to give a more detailed description of what you’re looking for."
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Examples",
+      "slug": "examples",
+      "content": [
+        {
+          "component": "text",
+          "content": "Below are examples of trusted job search boards, plus their specialty."
+        },
+        {
+          "component": "callout",
+          "variant": "pro-tip",
+          "content": "LinkedIn is a general job search site for nearly all industries and career levels. Before applying for a job, check to see if you have any 1st degree connections with someone at the company. Consider reaching out to get more information about the position."
+        },
+        {
+          "component": "callout",
+          "variant": "pro-tip",
+          "content": "Indeed is a popular job search site with jobs from nearly all industries."
+        },
+        {
+          "component": "callout",
+          "variant": "pro-tip",
+          "content": "Glassdoor is a job search site that allows you to look up salary data and company reviews for a company you’re applying to."
+        },
+        {
+          "component": "callout",
+          "variant": "pro-tip",
+          "content": "Idealist is a nonprofit organization that shows available jobs, internships, and volunteer activities in the nonprofit and social good space."
+        },
+        {
+          "component": "callout",
+          "variant": "pro-tip",
+          "content": "FlexJobs is a job search site that specializes in showing remote part-time and full-time jobs, and on-site jobs with flexible schedules."
+        },
+        {
+          "component": "callout",
+          "variant": "pro-tip",
+          "content": "SalesGravy is a job search site limited to sales jobs that allows you to search for your ideal salary and job description."
+        }
+      ]
+    },
+    {
+      "name": "Practice",
+      "slug": "practice",
+      "content": [
+        {
+          "component": "text",
+          "content": "Use the prompts below to think about how you can best use a job search board."
+        },
+        {
+          "component": "practice_question_group",
+          "questions": [
+            {
+              "questionId": "template-38-q-1",
+              "order": 1,
+              "title": "A long-term job I am interested in:"
+            },
+            {
+              "questionId": "template-38-q-2",
+              "order": 2,
+              "title": "Some short-term jobs that could help hold me over:"
+            },
+            {
+              "questionId": "template-38-q-3",
+              "order": 3,
+              "title": "The type of job I am looking for (contract, remote, full-time, part-time):"
+            },
+            { "questionId": "template-38-q-4", "order": 4, "title": "My ideal salary range:" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Citations",
+      "slug": "citations",
+      "content": [
+        { "component": "citation", "label": "LinkedIn", "url": "https://www.linkedin.com/" },
+        { "component": "citation", "label": "Indeed", "url": "https://www.indeed.com/" },
+        {
+          "component": "citation",
+          "label": "Glassdoor",
+          "url": "https://www.glassdoor.com/index.htm"
+        },
+        {
+          "component": "citation",
+          "label": "Idealist",
+          "url": "https://www.idealist.org/en/about"
+        },
+        { "component": "citation", "label": "FlexJobs", "url": "https://www.flexjobs.com/" },
+        { "component": "citation", "label": "SalesGravy", "url": "https://salesgravy.com/" },
+        { "component": "citation", "label": "Dice", "url": "https://www.dice.com/" }
+      ]
+    },
+    {
+      "name": "Next Steps",
+      "slug": "next-steps",
+      "content": [
+        {
+          "component": "callout",
+          "variant": "next",
+          "content": "Pick 1 or 2 job search boards from the example list, and use your answers in the practice section to guide your research. Use the “Advanced search” options to narrow the search results if needed."
+        }
+      ]
+    }
+  ]
+}
