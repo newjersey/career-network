@@ -24,7 +24,7 @@ function ExploreSection({ sectionData, category }) {
       <ScaffoldContainer>
         <Grid container justify="flex-end" spacing={4}>
           <Grid item container xs={12} sm={2}>
-            <Typography variant="h2" align="right">
+            <Typography variant="h3" align="right">
               {categoryType.name}
             </Typography>
           </Grid>
