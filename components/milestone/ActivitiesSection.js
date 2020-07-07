@@ -33,13 +33,15 @@ function ActivitiesSection({ sectionData, activityTemplates }) {
             </Grid>
           ))}
           <Grid item container xs={12} sm={9}>
-            {activityTemplates.map(template => (
-              <ActivityTemplateCard
-                key={template.slug}
-                totalTime={template.total_time}
-                {...template}
-              />
-            ))}
+            {activityTemplates
+              .sort((a, b) => a.activitySequence - b.activitySequence)
+              .map(template => (
+                <ActivityTemplateCard
+                  key={template.slug}
+                  totalTime={template.total_time}
+                  {...template}
+                />
+              ))}
           </Grid>
         </Grid>
       </ScaffoldContainer>
