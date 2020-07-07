@@ -22,8 +22,7 @@ function DashboardPage() {
   const completedTasks = useUserSubcollection(
     'taskDispositionEvents',
     { where: ['type', '==', 'done'] },
-    { orderBy: ['timestamp', 'desc'] },
-    { limit: HISTORY_LIMIT }
+    { orderBy: ['timestamp', 'desc'] }
   );
 
   const allActivityLogEntries = useUserSubcollection('activityLogEntries', {
