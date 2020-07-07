@@ -75,20 +75,20 @@ const TOPIC_TYPES = [
 
 const MILESTONE_TYPES = [
   {
-    value: 'supporting-information',
-    label: 'Supporting Information',
-    milestoneLink: `/milestones/supporting-information`,
-    description:
-      'Many job postings require applicants to provide more than just your work history. Supporting information could include a cover letter, list of references, or even a portfolio, depending on the role',
-    icon: ClassIcon,
-  },
-  {
     value: 'resume',
     label: 'Resume',
     milestoneLink: `/milestones/resume`,
     description:
       'This is a summary of your work history. It may include information about your awards, interests, and volunteer activities. ',
     icon: FileCopyIcon,
+  },
+  {
+    value: 'supporting-information',
+    label: 'Supporting Information',
+    milestoneLink: `/milestones/supporting-information`,
+    description:
+      'Many job postings require applicants to provide more than just your work history. Supporting information could include a cover letter, list of references, or even a portfolio, depending on the role',
+    icon: ClassIcon,
   },
   {
     value: 'interviewing-skills',
