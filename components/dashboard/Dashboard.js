@@ -12,6 +12,7 @@ import PubSub from 'pubsub-js';
 import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import SettingsIcon from '@material-ui/icons/Settings';
+import StarIcon from '@material-ui/icons/Star';
 import every from 'lodash/every';
 
 import { WEEKLY_ACTION_PLAN_COMPLETE } from '../constants';
@@ -45,7 +46,11 @@ const useStyles = makeStyles(theme => ({
     position: 'relative',
   },
   subtitle: {
-    display: 'inline-block',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  icon: {
+    marginRight: theme.spacing(1),
   },
   container: {
     marginTop: theme.spacing(-5),
@@ -472,6 +477,7 @@ export default function Dashboard(props) {
               authorizedFlags={['activityTemplate']}
               renderOn={() => (
                 <Typography variant="h5" className={classes.subtitle} data-intercom="task-count">
+                  <StarIcon className={classes.icon} />
                   Recommended Activities
                 </Typography>
               )}
