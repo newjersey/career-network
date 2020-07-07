@@ -6,6 +6,7 @@
   "category": "health",
   "milestone": "staying-motivated",
   "total_time": "20 min",
+  "activitySequence": 2,
   "sections": [
     {
       "name": "What & Why",
