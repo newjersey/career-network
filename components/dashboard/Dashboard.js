@@ -38,6 +38,7 @@ import CelebrationDialog from '../CelebrationDialog';
 import ActivityTemplateCard from './ActivityTemplateCard';
 
 const TASK_COUNT_LIMIT = 3;
+const ACTIVITY_DISPLAY = 3;
 const ROW_GAP = 2;
 const COL_GAP = 2;
 
@@ -492,13 +493,15 @@ export default function Dashboard(props) {
             <Flags
               authorizedFlags={['activityTemplate']}
               renderOn={() =>
-                incompleteActivityTemplates.map(template => (
-                  <ActivityTemplateCard
-                    key={template.slug}
-                    totalTime={template.total_time}
-                    {...template}
-                  />
-                ))
+                incompleteActivityTemplates
+                  .slice(0, ACTIVITY_DISPLAY)
+                  .map(template => (
+                    <ActivityTemplateCard
+                      key={template.slug}
+                      totalTime={template.total_time}
+                      {...template}
+                    />
+                  ))
               }
               renderOff={() => (
                 <TaskList
