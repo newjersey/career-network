@@ -6,6 +6,7 @@ import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import NextLink from 'next/link';
 import { format } from 'date-fns';
 
 import ActionIcon from '../dashboard/ActionPlan/ActionIcon';
@@ -36,7 +37,7 @@ const useStyles = makeStyles(theme => ({
 
 function ActionItem(props) {
   const classes = useStyles();
-  const { title, why, dateCompleted, actionType, openDetails } = props;
+  const { title, why, dateCompleted, actionType, openDetails, activityTemplateId } = props;
 
   return (
     <>
@@ -66,6 +67,13 @@ function ActionItem(props) {
               Open
             </Button>
           )}
+          {activityTemplateId && (
+            <NextLink href={`/activity-template?template=${activityTemplateId}`}>
+              <Button className={classes.openButton} variant="contained">
+                View
+              </Button>
+            </NextLink>
+          )}
         </div>
         {why && (
           <Typography
@@ -92,11 +100,13 @@ ActionItem.propTypes = {
     color: PropTypes.string.isRequired,
   }).isRequired,
   openDetails: PropTypes.func,
+  activityTemplateId: PropTypes.string,
 };
 
 ActionItem.defaultProps = {
   why: null,
   openDetails: null,
+  activityTemplateId: null,
 };
 
 export default ActionItem;
