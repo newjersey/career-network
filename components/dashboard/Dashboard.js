@@ -492,13 +492,15 @@ export default function Dashboard(props) {
             <Flags
               authorizedFlags={['activityTemplate']}
               renderOn={() =>
-                incompleteActivityTemplates.map(template => (
-                  <ActivityTemplateCard
-                    key={template.slug}
-                    totalTime={template.total_time}
-                    {...template}
-                  />
-                ))
+                incompleteActivityTemplates
+                  .slice(0, 3)
+                  .map(template => (
+                    <ActivityTemplateCard
+                      key={template.slug}
+                      totalTime={template.total_time}
+                      {...template}
+                    />
+                  ))
               }
               renderOff={() => (
                 <TaskList
