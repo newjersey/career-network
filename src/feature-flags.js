@@ -36,6 +36,10 @@ const envConfigs = {
       name: 'milestonePages',
       isActive: false,
     },
+    {
+      name: 'upcomingInterview',
+      isActive: false,
+    },
   ],
   PREVIEW: [
     {
@@ -73,6 +77,10 @@ const envConfigs = {
     {
       name: 'milestonePages',
       isActive: true,
+    },
+    {
+      name: 'upcomingInterview',
+      isActive: false,
     },
   ],
 };

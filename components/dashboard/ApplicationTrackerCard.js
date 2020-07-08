@@ -19,6 +19,10 @@ const useStyles = makeStyles(theme => ({
   cardContent: {
     padding: theme.spacing(1),
   },
+  countContent: {
+    fontWeight: 'bold',
+    display: 'inline',
+  },
   lightButtonRoot: {
     backgroundColor: 'RGBA(24,129,197,0.06)',
   },
@@ -40,8 +44,11 @@ function ApplicationTrackerCard({ applications }) {
             Application Tracker
           </Typography>
           <Typography variant="body1" gutterBottom>
-            You are currently tracking {activeApplicationsCount} Active Application(s). Keep
-            tracking here.
+            See the status of all of your job applications in one spot. You are currently tracking{' '}
+            <div className={classes.countContent}>
+              {activeApplicationsCount} Active Application(s)
+            </div>
+            . Keep tracking here.
           </Typography>
         </CardContent>
         <CardActions>
