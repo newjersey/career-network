@@ -558,9 +558,8 @@ export default function Dashboard(props) {
                       Log an Activity
                     </Typography>
                     <Typography variant="body1" gutterBottom>
-                      Our research suggests jobseekers who track their progress land their next role
-                      faster. The activity log allows you to track your job search activities even
-                      outside of this platform.
+                      Use this log to track all of your job-related activities. We will take care of
+                      adding the NJCN activities that you complete!
                     </Typography>
                   </CardContent>
                   <CardActions>
@@ -583,29 +582,31 @@ export default function Dashboard(props) {
                 <ApplicationTrackerCard applications={allApplicationLogEntries} />
               </Box>
             </Flags>
-            <Box mb={3} data-intercom="log-interview">
-              <Card variant="outlined" className={classes.card}>
-                <CardContent className={classes.cardContent}>
-                  <Typography variant="h6" gutterBottom>
-                    Upcoming interview?
-                  </Typography>
-                  <Typography variant="body1" gutterBottom>
-                    If you have an interview, let us know and we can send helpful guidance to
-                    prepare.
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    size="large"
-                    onClick={() => setActiveDialog(DIALOGS.UPCOMING_INTERVIEW)}
-                  >
-                    Let Us Know
-                  </Button>
-                </CardActions>
-              </Card>
-            </Box>
+            <Flags authorizedFlags={['upcomingInterview']}>
+              <Box mb={3} data-intercom="log-interview">
+                <Card variant="outlined" className={classes.card}>
+                  <CardContent className={classes.cardContent}>
+                    <Typography variant="h6" gutterBottom>
+                      Upcoming interview?
+                    </Typography>
+                    <Typography variant="body1" gutterBottom>
+                      If you have an interview, let us know and we can send helpful guidance to
+                      prepare.
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      size="large"
+                      onClick={() => setActiveDialog(DIALOGS.UPCOMING_INTERVIEW)}
+                    >
+                      Let Us Know
+                    </Button>
+                  </CardActions>
+                </Card>
+              </Box>
+            </Flags>
           </Box>
         </Box>
       </ScaffoldContainer>
