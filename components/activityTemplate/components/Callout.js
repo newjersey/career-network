@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
   },
   description: {
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(4),
   },
   icon: {
     height: 48,
