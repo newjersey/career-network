@@ -27,10 +27,10 @@
           "heading": null,
           "subheading": null,
           "items": [
-            "Highlight your expertise, work experience, and personality. Give recruiters some insight into what it’s like to work with you.",
-            "Learn from job postings. If you don’t know where to start, look for keywords in job postings that interest you. What qualities are they looking for? If any of those keywords apply to you, add them to your summary.",
-            "Aim for 3 to 5 short paragraphs. This is the place to tell your career story, but keep it short. A recruiter should be able to skim your whole profile in about 30 seconds.",
-            "End with an invitation to connect. Let people know what opportunities you’re looking for."
+            "<b>Highlight your expertise, work experience, and personality.</b> Give recruiters some insight into what it’s like to work with you.",
+            "<b>Learn from job postings.</b> If you don’t know where to start, look for keywords in job postings that interest you. What qualities are they looking for? If any of those keywords apply to you, add them to your summary.",
+            "<b>Aim for 3 to 5 short paragraphs.</b> This is the place to tell your career story, but keep it short. A recruiter should be able to skim your whole profile in about 30 seconds.",
+            "<b>End with an invitation to connect.</b> Let people know what opportunities you’re looking for."
           ]
         }
       ]
@@ -51,7 +51,7 @@
         {
           "component": "callout",
           "variant": "quote",
-          "content": "I have more than 5 years of experience as a dedicated sales professional in the retail industry. \n \nI believe the key to sustainable profit and sales is to focus on the consumer, and that's why I've managed to increase the customer base and profit growth in each of my roles as a sales professional. \n \nColleagues would describe me as a friendly competitor driven by results and hard work."
+          "content": "I have more than 5 years of experience as a dedicated sales professional in the retail industry. \n\nI believe the key to sustainable profit and sales is to focus on the consumer, and that's why I've managed to increase the customer base and profit growth in each of my roles as a sales professional. \n\nColleagues would describe me as a friendly competitor driven by results and hard work."
         }
       ]
     },

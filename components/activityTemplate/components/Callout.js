@@ -9,7 +9,6 @@ import ForwardIcon from '@material-ui/icons/Forward';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: 'flex',
     margin: theme.spacing(1, 0),
     padding: theme.spacing(10, 12),
     borderStyle: 'solid',
@@ -24,6 +23,12 @@ const useStyles = makeStyles(theme => ({
     borderColor: theme.palette.navy.primary,
     backgroundColor: 'white',
   },
+  content: {
+    display: 'flex',
+  },
+  description: {
+    marginBottom: theme.spacing(2),
+  },
   icon: {
     height: 48,
     minWidth: 48,
@@ -37,10 +42,13 @@ const useStyles = makeStyles(theme => ({
   },
   text: {
     fontSize: 20,
+    marginBottom: theme.spacing(3),
+    whiteSpace: 'pre-wrap',
+    display: 'block',
   },
 }));
 
-function Callout({ content, variant }) {
+function Callout({ content, variant, description }) {
   const classes = useStyles();
 
   const calloutIcon = () => {
@@ -58,10 +66,34 @@ function Callout({ content, variant }) {
 
   return (
     <div className={clsx(classes.root, variant === 'next' && classes.next)}>
-      <div className={classes.icon}>{calloutIcon()}</div>
-      <Typography variant="body1" className={classes.text}>
-        {content}
-      </Typography>
+      {description && (
+        <Typography variant="h5" className={classes.description}>
+          {description}
+        </Typography>
+      )}
+      <div className={classes.content}>
+        <div className={classes.icon}>{calloutIcon()}</div>
+        <div>
+          {React.Children.toArray(
+            content
+              .split('\n')
+              .map(text => (
+                <Typography
+                  className={classes.text}
+                  variant="body1"
+                  dangerouslySetInnerHTML={{ __html: text }}
+                />
+              ))
+          )}
+        </div>
+        {/* <Typography
+          className={classes.text}
+          variant="body1"
+          dangerouslySetInnerHTML={{ __html: text }}
+        >
+          {content}
+        </Typography> */}
+      </div>
     </div>
   );
 }
@@ -69,6 +101,11 @@ function Callout({ content, variant }) {
 Callout.propTypes = {
   content: PropTypes.string.isRequired,
   variant: PropTypes.oneOf(['pro-tip', 'quote', 'next']).isRequired,
+  description: PropTypes.string,
+};
+
+Callout.defaultProps = {
+  description: null,
 };
 
 Callout.displayName = 'Callout';

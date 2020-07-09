@@ -27,12 +27,12 @@
           "heading": null,
           "subheading": null,
           "items": [
-            "Keep it snappy. You want to explain how you help people, or what you’re really good at. But don’t include your entire work history. Keep it between 2 to 3 sentences, or about 30 seconds long.",
-            "Think about your audience. If you’re preparing to speak with a specific person, you’ll want to tailor the pitch. What information would be most useful for your contact?",
-            "Be genuine. You don’t want to come across as salesy. The goal of a networking pitch is to earn more conversation — not to convince someone they need to hire you.",
-            "Keep it conversational. You’ll want to come across as approachable, not like you’re giving a lecture.",
-            "Keep your network open. Don’t limit yourself to just people who can help you. There’s give and take in networking. Think of ways you may be able to help someone you’re speaking with.",
-            "Practice speaking your pitch until you feel confident and comfortable."
+            "<b>Keep it snappy.</b> You want to explain how you help people, or what you’re really good at. But don’t include your entire work history. Keep it between 2 to 3 sentences, or about 30 seconds long.",
+            "<b>Think about your audience.</b> If you’re preparing to speak with a specific person, you’ll want to tailor the pitch. What information would be most useful for your contact?",
+            "<b>Be genuine.</b> You don’t want to come across as salesy. The goal of a networking pitch is to earn more conversation — not to convince someone they need to hire you.",
+            "<b>Keep it conversational.</b> You’ll want to come across as approachable, not like you’re giving a lecture.",
+            "<b>Keep your network open.</b> Don’t limit yourself to just people who can help you. There’s give and take in networking. Think of ways you may be able to help someone you’re speaking with.",
+            "<b>Practice speaking your pitch</b> until you feel confident and comfortable."
           ]
         }
       ]
@@ -48,16 +48,19 @@
         {
           "component": "callout",
           "variant": "quote",
+          "description": "Context: Virtual networking event",
           "content": "Hi! I’m impressed with the reviews of the hotel you work at. I used to work in the front office of Hotel Mansfield, which had some of the highest-ranked guest services in the city during my time there. I’d love to hear more about what you do at your hotel. Do you have time to chat next week?"
         },
         {
           "component": "callout",
           "variant": "quote",
+          "description": "Context: Virtual job fair (speaking to a hiring manager)",
           "content": "Hi, my name is Christina. I’m currently attending New York University, majoring in marketing with a communications minor. Marketing is the career for me, because I thrive on being creative and client focused, and I enjoy using these skills to grow revenue. I have studied your company, and I’m drawn to your culture of constant innovation. I would be a strong match for this opportunity. (Adapted from Saylordotorg)"
         },
         {
           "component": "callout",
           "variant": "quote",
+          "description": "Context: Email following an online webinar",
           "content": "Hi Rick, thank you for speaking during the New Human Resources webinar. I learned so much from your ideas about keeping morale high in a remote work environment. With a background in business and Human Resources, I’m passionate about learning how to create the right environment to make people work the most effectively. I’d love to get a chance to speak more with you. Are you available to chat next Wednesday?"
         }
       ]
