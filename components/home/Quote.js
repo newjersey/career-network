@@ -49,6 +49,8 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: theme.spacing(3),
     paddingLeft: theme.spacing(1),
     color: theme.palette.background.dark,
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontWeight: 'normal',
   },
   cite: {
     color: theme.palette.background.dark,
@@ -83,7 +85,7 @@ function Quote() {
               <FormatQuoteIcon className={classes.icon} />
             </Grid>
             <Grid item xs={10} md={5}>
-              <Typography variant="h4" className={classes.heading}>
+              <Typography variant="h2" className={classes.heading}>
                 Unique. I’ve <b>never seen anything </b>
                 like New Jersey Career Network before.”
               </Typography>

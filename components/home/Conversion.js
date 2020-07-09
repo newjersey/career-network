@@ -8,9 +8,9 @@ import { useAuth } from '../Auth';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundImage: `url('/static/img/index/04_Conversion/Coversion_Asset_Desktop-2x.png')`,
+    backgroundImage: `url('/static/img/index/04_Conversion/Conversion_Asset_Desktop-2x.png')`,
     backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
+    backgroundPosition: 'bottom center',
     backgroundSize: 'cover',
     height: theme.spacing(95),
     [theme.breakpoints.down('xs')]: {
