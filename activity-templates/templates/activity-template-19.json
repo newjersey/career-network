@@ -14,7 +14,7 @@
       "content": [
         {
           "component": "text",
-          "content": "Um, meditation?\nIf the suggestion to meditate seems out of place, hear us out a bit. While meditating won’t get you a job interview, it can help your state of mind. And when you feel better, it’s easier to keep doing the things you need to do for yourself and your family.\n\nBenefits of meditation\nMeditation can help calm your mind and body, improving your ability to manage stress. Other benefits may include reducing negative emotions, boosting creativity, and gaining fresh perspective. (Source: Mayo Clinic)"
+          "content": "<b>Um, meditation?</b>\nIf the suggestion to meditate seems out of place, hear us out a bit. While meditating won’t get you a job interview, it can help your state of mind. And when you feel better, it’s easier to keep doing the things you need to do for yourself and your family.\n\n<b>Benefits of meditation</b>\nMeditation can help calm your mind and body, improving your ability to manage stress. Other benefits may include reducing negative emotions, boosting creativity, and gaining fresh perspective. (Source: Mayo Clinic)"
         },
         {
           "component": "list",

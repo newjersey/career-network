@@ -14,7 +14,11 @@
       "content": [
         {
           "component": "text",
-          "content": "People who have a growth mindset believe that they can develop talents by working hard and learning from others. People who have a fixed mindset believe that they are either born with a talent or not. \n\nFixed versus growth mindset"
+          "content": "People who have a growth mindset believe that they can develop talents by working hard and learning from others. People who have a fixed mindset believe that they are either born with a talent or not. \n\n"
+        },
+        {
+          "component": "text",
+          "content": "<b>Fixed versus growth mindset</b>"
         },
         {
           "component": "list",
@@ -27,7 +31,7 @@
         },
         {
           "component": "text",
-          "content": "The first response shows what experts call a fixed mindset, while the second response shows a growth mindset, or a learning mindset. (Source: Harvard Business Review) \n\nBenefits of a growth mindset\nA growth mindset is key to achieving goals. Developing a growth mindset can help you stay motivated — and even thrive — when you face roadblocks. Studies even show that brains benefit when working through challenges and fixing mistakes. (Source: Mindset Scholars Network) \n\nStaying in a growth mindset isn’t always easy. It can be especially challenging during a job search, when things are uncertain and you’re repeatedly putting yourself out there.  But developing a growth mindset is worth the effort."
+          "content": "The first response shows what experts call a fixed mindset, while the second response shows a growth mindset, or a learning mindset. (Source: Harvard Business Review) \n\n<b>Benefits of a growth mindset</b>\nA growth mindset is key to achieving goals. Developing a growth mindset can help you stay motivated — and even thrive — when you face roadblocks. Studies even show that brains benefit when working through challenges and fixing mistakes. (Source: Mindset Scholars Network) \n\nStaying in a growth mindset isn’t always easy. It can be especially challenging during a job search, when things are uncertain and you’re repeatedly putting yourself out there.  But developing a growth mindset is worth the effort."
         }
       ]
     },

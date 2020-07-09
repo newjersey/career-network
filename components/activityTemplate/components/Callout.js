@@ -29,6 +29,9 @@ const useStyles = makeStyles(theme => ({
   description: {
     marginBottom: theme.spacing(4),
   },
+  source: {
+    marginTop: theme.spacing(4),
+  },
   icon: {
     height: 48,
     minWidth: 48,
@@ -48,7 +51,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Callout({ content, variant, description }) {
+function Callout({ content, variant, description, source }) {
   const classes = useStyles();
 
   const calloutIcon = () => {
@@ -86,14 +89,12 @@ function Callout({ content, variant, description }) {
               ))
           )}
         </div>
-        {/* <Typography
-          className={classes.text}
-          variant="body1"
-          dangerouslySetInnerHTML={{ __html: text }}
-        >
-          {content}
-        </Typography> */}
       </div>
+      {source && (
+        <Typography variant="h5" className={classes.source}>
+          {source}
+        </Typography>
+      )}
     </div>
   );
 }
@@ -102,10 +103,12 @@ Callout.propTypes = {
   content: PropTypes.string.isRequired,
   variant: PropTypes.oneOf(['pro-tip', 'quote', 'next']).isRequired,
   description: PropTypes.string,
+  source: PropTypes.string,
 };
 
 Callout.defaultProps = {
   description: null,
+  source: null,
 };
 
 Callout.displayName = 'Callout';

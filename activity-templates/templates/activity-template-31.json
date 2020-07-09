@@ -14,7 +14,7 @@
       "content": [
         {
           "component": "text",
-          "content": "Networking is happening online more and more often. LinkedIn is a great place to focus your efforts if you want to grow your network and get a job. \n\nDifferences between LinkedIn and your resume \nYour resume is a good starting point for filling out the experience section (for more information on updating your resume, visit the Resume milestone). There will be a lot of overlap, since both items list your experience and key skills. \n\nHowever, it’s best not to treat your LinkedIn profile as a place to copy your resume and do nothing else. On LinkedIn, you can show off more of your personality, connect with relevant jobs, and share examples of your work. \n\nGetting the most out of LinkedIn\nTo get the most out of LinkedIn, fill out the whole profile. One study found that job applicants in a wide range of industries were 71% more likely to get an interview if they had a comprehensive LinkedIn profile. (Source: ResumeGo)\n\nBelow are tips for each LinkedIn section and some help for writing your headline — one of the most important parts of your profile. For tips on writing your LinkedIn summary, see Create My LinkedIn Profile Summary."
+          "content": "Networking is happening online more and more often. LinkedIn is a great place to focus your efforts if you want to grow your network and get a job. \n\n<b>Differences between LinkedIn and your resume</b> \nYour resume is a good starting point for filling out the experience section (for more information on updating your resume, visit the Resume milestone). There will be a lot of overlap, since both items list your experience and key skills. \n\nHowever, it’s best not to treat your LinkedIn profile as a place to copy your resume and do nothing else. On LinkedIn, you can show off more of your personality, connect with relevant jobs, and share examples of your work. \n\n<b>Getting the most out of LinkedIn</b>\nTo get the most out of LinkedIn, fill out the whole profile. One study found that job applicants in a wide range of industries were 71% more likely to get an interview if they had a comprehensive LinkedIn profile. (Source: ResumeGo)\n\nBelow are tips for each LinkedIn section and some help for writing your headline — one of the most important parts of your profile. For tips on writing your LinkedIn summary, see Create My LinkedIn Profile Summary."
         }
       ]
     },
@@ -81,15 +81,7 @@
         },
         {
           "component": "text",
-          "content": "Experience \n<i>Line Cook</i>\n<i>Givens Estate</i>\n<i>September 2015 - March 2020</i>"
-        },
-        {
-          "component": "list",
-          "subheading": null,
-          "items": [
-            "Delivered high volume and quality guest food orders in accordance with Executive Chef’s instructions",
-            "Received high praise from Executive Chef and guests for presentation and quality"
-          ]
+          "content": "Experience \n<i>Line Cook</i>\n<i>Givens Estate</i>\n<i>September 2015 - March 2020</i>\n<ul><li><i>Delivered high volume and <b>quality</b> guest food orders in accordance with <b>Executive Chef</b>’s instructions</i></li><li><i>Received high praise from Executive Chef and guests for <b>presentation</b> and quality</i></li></ul>"
         }
       ]
     },

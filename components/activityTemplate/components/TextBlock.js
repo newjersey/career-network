@@ -18,15 +18,15 @@ function TextBlock({ content }) {
   return (
     <div>
       {React.Children.toArray(
-        content.split('\n').map(text => (
-          <>
+        content
+          .split('\n')
+          .map(text => (
             <Typography
               className={classes.root}
               variant="body1"
               dangerouslySetInnerHTML={{ __html: text }}
             />
-          </>
-        ))
+          ))
       )}
     </div>
   );
