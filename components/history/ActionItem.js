@@ -27,6 +27,11 @@ const useStyles = makeStyles(theme => ({
   },
   description: {
     marginTop: theme.spacing(2),
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    display: '-webkit-box',
+    '-webkit-line-clamp': 2,
+    '-webkit-box-orient': 'vertical',
   },
   openButton: {
     backgroundColor: theme.palette.grey['100'],
