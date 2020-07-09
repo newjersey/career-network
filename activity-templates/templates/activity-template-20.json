@@ -46,13 +46,13 @@
         {
           "component": "list",
           "heading": null,
-          "subheading": "Find a distraction to take your mind off what’s upsetting you.",
+          "subheading": "Find a <b>distraction</b> to take your mind off what’s upsetting you.",
           "items": ["Read a book.", "Write in a journal.", "Play a game."]
         },
         {
           "component": "list",
           "heading": null,
-          "subheading": "Connect with other people.",
+          "subheading": "<b>Connect</b> with other people.",
           "items": [
             "Call a friend.",
             "Volunteer to shop for an older neighbor.",
@@ -62,13 +62,13 @@
         {
           "component": "list",
           "heading": null,
-          "subheading": "Do something spiritual.",
+          "subheading": "Do something <b>spiritual.</b>",
           "items": ["Try meditating.", "Say a prayer.", "Spend time in nature."]
         },
         {
           "component": "list",
           "heading": null,
-          "subheading": "Release some tension.",
+          "subheading": "Release some <b>tension.</b>",
           "items": [
             "Read or watch something that makes you laugh.",
             "Get some exercise.",
@@ -78,7 +78,7 @@
         {
           "component": "list",
           "heading": null,
-          "subheading": "Try a different perspective.",
+          "subheading": "Try a different <b>perspective.</b>",
           "items": [
             "Write a list of things you’re grateful for.",
             "Practice a growth mindset.",
