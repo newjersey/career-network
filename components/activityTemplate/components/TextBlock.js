@@ -16,19 +16,19 @@ const useStyles = makeStyles(theme => ({
 function TextBlock({ content }) {
   const classes = useStyles();
   return (
-    <>
+    <div>
       {React.Children.toArray(
-        content
-          .split('\n')
-          .map(text => (
+        content.split('\n').map(text => (
+          <>
             <Typography
               className={classes.root}
               variant="body1"
               dangerouslySetInnerHTML={{ __html: text }}
             />
-          ))
+          </>
+        ))
       )}
-    </>
+    </div>
   );
 }
 
