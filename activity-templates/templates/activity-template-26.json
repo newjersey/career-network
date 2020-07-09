@@ -40,13 +40,13 @@
           "heading": null,
           "subheading": null,
           "items": [
-            "Consider your options. The most effective reference will be someone in a higher position than you, who is able to speak to your strengths. Avoid using family members or close friends.",
-            "Don’t list references on your resume. Wait until an employer asks before submitting names.",
-            "Get permission first. Always ask someone before sending their name and contact information to an employer.",
-            "Ask people who will give you a positive reference. If you’re not sure, it’s a good idea to provide them with an out when you ask. For example: “Do you feel comfortable giving me a reference?” or “Do you feel like you know my work well enough that you could be a reference?”",
-            "Let them know about the job you’re seeking, so they can speak to relevant skills. Offer to send your resume or the job description, so they are updated and reminded of your abilities.",
-            "Include the reference’s name, job title, email address, and phone number when you send your reference list to the hiring manager. It’s also helpful to note how this person worked with you.",
-            "Add your name at the top of your reference list, and save it as a PDF with a descriptive file name, like References_MeganZ.pdf, before sending it out."
+            "<b>Consider your options.</b> The most effective reference will be someone in a higher position than you, who is able to speak to your strengths. Avoid using family members or close friends.",
+            "<b>Don’t list references on your resume.</b> Wait until an employer asks before submitting names.",
+            "<b>Get permission first.</b> Always ask someone before sending their name and contact information to an employer.",
+            "<b>Ask people who will give you a positive reference.</b> If you’re not sure, it’s a good idea to provide them with an out when you ask. For example: “Do you feel comfortable giving me a reference?” or “Do you feel like you know my work well enough that you could be a reference?”",
+            "<b>Let them know about the job you’re seeking,</b> so they can speak to relevant skills. Offer to send your resume or the job description, so they are updated and reminded of your abilities.",
+            "<b>Include the reference’s name, job title, email address, and phone number</b> when you send your reference list to the hiring manager. It’s also helpful to note how this person worked with you.",
+            "<b>Add your name at the top of your reference list,</b> and save it as a PDF with a descriptive file name, like References_MeganZ.pdf, before sending it out."
           ]
         }
       ]
@@ -61,7 +61,19 @@
         },
         {
           "component": "text",
-          "content": "Aarti Klean\nVice President at NetRoots\naartiklean@gmail.com\n555-643-0789\nAarti was my supervisor for 3 years at NetRoots.\n\nJoe Biker\nMembership Director at New York Cycling Association\njoe.biker@gmail.com\n555-346-8097\nJoe was my supervisor for 6 years at NetRoots as Director of Digital Communications. \n\nSarah Jackson \nMovement Director at RespresentUs\nsarah.r.jackson@gmail.com\n555-769-0834\nSarah was a former colleague at NetRoots. \n\nAnita Cooper\nFundraising Specialist \ncooper.an@gmail.com \n555-436-9870 \nAnita is a former mentor."
+          "content": "<b>Aarti Klean</b> \nVice President at NetRoots\naartiklean@gmail.com \n555-643-0789 \nAarti was my supervisor for 3 years at NetRoots."
+        },
+        {
+          "component": "text",
+          "content": "\n<b>Joe Biker</b> \nMembership Director at New York Cycling Association \njoe.biker@gmail.com \n555-346-8097 \nJoe was my supervisor for 6 years at NetRoots as Director of Digital Communications."
+        },
+        {
+          "component": "text",
+          "content": "\n<b>Sarah Jackson</b> \nMovement Director at RespresentUs \nsarah.r.jackson@gmail.com \n555-769-0834 \nSarah was a former colleague at NetRoots."
+        },
+        {
+          "component": "text",
+          "content": "\n<b>Anita Cooper</b> \nFundraising Specialist \ncooper.an@gmail.com \n555-436-9870 \nAnita is a former mentor."
         }
       ]
     },
