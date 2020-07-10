@@ -14,7 +14,7 @@
       "content": [
         {
           "component": "text",
-          "content": "A mentor is someone who provides guidance and encouragement to help you achieve your goals. You may have a variety of people who serve as informal mentors to you. Or you may want to seek out someone specific.\n\nIn one survey, more than 7 out of 10 executives said that mentoring played a key role in shaping their career. (Source: Forbes) \n\nSome companies offer formal mentoring programs for their employees. In one of these companies, employees who had mentors were 5 times more likely to get promoted than those who did not have a mentor. (Source: Sun Microsystems) \n\nA mentor is different from a supervisor. \nA supervisor is a boss or manager whose role is to make sure you're meeting the company’s goals. They can hire and promote you. \n\nA mentor isn’t usually in a position to hire or promote you. Their role is to provide a space for you to learn, grow, and ask questions."
+          "content": "A mentor is someone who provides guidance and encouragement to help you achieve your goals. You may have a variety of people who serve as informal mentors to you. Or you may want to seek out someone specific.\n\nIn one survey, more than 7 out of 10 executives said that mentoring played a key role in shaping their career. (Source: Forbes) \n\nSome companies offer formal mentoring programs for their employees. In one of these companies, employees who had mentors were 5 times more likely to get promoted than those who did not have a mentor. (Source: Sun Microsystems) \n\n<b>A mentor is different from a supervisor.</b> \nA supervisor is a boss or manager whose role is to make sure you're meeting the company’s goals. They can hire and promote you. \n\nA mentor isn’t usually in a position to hire or promote you. Their role is to provide a space for you to learn, grow, and ask questions."
         }
       ]
     },
@@ -27,9 +27,9 @@
           "heading": "Finding the Right Mentor",
           "subheading": null,
           "items": [
-            "Look inside your network. Who do you admire professionally? Has anyone taken an interest in your career path? Could they offer more guidance?",
-            "Get to know someone first. If you don’t already know someone who could be your mentor, look for a mentorship program or a connection on LinkedIn. Research people in roles you’re interested in, and find ways to connect with them.",
-            "Consider a team of mentors. You may find it more helpful to learn lessons from many people rather than from one official mentor."
+            "<b>Look inside your network.</b> Who do you admire professionally? Has anyone taken an interest in your career path? Could they offer more guidance?",
+            "<b>Get to know someone first.</b> If you don’t already know someone who could be your mentor, look for a mentorship program or a connection on LinkedIn. Research people in roles you’re interested in, and find ways to connect with them.",
+            "<b>Consider a team of mentors.</b> You may find it more helpful to learn lessons from many people rather than from one official mentor."
           ]
         },
         {
@@ -37,11 +37,11 @@
           "heading": "Getting the Most out of a Mentorship",
           "subheading": null,
           "items": [
-            "Ask specific questions. Asking more questions is a great way to learn from both informal and formal mentors. How did they get their role? How did they learn a specific skill? What advice do they have for someone trying to get a promotion?",
-            "Be clear about expectations. After getting to know someone, you can ask if they would be open to a more formal mentorship. This could mean meeting once a month for coffee or having a weekly phone chat. Respect their right to say no.",
-            "Be specific about what you're looking for and what you're willing to put into the relationship. You could ask for advice on finding a career track, feedback on proposals, or help with public speaking.",
-            "Ask if you can help them. Be respectful of people’s time and look for ways to offer them something in return for their guidance.",
-            "Welcome feedback. Hearing criticism can be tough. A successful mentorship will challenge you to grow more."
+            "<b>Ask specific questions.</b> Asking more questions is a great way to learn from both informal and formal mentors. How did they get their role? How did they learn a specific skill? What advice do they have for someone trying to get a promotion?",
+            "<b>Be clear about expectations.</b> After getting to know someone, you can ask if they would be open to a more formal mentorship. This could mean meeting once a month for coffee or having a weekly phone chat. Respect their right to say no.",
+            "<b>Be specific about what you're looking for</b> and what you're willing to put into the relationship. You could ask for advice on finding a career track, feedback on proposals, or help with public speaking.",
+            "<b>Ask if you can help them.</b> Be respectful of people’s time and look for ways to offer them something in return for their guidance.",
+            "<b>Welcome feedback.</b> Hearing criticism can be tough. A successful mentorship will challenge you to grow more."
           ]
         }
       ]
@@ -52,7 +52,7 @@
       "content": [
         {
           "component": "text",
-          "content": "If you’re reaching out to someone for the first time, try to find a connection first."
+          "content": "\nIf you’re reaching out to someone for the first time, try to find a connection first."
         },
         {
           "component": "callout",

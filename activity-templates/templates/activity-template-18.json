@@ -27,7 +27,7 @@
         },
         {
           "component": "text",
-          "content": "Putting your best foot forward\nResumes can be formatted differently to highlight the sections that are most important for you. For example, a recent graduate may want to place education at the top of their resume. Other people may want to highlight relevant job experience first. \n\nTo show your most relevant experience, you will likely need to customize your resume for different job applications. But it’s a good idea to have a master resume that you can use as a starting point for each application."
+          "content": "<b>Putting your best foot forward</b>\nResumes can be formatted differently to highlight the sections that are most important for you. For example, a recent graduate may want to place education at the top of their resume. Other people may want to highlight relevant job experience first. \n\nTo show your most relevant experience, you will likely need to customize your resume for different job applications. But it’s a good idea to have a master resume that you can use as a starting point for each application."
         }
       ]
     },
@@ -40,12 +40,12 @@
           "heading": "The Basics",
           "subheading": "If staring at a blank page feels overwhelming, you’re not alone. There are many tools to help you!",
           "items": [
-            "Start with a template. You can find many templates online. If you need help figuring out what to include in your resume, look on sites like myperfectresume.com. Or if you want to update your resume to a prettier layout, you can find free templates on canva.com or rxresu.me.",
-            "Limit it to 1-2 pages. A hiring manager spends an estimated 6 seconds on your resume before marking it “yes” or “no.”  (Source: Glassdoor) Be selective, and keep the most relevant content at the very top.",
-            "Make the formatting easy to read. Use at least a size 11 font, and include plenty of space between sections. Large blocks of text crammed together can be overwhelming.",
-            "Include your LinkedIn profile. Create a professional LinkedIn profile (find our tips in the Professional Network milestone) and include a link at the top of your resume. When you edit your profile on LinkedIn, you can customize the URL to make it look cleaner.",
-            "Include a Gmail address. AOL, Hotmail, and Yahoo email addresses can suggest to employers that you are less tech-savvy.",
-            "Be honest. Employers verify work history through references and background checks, so lying in a resume will likely come back to hurt you."
+            "<b>Start with a template.</b> You can find many templates online. If you need help figuring out what to include in your resume, look on sites like myperfectresume.com. Or if you want to update your resume to a prettier layout, you can find free templates on canva.com or rxresu.me.",
+            "<b>Limit it to 1-2 pages.</b> A hiring manager spends an estimated 6 seconds on your resume before marking it “yes” or “no.”  (Source: Glassdoor) Be selective, and keep the most relevant content at the very top.",
+            "<b>Make the formatting easy to read.</b> Use at least a size 11 font, and include plenty of space between sections. Large blocks of text crammed together can be overwhelming.",
+            "<b>Include your LinkedIn profile.</b> Create a professional LinkedIn profile (find our tips in the Professional Network milestone) and include a link at the top of your resume. When you edit your profile on LinkedIn, you can customize the URL to make it look cleaner.",
+            "<b>Include a Gmail address.</b> AOL, Hotmail, and Yahoo email addresses can suggest to employers that you are less tech-savvy.",
+            "<b>Be honest.</b> Employers verify work history through references and background checks, so lying in a resume will likely come back to hurt you."
           ]
         },
         {
@@ -53,8 +53,8 @@
           "heading": "How to List Unfinished Schooling",
           "subheading": "Whether or not you have a degree, coursework counts! There are lots of reasons why people don’t finish — or haven’t finished yet — and employers still want to know what you’ve studied.",
           "items": [
-            "If you completed some school but never graduated, you can still mention the school name under your “Education” section. You could also add “Completed [x] credits toward a [x degree].”",
-            "If you’re planning to graduate, list your school name, degree program (if applicable), and your expected graduation date."
+            "<b>If you completed some school</b> but never graduated, you can still mention the school name under your “Education” section. You could also add “Completed [x] credits toward a [x degree].”",
+            "<b>If you’re planning to graduate,</b> list your school name, degree program (if applicable), and your expected graduation date."
           ]
         },
         {
@@ -62,8 +62,8 @@
           "heading": "How to Format If You Have Little or No Job Experience",
           "subheading": null,
           "items": [
-            "Volunteering counts as experience. You can add volunteer roles under your “Experience” section, or you can add a separate “Volunteer Experience” section. Either way, explain what your role was and what impact you had.",
-            "Highlight educational accomplishments. Consider adding a “Projects” or “Relevant Coursework” section to explain some of your educational contributions."
+            "<b>Volunteering counts as experience.</b> You can add volunteer roles under your “Experience” section, or you can add a separate “Volunteer Experience” section. Either way, explain what your role was and what impact you had.",
+            "<b>Highlight educational accomplishments.</b> Consider adding a “Projects” or “Relevant Coursework” section to explain some of your educational contributions."
           ]
         },
         {
@@ -71,8 +71,8 @@
           "heading": "Tips for Online Applications",
           "subheading": "If you submit your resume in an online application, there’s a good chance a computer will read it before a human does.   Many employers use a tool called an applicant tracking system (ATS). This software scans and ranks applicants and weeds out the least relevant resumes. Here are some tips for getting your resume past the digital gatekeepers.",
           "items": [
-            "Use keywords. Study the job posting you’re applying to. What skills and qualities are they looking for? Which keywords stand out? If any of those apply to you, include them in your resume.",
-            "Use the right format. Your options for a resume are generally PDF or Word Doc (docx). PDFs are great at keeping your resume intact and nice looking. However, Word Docs are generally a safer bet for ATS. If the directions say a PDF is OK, then you can use a PDF."
+            "<b>Use keywords.</b> Study the job posting you’re applying to. What skills and qualities are they looking for? Which keywords stand out? If any of those apply to you, include them in your resume.",
+            "<b>Use the right format.</b> Your options for a resume are generally PDF or Word Doc (docx). PDFs are great at keeping your resume intact and nice looking. However, Word Docs are generally a safer bet for ATS. If the directions say a PDF is OK, then you can use a PDF."
           ]
         }
       ]

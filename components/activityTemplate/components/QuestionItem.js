@@ -111,7 +111,9 @@ const QuestionItem = ({
       <div className={clsx(classes.stepContent, isLast && classes.last)}>
         <Card variant="outlined" className={classes.card}>
           <CardContent>
-            <Typography className={classes.title}>{title}</Typography>
+            {title.split('\n').map(text => (
+              <Typography className={classes.title} dangerouslySetInnerHTML={{ __html: text }} />
+            ))}
             <TextField
               variant="outlined"
               onFocus={handleFocus}
