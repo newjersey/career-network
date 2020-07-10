@@ -65,9 +65,11 @@ function ActivityTemplateCard(props) {
           {title}
         </Typography>
         <div className={classes.overviewWrapper}>
-          <Typography variant="body2" className={classes.overview}>
-            {overview}
-          </Typography>
+          <Typography
+            variant="body2"
+            className={classes.overview}
+            dangerouslySetInnerHTML={{ __html: overview }}
+          />
         </div>
       </Box>
       <Box
