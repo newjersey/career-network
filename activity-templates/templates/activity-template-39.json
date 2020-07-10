@@ -27,10 +27,10 @@
           "heading": "Choosing What to Set Up Alerts For",
           "subheading": null,
           "items": [
-            "Google yourself. About 77% of employers Google candidates. (Source: Monster) If you set up alerts for your name, you can know ahead of time what information they will find. If someone else with the same name has a scandalous online reputation, you may want to clarify that with a potential employer in an email or interview.",
-            "Find companies that are growing or hiring. If you want to work in a specific city or in a specific industry, you can set up a Google alert with that location or industry followed by “company expanding” OR “company hiring.”",
-            "Stay connected to former bosses or companies that are important to you. Set up a Google alert for professional connections you care about. Then you can congratulate them if positive news comes up.",
-            "Use information from the alerts to show you have updated knowledge about the industry or company when you’re interviewing and applying to jobs."
+            "<b>Google yourself.</b> About 77% of employers Google candidates. (Source: Monster) If you set up alerts for your name, you can know ahead of time what information they will find. If someone else with the same name has a scandalous online reputation, you may want to clarify that with a potential employer in an email or interview.",
+            "<b>Find companies that are growing or hiring.</b> If you want to work in a specific city or in a specific industry, you can set up a Google alert with that location or industry followed by “company expanding” OR “company hiring.”",
+            "<b>Stay connected to former bosses or companies that are important to you.</b> Set up a Google alert for professional connections you care about. Then you can congratulate them if positive news comes up.",
+            "<b>Use information from the alerts</b> to show you have updated knowledge about the industry or company when you’re interviewing and applying to jobs."
           ]
         },
         {
@@ -38,9 +38,9 @@
           "heading": "How to Set Up an Alert",
           "subheading": null,
           "items": [
-            "Go to Google.com/alerts. Type in the phrase you want to search on Google, and add your email address.",
-            "Click on “show options” to customize your results. Adjust the frequency and the type of content you want to see.",
-            "Look at the preview. Make sure the type of information in the preview is what you want alerts on. If not, adjust your search."
+            "<b>Go to Google.com/alerts.</b> Type in the phrase you want to search on Google, and add your email address.",
+            "<b>Click on “show options” to customize your results.</b> Adjust the frequency and the type of content you want to see.",
+            "<b>Look at the preview.</b> Make sure the type of information in the preview is what you want alerts on. If not, adjust your search."
           ]
         },
         {
@@ -48,10 +48,10 @@
           "heading": "Tailoring Your Results",
           "subheading": "Use signs and terms to tailor your results.",
           "items": [
-            "Quotation marks. Quotes keep phrases intact. If you type in “Anna Grace Smith” you will see only entries with the full name together. Without the quotes, you might receive entries with the names separated throughout the article.",
-            "“OR.” Use OR to include alternate versions. For example, “Anna Grace Smith” OR “Anna Smith.”",
-            "Minus sign. If you add “-” before a term, Google will exclude any entries with that term in it.",
-            "“Site.” If you add “site:” before a website, Google will show you only entries from that specific site. If you add a minus sign before it, “-site:”, Google will exclude entries from that specific website. If you prefer to see job postings from employer websites only, you could remove job search engine sites by saying -site:indeed.com -site:linkedin.com -site:ziprecruiter.com."
+            "<b>Quotation marks.</b> Quotes keep phrases intact. If you type in “Anna Grace Smith” you will see only entries with the full name together. Without the quotes, you might receive entries with the names separated throughout the article.",
+            "<b>“OR.”</b> Use OR to include alternate versions. For example, “Anna Grace Smith” OR “Anna Smith.”",
+            "<b>Minus sign.</b> If you add “-” before a term, Google will exclude any entries with that term in it.",
+            "<b>“Site.”</b> If you add “site:” before a website, Google will show you only entries from that specific site. If you add a minus sign before it, “-site:”, Google will exclude entries from that specific website. If you prefer to see job postings from employer websites only, you could remove job search engine sites by saying -site:indeed.com -site:linkedin.com -site:ziprecruiter.com."
           ]
         }
       ]

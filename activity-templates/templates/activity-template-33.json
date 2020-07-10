@@ -40,7 +40,7 @@
         },
         {
           "component": "text",
-          "content": "Increasing your EI\nStrengthening your EI can have benefits in your personal life, as well as in the workplace. And luckily, it’s possible to improve your EI. \n\nIn the next section, we’ll go over some tips to get you started."
+          "content": "<b>Increasing your EI</b>\nStrengthening your EI can have benefits in your personal life, as well as in the workplace. And luckily, it’s possible to improve your EI. \n\nIn the next section, we’ll go over some tips to get you started."
         }
       ]
     },
@@ -53,12 +53,12 @@
           "heading": null,
           "subheading": "Check out these tips from Verywell Mind. The questions here will help you get warmed up for the Practice section, too.",
           "items": [
-            "Pay attention to your feelings. Make a point to observe how you’re feeling throughout the day. How do these feelings affect the decisions you make? How do they affect how you respond to the people around you?",
-            "Identify your emotional strengths and weaknesses. How often do you lose your cool? Do you communicate clearly about your feelings?",
-            "Remember that feelings come and go. When we have a strong emotion — good or bad — it’s easy to feel like it’ll last forever. Instead of reacting right away based on the intensity of a feeling, remind yourself that it’s temporary. Make sure that the actions you do take are consistent with your values and goals.",
-            "Find ways to manage (or regulate) your emotions. This doesn’t mean ignoring your feelings, but rather learning to express them in appropriate ways. For example, if you disagree with someone, what helps you stay calm and focused on a solution?",
-            "Listen to other people. This can be hard, especially when we feel strongly about something. But slow yourself down next time, and really focus on listening to the other person’s perspective.",
-            "Put yourself in the other person’s shoes. Try to see the situation from someone else’s perspective. What could you be missing? What information do you have that the other person might not?"
+            "<b>Pay attention to your feelings.</b> Make a point to observe how you’re feeling throughout the day. How do these feelings affect the decisions you make? How do they affect how you respond to the people around you?",
+            "<b>Identify your emotional strengths and weaknesses.</b> How often do you lose your cool? Do you communicate clearly about your feelings?",
+            "<b>Remember that feelings come and go.</b> When we have a strong emotion — good or bad — it’s easy to feel like it’ll last forever. Instead of reacting right away based on the intensity of a feeling, remind yourself that it’s temporary. Make sure that the actions you do take are consistent with your values and goals.",
+            "<b>Find ways to manage (or regulate) your emotions.</b> This doesn’t mean ignoring your feelings, but rather learning to express them in appropriate ways. For example, if you disagree with someone, what helps you stay calm and focused on a solution?",
+            "<b>Listen to other people.</b> This can be hard, especially when we feel strongly about something. But slow yourself down next time, and really focus on listening to the other person’s perspective.",
+            "<b>Put yourself in the other person’s shoes.</b> Try to see the situation from someone else’s perspective. What could you be missing? What information do you have that the other person might not?"
           ]
         }
       ]
