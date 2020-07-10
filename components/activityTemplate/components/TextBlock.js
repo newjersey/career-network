@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
 function TextBlock({ content }) {
   const classes = useStyles();
   return (
-    <>
+    <div>
       {React.Children.toArray(
         content
           .split('\n')
@@ -28,7 +28,7 @@ function TextBlock({ content }) {
             />
           ))
       )}
-    </>
+    </div>
   );
 }
 

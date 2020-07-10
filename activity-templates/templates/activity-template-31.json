@@ -14,7 +14,7 @@
       "content": [
         {
           "component": "text",
-          "content": "Networking is happening online more and more often. LinkedIn is a great place to focus your efforts if you want to grow your network and get a job. \n\nDifferences between LinkedIn and your resume \nYour resume is a good starting point for filling out the experience section (for more information on updating your resume, visit the Resume milestone). There will be a lot of overlap, since both items list your experience and key skills. \n\nHowever, it’s best not to treat your LinkedIn profile as a place to copy your resume and do nothing else. On LinkedIn, you can show off more of your personality, connect with relevant jobs, and share examples of your work. \n\nGetting the most out of LinkedIn\nTo get the most out of LinkedIn, fill out the whole profile. One study found that job applicants in a wide range of industries were 71% more likely to get an interview if they had a comprehensive LinkedIn profile. (Source: ResumeGo)\n\nBelow are tips for each LinkedIn section and some help for writing your headline — one of the most important parts of your profile. For tips on writing your LinkedIn summary, see Create My LinkedIn Profile Summary."
+          "content": "Networking is happening online more and more often. LinkedIn is a great place to focus your efforts if you want to grow your network and get a job. \n\n<b>Differences between LinkedIn and your resume</b> \nYour resume is a good starting point for filling out the experience section (for more information on updating your resume, visit the Resume milestone). There will be a lot of overlap, since both items list your experience and key skills. \n\nHowever, it’s best not to treat your LinkedIn profile as a place to copy your resume and do nothing else. On LinkedIn, you can show off more of your personality, connect with relevant jobs, and share examples of your work. \n\n<b>Getting the most out of LinkedIn</b>\nTo get the most out of LinkedIn, fill out the whole profile. One study found that job applicants in a wide range of industries were 71% more likely to get an interview if they had a comprehensive LinkedIn profile. (Source: ResumeGo)\n\nBelow are tips for each LinkedIn section and some help for writing your headline — one of the most important parts of your profile. For tips on writing your LinkedIn summary, see Create My LinkedIn Profile Summary."
         }
       ]
     },
@@ -27,13 +27,13 @@
           "heading": null,
           "subheading": null,
           "items": [
-            "Pay attention to your headline. The headline carries the most weight for showing you relevant job openings. The headline could be your current title — or a concise phrase that says what you’re great at. Use keywords that closely match your desired role. More on this below.",
-            "Include a clear headshot. Make sure the background is not too busy. Profiles with photos generate up to 21 times more clicks. (Source: LinkedIn)",
-            "Use your resume to fill out the experience section of your LinkedIn profile. The core facts should stay consistent. LinkedIn allows you to add videos, images, or presentations that are relevant to each role.",
-            "Add a summary that shares your accomplishments and what it’s like to work with you. This shows up under the “About” section in your LinkedIn profile. Find more information on this in Create My LinkedIn Profile Summary.",
-            "Create a custom link. Click on “Edit public profile & URL” and tidy up the link -- ideally to linkedin.com/in/[yourname]. This will look cleaner when you link to it on your resume.",
-            "Include bragging documents. Include certifications, awards, and publications in your profile if you have them.",
-            "Follow relevant groups and companies. This will help you stay up to date on industry news and hiring opportunities."
+            "<b>Pay attention to your headline.</b> The headline carries the most weight for showing you relevant job openings. The headline could be your current title — or a concise phrase that says what you’re great at. Use keywords that closely match your desired role. More on this below.",
+            "<b>Include a clear headshot.</b> Make sure the background is not too busy. Profiles with photos generate up to 21 times more clicks. (Source: LinkedIn)",
+            "<b>Use your resume</b> to fill out the experience section of your LinkedIn profile. The core facts should stay consistent. LinkedIn allows you to add videos, images, or presentations that are relevant to each role.",
+            "<b>Add a summary</b> that shares your accomplishments and what it’s like to work with you. This shows up under the “About” section in your LinkedIn profile. Find more information on this in Create My LinkedIn Profile Summary.",
+            "<b>Create a custom link.</b> Click on “Edit public profile & URL” and tidy up the link -- ideally to linkedin.com/in/[yourname]. This will look cleaner when you link to it on your resume.",
+            "<b>Include bragging documents.</b> Include certifications, awards, and publications in your profile if you have them.",
+            "<b>Follow relevant groups and companies.</b> This will help you stay up to date on industry news and hiring opportunities."
           ]
         },
         {
@@ -61,16 +61,27 @@
         },
         {
           "component": "text",
-          "content": "Throughout the example sections, keywords are in bold.\n\n\nName: \nSam Cook\n\n\nHeadline: \nExperienced Line Cook Seeking Sous Chef Position \n\n\nCustom URL: \nlinkedin.com/in/samcook\n\n\nAbout (You can find tips on writing this section in the next activity, Sharpen My LinkedIn Summary): \n\nEnergetic Line Cook with 6+ years of experience in culinary environments. Skilled in preparing quality food quickly and efficiently. Passionate about innovative menu planning and health trends. Experience in hospitality, multi-unit and high-pressure/volume restaurant environments. \n\nSeeking a sous chef position in an established culinary environment. \nCertified in ServSafe & Sanitation\n\n\nExperience: \nLine Cook\nGivens Estate\nSeptember 2015 - March 2020"
+          "content": "Throughout the example sections, keywords are in <b>bold</b>."
         },
         {
-          "component": "list",
-          "heading": null,
-          "subheading": null,
-          "items": [
-            "Delivered high volume and quality guest food orders in accordance with Executive Chef’s instructions",
-            "Received high praise from Executive Chef and guests for presentation and quality"
-          ]
+          "component": "text",
+          "content": "Name: \nSam Cook"
+        },
+        {
+          "component": "text",
+          "content": "Headline: \n Experienced <b>Line Cook</b> Seeking <b>Sous Chef</b> Position"
+        },
+        {
+          "component": "text",
+          "content": "Custom URL: \n linkedin.com/in/samcook"
+        },
+        {
+          "component": "text",
+          "content": "About (You can find tips on writing this section in the next activity, Sharpen My LinkedIn Summary): \n<i>Energetic Line Cook with 6+ years of experience in <b>culinary</b> environments. Skilled in preparing quality food quickly and efficiently. Passionate about innovative <b>menu planning</b> and <b>health</b> trends. Experience in <b>hospitality</b>, <b>multi-unit</b> and <b>high-pressure/volume</b> restaurant environments.</i> \n<i>Seeking a <b>sous chef</b> position in an established <b>culinary</b> environment.</i> \n<i>Certified in <b>ServSafe & Sanitation</b></i>"
+        },
+        {
+          "component": "text",
+          "content": "Experience \n<i>Line Cook</i>\n<i>Givens Estate</i>\n<i>September 2015 - March 2020</i>\n<ul><li><i>Delivered high volume and <b>quality</b> guest food orders in accordance with <b>Executive Chef</b>’s instructions</i></li><li><i>Received high praise from Executive Chef and guests for <b>presentation</b> and quality</i></li></ul>"
         }
       ]
     },

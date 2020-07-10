@@ -27,8 +27,8 @@
           "heading": "Looking for a New Job in Your Industry",
           "subheading": null,
           "items": [
-            "Consider your impact. How have you made your boss’ job easier? How have you helped customers or clients?",
-            "View your past jobs from the perspective of your bosses. Why did they hire your role? What problems led to the need for your role? Consider how you solved those problems and what skills made you more effective."
+            "<b>Consider your impact.</b> How have you made your boss’ job easier? How have you helped customers or clients?",
+            "<b>View your past jobs from the perspective of your bosses.</b> Why did they hire your role? What problems led to the need for your role? Consider how you solved those problems and what skills made you more effective."
           ]
         },
         {
@@ -36,10 +36,10 @@
           "heading": "Looking for a New Direction",
           "subheading": null,
           "items": [
-            "Look for problems. Start paying attention to problems that come up for you and people you know, and what solutions exist for those problems.",
-            "Listen to the internet. When people have a problem, they often ask a question on Google or an online forum. Use sites like Quora.com and Answerthepublic.com to get a wider sample of what questions people have that they haven’t found answers for.",
-            "Find a solution. How can you help solve the problem? What skills do you currently have to help? You don’t have to know how to solve it perfectly right away.",
-            "Decide what tools you need. Identify what extra resources would help you solve the problem better and which of those resources are within your reach."
+            "<b>Look for problems.</b> Start paying attention to problems that come up for you and people you know, and what solutions exist for those problems.",
+            "<b>Listen to the internet.</b> When people have a problem, they often ask a question on Google or an online forum. Use sites like Quora.com and Answerthepublic.com to get a wider sample of what questions people have that they haven’t found answers for.",
+            "<b>Find a solution.</b> How can you help solve the problem? What skills do you currently have to help? You don’t have to know how to solve it perfectly right away.",
+            "<b>Decide what tools you need.</b> Identify what extra resources would help you solve the problem better and which of those resources are within your reach."
           ]
         }
       ]
@@ -50,7 +50,19 @@
       "content": [
         {
           "component": "text",
-          "content": "Problem: Slow turnover rates in restaurants cause longer wait times and revenue loss. \nHow I could help solve it: Being an effective waiter. \nWhat I need to help solve it: Skills for being a strong waiter: staying attentive to guests, clearing the table and asking if there’s anything else to get them, being polite and moving campers to another section of the restaurant if necessary.  \n\nProblem: Many patients are overwhelmed by healthcare costs and options.  \nHow I could help solve it: Become a patient advocate  \nWhat I need to help solve it: Patient advocate certification\n\nProblem: People don't know enough about climate change.\nHow I could help solve it: Making informational videos\nWhat I need to help solve it: Interview skills, connections with experts, video editing software and skills, a network to share my videos on  \n\nProblem: Women and people of color are underrepresented in jobs related to science, technology, engineering, and mathematics (STEM). \nHow I could help solve it: Create a recruiter tool that prioritizes qualified people of color and women applicants\nWhat I need to help solve it: Coding skills, data source, connections to recruiters"
+          "content": "<b>Problem:</b> Slow turnover rates in restaurants cause longer wait times and revenue loss. \n<b>How I could help solve it:</b> Being an effective waiter. \n<b>What I need to help solve it:</b> Skills for being a strong waiter: staying attentive to guests, clearing the table and asking if there’s anything else to get them, being polite and moving campers to another section of the restaurant if necessary."
+        },
+        {
+          "component": "text",
+          "content": "\n<b>Problem:</b> Many patients are overwhelmed by healthcare costs and options. \n<b>How I could help solve it:</b> Become a patient advocate \n<b>What I need to help solve it:</b> Patient advocate certification"
+        },
+        {
+          "component": "text",
+          "content": "\n<b>Problem:</b> People don't know enough about climate change. \n<b>How I could help solve it:</b> Making informational videos \n<b>What I need to help solve it:</b> Interview skills, connections with experts, video editing software and skills, a network to share my videos on"
+        },
+        {
+          "component": "text",
+          "content": "\n<b>Problem:</b> Women and people of color are underrepresented in jobs related to science, technology, engineering, and mathematics (STEM). \n<b>How I could help solve it: </b> Create a recruiter tool that prioritizes qualified people of color and women applicants \n<b>What I need to help solve it:</b> Coding skills, data source, connections to recruiters"
         }
       ]
     },

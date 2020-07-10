@@ -30,9 +30,13 @@ function ListBlock({ heading, subheading, items }) {
         </Typography>
       )}
       {subheading && (
-        <Typography paragraph display="block" variant="body2" className={classes.body4}>
-          {subheading}
-        </Typography>
+        <Typography
+          paragraph
+          display="block"
+          variant="body2"
+          className={classes.body4}
+          dangerouslySetInnerHTML={{ __html: subheading }}
+        />
       )}
       <ul>
         {items.map((item, index) => (
