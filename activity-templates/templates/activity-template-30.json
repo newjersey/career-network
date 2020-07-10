@@ -27,11 +27,11 @@
           "heading": null,
           "subheading": null,
           "items": [
-            "Get permission first. Always ask someone before sending their name and contact information to an employer. You want your references to be ready so they have the opportunity to think about your positive traits.",
-            "Let your references know when someone is likely to call.",
-            "Prepare your references for specific conversations. It’s a good idea to set up a quick call, so you can tell them about the job and update them on your recent experience. Calling them is also a good way to read their tone and see if they sound happy or annoyed to be a reference.",
-            "Send your resume and the job description, so they can see both the job requirements and your updated skills.",
-            "Thank your references for their time. And follow up with them so they know if you got the job."
+            "<b>Get permission first.</b> Always ask someone before sending their name and contact information to an employer. You want your references to be ready so they have the opportunity to think about your positive traits.",
+            "<b>Let your references know when someone is likely to call.</b>",
+            "<b>Prepare your references for specific conversations.</b> It’s a good idea to set up a quick call, so you can tell them about the job and update them on your recent experience. Calling them is also a good way to read their tone and see if they sound happy or annoyed to be a reference.",
+            "<b>Send your resume and the job description,</b> so they can see both the job requirements and your updated skills.",
+            "<b>Thank your references</b> for their time. And follow up with them so they know if you got the job."
           ]
         }
       ]
@@ -57,12 +57,12 @@
             {
               "questionId": "template-30-q-3",
               "order": 3,
-              "title": "How your experience relates to the job requirements: (Make sure to call out any recent accomplishments that your references may not know about.)"
+              "title": "How your experience relates to the job requirements: \n(Make sure to call out any recent accomplishments that your references may not know about.)"
             },
             {
               "questionId": "template-30-q-4",
               "order": 4,
-              "title": "What you’ve learned about the priorities of the hiring team: (Call out keywords from the job posting, as well as topics that came up in your interview.)"
+              "title": "What you’ve learned about the priorities of the hiring team: \n(Call out keywords from the job posting, as well as topics that came up in your interview.)"
             },
             {
               "questionId": "template-30-q-5",
