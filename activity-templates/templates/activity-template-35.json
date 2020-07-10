@@ -41,10 +41,10 @@
           "heading": null,
           "subheading": null,
           "items": [
-            "Consider your strengths. When do you feel most confident? What are you great at? If you need help identifying your strengths, you can find personality tests online like Myers-Briggs or Clifton Strengthsfinder. You can also check out our related activity, Identify My Strengths.",
-            "Ask for feedback. A great way to learn more about your abilities and opportunities to grow is to ask for feedback from people who have worked with you. Use these insights to develop your job ad.",
-            "Think about where you want to go. Which challenges give you motivation and excitement? Where do you hope to see yourself in a few years?",
-            "Reflect on what makes you happy. When writing your job ad, think about what environments you would be happiest in. For example, if being outdoors all day makes you happiest, you may want to add in your job ad, “I won’t take a job where I can’t be outdoors.”"
+            "<b>Consider your strengths.</b> When do you feel most confident? What are you great at? If you need help identifying your strengths, you can find personality tests online like Myers-Briggs or Clifton Strengthsfinder. You can also check out our related activity, Identify My Strengths.",
+            "<b>Ask for feedback.</b> A great way to learn more about your abilities and opportunities to grow is to ask for feedback from people who have worked with you. Use these insights to develop your job ad.",
+            "<b>Think about where you want to go.</b> Which challenges give you motivation and excitement? Where do you hope to see yourself in a few years?",
+            "<b>Reflect on what makes you happy.</b> When writing your job ad, think about what environments you would be happiest in. For example, if being outdoors all day makes you happiest, you may want to add in your job ad, “I won’t take a job where I can’t be outdoors.”"
           ]
         }
       ]
@@ -55,7 +55,7 @@
       "content": [
         {
           "component": "text",
-          "content": "Name and motto: Bob Bowman. The best in me brings out the best in others. \n\nPersonal qualities: Open, curious, generous, compassionate, anxious, ambitious, courageous, bright, determined. \n\nTalents: Social intelligence, psychology and counseling, sports, creativity.\n\nValues: Meaning, freedom, status, courage, integrity.\n\nAmbitions: I want to build something. I want to make a difference to other people. I want to build a movement that changes the way people see work. I want to use psychology to help people cope with their suffering. \n\nAnything else you wish for in your ideal job: I want to be an expert in something and to pass this expertise on. I want to build effective tools that help people move forward and make these accessible for free. I want to be very well paid but want this to reflect my value to others. I want to write brilliant books that aren’t afraid to challenge convention. I want to travel a bit. I want to have time to dedicate to my family. I want to work with brilliant, like-minded people. \n\nJobs that need not apply: Anything to do with bureaucracy. Selling things that people don’t need. Anything that has no evidence to support it. \n\nOne thing you cannot compromise on: My values."
+          "content": "<b>Name and motto:</b> Bob Bowman. The best in me brings out the best in others. \n\n<b>Personal qualities:</b> Open, curious, generous, compassionate, anxious, ambitious, courageous, bright, determined. \n\n<b>Talents:</b> Social intelligence, psychology and counseling, sports, creativity.\n\n<b>Values:</b> Meaning, freedom, status, courage, integrity.\n\n<b>Ambitions:</b> I want to build something. I want to make a difference to other people. I want to build a movement that changes the way people see work. I want to use psychology to help people cope with their suffering. \n\n<b>Anything else you wish for in your ideal job:</b> I want to be an expert in something and to pass this expertise on. I want to build effective tools that help people move forward and make these accessible for free. I want to be very well paid but want this to reflect my value to others. I want to write brilliant books that aren’t afraid to challenge convention. I want to travel a bit. I want to have time to dedicate to my family. I want to work with brilliant, like-minded people. \n\n<b>Jobs that need not apply:</b> Anything to do with bureaucracy. Selling things that people don’t need. Anything that has no evidence to support it. \n\n<b>One thing you cannot compromise on:</b> My values."
         }
       ]
     },

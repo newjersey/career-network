@@ -32,7 +32,7 @@
         },
         {
           "component": "text",
-          "content": "Prioritizing short-term needs \nRight now, your priority might be finding a job, period. You may not have the flexibility to hold out for a company that’s 100% aligned with your values. But this research can help you plan further ahead. And you might just luck out and find a good place to land even in a hurry. \n\nThe tips below will show you how to get a peek at what it might be like to work at a specific company."
+          "content": "<b>Prioritizing short-term needs</b> \nRight now, your priority might be finding a job, period. You may not have the flexibility to hold out for a company that’s 100% aligned with your values. But this research can help you plan further ahead. And you might just luck out and find a good place to land even in a hurry. \n\nThe tips below will show you how to get a peek at what it might be like to work at a specific company."
         }
       ]
     },
@@ -45,10 +45,10 @@
           "heading": null,
           "subheading": null,
           "items": [
-            "Look at your network. See where friends, former colleagues, and former classmates are working. Ask what their company culture is like. Experts estimate that as many as 4 out of 5 people landed their current job because of someone in their network. (Source: Payscale.com)",
-            "Consult “best of” lists. Companies that are growing need great people to work for them. Think about how companies on these lists could use your talents and consider reaching out, even if they don’t have a specific job posting listed. See the next section for an example of a “best of” list.",
-            "Follow authors and bloggers who write about your industry. They might have insight on growing companies and where the market is going.",
-            "Use GlassDoor to research company reviews, salaries, and company information. And use LinkedIn’s companies section to look up promotions, new hires and company statistics."
+            "<b>Look at your network.</b> See where friends, former colleagues, and former classmates are working. Ask what their company culture is like. Experts estimate that as many as 4 out of 5 people landed their current job because of someone in their network. (Source: Payscale.com)",
+            "<b>Consult “best of” lists.</b> Companies that are growing need great people to work for them. Think about how companies on these lists could use your talents and consider reaching out, even if they don’t have a specific job posting listed. See the next section for an example of a “best of” list.",
+            "<b>Follow authors and bloggers who write about your industry.</b> They might have insight on growing companies and where the market is going.",
+            "<b>Use GlassDoor</b> to research company reviews, salaries, and company information. And use LinkedIn’s companies section to look up promotions, new hires and company statistics."
           ]
         }
       ]
