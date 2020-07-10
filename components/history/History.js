@@ -70,6 +70,10 @@ const getActivityCategoryName = activityTypeValue => {
   return matchingActivity ? matchingActivity.category.name : unrecognizedCategoryName;
 };
 
+const getActivityTemplateId = taskId => {
+  return taskId.startsWith('activity-template') ? taskId : null;
+};
+
 const DIALOGS = {
   ACTIVITY_INPUT: 'ActivityInputDialog',
   ACTIVITY_DETAIL: 'ActivityDetailDialog',
@@ -133,6 +137,7 @@ export default function History(props) {
         dateCompleted: timestamp,
         id: taskEvent.id,
         actionType: ACTION_TYPES.goal,
+        activityTemplateId: getActivityTemplateId(task.id),
       },
     };
   });
