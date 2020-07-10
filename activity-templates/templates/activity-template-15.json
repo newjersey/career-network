@@ -27,11 +27,11 @@
           "heading": "Get Organized",
           "subheading": null,
           "items": [
-            "Create a work space. Ideally, your workspace is someplace other than your bedroom. But wherever it is, commit the space to your job search. It’ll make it easier to set aside the search when it’s time to do other things.",
-            "Be realistic. Many of us have competing responsibilities, like young kids, aging parents, or both. Figure out how much time you actually have for your job search and focus on making the most of that time.",
-            "Get dressed first thing. Most of us have gotten a lot more casual during the pandemic. But the habit of getting up and dressed can help you feel ready to meet the day.",
-            "Set daily goals. Start your day by deciding what you want to accomplish. Put the most important things first. Then check them off as you go.",
-            "Try out the NJCN action plan feature. This can help you track your progress as you get organized."
+            "<b>Create a work space.</b> Ideally, your workspace is someplace other than your bedroom. But wherever it is, commit the space to your job search. It’ll make it easier to set aside the search when it’s time to do other things.",
+            "<b>Be realistic.</b> Many of us have competing responsibilities, like young kids, aging parents, or both. Figure out how much time you actually have for your job search and focus on making the most of that time.",
+            "<b>Get dressed first thing.</b> Most of us have gotten a lot more casual during the pandemic. But the habit of getting up and dressed can help you feel ready to meet the day.",
+            "<b>Set daily goals.</b> Start your day by deciding what you want to accomplish. Put the most important things first. Then check them off as you go.",
+            "<b>Try out the NJCN action plan feature.</b> This can help you track your progress as you get organized."
           ]
         },
         {
@@ -39,8 +39,8 @@
           "heading": "Take Breaks",
           "subheading": null,
           "items": [
-            "Schedule breaks — and change the scenery. To stay productive, you need to give your brain some rest. Get up, stretch, and go to a different spot in your home — or better yet, outside.",
-            "Include some physical activity. Staying (or getting) active can help your mood as well as your health. And it’s another way to feel like you’re accomplishing something."
+            "<b>Schedule breaks — and change the scenery.</b> To stay productive, you need to give your brain some rest. Get up, stretch, and go to a different spot in your home — or better yet, outside.",
+            "<b>Include some physical activity.</b> Staying (or getting) active can help your mood as well as your health. And it’s another way to feel like you’re accomplishing something."
           ]
         },
         {
@@ -48,9 +48,9 @@
           "heading": "Build in Variety",
           "subheading": null,
           "items": [
-            "Check out the types of job search activities on NJCN. Writing cover letters all day or searching job boards for hours will get tiresome quickly. We have a broad range of activities that can help with your job search.",
-            "Set aside time for different types of job search activities. Decide ahead of time how much time you’ll spend on each activity.",
-            "Switch up your routine on different days of the week. You may find it helpful to have certain days allocated for certain types of tasks."
+            "<b>Check out the types of job search activities on NJCN.</b> Writing cover letters all day or searching job boards for hours will get tiresome quickly. We have a broad range of activities that can help with your job search.",
+            "<b>Set aside time for different types of job search activities.</b> Decide ahead of time how much time you’ll spend on each activity.",
+            "<b>Switch up your routine on different days of the week.</b> You may find it helpful to have certain days allocated for certain types of tasks."
           ]
         }
       ]
@@ -102,7 +102,7 @@
             {
               "questionId": "template-15-q-1",
               "order": 1,
-              "title": "What I need to do every day: (Include the basics, too, like making meals and doing dishes.)"
+              "title": "What I need to do every day: \n(Include the basics, too, like making meals and doing dishes.)"
             },
             {
               "questionId": "template-15-q-2",
@@ -112,7 +112,7 @@
             {
               "questionId": "template-15-q-3",
               "order": 3,
-              "title": "What I want to make time for: (Include how often you want to do these things.)"
+              "title": "What I want to make time for: \n(Include how often you want to do these things.)"
             },
             {
               "questionId": "template-15-q-4",
