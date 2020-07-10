@@ -14,7 +14,7 @@
       "content": [
         {
           "component": "text",
-          "content": "Many companies will ask applicants to submit a cover letter along with a resume. While your resume provides the specifics of your skills and experience, the cover letter is an opportunity to show some personality. \n\nPurpose of a cover letter\nThe goal of the cover letter is to introduce yourself in a memorable way that tells the recruiter why you’re the best candidate. To improve your chances of catching a recruiter’s attention, take the time to customize your cover letter for each role you apply to."
+          "content": "Many companies will ask applicants to submit a cover letter along with a resume. While your resume provides the specifics of your skills and experience, the cover letter is an opportunity to show some personality. \n\nThe goal of the cover letter is to introduce yourself in a memorable way that tells the recruiter why you’re the best candidate. To improve your chances of catching a recruiter’s attention, take the time to customize your cover letter for each role you apply to."
         }
       ]
     },
@@ -48,13 +48,13 @@
         {
           "component": "callout",
           "variant": "quote",
-          "description": "Example #1 (Source:Resume Genius)",
+          "source": "Example #1 (Source:Resume Genius)",
           "content": "Dear hiring manager,\n\nEver since I was a child, I’ve loved transforming people through the art of makeup. Because of my passion for this artform, I’m applying for the makeup artist position at Studio 96.\n\nI’ve served in several customer service positions since I graduated high school, in which I’ve honed my people skills, increased upsales by 17%, and improved my ability to work effectively in high-pressure situations.\n\nHowever, I’ve found that customer service doesn’t satisfy my creative side. Thus, I’m eager to join Studio 96, a company I’ve been a fan of since I learned the avant-garde approach to makeup application developed under your founder Bianca Del Vanjie.\n\nTo meet Studio 96’s needs, I’ve completed the 150-hour course in Makeup Artistry offered by the Los Angeles-based Sonique Academy in my spare time. I’ve also volunteered for the Look Good, Feel Better organization, where I boosted the self-esteem of patients with cancer by giving them makeovers.\n\nI am looking forward to hearing back from you. I can be reached at 555-876-653 or lacey.r.jones@gmail.com. Thank you for considering my application.\n\nSincerely,\nLacey Jones"
         },
         {
           "component": "callout",
           "variant": "quote",
-          "description": "Example #2 (Source: The Balance Careers)",
+          "source": "Example #2 (Source: The Balance Careers)",
           "content": "Dear Mr. Smith,\n\nI was thrilled to see your ad for an occupational therapist at Citytown Therapy. I’m a licensed occupational therapist with five years of experience providing excellent care to patients ranging from toddlers to mature adults. I’d love to put my skills to work for your clinic. \n In reference to your requirements in the job description, I have: \n<ul><li>Experience assessing patients’ fine motor and sensory skills</li><li>Practical knowledge of creating and implementing care plans</li><li>Effective communication skills, both oral and written</li><li>Excellent organization and multitasking skills</li><li>A proven track record of compassionate, effective care</li><li>CPR certification</li></ul>\n I’d appreciate the opportunity to discuss the position and your needs for the role. Please contact me at your convenience and let me know how I can help you.\n \nBest,\nVictoria Hernandez"
         }
       ]
