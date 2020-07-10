@@ -27,10 +27,10 @@
           "heading": null,
           "subheading": null,
           "items": [
-            "Break down large goals into smaller goals. It's great to have an overarching goal to set direction for yourself. But when it comes to making measurable progress, keep your daily focus on smaller, achievable goals. This can also help you stay motivated.",
-            "Focus on positive outcomes. Instead of \"find a less stressful job\" try \"make a list of 10 companies that would be fun to work for.\"",
-            "Make your goals specific. Include numbers and deadlines. Instead of \"meet new people,\" try \"contact 5 new people from my list of companies by next Monday.\"",
-            "Check your progress and make changes when you need to. Step back and see what's working — and what isn't. If you're applying to 12 jobs a week but not hearing back from anyone, it's OK to adjust your plan and set some new goals."
+            "<b>Break down large goals into smaller goals.</b> It's great to have an overarching goal to set direction for yourself. But when it comes to making measurable progress, keep your daily focus on smaller, achievable goals. This can also help you stay motivated.",
+            "<b>Focus on positive outcomes.</b> Instead of \"find a less stressful job\" try \"make a list of 10 companies that would be fun to work for.\"",
+            "<b>Make your goals specific.</b> Include numbers and deadlines. Instead of \"meet new people,\" try \"contact 5 new people from my list of companies by next Monday.\"",
+            "<b>Check your progress and make changes when you need to.</b> Step back and see what's working — and what isn't. If you're applying to 12 jobs a week but not hearing back from anyone, it's OK to adjust your plan and set some new goals."
           ]
         },
         {
@@ -46,7 +46,7 @@
       "content": [
         {
           "component": "text",
-          "content": "To stay on track in your job search, set clear goals. Here are some examples that are achievable and specific."
+          "content": "To stay on track in your job search, set clear goals. Here are some examples that are <b>achievable</b> and <b>specific</b>."
         },
         {
           "component": "list",
@@ -79,12 +79,12 @@
             {
               "questionId": "template-27-q-2",
               "order": 2,
-              "title": "These things could help me move one step closer to my goal: (You don’t have to commit to anything here.)"
+              "title": "These things could help me move one step closer to my goal: \n(You don’t have to commit to anything here.)"
             },
             {
               "questionId": "template-27-q-3",
               "order": 3,
-              "title": "These are the steps I will take to get me closer to my goal: (Which options from above give you energy or feel the easiest?)"
+              "title": "These are the steps I will take to get me closer to my goal: \n(Which options from above give you energy or feel the easiest?)"
             }
           ]
         }

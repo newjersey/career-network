@@ -21,8 +21,8 @@
           "heading": "Turning a job responsibility into an accomplishment statement",
           "subheading": "Here’s an example of the difference between a basic job responsibility and a strong accomplishment statement:",
           "items": [
-            "Job responsibility: “Trained new employees”",
-            "Accomplishment statement: “Trained more than 20 employees in one year, resulting in faster service and increased customer satisfaction.”"
+            "<b>Job responsibility:</b>  “Trained new employees”",
+            "<b>Accomplishment statement:</b> “Trained more than 20 employees in one year, resulting in faster service and increased customer satisfaction.”"
           ]
         },
         {
@@ -40,17 +40,17 @@
           "heading": null,
           "subheading": null,
           "items": [
-            "Include at least 2 bullet points with accomplishment statements under each job experience.",
-            "Use keywords from job postings. Pay attention to what recruiters are looking for in job applicants, and work these into your statements.",
-            "Use strong action words. Start each accomplishment with a strong verb and end with a positive outcome.",
-            "Check your verb tense. Use present tense verbs for current jobs and past tense verbs for previous jobs. For example, in your current job, you “work on a team of 6” and in your last job, you “worked on a team of 3.”",
-            "Include numbers. When you can, back up your accomplishments with numbers. For example, how big was the budget you managed? How many customers did you help in a month?"
+            "<b>Include at least 2 bullet points</b> with accomplishment statements under each job experience.",
+            "<b>Use keywords from job postings.</b> Pay attention to what recruiters are looking for in job applicants, and work these into your statements.",
+            "<b>Use strong action words.</b> Start each accomplishment with a strong verb and end with a positive outcome.",
+            "<b>Check your verb tense.</b> Use present tense verbs for current jobs and past tense verbs for previous jobs. For example, in your current job, you “work on a team of 6” and in your last job, you “worked on a team of 3.”",
+            "<b>Include numbers.</b> When you can, back up your accomplishments with numbers. For example, how big was the budget you managed? How many customers did you help in a month?"
           ]
         },
         {
           "component": "callout",
           "variant": "pro-tip",
-          "content": "If you’re light on job experience, remember that volunteering counts, too. You can add volunteer-related accomplishment statements under work experience or in a separate section."
+          "content": " <b>If you’re light on job experience, remember that volunteering counts, too.</b> You can add volunteer-related accomplishment statements under work experience or in a separate section."
         }
       ]
     },

@@ -40,10 +40,10 @@
           "heading": null,
           "subheading": null,
           "items": [
-            "Look for simple examples. You won’t have time during an interview to provide a complicated backstory. Try to find anecdotes that don’t require a lot of context to get the main point across.",
-            "Focus on positive outcomes. You’ll probably be asked to give some examples that don’t make you look good to start. The key is to be choosey — think of situations where you learned from a relatively minor mistake or where you were able to recover quickly from a setback.",
-            "Play up your personality. Is diplomacy one of your best qualities? Are you known for your sense of humor? Choose stories that can also help interviewers get to know you better.",
-            "Make it memorable. The best stories will have an unexpected twist. Think about how you could surprise an interviewer and make a lasting, positive impression."
+            "<b>Look for simple examples.</b> You won’t have time during an interview to provide a complicated backstory. Try to find anecdotes that don’t require a lot of context to get the main point across.",
+            "<b>Focus on positive outcomes.</b> You’ll probably be asked to give some examples that don’t make you look good to start. The key is to be choosey — think of situations where you learned from a relatively minor mistake or where you were able to recover quickly from a setback.",
+            "<b>Play up your personality.</b> Is diplomacy one of your best qualities? Are you known for your sense of humor? Choose stories that can also help interviewers get to know you better.",
+            "<b>Make it memorable.</b> The best stories will have an unexpected twist. Think about how you could surprise an interviewer and make a lasting, positive impression."
           ]
         }
       ]
@@ -52,10 +52,6 @@
       "name": "Examples",
       "slug": "examples",
       "content": [
-        {
-          "component": "text",
-          "content": "Here are 2 examples of how to use stories to answer interview questions."
-        },
         { "component": "text", "content": "Tell us about how you faced a challenge at work." },
         {
           "component": "callout",
