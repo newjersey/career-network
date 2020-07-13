@@ -7,6 +7,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
+import compareDesc from 'date-fns/compareDesc';
 import PropTypes from 'prop-types';
 import PubSub from 'pubsub-js';
 import React, { useEffect, useState } from 'react';
@@ -285,6 +286,28 @@ function getTasks(_props, limit) {
     .slice(0, limit);
 }
 
+function getNextActivityList(allActivityTemplates, completedActivities) {
+  const incompleteActivityTemplates = allActivityTemplates
+    .filter(
+      template => !completedActivities.map(activity => activity.taskId).includes(template.slug)
+    )
+    .sort((a, b) => a.priority - b.priority);
+
+  if (completedActivities.length > 0 && completedActivities[0].task.fields.Category === 'health') {
+    const nextHealth = incompleteActivityTemplates.find(template => template.category === 'health');
+    if (nextHealth) {
+      const reordered = incompleteActivityTemplates.filter(
+        template => template.slug !== nextHealth.slug
+      );
+      reordered.unshift(nextHealth);
+      console.log(reordered);
+      return reordered;
+    }
+  }
+  console.log(incompleteActivityTemplates);
+  return incompleteActivityTemplates;
+}
+
 const DIALOGS = {
   ACTIVITY_INPUT: 'ActivityInputDialog',
   UPCOMING_INTERVIEW: 'UpcomingInterviewDialog',
@@ -316,10 +339,15 @@ export default function Dashboard(props) {
   } = props;
 
   const tasks = getTasks(props, TASK_COUNT_LIMIT);
-  const completedTaskIds = completedTasks.map(task => task.data().taskId);
-  const incompleteActivityTemplates = allActivityTemplates
-    .filter(template => !completedTaskIds.includes(template.slug))
-    .sort((a, b) => a.priority - b.priority);
+  const completedActivities = completedTasks
+    .map(task => task.data())
+    .filter(taskData => taskData.taskId.startsWith('activity-template'))
+    .sort((a, b) => compareDesc(a.timestamp, b.timestamp));
+
+  const incompleteActivityTemplates = getNextActivityList(
+    allActivityTemplates,
+    completedActivities
+  );
 
   const [activeDialog, setActiveDialog] = useState();
   const isSentimentLoggedToday =
