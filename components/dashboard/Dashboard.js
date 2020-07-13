@@ -317,9 +317,10 @@ export default function Dashboard(props) {
 
   const tasks = getTasks(props, TASK_COUNT_LIMIT);
   const completedTaskIds = completedTasks.map(task => task.data().taskId);
-  const incompleteActivityTemplates = allActivityTemplates.filter(
-    template => !completedTaskIds.includes(template.slug)
-  );
+  const incompleteActivityTemplates = allActivityTemplates
+    .filter(template => !completedTaskIds.includes(template.slug))
+    .sort((a, b) => a.priority - b.priority);
+
   const [activeDialog, setActiveDialog] = useState();
   const isSentimentLoggedToday =
     user.lastSentimentTimestamp && isToday(user.lastSentimentTimestamp.toDate());
