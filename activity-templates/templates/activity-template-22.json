@@ -25,7 +25,7 @@
         {
           "component": "list",
           "heading": "When You First Get an Offer",
-          "subheading": "When you first get an offer:",
+          "subheading": null,
           "items": [
             "<b>Ask for time to consider.</b> You’ll want at least 2 or 3 days to think things over. Even if you’re sure you’ll accept, ask for the time just in case.",
             "<b>Thank the person</b> for the opportunity, and let them know that you appreciate their interest in you.",
