@@ -14,14 +14,23 @@ const useStyles = makeStyles(theme => ({
     backgroundImage: 'url(/static/img/celebrate.svg)',
     backgroundSize: 'cover',
     padding: theme.spacing(2, 6, 4, 6),
-    width: '520px',
+    width: '40%',
+    [theme.breakpoints.down('md')]: {
+      width: '60%',
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
+  },
+  actionContainer: {
+    display: 'flex',
+    flexDirection: 'column',
   },
   button: {
     margin: theme.spacing(2, 0, 2, 0),
   },
   textButton: {
     textDecoration: 'underline',
-    textTransform: 'none',
     fontWeight: 'bold',
   },
 }));
@@ -60,12 +69,18 @@ function AssessmentCompleteDialog({ show, onClose }) {
           Get started by exploring the basics of a job search.
         </Typography>
       </DialogContent>
-      <DialogActions>
+      <DialogActions className={classes.actionContainer}>
         <NextLink href="/job-search-basics">
           <Button className={classes.button} variant="contained" color="primary" fullWidth>
             Explore Job Search Basics
           </Button>
         </NextLink>
+        <div>
+          <span style={{ fontSize: 14 }}>Want to see everything we have?</span>
+          <Button className={classes.textButton} color="primary" onClick={onClose}>
+            EXPLORE NJCN
+          </Button>
+        </div>
       </DialogActions>
     </Dialog>
   );
