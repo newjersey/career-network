@@ -6,6 +6,7 @@
   "category": "health",
   "milestone": "strenths-and-values",
   "total_time": "15 min",
+  "priority": 10,
   "activitySequence": 2,
   "sections": [
     {

@@ -7,9 +7,10 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
+import compareDesc from 'date-fns/compareDesc';
 import PropTypes from 'prop-types';
 import PubSub from 'pubsub-js';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import Typography from '@material-ui/core/Typography';
 import SettingsIcon from '@material-ui/icons/Settings';
 import StarIcon from '@material-ui/icons/Star';
@@ -316,10 +317,34 @@ export default function Dashboard(props) {
   } = props;
 
   const tasks = getTasks(props, TASK_COUNT_LIMIT);
-  const completedTaskIds = completedTasks.map(task => task.data().taskId);
-  const incompleteActivityTemplates = allActivityTemplates.filter(
-    template => !completedTaskIds.includes(template.slug)
-  );
+  const completedActivities = completedTasks
+    .map(task => task.data())
+    .filter(taskData => taskData.taskId.startsWith('activity-template'))
+    .sort((a, b) => compareDesc(a.timestamp, b.timestamp));
+
+  const incompleteActivityTemplates = useMemo(() => {
+    const incompleteActivities = allActivityTemplates
+      .filter(
+        template => !completedActivities.map(activity => activity.taskId).includes(template.slug)
+      )
+      .sort((a, b) => a.priority - b.priority);
+
+    if (
+      completedActivities.length > 0 &&
+      completedActivities[0].task.fields.Category === 'health'
+    ) {
+      const nextHealth = incompleteActivities.find(template => template.category === 'health');
+      if (nextHealth) {
+        const reordered = incompleteActivities.filter(
+          template => template.slug !== nextHealth.slug
+        );
+        reordered.unshift(nextHealth);
+        return reordered;
+      }
+    }
+    return incompleteActivities;
+  }, [allActivityTemplates, completedActivities]);
+
   const [activeDialog, setActiveDialog] = useState();
   const isSentimentLoggedToday =
     user.lastSentimentTimestamp && isToday(user.lastSentimentTimestamp.toDate());

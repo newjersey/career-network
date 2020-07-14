@@ -6,6 +6,7 @@
   "category": "health",
   "milestone": "stress-management-practices",
   "total_time": "10 min",
+  "priority": 25,
   "activitySequence": 3,
   "sections": [
     {
