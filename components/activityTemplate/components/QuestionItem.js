@@ -111,9 +111,16 @@ const QuestionItem = ({
       <div className={clsx(classes.stepContent, isLast && classes.last)}>
         <Card variant="outlined" className={classes.card}>
           <CardContent>
-            {title.split('\n').map(text => (
-              <Typography className={classes.title} dangerouslySetInnerHTML={{ __html: text }} />
-            ))}
+            {React.Children.toArray(
+              title
+                .split('\n')
+                .map(text => (
+                  <Typography
+                    className={classes.title}
+                    dangerouslySetInnerHTML={{ __html: text }}
+                  />
+                ))
+            )}
             <TextField
               variant="outlined"
               onFocus={handleFocus}
