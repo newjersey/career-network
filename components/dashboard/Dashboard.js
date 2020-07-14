@@ -430,7 +430,6 @@ export default function Dashboard(props) {
       <AssessmentCompleteDialog
         show={activeDialog === DIALOGS.ASSESSMENT_COMPLETE}
         onClose={() => setActiveDialog()}
-        onLogActivityButtonClick={() => setActiveDialog(DIALOGS.ACTIVITY_INPUT)}
       />
       <ActionPlanUpdateDialog
         show={activeDialog === DIALOGS.ACTION_PLAN_UPDATE}
