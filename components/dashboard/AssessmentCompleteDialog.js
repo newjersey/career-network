@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
+import NextLink from 'next/link';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -13,21 +14,30 @@ const useStyles = makeStyles(theme => ({
     backgroundImage: 'url(/static/img/celebrate.svg)',
     backgroundSize: 'cover',
     padding: theme.spacing(2, 6, 4, 6),
-    width: '520px',
+    width: '40%',
+    [theme.breakpoints.down('md')]: {
+      width: '60%',
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
+  },
+  actionContainer: {
+    display: 'flex',
+    flexDirection: 'column',
   },
   button: {
     margin: theme.spacing(2, 0, 2, 0),
   },
   textButton: {
     textDecoration: 'underline',
-    textTransform: 'none',
     fontWeight: 'bold',
   },
 }));
 
 const MAX_WIDTH = 'sm';
 
-function AssessmentCompleteDialog({ show, onClose, onLogActivityButtonClick }) {
+function AssessmentCompleteDialog({ show, onClose }) {
   const classes = useStyles();
 
   return (
@@ -52,24 +62,25 @@ function AssessmentCompleteDialog({ show, onClose, onLogActivityButtonClick }) {
           journey.
           <br />
           <br />
-          Research suggests that job seekers who track their progress are more successful and land
-          their next position faster.
+          We’ve created a series of activities and milestones that will help you land your next
+          position.
           <br />
           <br />
-          Start tracking your progress now by adding search activities you&apos;ve completed in the
-          past week to your Activity Log!
+          Get started by exploring the basics of a job search.
         </Typography>
       </DialogContent>
-      <DialogActions>
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          onClick={onLogActivityButtonClick}
-          fullWidth
-        >
-          Log an Activity
-        </Button>
+      <DialogActions className={classes.actionContainer}>
+        <NextLink href="/job-search-basics">
+          <Button className={classes.button} variant="contained" color="primary" fullWidth>
+            Explore Job Search Basics
+          </Button>
+        </NextLink>
+        <div>
+          <span style={{ fontSize: 14 }}>Want to see everything we have?</span>
+          <Button className={classes.textButton} color="primary" onClick={onClose}>
+            EXPLORE NJCN
+          </Button>
+        </div>
       </DialogActions>
     </Dialog>
   );
@@ -78,7 +89,6 @@ function AssessmentCompleteDialog({ show, onClose, onLogActivityButtonClick }) {
 AssessmentCompleteDialog.propTypes = {
   show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  onLogActivityButtonClick: PropTypes.func.isRequired,
 };
 
 export default withMobileDialog()(AssessmentCompleteDialog);
