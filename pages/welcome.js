@@ -5,6 +5,7 @@ import NextLink from 'next/link';
 import Paper from '@material-ui/core/Paper';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 
 import { withAuthRequired } from '../components/Auth';
 import BackgroundHeader from '../components/BackgroundHeader';
@@ -26,7 +27,6 @@ const useStyles = makeStyles(theme => ({
     background: `linear-gradient(to right bottom, #ffffff, ${theme.palette.background.secondaryHeader} 100%)`,
   },
   title: {
-    maxWidth: '60%',
     fontSize: '20px',
     color: theme.palette.background.dark,
   },
@@ -63,25 +63,35 @@ function Welcome() {
       </BackgroundHeader>
       <ScaffoldContainer>
         <Grid container justify="center">
-          <Grid item xs={12} sm={12} md={7}>
+          <Grid container item xs={12} sm={12} md={7}>
             <Paper className={classes.paper} elevation={3}>
-              <Typography variant="h5" className={classes.title} gutterBottom>
-                Answer a few questions to set up your NJCN profile
-              </Typography>
-              <Typography variant="body2" style={{ maxWidth: '60%' }}>
-                The more we get to know you, the more we will be able to provide you with custom
-                assistance.
-              </Typography>
-              <NextLink href="/assessment">
-                <Button className={classes.button} variant="contained" color="primary">
-                  Let’s Start
-                </Button>
-              </NextLink>
-              <img
-                style={{ position: 'absolute', right: 0, bottom: 0 }}
-                src="/static/img/upfront-assessment-welcome.png"
-                alt="Upfront Assessment Welcome"
-              />
+              <Grid container item>
+                <Grid item xs={10} sm={7} md={7}>
+                  <Typography variant="h5" className={classes.title} gutterBottom>
+                    Answer a few questions to set up your NJCN profile
+                  </Typography>
+                </Grid>
+                <Grid item xs={10} sm={7} md={7}>
+                  <Typography variant="body2">
+                    The more we get to know you, the more we will be able to provide you with custom
+                    assistance.
+                  </Typography>
+                </Grid>
+                <Grid item xs={10} sm={7} md={7}>
+                  <NextLink href="/assessment">
+                    <Button className={classes.button} variant="contained" color="primary">
+                      Let’s Start
+                    </Button>
+                  </NextLink>
+                </Grid>
+              </Grid>
+              <Box display={{ xs: 'none', sm: 'block', md: 'block' }}>
+                <img
+                  style={{ position: 'absolute', right: 0, bottom: 0 }}
+                  src="/static/img/upfront-assessment-welcome.png"
+                  alt="Upfront Assessment Welcome"
+                />
+              </Box>
             </Paper>
           </Grid>
         </Grid>
