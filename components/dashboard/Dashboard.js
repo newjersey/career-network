@@ -322,28 +322,22 @@ export default function Dashboard(props) {
     .filter(taskData => taskData.taskId.startsWith('activity-template'))
     .sort((a, b) => compareDesc(a.timestamp, b.timestamp));
 
-  const incompleteActivityTemplates = useMemo(() => {
-    const incompleteActivities = allActivityTemplates
-      .filter(
-        template => !completedActivities.map(activity => activity.taskId).includes(template.slug)
-      )
-      .sort((a, b) => a.priority - b.priority);
+  const incompleteActivities = allActivityTemplates
+    .filter(
+      template => !completedActivities.map(activity => activity.taskId).includes(template.slug)
+    )
+    .sort((a, b) => a.priority - b.priority);
 
-    if (
-      completedActivities.length > 0 &&
-      completedActivities[0].task.fields.Category === 'health'
-    ) {
-      const nextHealth = incompleteActivities.find(template => template.category === 'health');
-      if (nextHealth) {
-        const reordered = incompleteActivities.filter(
-          template => template.slug !== nextHealth.slug
-        );
-        reordered.unshift(nextHealth);
-        return reordered;
-      }
+  const nextHealthActivity = incompleteActivities.find(template => template.category === 'health');
+  const nextActivities = useMemo(() => {
+    const nonHealth = incompleteActivities.filter(template => template.category !== 'health');
+    if (nextHealthActivity) {
+      const display = nonHealth.slice(0, ACTIVITY_DISPLAY - 1);
+      display.push(nextHealthActivity);
+      return display;
     }
-    return incompleteActivities;
-  }, [allActivityTemplates, completedActivities]);
+    return nonHealth.slice(0, ACTIVITY_DISPLAY);
+  }, [incompleteActivities, nextHealthActivity]);
 
   const [activeDialog, setActiveDialog] = useState();
   const isSentimentLoggedToday =
@@ -518,15 +512,13 @@ export default function Dashboard(props) {
             <Flags
               authorizedFlags={['activityTemplate']}
               renderOn={() =>
-                incompleteActivityTemplates
-                  .slice(0, ACTIVITY_DISPLAY)
-                  .map(template => (
-                    <ActivityTemplateCard
-                      key={template.slug}
-                      totalTime={template.total_time}
-                      {...template}
-                    />
-                  ))
+                nextActivities.map(template => (
+                  <ActivityTemplateCard
+                    key={template.slug}
+                    totalTime={template.total_time}
+                    {...template}
+                  />
+                ))
               }
               renderOff={() => (
                 <TaskList
