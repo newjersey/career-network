@@ -4,7 +4,11 @@ import Grid from '@material-ui/core/Grid';
 import React, { useState, useRef } from 'react';
 import Typography from '@material-ui/core/Typography';
 
+import { fullyLoaded } from '../../src/app-helper';
+import { useAuth } from '../Auth';
+
 import ScaffoldContainer from '../ScaffoldContainer';
+import Section from '../activityTemplate/Section';
 import FindingJob from './FindingJob';
 import ApplyForJob from './ApplyForJob';
 import Health from './Health';
@@ -48,12 +52,29 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const calloutData = [
+  {
+    slug: 'dashboard-return',
+    content: [
+      {
+        component: 'callout',
+        variant: 'dashboard',
+        content:
+          'Start with 1 of the 3 Recommended Activities, on your dashboard. Remember, you can come back to this page at anytime and access all the activities via the milestones above.',
+      },
+    ],
+  },
+];
+
 export default function JobSearchBasics() {
+  const { user } = useAuth();
   const classes = useStyles();
   const [shape, setShowShape] = useState(FINDING_JOB);
   const findingJobSection = useRef(null);
   const applyForJobSection = useRef(null);
   const healthSection = useRef(null);
+
+  const dashboardReturn = calloutData.find(sec => sec.slug === 'dashboard-return');
 
   const handleScrollTo = section => {
     const selectedSection = {
@@ -125,6 +146,7 @@ export default function JobSearchBasics() {
       <FindingJob scrollToRef={findingJobSection} />
       <ApplyForJob scrollToRef={applyForJobSection} />
       <Health scrollToRef={healthSection} />
+      {fullyLoaded(user) && <Section sectionData={dashboardReturn} />}
     </div>
   );
 }

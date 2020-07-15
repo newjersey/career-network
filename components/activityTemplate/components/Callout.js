@@ -59,13 +59,20 @@ function Callout({ content, variant, description }) {
         return <FormatQuote />;
       case 'next':
         return <ForwardIcon />;
+      case 'dashboard':
+        return <InfoOutlined />;
       default:
         return null;
     }
   };
 
   return (
-    <div className={clsx(classes.root, variant === 'next' && classes.next)}>
+    <div
+      className={clsx(
+        classes.root,
+        (variant === 'next' || variant === 'dashboard') && classes.next
+      )}
+    >
       {description && (
         <Typography variant="h5" className={classes.description}>
           {description}
@@ -93,7 +100,7 @@ function Callout({ content, variant, description }) {
 
 Callout.propTypes = {
   content: PropTypes.string.isRequired,
-  variant: PropTypes.oneOf(['pro-tip', 'quote', 'next']).isRequired,
+  variant: PropTypes.oneOf(['pro-tip', 'quote', 'next', 'dashboard']).isRequired,
   description: PropTypes.string,
 };
 

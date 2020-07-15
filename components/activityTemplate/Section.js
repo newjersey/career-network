@@ -25,11 +25,16 @@ function Section({ sectionData, onComplete, scrollToRef, ...restProps }) {
   const classes = useStyles(restProps);
   const getSectionKey = (type, index) => `${type}-${index}`;
   const nextStep = sectionData.slug === 'next-steps';
+  const dashboardReturn = sectionData.slug === 'dashboard-return';
 
   return (
     <div className={classes.root} ref={scrollToRef}>
       <ScaffoldContainer>
-        <Grid container justify={nextStep ? 'flex-start' : 'flex-end'} spacing={4}>
+        <Grid
+          container
+          justify={nextStep || dashboardReturn ? 'flex-start' : 'flex-end'}
+          spacing={4}
+        >
           <Grid item container xs={12} sm={2}>
             <Typography variant="h2" align="right">
               {sectionData.name}
@@ -60,6 +65,20 @@ function Section({ sectionData, onComplete, scrollToRef, ...restProps }) {
                 onClick={onComplete}
               >
                 COMPLETE THIS ACTIVITY
+              </Button>
+            </NextLink>
+          )}
+
+          {dashboardReturn && (
+            <NextLink href="/dashboard">
+              <Button
+                classes={{ root: classes.button }}
+                fullWidth
+                variant="contained"
+                size="large"
+                color="primary"
+              >
+                RETURN TO MY DASHBOARD
               </Button>
             </NextLink>
           )}
