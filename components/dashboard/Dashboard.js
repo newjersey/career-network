@@ -317,27 +317,33 @@ export default function Dashboard(props) {
   } = props;
 
   const tasks = getTasks(props, TASK_COUNT_LIMIT);
-  const completedActivities = completedTasks
-    .map(task => task.data())
-    .filter(taskData => taskData.taskId.startsWith('activity-template'))
-    .sort((a, b) => compareDesc(a.timestamp, b.timestamp));
 
-  const incompleteActivities = allActivityTemplates
-    .filter(
-      template => !completedActivities.map(activity => activity.taskId).includes(template.slug)
-    )
-    .sort((a, b) => a.priority - b.priority);
-
-  const nextHealthActivity = incompleteActivities.find(template => template.category === 'health');
   const nextActivities = useMemo(() => {
-    const nonHealth = incompleteActivities.filter(template => template.category !== 'health');
+    const completedActivities = completedTasks
+      .map(task => task.data())
+      .filter(taskData => taskData.taskId.startsWith('activity-template'))
+      .sort((a, b) => compareDesc(a.timestamp, b.timestamp));
+
+    const incompleteActivities = allActivityTemplates
+      .filter(
+        template => !completedActivities.map(activity => activity.taskId).includes(template.slug)
+      )
+      .sort((a, b) => a.priority - b.priority);
+
+    const nextHealthActivity = incompleteActivities.find(
+      template => template.category === 'health'
+    );
+    const nonHealthActivities = incompleteActivities.filter(
+      template => template.category !== 'health'
+    );
+
     if (nextHealthActivity) {
-      const display = nonHealth.slice(0, ACTIVITY_DISPLAY - 1);
+      const display = nonHealthActivities.slice(0, ACTIVITY_DISPLAY - 1);
       display.push(nextHealthActivity);
       return display;
     }
-    return nonHealth.slice(0, ACTIVITY_DISPLAY);
-  }, [incompleteActivities, nextHealthActivity]);
+    return nonHealthActivities.slice(0, ACTIVITY_DISPLAY);
+  }, [allActivityTemplates, completedTasks]);
 
   const [activeDialog, setActiveDialog] = useState();
   const isSentimentLoggedToday =
