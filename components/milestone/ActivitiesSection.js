@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import SectionComponent from '../activityTemplate/SectionComponent';
-import ActivityTemplateCard from '../dashboard/ActivityTemplateCard';
+import ActivityTemplateCard from '../dashboard/RecommendedActivities/ActivityTemplateCard';
 import ScaffoldContainer from '../ScaffoldContainer';
 
 const useStyles = makeStyles(theme => ({

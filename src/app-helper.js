@@ -108,8 +108,12 @@ export function getFirstIncompleteAction(
  * @returns {*} The response value as entered by the user.
  * @example getQuestionResponse(allQuestionResponses, 'most-recent-title')
  */
-export function getQuestionResponse(allQuestionResponses, slug) {
-  const response = allQuestionResponses.find(qr => qr.data().question.fields.Slug === slug);
+export function getQuestionResponse(allQuestionResponses, slug, label = null) {
+  const response = allQuestionResponses.find(
+    qr =>
+      qr.data().question.fields.Slug === slug ||
+      (label && qr.data().question.fields.Label === label)
+  );
 
   if (!response) {
     return null;
