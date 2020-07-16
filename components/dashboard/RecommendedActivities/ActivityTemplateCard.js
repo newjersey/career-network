@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import TimerIcon from '@material-ui/icons/Timer';
 import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import NextLink from 'next/link';
 import {
@@ -29,6 +30,12 @@ const useStyles = makeStyles({
     display: '-webkit-box',
     '-webkit-line-clamp': 3,
     '-webkit-box-orient': 'vertical',
+  },
+  footerContainer: {
+    padding: theme.spacing(2, 4, 2, 5),
+    [theme.breakpoints.only('xs')]: {
+      padding: theme.spacing(2),
+    },
   },
   leftFooter: {
     display: 'flex',
@@ -75,26 +82,30 @@ function ActivityTemplateCard(props) {
       <Box
         display="flex"
         justify="space-between"
-        pl={5}
-        pr={4}
-        py={2}
+        className={classes.footerContainer}
         borderTop={0.5}
         borderColor={categoryColor}
         bgcolor={fade(JOB_SEARCH_CATEGORY_COLORS[category], 0.07)}
       >
-        <div className={classes.leftFooter}>
-          <MilestoneIcon type={milestone} color={categoryColor} />
-          <Typography variant="h6" className={classes.iconLabel}>
-            {milestoneType.name}
-          </Typography>
-          <TimerIcon style={{ color: categoryColor }} />
-          <Typography variant="h6" className={classes.iconLabel}>
-            {totalTime}
-          </Typography>
-        </div>
-        <NextLink href={`/activity-template?template=${slug}`}>
-          <Button className={classes.link}>Start this activity ▸</Button>
-        </NextLink>
+        <Grid container alignItems="center">
+          <Grid item xs={12} sm={7} md={7}>
+            <div className={classes.leftFooter}>
+              <MilestoneIcon type={milestone} color={categoryColor} />
+              <Typography variant="h6" className={classes.iconLabel}>
+                {milestoneType.name}
+              </Typography>
+              <TimerIcon style={{ color: categoryColor }} />
+              <Typography variant="h6" className={classes.iconLabel}>
+                {totalTime}
+              </Typography>
+            </div>
+          </Grid>
+          <Grid item container xs={12} sm={5} md={5} justify="flex-end">
+            <NextLink href={`/activity-template?template=${slug}`}>
+              <Button className={classes.link}>Start this activity ▸</Button>
+            </NextLink>
+          </Grid>
+        </Grid>
       </Box>
     </Box>
   );
