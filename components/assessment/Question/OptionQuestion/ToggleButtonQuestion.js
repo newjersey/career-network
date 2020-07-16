@@ -24,6 +24,9 @@ const useStyles = makeStyles(theme => ({
     height: theme.spacing(5.5),
     marginBottom: theme.spacing(2),
     margin: 'auto',
+    [theme.breakpoints.down('xs')]: {
+      width: '100%',
+    },
   },
   fullWidthButton: {
     width: '100%',
