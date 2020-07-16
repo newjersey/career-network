@@ -123,7 +123,6 @@ function ActionPlanUpdateDialog(props) {
             </Grid>
             <Grid item xs={12} sm={3}>
               <TextField
-                autoFocus
                 className={classes.input}
                 id={`${formId}-goals`}
                 inputProps={{ name: 'goals', min: 0 }}
