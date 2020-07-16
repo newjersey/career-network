@@ -148,7 +148,6 @@ function ActionPlanUpdateDialog(props) {
             </Grid>
             <Grid item xs={12} sm={3}>
               <TextField
-                autoFocus
                 className={classes.input}
                 id={`${formId}-activities`}
                 inputProps={{ name: 'activities', min: 0 }}
@@ -173,7 +172,6 @@ function ActionPlanUpdateDialog(props) {
             </Grid>
             <Grid item xs={12} sm={3}>
               <TextField
-                autoFocus
                 className={classes.input}
                 id={`${formId}-applications`}
                 inputProps={{ name: 'applications', min: 0 }}
