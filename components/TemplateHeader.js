@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import NextLink from 'next/link';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import Divider from '@material-ui/core/Divider';
@@ -106,7 +107,9 @@ export default function TemplateHeader(props) {
           <MilestoneTag color={categoryColor} type={milestoneType} label={milestoneLabel} />
         )}
       </ScaffoldContainer>
-      <JobSearchShape jobSearchCategory={categoryType} className={classes.categoryShape} />
+      <Box display={{ xs: 'none', sm: 'none', md: 'block' }}>
+        <JobSearchShape jobSearchCategory={categoryType} className={classes.categoryShape} />
+      </Box>
     </div>
   );
 }

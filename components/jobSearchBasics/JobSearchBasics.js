@@ -22,6 +22,7 @@ const useStyles = makeStyles(theme => ({
   },
   navText: {
     color: theme.palette.background.dark,
+    marginBottom: theme.spacing(2),
   },
   title: {
     fontWeight: 600,
@@ -35,8 +36,9 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   shape: {
-    width: 368,
     height: 'auto',
+    width: '100%',
+    maxWidth: theme.spacing(46),
   },
   hoverBlock: {
     marginTop: theme.spacing(1),

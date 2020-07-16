@@ -17,6 +17,9 @@ const useStyles = makeStyles(theme => ({
     borderColor: theme.palette.grey['200'],
     borderLeftColor: theme.palette.navy.primary,
     width: '100%',
+    [theme.breakpoints.only('xs')]: {
+      padding: theme.spacing(2, 3),
+    },
   },
   next: {
     borderWidth: '1px',
@@ -25,12 +28,16 @@ const useStyles = makeStyles(theme => ({
   },
   content: {
     display: 'flex',
+    [theme.breakpoints.only('xs')]: {
+      display: 'block',
+    },
   },
   description: {
     marginBottom: theme.spacing(4),
   },
   icon: {
-    height: 48,
+    height: theme.spacing(6),
+    width: theme.spacing(6),
     minWidth: 48,
     display: 'flex',
     alignItems: 'center',
@@ -39,6 +46,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.navy['200'],
     color: theme.palette.common.white,
     marginRight: theme.spacing(3),
+    marginBottom: theme.spacing(3),
   },
   text: {
     fontSize: 20,
