@@ -22,19 +22,19 @@ const envConfigs = {
     },
     {
       name: 'jobSearchBasics',
-      isActive: false,
+      isActive: true,
     },
     {
       name: 'activityTemplate',
-      isActive: false,
+      isActive: true,
     },
     {
       name: 'landingPage',
-      isActive: false,
+      isActive: true,
     },
     {
       name: 'milestonePages',
-      isActive: false,
+      isActive: true,
     },
     {
       name: 'upcomingInterview',
