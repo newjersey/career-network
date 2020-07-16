@@ -12,9 +12,9 @@ import {
   JOB_SEARCH_CATEGORY_COLORS,
   JOB_SEARCH_CATEGORIES,
   MILESTONE_TYPES,
-} from '../../constants';
-import MilestoneIcon from '../activityTemplate/MilestoneIcon';
-import theme from '../../src/theme';
+} from '../../../constants';
+import MilestoneIcon from '../../activityTemplate/MilestoneIcon';
+import theme from '../../../src/theme';
 
 const useStyles = makeStyles({
   title: {
