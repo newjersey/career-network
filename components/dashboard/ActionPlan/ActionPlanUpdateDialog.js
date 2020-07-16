@@ -1,9 +1,9 @@
 import { makeStyles } from '@material-ui/styles';
-import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Dialog from '@material-ui/core/Dialog';
 import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
@@ -33,8 +33,11 @@ const useStyles = makeStyles(theme => ({
   labelContainer: {
     marginLeft: 5,
   },
+  inputContainer: {
+    marginTop: theme.spacing(3),
+  },
   input: {
-    width: theme.spacing(10),
+    width: '100%',
   },
 }));
 
@@ -106,8 +109,8 @@ function ActionPlanUpdateDialog(props) {
         <Divider />
         {submitting && <CircularProgress />}
         <form id={formId} onSubmit={handleSubmit}>
-          <Box display="flex" justifyContent="space-between" mt={3}>
-            <div>
+          <Grid container className={classes.inputContainer} spacing={3}>
+            <Grid item xs={12} sm={9}>
               <span className={classes.itemLabel} style={{ color: ACTION_TYPES.goal.color }}>
                 <span>
                   <StarIcon />
@@ -117,20 +120,22 @@ function ActionPlanUpdateDialog(props) {
                 </span>
               </span>
               <div>How many goals do you plan to log in a week?</div>
-            </div>
-            <TextField
-              autoFocus
-              className={classes.input}
-              id={`${formId}-goals`}
-              inputProps={{ name: 'goals', min: 0 }}
-              value={values.goals || actionPlan.goals}
-              onChange={handleChange}
-              variant="outlined"
-              type="number"
-            />
-          </Box>
-          <Box display="flex" justifyContent="space-between" mt={3}>
-            <div>
+            </Grid>
+            <Grid item xs={12} sm={3}>
+              <TextField
+                autoFocus
+                className={classes.input}
+                id={`${formId}-goals`}
+                inputProps={{ name: 'goals', min: 0 }}
+                value={values.goals || actionPlan.goals}
+                onChange={handleChange}
+                variant="outlined"
+                type="number"
+              />
+            </Grid>
+          </Grid>
+          <Grid container className={classes.inputContainer} spacing={3}>
+            <Grid item xs={12} sm={9}>
               <span className={classes.itemLabel} style={{ color: ACTION_TYPES.activity.color }}>
                 <span>
                   <AssignmentTurnedInIcon />
@@ -140,20 +145,22 @@ function ActionPlanUpdateDialog(props) {
                 </span>
               </span>
               <div>How many activities do you plan to log in a week?</div>
-            </div>
-            <TextField
-              autoFocus
-              className={classes.input}
-              id={`${formId}-activities`}
-              inputProps={{ name: 'activities', min: 0 }}
-              value={values.activities || actionPlan.activities}
-              onChange={handleChange}
-              variant="outlined"
-              type="number"
-            />
-          </Box>
-          <Box display="flex" justifyContent="space-between" mt={3} mb={3}>
-            <div>
+            </Grid>
+            <Grid item xs={12} sm={3}>
+              <TextField
+                autoFocus
+                className={classes.input}
+                id={`${formId}-activities`}
+                inputProps={{ name: 'activities', min: 0 }}
+                value={values.activities || actionPlan.activities}
+                onChange={handleChange}
+                variant="outlined"
+                type="number"
+              />
+            </Grid>
+          </Grid>
+          <Grid container className={classes.inputContainer} spacing={3}>
+            <Grid item xs={12} sm={9}>
               <span className={classes.itemLabel} style={{ color: ACTION_TYPES.application.color }}>
                 <span>
                   <NextWeekIcon />
@@ -163,19 +170,21 @@ function ActionPlanUpdateDialog(props) {
                 </span>
               </span>
               <div>How many applications do you plan to complete in a week?</div>
-            </div>
-            <TextField
-              autoFocus
-              className={classes.input}
-              id={`${formId}-applications`}
-              inputProps={{ name: 'applications', min: 0 }}
-              value={values.applications || actionPlan.applications}
-              min={0}
-              onChange={handleChange}
-              variant="outlined"
-              type="number"
-            />
-          </Box>
+            </Grid>
+            <Grid item xs={12} sm={3}>
+              <TextField
+                autoFocus
+                className={classes.input}
+                id={`${formId}-applications`}
+                inputProps={{ name: 'applications', min: 0 }}
+                value={values.applications || actionPlan.applications}
+                min={0}
+                onChange={handleChange}
+                variant="outlined"
+                type="number"
+              />
+            </Grid>
+          </Grid>
         </form>
         {error && <Typography color="error">{error}</Typography>}
       </DialogContent>
