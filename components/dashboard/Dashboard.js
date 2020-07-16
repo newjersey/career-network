@@ -7,10 +7,9 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import compareDesc from 'date-fns/compareDesc';
 import PropTypes from 'prop-types';
 import PubSub from 'pubsub-js';
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import SettingsIcon from '@material-ui/icons/Settings';
 import StarIcon from '@material-ui/icons/Star';
@@ -20,9 +19,10 @@ import { WEEKLY_ACTION_PLAN_COMPLETE } from '../constants';
 import { getFirstIncompleteAction, isDone, mostRecent } from '../../src/app-helper';
 import { useAnalytics } from '../Analytics';
 import { useAuth } from '../Auth';
-import ActivityInputDialog from '../activityInput/ActivityInputDialog';
 import ActionPlanBar from './ActionPlan/ActionPlanBar';
 import ActionPlanUpdateDialog from './ActionPlan/ActionPlanUpdateDialog';
+import ActivityInputDialog from '../activityInput/ActivityInputDialog';
+import ActivityList from './RecommendedActivities/ActivityList';
 import AirtablePropTypes from '../Airtable/PropTypes';
 import ApplicationTrackerCard from './ApplicationTrackerCard';
 import AssessmentCompleteDialog from './AssessmentCompleteDialog';
@@ -36,10 +36,8 @@ import TimeDistanceParser from '../../src/time-distance-parser';
 import UpcomingInterviewDialog from './UpcomingInterviewDialog/UpcomingInterviewDialog';
 import UserProfileCard from './UserProfileCard';
 import CelebrationDialog from '../CelebrationDialog';
-import ActivityTemplateCard from './ActivityTemplateCard';
 
 const TASK_COUNT_LIMIT = 3;
-const ACTIVITY_DISPLAY = 3;
 const ROW_GAP = 2;
 const COL_GAP = 2;
 
@@ -318,33 +316,6 @@ export default function Dashboard(props) {
 
   const tasks = getTasks(props, TASK_COUNT_LIMIT);
 
-  const nextActivities = useMemo(() => {
-    const completedActivities = completedTasks
-      .map(task => task.data())
-      .filter(taskData => taskData.taskId.startsWith('activity-template'))
-      .sort((a, b) => compareDesc(a.timestamp, b.timestamp));
-
-    const incompleteActivities = allActivityTemplates
-      .filter(
-        template => !completedActivities.map(activity => activity.taskId).includes(template.slug)
-      )
-      .sort((a, b) => a.priority - b.priority);
-
-    const nextHealthActivity = incompleteActivities.find(
-      template => template.category === 'health'
-    );
-    const nonHealthActivities = incompleteActivities.filter(
-      template => template.category !== 'health'
-    );
-
-    if (nextHealthActivity) {
-      const display = nonHealthActivities.slice(0, ACTIVITY_DISPLAY - 1);
-      display.push(nextHealthActivity);
-      return display;
-    }
-    return nonHealthActivities.slice(0, ACTIVITY_DISPLAY);
-  }, [allActivityTemplates, completedTasks]);
-
   const [activeDialog, setActiveDialog] = useState();
   const isSentimentLoggedToday =
     user.lastSentimentTimestamp && isToday(user.lastSentimentTimestamp.toDate());
@@ -516,15 +487,13 @@ export default function Dashboard(props) {
           <Box className={classes.gridC}>
             <Flags
               authorizedFlags={['activityTemplate']}
-              renderOn={() =>
-                nextActivities.map(template => (
-                  <ActivityTemplateCard
-                    key={template.slug}
-                    totalTime={template.total_time}
-                    {...template}
-                  />
-                ))
-              }
+              renderOn={() => (
+                <ActivityList
+                  allActivityTemplates={allActivityTemplates}
+                  allQuestionResponses={allQuestionResponses}
+                  completedTasks={completedTasks}
+                />
+              )}
               renderOff={() => (
                 <TaskList
                   tasks={tasks}
