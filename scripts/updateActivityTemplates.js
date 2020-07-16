@@ -33,19 +33,36 @@ const fs = require('fs');
 //   ),
 // };
 
-const projectId = 'nj-career-network-dev2';
+// const projectId = 'nj-career-network-dev2';
+// const firebaseConfig = {
+//   authDomain: `${projectId}.firebaseapp.com`,
+//   databaseURL: `https://${projectId}.firebaseio.com`,
+//   projectId,
+//   storageBucket: `${projectId}.appspot.com`,
+//   apiKey: 'AIzaSyCNdMzlu9heNVkRVD48DovbvnEMOkjLo7s',
+//   messagingSenderId: '555215588648',
+//   appId: '1:555215588648:web:c1f34ead2b56f9b6a6541d',
+//   credential: admin.credential.cert(
+//     // Generate from Firebase console --> Settings --> Service accounts
+//     // eslint-disable-next-line global-require
+//     require('../.auth/nj-career-network-dev2-firebase-adminsdk-45t59-068e3d66f9.json')
+//   ),
+// };
+
+// prod
 const firebaseConfig = {
-  authDomain: `${projectId}.firebaseapp.com`,
-  databaseURL: `https://${projectId}.firebaseio.com`,
-  projectId,
-  storageBucket: `${projectId}.appspot.com`,
-  apiKey: 'AIzaSyCNdMzlu9heNVkRVD48DovbvnEMOkjLo7s',
-  messagingSenderId: '555215588648',
-  appId: '1:555215588648:web:c1f34ead2b56f9b6a6541d',
+  apiKey: 'AIzaSyBW2hLAzSgdv72lKicKcW_j1c86enCi8uU',
+  authDomain: 'nj-career-network.firebaseapp.com',
+  databaseURL: 'https://nj-career-network.firebaseio.com',
+  projectId: 'nj-career-network',
+  storageBucket: 'nj-career-network.appspot.com',
+  messagingSenderId: '114141088298',
+  appId: '1:114141088298:web:ce96ec93a41e3d35',
+  measurementId: 'G-48C1WWQMMD',
   credential: admin.credential.cert(
     // Generate from Firebase console --> Settings --> Service accounts
     // eslint-disable-next-line global-require
-    require('../.auth/nj-career-network-dev2-firebase-adminsdk-45t59-068e3d66f9.json')
+    require('../.auth/nj-career-network-firebase-adminsdk-4v838-265d45154c.json')
   ),
 };
 
