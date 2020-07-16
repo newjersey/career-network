@@ -85,7 +85,7 @@ function Tools() {
 
   return (
     <ScaffoldContainer className={classes.root}>
-      <Grid container justify="center" alignItems="center" spacing={10}>
+      <Grid container justify="center" alignItems="center">
         <Grid item md={9} className={classes.headingContainer}>
           <Typography variant="h1" className={classes.heading}>
             Our super power? Putting your super power to work.
