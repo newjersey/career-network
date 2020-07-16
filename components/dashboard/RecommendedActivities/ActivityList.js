@@ -63,7 +63,7 @@ export default function ActivityList(props) {
         template => !completedActivities.map(activity => activity.taskId).includes(template.slug)
       )
       .sort((a, b) => a.priority - b.priority);
-    console.log(incompleteActivities.length);
+
     const nextHealthActivity = incompleteActivities.find(
       template => template.category === 'health'
     );
