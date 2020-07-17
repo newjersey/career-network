@@ -185,7 +185,7 @@ export default function FindingJob({ scrollToRef }) {
 
 FindingJob.propTypes = {
   scrollToRef: PropTypes.shape({
-    current: PropTypes.object,
+    current: PropTypes.objectOf(PropTypes.object),
   }),
 };
 

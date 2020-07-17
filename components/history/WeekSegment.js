@@ -63,7 +63,7 @@ WeekSegment.propTypes = {
     PropTypes.shape({
       isCompletionEvent: PropTypes.bool,
       timestamp: PropTypes.instanceOf(Date),
-      props: PropTypes.object,
+      props: PropTypes.objectOf(PropTypes.object),
     })
   ),
   weekIndex: PropTypes.number.isRequired,
