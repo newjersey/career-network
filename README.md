@@ -104,6 +104,14 @@ If all looks good, ship it:
 npm run deploy
 ```
 
+### Upload activities data
+
+The recommended activities templates/data are stored in `activity-templates/templates/` directory.
+
+In order to view these activities on this site, you need to upload the activity templates to the firestore `activityTemplates` collection by running `node ./scripts/updateActivityTemplates.js`. You can update templates in the collection by running the same command.
+
+You can change the firebase environment you are updating by editing the info found in the `firebaseConfig` for `updateActivityTemplates.js`. You will most likely have to generate a private key and download a `serviceAccount.json`.
+
 ### DNS
 
 DNS is maintained by Terraform in the /terraform directory.
