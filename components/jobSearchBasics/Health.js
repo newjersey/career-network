@@ -183,7 +183,7 @@ export default function Health({ scrollToRef }) {
 
 Health.propTypes = {
   scrollToRef: PropTypes.shape({
-    current: PropTypes.object,
+    current: PropTypes.objectOf(PropTypes.object),
   }),
 };
 

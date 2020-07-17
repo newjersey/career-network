@@ -93,7 +93,7 @@ Section.propTypes = {
   backgroundColor: PropTypes.string,
   onComplete: PropTypes.func,
   scrollToRef: PropTypes.shape({
-    current: PropTypes.object,
+    current: PropTypes.objectOf(PropTypes.object),
   }),
 };
 

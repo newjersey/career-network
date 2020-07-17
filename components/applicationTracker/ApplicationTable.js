@@ -136,7 +136,7 @@ ApplicationTable.propTypes = {
   applications: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,
-      document: PropTypes.object,
+      document: PropTypes.objectOf(PropTypes.object),
     })
   ),
 };
