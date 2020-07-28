@@ -75,7 +75,7 @@ const TOOL_CONTENT = [
   {
     title: 'Intelligent Suggestions',
     content:
-      'Everyone’s job search looks different. Tell us what you need and we’ll make learn with you.',
+      'Everyone’s job search looks different. Tell us what you need and we’ll learn with you.',
     img: '/static/img/index/07_Superpowers/06_Icon-Intelligent-2x.png',
   },
 ];
