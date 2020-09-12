@@ -1,4 +1,5 @@
 import '@firebase/analytics';
+import firebase from 'firebase/app';
 import 'core-js/stable';
 import { FlagsProvider } from 'react-feature-flags';
 import { ThemeProvider } from '@material-ui/styles';
@@ -28,6 +29,7 @@ Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeError', () => NProgress.done());
 Router.events.on('routeChangeComplete', () => {
   NProgress.done();
+  firebase.analytics().logEvent('page_view');
   window.Intercom('update');
 });
 
@@ -77,6 +79,8 @@ class MyApp extends App {
   }
 
   componentDidMount() {
+    firebase.analytics();
+
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles && jssStyles.parentNode) {
