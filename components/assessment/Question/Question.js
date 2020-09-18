@@ -162,14 +162,14 @@ function Question(props) {
     ...commonQuestionProps,
     onBlur: _value => setValue(_value),
     onChange: _value => setLocalValue(_value),
-    value: localValue,
+    value: localValue || '',
   };
 
   const monthYearQuestionProps = {
     ...commonQuestionProps,
     isCurrentJobSelected, // if question with slug is-current-job is selected
     views: dateInputOptions,
-    optional: isLastInGroup ? isCurrentJobSelected && optional : !isCurrentJobSelected, //  end is optional but must select start if isCurrentJob is true
+    optional: isLastInGroup && isCurrentJobSelected ? true : optional, //  if isCurrentJob then end date is always optional
     groupIsValid,
     isLastInGroup,
     onChange: _value => setLocalValue(_value),
