@@ -60,7 +60,9 @@ export default function RangeQuestionGroup(props) {
     // determine if the QuestionGroup as a whole is valid
     const isValid =
       validationStates.current.map(a => !!a).reduce((a, b) => a && b, true) &&
-      (isCurrentJobQuestion || isValidRange(valueStates.current[0], valueStates.current[1]));
+      (restProps.optional ||
+        isCurrentJobQuestion ||
+        isValidRange(valueStates.current[0], valueStates.current[1]));
 
     // fire parent callback if validation has changed
     if (wasValid.current !== isValid) {
