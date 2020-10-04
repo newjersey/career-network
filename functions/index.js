@@ -175,7 +175,7 @@ exports.newUserSlackAlert = functions.auth.user().onCreate(user => {
     },
   ]);
 
-  return postSlackMessage('CQHGBC4N6', text, { blocks });
+  return postSlackMessage('CR1MFQ9R7', text, { blocks });
 });
 
 exports.intercomUserHash = functions.auth.user().onCreate(user => {
