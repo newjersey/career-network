@@ -57,7 +57,7 @@ function ActivityTemplateCard(props) {
   const { slug, category, milestone, title, sections, totalTime } = props;
   const overview = sections
     .find(section => section.slug === 'what-and-why')
-    .content.reduce((prev, cur) => prev + cur.content, '');
+    .content.reduce((prev, cur) => prev + (cur.content || ' '), '');
   const categoryType = JOB_SEARCH_CATEGORIES.find(cat => cat.slug === category);
   const milestoneType = MILESTONE_TYPES.find(ms => ms.slug === milestone);
   const categoryColor = JOB_SEARCH_CATEGORY_COLORS[category];

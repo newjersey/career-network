@@ -87,7 +87,7 @@ function ActionItem(props) {
             component="p"
             color="textSecondary"
           >
-            {why}
+            {why.replace(/(<([^>]+)>)/gi, '')}
           </Typography>
         )}
       </Card>
