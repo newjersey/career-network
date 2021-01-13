@@ -169,7 +169,6 @@
           "reciquqWJom8D43QI"
         ],
         "Order": 1,
-        "Optional": true,
         "Assessment Subsection": [
           "reciuMFImzTFxi6nI"
         ],
@@ -185,7 +184,8 @@
         ],
         "Name": "What is your highest level of education?",
         "Question Count": 1,
-        "Number": "3.3.1"
+        "Number": "3.3.1",
+        "Optional": true
       },
       "createdTime": "2019-06-13T04:58:28.000Z"
     },
@@ -304,7 +304,6 @@
           "recyOfqkNspqhLYEc"
         ],
         "Order": 1,
-        "Optional": true,
         "Assessment Subsection": [
           "recWJEzKO3jeZhGdJ"
         ],
@@ -320,7 +319,8 @@
         ],
         "Name": "What's your current employment status?",
         "Question Count": 1,
-        "Number": "4.4.1"
+        "Number": "4.4.1",
+        "Optional": true
       },
       "createdTime": "2019-06-13T05:03:45.000Z"
     },
@@ -331,7 +331,6 @@
           "rec89z2RcqJvMXEV4"
         ],
         "Order": 2,
-        "Optional": true,
         "Assessment Subsection": [
           "recWJEzKO3jeZhGdJ"
         ],
@@ -347,7 +346,8 @@
         ],
         "Name": "How long has this been your employment status?",
         "Question Count": 1,
-        "Number": "4.4.2"
+        "Number": "4.4.2",
+        "Optional": true
       },
       "createdTime": "2019-10-31T14:45:47.000Z"
     },
@@ -358,7 +358,6 @@
           "recNNm1JNICZ2mhje"
         ],
         "Order": 3,
-        "Optional": true,
         "Assessment Subsection": [
           "recWJEzKO3jeZhGdJ"
         ],
@@ -374,7 +373,8 @@
         ],
         "Name": "Has the COVID-19 pandemic affected your current employment status?",
         "Question Count": 1,
-        "Number": "4.4.3"
+        "Number": "4.4.3",
+        "Optional": true
       },
       "createdTime": "2020-05-08T19:08:55.000Z"
     },
@@ -553,7 +553,8 @@
           "recy9xiN1b8ZkrnPB",
           "recgB92pWSBEVh4h6",
           "recvPRnBdSndwqWWm",
-          "recKBN8zsHZreV8PS"
+          "recKBN8zsHZreV8PS",
+          "recET3Fxb5bBZM1FZ"
         ],
         "Subsection:Number": [
           "6.6"
@@ -567,10 +568,10 @@
         ],
         "Name": "What you like more information about any of these services?",
         "Question Group:Question Count": [
-          8
+          9
         ],
         "Question Count": [
-          8
+          9
         ],
         "Number": "6.6.1"
       },

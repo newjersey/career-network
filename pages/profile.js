@@ -54,6 +54,7 @@ function ProfilePage() {
         { slug: 'transportation', label: 'Transportation' },
         { slug: 'child-care', label: 'Child & Family Care' },
         { slug: 'budgeting', label: 'Budgeting' },
+        { slug: 'wellness', label: 'Wellness & Mental Health' },
       ]
         .map(item => getQuestionResponseDetails(allQuestionResponses, item))
         .filter(item => item !== null),
