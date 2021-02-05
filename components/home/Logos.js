@@ -53,7 +53,7 @@ const LOGO_CONTENT = [
     img: '/static/img/index/05_Logos/DOL-2x.png',
   },
   {
-    name: `Heldric Center for Workforce Development at Rutgers University`,
+    name: `Heldrich Center for Workforce Development at Rutgers University`,
     img: '/static/img/index/05_Logos/Rutgers-2x.png',
   },
   {
