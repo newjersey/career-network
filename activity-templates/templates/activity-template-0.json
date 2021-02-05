@@ -78,7 +78,7 @@
         },
         {
           "component": "text",
-          "content": "Out of time or ideas? You can always come back and finish later - we'll save your answers here."
+          "content": "Out of time or ideas? You can always come back and finish later - we’ll save your answers here."
         },
         {
           "component": "practice_question_group",
@@ -134,7 +134,7 @@
         {
           "component": "callout",
           "variant": "next",
-          "content": "Once you’ve got a draft, go ahead and add it to your resume. If you don't have a resume yet, check out the Complete My Draft Resume activity."
+          "content": "Once you’ve got a draft, go ahead and add it to your resume. If you don’t have a resume yet, check out the Complete My Draft Resume activity."
         }
       ]
     }
