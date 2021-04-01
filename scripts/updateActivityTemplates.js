@@ -33,6 +33,22 @@ const fs = require('fs');
 //   ),
 // };
 
+const projectId = 'nj-career-network-dev1';
+const firebaseConfig = {
+  authDomain: `${projectId}.firebaseapp.com`,
+  databaseURL: `https://${projectId}.firebaseio.com`,
+  projectId,
+  storageBucket: `${projectId}.appspot.com`,
+  apiKey: 'AIzaSyDybN2rwlC_Hwld0SJncFH8preMI4MXKic',
+  messagingSenderId: '81682397202',
+  appId: '1:81682397202:web:5caa69d4e9c28d1e',
+  credential: admin.credential.cert(
+    // Generate from Firebase console --> Settings --> Service accounts
+    // eslint-disable-next-line global-require
+    require('../.auth/nj-career-network-dev1-firebase-adminsdk-ymost-87c4aa5782.json')
+  ),
+};
+
 // const projectId = 'nj-career-network-dev2';
 // const firebaseConfig = {
 //   authDomain: `${projectId}.firebaseapp.com`,
@@ -50,21 +66,21 @@ const fs = require('fs');
 // };
 
 // prod
-const firebaseConfig = {
-  apiKey: 'AIzaSyBW2hLAzSgdv72lKicKcW_j1c86enCi8uU',
-  authDomain: 'nj-career-network.firebaseapp.com',
-  databaseURL: 'https://nj-career-network.firebaseio.com',
-  projectId: 'nj-career-network',
-  storageBucket: 'nj-career-network.appspot.com',
-  messagingSenderId: '114141088298',
-  appId: '1:114141088298:web:ce96ec93a41e3d35',
-  measurementId: 'G-48C1WWQMMD',
-  credential: admin.credential.cert(
-    // Generate from Firebase console --> Settings --> Service accounts
-    // eslint-disable-next-line global-require
-    require('../.auth/nj-career-network-firebase-adminsdk-4v838-265d45154c.json')
-  ),
-};
+// const firebaseConfig = {
+//   apiKey: 'AIzaSyBW2hLAzSgdv72lKicKcW_j1c86enCi8uU',
+//   authDomain: 'nj-career-network.firebaseapp.com',
+//   databaseURL: 'https://nj-career-network.firebaseio.com',
+//   projectId: 'nj-career-network',
+//   storageBucket: 'nj-career-network.appspot.com',
+//   messagingSenderId: '114141088298',
+//   appId: '1:114141088298:web:ce96ec93a41e3d35',
+//   measurementId: 'G-48C1WWQMMD',
+//   credential: admin.credential.cert(
+//     // Generate from Firebase console --> Settings --> Service accounts
+//     // eslint-disable-next-line global-require
+//     require('../.auth/nj-career-network-firebase-adminsdk-4v838-0f1051ac1d.json')
+//   ),
+// };
 
 admin.initializeApp(firebaseConfig);
 const app = admin.app();
