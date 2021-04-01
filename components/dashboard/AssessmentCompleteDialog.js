@@ -1,7 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import NextLink from 'next/link';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -39,6 +38,10 @@ const MAX_WIDTH = 'sm';
 
 function AssessmentCompleteDialog({ show, onClose }) {
   const classes = useStyles();
+  const onClickPrimary = () => {
+    onClose();
+    window.Intercom('startTour', 222493);
+  };
 
   return (
     <Dialog
@@ -66,15 +69,19 @@ function AssessmentCompleteDialog({ show, onClose }) {
           position.
           <br />
           <br />
-          Get started by exploring the basics of a job search.
+          Get started by exploring your job search dashboard.
         </Typography>
       </DialogContent>
       <DialogActions className={classes.actionContainer}>
-        <NextLink href="/job-search-basics">
-          <Button className={classes.button} variant="contained" color="primary" fullWidth>
-            Explore Job Search Basics
-          </Button>
-        </NextLink>
+        <Button
+          className={classes.button}
+          onClick={onClickPrimary}
+          variant="contained"
+          color="primary"
+          fullWidth
+        >
+          My Customized Dashboard
+        </Button>
         <div>
           <span style={{ fontSize: 14 }}>Want to see everything we have?</span>
           <Button className={classes.textButton} color="primary" onClick={onClose}>
