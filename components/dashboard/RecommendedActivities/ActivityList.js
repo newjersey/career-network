@@ -26,6 +26,7 @@ export default function ActivityList(props) {
   const { allActivityTemplates, completedTasks, allQuestionResponses } = props;
 
   const birthdayResponse = getQuestionResponse(allQuestionResponses, 'birthday', 'Birthday');
+  const birthYearResponse = getQuestionResponse(allQuestionResponses, 'birth-year');
   const keyDocumentResponses = [
     { slug: 'list-of-target-organizations', label: 'List of target organizations' },
     { slug: 'master-resume', label: 'Master resume' },
@@ -47,7 +48,10 @@ export default function ActivityList(props) {
     }
   });
 
-  if (new Date(birthdayResponse) >= new Date('1980-01-01')) {
+  if (
+    (birthdayResponse && new Date(birthdayResponse) >= new Date('1980-01-01')) ||
+    (birthYearResponse && new Date(birthYearResponse) >= new Date('1980-01-01'))
+  ) {
     excludeList.push(...EXCLUDED_ACTIVITIES_BY_ASSESSMENT.birthday);
   }
 
