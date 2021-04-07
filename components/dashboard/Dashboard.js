@@ -418,6 +418,7 @@ export default function Dashboard(props) {
               <Button
                 classes={{ root: classes.planSetting }}
                 onClick={() => setActiveDialog(DIALOGS.ACTION_PLAN_UPDATE)}
+                data-intercom="update-action-plan"
               >
                 <span className={classes.iconContainer}>
                   <SettingsIcon />
@@ -484,7 +485,7 @@ export default function Dashboard(props) {
               )}
             />
           </Box>
-          <Box className={classes.gridC}>
+          <Box className={classes.gridC} data-intercom="recommended-activities">
             <Flags
               authorizedFlags={['activityTemplate']}
               renderOn={() => (
@@ -519,7 +520,7 @@ export default function Dashboard(props) {
                 </Box> */
             }
             <Flags authorizedFlags={['activityLog']}>
-              <Box mb={3}>
+              <Box mb={3} data-intercom="recent-actions">
                 <Card variant="outlined">
                   <CardHeader
                     title={
@@ -542,7 +543,7 @@ export default function Dashboard(props) {
           </Box>
           <Box className={classes.gridR}>
             <Flags authorizedFlags={['activityLog']}>
-              <Box mb={3}>
+              <Box mb={3} data-intercom="log-activity">
                 <Card variant="outlined" className={classes.card}>
                   <CardContent className={classes.cardContent}>
                     <Typography variant="h6" gutterBottom>

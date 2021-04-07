@@ -89,9 +89,9 @@ function ActionPlanBar({ userStats, actionPlan }) {
   }
 
   return (
-    <Paper className={classes.paper} elevation={3} data-intercom="sentiment-container">
+    <Paper className={classes.paper} elevation={3} data-intercom="metrics-summary">
       <Grid container direction="row" justify="space-evenly" alignItems="center" spacing={1}>
-        <Grid item xs={12} sm={4} md={4}>
+        <Grid item xs={12} sm={4} md={4} data-intercom="metric-activities-completed">
           <NextLink href="/progress">
             <Button
               classes={{ label: classes.buttonLabel }}
@@ -120,7 +120,7 @@ function ActionPlanBar({ userStats, actionPlan }) {
             </Button>
           </NextLink>
         </Grid>
-        <Grid item xs={12} sm={4} md={4}>
+        <Grid item xs={12} sm={4} md={4} data-intercom="metric-activities-logged">
           <NextLink href="/progress">
             <Button
               classes={{ label: classes.buttonLabel }}
@@ -152,7 +152,7 @@ function ActionPlanBar({ userStats, actionPlan }) {
             </Button>
           </NextLink>
         </Grid>
-        <Grid item xs={12} sm={4} md={4}>
+        <Grid item xs={12} sm={4} md={4} data-intercom="metric-applications-added">
           <NextLink href="/application-tracker">
             <Button
               classes={{ label: classes.buttonLabel }}
