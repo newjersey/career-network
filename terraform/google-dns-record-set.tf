@@ -212,17 +212,6 @@ resource "google_dns_record_set" "team_txt" {
   ]
 }
 
-resource "google_dns_record_set" "team_spf" {
-  name         = "team.${google_dns_managed_zone.default.dns_name}"
-  managed_zone = google_dns_managed_zone.default.name
-  type         = "SPF"
-  ttl          = 3600
-
-  rrdatas = [
-    "\"v=spf1 include:_spf.google.com include:rp.new-jersey-career-network.intercom-mail.com ~all\"",
-  ]
-}
-
 resource "google_dns_record_set" "team_txt_gsuite__domainkey" {
   name         = "gsuite._domainkey.team.${google_dns_managed_zone.default.dns_name}"
   managed_zone = google_dns_managed_zone.default.name
