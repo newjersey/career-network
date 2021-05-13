@@ -185,3 +185,49 @@ resource "google_dns_record_set" "mx" {
     "10 ASPMX3.GOOGLEMAIL.COM.",
   ]
 }
+
+resource "google_dns_record_set" "mx_team" {
+  name         = "team.${google_dns_managed_zone.default.dns_name}"
+  managed_zone = google_dns_managed_zone.default.name
+  type         = "MX"
+  ttl          = 3600
+
+  rrdatas = [
+    "1 ASPMX.L.GOOGLE.COM.",
+    "5 ALT1.ASPMX.L.GOOGLE.COM.",
+    "5 ALT2.ASPMX.L.GOOGLE.COM.",
+    "10 ALT3.ASPMX.L.GOOGLE.COM.",
+    "10 ALT4.ASPMX.L.GOOGLE.COM.",
+  ]
+}
+
+resource "google_dns_record_set" "team_txt" {
+  name         = "team.${google_dns_managed_zone.default.dns_name}"
+  managed_zone = google_dns_managed_zone.default.name
+  type         = "TXT"
+  ttl          = 3600
+
+  rrdatas = [
+    "\"v=spf1 include:_spf.google.com include:rp.new-jersey-career-network.intercom-mail.com ~all\"",
+  ]
+}
+
+resource "google_dns_record_set" "team_spf" {
+  name         = "team.${google_dns_managed_zone.default.dns_name}"
+  managed_zone = google_dns_managed_zone.default.name
+  type         = "SPF"
+  ttl          = 3600
+
+  rrdatas = [
+    "\"v=spf1 include:_spf.google.com include:rp.new-jersey-career-network.intercom-mail.com ~all\"",
+  ]
+}
+
+resource "google_dns_record_set" "team_txt_gsuite__domainkey" {
+  name         = "gsuite._domainkey.team.${google_dns_managed_zone.default.dns_name}"
+  managed_zone = google_dns_managed_zone.default.name
+  type         = "TXT"
+  ttl          = 3600
+
+  rrdatas = ["\"v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoKwzPYf6BuaCLMZuG3gL4cr1pfu5/smnv8U2hDcQueap8AAs7kpA/FZr0v3L3Bib6OVuHxMSjCgA7c2+UEdfeDGbfSSUgRdFosEiEKsSzzW/wE/Yy4mQgl3hW7HsrcricWeSjP/oWkZEAtBoSf5EAPcE8JqHLv6CiPx8QFqrWHrX9YaUFcg4mrllWmm05Vedj\" \"kqV9CyKcya6XEPxwYGf3U2xphcXYN2lzec7USkwxoLYJUSTgILq8+oCldbtD8WguforPiCbqhnuEUBJp9sN02MK0he98zV8iJgj8+HydThQfTe8ozp5WDAIuELHuvT0B6Lc2F0sKuXSRQGfUeAQEQIDAQAB\""]
+}
