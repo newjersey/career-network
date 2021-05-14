@@ -213,12 +213,12 @@ resource "google_dns_record_set" "team_txt" {
 }
 
 resource "google_dns_record_set" "team_txt_gsuite__domainkey" {
-  name         = "gsuite._domainkey.team.${google_dns_managed_zone.default.dns_name}"
+  name         = "google._domainkey.team.${google_dns_managed_zone.default.dns_name}"
   managed_zone = google_dns_managed_zone.default.name
   type         = "TXT"
   ttl          = 3600
 
-  rrdatas = ["\"v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoKwzPYf6BuaCLMZuG3gL4cr1pfu5/smnv8U2hDcQueap8AAs7kpA/FZr0v3L3Bib6OVuHxMSjCgA7c2+UEdfeDGbfSSUgRdFosEiEKsSzzW/wE/Yy4mQgl3hW7HsrcricWeSjP/oWkZEAtBoSf5EAPcE8JqHLv6CiPx8QFqrWHrX9YaUFcg4mrllWmm05Vedj\" \"kqV9CyKcya6XEPxwYGf3U2xphcXYN2lzec7USkwxoLYJUSTgILq8+oCldbtD8WguforPiCbqhnuEUBJp9sN02MK0he98zV8iJgj8+HydThQfTe8ozp5WDAIuELHuvT0B6Lc2F0sKuXSRQGfUeAQEQIDAQAB\""]
+  rrdatas = ["\"v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArQMoS1bopayT1PpOAP7oElxuQ4e12z5uQ3o4AVwDXwD/NnTcWpSRYffqv2jNgEdDByr/2aCeThNE8ThjkZI4QQcftAKdGySIYJu3bLabpAtN+9ViIqFJ9PhIjbtcbs17j5IH1AOL5BMH5CbwfWH8hIqBkBMy+5/jUnPBoA7lL7R\" \"ItWbONYHOVwx9El1z9hAo4qOy8WHMxc3BGTui0M2KQRo40wUHHz+eeLUo5BkhxpFk6B1Tu/7GEbh6X5pNpD/n86YvI5hik6tMUSGHKl/rOLAvhVCQJxjz6ZthGqoyklL3CoE2gZWm+Ihxq30wde/1iGKhVJq+YdCF4XxouprzOwIDAQAB\""]
 }
 
 resource "google_dns_record_set" "mx_dol" {
@@ -245,4 +245,13 @@ resource "google_dns_record_set" "dol_txt" {
   rrdatas = [
     "\"v=spf1 include:_spf.google.com include:rp.new-jersey-career-network.intercom-mail.com ~all\"",
   ]
+}
+
+resource "google_dns_record_set" "dol_txt_gsuite__domainkey" {
+  name         = "google._domainkey.dol.${google_dns_managed_zone.default.dns_name}"
+  managed_zone = google_dns_managed_zone.default.name
+  type         = "TXT"
+  ttl          = 3600
+
+  rrdatas = ["\"v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwSgjy792gK/xdDCm2PSrEoiDRLl2/JinQcLXs5hYB76Hk+USe7vWPl9DtGGCa53j/zwKi7MrQrO7u5ZtLUh7ntoeyl3Cbecu744Q1nmtuN3x3fFOh0PAY+faa91GOK9WJxwVhbm2DK7hnN6gafVzVUR+UNpM0go6fv9m7jEzMHn\" \"zlwDvsN0dLTvBd2WFaRp2Pn8yGYOC2zg8/+2BYGzsftzqR2P+O6FxfhLplckaL21ms9dE/CGTZPzNGkIbuj5E08Rxd8V2hdByoiwbFErOtrI0C0c1bkJG+jc8A7C3mWHcPe+9cbYemCa8R6icWSFIRiDiUVlAPAavmoMI47V/RwIDAQAB\""]
 }
