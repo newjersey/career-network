@@ -1,3 +1,5 @@
+import '@firebase/analytics';
+import firebase from 'firebase/app';
 import React from 'react';
 import { useRouter } from 'next/router';
 import { fullyLoaded } from '../src/app-helper';
@@ -16,6 +18,13 @@ function ActivityTemplatePage() {
   // page template and user inputs
   const activityTemplate = activityTemplates.find(template => template.slug === query.template);
   const allPracticeQuestionInputs = useUserSubcollection('practiceQuestionInputs');
+  const title = activityTemplate && activityTemplate.title;
+
+  if (title) {
+    firebase.analytics().logEvent('screen_view', {
+      screen_name: title,
+    });
+  }
 
   return fullyLoaded(user, activityTemplate, allPracticeQuestionInputs) ? (
     <ActivityTemplate
