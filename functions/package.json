@@ -14,26 +14,30 @@
     "shell": "firebase functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
+    "logs": "firebase functions:log",
+    "prepare": "npm run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "engines": {
     "node": "10"
   },
   "dependencies": {
-    "@google-cloud/storage": "^3.5.0",
-    "@slack/web-api": "^5.8.0",
+    "@google-cloud/storage": "^5.0.0",
+    "@slack/web-api": "^5.15.0",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.5",
-    "firebase-admin": "^8.10.0",
+    "firebase-admin": "^10.0.2",
     "firebase-functions": "^3.3.0",
     "isomorphic-unfetch": "^3.0.0",
-    "lodash": "^4.17.19",
-    "node-linkedin": "^0.5.4"
+    "lodash": "^4.17.21",
+    "node-linkedin": "^0.5.4",
+    "@snyk/protect": "latest"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
     "eslint-plugin-babel": "^5.3.0",
     "firebase-functions-test": "^0.1.7"
   },
-  "private": true
+  "private": true,
+  "snyk": true
 }
