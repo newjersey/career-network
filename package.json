@@ -108,7 +108,7 @@
     "firebase-admin": "^8.13.0",
     "firebase-tools": "^8.6.0",
     "husky": "^4.2.5",
-    "jest": "^25.5.4",
+    "jest": "^26.0.0",
     "jest-date-mock": "^1.0.8",
     "lint-staged": "^10.2.11",
     "nanoid": "^2.1.11",
