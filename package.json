@@ -107,7 +107,7 @@
     "execa": "^4.0.3",
     "firebase-admin": "^8.13.0",
     "firebase-tools": "^8.6.0",
-    "husky": "^4.2.5",
+    "husky": "^5.0.0",
     "jest": "^25.5.4",
     "jest-date-mock": "^1.0.8",
     "lint-staged": "^10.2.11",
