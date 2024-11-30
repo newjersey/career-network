@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@google-cloud/storage": "^3.5.0",
-    "@slack/web-api": "^5.8.0",
+    "@slack/web-api": "^5.15.0",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.5",
     "firebase-admin": "^8.10.0",
